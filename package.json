@@ -1,6 +1,6 @@
 {
   "name": "@unerp/ui",
-  "version": "1.0.8",
+  "version": "1.0.11",
   "description": "UniERP Design System — one package, subpath exports (PLATFORM_ARCHITECTURE.md § 7.2)",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,13 +11,13 @@
       "require": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./styles": "./src/styles/globals.css",
-    "./tokens/design-tokens.css": "./src/tokens/design-tokens.css",
-    "./tokens/base.css": "./src/tokens/base.css",
-    "./tokens/charts.css": "./src/tokens/charts.css",
-    "./tokens/index.css": "./src/tokens/index.css",
-    "./tokens/studio.css": "./src/tokens/studio.css",
-    "./tokens/themes/*": "./src/tokens/themes/*",
+    "./styles": "./dist/styles/globals.css",
+    "./tokens/design-tokens.css": "./dist/tokens/design-tokens.css",
+    "./tokens/base.css": "./dist/tokens/base.css",
+    "./tokens/charts.css": "./dist/tokens/charts.css",
+    "./tokens/index.css": "./dist/tokens/index.css",
+    "./tokens/studio.css": "./dist/tokens/studio.css",
+    "./tokens/themes/*": "./dist/tokens/themes/*",
     "./tokens": {
       "types": "./dist/tokens/index.d.ts",
       "import": "./dist/tokens/index.js",
@@ -95,10 +95,11 @@
       "import": "./dist/workflow/index.js",
       "require": "./dist/workflow/index.js",
       "default": "./dist/workflow/index.js"
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs",
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs",
     "lint": "eslint src/",
     "clean": "rimraf dist",
     "typecheck": "tsc --noEmit",
@@ -143,7 +144,6 @@
   },
   "files": [
     "dist",
-    "src",
     "README.md"
   ]
 }
