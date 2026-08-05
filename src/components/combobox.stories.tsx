@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { ComboBox, type ComboBoxOption, type ComboBoxProps } from './combobox';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { ComboBox, type ComboBoxOption, type ComboBoxProps } from "./combobox";
+import { useState } from "react";
 
 const meta: Meta<typeof ComboBox> = {
-  title: 'Components/ComboBox',
+  title: "Components/ComboBox",
   component: ComboBox,
   argTypes: {
-    disabled: { control: 'boolean' },
-    multiple: { control: 'boolean' },
+    disabled: { control: "boolean" },
+    multiple: { control: "boolean" },
   },
 };
 export default meta;
@@ -15,24 +15,32 @@ export default meta;
 type Story = StoryObj<typeof ComboBox>;
 
 const OPTIONS: ComboBoxOption[] = [
-  { value: 'sap', label: 'SAP S/4HANA' },
-  { value: 'netsuite', label: 'Oracle NetSuite' },
-  { value: 'dynamics', label: 'Microsoft Dynamics 365' },
-  { value: 'odoo', label: 'Odoo Enterprise' },
-  { value: 'erpnext', label: 'ERPNext Open Source' },
-  { value: 'workday', label: 'Workday Financials' },
+  { value: "sap", label: "SAP S/4HANA" },
+  { value: "netsuite", label: "Oracle NetSuite" },
+  { value: "dynamics", label: "Microsoft Dynamics 365" },
+  { value: "odoo", label: "Odoo Enterprise" },
+  { value: "erpnext", label: "ERPNext Open Source" },
+  { value: "workday", label: "Workday Financials" },
 ];
 
 const ComboBoxWrapper = (props: ComboBoxProps) => {
-  const [value, setValue] = useState<string | string[] | undefined>(props.value);
-  return <ComboBox {...props} value={value} onChange={(val) => setValue(val ?? undefined)} />;
+  const [value, setValue] = useState<string | string[] | undefined>(
+    props.value,
+  );
+  return (
+    <ComboBox
+      {...props}
+      value={value}
+      onChange={(val) => setValue(val ?? undefined)}
+    />
+  );
 };
 
 export const SingleSelect: Story = {
   render: (args) => <ComboBoxWrapper {...args} />,
   args: {
     options: OPTIONS,
-    placeholder: 'Select an ERP system...',
+    placeholder: "Select an ERP system...",
     multiple: false,
   },
 };
@@ -41,9 +49,9 @@ export const MultiSelect: Story = {
   render: (args) => <ComboBoxWrapper {...args} />,
   args: {
     options: OPTIONS,
-    placeholder: 'Select multiple ERP systems...',
+    placeholder: "Select multiple ERP systems...",
     multiple: true,
-    value: ['sap', 'odoo'],
+    value: ["sap", "odoo"],
   },
 };
 
@@ -52,6 +60,6 @@ export const Disabled: Story = {
   args: {
     options: OPTIONS,
     disabled: true,
-    value: 'dynamics',
+    value: "dynamics",
   },
 };

@@ -1,8 +1,14 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect, type FC, type KeyboardEvent } from 'react';
-import { ChevronDown, Check, X } from 'lucide-react';
-import styles from './combobox.module.css';
+import {
+  useState,
+  useRef,
+  useEffect,
+  type FC,
+  type KeyboardEvent,
+} from "react";
+import { ChevronDown, Check, X } from "lucide-react";
+import styles from "./combobox.module.css";
 
 export interface ComboBoxOption {
   value: string;
@@ -32,14 +38,14 @@ export const ComboBox: FC<ComboBoxProps> = ({
   options,
   value,
   onChange,
-  placeholder = 'Select option...',
-  searchPlaceholder = 'Search...',
+  placeholder = "Select option...",
+  searchPlaceholder = "Search...",
   disabled = false,
   multiple = false,
-  className = '',
+  className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,15 +54,18 @@ export const ComboBox: FC<ComboBoxProps> = ({
   // Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
 
@@ -66,18 +75,24 @@ export const ComboBox: FC<ComboBoxProps> = ({
       searchInputRef.current?.focus();
       setHighlightedIndex(0);
     } else {
-      setSearch('');
+      setSearch("");
     }
   }, [isOpen]);
 
   const selectedValues = multiple
-    ? (Array.isArray(value) ? value : [])
-    : (typeof value === 'string' ? [value] : []);
+    ? Array.isArray(value)
+      ? value
+      : []
+    : typeof value === "string"
+      ? [value]
+      : [];
 
-  const selectedOptions = options.filter((opt) => selectedValues.includes(opt.value));
+  const selectedOptions = options.filter((opt) =>
+    selectedValues.includes(opt.value),
+  );
 
   const filteredOptions = options.filter((opt) =>
-    opt.label.toLowerCase().includes(search.toLowerCase())
+    opt.label.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleToggle = () => {
@@ -109,7 +124,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
     if (disabled) return;
 
     if (!isOpen) {
-      if (e.key === 'Enter' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (e.key === "Enter" || e.key === "ArrowDown" || e.key === "ArrowUp") {
         e.preventDefault();
         setIsOpen(true);
       }
@@ -117,25 +132,29 @@ export const ComboBox: FC<ComboBoxProps> = ({
     }
 
     switch (e.key) {
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
         setHighlightedIndex((prev) =>
-          filteredOptions.length === 0 ? 0 : (prev + 1) % filteredOptions.length
+          filteredOptions.length === 0
+            ? 0
+            : (prev + 1) % filteredOptions.length,
         );
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
         setHighlightedIndex((prev) =>
-          filteredOptions.length === 0 ? 0 : (prev - 1 + filteredOptions.length) % filteredOptions.length
+          filteredOptions.length === 0
+            ? 0
+            : (prev - 1 + filteredOptions.length) % filteredOptions.length,
         );
         break;
-      case 'Enter':
+      case "Enter":
         e.preventDefault();
         if (filteredOptions[highlightedIndex]) {
           handleSelect(filteredOptions[highlightedIndex]!);
         }
         break;
-      case 'Escape':
+      case "Escape":
         e.preventDefault();
         setIsOpen(false);
         break;
@@ -154,7 +173,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
         type="button"
         disabled={disabled}
         onClick={handleToggle}
-        className={`${styles.trigger} ${disabled ? styles.triggerDisabled : ''}`}
+        className={`${styles.trigger} ${disabled ? styles.triggerDisabled : ""}`}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
@@ -205,9 +224,11 @@ export const ComboBox: FC<ComboBoxProps> = ({
                 const isHighlighted = index === highlightedIndex;
                 const optionClasses = [
                   styles.option,
-                  isHighlighted ? styles.optionHighlighted : '',
-                  isSelected ? styles.optionSelected : ''
-                ].filter(Boolean).join(' ');
+                  isHighlighted ? styles.optionHighlighted : "",
+                  isSelected ? styles.optionSelected : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ");
 
                 return (
                   <div

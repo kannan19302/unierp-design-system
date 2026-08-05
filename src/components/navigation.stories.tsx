@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Tabs, Tooltip, Pagination } from './navigation';
-import { Button } from './button';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Tabs, Tooltip, Pagination } from "./navigation";
+import { Button } from "./button";
 
-export default { title: 'Components/Navigation' } as Meta;
+export default { title: "Components/Navigation" } as Meta;
 
 export const TabsExample: StoryObj = {
   render: () => (
     <Tabs
       tabs={[
-        { key: 'overview', label: 'Overview' },
-        { key: 'details', label: 'Details' },
-        { key: 'history', label: 'History' },
+        { key: "overview", label: "Overview" },
+        { key: "details", label: "Details" },
+        { key: "history", label: "History" },
       ]}
       value="overview"
       onChange={() => {}}

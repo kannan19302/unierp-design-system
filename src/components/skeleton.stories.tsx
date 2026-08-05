@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Skeleton, SkeletonText } from './skeleton';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Skeleton, SkeletonText } from "./skeleton";
 
-export default { title: 'Components/Skeleton' } as Meta;
+export default { title: "Components/Skeleton" } as Meta;
 
 export const Rectangle: StoryObj<typeof Skeleton> = {
   render: () => <Skeleton width="200px" height="40px" />,

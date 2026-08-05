@@ -1,5 +1,5 @@
 /* Classic — conservative blue, squarer corners, denser serifs optional. */
-[data-theme='classic'] {
+[data-theme="classic"] {
   color-scheme: light;
   --radius-sm: 0.125rem;
   --radius-md: 0.25rem;

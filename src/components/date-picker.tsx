@@ -1,8 +1,13 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect, type FC } from 'react';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, X } from 'lucide-react';
-import styles from './date-picker.module.css';
+import { useState, useRef, useEffect, type FC } from "react";
+import {
+  Calendar as CalendarIcon,
+  ChevronLeft,
+  ChevronRight,
+  X,
+} from "lucide-react";
+import styles from "./date-picker.module.css";
 
 export interface DatePickerProps {
   /** Selected date value */
@@ -22,18 +27,28 @@ export interface DatePickerProps {
 }
 
 const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
-const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
 export const DatePicker: FC<DatePickerProps> = ({
   value,
   onChange,
-  placeholder = 'Select date...',
+  placeholder = "Select date...",
   disabled = false,
-  className = '',
+  className = "",
   minDate,
   maxDate,
 }) => {
@@ -54,15 +69,18 @@ export const DatePicker: FC<DatePickerProps> = ({
   // Close calendar popover on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
 
@@ -95,8 +113,8 @@ export const DatePicker: FC<DatePickerProps> = ({
 
   // Format date for the input field: YYYY-MM-DD
   const formattedValue = value
-    ? `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}`
-    : '';
+    ? `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`
+    : "";
 
   // Calculate calendar days grid
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -124,12 +142,20 @@ export const DatePicker: FC<DatePickerProps> = ({
   const isToday = (day: number, isOutside: boolean) => {
     if (isOutside) return false;
     const today = new Date();
-    return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
+    return (
+      today.getDate() === day &&
+      today.getMonth() === month &&
+      today.getFullYear() === year
+    );
   };
 
   const isSelected = (day: number, isOutside: boolean) => {
     if (isOutside || !value) return false;
-    return value.getDate() === day && value.getMonth() === month && value.getFullYear() === year;
+    return (
+      value.getDate() === day &&
+      value.getMonth() === month &&
+      value.getFullYear() === year
+    );
   };
 
   const isDayDisabled = (day: number, isOutside: boolean, offset: number) => {
@@ -141,7 +167,10 @@ export const DatePicker: FC<DatePickerProps> = ({
 
   return (
     <div ref={containerRef} className={`${styles.container} ${className}`}>
-      <div className={styles.inputWrapper} onClick={() => !disabled && setIsOpen(!isOpen)}>
+      <div
+        className={styles.inputWrapper}
+        onClick={() => !disabled && setIsOpen(!isOpen)}
+      >
         <input
           type="text"
           readOnly
@@ -164,7 +193,11 @@ export const DatePicker: FC<DatePickerProps> = ({
       </div>
 
       {isOpen && (
-        <div className={styles.popover} role="dialog" aria-label="Calendar dropdown">
+        <div
+          className={styles.popover}
+          role="dialog"
+          aria-label="Calendar dropdown"
+        >
           <div className={styles.header}>
             <button
               type="button"
@@ -198,15 +231,17 @@ export const DatePicker: FC<DatePickerProps> = ({
               const disabledDay = isDayDisabled(day, isOutside, offset);
               const dayClasses = [
                 styles.day,
-                isOutside ? styles.outside : '',
-                isSelected(day, isOutside) ? styles.selected : '',
-                isToday(day, isOutside) ? styles.today : '',
-                disabledDay ? styles.disabled : ''
-              ].filter(Boolean).join(' ');
+                isOutside ? styles.outside : "",
+                isSelected(day, isOutside) ? styles.selected : "",
+                isToday(day, isOutside) ? styles.today : "",
+                disabledDay ? styles.disabled : "",
+              ]
+                .filter(Boolean)
+                .join(" ");
 
               return (
                 <button
-                  key={`${day}-${isOutside ? 'out' : 'in'}-${index}`}
+                  key={`${day}-${isOutside ? "out" : "in"}-${index}`}
                   type="button"
                   disabled={disabledDay}
                   onClick={() => handleDaySelect(day, isOutside, offset)}

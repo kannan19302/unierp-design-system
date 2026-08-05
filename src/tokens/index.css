@@ -6,14 +6,14 @@
    Customer branding: inject CSS vars at runtime via
    @unerp/ui/theme applyBranding().
    ───────────────────────────────────────────────── */
-@import './base.css';
-@import './themes/light.css';
-@import './themes/dark.css';
-@import './themes/enterprise.css';
-@import './themes/modern.css';
-@import './themes/minimal.css';
-@import './themes/classic.css';
-@import './themes/compact.css';
-@import './themes/high-contrast.css';
-@import './charts.css';
-@import './studio.css';
+@import "./base.css";
+@import "./themes/light.css";
+@import "./themes/dark.css";
+@import "./themes/enterprise.css";
+@import "./themes/modern.css";
+@import "./themes/minimal.css";
+@import "./themes/classic.css";
+@import "./themes/compact.css";
+@import "./themes/high-contrast.css";
+@import "./charts.css";
+@import "./studio.css";

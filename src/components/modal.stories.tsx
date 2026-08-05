@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import { Modal, ConfirmDialog } from './modal';
-import { Button } from './button';
+import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
+import { Modal, ConfirmDialog } from "./modal";
+import { Button } from "./button";
 
-export default { title: 'Components/Modal' } as Meta;
+export default { title: "Components/Modal" } as Meta;
 
 export const BasicModal: StoryObj = {
   render: () => {
@@ -24,11 +24,16 @@ export const Confirmation: StoryObj = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <Button variant="danger" onClick={() => setOpen(true)}>Delete</Button>
+        <Button variant="danger" onClick={() => setOpen(true)}>
+          Delete
+        </Button>
         <ConfirmDialog
           open={open}
           onClose={() => setOpen(false)}
-          onConfirm={() => { setOpen(false); alert('Deleted!'); }}
+          onConfirm={() => {
+            setOpen(false);
+            alert("Deleted!");
+          }}
           title="Delete Invoice?"
           message="This action cannot be undone."
         />

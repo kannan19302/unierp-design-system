@@ -1,31 +1,27 @@
 # unierp-design-system
 
-**Layer L1** of the UniERP layered repository architecture
-(`PLATFORM_ARCHITECTURE.md` § 4.2). Publishes `@unerp/ui (subpath exports)`.
-
+**Layer L1 — Foundation** of the [UniERP](../unierp-platform) platform.
 Depends on: nothing in the workspace.
 
-## What lives here
+## What this is
 
-Tokens → theme → components → charts → grid → forms → workflow. Consumed by three frontends and by partner extensions.
+Tokens → theme → components → charts → data grid → forms → workflow, plus Storybook. Consumed by three frontends and by partner extensions.
 
-## The invariant
+## The invariant this repository owns
 
-The design system has NO dependency on the API or the database. That is what makes "a UI component cannot import a service" structural rather than a lint rule (§ 4.3). It was collapsed from 13 packages into one with subpath exports (§ 7.2) before extraction, deliberately: extracting 14 packages would have created 42 version-coherence problems per release across three frontends.
+**No dependency on the API or the database.** That is what makes "a UI component cannot import a service" structural rather than a lint rule. It is one package with subpath exports, not fourteen — publishing fourteen would create 42 version-coherence problems per release.
 
-**A repository may depend only on published artifacts of a strictly lower
-layer. Never sideways within a layer. Never upward.** A cycle is not
-discouraged here — it is unrepresentable, because the lower layer's package
-cannot name the higher one.
+## The rule that applies everywhere
 
-## Extraction status
+A repository may depend only on published artifacts of a **strictly lower
+layer** — never sideways within a layer, never upward. A cycle is not
+discouraged; it is unrepresentable, because the lower layer's package cannot
+name the higher one.
 
-Extracted from the `ERPSys` monorepo as § 14 Phase 3.2.
+See the [platform overview](../unierp-platform/README.md) for the full map, and
+[`PLATFORM_ARCHITECTURE.md`](../ERPSys/docs/PLATFORM_ARCHITECTURE.md) § 4.2 for
+the reasoning.
 
-**The monorepo copy is still authoritative.** Per § 14, consumers switch to the
-published package only once that package is publishable, and the monorepo stays
-buildable at each extraction tag until they do. Until a registry is available
-this repository is the extraction target, not the source of truth.
+## Licence
 
-Rollback is a one-line `pnpm` override pointing consumers back at the
-workspace path.
+AGPL-3.0.

@@ -1,5 +1,5 @@
-'use client';
-import { useEffect, useState } from 'react';
+"use client";
+import { useEffect, useState } from "react";
 
 /** SSR-safe media-query hook (returns false on the server). */
 export function useMediaQuery(query: string): boolean {
@@ -8,8 +8,8 @@ export function useMediaQuery(query: string): boolean {
     const mq = window.matchMedia(query);
     setMatches(mq.matches);
     const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, [query]);
   return matches;
 }

@@ -2,7 +2,7 @@
    DARK THEME
    ════════════════════════════════════════════════ */
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   /* ── Surfaces ── */
   --color-bg: #0f1117;
   --color-bg-elevated: #1a1b2e;
@@ -53,20 +53,20 @@
   --color-info-hover: #0ea5e9;
   --color-info-light: rgb(14 165 233 / 0.15);
   --color-info-text: #bae6fd;
-  
+
   /* ── State Aliases (subtle/default/strong) ── */
   --color-success-subtle: var(--color-success-light);
   --color-success-default: var(--color-success);
   --color-success-strong: var(--color-success-hover);
-  
+
   --color-warning-subtle: var(--color-warning-light);
   --color-warning-default: var(--color-warning);
   --color-warning-strong: var(--color-warning-hover);
-  
+
   --color-error-subtle: var(--color-danger-light);
   --color-error-default: var(--color-danger);
   --color-error-strong: var(--color-danger-hover);
-  
+
   --color-info-subtle: var(--color-info-light);
   --color-info-default: var(--color-info);
   --color-info-strong: var(--color-info-hover);
@@ -82,6 +82,7 @@
   /* ── Shadows (darker for dark mode) ── */
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
   --shadow-glow: 0 0 20px rgb(129 140 248 / 0.2);
 }

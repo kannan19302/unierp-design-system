@@ -10,12 +10,7 @@ import {
   type FC,
   type ReactNode,
 } from "react";
-import {
-  THEMES,
-  DENSITIES,
-  type ThemeName,
-  type DensityName,
-} from "../tokens";
+import { THEMES, DENSITIES, type ThemeName, type DensityName } from "../tokens";
 
 /** 'system' resolves to light or dark from the OS preference. */
 export type ThemeSetting = ThemeName | "system";

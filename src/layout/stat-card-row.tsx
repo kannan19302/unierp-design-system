@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Skeleton } from '../components';
+import React from "react";
+import { Skeleton } from "../components";
 
 export interface StatCardItem {
   label: string;
@@ -26,34 +26,42 @@ const StatCard: React.FC<StatCardItem> = ({
   change,
   changeLabel,
   icon,
-  color = 'var(--color-primary)',
+  color = "var(--color-primary)",
   loading = false,
 }) => {
-  const isPositive = typeof change === 'number' && change >= 0;
-  const changeColor = isPositive ? 'var(--color-success-text)' : 'var(--color-danger-text)';
+  const isPositive = typeof change === "number" && change >= 0;
+  const changeColor = isPositive
+    ? "var(--color-success-text)"
+    : "var(--color-danger-text)";
 
   return (
     <div
       style={{
-        background: 'var(--color-bg-elevated)',
-        border: '1px solid var(--color-border)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 'var(--space-5)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--space-2)',
-        flex: '1 1 0',
+        background: "var(--color-bg-elevated)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "var(--radius-lg)",
+        padding: "var(--space-5)",
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--space-2)",
+        flex: "1 1 0",
         minWidth: 0,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <span
           style={{
-            fontSize: 'var(--text-xs)',
-            fontWeight: 'var(--weight-medium)',
-            color: 'var(--color-text-secondary)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
+            fontSize: "var(--text-xs)",
+            fontWeight: "var(--weight-medium)",
+            color: "var(--color-text-secondary)",
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
           }}
         >
           {label}
@@ -63,11 +71,11 @@ const StatCard: React.FC<StatCardItem> = ({
             style={{
               width: 32,
               height: 32,
-              borderRadius: 'var(--radius-md)',
+              borderRadius: "var(--radius-md)",
               background: `color-mix(in srgb, ${color} 12%, transparent)`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               color,
               flexShrink: 0,
             }}
@@ -82,21 +90,29 @@ const StatCard: React.FC<StatCardItem> = ({
       ) : (
         <div
           style={{
-            fontSize: 'var(--text-2xl)',
-            fontWeight: 'var(--weight-bold)',
-            color: 'var(--color-text)',
+            fontSize: "var(--text-2xl)",
+            fontWeight: "var(--weight-bold)",
+            color: "var(--color-text)",
             lineHeight: 1.1,
           }}
         >
-          {typeof value === 'number' ? value.toLocaleString() : value}
+          {typeof value === "number" ? value.toLocaleString() : value}
         </div>
       )}
 
-      {typeof change === 'number' && (
-        <div style={{ fontSize: 'var(--text-xs)', color: changeColor, display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
-          <span>{isPositive ? '↑' : '↓'}</span>
+      {typeof change === "number" && (
+        <div
+          style={{
+            fontSize: "var(--text-xs)",
+            color: changeColor,
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-1)",
+          }}
+        >
+          <span>{isPositive ? "↑" : "↓"}</span>
           <span>
-            {Math.abs(change).toFixed(1)}%{changeLabel ? ` ${changeLabel}` : ''}
+            {Math.abs(change).toFixed(1)}%{changeLabel ? ` ${changeLabel}` : ""}
           </span>
         </div>
       )}
@@ -105,14 +121,14 @@ const StatCard: React.FC<StatCardItem> = ({
 };
 
 export const StatCardRow: React.FC<StatCardRowProps> = ({ stats, columns }) => {
-  const cols = columns ?? Math.min(stats.length, 4) as 2 | 3 | 4 | 5;
+  const cols = columns ?? (Math.min(stats.length, 4) as 2 | 3 | 4 | 5);
 
   return (
     <div
       style={{
-        display: 'grid',
+        display: "grid",
         gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-        gap: 'var(--space-4)',
+        gap: "var(--space-4)",
       }}
     >
       {stats.map((stat, i) => (

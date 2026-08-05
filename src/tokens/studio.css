@@ -70,7 +70,7 @@
 
 /* Dark theme: the neutral scale inverts so the builder chrome stays
    readable, while accents lift for contrast against dark surfaces. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --studio-0: #0b1220;
   --studio-50: #0f172a;
   --studio-100: #111c33;
@@ -102,7 +102,7 @@
 /* High contrast: collapse the mid-scale so every studio surface pair
    clears WCAG AAA. Without this the builder was unusable at this
    setting, because the inline hexes ignored the theme entirely. */
-[data-theme='high-contrast'] {
+[data-theme="high-contrast"] {
   --studio-0: #ffffff;
   --studio-50: #ffffff;
   --studio-100: #ffffff;

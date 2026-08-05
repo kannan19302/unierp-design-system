@@ -1,7 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { FormField, Input, Textarea, Select, TextField } from './form';
+import type { Meta, StoryObj } from "@storybook/react";
+import { FormField, Input, Textarea, Select, TextField } from "./form";
 
-export default { title: 'Components/Form', parameters: { layout: 'padded' } } as Meta;
+export default {
+  title: "Components/Form",
+  parameters: { layout: "padded" },
+} as Meta;
 
 export const TextInput: StoryObj = {
   render: () => (

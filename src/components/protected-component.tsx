@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { type FC, type ReactNode, createContext, useContext } from 'react';
+import { type FC, type ReactNode, createContext, useContext } from "react";
 
-export type FieldAccessLevel = 'hidden' | 'readonly' | 'editable';
+export type FieldAccessLevel = "hidden" | "readonly" | "editable";
 
 export interface ResolvedAccess {
   endpoints: string[];
@@ -26,16 +26,19 @@ export const usePermission = (code: string): boolean => {
   const { permissions } = useContext(PermissionContext);
   return permissions.some((p) => {
     if (p === code) return true;
-    if (p === '*') return true;
-    if (p.endsWith('.*') && code.startsWith(p.slice(0, -2))) return true;
+    if (p === "*") return true;
+    if (p.endsWith(".*") && code.startsWith(p.slice(0, -2))) return true;
     return false;
   });
 };
 
-export const useFieldAccess = (entity: string, field: string): FieldAccessLevel => {
+export const useFieldAccess = (
+  entity: string,
+  field: string,
+): FieldAccessLevel => {
   const { resolvedAccess } = useContext(PermissionContext);
-  if (!resolvedAccess) return 'editable';
-  return resolvedAccess.fields?.[entity]?.[field] || 'editable';
+  if (!resolvedAccess) return "editable";
+  return resolvedAccess.fields?.[entity]?.[field] || "editable";
 };
 
 export interface ProtectedComponentProps {
@@ -65,9 +68,11 @@ export const ProtectedField: FC<ProtectedFieldProps> = ({
   children,
 }) => {
   const access = useFieldAccess(entity, field);
-  if (access === 'hidden') return null;
-  if (access === 'readonly') {
-    return <div style={{ pointerEvents: 'none', opacity: 0.7 }}>{children}</div>;
+  if (access === "hidden") return null;
+  if (access === "readonly") {
+    return (
+      <div style={{ pointerEvents: "none", opacity: 0.7 }}>{children}</div>
+    );
   }
   return <>{children}</>;
 };

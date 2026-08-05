@@ -1,5 +1,5 @@
 /* Minimal — monochrome accents, flat surfaces, no glow. */
-[data-theme='minimal'] {
+[data-theme="minimal"] {
   color-scheme: light;
   --color-bg: #ffffff;
   --color-bg-sunken: #f5f5f5;

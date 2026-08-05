@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { DatePicker, type DatePickerProps } from './date-picker';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { DatePicker, type DatePickerProps } from "./date-picker";
+import { useState } from "react";
 
 const meta: Meta<typeof DatePicker> = {
-  title: 'Components/DatePicker',
+  title: "Components/DatePicker",
   component: DatePicker,
   argTypes: {
-    disabled: { control: 'boolean' },
-    placeholder: { control: 'text' },
+    disabled: { control: "boolean" },
+    placeholder: { control: "text" },
   },
 };
 export default meta;
@@ -22,7 +22,7 @@ const DatePickerWrapper = (props: DatePickerProps) => {
 export const Default: Story = {
   render: (args) => <DatePickerWrapper {...args} />,
   args: {
-    placeholder: 'Select date...',
+    placeholder: "Select date...",
   },
 };
 
@@ -46,6 +46,6 @@ export const MinMaxRestricted: Story = {
   args: {
     minDate: new Date(2026, 6, 10),
     maxDate: new Date(2026, 6, 20),
-    placeholder: 'Select July 10-20, 2026 only',
+    placeholder: "Select July 10-20, 2026 only",
   },
 };

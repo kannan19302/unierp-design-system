@@ -1,5 +1,5 @@
 /* High Contrast — WCAG-oriented: strong borders, pure surfaces, dark text. */
-[data-theme='high-contrast'] {
+[data-theme="high-contrast"] {
   color-scheme: light;
   --color-bg: #ffffff;
   --color-bg-elevated: #ffffff;

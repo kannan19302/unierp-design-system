@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useMemo, useRef, useState, type ReactNode, type UIEvent } from 'react';
-import { Skeleton } from '../components';
-import { EmptyState } from '../components';
+import { useMemo, useRef, useState, type ReactNode, type UIEvent } from "react";
+import { Skeleton } from "../components";
+import { EmptyState } from "../components";
 
 export interface Column<T> {
   key: string;
   header: ReactNode;
-  align?: 'left' | 'right' | 'center';
+  align?: "left" | "right" | "center";
   width?: string;
   sortable?: boolean;
   render?: (row: T, index: number) => ReactNode;
@@ -15,7 +15,7 @@ export interface Column<T> {
   exportValue?: (row: T) => string | number | boolean | null | undefined;
 }
 
-export type SortOrder = 'asc' | 'desc';
+export type SortOrder = "asc" | "desc";
 
 export interface DataTableProps<T> {
   columns: Column<T>[];
@@ -43,7 +43,7 @@ export interface DataTableProps<T> {
   maxHeight?: number;
 }
 
-const cellPad = 'var(--space-3) var(--space-4)';
+const cellPad = "var(--space-3) var(--space-4)";
 const OVERSCAN = 8;
 
 /**
@@ -55,19 +55,37 @@ const OVERSCAN = 8;
  * rendering for large client-side datasets.
  */
 export function DataTable<T>({
-  columns, data, loading, rowKey, onRowClick,
-  emptyTitle = 'Nothing here yet', emptyMessage = 'No records to display.', emptyIcon, skeletonRows = 6,
-  sortBy, sortOrder = 'asc', onSortChange,
-  selectedKeys, onSelectionChange, bulkActions,
-  virtualized, rowHeight = 44, maxHeight = 480,
+  columns,
+  data,
+  loading,
+  rowKey,
+  onRowClick,
+  emptyTitle = "Nothing here yet",
+  emptyMessage = "No records to display.",
+  emptyIcon,
+  skeletonRows = 6,
+  sortBy,
+  sortOrder = "asc",
+  onSortChange,
+  selectedKeys,
+  onSelectionChange,
+  bulkActions,
+  virtualized,
+  rowHeight = 44,
+  maxHeight = 480,
 }: DataTableProps<T>) {
-  const get = (row: T, key: string) => (row as Record<string, unknown>)[key] as ReactNode;
+  const get = (row: T, key: string) =>
+    (row as Record<string, unknown>)[key] as ReactNode;
   const keyOf = (row: T, i: number) => (rowKey ? rowKey(row, i) : String(i));
 
   const selectable = !!selectedKeys && !!onSelectionChange;
   const selected = useMemo(() => new Set(selectedKeys ?? []), [selectedKeys]);
-  const allKeys = useMemo(() => data.map((row, i) => keyOf(row, i)), [data, rowKey]);
-  const allSelected = allKeys.length > 0 && allKeys.every((k) => selected.has(k));
+  const allKeys = useMemo(
+    () => data.map((row, i) => keyOf(row, i)),
+    [data, rowKey],
+  );
+  const allSelected =
+    allKeys.length > 0 && allKeys.every((k) => selected.has(k));
   const someSelected = allKeys.some((k) => selected.has(k));
 
   const toggleAll = () => {
@@ -84,18 +102,27 @@ export function DataTable<T>({
 
   const handleSort = (c: Column<T>) => {
     if (!c.sortable || !onSortChange) return;
-    if (sortBy === c.key) onSortChange(c.key, sortOrder === 'asc' ? 'desc' : 'asc');
-    else onSortChange(c.key, 'asc');
+    if (sortBy === c.key)
+      onSortChange(c.key, sortOrder === "asc" ? "desc" : "asc");
+    else onSortChange(c.key, "asc");
   };
 
   // ── Windowing (only when virtualized and worth it) ──
-  const windowing = !!virtualized && !loading && data.length * rowHeight > maxHeight;
+  const windowing =
+    !!virtualized && !loading && data.length * rowHeight > maxHeight;
   const [scrollTop, setScrollTop] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const onScroll = windowing ? (e: UIEvent<HTMLDivElement>) => setScrollTop(e.currentTarget.scrollTop) : undefined;
-  const startIndex = windowing ? Math.max(0, Math.floor(scrollTop / rowHeight) - OVERSCAN) : 0;
+  const onScroll = windowing
+    ? (e: UIEvent<HTMLDivElement>) => setScrollTop(e.currentTarget.scrollTop)
+    : undefined;
+  const startIndex = windowing
+    ? Math.max(0, Math.floor(scrollTop / rowHeight) - OVERSCAN)
+    : 0;
   const endIndex = windowing
-    ? Math.min(data.length, Math.ceil((scrollTop + maxHeight) / rowHeight) + OVERSCAN)
+    ? Math.min(
+        data.length,
+        Math.ceil((scrollTop + maxHeight) / rowHeight) + OVERSCAN,
+      )
     : data.length;
   const topSpacer = startIndex * rowHeight;
   const bottomSpacer = (data.length - endIndex) * rowHeight;
@@ -109,12 +136,31 @@ export function DataTable<T>({
         key={key}
         aria-selected={selectable ? selected.has(key) : undefined}
         onClick={onRowClick ? () => onRowClick(row) : undefined}
-        style={{ borderBottom: '1px solid var(--color-border)', cursor: onRowClick ? 'pointer' : undefined, height: windowing ? rowHeight : undefined, background: selectable && selected.has(key) ? 'var(--color-bg-sunken)' : undefined, transition: 'background var(--duration-fast) var(--ease-default)' }}
-        onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-bg-hover)'; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = selectable && selected.has(key) ? 'var(--color-bg-sunken)' : 'transparent'; }}
+        style={{
+          borderBottom: "1px solid var(--color-border)",
+          cursor: onRowClick ? "pointer" : undefined,
+          height: windowing ? rowHeight : undefined,
+          background:
+            selectable && selected.has(key)
+              ? "var(--color-bg-sunken)"
+              : undefined,
+          transition: "background var(--duration-fast) var(--ease-default)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "var(--color-bg-hover)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background =
+            selectable && selected.has(key)
+              ? "var(--color-bg-sunken)"
+              : "transparent";
+        }}
       >
         {selectable && (
-          <td style={{ padding: cellPad, width: 36 }} onClick={(e) => e.stopPropagation()}>
+          <td
+            style={{ padding: cellPad, width: 36 }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <input
               type="checkbox"
               aria-label="Select row"
@@ -124,7 +170,14 @@ export function DataTable<T>({
           </td>
         )}
         {columns.map((c) => (
-          <td key={c.key} style={{ padding: cellPad, textAlign: c.align || 'left', color: 'var(--color-text)' }}>
+          <td
+            key={c.key}
+            style={{
+              padding: cellPad,
+              textAlign: c.align || "left",
+              color: "var(--color-text)",
+            }}
+          >
             {c.render ? c.render(row, i) : get(row, c.key)}
           </td>
         ))}
@@ -133,16 +186,29 @@ export function DataTable<T>({
   };
 
   const table = (
-    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-sm)' }}>
+    <table
+      style={{
+        width: "100%",
+        borderCollapse: "collapse",
+        fontSize: "var(--text-sm)",
+      }}
+    >
       <thead>
-        <tr style={{ background: 'var(--color-bg-sunken)', borderBottom: '1px solid var(--color-border)' }}>
+        <tr
+          style={{
+            background: "var(--color-bg-sunken)",
+            borderBottom: "1px solid var(--color-border)",
+          }}
+        >
           {selectable && (
             <th style={{ padding: cellPad, width: 36 }}>
               <input
                 type="checkbox"
                 aria-label="Select all rows"
                 checked={allSelected}
-                ref={(el) => { if (el) el.indeterminate = !allSelected && someSelected; }}
+                ref={(el) => {
+                  if (el) el.indeterminate = !allSelected && someSelected;
+                }}
                 onChange={toggleAll}
               />
             </th>
@@ -152,17 +218,63 @@ export function DataTable<T>({
             return (
               <th
                 key={c.key}
-                className={c.sortable ? 'dt-sort-th' : undefined}
+                className={c.sortable ? "dt-sort-th" : undefined}
                 onClick={c.sortable ? () => handleSort(c) : undefined}
-                aria-sort={active ? (sortOrder === 'asc' ? 'ascending' : 'descending') : undefined}
-                style={{ textAlign: c.align || 'left', padding: cellPad, width: c.width, fontWeight: 'var(--weight-semibold)', color: 'var(--color-text-secondary)', whiteSpace: 'nowrap', cursor: c.sortable ? 'pointer' : undefined, userSelect: c.sortable ? 'none' : undefined }}
+                aria-sort={
+                  active
+                    ? sortOrder === "asc"
+                      ? "ascending"
+                      : "descending"
+                    : undefined
+                }
+                style={{
+                  textAlign: c.align || "left",
+                  padding: cellPad,
+                  width: c.width,
+                  fontWeight: "var(--weight-semibold)",
+                  color: "var(--color-text-secondary)",
+                  whiteSpace: "nowrap",
+                  cursor: c.sortable ? "pointer" : undefined,
+                  userSelect: c.sortable ? "none" : undefined,
+                }}
               >
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)', justifyContent: c.align === 'right' ? 'flex-end' : c.align === 'center' ? 'center' : 'flex-start' }}>
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "var(--space-1)",
+                    justifyContent:
+                      c.align === "right"
+                        ? "flex-end"
+                        : c.align === "center"
+                          ? "center"
+                          : "flex-start",
+                  }}
+                >
                   {c.header}
                   {c.sortable && (
-                    <span className="dt-sort-arrow" data-active={active} data-order={active ? sortOrder : undefined} aria-hidden="true">
-                      <svg width="10" height="6" viewBox="0 0 10 6" className="dt-sort-arrow-up"><path d="M5 0L10 6H0L5 0Z" fill="currentColor" /></svg>
-                      <svg width="10" height="6" viewBox="0 0 10 6" className="dt-sort-arrow-down"><path d="M5 6L0 0H10L5 6Z" fill="currentColor" /></svg>
+                    <span
+                      className="dt-sort-arrow"
+                      data-active={active}
+                      data-order={active ? sortOrder : undefined}
+                      aria-hidden="true"
+                    >
+                      <svg
+                        width="10"
+                        height="6"
+                        viewBox="0 0 10 6"
+                        className="dt-sort-arrow-up"
+                      >
+                        <path d="M5 0L10 6H0L5 0Z" fill="currentColor" />
+                      </svg>
+                      <svg
+                        width="10"
+                        height="6"
+                        viewBox="0 0 10 6"
+                        className="dt-sort-arrow-down"
+                      >
+                        <path d="M5 6L0 0H10L5 6Z" fill="currentColor" />
+                      </svg>
                     </span>
                   )}
                 </span>
@@ -174,24 +286,53 @@ export function DataTable<T>({
       <tbody>
         {loading ? (
           Array.from({ length: skeletonRows }).map((_, r) => (
-            <tr key={r} style={{ borderBottom: '1px solid var(--color-border)' }}>
+            <tr
+              key={r}
+              style={{ borderBottom: "1px solid var(--color-border)" }}
+            >
               {selectable && <td style={{ padding: cellPad }} />}
               {columns.map((c) => (
-                <td key={c.key} style={{ padding: cellPad }}><Skeleton height={12} width={c.align === 'right' ? '50%' : '80%'} style={{ marginLeft: c.align === 'right' ? 'auto' : undefined }} /></td>
+                <td key={c.key} style={{ padding: cellPad }}>
+                  <Skeleton
+                    height={12}
+                    width={c.align === "right" ? "50%" : "80%"}
+                    style={{
+                      marginLeft: c.align === "right" ? "auto" : undefined,
+                    }}
+                  />
+                </td>
               ))}
             </tr>
           ))
         ) : data.length === 0 ? (
           <tr>
             <td colSpan={colSpan} style={{ padding: 0 }}>
-              <EmptyState title={emptyTitle} description={emptyMessage} icon={emptyIcon} />
+              <EmptyState
+                title={emptyTitle}
+                description={emptyMessage}
+                icon={emptyIcon}
+              />
             </td>
           </tr>
         ) : (
           <>
-            {windowing && topSpacer > 0 && <tr aria-hidden="true"><td colSpan={colSpan} style={{ padding: 0, height: topSpacer }} /></tr>}
+            {windowing && topSpacer > 0 && (
+              <tr aria-hidden="true">
+                <td
+                  colSpan={colSpan}
+                  style={{ padding: 0, height: topSpacer }}
+                />
+              </tr>
+            )}
             {visibleRows.map((row, i) => renderRow(row, startIndex + i))}
-            {windowing && bottomSpacer > 0 && <tr aria-hidden="true"><td colSpan={colSpan} style={{ padding: 0, height: bottomSpacer }} /></tr>}
+            {windowing && bottomSpacer > 0 && (
+              <tr aria-hidden="true">
+                <td
+                  colSpan={colSpan}
+                  style={{ padding: 0, height: bottomSpacer }}
+                />
+              </tr>
+            )}
           </>
         )}
       </tbody>
@@ -204,9 +345,24 @@ export function DataTable<T>({
         <div
           role="toolbar"
           aria-label="Bulk actions"
-          style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-2) var(--space-4)', marginBottom: 'var(--space-2)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', background: 'var(--color-bg-sunken)', fontSize: 'var(--text-sm)' }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-3)",
+            padding: "var(--space-2) var(--space-4)",
+            marginBottom: "var(--space-2)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-lg)",
+            background: "var(--color-bg-sunken)",
+            fontSize: "var(--text-sm)",
+          }}
         >
-          <span style={{ color: 'var(--color-text-secondary)', fontWeight: 'var(--weight-semibold)' }}>
+          <span
+            style={{
+              color: "var(--color-text-secondary)",
+              fontWeight: "var(--weight-semibold)",
+            }}
+          >
             {selected.size} selected
           </span>
           {bulkActions([...selected])}
@@ -215,7 +371,13 @@ export function DataTable<T>({
       <div
         ref={scrollRef}
         onScroll={onScroll}
-        style={{ overflowX: 'auto', overflowY: windowing ? 'auto' : undefined, maxHeight: windowing ? maxHeight : undefined, border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)' }}
+        style={{
+          overflowX: "auto",
+          overflowY: windowing ? "auto" : undefined,
+          maxHeight: windowing ? maxHeight : undefined,
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+        }}
       >
         {table}
       </div>
