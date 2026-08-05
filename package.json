@@ -1,6 +1,6 @@
 {
   "name": "@unerp/ui",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "UniERP Design System — one package, subpath exports (PLATFORM_ARCHITECTURE.md § 7.2)",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -120,7 +120,6 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.0",
     "@types/react": "^19.0.0",
-    "@unerp/config": "workspace:*",
     "@vitejs/plugin-react": "^4.3.0",
     "jsdom": "^25.0.0",
     "react": "^19.0.0",
@@ -137,5 +136,10 @@
     "next": {
       "optional": true
     }
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ]
 }
