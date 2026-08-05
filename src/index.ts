@@ -1,3 +1,19 @@
+"use client";
+
+// The barrel is a client module, deliberately.
+//
+// Almost everything it re-exports is a client component, and `export *` does not
+// survive the React Server Components boundary: a star re-export of a client
+// module loses its names, so the import arrives as `undefined` and React reports
+// "Element type is invalid ... but got: undefined" — naming neither the module
+// nor the symbol. ThemeProvider was fine only because the barrel re-exports it
+// explicitly by name; ToastProvider, star-exported, was not.
+//
+// Marking the barrel itself a client module makes the star re-exports resolve.
+// Consumers that want a server component should import the subpath directly
+// (@unerp/ui/tokens, @unerp/ui/utils), which is what the § 7.2 subpath exports
+// are for.
+
 // ─────────────────────────────────────────────────
 // @unerp/ui — the UniERP Design System, one package.
 // The root barrel is the convenience surface; prefer a subpath so the

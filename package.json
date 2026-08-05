@@ -1,6 +1,6 @@
 {
   "name": "@unerp/ui",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "UniERP Design System — one package, subpath exports (PLATFORM_ARCHITECTURE.md § 7.2)",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -98,7 +98,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && node scripts/copy-css.mjs",
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs",
     "lint": "eslint src/",
     "clean": "rimraf dist",
     "typecheck": "tsc --noEmit",
