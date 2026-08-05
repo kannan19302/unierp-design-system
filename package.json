@@ -1,7 +1,6 @@
 {
   "name": "@unerp/ui",
-  "version": "0.0.1",
-  "private": true,
+  "version": "1.0.0",
   "description": "UniERP Design System — one package, subpath exports (PLATFORM_ARCHITECTURE.md § 7.2)",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
