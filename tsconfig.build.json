@@ -1,8 +1,17 @@
 {
-  "extends": "../config/typescript/build.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.stories.tsx",
+    "**/__tests__/**"
+  ]
 }
