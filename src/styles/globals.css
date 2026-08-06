@@ -14,3 +14,14 @@
 @import './layers/components.css';
 @import './layers/utilities.css';
 @import './layers/overrides.css';
+
+/* Component styles.
+ *
+ * Resolving CSS modules at build time (scripts/bundle-css-modules.mjs) moved
+ * every component's rules into dist/styles.css and rewrote the class names to
+ * `ui-<file>-<class>`. The JS carries the names; this file has to carry the
+ * rules, or components render with correct class names and no styling at all —
+ * which is exactly what happened: the navigation came back as unstyled text.
+ *
+ * Importing `@unerp/ui/styles` therefore has to be enough on its own. */
+@import '../styles.css';

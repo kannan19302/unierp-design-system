@@ -1,30 +1,16 @@
-"use client";
-
-// The barrel is a client module, deliberately.
+// NOT marked "use client".
 //
-// Almost everything it re-exports is a client component, and `export *` does not
-// survive the React Server Components boundary: a star re-export of a client
-// module loses its names, so the import arrives as `undefined` and React reports
-// "Element type is invalid ... but got: undefined" — naming neither the module
-// nor the symbol. ThemeProvider was fine only because the barrel re-exports it
-// explicitly by name; ToastProvider, star-exported, was not.
+// Marking this barrel a client module fixed the star-export problem but broke
+// Next's client-reference registration for a CommonJS package —
+// `TypeError: Cannot read properties of undefined (reading
+// 'registerClientReference')` on every route. It appeared to work only while a
+// warm .next cache survived; a clean build failed immediately.
 //
-// Marking the barrel itself a client module makes the star re-exports resolve.
-// Consumers that want a server component should import the subpath directly
-// (@unerp/ui/tokens, @unerp/ui/utils), which is what the § 7.2 subpath exports
-// are for.
-
-// ─────────────────────────────────────────────────
-// @unerp/ui — the UniERP Design System, one package.
-// The root barrel is the convenience surface; prefer a subpath so the
-// consumer only pays for what it uses:
-//   @unerp/ui/components, @unerp/ui/layout, @unerp/ui/charts,
-//   @unerp/ui/data-grid, @unerp/ui/dashboard, @unerp/ui/notifications,
-//   @unerp/ui/theme, @unerp/ui/tokens, @unerp/ui/hooks, @unerp/ui/utils,
-//   @unerp/ui/icons, @unerp/ui/form-engine, @unerp/ui/workflow
-// PLATFORM_ARCHITECTURE.md § 7.2 — the 13 @unerp/ui-* packages were merged
-// here so the extraction in Phase 3 publishes one artifact, not fourteen.
-// ─────────────────────────────────────────────────
+// The individual component files carry "use client" themselves, which is where
+// the directive belongs. Consumers that need a specific provider should import
+// its subpath (@unerp/ui/theme, @unerp/ui/notifications) — a star re-export does
+// not carry names across the RSC boundary, and the subpaths exist for exactly
+// that reason.
 
 export * from "./components";
 export * from "./layout";
