@@ -1,16 +1,14 @@
-// NOT marked "use client".
-//
-// Marking this barrel a client module fixed the star-export problem but broke
-// Next's client-reference registration for a CommonJS package —
-// `TypeError: Cannot read properties of undefined (reading
-// 'registerClientReference')` on every route. It appeared to work only while a
-// warm .next cache survived; a clean build failed immediately.
-//
-// The individual component files carry "use client" themselves, which is where
-// the directive belongs. Consumers that need a specific provider should import
-// its subpath (@unerp/ui/theme, @unerp/ui/notifications) — a star re-export does
-// not carry names across the RSC boundary, and the subpaths exist for exactly
-// that reason.
+// ─────────────────────────────────────────────────
+// @unerp/ui — the UniERP Design System, one package.
+// The root barrel is the convenience surface; prefer a subpath so the
+// consumer only pays for what it uses:
+//   @unerp/ui/components, @unerp/ui/layout, @unerp/ui/charts,
+//   @unerp/ui/data-grid, @unerp/ui/dashboard, @unerp/ui/notifications,
+//   @unerp/ui/theme, @unerp/ui/tokens, @unerp/ui/hooks, @unerp/ui/utils,
+//   @unerp/ui/icons, @unerp/ui/form-engine, @unerp/ui/workflow
+// PLATFORM_ARCHITECTURE.md § 7.2 — the 13 @unerp/ui-* packages were merged
+// here so the extraction in Phase 3 publishes one artifact, not fourteen.
+// ─────────────────────────────────────────────────
 
 export * from "./components";
 export * from "./layout";

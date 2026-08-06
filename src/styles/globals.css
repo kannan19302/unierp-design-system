@@ -4,24 +4,13 @@
    Import this file in the root layout.
    ───────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
-@import '../tokens/design-tokens.css';
+@import "../tokens/design-tokens.css";
 
 /* Import stylesheets */
-@import './layers/reset.css';
-@import './layers/base.css';
-@import './layers/components.css';
-@import './layers/utilities.css';
-@import './layers/overrides.css';
-
-/* Component styles.
- *
- * Resolving CSS modules at build time (scripts/bundle-css-modules.mjs) moved
- * every component's rules into dist/styles.css and rewrote the class names to
- * `ui-<file>-<class>`. The JS carries the names; this file has to carry the
- * rules, or components render with correct class names and no styling at all —
- * which is exactly what happened: the navigation came back as unstyled text.
- *
- * Importing `@unerp/ui/styles` therefore has to be enough on its own. */
-@import '../styles.css';
+@import "./layers/reset.css";
+@import "./layers/base.css";
+@import "./layers/components.css";
+@import "./layers/utilities.css";
+@import "./layers/overrides.css";
