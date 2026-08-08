@@ -2,7 +2,6 @@
 
 // @unerp/ui-data-grid — tabular & board data views
 export {
-  Table,
   DataTable,
   type Column,
   type DataTableProps,

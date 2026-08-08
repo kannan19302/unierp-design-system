@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, type FC, type ReactNode, type UIEvent } from "react";
+import { useMemo, useRef, useState, type ReactNode, type UIEvent } from "react";
 import { Skeleton } from "../components";
 import { EmptyState } from "../components";
 
@@ -15,30 +15,6 @@ export interface Column<T> {
   exportValue?: (row: T) => string | number | boolean | null | undefined;
 }
 
-/**
- * Standard styled Table container component.
- * Replaces native <table> tags across consuming apps for token compliance.
- */
-export const Table: FC<React.TableHTMLAttributes<HTMLTableElement>> = ({
-  children,
-  style,
-  className,
-  ...props
-}) => (
-  <table
-    {...props}
-    className={className}
-    style={{
-      width: "100%",
-      borderCollapse: "collapse",
-      fontSize: "var(--text-sm)",
-      color: "var(--color-text)",
-      ...style,
-    }}
-  >
-    {children}
-  </table>
-);
 
 
 export type SortOrder = "asc" | "desc";

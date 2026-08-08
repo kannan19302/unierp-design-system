@@ -35,7 +35,6 @@ export {
 } from "./layout";
 export * from "./charts";
 export {
-  Table,
   DataTable,
   KanbanBoard,
   ColumnPicker,
