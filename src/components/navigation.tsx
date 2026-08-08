@@ -72,22 +72,50 @@ export const Tabs: FC<TabsProps> = ({
   value,
   onChange,
   variant = "underline",
-}) => (
-  <div
-    role="tablist"
-    className={variant === "pills" ? styles.tablist_pills : styles.tablist}
-  >
-    {tabs.map((t) => (
-      <TabButton
-        key={t.key}
-        tab={t}
-        active={t.key === value}
-        onClick={() => onChange(t.key)}
-        variant={variant}
-      />
-    ))}
-  </div>
-);
+}) => {
+  const enabledTabs = tabs.filter((t) => !t.disabled);
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    const currentIdx = enabledTabs.findIndex((t) => t.key === value);
+    let nextIdx = currentIdx;
+
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      nextIdx = (currentIdx + 1) % enabledTabs.length;
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      nextIdx = (currentIdx - 1 + enabledTabs.length) % enabledTabs.length;
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      nextIdx = 0;
+    } else if (e.key === "End") {
+      e.preventDefault();
+      nextIdx = enabledTabs.length - 1;
+    } else {
+      return;
+    }
+
+    onChange(enabledTabs[nextIdx].key);
+  };
+
+  return (
+    <div
+      role="tablist"
+      onKeyDown={onKeyDown}
+      className={variant === "pills" ? styles.tablist_pills : styles.tablist}
+    >
+      {tabs.map((t) => (
+        <TabButton
+          key={t.key}
+          tab={t}
+          active={t.key === value}
+          onClick={() => onChange(t.key)}
+          variant={variant}
+        />
+      ))}
+    </div>
+  );
+};
 
 // ── Tooltip ───────────────────────────────────────────
 export interface TooltipProps {

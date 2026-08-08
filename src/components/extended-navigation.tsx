@@ -4,10 +4,35 @@ import {
   useState,
   useEffect,
   useRef,
+  useCallback,
   type FC,
   type ReactNode,
 } from "react";
 import { ChevronRight, Search, Command, X } from "lucide-react";
+
+// ── useCommandPalette — global Ctrl+K / Cmd+K shortcut ─
+// B04: "the command palette is reachable via one shortcut from every page"
+//
+// Usage: const { open, setOpen } = useCommandPalette();
+// Wrap your app with a <CommandPalette open={open} onClose={() => setOpen(false)} items={...} />
+// and this hook will wire the keyboard shortcut automatically.
+export function useCommandPalette() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      // Ctrl+K (Windows/Linux) or Cmd+K (macOS)
+      if (e.key === "k" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        setOpen((prev) => !prev);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  return { open, setOpen };
+}
 
 // ── Breadcrumb ────────────────────────────────────────
 export interface BreadcrumbItem {
