@@ -1,61 +1,81 @@
 "use client";
 
-import { useState, useCallback, type FC, type ReactNode, type ChangeEvent } from "react";
-import type { ZodType, ZodError } from "zod";
+import { useState, useCallback, type FC, type ReactNode } from "react";
+type ZodType = { safeParse: (data: unknown) => { success: boolean; error?: { errors: { message: string }[] } } };
 
 // ── useFormField — Zod-integrated form field hook ─────
 // B05: Every control is integrated with the shared Zod schema.
 // Usage:
 //   const { value, onChange, error, inputProps } = useFormField("", z.string().min(3));
 //   <input {...inputProps} /> → aria-describedby is automatically set when error is present.
-export interface FormFieldResult<T> {
+
+export interface UseFormFieldResult<T> {
   value: T;
   onChange: (val: T) => void;
-  error: string | null;
-  /** Spread onto any <input> or form control to get label-association and aria-describedby. */
+  error?: string;
+  touched: boolean;
+  onBlur: () => void;
   inputProps: {
-    "aria-invalid"?: true;
+    value: T;
+    onChange: (e: { target: { value: T } }) => void;
+    onBlur: () => void;
+    "aria-invalid"?: boolean;
     "aria-describedby"?: string;
   };
-  /** Reset the field to its initial value. */
-  reset: () => void;
 }
 
 export function useFormField<T>(
   initialValue: T,
-  schema?: ZodType<T>,
-  errorId?: string,
-): FormFieldResult<T> {
+  schema?: ZodType,
+  fieldId?: string,
+): UseFormFieldResult<T> {
   const [value, setValue] = useState<T>(initialValue);
-  const [error, setError] = useState<string | null>(null);
+  const [touched, setTouched] = useState(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
-  const onChange = useCallback(
+  const validate = useCallback(
     (val: T) => {
-      setValue(val);
-      if (schema) {
-        const result = schema.safeParse(val);
-        setError(result.success ? null : result.error.errors[0]?.message ?? "Invalid value");
+      if (!schema) return true;
+      const result = schema.safeParse(val);
+      if (!result.success) {
+        const errMsg = result.error?.errors[0]?.message || "Invalid input";
+        setError(errMsg);
+        return false;
       }
+      setError(undefined);
+      return true;
     },
     [schema],
   );
 
-  const reset = useCallback(() => {
-    setValue(initialValue);
-    setError(null);
-  }, [initialValue]);
+  const onChange = useCallback(
+    (val: T) => {
+      setValue(val);
+      if (touched) validate(val);
+    },
+    [touched, validate],
+  );
 
-  const descId = errorId ?? (error ? `field-error-${Math.random().toString(36).slice(2)}` : undefined);
+  const onBlur = useCallback(() => {
+    setTouched(true);
+    validate(value);
+  }, [value, validate]);
+
+  const descId = fieldId ?? (error ? `field-error-${Math.random().toString(36).slice(2)}` : undefined);
 
   return {
     value,
     onChange,
     error,
+    touched,
+    onBlur,
     inputProps: {
-      ...(error ? { "aria-invalid": true as const } : {}),
+      value,
+      onChange: (e: { target: { value: T } }) => onChange(e.target.value),
+      onBlur,
+      ...(error ? { "aria-invalid": true } : {}),
       ...(error && descId ? { "aria-describedby": descId } : {}),
     },
-    reset,
   };
 }
 

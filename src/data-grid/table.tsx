@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, type ReactNode, type UIEvent } from "react";
+import { useMemo, useRef, useState, type FC, type ReactNode, type UIEvent } from "react";
 import { Skeleton } from "../components";
 import { EmptyState } from "../components";
 

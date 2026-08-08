@@ -11,11 +11,54 @@
 // ─────────────────────────────────────────────────
 
 export * from "./components";
-export * from "./layout";
+export {
+  ViewSwitcher,
+  StatCardRow,
+  ListPageTemplate,
+  DetailPageTemplate,
+  ModuleTabLayout,
+  SubTabBar,
+  type ViewSwitcherProps,
+  type ViewMode,
+  type StatCardRowProps,
+  type StatCardItem,
+  type ListPageTemplateProps,
+  type ListColumn,
+  type ListPageFilter,
+  type ListPaginationProps,
+  type DetailPageTemplateProps,
+  type DetailTab,
+  type ModuleTabLayoutProps,
+  type ModuleTab,
+  type SubTabBarProps,
+  type SubTab,
+} from "./layout";
 export * from "./charts";
-export * from "./data-grid";
+export {
+  Table,
+  DataTable,
+  KanbanBoard,
+  ColumnPicker,
+  toCsv,
+  exportToCsv,
+  type Column,
+  type SortOrder,
+  type DataTableProps,
+  type KanbanBoardProps,
+  type KanbanColumn,
+  type KanbanItem,
+  type ColumnPickerProps,
+  type ColumnPickerOption,
+} from "./data-grid";
 export * from "./dashboard";
-export * from "./notifications";
+export {
+  ToastProvider,
+  useToast,
+  DemoBanner,
+  type ToastOptions,
+  type ToastVariant,
+  type DemoBannerProps,
+} from "./notifications";
 export {
   ThemeProvider,
   useTheme,
@@ -30,5 +73,16 @@ export {
   type DensityName,
 } from "./theme";
 
-// Website Builder Blocks (stay in the facade pre-v1)
-export * from "./blocks";
+// Website Builder Blocks
+export {
+  HeroBlock,
+  TrustBarBlock,
+  FeaturesGridBlock,
+  SocialProofBlock,
+  HowItWorksBlock,
+  PricingBlock,
+  FaqBlock,
+  type HowItWorksBlockProps,
+} from "./blocks";
+
+

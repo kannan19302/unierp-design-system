@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { type FC } from "react";
 import { Spinner } from "./spinner";
 import { EmptyState } from "./empty-state";
 import { AlertTriangle, ShieldAlert, Filter, AlertCircle } from "lucide-react";

@@ -95,7 +95,10 @@ export const Tabs: FC<TabsProps> = ({
       return;
     }
 
-    onChange(enabledTabs[nextIdx].key);
+    const targetTab = enabledTabs[nextIdx];
+    if (targetTab) {
+      onChange(targetTab.key);
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, type FC, type ReactNode } from "react";
-import { Clock, Calendar as CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, type FC } from "react";
+import { Clock, ChevronLeft, ChevronRight } from "lucide-react";
 
 // ── TimePicker ────────────────────────────────────────
 export interface TimePickerProps {
@@ -231,7 +231,7 @@ export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
   fiscalYearStartMonth = 1,
 }) => {
   const periods = buildFiscalPeriods(fiscalYear, fiscalYearStartMonth);
-  const currentValue = selectedPeriod ?? periods[0].value;
+  const currentValue = selectedPeriod ?? (periods[0]?.value || "");
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
@@ -296,9 +296,9 @@ export function useTimezoneDate(timezone: string): TimezoneUtils {
   const toUtcIso = (localDatetime: string): string => {
     // Parse the local datetime string (no Z suffix) as if it's in the given timezone.
     // We use Intl to find the offset at that local time.
-    const [datePart, timePart = "00:00"] = localDatetime.split("T");
-    const [year, month, day] = datePart.split("-").map(Number);
-    const [hour, minute] = timePart.split(":").map(Number);
+    const [datePart = "1970-01-01", timePart = "00:00"] = localDatetime.split("T");
+    const [year = 1970, month = 1, day = 1] = datePart.split("-").map(Number);
+    const [hour = 0, minute = 0] = timePart.split(":").map(Number);
 
     // Create a UTC date and measure the difference via Intl
     const utcGuess = new Date(Date.UTC(year, month - 1, day, hour, minute));
@@ -318,7 +318,7 @@ export function useTimezoneDate(timezone: string): TimezoneUtils {
 
     if (!localParts) return utcGuess.toISOString();
 
-    const [, ly, lm, ld, lh, lmin] = localParts.map(Number);
+    const [, ly = year, lm = month, ld = day, lh = hour, lmin = minute] = localParts.map(Number);
     const diffMs =
       Date.UTC(year, month - 1, day, hour, minute) -
       Date.UTC(ly, lm - 1, ld, lh, lmin);

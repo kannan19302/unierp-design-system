@@ -73,7 +73,7 @@ export const Avatar: FC<AvatarProps> = ({ src, name = "", size = "md", colorInde
   const px = SIZES[size];
   const initials = getInitials(name);
   const paletteIdx = colorIndex !== undefined ? colorIndex % AVATAR_PALETTE_VARS.length : hashName(name || "?");
-  const palette = AVATAR_PALETTE_VARS[paletteIdx];
+  const palette = AVATAR_PALETTE_VARS[paletteIdx] || AVATAR_PALETTE_VARS[0]!;
 
   return (
     <div

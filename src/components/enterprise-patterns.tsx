@@ -10,12 +10,14 @@ export { ChangeHistory, type ChangeHistoryProps } from "../data-grid/change-hist
 export interface PageHeaderProps {
   title: ReactNode;
   subtitle?: ReactNode;
+  description?: ReactNode;
   breadcrumbs?: BreadcrumbItem[];
   actions?: ReactNode;
   tabs?: ReactNode;
 }
 
-export const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, breadcrumbs, actions, tabs }) => {
+export const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, description, breadcrumbs, actions, tabs }) => {
+  const sub = subtitle ?? description;
   return (
     <div
       style={{
@@ -31,7 +33,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, breadcrumbs, 
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "var(--space-4)" }}>
         <div>
           <h1 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, margin: 0, color: "var(--color-text)" }}>{title}</h1>
-          {subtitle && <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)", marginTop: "4px" }}>{subtitle}</div>}
+          {sub && <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)", marginTop: "4px" }}>{sub}</div>}
         </div>
         {actions && <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>{actions}</div>}
       </div>
@@ -275,7 +277,7 @@ export function useVirtualScroll({
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver(([entry]) => {
-      setViewportHeight(entry.contentRect.height);
+      if (entry) setViewportHeight(entry.contentRect.height);
     });
     ro.observe(el);
     setViewportHeight(el.clientHeight);
@@ -293,7 +295,7 @@ export function useVirtualScroll({
   const endIndex = Math.min(itemCount, rawStart + visibleCount + overscan);
   const offsetY = startIndex * rowHeight;
 
-  return { containerRef, totalHeight, startIndex, endIndex, offsetY, onScroll };
+  return { containerRef: containerRef as unknown as React.RefObject<HTMLDivElement>, totalHeight, startIndex, endIndex, offsetY, onScroll };
 }
 
 // ── DataTable — column-resizable table ───────────────

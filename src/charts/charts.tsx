@@ -463,14 +463,14 @@ export const Sparkline: React.FC<SparklineProps> = ({
 // ── Extended Charts (Line, Area, Funnel, Gauge, Heatmap, Combo) ─────────────
 export const LineChart: FC<{ data: number[]; labels?: string[]; width?: number; height?: number }> = ({
   data,
-  labels,
+  labels: _labels,
   width = 300,
   height = 150,
 }) => <Sparkline data={data} width={width} height={height} fill={false} />;
 
 export const AreaChart: FC<{ data: number[]; labels?: string[]; width?: number; height?: number }> = ({
   data,
-  labels,
+  labels: _labels,
   width = 300,
   height = 150,
 }) => <Sparkline data={data} width={width} height={height} fill={true} />;

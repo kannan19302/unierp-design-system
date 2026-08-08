@@ -3,8 +3,6 @@
 import {
   useState,
   useEffect,
-  useRef,
-  useCallback,
   type FC,
   type ReactNode,
 } from "react";
@@ -36,7 +34,7 @@ export function useCommandPalette() {
 
 // ── Breadcrumb ────────────────────────────────────────
 export interface BreadcrumbItem {
-  key: string;
+  key?: string;
   label: ReactNode;
   href?: string;
   onClick?: () => void;

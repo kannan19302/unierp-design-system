@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode, type CSSProperties } from "react";
+import { type FC, type ReactNode } from "react";
 import { AlertCircle, CheckCircle2, Info, XCircle, X } from "lucide-react";
 import { Spinner } from "./spinner";
 

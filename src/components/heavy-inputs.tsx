@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useCallback, type FC, type ReactNode } from "react";
-import { Upload, FileText, Image as ImageIcon, Check, X } from "lucide-react";
+import { useState, useRef, useCallback, type FC } from "react";
+import { Upload, Image as ImageIcon } from "lucide-react";
 
 // ── useChunkedUpload — Blob.slice chunked upload hook ─
 // B07: Files larger than a configurable threshold are sent in chunks.

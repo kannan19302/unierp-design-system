@@ -41,7 +41,7 @@ function useFocusTrap(containerRef: React.RefObject<HTMLElement | null>, active:
 
     // Move focus into the container
     const focusables = getFocusableElements(container);
-    if (focusables.length) focusables[0].focus();
+    if (focusables.length && focusables[0]) focusables[0].focus();
     else container.focus();
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -54,12 +54,12 @@ function useFocusTrap(containerRef: React.RefObject<HTMLElement | null>, active:
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       if (e.shiftKey) {
-        if (document.activeElement === first) {
+        if (document.activeElement === first && last) {
           e.preventDefault();
           last.focus();
         }
       } else {
-        if (document.activeElement === last) {
+        if (document.activeElement === last && first) {
           e.preventDefault();
           first.focus();
         }
@@ -451,7 +451,7 @@ export interface TooltipProps {
   id?: string;
 }
 
-export const Tooltip: FC<TooltipProps> = ({ content, children, side = "top", id }) => {
+export const Tooltip: FC<TooltipProps> = ({ content, children, side: _side = "top", id }) => {
   const [visible, setVisible] = useState(false);
   const tooltipId = id ?? `tooltip-${Math.random().toString(36).slice(2)}`;
 
