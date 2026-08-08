@@ -123,3 +123,24 @@ html {
     background-color var(--duration-slow) var(--ease-default),
     color var(--duration-slow) var(--ease-default);
 }
+
+/* ── Reduced Motion Override (B24) ──
+   When prefers-reduced-motion is active, motion duration tokens drop to 0ms
+   and non-essential animations are suppressed so no information is lost. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

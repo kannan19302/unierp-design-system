@@ -9,6 +9,11 @@ export {
   type BrandingTokens,
 } from "./theme-provider";
 export {
+  validateTenantBrandContrast,
+  getContrastRatio,
+  type ContrastValidationResult,
+} from "./branding";
+export {
   THEMES,
   DEFAULT_THEME,
   type ThemeName,
