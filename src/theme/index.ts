@@ -1,6 +1,6 @@
 "use client";
 
-// @unerp/ui-theme — theme management for the UniERP Design System
+// @kannan19302/ui-theme — theme management for the UniERP Design System
 export {
   ThemeProvider,
   useTheme,

@@ -1,6 +1,6 @@
 "use client";
 
-// @unerp/ui-hooks — generic UI hooks
+// @kannan19302/ui-hooks — generic UI hooks
 export { useDebouncedValue } from "./use-debounced-value";
 export { useDisclosure, type UseDisclosureReturn } from "./use-disclosure";
 export {

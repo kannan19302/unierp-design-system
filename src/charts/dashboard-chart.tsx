@@ -33,7 +33,7 @@ import { ChartTypePicker, type ChartType } from "./chart-type-picker";
 // Dashboard Chart — universal Recharts wrapper
 // ─────────────────────────────────────────────────
 
-// Theme-aware categorical palette (tokens defined in @unerp/ui-tokens charts.css)
+// Theme-aware categorical palette (tokens defined in @kannan19302/ui-tokens charts.css)
 const FALLBACK_COLORS = [
   "var(--chart-1)",
   "var(--chart-2)",

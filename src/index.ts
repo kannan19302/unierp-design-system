@@ -1,12 +1,12 @@
 // ─────────────────────────────────────────────────
-// @unerp/ui — the UniERP Design System, one package.
+// @kannan19302/ui — the UniERP Design System, one package.
 // The root barrel is the convenience surface; prefer a subpath so the
 // consumer only pays for what it uses:
-//   @unerp/ui/components, @unerp/ui/layout, @unerp/ui/charts,
-//   @unerp/ui/data-grid, @unerp/ui/dashboard, @unerp/ui/notifications,
-//   @unerp/ui/theme, @unerp/ui/tokens, @unerp/ui/hooks, @unerp/ui/utils,
-//   @unerp/ui/icons, @unerp/ui/form-engine, @unerp/ui/workflow
-// PLATFORM_ARCHITECTURE.md § 7.2 — the 13 @unerp/ui-* packages were merged
+//   @kannan19302/ui/components, @kannan19302/ui/layout, @kannan19302/ui/charts,
+//   @kannan19302/ui/data-grid, @kannan19302/ui/dashboard, @kannan19302/ui/notifications,
+//   @kannan19302/ui/theme, @kannan19302/ui/tokens, @kannan19302/ui/hooks, @kannan19302/ui/utils,
+//   @kannan19302/ui/icons, @kannan19302/ui/form-engine, @kannan19302/ui/workflow
+// PLATFORM_ARCHITECTURE.md § 7.2 — the 13 @kannan19302/ui-* packages were merged
 // here so the extraction in Phase 3 publishes one artifact, not fourteen.
 // ─────────────────────────────────────────────────
 

@@ -1,14 +1,13 @@
 "use client";
 
 import {
-  useEffect,
   useId,
   useState,
   type FC,
   type ReactNode,
   type CSSProperties,
 } from "react";
-import { ChevronLeft, ChevronRight, ChevronDown, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import styles from "./navigation.module.css";
 
 // ── Tabs ──────────────────────────────────────────────
@@ -120,21 +119,6 @@ export const Tabs: FC<TabsProps> = ({
   );
 };
 
-// ── Tooltip ───────────────────────────────────────────
-export interface TooltipProps {
-  content: ReactNode;
-  children: ReactNode;
-}
-export const Tooltip: FC<TooltipProps> = ({ content, children }) => {
-  return (
-    <span className={styles.tooltip_container}>
-      {children}
-      <span role="tooltip" className={styles.tooltip_content}>
-        {content}
-      </span>
-    </span>
-  );
-};
 
 // ── Pagination ────────────────────────────────────────
 export interface PaginationProps {
@@ -221,77 +205,6 @@ export const Pagination: FC<PaginationProps> = ({
   );
 };
 
-// ── Drawer ────────────────────────────────────────────
-export interface DrawerProps {
-  open: boolean;
-  onClose: () => void;
-  title?: ReactNode;
-  size?: "sm" | "md" | "lg";
-  /** Legacy numeric width — prefer `size`. */
-  width?: number;
-  children?: ReactNode;
-  footer?: ReactNode;
-}
-
-const DRAWER_WIDTH: Record<NonNullable<DrawerProps["size"]>, number> = {
-  sm: 360,
-  md: 480,
-  lg: 640,
-};
-
-export const Drawer: FC<DrawerProps> = ({
-  open,
-  onClose,
-  title,
-  size = "md",
-  width,
-  children,
-  footer,
-}) => {
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  const contentStyle: CSSProperties = {
-    width: width ?? DRAWER_WIDTH[size],
-  };
-
-  return (
-    <div
-      className={styles.drawer_overlay}
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div
-        role="dialog"
-        aria-modal="true"
-        className={styles.drawer_content}
-        style={contentStyle}
-      >
-        <div className={styles.drawer_header}>
-          <h2 className={styles.drawer_title}>{title}</h2>
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            className={styles.drawer_close_btn}
-          >
-            <X size={18} />
-          </button>
-        </div>
-        <div className={styles.drawer_body}>{children}</div>
-        {footer && <div className={styles.drawer_footer}>{footer}</div>}
-      </div>
-    </div>
-  );
-};
 
 // ── Disclosure ────────────────────────────────────────
 export interface DisclosureProps {

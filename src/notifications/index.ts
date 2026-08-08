@@ -1,6 +1,6 @@
 "use client";
 
-// @unerp/ui-notifications — toasts & banners
+// @kannan19302/ui-notifications — toasts & banners
 export {
   ToastProvider,
   useToast,

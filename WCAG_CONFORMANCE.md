@@ -1,8 +1,8 @@
-# WCAG 2.2 AA Conformance Statement — UniERP Design System (@unerp/ui)
+# WCAG 2.2 AA Conformance Statement — UniERP Design System (@kannan19302/ui)
 
 **Published:** August 2026  
 **Conformance Level:** WCAG 2.2 Level AA  
-**Scope:** All exported components in `@unerp/ui` / `@unerp/design-system` and all standard routes in `unierp-web`.
+**Scope:** All exported components in `@kannan19302/ui` / `@kannan19302/design-system` and all standard routes in `unierp-web`.
 
 ## 1. Executive Summary
 UniERP Design System is designed and tested to conform to the **Web Content Accessibility Guidelines (WCAG) 2.2 Level AA**. Zero `axe-core` accessibility violations are enforced via automated CI testing on every pull request.

@@ -31,7 +31,7 @@ function getFocusableElements(container: HTMLElement): HTMLElement[] {
 }
 
 /** useFocusTrap — traps Tab/Shift+Tab inside `containerRef` while `active`. */
-function useFocusTrap(containerRef: React.RefObject<HTMLElement | null>, active: boolean) {
+export function useFocusTrap(containerRef: React.RefObject<HTMLElement | null>, active: boolean) {
   useEffect(() => {
     if (!active || !containerRef.current) return;
     const container = containerRef.current;
@@ -76,7 +76,7 @@ function useFocusTrap(containerRef: React.RefObject<HTMLElement | null>, active:
 }
 
 /** useScrollLock — locks body scroll while `active`. */
-function useScrollLock(active: boolean) {
+export function useScrollLock(active: boolean) {
   useEffect(() => {
     if (!active) return;
     const original = document.body.style.overflow;
@@ -88,7 +88,7 @@ function useScrollLock(active: boolean) {
 }
 
 /** useEscapeKey — calls `onClose` when Escape is pressed. */
-function useEscapeKey(onClose: () => void, active: boolean) {
+export function useEscapeKey(onClose: () => void, active: boolean) {
   useEffect(() => {
     if (!active) return;
     const onKey = (e: KeyboardEvent) => {
@@ -103,11 +103,11 @@ function useEscapeKey(onClose: () => void, active: boolean) {
 }
 
 // ── Portal wrapper ─────────────────────────────────────
-interface PortalProps {
+export interface PortalProps {
   children: ReactNode;
 }
 
-const Portal: FC<PortalProps> = ({ children }) => {
+export const Portal: FC<PortalProps> = ({ children }) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
@@ -495,15 +495,27 @@ export interface DrawerProps {
   onClose: () => void;
   title?: ReactNode;
   side?: "left" | "right" | "top" | "bottom";
+  size?: "sm" | "md" | "lg";
+  width?: number;
+  footer?: ReactNode;
   children?: ReactNode;
   "aria-label"?: string;
 }
+
+const DRAWER_WIDTH: Record<NonNullable<DrawerProps["size"]>, number> = {
+  sm: 360,
+  md: 480,
+  lg: 640,
+};
 
 export const Drawer: FC<DrawerProps> = ({
   open,
   onClose,
   title,
   side = "right",
+  size = "md",
+  width,
+  footer,
   children,
   "aria-label": ariaLabel,
 }) => {
@@ -514,9 +526,10 @@ export const Drawer: FC<DrawerProps> = ({
 
   if (!open) return null;
 
+  const contentWidth = width ?? DRAWER_WIDTH[size];
   const sideStyles: Record<string, CSSProperties> = {
-    right: { top: 0, right: 0, bottom: 0, width: "380px" },
-    left: { top: 0, left: 0, bottom: 0, width: "380px" },
+    right: { top: 0, right: 0, bottom: 0, width: contentWidth },
+    left: { top: 0, left: 0, bottom: 0, width: contentWidth },
     top: { top: 0, left: 0, right: 0, height: "300px" },
     bottom: { bottom: 0, left: 0, right: 0, height: "300px" },
   };
@@ -576,6 +589,7 @@ export const Drawer: FC<DrawerProps> = ({
           </button>
         </div>
         <div style={{ flex: 1, overflowY: "auto" }}>{children}</div>
+        {footer && <div style={{ marginTop: "var(--space-4)" }}>{footer}</div>}
       </div>
     </Portal>
   );

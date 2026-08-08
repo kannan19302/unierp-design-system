@@ -1,6 +1,6 @@
 "use client";
 
-// @unerp/ui-layout — page scaffolding
+// @kannan19302/ui-layout — page scaffolding
 export { PageHeader, type PageHeaderProps } from "./page-header";
 export {
   ViewSwitcher,

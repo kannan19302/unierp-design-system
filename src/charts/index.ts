@@ -1,6 +1,6 @@
 "use client";
 
-// @unerp/ui-charts — visualization components
+// @kannan19302/ui-charts — visualization components
 export {
   KPICard,
   MiniBarChart,

@@ -19,8 +19,8 @@ export const CommandPaletteDefault: StoryObj = {
       open={true}
       onClose={() => {}}
       items={[
-        { id: "1", label: "Dashboard", category: "Navigation", onSelect: () => {} },
-        { id: "2", label: "Create User", category: "Actions", onSelect: () => {} },
+        { id: "1", title: "Dashboard", category: "Navigation", onSelect: () => {} },
+        { id: "2", title: "Create User", category: "Actions", onSelect: () => {} },
       ]}
     />
   ),

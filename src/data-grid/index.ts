@@ -1,6 +1,6 @@
 "use client";
 
-// @unerp/ui-data-grid — tabular & board data views
+// @kannan19302/ui-data-grid — tabular & board data views
 export {
   DataTable,
   type Column,

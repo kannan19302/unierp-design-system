@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties, FC, ReactNode } from "react";
-import { Tooltip } from "./navigation";
+import { Tooltip } from "./overlays";
 
 // ── InfoHint ──────────────────────────────────────────
 // The platform-wide "What does this do?" affordance: a small (i) icon that

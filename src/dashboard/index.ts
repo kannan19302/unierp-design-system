@@ -1,6 +1,6 @@
 "use client";
 
-// @unerp/ui-dashboard — dashboard composites
+// @kannan19302/ui-dashboard — dashboard composites
 export {
   DashboardKPICard,
   type DashboardKPICardProps,

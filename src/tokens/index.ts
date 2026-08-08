@@ -1,6 +1,6 @@
 /**
- * @unerp/ui-tokens — design-token metadata.
- * The tokens themselves ship as CSS (import '@unerp/ui-tokens/css').
+ * @kannan19302/ui-tokens — design-token metadata.
+ * The tokens themselves ship as CSS (import '@kannan19302/ui-tokens/css').
  */
 export const THEMES = [
   "enterprise",

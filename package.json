@@ -1,5 +1,5 @@
 {
-  "name": "@unerp/ui",
+  "name": "@kannan19302/ui",
   "version": "1.0.15",
   "description": "UniERP Design System — one package, subpath exports (PLATFORM_ARCHITECTURE.md § 7.2)",
   "main": "./dist/index.js",
@@ -123,7 +123,7 @@
     "@types/node": "^26.1.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.2.4",
-    "@unerp/config": "^1.0.2",
+    "@kannan19302/config": "^1.0.2",
     "@vitejs/plugin-react": "^4.3.0",
     "jsdom": "^25.0.0",
     "next": "^16.3.0",

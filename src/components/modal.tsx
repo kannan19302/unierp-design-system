@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type FC, type ReactNode } from "react";
-import { createPortal } from "react-dom";
+import { useRef, type FC, type ReactNode } from "react";
+import { Portal, useEscapeKey, useFocusTrap, useScrollLock } from "./overlays";
 import { X } from "lucide-react";
 import { Button } from "./button";
 import styles from "./modal.module.css";
@@ -17,7 +17,7 @@ export interface ModalProps {
   closeOnOverlay?: boolean;
 }
 
-/** Accessible modal: Native HTML5 <dialog> element with native focus trapping and backdrop. */
+/** Accessible modal using shared overlay primitives. */
 export const Modal: FC<ModalProps> = ({
   open,
   onClose,
@@ -28,85 +28,39 @@ export const Modal: FC<ModalProps> = ({
   children,
   closeOnOverlay = true,
 }) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Keep dialog.open in sync with React open prop
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog || !mounted) return;
-
-    let originalOverflow: string | undefined;
-    if (open) {
-      if (!dialog.open) {
-        dialog.showModal();
-        // Prevent body scroll
-        originalOverflow = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-      }
-    } else {
-      if (dialog.open) {
-        dialog.close();
-      }
-    }
-
-    return () => {
-      if (originalOverflow !== undefined) {
-        document.body.style.overflow = originalOverflow;
-      }
-    };
-  }, [open, mounted]);
-
-  // Handle native ESC cancel and overlay clicks (light dismiss)
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog || !mounted) return;
-
-    const handleCancel = (e: Event) => {
-      e.preventDefault();
-      onClose();
-    };
-
-    const handleOverlayClick = (e: MouseEvent) => {
-      if (!closeOnOverlay) return;
-      const rect = dialog.getBoundingClientRect();
-      const isInDialog =
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom;
-      if (!isInDialog) {
-        onClose();
-      }
-    };
-
-    dialog.addEventListener("cancel", handleCancel);
-    dialog.addEventListener("click", handleOverlayClick);
-
-    return () => {
-      dialog.removeEventListener("cancel", handleCancel);
-      dialog.removeEventListener("click", handleOverlayClick);
-    };
-  }, [onClose, closeOnOverlay, mounted]);
+  useEscapeKey(onClose, open);
+  useFocusTrap(dialogRef, open);
+  useScrollLock(open);
 
   const dialogClass = [styles.dialog, styles[size]].join(" ");
 
-  if (!mounted) {
-    return null;
-  }
+  if (!open) return null;
 
-  // In test environment render dialog inline to avoid portal issues
-  if (process.env.NODE_ENV === "test") {
-    return (
-      <dialog
+  const content = (
+    <>
+      {/* Backdrop */}
+      <div
+        className={styles.backdrop}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          background: "rgba(0, 0, 0, 0.4)",
+        }}
+        onClick={closeOnOverlay ? onClose : undefined}
+        aria-hidden="true"
+      />
+      {/* Dialog */}
+      <div
         ref={dialogRef}
-        className={dialogClass}
+        role="dialog"
+        aria-modal="true"
         aria-labelledby={title ? "modal-title" : undefined}
-        open={open}
+        className={dialogClass}
+        tabIndex={-1}
+        style={{ zIndex: 10000 }}
       >
         {(title || description) && (
           <div className={styles.header}>
@@ -116,9 +70,7 @@ export const Modal: FC<ModalProps> = ({
                   {title}
                 </h2>
               )}
-              {description && (
-                <p className={styles.description}>{description}</p>
-              )}
+              {description && <p className={styles.description}>{description}</p>}
             </div>
             <button
               onClick={onClose}
@@ -131,41 +83,16 @@ export const Modal: FC<ModalProps> = ({
         )}
         <div className={styles.body}>{children}</div>
         {footer && <div className={styles.footer}>{footer}</div>}
-      </dialog>
-    );
+      </div>
+    </>
+  );
+
+  // In test environment render inline
+  if (process.env.NODE_ENV === "test") {
+    return content;
   }
 
-  // Default rendering for non-test environments uses portal
-  return createPortal(
-    <dialog
-      ref={dialogRef}
-      className={dialogClass}
-      aria-labelledby={title ? "modal-title" : undefined}
-    >
-      {(title || description) && (
-        <div className={styles.header}>
-          <div>
-            {title && (
-              <h2 id="modal-title" className={styles.title}>
-                {title}
-              </h2>
-            )}
-            {description && <p className={styles.description}>{description}</p>}
-          </div>
-          <button
-            onClick={onClose}
-            className={styles.close_btn}
-            aria-label="Close"
-          >
-            <X size={18} />
-          </button>
-        </div>
-      )}
-      <div className={styles.body}>{children}</div>
-      {footer && <div className={styles.footer}>{footer}</div>}
-    </dialog>,
-    document.body,
-  );
+  return <Portal>{content}</Portal>;
 };
 
 export interface ConfirmDialogProps {

@@ -1,6 +1,6 @@
 "use client";
 
-// @unerp/ui-components — UniERP Design System primitives
+// @kannan19302/ui-components — UniERP Design System primitives
 export { Button, type ButtonProps } from "./button";
 export { Badge, type BadgeProps } from "./badge";
 export { StatusBadge, type StatusBadgeProps } from "./status-badge";
@@ -32,15 +32,11 @@ export {
 } from "./form";
 export {
   Tabs,
-  Tooltip,
   Pagination,
-  Drawer,
   Disclosure,
   type TabsProps,
   type TabItem,
-  type TooltipProps,
   type PaginationProps,
-  type DrawerProps,
   type DisclosureProps,
 } from "./navigation";
 export {

@@ -1,7 +1,7 @@
 /**
- * @unerp/ui-form-engine — schema-driven form building blocks.
+ * @kannan19302/ui-form-engine — schema-driven form building blocks.
  * Pre-v1 this is a thin layer over the form primitives; the schema-driven
- * engine (FormView in @unerp/framework) migrates here post-v1.
+ * engine (FormView in @kannan19302/framework) migrates here post-v1.
  */
 export {
   FormField,

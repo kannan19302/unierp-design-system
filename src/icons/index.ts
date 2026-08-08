@@ -1,5 +1,5 @@
 /**
- * @unerp/ui-icons — the single icon API for the UniERP platform.
+ * @kannan19302/ui-icons — the single icon API for the UniERP platform.
  * Re-exports the lucide icon set today; the indirection lets us swap or
  * extend the underlying set without touching consumers.
  */
