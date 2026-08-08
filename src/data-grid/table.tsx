@@ -15,6 +15,32 @@ export interface Column<T> {
   exportValue?: (row: T) => string | number | boolean | null | undefined;
 }
 
+/**
+ * Standard styled Table container component.
+ * Replaces native <table> tags across consuming apps for token compliance.
+ */
+export const Table: FC<React.TableHTMLAttributes<HTMLTableElement>> = ({
+  children,
+  style,
+  className,
+  ...props
+}) => (
+  <table
+    {...props}
+    className={className}
+    style={{
+      width: "100%",
+      borderCollapse: "collapse",
+      fontSize: "var(--text-sm)",
+      color: "var(--color-text)",
+      ...style,
+    }}
+  >
+    {children}
+  </table>
+);
+
+
 export type SortOrder = "asc" | "desc";
 
 export interface DataTableProps<T> {
