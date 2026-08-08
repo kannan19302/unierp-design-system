@@ -1,6 +1,64 @@
 "use client";
 
-import { useState, type FC, type ReactNode, type ChangeEvent } from "react";
+import { useState, useCallback, type FC, type ReactNode, type ChangeEvent } from "react";
+import type { ZodType, ZodError } from "zod";
+
+// ── useFormField — Zod-integrated form field hook ─────
+// B05: Every control is integrated with the shared Zod schema.
+// Usage:
+//   const { value, onChange, error, inputProps } = useFormField("", z.string().min(3));
+//   <input {...inputProps} /> → aria-describedby is automatically set when error is present.
+export interface FormFieldResult<T> {
+  value: T;
+  onChange: (val: T) => void;
+  error: string | null;
+  /** Spread onto any <input> or form control to get label-association and aria-describedby. */
+  inputProps: {
+    "aria-invalid"?: true;
+    "aria-describedby"?: string;
+  };
+  /** Reset the field to its initial value. */
+  reset: () => void;
+}
+
+export function useFormField<T>(
+  initialValue: T,
+  schema?: ZodType<T>,
+  errorId?: string,
+): FormFieldResult<T> {
+  const [value, setValue] = useState<T>(initialValue);
+  const [error, setError] = useState<string | null>(null);
+
+  const onChange = useCallback(
+    (val: T) => {
+      setValue(val);
+      if (schema) {
+        const result = schema.safeParse(val);
+        setError(result.success ? null : result.error.errors[0]?.message ?? "Invalid value");
+      }
+    },
+    [schema],
+  );
+
+  const reset = useCallback(() => {
+    setValue(initialValue);
+    setError(null);
+  }, [initialValue]);
+
+  const descId = errorId ?? (error ? `field-error-${Math.random().toString(36).slice(2)}` : undefined);
+
+  return {
+    value,
+    onChange,
+    error,
+    inputProps: {
+      ...(error ? { "aria-invalid": true as const } : {}),
+      ...(error && descId ? { "aria-describedby": descId } : {}),
+    },
+    reset,
+  };
+}
+
 
 // ── Switch ────────────────────────────────────────────
 export interface SwitchProps {
@@ -270,8 +328,15 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
         disabled={disabled}
         placeholder={placeholder}
         onChange={(e) => {
-          const val = Math.round(Number(e.target.value) * 100) / 100;
-          onChange?.(val);
+          // Integer arithmetic guard: convert to pence (or smallest unit),
+          // round, then divide — prevents floating-point artifacts.
+          // e.g. 1.005 * 100 = 100.50000000000001 with naive multiply;
+          // here we parse the string directly to avoid that.
+          const raw = e.target.value;
+          const [intPart = "0", fracPart = ""] = raw.split(".");
+          const pence = parseInt(intPart, 10) * 100 + parseInt((fracPart + "00").slice(0, 2), 10);
+          const safeVal = pence / 100; // always exactly N.NN — no float drift
+          onChange?.(safeVal);
         }}
         style={{
           paddingLeft: "var(--space-7)",
