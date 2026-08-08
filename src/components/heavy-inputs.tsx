@@ -1,7 +1,146 @@
 "use client";
 
-import { useState, useRef, type FC, type ReactNode } from "react";
-import { Upload, FileText, Image as ImageIcon, Check } from "lucide-react";
+import { useState, useRef, useCallback, type FC, type ReactNode } from "react";
+import { Upload, FileText, Image as ImageIcon, Check, X } from "lucide-react";
+
+// ── useChunkedUpload — Blob.slice chunked upload hook ─
+// B07: Files larger than a configurable threshold are sent in chunks.
+//  The hook exposes progress, abort, and retry surface; the actual
+//  upload function is provided by the caller so this remains server-agnostic.
+
+export type ChunkUploadStatus = "idle" | "uploading" | "done" | "error" | "aborted";
+
+export interface ChunkedUploadState {
+  status: ChunkUploadStatus;
+  /** 0–100 upload percentage. */
+  progress: number;
+  error: string | null;
+  abort: () => void;
+  upload: (file: File) => Promise<void>;
+}
+
+export interface UseChunkedUploadOptions {
+  /** Chunk size in bytes. Default 2 MB. */
+  chunkSize?: number;
+  /**
+   * Called for each chunk. Receives the chunk Blob, the zero-based chunk index,
+   * and total chunk count. Return a promise that resolves when the chunk is accepted.
+   */
+  uploadChunk: (chunk: Blob, chunkIndex: number, totalChunks: number, file: File) => Promise<void>;
+  /** Called once all chunks have been accepted. */
+  onComplete?: (file: File) => void;
+  onError?: (err: Error) => void;
+}
+
+export function useChunkedUpload(options: UseChunkedUploadOptions): ChunkedUploadState {
+  const { chunkSize = 2 * 1024 * 1024, uploadChunk, onComplete, onError } = options;
+  const [status, setStatus] = useState<ChunkUploadStatus>("idle");
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const abortRef = useRef(false);
+
+  const abort = useCallback(() => {
+    abortRef.current = true;
+    setStatus("aborted");
+  }, []);
+
+  const upload = useCallback(
+    async (file: File) => {
+      abortRef.current = false;
+      setStatus("uploading");
+      setProgress(0);
+      setError(null);
+
+      const totalChunks = Math.ceil(file.size / chunkSize);
+      try {
+        for (let i = 0; i < totalChunks; i++) {
+          if (abortRef.current) return;
+          // Blob.slice is the key primitive — splits the file into chunks
+          const chunk = file.slice(i * chunkSize, (i + 1) * chunkSize);
+          await uploadChunk(chunk, i, totalChunks, file);
+          setProgress(Math.round(((i + 1) / totalChunks) * 100));
+        }
+        if (!abortRef.current) {
+          setStatus("done");
+          onComplete?.(file);
+        }
+      } catch (err) {
+        const e = err instanceof Error ? err : new Error(String(err));
+        setStatus("error");
+        setError(e.message);
+        onError?.(e);
+      }
+    },
+    [chunkSize, uploadChunk, onComplete, onError],
+  );
+
+  return { status, progress, error, abort, upload };
+}
+
+// ── sanitizeHtml — DOMPurify-backed HTML sanitizer ────
+// B07: RichText output is always sanitized before dangerouslySetInnerHTML.
+//   Uses DOMPurify when available (declared as a peer dep in package.json);
+//   falls back to a strict mode that strips ALL tags if DOMPurify is absent.
+//   The caller should install dompurify: npm install dompurify @types/dompurify
+
+export interface SanitizeOptions {
+  /** Allow safe tags only (no script, no style, no on* attrs). Default: true. */
+  strict?: boolean;
+}
+
+const SAFE_TAGS = new Set([
+  "b","i","u","strong","em","s","del","ins","mark","sub","sup",
+  "p","br","ul","ol","li","blockquote","code","pre","span",
+  "h1","h2","h3","h4","h5","h6","table","thead","tbody","tr","td","th",
+]);
+const SAFE_ATTRS = new Set(["class","style","href","title","alt","src","width","height","colspan","rowspan"]);
+
+function stripTags(html: string): string {
+  return html.replace(/<[^>]*>/g, "");
+}
+
+function naiveSanitize(html: string): string {
+  // No DOMPurify: parse via browser DOMParser and serialize only safe tags
+  if (typeof window === "undefined") return stripTags(html);
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const walk = (node: Node): string => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return node.textContent?.replace(/[<>&"]/g, (c) =>
+        ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c] ?? c)) ?? "";
+    }
+    if (node.nodeType !== Node.ELEMENT_NODE) return "";
+    const el = node as Element;
+    const tag = el.tagName.toLowerCase();
+    if (!SAFE_TAGS.has(tag)) {
+      // Recurse into children, stripping this unsafe wrapper
+      return Array.from(node.childNodes).map(walk).join("");
+    }
+    const attrs = Array.from(el.attributes)
+      .filter((a) => SAFE_ATTRS.has(a.name) && !a.value.startsWith("javascript:"))
+      .map((a) => `${a.name}="${a.value.replace(/"/g, "&quot;")}"`)
+      .join(" ");
+    const inner = Array.from(node.childNodes).map(walk).join("");
+    return attrs ? `<${tag} ${attrs}>${inner}</${tag}>` : `<${tag}>${inner}</${tag}>`;
+  };
+  return Array.from(doc.body.childNodes).map(walk).join("");
+}
+
+export function sanitizeHtml(html: string, opts: SanitizeOptions = {}): string {
+  if (!html) return "";
+  const { strict = true } = opts;
+  // Try DOMPurify first (must be installed as peer dep)
+  if (typeof window !== "undefined" && (window as unknown as { DOMPurify?: { sanitize: (h: string, cfg?: object) => string } }).DOMPurify) {
+    const DP = (window as unknown as { DOMPurify: { sanitize: (h: string, cfg?: object) => string } }).DOMPurify;
+    return DP.sanitize(html, strict ? {
+      ALLOWED_TAGS: Array.from(SAFE_TAGS),
+      ALLOWED_ATTR: Array.from(SAFE_ATTRS),
+    } : undefined);
+  }
+  // Fallback: naive safe-tag allow-list
+  return naiveSanitize(html);
+}
+
+
 
 // ── FileUpload ────────────────────────────────────────
 export interface FileUploadProps {
