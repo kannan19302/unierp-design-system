@@ -1,6 +1,104 @@
 "use client";
 
-import React, { type FC } from "react";
+import React, { type FC, useState as _useChartState } from "react";
+
+// ── Chart colour palette — uses CSS token vars from tokens/charts.css ────────
+// B10: No chart hardcodes a colour. All series reference the --chart-N scale.
+//   Themes override --chart-N to ensure contrast in light and dark.
+export const CHART_PALETTE = [
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+  "var(--chart-6)",
+  "var(--chart-7)",
+  "var(--chart-8)",
+  "var(--chart-9)",
+  "var(--chart-10)",
+];
+
+// ── ChartAccessibleWrapper ─────────────────────────────────────────────────
+// B10: Every chart is keyboard-navigable with a data-table fallback.
+//   Screen readers read the aria-label. Keyboard users can toggle a table.
+export interface ChartAccessibleWrapperProps {
+  /** Accessible description of what the chart shows. */
+  label: string;
+  /** Columns and rows for the data-table fallback. */
+  tableData?: { columns: string[]; rows: (string | number)[][] };
+  children: React.ReactNode;
+}
+
+export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
+  label,
+  tableData,
+  children,
+}) => {
+  const [showTable, setShowTable] = _useChartState(false);
+
+  return (
+    <figure
+      role="figure"
+      aria-label={label}
+      style={{ margin: 0 }}
+    >
+      {/* Chart visual */}
+      <div aria-hidden={showTable}>
+        {children}
+      </div>
+      {tableData && (
+        <>
+          <button
+            type="button"
+            onClick={() => setShowTable((p) => !p)}
+            style={{
+              fontSize: "var(--text-xs)",
+              color: "var(--color-text-muted)",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "var(--space-1) 0",
+              display: "block",
+              marginTop: "var(--space-1)",
+            }}
+            aria-expanded={showTable}
+            aria-controls="chart-data-table"
+          >
+            {showTable ? "Hide data table" : "Show data table"}
+          </button>
+          {showTable && (
+            <table
+              id="chart-data-table"
+              style={{ borderCollapse: "collapse", fontSize: "var(--text-xs)", marginTop: "var(--space-2)" }}
+            >
+              <thead>
+                <tr>
+                  {tableData.columns.map((col, i) => (
+                    <th key={i} scope="col" style={{ padding: "var(--space-1) var(--space-2)", borderBottom: "1px solid var(--color-border)", textAlign: "left" }}>
+                      {col}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {tableData.rows.map((row, ri) => (
+                  <tr key={ri}>
+                    {row.map((cell, ci) => (
+                      <td key={ci} style={{ padding: "var(--space-1) var(--space-2)", borderBottom: "1px solid var(--color-border)" }}>
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </>
+      )}
+    </figure>
+  );
+};
+
 
 export interface KPICardProps {
   title: string;
@@ -417,11 +515,14 @@ export const HeatmapChart: FC<{ matrix: number[][] }> = ({ matrix }) => {
           {row.map((val, cIdx) => (
             <div
               key={cIdx}
+              title={String(val)}
+              aria-label={`Value ${val}`}
               style={{
                 width: "20px",
                 height: "20px",
                 borderRadius: "2px",
-                background: `rgba(59, 130, 246, ${Math.min(1, Math.max(0.1, val))})`,
+                // B10: no hardcoded colour — use chart-1 token with opacity
+                background: `color-mix(in srgb, var(--chart-1) ${Math.round(Math.min(1, Math.max(0.1, val)) * 100)}%, transparent)`,
               }}
             />
           ))}
