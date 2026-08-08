@@ -178,25 +178,70 @@ export const Scheduler: FC<SchedulerProps> = ({ events }) => {
 };
 
 // ── FiscalPeriodPicker ────────────────────────────────
+// B06: Fiscal periods respect a tenant's configured calendar.
+//   fiscalYearStartMonth: 1=Jan (calendar year), 4=Apr (UK fiscal), 7=Jul, 10=Oct, etc.
+
+export interface FiscalPeriod {
+  label: string;   // e.g. "Q1 (Apr–Jun FY2026)"
+  value: string;   // machine key, e.g. "FY2026-Q1"
+  startDate: Date;
+  endDate: Date;
+}
+
 export interface FiscalPeriodPickerProps {
   selectedPeriod?: string;
   onSelectPeriod?: (period: string) => void;
   fiscalYear?: number;
+  /** Month the fiscal year starts (1 = January). Default 1 = calendar year. */
+  fiscalYearStartMonth?: number;
+}
+
+const MONTH_NAMES = [
+  "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",
+];
+
+function buildFiscalPeriods(fiscalYear: number, startMonth: number): FiscalPeriod[] {
+  // startMonth is 1-indexed (1=Jan)
+  const sm = startMonth - 1; // 0-indexed
+  const periods: FiscalPeriod[] = [];
+  for (let q = 0; q < 4; q++) {
+    const qStartMonth = (sm + q * 3) % 12;
+    const qEndMonth = (sm + q * 3 + 2) % 12;
+    // The calendar year for the start of this quarter
+    const calYearOffset = Math.floor((sm + q * 3) / 12);
+    const startYear = fiscalYear - (startMonth > 1 ? 1 : 0) + calYearOffset;
+    const endYear = fiscalYear - (startMonth > 1 ? 1 : 0) + Math.floor((sm + q * 3 + 2) / 12);
+    const startDate = new Date(startYear, qStartMonth, 1);
+    const endDate = new Date(endYear, qEndMonth + 1, 0); // last day of end month
+
+    periods.push({
+      label: `Q${q + 1} (${MONTH_NAMES[qStartMonth]}–${MONTH_NAMES[qEndMonth]} FY${fiscalYear})`,
+      value: `FY${fiscalYear}-Q${q + 1}`,
+      startDate,
+      endDate,
+    });
+  }
+  return periods;
 }
 
 export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
-  selectedPeriod = "Q1",
+  selectedPeriod,
   onSelectPeriod,
   fiscalYear = new Date().getFullYear(),
+  fiscalYearStartMonth = 1,
 }) => {
-  const periods = ["Q1 (Jan-Mar)", "Q2 (Apr-Jun)", "Q3 (Jul-Sep)", "Q4 (Oct-Dec)"];
+  const periods = buildFiscalPeriods(fiscalYear, fiscalYearStartMonth);
+  const currentValue = selectedPeriod ?? periods[0].value;
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-      <span style={{ fontSize: "var(--text-xs)", fontWeight: 600, color: "var(--color-text-secondary)" }}>FY{fiscalYear}:</span>
+      <span style={{ fontSize: "var(--text-xs)", fontWeight: 600, color: "var(--color-text-secondary)" }}>
+        FY{fiscalYear}:
+      </span>
       <select
-        value={selectedPeriod}
+        value={currentValue}
         onChange={(e) => onSelectPeriod?.(e.target.value)}
+        aria-label="Fiscal period"
         style={{
           padding: "var(--space-1-5) var(--space-3)",
           border: "1px solid var(--color-border)",
@@ -206,11 +251,80 @@ export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
         }}
       >
         {periods.map((p) => (
-          <option key={p} value={p}>
-            {p}
+          <option key={p.value} value={p.value}>
+            {p.label}
           </option>
         ))}
       </select>
     </div>
   );
 };
+
+// ── useTimezoneDate — timezone-correct date utility ───
+// B06: A date entered in Asia/Kolkata denotes the same instant in America/New_York.
+//
+// Usage:
+//   const { format, toUtcIso } = useTimezoneDate("Asia/Kolkata");
+//   const displayString = format(utcDate);   // shown in Kolkata time
+//   const utcIso = toUtcIso("2024-01-15T10:30"); // parses as Kolkata, returns UTC ISO
+
+export interface TimezoneUtils {
+  /** Format a UTC Date (or ISO string) as a human-readable string in the given timezone. */
+  format: (date: Date | string, opts?: Intl.DateTimeFormatOptions) => string;
+  /** Parse a local datetime string (YYYY-MM-DDTHH:mm) as if it's in the given timezone
+   *  and return the equivalent UTC ISO-8601 string. */
+  toUtcIso: (localDatetime: string) => string;
+  /** The IANA timezone ID this hook was initialised with. */
+  timezone: string;
+}
+
+export function useTimezoneDate(timezone: string): TimezoneUtils {
+  const format = (date: Date | string, opts?: Intl.DateTimeFormatOptions): string => {
+    const d = typeof date === "string" ? new Date(date) : date;
+    return new Intl.DateTimeFormat("en-US", {
+      timeZone: timezone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      ...opts,
+    }).format(d);
+  };
+
+  const toUtcIso = (localDatetime: string): string => {
+    // Parse the local datetime string (no Z suffix) as if it's in the given timezone.
+    // We use Intl to find the offset at that local time.
+    const [datePart, timePart = "00:00"] = localDatetime.split("T");
+    const [year, month, day] = datePart.split("-").map(Number);
+    const [hour, minute] = timePart.split(":").map(Number);
+
+    // Create a UTC date and measure the difference via Intl
+    const utcGuess = new Date(Date.UTC(year, month - 1, day, hour, minute));
+
+    // Format the UTC guess in the target timezone to measure offset
+    const localParts = new Intl.DateTimeFormat("en-CA", {
+      timeZone: timezone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    })
+      .format(utcGuess)
+      .match(/(\d+)-(\d+)-(\d+),? (\d+):(\d+)/);
+
+    if (!localParts) return utcGuess.toISOString();
+
+    const [, ly, lm, ld, lh, lmin] = localParts.map(Number);
+    const diffMs =
+      Date.UTC(year, month - 1, day, hour, minute) -
+      Date.UTC(ly, lm - 1, ld, lh, lmin);
+    return new Date(utcGuess.getTime() + diffMs).toISOString();
+  };
+
+  return { format, toUtcIso, timezone };
+}
+
