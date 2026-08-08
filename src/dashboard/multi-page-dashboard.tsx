@@ -23,14 +23,14 @@ export const MultiPageDashboard: FC<MultiPageDashboardProps> = ({
   pages,
   navActions,
   defaultPageId,
-}) => {
+}: any) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const currentId =
     searchParams.get("dashPage") || defaultPageId || pages[0]?.id;
-  const currentIndex = pages.findIndex((p) => p.id === currentId);
+  const currentIndex = pages.findIndex((p: any) => p.id === currentId);
   const safeIndex = currentIndex >= 0 ? currentIndex : 0;
   const currentPage = pages[safeIndex];
 
@@ -88,7 +88,7 @@ export const MultiPageDashboard: FC<MultiPageDashboardProps> = ({
 
       <div className={styles["mpd-top-bar"]}>
         <div className={styles["mpd-top-tabs"]}>
-          {pages.map((page, i) => (
+          {pages.map((page: any, i: any) => (
             <button
               key={page.id}
               className={`${styles["mpd-tab-btn"]} ${i === safeIndex ? styles.active : ""}`}

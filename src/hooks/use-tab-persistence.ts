@@ -35,9 +35,9 @@ export function useTabPersistence(moduleId: string): UseTabPersistenceReturn {
 
   const togglePin = useCallback(
     (tabId: string) => {
-      setPinned((prev) =>
+      setPinned((prev: any) =>
         prev.includes(tabId)
-          ? prev.filter((p) => p !== tabId)
+          ? prev.filter((p: any) => p !== tabId)
           : [tabId, ...prev],
       );
     },
@@ -52,8 +52,8 @@ export function useTabPersistence(moduleId: string): UseTabPersistenceReturn {
   const trackRecent = useCallback(
     (tabId: string) => {
       if (!tabId || tabId === "overview") return;
-      setRecent((prev) =>
-        [tabId, ...prev.filter((r) => r !== tabId)].slice(0, MAX_RECENT),
+      setRecent((prev: any) =>
+        [tabId, ...prev.filter((r: any) => r !== tabId)].slice(0, MAX_RECENT),
       );
     },
     [setRecent],

@@ -43,7 +43,7 @@ export function KanbanBoard<T extends KanbanItem>({
   ) => {
     e.preventDefault();
     const itemId = e.dataTransfer.getData("text/plain");
-    const item = items.find((i) => i.id === itemId);
+    const item = items.find((i: any) => i.id === itemId);
     if (item && item.columnKey !== targetColumn && onCardMove) {
       onCardMove(itemId, item.columnKey, targetColumn);
     }
@@ -67,13 +67,13 @@ export function KanbanBoard<T extends KanbanItem>({
         minHeight: "400px",
       }}
     >
-      {columns.map((col) => {
-        const colItems = items.filter((i) => i.columnKey === col.key);
+      {columns.map((col: any) => {
+        const colItems = items.filter((i: any) => i.columnKey === col.key);
         return (
           <div
             key={col.key}
             onDragOver={handleDragOver}
-            onDrop={(e) => handleDrop(e, col.key)}
+            onDrop={(e: any) => handleDrop(e, col.key)}
             style={{
               flex: "1 1 280px",
               minWidth: "260px",
@@ -165,11 +165,11 @@ export function KanbanBoard<T extends KanbanItem>({
                   Drop items here
                 </div>
               ) : (
-                colItems.map((item) => (
+                colItems.map((item: any) => (
                   <div
                     key={item.id}
                     draggable
-                    onDragStart={(e) => handleDragStart(e, item.id)}
+                    onDragStart={(e: any) => handleDragStart(e, item.id)}
                     style={{
                       background: "var(--color-bg-elevated)",
                       border: "1px solid var(--color-border)",
@@ -179,11 +179,11 @@ export function KanbanBoard<T extends KanbanItem>({
                       transition:
                         "box-shadow var(--duration-fast), transform var(--duration-fast)",
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={(e: any) => {
                       e.currentTarget.style.boxShadow = "var(--shadow-md)";
                       e.currentTarget.style.transform = "translateY(-1px)";
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={(e: any) => {
                       e.currentTarget.style.boxShadow = "none";
                       e.currentTarget.style.transform = "none";
                     }}

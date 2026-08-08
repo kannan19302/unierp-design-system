@@ -24,7 +24,7 @@ export const PermissionContext = createContext<PermissionContextValue>({
 
 export const usePermission = (code: string): boolean => {
   const { permissions } = useContext(PermissionContext);
-  return permissions.some((p) => {
+  return permissions.some((p: any) => {
     if (p === code) return true;
     if (p === "*") return true;
     if (p.endsWith(".*") && code.startsWith(p.slice(0, -2))) return true;
@@ -51,7 +51,7 @@ export const ProtectedComponent: FC<ProtectedComponentProps> = ({
   permission,
   fallback = null,
   children,
-}) => {
+}: any) => {
   const hasAccess = usePermission(permission);
   return hasAccess ? <>{children}</> : <>{fallback}</>;
 };
@@ -66,7 +66,7 @@ export const ProtectedField: FC<ProtectedFieldProps> = ({
   entity,
   field,
   children,
-}) => {
+}: any) => {
   const access = useFieldAccess(entity, field);
   if (access === "hidden") return null;
   if (access === "readonly") {

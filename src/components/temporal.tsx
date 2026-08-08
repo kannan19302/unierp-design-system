@@ -10,7 +10,7 @@ export interface TimePickerProps {
   disabled?: boolean;
 }
 
-export const TimePicker: FC<TimePickerProps> = ({ value = "09:00", onChange, disabled }) => {
+export const TimePicker: FC<TimePickerProps> = ({ value = "09:00", onChange, disabled }: any) => {
   return (
     <div style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2)" }}>
       <Clock size={16} style={{ color: "var(--color-text-muted)" }} />
@@ -18,7 +18,7 @@ export const TimePicker: FC<TimePickerProps> = ({ value = "09:00", onChange, dis
         type="time"
         value={value}
         disabled={disabled}
-        onChange={(e) => onChange?.(e.target.value)}
+        onChange={(e: any) => onChange?.(e.target.value)}
         style={{
           padding: "var(--space-2) var(--space-3)",
           border: "1px solid var(--color-border)",
@@ -39,13 +39,13 @@ export interface DateTimePickerProps {
   disabled?: boolean;
 }
 
-export const DateTimePicker: FC<DateTimePickerProps> = ({ value, onChange, disabled }) => {
+export const DateTimePicker: FC<DateTimePickerProps> = ({ value, onChange, disabled }: any) => {
   return (
     <input
       type="datetime-local"
       value={value}
       disabled={disabled}
-      onChange={(e) => onChange?.(e.target.value)}
+      onChange={(e: any) => onChange?.(e.target.value)}
       style={{
         padding: "var(--space-2) var(--space-3)",
         border: "1px solid var(--color-border)",
@@ -64,7 +64,7 @@ export interface CalendarProps {
   onSelectDate?: (date: Date) => void;
 }
 
-export const Calendar: FC<CalendarProps> = ({ selectedDate = new Date(), onSelectDate }) => {
+export const Calendar: FC<CalendarProps> = ({ selectedDate = new Date(), onSelectDate }: any) => {
   const [currentMonth, setCurrentMonth] = useState(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1));
 
   const year = currentMonth.getFullYear();
@@ -106,13 +106,13 @@ export const Calendar: FC<CalendarProps> = ({ selectedDate = new Date(), onSelec
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "var(--space-1)", textAlign: "center", fontSize: "var(--text-xs)", fontWeight: 600, marginBottom: "var(--space-2)" }}>
-        {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
+        {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d: any) => (
           <div key={d}>{d}</div>
         ))}
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "var(--space-1)" }}>
-        {days.map((dateObj, idx) => {
+        {days.map((dateObj: any, idx: any) => {
           if (!dateObj) return <div key={idx} />;
           const isSelected = selectedDate.toDateString() === dateObj.toDateString();
           return (
@@ -150,12 +150,12 @@ export interface SchedulerProps {
   events: EventItem[];
 }
 
-export const Scheduler: FC<SchedulerProps> = ({ events }) => {
+export const Scheduler: FC<SchedulerProps> = ({ events }: any) => {
   return (
     <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: "var(--space-4)" }}>
       <h3 style={{ fontSize: "var(--text-sm)", fontWeight: 600, marginBottom: "var(--space-3)" }}>Schedule Overview</h3>
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-        {events.map((ev) => (
+        {events.map((ev: any) => (
           <div
             key={ev.id}
             style={{
@@ -229,7 +229,7 @@ export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
   onSelectPeriod,
   fiscalYear = new Date().getFullYear(),
   fiscalYearStartMonth = 1,
-}) => {
+}: any) => {
   const periods = buildFiscalPeriods(fiscalYear, fiscalYearStartMonth);
   const currentValue = selectedPeriod ?? (periods[0]?.value || "");
 
@@ -240,7 +240,7 @@ export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
       </span>
       <select
         value={currentValue}
-        onChange={(e) => onSelectPeriod?.(e.target.value)}
+        onChange={(e: any) => onSelectPeriod?.(e.target.value)}
         aria-label="Fiscal period"
         style={{
           padding: "var(--space-1-5) var(--space-3)",
@@ -250,7 +250,7 @@ export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
           fontSize: "var(--text-sm)",
         }}
       >
-        {periods.map((p) => (
+        {periods.map((p: any) => (
           <option key={p.value} value={p.value}>
             {p.label}
           </option>

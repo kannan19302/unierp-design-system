@@ -55,7 +55,7 @@ export function SocialProofBlock({
             gap: "32px",
           }}
         >
-          {testimonials.map((t, i) => (
+          {testimonials.map((t: any, i: any) => (
             <div key={i} className="ui-card" style={{ padding: "32px" }}>
               <p
                 style={{

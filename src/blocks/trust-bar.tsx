@@ -32,7 +32,7 @@ export function TrustBarBlock({
           alignItems: "center",
         }}
       >
-        {logos.map((logo, i) => (
+        {logos.map((logo: any, i: any) => (
           <div
             key={i}
             style={{

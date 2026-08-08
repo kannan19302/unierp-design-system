@@ -11,7 +11,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
   title,
   description,
   actions,
-}) => {
+}: any) => {
   return (
     <div
       style={{

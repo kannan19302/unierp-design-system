@@ -17,7 +17,7 @@ export interface SubTabBarProps {
   ariaLabel?: string;
 }
 
-export const SubTabBar: FC<SubTabBarProps> = ({ tabs, ariaLabel }) => {
+export const SubTabBar: FC<SubTabBarProps> = ({ tabs, ariaLabel }: any) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -59,7 +59,7 @@ export const SubTabBar: FC<SubTabBarProps> = ({ tabs, ariaLabel }) => {
       role="tablist"
       aria-label={ariaLabel || "Sub-sections"}
     >
-      {tabs.map((tab) => {
+      {tabs.map((tab: any) => {
         const isActive = tab.id === activeId;
         const Icon = tab.icon;
 

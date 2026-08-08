@@ -45,7 +45,7 @@ export function ColumnPicker({
 
   const toggle = (key: string) => {
     const next = visible.includes(key)
-      ? visible.filter((k) => k !== key)
+      ? visible.filter((k: any) => k !== key)
       : [...visible, key];
     // Never allow hiding every column
     if (next.length === 0) return;
@@ -60,7 +60,7 @@ export function ColumnPicker({
       <Button
         variant="secondary"
         size="sm"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => setOpen((o: any) => !o)}
         aria-expanded={open}
         aria-haspopup="true"
       >
@@ -85,7 +85,7 @@ export function ColumnPicker({
             gap: "var(--space-1)",
           }}
         >
-          {options.map((o) => (
+          {options.map((o: any) => (
             <label
               key={o.key}
               style={{

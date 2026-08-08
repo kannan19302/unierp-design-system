@@ -28,7 +28,7 @@ export function useLocalStorage<T>(
 
   const set = useCallback(
     (valOrFn: T | ((prev: T) => T)) => {
-      setValue((prev) => {
+      setValue((prev: any) => {
         const next =
           typeof valOrFn === "function"
             ? (valOrFn as (p: T) => T)(prev)

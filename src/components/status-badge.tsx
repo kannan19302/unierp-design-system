@@ -30,7 +30,7 @@ const statusVariantMap: Record<string, BadgeProps["variant"]> = {
   FAILED: "danger",
 };
 
-export const StatusBadge: FC<StatusBadgeProps> = ({ status, className }) => {
+export const StatusBadge: FC<StatusBadgeProps> = ({ status, className }: any) => {
   const variant = statusVariantMap[status] ?? "default";
   const label = status.replace(/_/g, " ");
 

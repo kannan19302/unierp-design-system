@@ -12,7 +12,7 @@ export const DemoBanner: FC<DemoBannerProps> = ({
   currentModule,
   apiBase = "/api/v1",
   onRemoved,
-}) => {
+}: any) => {
   const [removing, setRemoving] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 

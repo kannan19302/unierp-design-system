@@ -65,7 +65,7 @@ export function FeaturesGridBlock({
             gap: "32px",
           }}
         >
-          {features.map((f, i) => (
+          {features.map((f: any, i: any) => (
             <div key={i} className="ui-card" style={{ padding: "24px" }}>
               <div
                 style={{

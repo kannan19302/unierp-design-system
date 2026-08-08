@@ -13,7 +13,7 @@ export const Badge: FC<BadgeProps> = ({
   size = "sm",
   children,
   className = "",
-}) => {
+}: any) => {
   const badgeClass = [styles.badge, styles[size], styles[variant], className]
     .filter(Boolean)
     .join(" ");

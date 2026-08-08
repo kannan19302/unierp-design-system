@@ -83,12 +83,12 @@ export function DataTable<T>({
   const selectable = !!selectedKeys && !!onSelectionChange;
   const selected = useMemo(() => new Set(selectedKeys ?? []), [selectedKeys]);
   const allKeys = useMemo(
-    () => data.map((row, i) => keyOf(row, i)),
+    () => data.map((row: any, i: any) => keyOf(row, i)),
     [data, rowKey],
   );
   const allSelected =
-    allKeys.length > 0 && allKeys.every((k) => selected.has(k));
-  const someSelected = allKeys.some((k) => selected.has(k));
+    allKeys.length > 0 && allKeys.every((k: any) => selected.has(k));
+  const someSelected = allKeys.some((k: any) => selected.has(k));
 
   const toggleAll = () => {
     if (!onSelectionChange) return;
@@ -148,10 +148,10 @@ export function DataTable<T>({
               : undefined,
           transition: "background var(--duration-fast) var(--ease-default)",
         }}
-        onMouseEnter={(e) => {
+        onMouseEnter={(e: any) => {
           e.currentTarget.style.background = "var(--color-bg-hover)";
         }}
-        onMouseLeave={(e) => {
+        onMouseLeave={(e: any) => {
           e.currentTarget.style.background =
             selectable && selected.has(key)
               ? "var(--color-bg-sunken)"
@@ -161,7 +161,7 @@ export function DataTable<T>({
         {selectable && (
           <td
             style={{ padding: cellPad, width: 36 }}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e: any) => e.stopPropagation()}
           >
             <input
               type="checkbox"
@@ -171,7 +171,7 @@ export function DataTable<T>({
             />
           </td>
         )}
-        {columns.map((c) => (
+        {columns.map((c: any) => (
           <td
             key={c.key}
             style={{
@@ -208,14 +208,14 @@ export function DataTable<T>({
                 type="checkbox"
                 aria-label="Select all rows"
                 checked={allSelected}
-                ref={(el) => {
+                ref={(el: any) => {
                   if (el) el.indeterminate = !allSelected && someSelected;
                 }}
                 onChange={toggleAll}
               />
             </th>
           )}
-          {columns.map((c) => {
+          {columns.map((c: any) => {
             const active = c.sortable && sortBy === c.key;
             return (
               <th
@@ -287,13 +287,13 @@ export function DataTable<T>({
       </thead>
       <tbody>
         {loading ? (
-          Array.from({ length: skeletonRows }).map((_, r) => (
+          Array.from({ length: skeletonRows }).map((_: any, r: any) => (
             <tr
               key={r}
               style={{ borderBottom: "1px solid var(--color-border)" }}
             >
               {selectable && <td style={{ padding: cellPad }} />}
-              {columns.map((c) => (
+              {columns.map((c: any) => (
                 <td key={c.key} style={{ padding: cellPad }}>
                   <Skeleton
                     height={12}
@@ -326,7 +326,7 @@ export function DataTable<T>({
                 />
               </tr>
             )}
-            {visibleRows.map((row, i) => renderRow(row, startIndex + i))}
+            {visibleRows.map((row: any, i: any) => renderRow(row, startIndex + i))}
             {windowing && bottomSpacer > 0 && (
               <tr aria-hidden="true">
                 <td

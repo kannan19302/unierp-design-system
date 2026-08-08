@@ -75,7 +75,7 @@ export interface DashboardChartProps {
   actions?: React.ReactNode;
 }
 
-const LoadingSkeleton: React.FC<{ height: number }> = ({ height }) => (
+const LoadingSkeleton: React.FC<{ height: number }> = ({ height }: any) => (
   <div
     style={{
       height,
@@ -93,7 +93,7 @@ const LoadingSkeleton: React.FC<{ height: number }> = ({ height }) => (
   </div>
 );
 
-const NoDataPlaceholder: React.FC<{ height: number }> = ({ height }) => (
+const NoDataPlaceholder: React.FC<{ height: number }> = ({ height }: any) => (
   <div
     style={{
       height,
@@ -134,7 +134,7 @@ const CustomTooltip: React.FC<{
   active?: boolean;
   payload?: Array<{ name: string; value: number; color: string }>;
   label?: string;
-}> = ({ active, payload, label }) => {
+}> = ({ active, payload, label }: any) => {
   if (!active || !payload || payload.length === 0) return null;
   return (
     <div
@@ -158,7 +158,7 @@ const CustomTooltip: React.FC<{
           {label}
         </p>
       )}
-      {payload.map((entry, i) => (
+      {payload.map((entry: any, i: any) => (
         <div
           key={i}
           style={{
@@ -206,7 +206,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
   height = 300,
   loading = false,
   actions,
-}) => {
+}: any) => {
   const [chartType, setChartType] = useState<ChartType>(defaultChartType);
   const {
     xAxisKey = "name",
@@ -244,7 +244,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
               <YAxis {...commonAxisProps} />
               <Tooltip content={<CustomTooltip />} />
               {series.length > 1 && <Legend />}
-              {series.map((s, i) => (
+              {series.map((s: any, i: any) => (
                 <Bar
                   key={s.dataKey}
                   dataKey={s.dataKey}
@@ -273,7 +273,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
               <YAxis {...commonAxisProps} />
               <Tooltip content={<CustomTooltip />} />
               <Legend />
-              {series.map((s, i) => (
+              {series.map((s: any, i: any) => (
                 <Bar
                   key={s.dataKey}
                   dataKey={s.dataKey}
@@ -303,7 +303,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
               <YAxis {...commonAxisProps} />
               <Tooltip content={<CustomTooltip />} />
               {series.length > 1 && <Legend />}
-              {series.map((s, i) => (
+              {series.map((s: any, i: any) => (
                 <Line
                   key={s.dataKey}
                   type="monotone"
@@ -341,7 +341,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
               <YAxis {...commonAxisProps} />
               <Tooltip content={<CustomTooltip />} />
               {series.length > 1 && <Legend />}
-              {series.map((s, i) => {
+              {series.map((s: any, i: any) => {
                 const color =
                   s.color || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
                 return (
@@ -384,7 +384,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
                 }}
                 labelLine={{ strokeWidth: 1 }}
               >
-                {data.map((_, i) => (
+                {data.map((_: any, i: any) => (
                   <Cell
                     key={i}
                     fill={FALLBACK_COLORS[i % FALLBACK_COLORS.length]}
@@ -408,7 +408,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
               <PolarGrid stroke="var(--color-border)" />
               <PolarAngleAxis dataKey={nameKey || xAxisKey} fontSize={11} />
               <PolarRadiusAxis fontSize={10} />
-              {series.map((s, i) => (
+              {series.map((s: any, i: any) => (
                 <Radar
                   key={s.dataKey}
                   name={s.name}
@@ -438,7 +438,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
                 data={data}
                 isAnimationActive
               >
-                {data.map((_, i) => (
+                {data.map((_: any, i: any) => (
                   <Cell
                     key={i}
                     fill={FALLBACK_COLORS[i % FALLBACK_COLORS.length]}
@@ -471,7 +471,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
               <YAxis {...commonAxisProps} />
               <Tooltip content={<CustomTooltip />} />
               <Legend />
-              {series.map((s, i) => {
+              {series.map((s: any, i: any) => {
                 const color =
                   s.color || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
                 const seriesType = s.type || (i === 0 ? "bar" : "line");
@@ -575,11 +575,11 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             onChange={setChartType}
             options={
               allowedChartTypes
-                ? allowedChartTypes.map((t) => ({
+                ? allowedChartTypes.map((t: any) => ({
                     type: t,
                     label: t
                       .split("-")
-                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                      .map((w: any) => w.charAt(0).toUpperCase() + w.slice(1))
                       .join(" "),
                     icon:
                       {

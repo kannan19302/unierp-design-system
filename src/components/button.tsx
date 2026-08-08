@@ -31,7 +31,7 @@ export const Button: FC<ButtonProps> = ({
   disabled,
   style,
   ...props
-}) => {
+}: any) => {
   const Comp = asChild ? Slot : "button";
   const isDisabled = disabled || isLoading;
 

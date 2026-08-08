@@ -22,7 +22,7 @@ export function useCommandPalette() {
       // Ctrl+K (Windows/Linux) or Cmd+K (macOS)
       if (e.key === "k" && (e.ctrlKey || e.metaKey)) {
         e.preventDefault();
-        setOpen((prev) => !prev);
+        setOpen((prev: any) => !prev);
       }
     };
     document.addEventListener("keydown", onKey);
@@ -48,7 +48,7 @@ export interface BreadcrumbProps {
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   items,
   separator = <ChevronRight size={14} style={{ color: "var(--color-text-muted)" }} />,
-}) => {
+}: any) => {
   return (
     <nav aria-label="Breadcrumb">
       <ol
@@ -62,7 +62,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
           fontSize: "var(--text-sm)",
         }}
       >
-        {items.map((item, index) => {
+        {items.map((item: any, index: any) => {
           const isLast = index === items.length - 1;
           return (
             <li
@@ -72,7 +72,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
               {item.href ? (
                 <a
                   href={item.href}
-                  onClick={(e) => {
+                  onClick={(e: any) => {
                     if (item.onClick) {
                       e.preventDefault();
                       item.onClick();
@@ -124,7 +124,7 @@ export interface SideNavProps {
   footer?: ReactNode;
 }
 
-export const SideNav: FC<SideNavProps> = ({ items, header, footer }) => {
+export const SideNav: FC<SideNavProps> = ({ items, header, footer }: any) => {
   return (
     <aside
       aria-label="Side Navigation"
@@ -140,7 +140,7 @@ export const SideNav: FC<SideNavProps> = ({ items, header, footer }) => {
     >
       {header && <div style={{ marginBottom: "var(--space-4)" }}>{header}</div>}
       <nav style={{ flex: 1, display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
-        {items.map((item) => (
+        {items.map((item: any) => (
           <button
             key={item.key}
             disabled={item.disabled}
@@ -198,12 +198,12 @@ export const CommandPalette: FC<CommandPaletteProps> = ({
   onClose,
   items,
   placeholder = "Search routes, records and actions...",
-}) => {
+}: any) => {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const filtered = items.filter(
-    (item) =>
+    (item: any) =>
       item.title.toLowerCase().includes(query.toLowerCase()) ||
       item.category.toLowerCase().includes(query.toLowerCase()) ||
       (item.subtitle && item.subtitle.toLowerCase().includes(query.toLowerCase()))
@@ -219,10 +219,10 @@ export const CommandPalette: FC<CommandPaletteProps> = ({
       if (e.key === "Escape") onClose();
       else if (e.key === "ArrowDown") {
         e.preventDefault();
-        setSelectedIndex((prev) => (prev + 1) % (filtered.length || 1));
+        setSelectedIndex((prev: any) => (prev + 1) % (filtered.length || 1));
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
-        setSelectedIndex((prev) => (prev - 1 + (filtered.length || 1)) % (filtered.length || 1));
+        setSelectedIndex((prev: any) => (prev - 1 + (filtered.length || 1)) % (filtered.length || 1));
       } else if (e.key === "Enter" && filtered[selectedIndex]) {
         e.preventDefault();
         filtered[selectedIndex].onSelect();
@@ -247,7 +247,7 @@ export const CommandPalette: FC<CommandPaletteProps> = ({
         justifyContent: "center",
         paddingTop: "12vh",
       }}
-      onClick={(e) => {
+      onClick={(e: any) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
@@ -278,7 +278,7 @@ export const CommandPalette: FC<CommandPaletteProps> = ({
             autoFocus
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e: any) => setQuery(e.target.value)}
             placeholder={placeholder}
             style={{
               flex: 1,
@@ -303,7 +303,7 @@ export const CommandPalette: FC<CommandPaletteProps> = ({
               No results found.
             </div>
           ) : (
-            filtered.map((item, idx) => {
+            filtered.map((item: any, idx: any) => {
               const active = idx === selectedIndex;
               return (
                 <div
@@ -357,10 +357,10 @@ export interface StepsProps {
   current: number; // 0-indexed
 }
 
-export const Steps: FC<StepsProps> = ({ steps, current }) => {
+export const Steps: FC<StepsProps> = ({ steps, current }: any) => {
   return (
     <div style={{ display: "flex", alignItems: "center", width: "100%", gap: "var(--space-2)" }}>
-      {steps.map((step, idx) => {
+      {steps.map((step: any, idx: any) => {
         const active = idx === current;
         const completed = idx < current;
         return (

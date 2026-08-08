@@ -43,7 +43,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
   disabled = false,
   multiple = false,
   className = "",
-}) => {
+}: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -87,11 +87,11 @@ export const ComboBox: FC<ComboBoxProps> = ({
       ? [value]
       : [];
 
-  const selectedOptions = options.filter((opt) =>
+  const selectedOptions = options.filter((opt: any) =>
     selectedValues.includes(opt.value),
   );
 
-  const filteredOptions = options.filter((opt) =>
+  const filteredOptions = options.filter((opt: any) =>
     opt.label.toLowerCase().includes(search.toLowerCase()),
   );
 
@@ -104,7 +104,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
     if (multiple) {
       const isAlreadySelected = selectedValues.includes(option.value);
       const nextValue = isAlreadySelected
-        ? selectedValues.filter((v) => v !== option.value)
+        ? selectedValues.filter((v: any) => v !== option.value)
         : [...selectedValues, option.value];
       onChange?.(nextValue);
     } else {
@@ -116,7 +116,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
   const handleRemoveTag = (e: React.MouseEvent, val: string) => {
     e.stopPropagation();
     if (disabled) return;
-    const nextValue = selectedValues.filter((v) => v !== val);
+    const nextValue = selectedValues.filter((v: any) => v !== val);
     onChange?.(nextValue);
   };
 
@@ -134,7 +134,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setHighlightedIndex((prev) =>
+        setHighlightedIndex((prev: any) =>
           filteredOptions.length === 0
             ? 0
             : (prev + 1) % filteredOptions.length,
@@ -142,7 +142,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
         break;
       case "ArrowUp":
         e.preventDefault();
-        setHighlightedIndex((prev) =>
+        setHighlightedIndex((prev: any) =>
           filteredOptions.length === 0
             ? 0
             : (prev - 1 + filteredOptions.length) % filteredOptions.length,
@@ -181,12 +181,12 @@ export const ComboBox: FC<ComboBoxProps> = ({
           {selectedOptions.length === 0 ? (
             <span className={styles.placeholder}>{placeholder}</span>
           ) : multiple ? (
-            selectedOptions.map((opt) => (
+            selectedOptions.map((opt: any) => (
               <span key={opt.value} className={styles.tag}>
                 {opt.label}
                 <button
                   type="button"
-                  onClick={(e) => handleRemoveTag(e, opt.value)}
+                  onClick={(e: any) => handleRemoveTag(e, opt.value)}
                   className={styles.tagRemoveBtn}
                   aria-label={`Remove ${opt.label}`}
                 >
@@ -209,7 +209,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
               type="text"
               placeholder={searchPlaceholder}
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e: any) => setSearch(e.target.value)}
               className={styles.searchInput}
               aria-label="Filter options"
             />
@@ -219,7 +219,7 @@ export const ComboBox: FC<ComboBoxProps> = ({
             {filteredOptions.length === 0 ? (
               <div className={styles.noResults}>No options found</div>
             ) : (
-              filteredOptions.map((option, index) => {
+              filteredOptions.map((option: any, index: any) => {
                 const isSelected = selectedValues.includes(option.value);
                 const isHighlighted = index === highlightedIndex;
                 const optionClasses = [

@@ -74,7 +74,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
   defaultSetting = "light",
   defaultDensity = "comfortable",
-}) => {
+}: any) => {
   const [setting, setSetting] = useState<ThemeSetting>(defaultSetting);
   const [resolvedTheme, setResolvedTheme] = useState<ThemeName>(
     defaultSetting === "system" ? "light" : defaultSetting,

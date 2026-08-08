@@ -12,7 +12,7 @@ export interface LoadingStateProps {
   message?: string;
 }
 
-export const LoadingState: FC<LoadingStateProps> = ({ message = "Loading..." }) => {
+export const LoadingState: FC<LoadingStateProps> = ({ message = "Loading..." }: any) => {
   return (
     <div
       style={{
@@ -41,7 +41,7 @@ export const FilteredEmptyState: FC<FilteredEmptyStateProps> = ({
   title = "No matching records",
   description = "No results found for the current filters.",
   onClearFilters,
-}) => {
+}: any) => {
   return (
     <EmptyState
       icon={<Filter size={32} style={{ color: "var(--color-text-muted)" }} />}
@@ -81,7 +81,7 @@ export const ErrorState: FC<ErrorStateProps> = ({
   title = "Something went wrong",
   description = "Failed to load data. Please try again.",
   onRetry,
-}) => {
+}: any) => {
   return (
     <EmptyState
       icon={<AlertTriangle size={32} style={{ color: "var(--color-danger)" }} />}
@@ -118,7 +118,7 @@ export interface ForbiddenStateProps {
 export const ForbiddenState: FC<ForbiddenStateProps> = ({
   title = "Access restricted",
   description = "You do not have permission to view this content.",
-}) => {
+}: any) => {
   return (
     <EmptyState
       icon={<ShieldAlert size={32} style={{ color: "var(--color-warning)" }} />}
@@ -139,7 +139,7 @@ export const PartialState: FC<PartialStateProps> = ({
   title = "Partial data loaded",
   description = "Some items could not be retrieved.",
   onRefresh,
-}) => {
+}: any) => {
   return (
     <EmptyState
       icon={<AlertCircle size={32} style={{ color: "var(--color-warning)" }} />}

@@ -33,7 +33,7 @@ export const DrillDownModal: React.FC<DrillDownModalProps> = ({
   rows,
   loading = false,
   onExport,
-}) => {
+}: any) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredRows = searchQuery
@@ -91,7 +91,7 @@ export const DrillDownModal: React.FC<DrillDownModalProps> = ({
       }}
     >
       <div
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e: any) => e.stopPropagation()}
         style={{
           background: "var(--color-bg-elevated)",
           border: "1px solid var(--color-border)",
@@ -183,7 +183,7 @@ export const DrillDownModal: React.FC<DrillDownModalProps> = ({
             className="ui-input"
             placeholder="Search records..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e: any) => setSearchQuery(e.target.value)}
             style={{ maxWidth: "320px" }}
           />
         </div>
@@ -266,11 +266,11 @@ export const DrillDownModal: React.FC<DrillDownModalProps> = ({
                       borderBottom: "1px solid var(--color-border)",
                       transition: "background var(--duration-fast)",
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={(e: any) => {
                       e.currentTarget.style.background =
                         "var(--color-bg-sunken)";
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={(e: any) => {
                       e.currentTarget.style.background = "transparent";
                     }}
                   >

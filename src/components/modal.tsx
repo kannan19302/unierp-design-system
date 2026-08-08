@@ -27,7 +27,7 @@ export const Modal: FC<ModalProps> = ({
   footer,
   children,
   closeOnOverlay = true,
-}) => {
+}: any) => {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEscapeKey(onClose, open);
@@ -118,7 +118,7 @@ export const ConfirmDialog: FC<ConfirmDialogProps> = ({
   cancelLabel = "Cancel",
   variant = "primary",
   loading,
-}) => (
+}: any) => (
   <Modal
     open={open}
     onClose={onClose}

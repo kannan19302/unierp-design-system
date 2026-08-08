@@ -61,7 +61,7 @@ export const ChangeHistory: FC<ChangeHistoryProps> = ({
   entityType,
   entityId,
   apiBase = "/api/v1",
-}) => {
+}: any) => {
   const [entries, setEntries] = useState<ChangeEntry[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -80,7 +80,7 @@ export const ChangeHistory: FC<ChangeHistoryProps> = ({
         if (!res.ok) return;
         const result = await res.json();
         const newEntries = result.data || [];
-        setEntries((prev) =>
+        setEntries((prev: any) =>
           pageNum === 1 ? newEntries : [...prev, ...newEntries],
         );
         setHasMore(pageNum < (result.meta?.totalPages || 1));
@@ -141,7 +141,7 @@ export const ChangeHistory: FC<ChangeHistoryProps> = ({
           }}
         />
 
-        {entries.map((entry) => (
+        {entries.map((entry: any) => (
           <div
             key={entry.id}
             style={{
@@ -202,7 +202,7 @@ export const ChangeHistory: FC<ChangeHistoryProps> = ({
                     color: "var(--color-text-muted, #6b7280)",
                   }}
                 >
-                  {entry.fieldChanges.map((fc, i) => (
+                  {entry.fieldChanges.map((fc: any, i: any) => (
                     <div key={i} style={{ marginBottom: "2px" }}>
                       <span style={{ fontWeight: 500 }}>{fc.label}:</span>{" "}
                       <span

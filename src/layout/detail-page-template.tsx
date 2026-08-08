@@ -40,12 +40,12 @@ export const DetailPageTemplate: React.FC<DetailPageTemplateProps> = ({
   defaultTab,
   above,
   loading = false,
-}) => {
+}: any) => {
   const [activeTab, setActiveTab] = useState(defaultTab ?? tabs[0]?.key ?? "");
 
-  const currentTab = tabs.find((t) => t.key === activeTab) ?? tabs[0];
+  const currentTab = tabs.find((t: any) => t.key === activeTab) ?? tabs[0];
 
-  const tabItems: TabItem[] = tabs.map((t) => ({
+  const tabItems: TabItem[] = tabs.map((t: any) => ({
     key: t.key,
     label: t.label,
     badge: t.count !== undefined ? t.count : undefined,

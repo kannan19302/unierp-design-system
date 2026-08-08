@@ -33,7 +33,7 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
   label,
   tableData,
   children,
-}) => {
+}: any) => {
   const [showTable, setShowTable] = _useChartState(false);
 
   return (
@@ -50,7 +50,7 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
         <>
           <button
             type="button"
-            onClick={() => setShowTable((p) => !p)}
+            onClick={() => setShowTable((p: any) => !p)}
             style={{
               fontSize: "var(--text-xs)",
               color: "var(--color-text-muted)",
@@ -73,7 +73,7 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
             >
               <thead>
                 <tr>
-                  {tableData.columns.map((col, i) => (
+                  {tableData.columns.map((col: any, i: any) => (
                     <th key={i} scope="col" style={{ padding: "var(--space-1) var(--space-2)", borderBottom: "1px solid var(--color-border)", textAlign: "left" }}>
                       {col}
                     </th>
@@ -81,9 +81,9 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {tableData.rows.map((row, ri) => (
+                {tableData.rows.map((row: any, ri: any) => (
                   <tr key={ri}>
-                    {row.map((cell, ci) => (
+                    {row.map((cell: any, ci: any) => (
                       <td key={ci} style={{ padding: "var(--space-1) var(--space-2)", borderBottom: "1px solid var(--color-border)" }}>
                         {cell}
                       </td>
@@ -120,7 +120,7 @@ export const KPICard: React.FC<KPICardProps> = ({
   color = "var(--color-primary)",
   loading,
   onClick,
-}) => (
+}: any) => (
   <div
     style={{
       padding: "var(--space-5)",
@@ -131,10 +131,10 @@ export const KPICard: React.FC<KPICardProps> = ({
       transition: "box-shadow var(--duration-fast) var(--ease-default)",
     }}
     onClick={onClick}
-    onMouseEnter={(e) => {
+    onMouseEnter={(e: any) => {
       if (onClick) e.currentTarget.style.boxShadow = "var(--shadow-md)";
     }}
-    onMouseLeave={(e) => {
+    onMouseLeave={(e: any) => {
       e.currentTarget.style.boxShadow = "none";
     }}
   >
@@ -252,8 +252,8 @@ export const MiniBarChart: React.FC<MiniBarChartProps> = ({
   height = 120,
   showLabels = true,
   showValues = true,
-}) => {
-  const maxVal = Math.max(...data.map((d) => d.value), 1);
+}: any) => {
+  const maxVal = Math.max(...data.map((d: any) => d.value), 1);
 
   return (
     <div
@@ -271,7 +271,7 @@ export const MiniBarChart: React.FC<MiniBarChartProps> = ({
           height,
         }}
       >
-        {data.map((d, i) => (
+        {data.map((d: any, i: any) => (
           <div
             key={i}
             style={{
@@ -308,7 +308,7 @@ export const MiniBarChart: React.FC<MiniBarChartProps> = ({
       </div>
       {showLabels && (
         <div style={{ display: "flex", gap: "var(--space-1)" }}>
-          {data.map((d, i) => (
+          {data.map((d: any, i: any) => (
             <span
               key={i}
               style={{
@@ -350,8 +350,8 @@ export const MiniDonutChart: React.FC<MiniDonutChartProps> = ({
   thickness = 20,
   centerLabel,
   centerValue,
-}) => {
-  const total = segments.reduce((sum, s) => sum + s.value, 0);
+}: any) => {
+  const total = segments.reduce((sum: any, s: any) => sum + s.value, 0);
   const radius = (size - thickness) / 2;
   const circumference = 2 * Math.PI * radius;
   let cumulativeOffset = 0;
@@ -359,7 +359,7 @@ export const MiniDonutChart: React.FC<MiniDonutChartProps> = ({
   return (
     <div style={{ position: "relative", width: size, height: size }}>
       <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
-        {segments.map((seg, i) => {
+        {segments.map((seg: any, i: any) => {
           const segLength = (seg.value / total) * circumference;
           const offset = cumulativeOffset;
           cumulativeOffset += segLength;
@@ -431,17 +431,17 @@ export const Sparkline: React.FC<SparklineProps> = ({
   height = 32,
   color = "var(--color-primary)",
   fill = true,
-}) => {
+}: any) => {
   if (data.length < 2) return null;
   const min = Math.min(...data);
   const max = Math.max(...data);
   const range = max - min || 1;
-  const points = data.map((v, i) => ({
+  const points = data.map((v: any, i: any) => ({
     x: (i / (data.length - 1)) * width,
     y: height - ((v - min) / range) * (height - 4) - 2,
   }));
   const pathD = points
-    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+    .map((p: any, i: any) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
     .join(" ");
   const fillD = fill ? `${pathD} L ${width} ${height} L 0 ${height} Z` : "";
 
@@ -466,16 +466,16 @@ export const LineChart: FC<{ data: number[]; labels?: string[]; width?: number; 
   labels: _labels,
   width = 300,
   height = 150,
-}) => <Sparkline data={data} width={width} height={height} fill={false} />;
+}: any) => <Sparkline data={data} width={width} height={height} fill={false} />;
 
 export const AreaChart: FC<{ data: number[]; labels?: string[]; width?: number; height?: number }> = ({
   data,
   labels: _labels,
   width = 300,
   height = 150,
-}) => <Sparkline data={data} width={width} height={height} fill={true} />;
+}: any) => <Sparkline data={data} width={width} height={height} fill={true} />;
 
-export const GaugeChart: FC<{ value: number; min?: number; max?: number }> = ({ value, min = 0, max = 100 }) => {
+export const GaugeChart: FC<{ value: number; min?: number; max?: number }> = ({ value, min = 0, max = 100 }: any) => {
   const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
   return (
     <div style={{ textAlign: "center" }}>
@@ -490,11 +490,11 @@ export const GaugeChart: FC<{ value: number; min?: number; max?: number }> = ({ 
   );
 };
 
-export const FunnelChart: FC<{ stages: { label: string; value: number }[] }> = ({ stages }) => {
-  const max = Math.max(...stages.map((s) => s.value), 1);
+export const FunnelChart: FC<{ stages: { label: string; value: number }[] }> = ({ stages }: any) => {
+  const max = Math.max(...stages.map((s: any) => s.value), 1);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", width: "100%" }}>
-      {stages.map((s, idx) => (
+      {stages.map((s: any, idx: any) => (
         <div key={idx} style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
           <span style={{ width: "80px", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>{s.label}</span>
           <div style={{ flex: 1, background: "var(--color-bg-sunken)", height: "20px", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
@@ -507,12 +507,12 @@ export const FunnelChart: FC<{ stages: { label: string; value: number }[] }> = (
   );
 };
 
-export const HeatmapChart: FC<{ matrix: number[][] }> = ({ matrix }) => {
+export const HeatmapChart: FC<{ matrix: number[][] }> = ({ matrix }: any) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-      {matrix.map((row, rIdx) => (
+      {matrix.map((row: any, rIdx: any) => (
         <div key={rIdx} style={{ display: "flex", gap: "2px" }}>
-          {row.map((val, cIdx) => (
+          {row.map((val: any, cIdx: any) => (
             <div
               key={cIdx}
               title={String(val)}

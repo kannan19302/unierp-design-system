@@ -33,19 +33,19 @@ export interface DashboardKPICardProps {
 const MiniSparkline: React.FC<{ data: number[]; color: string }> = ({
   data,
   color,
-}) => {
+}: any) => {
   if (data.length < 2) return null;
   const width = 80;
   const height = 24;
   const min = Math.min(...data);
   const max = Math.max(...data);
   const range = max - min || 1;
-  const points = data.map((v, i) => ({
+  const points = data.map((v: any, i: any) => ({
     x: (i / (data.length - 1)) * width,
     y: height - ((v - min) / range) * (height - 4) - 2,
   }));
   const pathD = points
-    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+    .map((p: any, i: any) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
     .join(" ");
   const fillD = `${pathD} L ${width} ${height} L 0 ${height} Z`;
 
@@ -81,7 +81,7 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
   trend,
   drillDown,
   onClick,
-}) => {
+}: any) => {
   const [isDrillDownOpen, setIsDrillDownOpen] = useState(false);
   const isClickable = !!drillDown || !!onClick;
 
@@ -112,14 +112,14 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
           position: "relative",
           overflow: "hidden",
         }}
-        onMouseEnter={(e) => {
+        onMouseEnter={(e: any) => {
           if (isClickable) {
             e.currentTarget.style.borderColor = color;
             e.currentTarget.style.boxShadow = "var(--elevation-hover)";
             e.currentTarget.style.transform = "translateY(-2px)";
           }
         }}
-        onMouseLeave={(e) => {
+        onMouseLeave={(e: any) => {
           e.currentTarget.style.borderColor = "var(--color-border)";
           e.currentTarget.style.boxShadow = "var(--elevation-1)";
           e.currentTarget.style.transform = "none";

@@ -13,6 +13,6 @@ export function useDisclosure(initialOpen = false): UseDisclosureReturn {
   const [isOpen, setIsOpen] = useState(initialOpen);
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
-  const toggle = useCallback(() => setIsOpen((v) => !v), []);
+  const toggle = useCallback(() => setIsOpen((v: any) => !v), []);
   return { isOpen, open, close, toggle };
 }

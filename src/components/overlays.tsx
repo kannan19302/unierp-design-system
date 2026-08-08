@@ -26,7 +26,7 @@ const FOCUSABLE_SELECTORS = [
 
 function getFocusableElements(container: HTMLElement): HTMLElement[] {
   return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS)).filter(
-    (el) => el.offsetParent !== null, // visible only
+    (el: any) => el.offsetParent !== null, // visible only
   );
 }
 
@@ -107,7 +107,7 @@ export interface PortalProps {
   children: ReactNode;
 }
 
-export const Portal: FC<PortalProps> = ({ children }) => {
+export const Portal: FC<PortalProps> = ({ children }: any) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
@@ -129,7 +129,7 @@ export const Popover: FC<PopoverProps> = ({
   open: controlledOpen,
   onOpenChange,
   align = "left",
-}) => {
+}: any) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -223,7 +223,7 @@ export interface DropdownMenuProps {
   id?: string;
 }
 
-export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, items, id }) => {
+export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, items, id }: any) => {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -251,13 +251,13 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, items, id }) => {
   }, [open, close]);
 
   const onKeyDown = (e: ReactKeyboardEvent) => {
-    const enabledItems = items.filter((i) => !i.disabled);
+    const enabledItems = items.filter((i: any) => !i.disabled);
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActiveIndex((i) => Math.min(i + 1, enabledItems.length - 1));
+      setActiveIndex((i: any) => Math.min(i + 1, enabledItems.length - 1));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setActiveIndex((i) => Math.max(i - 1, 0));
+      setActiveIndex((i: any) => Math.max(i - 1, 0));
     } else if (e.key === "Home") {
       e.preventDefault();
       setActiveIndex(0);
@@ -302,7 +302,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, items, id }) => {
               minWidth: "160px",
             }}
           >
-            {items.map((item, idx) => (
+            {items.map((item: any, idx: any) => (
               <button
                 key={item.key}
                 role="menuitem"
@@ -331,12 +331,12 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, items, id }) => {
                   alignItems: "center",
                   gap: "var(--space-2)",
                 }}
-                onMouseEnter={(e) => {
+                onMouseEnter={(e: any) => {
                   if (!item.disabled) {
                     e.currentTarget.style.background = "var(--color-bg-hover)";
                   }
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={(e: any) => {
                   if (activeIndex !== idx) {
                     e.currentTarget.style.background = "none";
                   }
@@ -359,7 +359,7 @@ export interface ContextMenuProps {
   items: MenuItem[];
 }
 
-export const ContextMenu: FC<ContextMenuProps> = ({ children, items }) => {
+export const ContextMenu: FC<ContextMenuProps> = ({ children, items }: any) => {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -403,7 +403,7 @@ export const ContextMenu: FC<ContextMenuProps> = ({ children, items }) => {
               minWidth: "160px",
             }}
           >
-            {items.map((item) => (
+            {items.map((item: any) => (
               <button
                 key={item.key}
                 role="menuitem"
@@ -451,7 +451,7 @@ export interface TooltipProps {
   id?: string;
 }
 
-export const Tooltip: FC<TooltipProps> = ({ content, children, side: _side = "top", id }) => {
+export const Tooltip: FC<TooltipProps> = ({ content, children, side: _side = "top", id }: any) => {
   const [visible, setVisible] = useState(false);
   const tooltipId = id ?? `tooltip-${Math.random().toString(36).slice(2)}`;
 
@@ -518,7 +518,7 @@ export const Drawer: FC<DrawerProps> = ({
   footer,
   children,
   "aria-label": ariaLabel,
-}) => {
+}: any) => {
   const contentRef = useRef<HTMLDivElement>(null);
   useEscapeKey(onClose, open);
   useFocusTrap(contentRef, open);
@@ -604,7 +604,7 @@ export interface SheetProps {
   children?: ReactNode;
 }
 
-export const Sheet: FC<SheetProps> = ({ open, onClose, title, side = "right", children }) => (
+export const Sheet: FC<SheetProps> = ({ open, onClose, title, side = "right", children }: any) => (
   <Drawer open={open} onClose={onClose} title={title} side={side}>
     {children}
   </Drawer>

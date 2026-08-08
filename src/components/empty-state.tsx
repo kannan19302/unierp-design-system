@@ -13,7 +13,7 @@ export const EmptyState: FC<EmptyStateProps> = ({
   title,
   description,
   action,
-}) => {
+}: any) => {
   return (
     <div className={styles.container}>
       {icon && <div className={styles.icon_well}>{icon}</div>}

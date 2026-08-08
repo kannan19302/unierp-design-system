@@ -51,7 +51,7 @@ export const DatePicker: FC<DatePickerProps> = ({
   className = "",
   minDate,
   maxDate,
-}) => {
+}: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(() => value || new Date());
   const containerRef = useRef<HTMLDivElement>(null);
@@ -221,13 +221,13 @@ export const DatePicker: FC<DatePickerProps> = ({
           </div>
 
           <div className={styles.grid}>
-            {WEEKDAYS.map((day) => (
+            {WEEKDAYS.map((day: any) => (
               <div key={day} className={styles.weekday}>
                 {day}
               </div>
             ))}
 
-            {daysGrid.map(({ day, isOutside, offset }, index) => {
+            {daysGrid.map(({ day, isOutside, offset }: any, index: any) => {
               const disabledDay = isDayDisabled(day, isOutside, offset);
               const dayClasses = [
                 styles.day,

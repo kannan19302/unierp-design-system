@@ -70,7 +70,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
   headerActions,
   variant = "default",
   children,
-}) => {
+}: any) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const {
@@ -90,7 +90,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
   const advancedRef = useRef<HTMLDivElement>(null);
 
   const activeTab =
-    tabs.find((t) => isTabActive(t, pathname, searchParams)) || tabs[0];
+    tabs.find((t: any) => isTabActive(t, pathname, searchParams)) || tabs[0];
   const activeId = activeTab?.id || "overview";
 
   useEffect(() => {
@@ -118,9 +118,9 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
   }, []);
 
   const getOrderedVisibleTabs = (): ModuleTab[] => {
-    const visibleTabs = tabs.filter((t) => !t.advanced);
+    const visibleTabs = tabs.filter((t: any) => !t.advanced);
     if (customOrder.length > 0) {
-      const tabMap = new Map(visibleTabs.map((t) => [t.id, t]));
+      const tabMap = new Map(visibleTabs.map((t: any) => [t.id, t]));
       const ordered: ModuleTab[] = [];
       customOrder.forEach((id: string) => {
         const tab = tabMap.get(id);
@@ -129,7 +129,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
           tabMap.delete(id);
         }
       });
-      tabMap.forEach((tab) => ordered.push(tab));
+      tabMap.forEach((tab: any) => ordered.push(tab));
       return ordered;
     }
     return visibleTabs;
@@ -159,7 +159,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
   const handleDrop = (e: DragEvent, targetId: string) => {
     if (!isEditing || !draggedTabId || draggedTabId === targetId) return;
     e.preventDefault();
-    const currentOrderIds = orderedTabs.map((t) => t.id);
+    const currentOrderIds = orderedTabs.map((t: any) => t.id);
     const dragIdx = currentOrderIds.indexOf(draggedTabId);
     const targetIdx = currentOrderIds.indexOf(targetId);
     if (dragIdx !== -1 && targetIdx !== -1) {
@@ -173,7 +173,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
 
   // Keyboard equivalent of drag-and-drop reordering (WCAG 2.1.1).
   const moveTab = (id: string, direction: -1 | 1) => {
-    const currentOrderIds = orderedTabs.map((t) => t.id);
+    const currentOrderIds = orderedTabs.map((t: any) => t.id);
     const idx = currentOrderIds.indexOf(id);
     const targetIdx = idx + direction;
     if (idx === -1 || targetIdx < 0 || targetIdx >= currentOrderIds.length)
@@ -196,8 +196,8 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
 
   const closeAdvanced = () => setShowAdvanced(false);
 
-  const advancedTabs = tabs.filter((t) => t.advanced);
-  const groups = [...new Set(advancedTabs.map((t) => t.group || "Advanced"))];
+  const advancedTabs = tabs.filter((t: any) => t.advanced);
+  const groups = [...new Set(advancedTabs.map((t: any) => t.group || "Advanced"))];
 
   const renderTabBarAndContent = () => (
     <>
@@ -208,7 +208,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
           role="tablist"
           aria-label={`${moduleLabel} sections`}
         >
-          {orderedTabs.map((tab) => {
+          {orderedTabs.map((tab: any) => {
             const Icon = tab.icon;
             const isActive = tab.id === activeId;
             const isDraggingThis = tab.id === draggedTabId;
@@ -217,9 +217,9 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
               <div
                 key={tab.id}
                 draggable={isEditing}
-                onDragStart={(e) => handleDragStart(e, tab.id)}
+                onDragStart={(e: any) => handleDragStart(e, tab.id)}
                 onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, tab.id)}
+                onDrop={(e: any) => handleDrop(e, tab.id)}
                 onDragEnd={() => setDraggedTabId(null)}
                 className={`${styles.tabWrap} ${isEditing ? styles.tabWrapEditing : ""} ${isDraggingThis ? styles.tabDragging : ""}`}
               >
@@ -229,7 +229,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
                     className={styles.dragHandle}
                     title="Drag, or press arrow keys, to rearrange"
                     aria-label={`Reorder ${tab.label} (arrow keys to move)`}
-                    onKeyDown={(e) => handleHandleKeyDown(e, tab.id)}
+                    onKeyDown={(e: any) => handleHandleKeyDown(e, tab.id)}
                   >
                     <GripVertical size={13} />
                   </button>
@@ -241,7 +241,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
                   role="tab"
                   aria-selected={isActive}
                   aria-current={isActive ? "page" : undefined}
-                  onClick={(e) => {
+                  onClick={(e: any) => {
                     if (isEditing) e.preventDefault();
                   }}
                 >
@@ -249,7 +249,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
                   <span>{tab.label}</span>
                   {!isEditing && (
                     <button
-                      onClick={(e) => {
+                      onClick={(e: any) => {
                         e.preventDefault();
                         e.stopPropagation();
                         togglePin(tab.id);
@@ -287,16 +287,16 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
               <div
                 className={styles.advancedDropdown}
                 role="menu"
-                onKeyDown={(e) => {
+                onKeyDown={(e: any) => {
                   if (e.key === "Escape") closeAdvanced();
                 }}
               >
-                {groups.map((group) => (
+                {groups.map((group: any) => (
                   <div key={group} className={styles.advancedGroup}>
                     <div className={styles.advancedGroupTitle}>{group}</div>
                     {advancedTabs
-                      .filter((t) => (t.group || "Advanced") === group)
-                      .map((tab) => {
+                      .filter((t: any) => (t.group || "Advanced") === group)
+                      .map((tab: any) => {
                         const Icon = tab.icon;
                         return (
                           <Link
@@ -310,7 +310,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
                             {Icon && <Icon size={16} />}
                             <span>{tab.label}</span>
                             <button
-                              onClick={(e) => {
+                              onClick={(e: any) => {
                                 e.preventDefault();
                                 e.stopPropagation();
                                 togglePin(tab.id);

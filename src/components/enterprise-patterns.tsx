@@ -16,7 +16,7 @@ export interface PageHeaderProps {
   tabs?: ReactNode;
 }
 
-export const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, description, breadcrumbs, actions, tabs }) => {
+export const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, description, breadcrumbs, actions, tabs }: any) => {
   const sub = subtitle ?? description;
   return (
     <div
@@ -48,7 +48,7 @@ export interface FilterBarProps {
   onClearAll?: () => void;
 }
 
-export const FilterBar: FC<FilterBarProps> = ({ children, onClearAll }) => {
+export const FilterBar: FC<FilterBarProps> = ({ children, onClearAll }: any) => {
   return (
     <div
       style={{
@@ -91,13 +91,13 @@ export interface SavedViewSwitcherProps {
   onSelectView: (id: string) => void;
 }
 
-export const SavedViewSwitcher: FC<SavedViewSwitcherProps> = ({ views, activeViewId, onSelectView }) => {
+export const SavedViewSwitcher: FC<SavedViewSwitcherProps> = ({ views, activeViewId, onSelectView }: any) => {
   return (
     <div style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-1)" }}>
       <Bookmark size={14} style={{ color: "var(--color-text-muted)" }} />
       <select
         value={activeViewId}
-        onChange={(e) => onSelectView(e.target.value)}
+        onChange={(e: any) => onSelectView(e.target.value)}
         style={{
           border: "1px solid var(--color-border)",
           borderRadius: "var(--radius-md)",
@@ -106,7 +106,7 @@ export const SavedViewSwitcher: FC<SavedViewSwitcherProps> = ({ views, activeVie
           background: "var(--color-bg)",
         }}
       >
-        {views.map((v) => (
+        {views.map((v: any) => (
           <option key={v.id} value={v.id}>
             {v.name}
           </option>
@@ -122,7 +122,7 @@ export interface BulkActionBarProps {
   actions: ReactNode;
 }
 
-export const BulkActionBar: FC<BulkActionBarProps> = ({ selectedCount, actions }) => {
+export const BulkActionBar: FC<BulkActionBarProps> = ({ selectedCount, actions }: any) => {
   if (selectedCount <= 0) return null;
   return (
     <div
@@ -152,7 +152,7 @@ export interface DetailLayoutProps {
   sidebar?: ReactNode;
 }
 
-export const DetailLayout: FC<DetailLayoutProps> = ({ header, main, sidebar }) => {
+export const DetailLayout: FC<DetailLayoutProps> = ({ header, main, sidebar }: any) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
       {header}
@@ -164,7 +164,7 @@ export const DetailLayout: FC<DetailLayoutProps> = ({ header, main, sidebar }) =
   );
 };
 
-export const RecordSidebar: FC<{ title?: ReactNode; children: ReactNode }> = ({ title = "Record Info", children }) => {
+export const RecordSidebar: FC<{ title?: ReactNode; children: ReactNode }> = ({ title = "Record Info", children }: any) => {
   return (
     <aside
       style={{
@@ -190,10 +190,10 @@ export interface ApprovalStep {
   timestamp?: string;
 }
 
-export const ApprovalTimeline: FC<{ steps: ApprovalStep[] }> = ({ steps }) => {
+export const ApprovalTimeline: FC<{ steps: ApprovalStep[] }> = ({ steps }: any) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-      {steps.map((step) => (
+      {steps.map((step: any) => (
         <div key={step.id} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", fontSize: "var(--text-xs)" }}>
           {step.status === "approved" ? (
             <CheckCircle2 size={16} style={{ color: "var(--color-success)" }} />
@@ -209,12 +209,12 @@ export const ApprovalTimeline: FC<{ steps: ApprovalStep[] }> = ({ steps }) => {
   );
 };
 
-export const AuditTrailPanel: FC<{ logs: { id: string; action: string; user: string; time: string }[] }> = ({ logs }) => {
+export const AuditTrailPanel: FC<{ logs: { id: string; action: string; user: string; time: string }[] }> = ({ logs }: any) => {
   return (
     <div style={{ fontSize: "var(--text-xs)" }}>
       <h4 style={{ fontWeight: 600, marginBottom: "var(--space-2)" }}>Audit Trail</h4>
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-        {logs.map((log) => (
+        {logs.map((log: any) => (
           <div key={log.id} style={{ borderBottom: "1px solid var(--color-border)", paddingBottom: "var(--space-1)" }}>
             <span style={{ fontWeight: 600 }}>{log.user}</span> {log.action} <span style={{ color: "var(--color-text-muted)" }}>({log.time})</span>
           </div>
@@ -225,7 +225,7 @@ export const AuditTrailPanel: FC<{ logs: { id: string; action: string; user: str
 };
 
 // ── PrintLayout ───────────────────────────────────────
-export const PrintLayout: FC<{ children: ReactNode }> = ({ children }) => {
+export const PrintLayout: FC<{ children: ReactNode }> = ({ children }: any) => {
   return (
     <div className="print-layout-container" style={{ background: "#ffffff", color: "#000000", padding: "20px" }}>
       {children}
@@ -276,7 +276,7 @@ export function useVirtualScroll({
   _useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(([entry]) => {
+    const ro = new ResizeObserver(([entry]: any) => {
       if (entry) setViewportHeight(entry.contentRect.height);
     });
     ro.observe(el);
@@ -323,7 +323,7 @@ export function DataTable<T extends Record<string, unknown>>({
   getRowKey,
 }: DataTableProps<T>) {
   const [colWidths, setColWidths] = _useState<Record<string, number>>(() =>
-    Object.fromEntries(columns.map((c) => [c.key, c.width ?? 150])),
+    Object.fromEntries(columns.map((c: any) => [c.key, c.width ?? 150])),
   );
   const resizingRef = _useRef<{ key: string; startX: number; startW: number } | null>(null);
 
@@ -335,7 +335,7 @@ export function DataTable<T extends Record<string, unknown>>({
       if (!resizingRef.current) return;
       const { key, startX, startW } = resizingRef.current;
       const newW = Math.max(60, startW + (ev.clientX - startX));
-      setColWidths((prev) => ({ ...prev, [key]: newW }));
+      setColWidths((prev: any) => ({ ...prev, [key]: newW }));
     };
     const onMouseUp = () => {
       resizingRef.current = null;
@@ -354,7 +354,7 @@ export function DataTable<T extends Record<string, unknown>>({
       >
         <thead>
           <tr>
-            {columns.map((col) => (
+            {columns.map((col: any) => (
               <th
                 key={col.key}
                 scope="col"
@@ -374,7 +374,7 @@ export function DataTable<T extends Record<string, unknown>>({
                 {/* Column resize handle */}
                 <div
                   aria-hidden="true"
-                  onMouseDown={(e) => onResizeMouseDown(e, col.key)}
+                  onMouseDown={(e: any) => onResizeMouseDown(e, col.key)}
                   style={{
                     position: "absolute",
                     right: 0,
@@ -391,12 +391,12 @@ export function DataTable<T extends Record<string, unknown>>({
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, rowIdx) => (
+          {rows.map((row: any, rowIdx: any) => (
             <tr
               key={getRowKey ? getRowKey(row) : String(rowIdx)}
               style={{ borderBottom: "1px solid var(--color-border)" }}
             >
-              {columns.map((col) => (
+              {columns.map((col: any) => (
                 <td
                   key={col.key}
                   style={{

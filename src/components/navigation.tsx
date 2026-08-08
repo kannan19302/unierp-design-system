@@ -36,7 +36,7 @@ const TabButton: FC<{
   active: boolean;
   onClick: () => void;
   variant: "underline" | "pills";
-}> = ({ tab, active, onClick, variant }) => {
+}> = ({ tab, active, onClick, variant }: any) => {
   const btnClass = [
     variant === "pills" ? styles.tab_btn_pill : styles.tab_btn,
     active &&
@@ -71,11 +71,11 @@ export const Tabs: FC<TabsProps> = ({
   value,
   onChange,
   variant = "underline",
-}) => {
-  const enabledTabs = tabs.filter((t) => !t.disabled);
+}: any) => {
+  const enabledTabs = tabs.filter((t: any) => !t.disabled);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
-    const currentIdx = enabledTabs.findIndex((t) => t.key === value);
+    const currentIdx = enabledTabs.findIndex((t: any) => t.key === value);
     let nextIdx = currentIdx;
 
     if (e.key === "ArrowRight") {
@@ -106,7 +106,7 @@ export const Tabs: FC<TabsProps> = ({
       onKeyDown={onKeyDown}
       className={variant === "pills" ? styles.tablist_pills : styles.tablist}
     >
-      {tabs.map((t) => (
+      {tabs.map((t: any) => (
         <TabButton
           key={t.key}
           tab={t}
@@ -134,7 +134,7 @@ const PageBtn: FC<{
   active?: boolean;
   onClick: (target: number) => void;
   ariaLabel?: string;
-}> = ({ label, target, disabled, active = false, onClick, ariaLabel }) => {
+}> = ({ label, target, disabled, active = false, onClick, ariaLabel }: any) => {
   const btnClass = [styles.page_btn, active && styles.page_btn_active]
     .filter(Boolean)
     .join(" ");
@@ -156,7 +156,7 @@ export const Pagination: FC<PaginationProps> = ({
   page,
   pageCount,
   onChange,
-}) => {
+}: any) => {
   if (pageCount <= 1) return null;
   const pages: number[] = [];
   const from = Math.max(1, page - 2);
@@ -175,7 +175,7 @@ export const Pagination: FC<PaginationProps> = ({
         <PageBtn label={1} target={1} disabled={false} onClick={onChange} />
       )}
       {from > 2 && <span className={styles.ellipsis}>…</span>}
-      {pages.map((p) => (
+      {pages.map((p: any) => (
         <PageBtn
           key={p}
           label={p}
@@ -220,7 +220,7 @@ export const Disclosure: FC<DisclosureProps> = ({
   defaultOpen = false,
   open: openProp,
   onToggle,
-}) => {
+}: any) => {
   const [openState, setOpenState] = useState(defaultOpen);
   const open = openProp !== undefined ? openProp : openState;
   const panelId = useId();

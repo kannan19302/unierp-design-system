@@ -42,7 +42,7 @@ export function FaqBlock({
           {title}
         </h2>
         <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-          {faqs.map((f, i) => (
+          {faqs.map((f: any, i: any) => (
             <div
               key={i}
               style={{

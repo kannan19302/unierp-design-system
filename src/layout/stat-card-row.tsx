@@ -28,7 +28,7 @@ const StatCard: React.FC<StatCardItem> = ({
   icon,
   color = "var(--color-primary)",
   loading = false,
-}) => {
+}: any) => {
   const isPositive = typeof change === "number" && change >= 0;
   const changeColor = isPositive
     ? "var(--color-success-text)"
@@ -120,7 +120,7 @@ const StatCard: React.FC<StatCardItem> = ({
   );
 };
 
-export const StatCardRow: React.FC<StatCardRowProps> = ({ stats, columns }) => {
+export const StatCardRow: React.FC<StatCardRowProps> = ({ stats, columns }: any) => {
   const cols = columns ?? (Math.min(stats.length, 4) as 2 | 3 | 4 | 5);
 
   return (
@@ -131,7 +131,7 @@ export const StatCardRow: React.FC<StatCardRowProps> = ({ stats, columns }) => {
         gap: "var(--space-4)",
       }}
     >
-      {stats.map((stat, i) => (
+      {stats.map((stat: any, i: any) => (
         <StatCard key={i} {...stat} />
       ))}
     </div>

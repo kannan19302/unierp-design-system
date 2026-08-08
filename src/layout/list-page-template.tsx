@@ -80,9 +80,9 @@ function Td({ children }: { children: ReactNode }) {
   );
 }
 
-const SkeletonRow: React.FC<{ cols: number }> = ({ cols }) => (
+const SkeletonRow: React.FC<{ cols: number }> = ({ cols }: any) => (
   <tr>
-    {Array.from({ length: cols }).map((_, i) => (
+    {Array.from({ length: cols }).map((_: any, i: any) => (
       <Td key={i}>
         <div
           style={{
@@ -119,7 +119,7 @@ export function ListPageTemplate<T = Record<string, unknown>>({
   const [search, setSearch] = useState("");
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
 
-  const filtered = data.filter((row) => {
+  const filtered = data.filter((row: any) => {
     if (search) {
       const haystack = Object.values(row as Record<string, unknown>)
         .join(" ")
@@ -134,7 +134,7 @@ export function ListPageTemplate<T = Record<string, unknown>>({
   });
 
   const handleFilterChange = (key: string, value: string) => {
-    setFilterValues((prev) => ({ ...prev, [key]: value }));
+    setFilterValues((prev: any) => ({ ...prev, [key]: value }));
   };
 
   return (
@@ -201,11 +201,11 @@ export function ListPageTemplate<T = Record<string, unknown>>({
               />
             </div>
           )}
-          {filters?.map((f) => (
+          {filters?.map((f: any) => (
             <select
               key={f.key}
               value={filterValues[f.key] ?? ""}
-              onChange={(e) => handleFilterChange(f.key, e.target.value)}
+              onChange={(e: any) => handleFilterChange(f.key, e.target.value)}
               aria-label={f.label}
               style={{
                 height: 36,
@@ -219,7 +219,7 @@ export function ListPageTemplate<T = Record<string, unknown>>({
               }}
             >
               <option value="">{f.label}: All</option>
-              {f.options.map((o) => (
+              {f.options.map((o: any) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
                 </option>
@@ -242,7 +242,7 @@ export function ListPageTemplate<T = Record<string, unknown>>({
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
-                {columns.map((col) => (
+                {columns.map((col: any) => (
                   <Th key={col.key} width={col.width}>
                     {col.header}
                   </Th>
@@ -251,7 +251,7 @@ export function ListPageTemplate<T = Record<string, unknown>>({
             </thead>
             <tbody>
               {loading ? (
-                Array.from({ length: 5 }).map((_, i) => (
+                Array.from({ length: 5 }).map((_: any, i: any) => (
                   <SkeletonRow key={i} cols={columns.length} />
                 ))
               ) : filtered.length === 0 ? (
@@ -277,7 +277,7 @@ export function ListPageTemplate<T = Record<string, unknown>>({
                   </td>
                 </tr>
               ) : (
-                filtered.map((row, ri) => (
+                filtered.map((row: any, ri: any) => (
                   <tr
                     key={ri}
                     onClick={onRowClick ? () => onRowClick(row) : undefined}
@@ -285,19 +285,19 @@ export function ListPageTemplate<T = Record<string, unknown>>({
                       cursor: onRowClick ? "pointer" : undefined,
                       transition: "background var(--duration-fast)",
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={(e: any) => {
                       if (onRowClick)
                         (
                           e.currentTarget as HTMLTableRowElement
                         ).style.background = "var(--color-bg-hover)";
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={(e: any) => {
                       (
                         e.currentTarget as HTMLTableRowElement
                       ).style.background = "";
                     }}
                   >
-                    {columns.map((col) => {
+                    {columns.map((col: any) => {
                       const raw = (row as Record<string, unknown>)[col.key];
                       return (
                         <Td key={col.key}>

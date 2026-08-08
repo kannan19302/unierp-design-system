@@ -105,7 +105,7 @@ function naiveSanitize(html: string): string {
   const doc = new DOMParser().parseFromString(html, "text/html");
   const walk = (node: Node): string => {
     if (node.nodeType === Node.TEXT_NODE) {
-      return node.textContent?.replace(/[<>&"]/g, (c) =>
+      return node.textContent?.replace(/[<>&"]/g, (c: any) =>
         ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c] ?? c)) ?? "";
     }
     if (node.nodeType !== Node.ELEMENT_NODE) return "";
@@ -116,8 +116,8 @@ function naiveSanitize(html: string): string {
       return Array.from(node.childNodes).map(walk).join("");
     }
     const attrs = Array.from(el.attributes)
-      .filter((a) => SAFE_ATTRS.has(a.name) && !a.value.startsWith("javascript:"))
-      .map((a) => `${a.name}="${a.value.replace(/"/g, "&quot;")}"`)
+      .filter((a: any) => SAFE_ATTRS.has(a.name) && !a.value.startsWith("javascript:"))
+      .map((a: any) => `${a.name}="${a.value.replace(/"/g, "&quot;")}"`)
       .join(" ");
     const inner = Array.from(node.childNodes).map(walk).join("");
     return attrs ? `<${tag} ${attrs}>${inner}</${tag}>` : `<${tag}>${inner}</${tag}>`;
@@ -149,18 +149,18 @@ export interface FileUploadProps {
   multiple?: boolean;
 }
 
-export const FileUpload: FC<FileUploadProps> = ({ onFileSelect, accept, multiple }) => {
+export const FileUpload: FC<FileUploadProps> = ({ onFileSelect, accept, multiple }: any) => {
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div
-      onDragOver={(e) => {
+      onDragOver={(e: any) => {
         e.preventDefault();
         setDragOver(true);
       }}
       onDragLeave={() => setDragOver(false)}
-      onDrop={(e) => {
+      onDrop={(e: any) => {
         e.preventDefault();
         setDragOver(false);
         onFileSelect?.(e.dataTransfer.files);
@@ -181,7 +181,7 @@ export const FileUpload: FC<FileUploadProps> = ({ onFileSelect, accept, multiple
         type="file"
         accept={accept}
         multiple={multiple}
-        onChange={(e) => onFileSelect?.(e.target.files)}
+        onChange={(e: any) => onFileSelect?.(e.target.files)}
         style={{ display: "none" }}
       />
       <Upload size={24} style={{ color: "var(--color-text-muted)", marginBottom: "var(--space-2)" }} />
@@ -199,7 +199,7 @@ export interface ImageUploadProps {
   onChange?: (url: string) => void;
 }
 
-export const ImageUpload: FC<ImageUploadProps> = ({ value, onChange }) => {
+export const ImageUpload: FC<ImageUploadProps> = ({ value, onChange }: any) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -223,7 +223,7 @@ export const ImageUpload: FC<ImageUploadProps> = ({ value, onChange }) => {
         ref={inputRef}
         type="file"
         accept="image/*"
-        onChange={(e) => {
+        onChange={(e: any) => {
           const file = e.target.files?.[0];
           if (file) {
             const url = URL.createObjectURL(file);
@@ -251,7 +251,7 @@ export interface EditorProps {
   placeholder?: string;
 }
 
-export const RichTextEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "Rich text content..." }) => {
+export const RichTextEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "Rich text content..." }: any) => {
   return (
     <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
       <div
@@ -271,7 +271,7 @@ export const RichTextEditor: FC<EditorProps> = ({ value = "", onChange, placehol
       </div>
       <textarea
         value={value}
-        onChange={(e) => onChange?.(e.target.value)}
+        onChange={(e: any) => onChange?.(e.target.value)}
         placeholder={placeholder}
         style={{
           width: "100%",
@@ -287,11 +287,11 @@ export const RichTextEditor: FC<EditorProps> = ({ value = "", onChange, placehol
   );
 };
 
-export const CodeEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "// Code editor..." }) => {
+export const CodeEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "// Code editor..." }: any) => {
   return (
     <textarea
       value={value}
-      onChange={(e) => onChange?.(e.target.value)}
+      onChange={(e: any) => onChange?.(e.target.value)}
       placeholder={placeholder}
       style={{
         width: "100%",
@@ -309,11 +309,11 @@ export const CodeEditor: FC<EditorProps> = ({ value = "", onChange, placeholder 
   );
 };
 
-export const MarkdownEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "# Markdown..." }) => {
+export const MarkdownEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "# Markdown..." }: any) => {
   return (
     <textarea
       value={value}
-      onChange={(e) => onChange?.(e.target.value)}
+      onChange={(e: any) => onChange?.(e.target.value)}
       placeholder={placeholder}
       style={{
         width: "100%",
@@ -334,7 +334,7 @@ export interface SignaturePadProps {
   onSave?: (dataUrl: string) => void;
 }
 
-export const SignaturePad: FC<SignaturePadProps> = ({ onSave }) => {
+export const SignaturePad: FC<SignaturePadProps> = ({ onSave }: any) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = useState(false);
 
@@ -358,7 +358,7 @@ export const SignaturePad: FC<SignaturePadProps> = ({ onSave }) => {
           const canvas = canvasRef.current;
           if (canvas) onSave?.(canvas.toDataURL());
         }}
-        onMouseMove={(e) => {
+        onMouseMove={(e: any) => {
           if (!drawing) return;
           const canvas = canvasRef.current;
           if (!canvas) return;

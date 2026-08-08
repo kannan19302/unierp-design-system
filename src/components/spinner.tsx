@@ -6,7 +6,7 @@ export interface SpinnerProps {
   className?: string;
 }
 
-export const Spinner: FC<SpinnerProps> = ({ size = "md", className = "" }) => {
+export const Spinner: FC<SpinnerProps> = ({ size = "md", className = "" }: any) => {
   const spinnerClass = [styles.spinner, styles[size], className]
     .filter(Boolean)
     .join(" ");

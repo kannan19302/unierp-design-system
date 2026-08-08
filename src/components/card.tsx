@@ -16,7 +16,7 @@ export const Card: FC<CardProps> = ({
   className = "",
   style,
   ...props
-}) => {
+}: any) => {
   const cardClass = [
     styles.card,
     styles[`p_${padding}`],

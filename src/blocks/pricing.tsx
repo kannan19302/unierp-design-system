@@ -61,7 +61,7 @@ export function PricingBlock({
             alignItems: "center",
           }}
         >
-          {plans.map((p, i) => (
+          {plans.map((p: any, i: any) => (
             <div
               key={i}
               className="ui-card"
@@ -117,7 +117,7 @@ export function PricingBlock({
                   marginBottom: "40px",
                 }}
               >
-                {p.features.map((f, j) => (
+                {p.features.map((f: any, j: any) => (
                   <li key={j} style={{ marginBottom: "12px", opacity: 0.8 }}>
                     ✓ {f}
                   </li>

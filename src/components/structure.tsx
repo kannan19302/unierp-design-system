@@ -14,12 +14,12 @@ export interface AccordionProps {
   items: AccordionItem[];
 }
 
-export const Accordion: FC<AccordionProps> = ({ items }) => {
+export const Accordion: FC<AccordionProps> = ({ items }: any) => {
   const [openKey, setOpenKey] = useState<string | null>(items[0]?.key || null);
 
   return (
     <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
-      {items.map((item) => {
+      {items.map((item: any) => {
         const isOpen = openKey === item.key;
         return (
           <div key={item.key} style={{ borderBottom: "1px solid var(--color-border)" }}>
@@ -54,7 +54,7 @@ export const Collapsible: FC<{ title: ReactNode; children: ReactNode; defaultOpe
   title,
   children,
   defaultOpen = false,
-}) => {
+}: any) => {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div>
@@ -86,14 +86,14 @@ export interface SplitViewProps {
   initialSplit?: number; // percentage
 }
 
-export const SplitView: FC<SplitViewProps> = ({ left, right, initialSplit = 30 }) => {
+export const SplitView: FC<SplitViewProps> = ({ left, right, initialSplit = 30 }: any) => {
   const [split, setSplit] = useState(initialSplit);
 
   return (
     <div style={{ display: "flex", width: "100%", height: "100%", overflow: "hidden" }}>
       <div style={{ width: `${split}%`, overflow: "auto" }}>{left}</div>
       <div
-        onMouseDown={(e) => {
+        onMouseDown={(e: any) => {
           const startX = e.clientX;
           const startSplit = split;
           const onMove = (moveEvent: MouseEvent) => {
@@ -121,7 +121,7 @@ export const SplitView: FC<SplitViewProps> = ({ left, right, initialSplit = 30 }
   );
 };
 
-export const ResizablePanel: FC<{ children: ReactNode }> = ({ children }) => {
+export const ResizablePanel: FC<{ children: ReactNode }> = ({ children }: any) => {
   return <div style={{ resize: "both", overflow: "auto", border: "1px solid var(--color-border)", padding: "var(--space-3)" }}>{children}</div>;
 };
 
@@ -135,10 +135,10 @@ export interface DescriptionListProps {
   items: DescriptionItem[];
 }
 
-export const DescriptionList: FC<DescriptionListProps> = ({ items }) => {
+export const DescriptionList: FC<DescriptionListProps> = ({ items }: any) => {
   return (
     <dl style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "var(--space-2) var(--space-4)", fontSize: "var(--text-sm)" }}>
-      {items.map((item, idx) => (
+      {items.map((item: any, idx: any) => (
         <div key={idx} style={{ display: "contents" }}>
           <dt style={{ fontWeight: 600, color: "var(--color-text-secondary)" }}>{item.label}</dt>
           <dd style={{ margin: 0, color: "var(--color-text)" }}>{item.value}</dd>
@@ -160,10 +160,10 @@ export interface TimelineProps {
   items: TimelineItem[];
 }
 
-export const Timeline: FC<TimelineProps> = ({ items }) => {
+export const Timeline: FC<TimelineProps> = ({ items }: any) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", paddingLeft: "var(--space-4)" }}>
-      {items.map((item) => (
+      {items.map((item: any) => (
         <div key={item.id} style={{ position: "relative", paddingLeft: "var(--space-4)", borderLeft: "2px solid var(--color-border)" }}>
           <div
             style={{
@@ -197,11 +197,11 @@ export interface TreeViewProps {
   onNodeSelect?: (node: TreeNode) => void;
 }
 
-export const TreeView: FC<TreeViewProps> = ({ nodes, onNodeSelect }) => {
+export const TreeView: FC<TreeViewProps> = ({ nodes, onNodeSelect }: any) => {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   const toggle = (id: string) => {
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+    setExpanded((prev: any) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const renderNode = (node: TreeNode) => {

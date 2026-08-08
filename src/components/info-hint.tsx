@@ -17,7 +17,7 @@ export interface InfoHintProps {
   style?: CSSProperties;
 }
 
-export const InfoHint: FC<InfoHintProps> = ({ text, size = 14, style }) => (
+export const InfoHint: FC<InfoHintProps> = ({ text, size = 14, style }: any) => (
   <Tooltip content={text}>
     <span
       role="img"

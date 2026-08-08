@@ -11,11 +11,11 @@ function csvEscape(value: unknown): string {
 
 export function toCsv<T>(columns: Column<T>[], rows: T[]): string {
   const header = columns
-    .map((c) => csvEscape(typeof c.header === "string" ? c.header : c.key))
+    .map((c: any) => csvEscape(typeof c.header === "string" ? c.header : c.key))
     .join(",");
-  const lines = rows.map((row) =>
+  const lines = rows.map((row: any) =>
     columns
-      .map((c) =>
+      .map((c: any) =>
         csvEscape(
           c.exportValue
             ? c.exportValue(row)

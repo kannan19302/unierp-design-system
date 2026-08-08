@@ -55,7 +55,7 @@ export const Alert: FC<AlertProps> = ({
   children,
   onClose,
   action,
-}) => {
+}: any) => {
   const meta = VARIANT_COLORS[variant];
   const IconComponent = Icons[variant];
 
@@ -101,7 +101,7 @@ export interface BannerProps {
   action?: ReactNode;
 }
 
-export const Banner: FC<BannerProps> = ({ variant = "info", children, onClose, action }) => {
+export const Banner: FC<BannerProps> = ({ variant = "info", children, onClose, action }: any) => {
   const meta = VARIANT_COLORS[variant];
   return (
     <div
@@ -141,7 +141,7 @@ export interface InlineMessageProps {
   children: ReactNode;
 }
 
-export const InlineMessage: FC<InlineMessageProps> = ({ variant = "info", children }) => {
+export const InlineMessage: FC<InlineMessageProps> = ({ variant = "info", children }: any) => {
   const meta = VARIANT_COLORS[variant];
   const IconComponent = Icons[variant];
   return (
@@ -168,7 +168,7 @@ export interface ProgressProps {
   showPercent?: boolean;
 }
 
-export const Progress: FC<ProgressProps> = ({ value, max = 100, label, showPercent = false }) => {
+export const Progress: FC<ProgressProps> = ({ value, max = 100, label, showPercent = false }: any) => {
   const pct = Math.min(100, Math.max(0, (value / max) * 100));
   return (
     <div style={{ width: "100%" }}>
@@ -204,7 +204,7 @@ export const Progress: FC<ProgressProps> = ({ value, max = 100, label, showPerce
   );
 };
 
-export const ProgressCircle: FC<{ value: number; size?: number }> = ({ value, size = 32 }) => {
+export const ProgressCircle: FC<{ value: number; size?: number }> = ({ value, size = 32 }: any) => {
   const stroke = 3;
   const radius = (size - stroke) / 2;
   const circ = 2 * Math.PI * radius;
@@ -242,7 +242,7 @@ export interface LoadingOverlayProps {
   message?: string;
 }
 
-export const LoadingOverlay: FC<LoadingOverlayProps> = ({ visible, message }) => {
+export const LoadingOverlay: FC<LoadingOverlayProps> = ({ visible, message }: any) => {
   if (!visible) return null;
   return (
     <div
@@ -292,13 +292,13 @@ interface ToastState {
 const ToastContext = createContext<ToastState | null>(null);
 
 /** Wrap your app in <ToastProvider> to enable toast notifications. */
-export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const ToastProvider: FC<{ children: ReactNode }> = ({ children }: any) => {
   const [queue, setQueue] = useState<ToastItem[]>([]);
 
   const add = _useCallback((toast: Omit<ToastItem, "id">) => {
-    setQueue((prev) => {
+    setQueue((prev: any) => {
       // Deduplication: if a key exists and is already in the queue, skip
-      if (toast.key && prev.some((t) => t.key === toast.key)) {
+      if (toast.key && prev.some((t: any) => t.key === toast.key)) {
         return prev;
       }
       // Burst protection: cap queue at 5 visible toasts
@@ -309,7 +309,7 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
   }, []);
 
   const dismiss = _useCallback((id: string) => {
-    setQueue((prev) => prev.filter((t) => t.id !== id));
+    setQueue((prev: any) => prev.filter((t: any) => t.id !== id));
   }, []);
 
   return (
@@ -333,7 +333,7 @@ interface ToastRegionProps {
   onDismiss: (id: string) => void;
 }
 
-const ToastRegion: FC<ToastRegionProps> = ({ queue, onDismiss }) => {
+const ToastRegion: FC<ToastRegionProps> = ({ queue, onDismiss }: any) => {
   const [mounted, setMounted] = useState(false);
   _useEffect(() => setMounted(true), []);
   if (!mounted) return null;
@@ -357,7 +357,7 @@ const ToastRegion: FC<ToastRegionProps> = ({ queue, onDismiss }) => {
         pointerEvents: "none",
       }}
     >
-      {queue.map((toast) => (
+      {queue.map((toast: any) => (
         <ToastCard key={toast.id} toast={toast} onDismiss={onDismiss} />
       ))}
     </div>,
@@ -369,7 +369,7 @@ const ToastRegion: FC<ToastRegionProps> = ({ queue, onDismiss }) => {
 const ToastCard: FC<{ toast: ToastItem; onDismiss: (id: string) => void }> = ({
   toast,
   onDismiss,
-}) => {
+}: any) => {
   const duration = toast.duration ?? 4000;
   const meta = VARIANT_COLORS[toast.variant ?? "info"];
   const IconComponent = Icons[toast.variant ?? "info"];

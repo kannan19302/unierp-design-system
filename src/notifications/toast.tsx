@@ -71,16 +71,16 @@ const VARIANT_META: Record<
  * App-wide toast provider — gives every action immediate, visible feedback
  * (Nielsen #1: visibility of system status). Wrap the app once near the root.
  */
-export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const ToastProvider: FC<{ children: ReactNode }> = ({ children }: any) => {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   const dismiss = useCallback((id: string) => {
-    setToasts((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, leaving: true } : t)),
+    setToasts((prev: any) =>
+      prev.map((t: any) => (t.id === id ? { ...t, leaving: true } : t)),
     );
     window.setTimeout(
-      () => setToasts((prev) => prev.filter((t) => t.id !== id)),
+      () => setToasts((prev: any) => prev.filter((t: any) => t.id !== id)),
       200,
     );
     if (timers.current[id]) {
@@ -99,7 +99,7 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
         variant: opts.variant ?? "info",
         duration: opts.duration ?? 4000,
       };
-      setToasts((prev) => [...prev, item]);
+      setToasts((prev: any) => [...prev, item]);
       if (item.duration > 0)
         timers.current[id] = setTimeout(() => dismiss(id), item.duration);
       return id;
@@ -110,13 +110,13 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const api = useMemo<ToastApi>(
     () => ({
       toast: push,
-      success: (title, description) =>
+      success: (title: any, description: any) =>
         push({ title, description, variant: "success" }),
-      error: (title, description) =>
+      error: (title: any, description: any) =>
         push({ title, description, variant: "error", duration: 6000 }),
-      warning: (title, description) =>
+      warning: (title: any, description: any) =>
         push({ title, description, variant: "warning" }),
-      info: (title, description) =>
+      info: (title: any, description: any) =>
         push({ title, description, variant: "info" }),
       dismiss,
     }),
@@ -148,7 +148,7 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
           pointerEvents: "none",
         }}
       >
-        {toasts.map((t) => {
+        {toasts.map((t: any) => {
           const meta = VARIANT_META[t.variant];
           const { Icon } = meta;
           return (
@@ -227,10 +227,10 @@ export function useToast(): ToastApi {
   const noop = (_o: ToastOptions) => "";
   return {
     toast: noop,
-    success: (title, description) => noop({ title, description }),
-    error: (title, description) => noop({ title, description }),
-    warning: (title, description) => noop({ title, description }),
-    info: (title, description) => noop({ title, description }),
+    success: (title: any, description: any) => noop({ title, description }),
+    error: (title: any, description: any) => noop({ title, description }),
+    warning: (title: any, description: any) => noop({ title, description }),
+    info: (title: any, description: any) => noop({ title, description }),
     dismiss: () => {},
   };
 }

@@ -27,7 +27,7 @@ export const FormField: React.FC<FormFieldProps> = ({
   error,
   hint,
   children,
-}) => (
+}: any) => (
   <div className={styles.field_container}>
     {label && (
       <label htmlFor={htmlFor} className={styles.label}>
@@ -51,7 +51,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ invalid, className = "", style, ...props }, ref) => {
+  ({ invalid, className = "", style, ...props }: any, ref: any) => {
     const inputClass = [styles.control, invalid && styles.invalid, className]
       .filter(Boolean)
       .join(" ");
@@ -74,7 +74,7 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ invalid, className = "", style, ...props }, ref) => {
+  ({ invalid, className = "", style, ...props }: any, ref: any) => {
     const textareaClass = [
       styles.control,
       styles.textarea,
@@ -102,7 +102,7 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ invalid, className = "", children, style, ...props }, ref) => {
+  ({ invalid, className = "", children, style, ...props }: any, ref: any) => {
     const selectClass = [
       styles.control,
       styles.select,
@@ -130,7 +130,7 @@ Select.displayName = "Select";
 /** Convenience: labeled text input bound to FormField, with a generated id. */
 export const TextField: React.FC<
   InputProps & { label?: ReactNode; error?: string | null; hint?: ReactNode }
-> = ({ label, error, hint, required, id, ...props }) => {
+> = ({ label, error, hint, required, id, ...props }: any) => {
   const gid = useId();
   const fieldId = id || gid;
   return (

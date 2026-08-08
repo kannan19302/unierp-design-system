@@ -7,7 +7,7 @@ function hexToRgb(hex: string): [number, number, number] | null {
   const cleanHex = hex.replace(/^#/, "");
   let fullHex = cleanHex;
   if (cleanHex.length === 3) {
-    fullHex = cleanHex.split("").map((c) => c + c).join("");
+    fullHex = cleanHex.split("").map((c: any) => c + c).join("");
   }
   if (fullHex.length !== 6) return null;
   const num = parseInt(fullHex, 16);
@@ -15,7 +15,7 @@ function hexToRgb(hex: string): [number, number, number] | null {
 }
 
 function getLuminance(r: number, g: number, b: number): number {
-  const [rs, gs, bs] = [r, g, b].map((c) => {
+  const [rs, gs, bs] = [r, g, b].map((c: any) => {
     const s = c / 255;
     return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
   });

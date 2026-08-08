@@ -120,7 +120,7 @@ export const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
   activeView,
   onViewChange,
   availableViews = ["list", "chart"],
-}) => (
+}: any) => (
   <div
     style={{
       display: "inline-flex",
@@ -132,7 +132,7 @@ export const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
       background: "var(--color-bg-sunken)",
     }}
   >
-    {availableViews.map((mode) => {
+    {availableViews.map((mode: any) => {
       const isActive = mode === activeView;
       return (
         <button

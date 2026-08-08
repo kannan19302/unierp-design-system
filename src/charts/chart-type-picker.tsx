@@ -43,9 +43,9 @@ export const ChartTypePicker: React.FC<ChartTypePickerProps> = ({
   value,
   onChange,
   options = DEFAULT_OPTIONS,
-}) => {
+}: any) => {
   const [isOpen, setIsOpen] = useState(false);
-  const selected = options.find((o) => o.type === value) || options[0];
+  const selected = options.find((o: any) => o.type === value) || options[0];
 
   return (
     <div style={{ position: "relative", display: "inline-block" }}>
@@ -67,10 +67,10 @@ export const ChartTypePicker: React.FC<ChartTypePickerProps> = ({
           transition: "border-color var(--duration-fast)",
           lineHeight: 1,
         }}
-        onMouseEnter={(e) => {
+        onMouseEnter={(e: any) => {
           e.currentTarget.style.borderColor = "var(--color-primary)";
         }}
-        onMouseLeave={(e) => {
+        onMouseLeave={(e: any) => {
           e.currentTarget.style.borderColor = "var(--color-border)";
         }}
       >
@@ -104,7 +104,7 @@ export const ChartTypePicker: React.FC<ChartTypePickerProps> = ({
               animation: "fadeInUp 0.15s ease-out",
             }}
           >
-            {options.map((opt) => (
+            {options.map((opt: any) => (
               <button
                 key={opt.type}
                 type="button"
@@ -135,11 +135,11 @@ export const ChartTypePicker: React.FC<ChartTypePickerProps> = ({
                     opt.type === value ? "var(--weight-semibold)" : "normal",
                   transition: "background var(--duration-fast)",
                 }}
-                onMouseEnter={(e) => {
+                onMouseEnter={(e: any) => {
                   if (opt.type !== value)
                     e.currentTarget.style.background = "var(--color-bg-sunken)";
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={(e: any) => {
                   if (opt.type !== value)
                     e.currentTarget.style.background = "transparent";
                 }}

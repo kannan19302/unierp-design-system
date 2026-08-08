@@ -97,7 +97,7 @@ export const Switch: FC<SwitchProps> = ({
   disabled = false,
   label,
   id,
-}) => {
+}: any) => {
   const [internal, setInternal] = useState(defaultChecked);
   const checked = controlledChecked !== undefined ? controlledChecked : internal;
 
@@ -125,7 +125,7 @@ export const Switch: FC<SwitchProps> = ({
         aria-checked={checked}
         tabIndex={disabled ? -1 : 0}
         onClick={toggle}
-        onKeyDown={(e) => {
+        onKeyDown={(e: any) => {
           if (e.key === " " || e.key === "Enter") {
             e.preventDefault();
             toggle();
@@ -177,7 +177,7 @@ export const Checkbox: FC<CheckboxProps> = ({
   disabled = false,
   label,
   id,
-}) => {
+}: any) => {
   const [internal, setInternal] = useState(defaultChecked);
   const checked = controlledChecked !== undefined ? controlledChecked : internal;
 
@@ -228,10 +228,10 @@ export interface RadioGroupProps {
   disabled?: boolean;
 }
 
-export const RadioGroup: FC<RadioGroupProps> = ({ options, value, onChange, name, disabled }) => {
+export const RadioGroup: FC<RadioGroupProps> = ({ options, value, onChange, name, disabled }: any) => {
   return (
     <div role="radiogroup" style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-      {options.map((opt) => (
+      {options.map((opt: any) => (
         <label
           key={opt.value}
           style={{
@@ -269,7 +269,7 @@ export interface SliderProps {
   disabled?: boolean;
 }
 
-export const Slider: FC<SliderProps> = ({ value = 0, min = 0, max = 100, step = 1, onChange, disabled }) => {
+export const Slider: FC<SliderProps> = ({ value = 0, min = 0, max = 100, step = 1, onChange, disabled }: any) => {
   return (
     <input
       type="range"
@@ -278,7 +278,7 @@ export const Slider: FC<SliderProps> = ({ value = 0, min = 0, max = 100, step = 
       step={step}
       value={value}
       disabled={disabled}
-      onChange={(e) => onChange?.(Number(e.target.value))}
+      onChange={(e: any) => onChange?.(Number(e.target.value))}
       style={{ width: "100%", cursor: disabled ? "not-allowed" : "pointer" }}
     />
   );
@@ -295,7 +295,7 @@ export interface NumericInputProps {
   placeholder?: string;
 }
 
-export const NumberInput: FC<NumericInputProps> = ({ value, onChange, min, max, step = 1, disabled, placeholder }) => {
+export const NumberInput: FC<NumericInputProps> = ({ value, onChange, min, max, step = 1, disabled, placeholder }: any) => {
   return (
     <input
       type="number"
@@ -305,7 +305,7 @@ export const NumberInput: FC<NumericInputProps> = ({ value, onChange, min, max, 
       step={step}
       disabled={disabled}
       placeholder={placeholder}
-      onChange={(e) => onChange?.(Number(e.target.value))}
+      onChange={(e: any) => onChange?.(Number(e.target.value))}
       style={{
         padding: "var(--space-2) var(--space-3)",
         border: "1px solid var(--color-border)",
@@ -328,7 +328,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
   currencySymbol = "$",
   disabled,
   placeholder,
-}) => {
+}: any) => {
   return (
     <div style={{ position: "relative", display: "inline-flex", alignItems: "center" }}>
       <span
@@ -347,7 +347,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
         value={value !== undefined ? value : ""}
         disabled={disabled}
         placeholder={placeholder}
-        onChange={(e) => {
+        onChange={(e: any) => {
           // Integer arithmetic guard: convert to pence (or smallest unit),
           // round, then divide — prevents floating-point artifacts.
           // e.g. 1.005 * 100 = 100.50000000000001 with naive multiply;
@@ -374,7 +374,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
   );
 };
 
-export const PercentInput: FC<NumericInputProps> = ({ value, onChange, disabled, placeholder }) => {
+export const PercentInput: FC<NumericInputProps> = ({ value, onChange, disabled, placeholder }: any) => {
   return (
     <div style={{ position: "relative", display: "inline-flex", alignItems: "center" }}>
       <input
@@ -385,7 +385,7 @@ export const PercentInput: FC<NumericInputProps> = ({ value, onChange, disabled,
         value={value !== undefined ? value : ""}
         disabled={disabled}
         placeholder={placeholder}
-        onChange={(e) => onChange?.(Number(e.target.value))}
+        onChange={(e: any) => onChange?.(Number(e.target.value))}
         style={{
           paddingRight: "var(--space-7)",
           paddingLeft: "var(--space-3)",
@@ -425,9 +425,9 @@ export interface MultiSelectProps {
   placeholder?: string;
 }
 
-export const MultiSelect: FC<MultiSelectProps> = ({ options, value, onChange, placeholder = "Select items..." }) => {
+export const MultiSelect: FC<MultiSelectProps> = ({ options, value, onChange, placeholder = "Select items..." }: any) => {
   const toggle = (val: string) => {
-    if (value.includes(val)) onChange(value.filter((v) => v !== val));
+    if (value.includes(val)) onChange(value.filter((v: any) => v !== val));
     else onChange([...value, val]);
   };
 
@@ -445,8 +445,8 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, value, onChange, pl
         alignItems: "center",
       }}
     >
-      {value.map((v) => {
-        const opt = options.find((o) => o.value === v);
+      {value.map((v: any) => {
+        const opt = options.find((o: any) => o.value === v);
         return (
           <span
             key={v}
@@ -472,7 +472,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, value, onChange, pl
       })}
       <select
         value=""
-        onChange={(e) => {
+        onChange={(e: any) => {
           if (e.target.value) toggle(e.target.value);
         }}
         style={{ border: "none", background: "none", outline: "none", fontSize: "var(--text-sm)", cursor: "pointer" }}
@@ -480,7 +480,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, value, onChange, pl
         <option value="" disabled>
           {value.length === 0 ? placeholder : "+ Add..."}
         </option>
-        {options.map((o) => (
+        {options.map((o: any) => (
           <option key={o.value} value={o.value} disabled={value.includes(o.value)}>
             {o.label}
           </option>
@@ -496,7 +496,7 @@ export interface TagInputProps {
   placeholder?: string;
 }
 
-export const TagInput: FC<TagInputProps> = ({ tags, onChange, placeholder = "Type tag and press enter..." }) => {
+export const TagInput: FC<TagInputProps> = ({ tags, onChange, placeholder = "Type tag and press enter..." }: any) => {
   const [input, setInput] = useState("");
 
   const addTag = () => {
@@ -521,7 +521,7 @@ export const TagInput: FC<TagInputProps> = ({ tags, onChange, placeholder = "Typ
         alignItems: "center",
       }}
     >
-      {tags.map((t) => (
+      {tags.map((t: any) => (
         <span
           key={t}
           style={{
@@ -537,7 +537,7 @@ export const TagInput: FC<TagInputProps> = ({ tags, onChange, placeholder = "Typ
         >
           {t}
           <button
-            onClick={() => onChange(tags.filter((tag) => tag !== t))}
+            onClick={() => onChange(tags.filter((tag: any) => tag !== t))}
             style={{ background: "none", border: "none", cursor: "pointer", fontSize: "12px", padding: 0, color: "var(--color-primary)" }}
           >
             ×
@@ -547,8 +547,8 @@ export const TagInput: FC<TagInputProps> = ({ tags, onChange, placeholder = "Typ
       <input
         type="text"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => {
+        onChange={(e: any) => setInput(e.target.value)}
+        onKeyDown={(e: any) => {
           if (e.key === "Enter") {
             e.preventDefault();
             addTag();

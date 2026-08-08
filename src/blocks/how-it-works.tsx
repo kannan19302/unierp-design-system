@@ -39,7 +39,7 @@ export function HowItWorksBlock({
           {title}
         </h2>
         <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
-          {steps.map((s, i) => (
+          {steps.map((s: any, i: any) => (
             <div
               key={i}
               style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}
