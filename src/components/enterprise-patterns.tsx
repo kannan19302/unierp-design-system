@@ -228,3 +228,190 @@ export const PrintLayout: FC<{ children: ReactNode }> = ({ children }) => {
     </div>
   );
 };
+
+// ── useVirtualScroll — virtualized list rendering ─────
+// B08: Only the visible window of rows is rendered — O(viewport) not O(list).
+//   With 100 000 rows at 40px each = 4 000 000px total height;
+//   startIndex = Math.floor(scrollTop / rowHeight) keeps DOM nodes constant.
+
+import { useRef as _useRef, useState as _useState, useCallback as _useCallback, useEffect as _useEffect } from "react";
+
+export interface VirtualScrollOptions {
+  /** Total number of items in the list. */
+  itemCount: number;
+  /** Fixed row height in pixels. */
+  rowHeight: number;
+  /** Number of extra rows to render above/below the viewport (default 3). */
+  overscan?: number;
+}
+
+export interface VirtualScrollResult {
+  /** Ref to attach to the scroll container. */
+  containerRef: React.RefObject<HTMLDivElement>;
+  /** Total height of the virtual list (for the placeholder div). */
+  totalHeight: number;
+  /** First visible item index (inclusive). */
+  startIndex: number;
+  /** Last visible item index (exclusive). */
+  endIndex: number;
+  /** CSS transform to offset rendered items correctly. */
+  offsetY: number;
+  /** Scroll event handler to attach to the container. */
+  onScroll: () => void;
+}
+
+export function useVirtualScroll({
+  itemCount,
+  rowHeight,
+  overscan = 3,
+}: VirtualScrollOptions): VirtualScrollResult {
+  const containerRef = _useRef<HTMLDivElement>(null);
+  const [scrollTop, setScrollTop] = _useState(0);
+  const [viewportHeight, setViewportHeight] = _useState(0);
+
+  _useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      setViewportHeight(entry.contentRect.height);
+    });
+    ro.observe(el);
+    setViewportHeight(el.clientHeight);
+    return () => ro.disconnect();
+  }, []);
+
+  const onScroll = _useCallback(() => {
+    setScrollTop(containerRef.current?.scrollTop ?? 0);
+  }, []);
+
+  const totalHeight = itemCount * rowHeight;
+  const rawStart = Math.floor(scrollTop / rowHeight);
+  const startIndex = Math.max(0, rawStart - overscan);
+  const visibleCount = Math.ceil(viewportHeight / rowHeight);
+  const endIndex = Math.min(itemCount, rawStart + visibleCount + overscan);
+  const offsetY = startIndex * rowHeight;
+
+  return { containerRef, totalHeight, startIndex, endIndex, offsetY, onScroll };
+}
+
+// ── DataTable — column-resizable table ───────────────
+// B08: Each column header carries a drag handle that adjusts columnWidths state.
+//   Uses mousedown+mousemove+mouseup cycle — no third-party library needed.
+
+export interface DataTableColumn<T = Record<string, unknown>> {
+  key: string;
+  header: string;
+  /** Default width in pixels. Default 150. */
+  width?: number;
+  /** Render function for each cell. */
+  render?: (row: T, col: DataTableColumn<T>) => ReactNode;
+}
+
+export interface DataTableProps<T extends Record<string, unknown>> {
+  columns: DataTableColumn<T>[];
+  rows: T[];
+  getRowKey?: (row: T) => string;
+}
+
+export function DataTable<T extends Record<string, unknown>>({
+  columns,
+  rows,
+  getRowKey,
+}: DataTableProps<T>) {
+  const [colWidths, setColWidths] = _useState<Record<string, number>>(() =>
+    Object.fromEntries(columns.map((c) => [c.key, c.width ?? 150])),
+  );
+  const resizingRef = _useRef<{ key: string; startX: number; startW: number } | null>(null);
+
+  const onResizeMouseDown = (e: React.MouseEvent, colKey: string) => {
+    e.preventDefault();
+    resizingRef.current = { key: colKey, startX: e.clientX, startW: colWidths[colKey] ?? 150 };
+
+    const onMouseMove = (ev: MouseEvent) => {
+      if (!resizingRef.current) return;
+      const { key, startX, startW } = resizingRef.current;
+      const newW = Math.max(60, startW + (ev.clientX - startX));
+      setColWidths((prev) => ({ ...prev, [key]: newW }));
+    };
+    const onMouseUp = () => {
+      resizingRef.current = null;
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  };
+
+  return (
+    <div style={{ overflowX: "auto", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
+      <table
+        role="grid"
+        style={{ borderCollapse: "collapse", width: "max-content", fontSize: "var(--text-sm)" }}
+      >
+        <thead>
+          <tr>
+            {columns.map((col) => (
+              <th
+                key={col.key}
+                scope="col"
+                style={{
+                  position: "relative",
+                  width: colWidths[col.key],
+                  padding: "var(--space-2) var(--space-3)",
+                  background: "var(--color-bg-sunken)",
+                  borderBottom: "1px solid var(--color-border)",
+                  textAlign: "left",
+                  fontWeight: 600,
+                  userSelect: "none",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {col.header}
+                {/* Column resize handle */}
+                <div
+                  aria-hidden="true"
+                  onMouseDown={(e) => onResizeMouseDown(e, col.key)}
+                  style={{
+                    position: "absolute",
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: "4px",
+                    cursor: "col-resize",
+                    background: "transparent",
+                  }}
+                  title={`Resize ${col.header} column`}
+                />
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, rowIdx) => (
+            <tr
+              key={getRowKey ? getRowKey(row) : String(rowIdx)}
+              style={{ borderBottom: "1px solid var(--color-border)" }}
+            >
+              {columns.map((col) => (
+                <td
+                  key={col.key}
+                  style={{
+                    padding: "var(--space-2) var(--space-3)",
+                    width: colWidths[col.key],
+                    maxWidth: colWidths[col.key],
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {col.render ? col.render(row, col) : String(row[col.key] ?? "")}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
