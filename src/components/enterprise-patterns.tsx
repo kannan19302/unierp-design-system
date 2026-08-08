@@ -3,6 +3,8 @@
 import { type FC, type ReactNode } from "react";
 import { Breadcrumb, type BreadcrumbItem } from "./extended-navigation";
 import { Filter, Bookmark, CheckCircle2, Clock } from "lucide-react";
+export { ChangeHistory, type ChangeHistoryProps } from "../data-grid/change-history";
+
 
 // ── PageHeader ────────────────────────────────────────
 export interface PageHeaderProps {
