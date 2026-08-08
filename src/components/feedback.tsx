@@ -264,3 +264,155 @@ export const LoadingOverlay: FC<LoadingOverlayProps> = ({ visible, message }) =>
     </div>
   );
 };
+
+// ── Toast system ──────────────────────────────────────
+// Single notification surface: one queue, deduplication, live region announcement.
+
+import { useState, useEffect as _useEffect, useCallback as _useCallback, createContext, useContext } from "react";
+import { createPortal as _createPortal } from "react-dom";
+
+export type ToastVariant = FeedbackVariant;
+
+export interface ToastItem {
+  id: string;
+  /** Deduplication key — same key = same toast. Omit for always-unique. */
+  key?: string;
+  message: ReactNode;
+  variant?: ToastVariant;
+  /** Auto-dismiss after ms. Default 4000. Set to 0 to require manual dismiss. */
+  duration?: number;
+}
+
+interface ToastState {
+  queue: ToastItem[];
+  add: (toast: Omit<ToastItem, "id">) => void;
+  dismiss: (id: string) => void;
+}
+
+const ToastContext = createContext<ToastState | null>(null);
+
+/** Wrap your app in <ToastProvider> to enable toast notifications. */
+export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const [queue, setQueue] = useState<ToastItem[]>([]);
+
+  const add = _useCallback((toast: Omit<ToastItem, "id">) => {
+    setQueue((prev) => {
+      // Deduplication: if a key exists and is already in the queue, skip
+      if (toast.key && prev.some((t) => t.key === toast.key)) {
+        return prev;
+      }
+      // Burst protection: cap queue at 5 visible toasts
+      const capped = prev.length >= 5 ? prev.slice(1) : prev;
+      const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      return [...capped, { ...toast, id }];
+    });
+  }, []);
+
+  const dismiss = _useCallback((id: string) => {
+    setQueue((prev) => prev.filter((t) => t.id !== id));
+  }, []);
+
+  return (
+    <ToastContext.Provider value={{ queue, add, dismiss }}>
+      {children}
+      <ToastRegion queue={queue} onDismiss={dismiss} />
+    </ToastContext.Provider>
+  );
+};
+
+/** useToast — returns the add/dismiss functions for triggering toasts. */
+export function useToast(): Pick<ToastState, "add" | "dismiss"> {
+  const ctx = useContext(ToastContext);
+  if (!ctx) throw new Error("useToast must be used inside <ToastProvider>");
+  return { add: ctx.add, dismiss: ctx.dismiss };
+}
+
+// ── Toast region (aria-live) ──────────────────────────
+interface ToastRegionProps {
+  queue: ToastItem[];
+  onDismiss: (id: string) => void;
+}
+
+const ToastRegion: FC<ToastRegionProps> = ({ queue, onDismiss }) => {
+  const [mounted, setMounted] = useState(false);
+  _useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  return _createPortal(
+    <div
+      // aria-live="polite" ensures screen readers announce each new toast.
+      aria-live="polite"
+      aria-atomic="false"
+      aria-relevant="additions"
+      style={{
+        position: "fixed",
+        bottom: "var(--space-5)",
+        right: "var(--space-5)",
+        zIndex: 99999,
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--space-2)",
+        maxWidth: "360px",
+        width: "100%",
+        pointerEvents: "none",
+      }}
+    >
+      {queue.map((toast) => (
+        <ToastCard key={toast.id} toast={toast} onDismiss={onDismiss} />
+      ))}
+    </div>,
+    document.body,
+  );
+};
+
+// ── Toast card ────────────────────────────────────────
+const ToastCard: FC<{ toast: ToastItem; onDismiss: (id: string) => void }> = ({
+  toast,
+  onDismiss,
+}) => {
+  const duration = toast.duration ?? 4000;
+  const meta = VARIANT_COLORS[toast.variant ?? "info"];
+  const IconComponent = Icons[toast.variant ?? "info"];
+
+  _useEffect(() => {
+    if (duration === 0) return;
+    const timer = setTimeout(() => onDismiss(toast.id), duration);
+    return () => clearTimeout(timer);
+  }, [toast.id, duration, onDismiss]);
+
+  return (
+    <div
+      role="status"
+      style={{
+        display: "flex",
+        alignItems: "flex-start",
+        gap: "var(--space-3)",
+        padding: "var(--space-3) var(--space-4)",
+        background: "var(--color-bg-elevated)",
+        border: `1px solid ${meta.border}`,
+        borderLeft: `4px solid ${meta.border}`,
+        borderRadius: "var(--radius-md)",
+        boxShadow: "var(--shadow-lg)",
+        fontSize: "var(--text-sm)",
+        color: meta.text,
+        pointerEvents: "all",
+      }}
+    >
+      <IconComponent size={16} style={{ color: meta.iconColor, flexShrink: 0, marginTop: 2 }} />
+      <span style={{ flex: 1 }}>{toast.message}</span>
+      <button
+        onClick={() => onDismiss(toast.id)}
+        aria-label="Dismiss notification"
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
+          color: "var(--color-text-muted)",
+        }}
+      >
+        <X size={14} />
+      </button>
+    </div>
+  );
+};
