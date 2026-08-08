@@ -1,27 +1,23 @@
 "use client";
 
-// @unerp/ui-charts — data visualization
+// @unerp/ui-charts — visualization components
 export {
   KPICard,
   MiniBarChart,
   MiniDonutChart,
   Sparkline,
+  LineChart,
+  AreaChart,
+  GaugeChart,
+  FunnelChart,
+  HeatmapChart,
   type KPICardProps,
   type MiniBarChartProps,
-  type MiniDonutChartProps,
-  type SparklineProps,
   type BarChartData,
+  type MiniDonutChartProps,
   type DonutSegment,
+  type SparklineProps,
 } from "./charts";
-export {
-  DashboardChart,
-  type DashboardChartProps,
-  type DashboardChartConfig,
-  type ChartSeries,
-} from "./dashboard-chart";
-export {
-  ChartTypePicker,
-  type ChartTypePickerProps,
-  type ChartType,
-  type ChartTypeOption,
-} from "./chart-type-picker";
+
+export { DashboardChart, type DashboardChartProps } from "./dashboard-chart";
+export { ChartTypePicker, type ChartTypePickerProps } from "./chart-type-picker";

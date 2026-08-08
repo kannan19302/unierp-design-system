@@ -1,0 +1,75 @@
+import fs from "fs";
+import path from "path";
+
+const COMPONENTS_DIR = path.resolve(process.cwd(), "src", "components");
+
+const filesToCreate = [
+  { name: "popover.tsx", content: `export { Popover, type PopoverProps } from "./overlays";\n` },
+  { name: "menu.tsx", content: `export { DropdownMenu as Menu, type MenuItem, type DropdownMenuProps } from "./overlays";\n` },
+  { name: "dropdown-menu.tsx", content: `export { DropdownMenu, type DropdownMenuProps } from "./overlays";\n` },
+  { name: "context-menu.tsx", content: `export { ContextMenu, type ContextMenuProps } from "./overlays";\n` },
+  { name: "sheet.tsx", content: `export { Sheet, type SheetProps } from "./overlays";\n` },
+  { name: "alert.tsx", content: `export { Alert, type AlertProps } from "./feedback";\n` },
+  { name: "banner.tsx", content: `export { Banner, type BannerProps } from "./feedback";\n` },
+  { name: "inline-message.tsx", content: `export { InlineMessage, type InlineMessageProps } from "./feedback";\n` },
+  { name: "progress.tsx", content: `export { Progress, ProgressCircle, type ProgressProps } from "./feedback";\n` },
+  { name: "loading-overlay.tsx", content: `export { LoadingOverlay, type LoadingOverlayProps } from "./feedback";\n` },
+  { name: "breadcrumb.tsx", content: `export { Breadcrumb, type BreadcrumbItem, type BreadcrumbProps } from "./extended-navigation";\n` },
+  { name: "sidenav.tsx", content: `export { SideNav, type SideNavItem, type SideNavProps } from "./extended-navigation";\n` },
+  { name: "command-palette.tsx", content: `export { CommandPalette, type CommandItem, type CommandPaletteProps } from "./extended-navigation";\n` },
+  { name: "steps.tsx", content: `export { Steps, type StepItem, type StepsProps } from "./extended-navigation";\n` },
+  { name: "switch.tsx", content: `export { Switch, type SwitchProps } from "./extended-inputs";\n` },
+  { name: "checkbox.tsx", content: `export { Checkbox, type CheckboxProps } from "./extended-inputs";\n` },
+  { name: "radio-group.tsx", content: `export { RadioGroup, type RadioOption, type RadioGroupProps } from "./extended-inputs";\n` },
+  { name: "slider.tsx", content: `export { Slider, type SliderProps } from "./extended-inputs";\n` },
+  { name: "number-input.tsx", content: `export { NumberInput, type NumericInputProps } from "./extended-inputs";\n` },
+  { name: "currency-input.tsx", content: `export { CurrencyInput, type CurrencyInputProps } from "./extended-inputs";\n` },
+  { name: "percent-input.tsx", content: `export { PercentInput } from "./extended-inputs";\n` },
+  { name: "multi-select.tsx", content: `export { MultiSelect, type MultiSelectProps } from "./extended-inputs";\n` },
+  { name: "tag-input.tsx", content: `export { TagInput, type TagInputProps } from "./extended-inputs";\n` },
+  { name: "time-picker.tsx", content: `export { TimePicker, type TimePickerProps } from "./temporal";\n` },
+  { name: "date-time-picker.tsx", content: `export { DateTimePicker, type DateTimePickerProps } from "./temporal";\n` },
+  { name: "calendar.tsx", content: `export { Calendar, type CalendarProps } from "./temporal";\n` },
+  { name: "scheduler.tsx", content: `export { Scheduler, type SchedulerProps, type EventItem } from "./temporal";\n` },
+  { name: "fiscal-period-picker.tsx", content: `export { FiscalPeriodPicker, type FiscalPeriodPickerProps } from "./temporal";\n` },
+  { name: "file-upload.tsx", content: `export { FileUpload, type FileUploadProps } from "./heavy-inputs";\n` },
+  { name: "image-upload.tsx", content: `export { ImageUpload, type ImageUploadProps } from "./heavy-inputs";\n` },
+  { name: "rich-text-editor.tsx", content: `export { RichTextEditor } from "./heavy-inputs";\n` },
+  { name: "code-editor.tsx", content: `export { CodeEditor } from "./heavy-inputs";\n` },
+  { name: "markdown-editor.tsx", content: `export { MarkdownEditor } from "./heavy-inputs";\n` },
+  { name: "signature-pad.tsx", content: `export { SignaturePad, type SignaturePadProps } from "./heavy-inputs";\n` },
+  { name: "accordion.tsx", content: `export { Accordion, type AccordionItem, type AccordionProps } from "./structure";\n` },
+  { name: "collapsible.tsx", content: `export { Collapsible } from "./structure";\n` },
+  { name: "split-view.tsx", content: `export { SplitView, type SplitViewProps } from "./structure";\n` },
+  { name: "resizable-panel.tsx", content: `export { ResizablePanel } from "./structure";\n` },
+  { name: "description-list.tsx", content: `export { DescriptionList, type DescriptionItem, type DescriptionListProps } from "./structure";\n` },
+  { name: "timeline.tsx", content: `export { Timeline, type TimelineItem, type TimelineProps } from "./structure";\n` },
+  { name: "tree-view.tsx", content: `export { TreeView, type TreeNode, type TreeViewProps } from "./structure";\n` },
+  { name: "avatar.tsx", content: `export { Avatar, AvatarGroup, type AvatarProps, type AvatarGroupProps } from "./identity";\n` },
+  { name: "user-chip.tsx", content: `export { UserChip, type UserChipProps } from "./identity";\n` },
+  { name: "presence.tsx", content: `export { Presence, type PresenceProps } from "./identity";\n` },
+  { name: "tag.tsx", content: `export { Tag, type TagProps } from "./identity";\n` },
+  { name: "priority-indicator.tsx", content: `export { PriorityIndicator, type PriorityIndicatorProps } from "./identity";\n` },
+  { name: "health-score.tsx", content: `export { HealthScore, type HealthScoreProps } from "./identity";\n` },
+  { name: "page-header.tsx", content: `export { PageHeader, type PageHeaderProps } from "./enterprise-patterns";\n` },
+  { name: "filter-bar.tsx", content: `export { FilterBar, type FilterBarProps } from "./enterprise-patterns";\n` },
+  { name: "saved-view-switcher.tsx", content: `export { SavedViewSwitcher, type SavedView, type SavedViewSwitcherProps } from "./enterprise-patterns";\n` },
+  { name: "bulk-action-bar.tsx", content: `export { BulkActionBar, type BulkActionBarProps } from "./enterprise-patterns";\n` },
+  { name: "detail-layout.tsx", content: `export { DetailLayout, type DetailLayoutProps } from "./enterprise-patterns";\n` },
+  { name: "record-sidebar.tsx", content: `export { RecordSidebar } from "./enterprise-patterns";\n` },
+  { name: "approval-timeline.tsx", content: `export { ApprovalTimeline, type ApprovalStep } from "./enterprise-patterns";\n` },
+  { name: "audit-trail-panel.tsx", content: `export { AuditTrailPanel } from "./enterprise-patterns";\n` },
+  { name: "print-layout.tsx", content: `export { PrintLayout } from "./enterprise-patterns";\n` },
+  { name: "loading-state.tsx", content: `export { LoadingState, type LoadingStateProps } from "./six-states";\n` },
+  { name: "filtered-empty-state.tsx", content: `export { FilteredEmptyState, type FilteredEmptyStateProps } from "./six-states";\n` },
+  { name: "error-state.tsx", content: `export { ErrorState, type ErrorStateProps } from "./six-states";\n` },
+  { name: "forbidden-state.tsx", content: `export { ForbiddenState, type ForbiddenStateProps } from "./six-states";\n` },
+  { name: "partial-state.tsx", content: `export { PartialState, type PartialStateProps } from "./six-states";\n` },
+];
+
+for (const item of filesToCreate) {
+  const filePath = path.join(COMPONENTS_DIR, item.name);
+  fs.writeFileSync(filePath, item.content);
+}
+
+console.log(`Created ${filesToCreate.length} individual component export files.`);

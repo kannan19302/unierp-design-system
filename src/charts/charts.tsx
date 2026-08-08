@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { type FC } from "react";
 
 export interface KPICardProps {
   title: string;
@@ -359,5 +359,74 @@ export const Sparkline: React.FC<SparklineProps> = ({
         strokeLinejoin="round"
       />
     </svg>
+  );
+};
+
+// ── Extended Charts (Line, Area, Funnel, Gauge, Heatmap, Combo) ─────────────
+export const LineChart: FC<{ data: number[]; labels?: string[]; width?: number; height?: number }> = ({
+  data,
+  labels,
+  width = 300,
+  height = 150,
+}) => <Sparkline data={data} width={width} height={height} fill={false} />;
+
+export const AreaChart: FC<{ data: number[]; labels?: string[]; width?: number; height?: number }> = ({
+  data,
+  labels,
+  width = 300,
+  height = 150,
+}) => <Sparkline data={data} width={width} height={height} fill={true} />;
+
+export const GaugeChart: FC<{ value: number; min?: number; max?: number }> = ({ value, min = 0, max = 100 }) => {
+  const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
+  return (
+    <div style={{ textAlign: "center" }}>
+      <MiniDonutChart
+        segments={[
+          { label: "Value", value: pct, color: "var(--color-primary)" },
+          { label: "Remaining", value: 100 - pct, color: "var(--color-bg-sunken)" },
+        ]}
+        centerValue={`${Math.round(pct)}%`}
+      />
+    </div>
+  );
+};
+
+export const FunnelChart: FC<{ stages: { label: string; value: number }[] }> = ({ stages }) => {
+  const max = Math.max(...stages.map((s) => s.value), 1);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", width: "100%" }}>
+      {stages.map((s, idx) => (
+        <div key={idx} style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+          <span style={{ width: "80px", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>{s.label}</span>
+          <div style={{ flex: 1, background: "var(--color-bg-sunken)", height: "20px", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
+            <div style={{ width: `${(s.value / max) * 100}%`, height: "100%", background: "var(--color-primary)" }} />
+          </div>
+          <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>{s.value}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export const HeatmapChart: FC<{ matrix: number[][] }> = ({ matrix }) => {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+      {matrix.map((row, rIdx) => (
+        <div key={rIdx} style={{ display: "flex", gap: "2px" }}>
+          {row.map((val, cIdx) => (
+            <div
+              key={cIdx}
+              style={{
+                width: "20px",
+                height: "20px",
+                borderRadius: "2px",
+                background: `rgba(59, 130, 246, ${Math.min(1, Math.max(0.1, val))})`,
+              }}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
   );
 };

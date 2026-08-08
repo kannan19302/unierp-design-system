@@ -65,3 +65,15 @@ export {
 export { DatePicker, type DatePickerProps } from "./date-picker";
 export { ComboBox, type ComboBoxProps, type ComboBoxOption } from "./combobox";
 export { InfoHint, type InfoHintProps } from "./info-hint";
+
+// Stage B-I Primitive Exports
+export * from "./overlays";
+export * from "./feedback";
+export * from "./extended-navigation";
+export * from "./extended-inputs";
+export * from "./temporal";
+export * from "./heavy-inputs";
+export * from "./structure";
+export * from "./identity";
+export * from "./enterprise-patterns";
+export * from "./six-states";
