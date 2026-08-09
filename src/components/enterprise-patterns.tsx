@@ -29,10 +29,15 @@ export const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, description, 
         borderBottom: "1px solid var(--color-border)",
       }}
     >
-      {breadcrumbs && <Breadcrumb items={breadcrumbs} />}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "var(--space-4)" }}>
         <div>
-          <h1 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, margin: 0, color: "var(--color-text)" }}>{title}</h1>
+          {breadcrumbs ? (
+            <div style={{ fontSize: "var(--text-2xl)", fontWeight: 700, margin: 0 }}>
+              <Breadcrumb items={breadcrumbs} />
+            </div>
+          ) : (
+            <h1 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, margin: 0, color: "var(--color-text)" }}>{title}</h1>
+          )}
           {sub && <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)", marginTop: "4px" }}>{sub}</div>}
         </div>
         {actions && <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>{actions}</div>}

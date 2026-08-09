@@ -66,7 +66,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
           const isLast = index === items.length - 1;
           return (
             <li
-              key={item.key}
+              key={item.key || index}
               style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}
             >
               {item.href ? (
