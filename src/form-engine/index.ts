@@ -22,3 +22,4 @@ export {
   type StepperProps,
   type StepperStep,
 } from "../components";
+export { SettingsPage, type SettingsPageProps, type SettingSchemaEntry, type SettingScope, type SettingType } from "./settings-renderer";
