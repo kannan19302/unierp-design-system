@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, test, expect } from "vitest";
+import { axe } from "vitest-axe";
 import {
   Alert,
   Banner,
@@ -86,5 +87,37 @@ describe("Stage B-I Primitives Tests & Accessibility", () => {
 
     render(<ForbiddenState title="Access denied" />);
     expect(screen.getByText("Access denied")).toBeDefined();
+  });
+
+  test("Alert has no axe violations", async () => {
+    const { container } = render(
+      <Alert variant="info" title="Alert Title">
+        Alert Message Content
+      </Alert>,
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  test("Switch has no axe violations", async () => {
+    const { container } = render(<Switch label="Enable Notifications" id="switch-2" />);
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  test("RadioGroup has no axe violations", async () => {
+    const { container } = render(
+      <RadioGroup
+        name="test-group-a11y"
+        options={[
+          { value: "a", label: "Option A" },
+          { value: "b", label: "Option B" },
+        ]}
+      />,
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  test("PageHeader has no axe violations", async () => {
+    const { container } = render(<PageHeader title="Dashboard" />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

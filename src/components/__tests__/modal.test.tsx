@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { Modal } from "../modal";
 
 describe("Modal", () => {
@@ -33,5 +34,14 @@ describe("Modal", () => {
     );
     await userEvent.click(screen.getByLabelText(/close/i));
     expect(onClose).toHaveBeenCalled();
+  });
+
+  it("has no axe violations when open", async () => {
+    const { container } = render(
+      <Modal open title="Accessible modal" onClose={() => {}}>
+        <p>Body</p>
+      </Modal>,
+    );
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

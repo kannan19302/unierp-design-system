@@ -108,6 +108,8 @@ export const Switch: FC<SwitchProps> = ({
     else setInternal(next);
   };
 
+  const labelId = label !== undefined ? `${id ?? "switch"}-label` : undefined;
+
   return (
     <label
       htmlFor={id}
@@ -121,8 +123,10 @@ export const Switch: FC<SwitchProps> = ({
       }}
     >
       <div
+        id={id}
         role="switch"
         aria-checked={checked}
+        aria-labelledby={labelId}
         tabIndex={disabled ? -1 : 0}
         onClick={toggle}
         onKeyDown={(e: any) => {
@@ -155,7 +159,7 @@ export const Switch: FC<SwitchProps> = ({
           }}
         />
       </div>
-      {label}
+      {label !== undefined ? <span id={labelId}>{label}</span> : null}
     </label>
   );
 };
