@@ -9,3 +9,10 @@ on:
 jobs:
   ci:
     uses: kannan19302/unierp-workspace/.github/workflows/reusable-ci.yml@main
+
+  # J05: "A provider change that breaks any published consumer expectation
+  # fails the provider's CI." This IS a provider (@kannan19302/ui) — every
+  # consumer's committed cdc/expectations.json gets replayed against this
+  # repo's actual exported surface on every push/PR.
+  cdc:
+    uses: kannan19302/unierp-workspace/.github/workflows/cdc-gate.yml@main
