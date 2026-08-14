@@ -117,14 +117,15 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@kannan19302/config": "^1.0.2",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.0",
     "@types/node": "^26.1.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.2.4",
-    "@kannan19302/config": "^1.0.2",
     "@vitejs/plugin-react": "^4.3.0",
+    "@vitest/coverage-v8": "2.1.9",
     "jsdom": "^25.0.0",
     "next": "^16.3.0",
     "react": "^19.0.0",
