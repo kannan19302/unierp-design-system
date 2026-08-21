@@ -1,0 +1,91 @@
+.target {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-3, 0.75rem);
+  margin-block-end: var(--space-3, 0.75rem);
+  border: 1px solid var(--studio-chrome-border, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  background: var(--studio-chrome-bg, #f8fafc);
+  font-size: var(--font-sm, 0.8125rem);
+}
+
+.targetLabel {
+  color: var(--studio-chrome-text-muted, #64748b);
+}
+
+.targetValue {
+  font-weight: 600;
+  color: var(--studio-chrome-text, #1e293b);
+}
+
+.diff {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--studio-chrome-border, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  max-block-size: 22rem;
+  overflow-y: auto;
+}
+
+.change {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  font-size: var(--font-sm, 0.8125rem);
+  border-block-end: 1px solid var(--studio-chrome-border, #e2e8f0);
+}
+
+.change:last-child {
+  border-block-end: 0;
+}
+
+/* Kind is a WORD, not a colour — "added"/"removed"/"changed" is legible to a
+   colour-blind reviewer and to a screen reader, which a green/red row is not
+   (UI_UX_BRIEF §3.5). Colour reinforces; it never carries. */
+.kind {
+  font-size: var(--font-xs, 0.75rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kindAdded {
+  color: var(--studio-success-text, #166534);
+}
+
+.kindRemoved {
+  color: var(--studio-danger-text, #991b1b);
+}
+
+.kindChanged {
+  color: var(--studio-warning-text, #b45309);
+}
+
+.what {
+  min-inline-size: 0;
+  color: var(--studio-chrome-text, #1e293b);
+}
+
+.detail {
+  display: block;
+  color: var(--studio-chrome-text-muted, #64748b);
+  font-size: var(--font-xs, 0.75rem);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  overflow-x: auto;
+}
+
+.empty {
+  padding: var(--space-4, 1rem);
+  font-size: var(--font-sm, 0.8125rem);
+  color: var(--studio-chrome-text-muted, #64748b);
+}
+
+.rollback {
+  margin-block-start: var(--space-3, 0.75rem);
+  font-size: var(--font-xs, 0.75rem);
+  color: var(--studio-chrome-text-muted, #64748b);
+}

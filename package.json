@@ -1,7 +1,7 @@
 {
   "name": "@kannan19302/ui",
   "version": "1.0.15",
-  "description": "UniERP Design System — one package, subpath exports (PLATFORM_ARCHITECTURE.md § 7.2)",
+  "description": "UniERP Design System \u2014 one package, subpath exports (PLATFORM_ARCHITECTURE.md \u00a7 7.2)",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -96,7 +96,19 @@
       "require": "./dist/workflow/index.js",
       "default": "./dist/workflow/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./shell": {
+      "types": "./dist/shell/index.d.ts",
+      "import": "./dist/shell/index.js",
+      "require": "./dist/shell/index.js",
+      "default": "./dist/shell/index.js"
+    },
+    "./studio": {
+      "types": "./dist/studio/index.d.ts",
+      "import": "./dist/studio/index.js",
+      "require": "./dist/studio/index.js",
+      "default": "./dist/studio/index.js"
+    }
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs",

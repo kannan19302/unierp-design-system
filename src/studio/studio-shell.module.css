@@ -1,0 +1,114 @@
+/* StudioShell — the three-zone builder frame.
+   Grid, not flex: the rails must be able to collapse to a fixed width without
+   the canvas needing to know anything about them, and `grid-template-columns`
+   expresses "these two are fixed, that one takes the rest" directly. */
+
+.shell {
+  display: grid;
+  /* Both widths always arrive from the component (see studio-shell.tsx); the
+     fallbacks are only for a consumer that renders the grid without it. */
+  grid-template-columns:
+    var(--paletteW, var(--studio-rail-palette-w, 232px))
+    minmax(0, 1fr)
+    var(--inspectorW, var(--studio-rail-inspector-w, 280px));
+  grid-template-rows: var(--studio-toolbar-h, 48px) minmax(0, 1fr) auto;
+  grid-template-areas:
+    "toolbar toolbar toolbar"
+    "palette canvas  inspector"
+    "console console console";
+  block-size: 100%;
+  min-block-size: 0;
+  background: var(--studio-chrome-bg, #f8fafc);
+  color: var(--studio-chrome-text, #1e293b);
+  /* The page body never scrolls horizontally (UI_UX_BRIEF §9); wide content
+     scrolls inside the canvas, which owns its own overflow. */
+  overflow: hidden;
+}
+
+/* Density is orthogonal to theme (UI_UX_BRIEF §2), so compact shrinks the
+   chrome only — never the canvas, which is the thing the user came for. */
+:global([data-density="compact"]) .shell {
+  grid-template-rows: 40px minmax(0, 1fr) auto;
+}
+
+.toolbar {
+  grid-area: toolbar;
+  min-inline-size: 0;
+}
+
+.palette {
+  grid-area: palette;
+  min-inline-size: 0;
+  border-inline-end: 1px solid var(--studio-chrome-border, #e2e8f0);
+  background: var(--studio-chrome-raised, #ffffff);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.inspector {
+  grid-area: inspector;
+  min-inline-size: 0;
+  border-inline-start: 1px solid var(--studio-chrome-border, #e2e8f0);
+  background: var(--studio-chrome-raised, #ffffff);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.canvas {
+  grid-area: canvas;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: auto;
+  background: var(--studio-canvas-bg, #f1f5f9);
+}
+
+.console {
+  grid-area: console;
+  border-block-start: 1px solid var(--studio-chrome-border, #e2e8f0);
+  background: var(--studio-chrome-raised, #ffffff);
+  min-block-size: 0;
+}
+
+/* A collapsed rail keeps its column so the canvas does not reflow by a few
+   hundred pixels on every toggle — it narrows to the handle width instead. */
+.railCollapsed {
+  overflow: visible;
+}
+
+.railHandle {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+  cursor: pointer;
+  color: var(--studio-chrome-text-muted, #64748b);
+  writing-mode: vertical-rl;
+  font-size: var(--font-xs, 0.75rem);
+  letter-spacing: 0.04em;
+  gap: var(--space-2, 0.5rem);
+}
+
+.railHandle:hover {
+  color: var(--studio-chrome-text, #1e293b);
+  background: var(--studio-chrome-bg, #f8fafc);
+}
+
+.railHandle:focus-visible {
+  outline: 2px solid var(--color-border-focus, #6366f1);
+  outline-offset: -2px;
+}
+
+/* No media queries here on purpose.
+   The rail widths are set by the component as inline custom properties, because
+   only the component knows whether a rail is showing its full contents or its
+   collapsed handle. A media query that narrows the COLUMN cannot change what
+   React renders INTO it — the first version of this file did exactly that, and
+   at 687px the palette painted its search box, group headings and every item
+   into a 44px stripe. The breakpoints now live in studio-shell.tsx
+   (STUDIO_BP_PALETTE / STUDIO_BP_INSPECTOR) where the rendering decision is,
+   and a test asserts the two files agree. */

@@ -70,7 +70,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
   headerActions,
   variant = "default",
   children,
-}: any) => {
+}) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const {

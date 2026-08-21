@@ -105,7 +105,7 @@ function naiveSanitize(html: string): string {
   const doc = new DOMParser().parseFromString(html, "text/html");
   const walk = (node: Node): string => {
     if (node.nodeType === Node.TEXT_NODE) {
-      return node.textContent?.replace(/[<>&"]/g, (c: any) =>
+      return node.textContent?.replace(/[<>&"]/g, (c) =>
         ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c] ?? c)) ?? "";
     }
     if (node.nodeType !== Node.ELEMENT_NODE) return "";
@@ -149,7 +149,7 @@ export interface FileUploadProps {
   multiple?: boolean;
 }
 
-export const FileUpload: FC<FileUploadProps> = ({ onFileSelect, accept, multiple }: any) => {
+export const FileUpload: FC<FileUploadProps> = ({ onFileSelect, accept, multiple }) => {
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -199,7 +199,7 @@ export interface ImageUploadProps {
   onChange?: (url: string) => void;
 }
 
-export const ImageUpload: FC<ImageUploadProps> = ({ value, onChange }: any) => {
+export const ImageUpload: FC<ImageUploadProps> = ({ value, onChange }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -251,7 +251,7 @@ export interface EditorProps {
   placeholder?: string;
 }
 
-export const RichTextEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "Rich text content..." }: any) => {
+export const RichTextEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "Rich text content..." }) => {
   return (
     <div style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
       <div
@@ -287,7 +287,7 @@ export const RichTextEditor: FC<EditorProps> = ({ value = "", onChange, placehol
   );
 };
 
-export const CodeEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "// Code editor..." }: any) => {
+export const CodeEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "// Code editor..." }) => {
   return (
     <textarea
       value={value}
@@ -309,7 +309,7 @@ export const CodeEditor: FC<EditorProps> = ({ value = "", onChange, placeholder 
   );
 };
 
-export const MarkdownEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "# Markdown..." }: any) => {
+export const MarkdownEditor: FC<EditorProps> = ({ value = "", onChange, placeholder = "# Markdown..." }) => {
   return (
     <textarea
       value={value}
@@ -334,7 +334,7 @@ export interface SignaturePadProps {
   onSave?: (dataUrl: string) => void;
 }
 
-export const SignaturePad: FC<SignaturePadProps> = ({ onSave }: any) => {
+export const SignaturePad: FC<SignaturePadProps> = ({ onSave }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = useState(false);
 

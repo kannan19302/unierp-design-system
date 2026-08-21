@@ -66,7 +66,37 @@
   /* -- Categorical (block and node accents) -- */
   --studio-violet: #8b5cf6;
   --studio-pink: #ec4899;
+
+  /* -- Shell chrome (StudioShell) --
+     Rail widths and chrome heights are tokens, not magic numbers, because
+     UI_UX_BRIEF §12 rule 1 sets a checkable target — the canvas holds at least
+     60% of the viewport at 1280px — and that is only checkable if the chrome
+     around it has a declared size. These two widths are chosen to meet it
+     exactly with both rails open: 1280 - 232 - 280 = 768 = 60.0%. Widening
+     either default breaks the rule, so `studio-shell.test.tsx` asserts the
+     arithmetic rather than trusting the comment. */
+  --studio-rail-palette-w: 232px;
+  --studio-rail-inspector-w: 280px;
+  --studio-rail-collapsed-w: 44px;
+  --studio-toolbar-h: 48px;
+  --studio-console-h: 208px;
+  --studio-console-collapsed-h: 34px;
+
+  /* Breakpoints at which the shell sheds a rail. Kept here rather than in a
+     media query so the component and the stylesheet cannot disagree. */
+  --studio-bp-inspector: 1180px;
+  --studio-bp-palette: 900px;
+
+  /* Chrome surfaces. These are the ONLY colours studio chrome may use; canvas
+     content uses the tenant's semantic tokens. See UI_UX_BRIEF §12 rule 2. */
+  --studio-chrome-bg: var(--studio-50);
+  --studio-chrome-raised: var(--studio-0);
+  --studio-chrome-border: var(--studio-200);
+  --studio-chrome-text: var(--studio-800);
+  --studio-chrome-text-muted: var(--studio-500);
+  --studio-canvas-bg: var(--studio-100);
 }
+
 
 /* Dark theme: the neutral scale inverts so the builder chrome stays
    readable, while accents lift for contrast against dark surfaces. */
@@ -97,6 +127,13 @@
   --studio-danger-subtle: #450a0a;
   --studio-danger-surface: #2c0707;
   --studio-danger-surface-rose: #350711;
+
+  /* The neutral scale inverts above, so --studio-50 is already dark and the
+     chrome aliases follow it for free. Only the canvas is re-pointed: in dark
+     mode the canvas must read as RECESSED relative to the chrome, and
+     --studio-100 is lighter than --studio-50 here, which would invert that
+     relationship. */
+  --studio-canvas-bg: #070c16;
 }
 
 /* High contrast: collapse the mid-scale so every studio surface pair
@@ -148,4 +185,15 @@
 
   --studio-violet: #5500cc;
   --studio-pink: #99004d;
+
+  /* High contrast collapses the mid-scale to pure black/white, which would
+     leave chrome and canvas identical and every rail edge invisible. The
+     border carries the whole structure here, so it is pinned to black and the
+     canvas to white — separation comes from the 1px rule, not from fill. */
+  --studio-chrome-bg: #ffffff;
+  --studio-chrome-raised: #ffffff;
+  --studio-chrome-border: #000000;
+  --studio-chrome-text: #000000;
+  --studio-chrome-text-muted: #000000;
+  --studio-canvas-bg: #ffffff;
 }

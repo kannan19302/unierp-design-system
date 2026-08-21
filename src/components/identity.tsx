@@ -69,7 +69,7 @@ function getInitials(name: string): string {
     .slice(0, 2);
 }
 
-export const Avatar: FC<AvatarProps> = ({ src, name = "", size = "md", colorIndex }: any) => {
+export const Avatar: FC<AvatarProps> = ({ src, name = "", size = "md", colorIndex }) => {
   const px = SIZES[size];
   const initials = getInitials(name);
   const paletteIdx = colorIndex !== undefined ? colorIndex % AVATAR_PALETTE_VARS.length : hashName(name || "?");
@@ -114,7 +114,7 @@ export interface AvatarGroupProps {
   size?: AvatarSize;
 }
 
-export const AvatarGroup: FC<AvatarGroupProps> = ({ avatars, max = 3, size = "sm" }: any) => {
+export const AvatarGroup: FC<AvatarGroupProps> = ({ avatars, max = 3, size = "sm" }) => {
   const visible = avatars.slice(0, max);
   const extra = avatars.length - max;
 
@@ -171,26 +171,26 @@ const PRESENCE_META: Record<
   online: {
     label: "Online",
     color: "var(--color-success, #22c55e)",
-    Icon: ({ size, ...rest }: any) => <Wifi size={size} {...rest} />,
+    Icon: ({ size, ...rest }) => <Wifi size={size} {...rest} />,
   },
   offline: {
     label: "Offline",
     color: "var(--color-text-muted, #9ca3af)",
-    Icon: ({ size, ...rest }: any) => <WifiOff size={size} {...rest} />,
+    Icon: ({ size, ...rest }) => <WifiOff size={size} {...rest} />,
   },
   busy: {
     label: "Busy",
     color: "var(--color-danger, #ef4444)",
-    Icon: ({ size, ...rest }: any) => <MinusCircle size={size} {...rest} />,
+    Icon: ({ size, ...rest }) => <MinusCircle size={size} {...rest} />,
   },
   away: {
     label: "Away",
     color: "var(--color-warning, #eab308)",
-    Icon: ({ size, ...rest }: any) => <Clock size={size} {...rest} />,
+    Icon: ({ size, ...rest }) => <Clock size={size} {...rest} />,
   },
 };
 
-export const Presence: FC<PresenceProps> = ({ status, showLabel = false, style }: any) => {
+export const Presence: FC<PresenceProps> = ({ status, showLabel = false, style }) => {
   const meta = PRESENCE_META[status];
   const { Icon } = meta;
 
@@ -223,7 +223,7 @@ export interface UserChipProps {
   status?: PresenceStatus;
 }
 
-export const UserChip: FC<UserChipProps> = ({ name, role, avatarSrc, status }: any) => {
+export const UserChip: FC<UserChipProps> = ({ name, role, avatarSrc, status }) => {
   return (
     <div
       style={{
@@ -274,7 +274,7 @@ export interface BadgeProps {
   children: ReactNode;
 }
 
-export const Badge: FC<BadgeProps> = ({ variant = "default", children }: any) => {
+export const Badge: FC<BadgeProps> = ({ variant = "default", children }) => {
   const colors = BADGE_COLORS[variant];
   return (
     <span
@@ -301,7 +301,7 @@ export interface TagProps {
   onRemove?: () => void;
 }
 
-export const Tag: FC<TagProps> = ({ children, onRemove }: any) => {
+export const Tag: FC<TagProps> = ({ children, onRemove }) => {
   return (
     <span
       style={{
@@ -341,22 +341,22 @@ const PRIORITY_META: Record<
   low: {
     label: "Low",
     color: "var(--color-text-muted)",
-    Icon: ({ size, ...rest }: any) => <ArrowDown size={size} {...rest} />,
+    Icon: ({ size, ...rest }) => <ArrowDown size={size} {...rest} />,
   },
   medium: {
     label: "Medium",
     color: "var(--color-info, #0e7490)",
-    Icon: ({ size, ...rest }: any) => <ArrowRight size={size} {...rest} />,
+    Icon: ({ size, ...rest }) => <ArrowRight size={size} {...rest} />,
   },
   high: {
     label: "High",
     color: "var(--color-warning, #b45309)",
-    Icon: ({ size, ...rest }: any) => <ArrowUp size={size} {...rest} />,
+    Icon: ({ size, ...rest }) => <ArrowUp size={size} {...rest} />,
   },
   urgent: {
     label: "Urgent",
     color: "var(--color-danger, #b91c1c)",
-    Icon: ({ size, ...rest }: any) => <AlertTriangle size={size} {...rest} />,
+    Icon: ({ size, ...rest }) => <AlertTriangle size={size} {...rest} />,
   },
 };
 
@@ -368,7 +368,7 @@ export interface PriorityIndicatorProps {
 export const PriorityIndicator: FC<PriorityIndicatorProps> = ({
   priority,
   showLabel = true,
-}: any) => {
+}) => {
   const meta = PRIORITY_META[priority];
   const { Icon } = meta;
   return (
@@ -395,7 +395,7 @@ export interface HealthScoreProps {
   score: number; // 0 to 100
 }
 
-export const HealthScore: FC<HealthScoreProps> = ({ score }: any) => {
+export const HealthScore: FC<HealthScoreProps> = ({ score }) => {
   const color =
     score >= 80
       ? "var(--color-success, #15803d)"

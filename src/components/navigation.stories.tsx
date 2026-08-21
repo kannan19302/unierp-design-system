@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Tabs, Tooltip, Pagination } from "./navigation";
+// Tooltip comes from ./overlays, not ./navigation — navigation.tsx has never
+// exported it, so this file could not compile. It went unnoticed because
+// Storybook was mounted at a path where it found no story files at all.
+import { Tabs, Pagination } from "./navigation";
+import { Tooltip } from "./overlays";
 import { Button } from "./button";
 
 export default { title: "Components/Navigation" } as Meta;

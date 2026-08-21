@@ -1,0 +1,53 @@
+.inspector {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.tabs {
+  display: flex;
+  flex: 0 0 auto;
+  border-block-end: 1px solid var(--studio-chrome-border, #e2e8f0);
+  overflow-x: auto;
+}
+
+.tab {
+  all: unset;
+  box-sizing: border-box;
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  font-size: var(--font-xs, 0.75rem);
+  font-weight: 500;
+  color: var(--studio-chrome-text-muted, #64748b);
+  cursor: pointer;
+  white-space: nowrap;
+  border-block-end: 2px solid transparent;
+}
+
+.tab:hover {
+  color: var(--studio-chrome-text, #1e293b);
+}
+
+.tabActive {
+  color: var(--studio-accent, #2563eb);
+  border-block-end-color: var(--studio-accent, #2563eb);
+  font-weight: 600;
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--color-border-focus, #6366f1);
+  outline-offset: -2px;
+}
+
+.body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding: var(--space-3, 0.75rem);
+}
+
+.placeholder {
+  padding: var(--space-4, 1rem) var(--space-3, 0.75rem);
+  font-size: var(--font-sm, 0.8125rem);
+  color: var(--studio-chrome-text-muted, #64748b);
+}

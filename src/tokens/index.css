@@ -17,3 +17,11 @@
 @import "./themes/high-contrast.css";
 @import "./charts.css";
 @import "./studio.css";
+
+/* Patina — the developer platform's theme. Imported LAST on purpose:
+   light.css declares on `[data-theme="light"], :root` and studio.css
+   declares a `[data-theme="dark"]` block, both at the same specificity as
+   the patina selectors, so ties break on source order. */
+@import "./themes/patina.css";
+@import "./themes/patina-dark.css";
+@import "./patina-chrome.css";

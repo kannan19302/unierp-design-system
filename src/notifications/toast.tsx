@@ -71,7 +71,7 @@ const VARIANT_META: Record<
  * App-wide toast provider — gives every action immediate, visible feedback
  * (Nielsen #1: visibility of system status). Wrap the app once near the root.
  */
-export const ToastProvider: FC<{ children: ReactNode }> = ({ children }: any) => {
+export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
@@ -148,7 +148,7 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }: any) =>
           pointerEvents: "none",
         }}
       >
-        {toasts.map((t: any) => {
+        {toasts.map((t) => {
           const meta = VARIANT_META[t.variant];
           const { Icon } = meta;
           return (

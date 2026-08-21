@@ -33,6 +33,7 @@ export {
   type SubTabBarProps,
   type SubTab,
 } from "./layout";
+export * from "./shell";
 export * from "./charts";
 export {
   DataTable,

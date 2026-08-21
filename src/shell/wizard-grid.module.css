@@ -1,0 +1,188 @@
+/*
+ * Wizard grid — the platform/application tile grid.
+ *
+ * This is the first CSS module in src/shell/, which until now styled itself
+ * entirely with inline `style={{}}` objects. That is precisely why the tiles
+ * were inert: an inline style cannot express `:hover`, `:focus-visible`, a
+ * media query or a keyframe, so the old TileCard declared a `transition` that
+ * nothing could ever trigger.
+ *
+ * NOTE ON CLASS NAMES: every class here separates words with an underscore,
+ * never a hyphen. The build's class namespacer matches each class name with a
+ * trailing `\b`, and a hyphen counts as a word boundary — so a class named
+ * `tile` would also rewrite the `tile` prefix of a hyphenated sibling and
+ * corrupt it. An underscore is a word character and is safe. This matches the
+ * convention already used elsewhere in the package (p_none, close_btn).
+ */
+
+/* ── Grid ─────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  /* Intrinsic sizing rather than breakpoints — the dominant responsive idiom in
+     this package (see .ui-grid-auto in styles/layers/components.css). */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-6);
+  padding: var(--space-6);
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+/* ── Tile ─────────────────────────────────────────────── */
+.tile {
+  --tile_accent_resolved: var(--tile-accent, var(--color-primary));
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+  min-height: 148px;
+  padding: var(--space-5);
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-elevated);
+  box-shadow: var(--elevation-1);
+  color: inherit;
+  text-decoration: none;
+  /* Motion is expressed only in duration/easing tokens, which
+     tokens/base.css zeroes under `prefers-reduced-motion: reduce`. Hardcoding
+     ms here would opt out of that. */
+  transition:
+    box-shadow var(--duration-normal) var(--ease-default),
+    transform var(--duration-normal) var(--ease-default),
+    border-color var(--duration-normal) var(--ease-default);
+}
+
+[data-theme="dark"] .tile {
+  --tile_accent_resolved: var(--tile-accent-dark, var(--tile-accent, var(--color-primary)));
+}
+
+/* High contrast drops decorative hue entirely rather than trying to find ten
+   accents that clear its bar. */
+[data-theme="high-contrast"] .tile {
+  --tile_accent_resolved: var(--color-text);
+}
+
+/* Hover and keyboard focus share ONE rule: a keyboard user must not be told
+   less than a mouse user. The focus RING itself is not redefined here —
+   styles/layers/reset.css owns the single global :focus-visible outline. */
+.tile:hover,
+.tile:focus-visible {
+  border-color: var(--tile_accent_resolved);
+  box-shadow: var(--elevation-hover);
+  transform: translateY(-2px);
+}
+
+.tile:active {
+  transform: translateY(0);
+  box-shadow: var(--elevation-2);
+}
+
+/* ── Icon well ────────────────────────────────────────── */
+.icon_well {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-lg);
+  color: var(--tile_accent_resolved);
+  /* The estate's `${color}15` / `${color}30` hex-alpha idiom cannot be applied
+     to a var(), so color-mix does the tinting instead. */
+  background: color-mix(in srgb, var(--tile_accent_resolved) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tile_accent_resolved) 28%, transparent);
+}
+
+@supports not (color: color-mix(in srgb, red, blue)) {
+  .icon_well {
+    background: var(--color-bg-sunken);
+    border-color: var(--color-border);
+  }
+}
+
+/* ── Content ──────────────────────────────────────────── */
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.name {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.chevron {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  color: var(--tile_accent_resolved);
+  opacity: 0;
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.tile:hover .chevron,
+.tile:focus-visible .chevron {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* ── Disabled ─────────────────────────────────────────── */
+.disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.disabled:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--color-border);
+}
+
+/* ── Loading skeleton ─────────────────────────────────── */
+.skeleton {
+  min-height: 148px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-elevated) 0%,
+    var(--color-bg-hover) 50%,
+    var(--color-bg-elevated) 100%
+  );
+  background-size: 200% 100%;
+  animation: wizard_shimmer 1.4s var(--ease-default) infinite;
+}
+
+@keyframes wizard_shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+}

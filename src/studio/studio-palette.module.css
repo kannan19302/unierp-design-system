@@ -1,0 +1,122 @@
+.palette {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.search {
+  padding: var(--space-2, 0.5rem);
+  border-block-end: 1px solid var(--studio-chrome-border, #e2e8f0);
+  flex: 0 0 auto;
+}
+
+.searchInput {
+  inline-size: 100%;
+  box-sizing: border-box;
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--font-sm, 0.8125rem);
+  font-family: inherit;
+  color: var(--studio-chrome-text, #1e293b);
+  background: var(--studio-chrome-bg, #f8fafc);
+  border: 1px solid var(--studio-chrome-border, #e2e8f0);
+  border-radius: var(--radius-sm, 6px);
+}
+
+.searchInput:focus-visible {
+  outline: 2px solid var(--color-border-focus, #6366f1);
+  outline-offset: 1px;
+}
+
+.groups {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding-block-end: var(--space-2, 0.5rem);
+}
+
+.groupLabel {
+  position: sticky;
+  inset-block-start: 0;
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem) var(--space-1, 0.25rem);
+  font-size: var(--font-xs, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--studio-chrome-text-muted, #64748b);
+  background: var(--studio-chrome-raised, #ffffff);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  inline-size: 100%;
+  box-sizing: border-box;
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  font-size: var(--font-sm, 0.8125rem);
+  font-family: inherit;
+  text-align: start;
+  color: var(--studio-chrome-text, #1e293b);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+}
+
+.item:hover {
+  background: var(--studio-chrome-bg, #f8fafc);
+}
+
+/* The roving-tabindex cursor. Rendered as a real border rather than only a
+   background so it survives high-contrast, where every subtle fill collapses
+   to white. */
+.itemActive {
+  background: var(--studio-accent-subtle, #eff6ff);
+  border-color: var(--studio-accent, #2563eb);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--color-border-focus, #6366f1);
+  outline-offset: -2px;
+}
+
+.itemIcon {
+  flex: 0 0 auto;
+  color: var(--studio-chrome-text-muted, #64748b);
+  display: inline-flex;
+}
+
+.itemLabel {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: var(--space-4, 1rem) var(--space-3, 0.75rem);
+  font-size: var(--font-sm, 0.8125rem);
+  color: var(--studio-chrome-text-muted, #64748b);
+}
+
+.hint {
+  flex: 0 0 auto;
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-block-start: 1px solid var(--studio-chrome-border, #e2e8f0);
+  font-size: var(--font-xs, 0.75rem);
+  color: var(--studio-chrome-text-muted, #64748b);
+}
+
+.key {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  padding-inline: var(--space-1, 0.25rem);
+  border: 1px solid var(--studio-chrome-border, #e2e8f0);
+  border-radius: var(--radius-sm, 6px);
+}

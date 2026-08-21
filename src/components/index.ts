@@ -4,6 +4,12 @@
 export { Button, type ButtonProps } from "./button";
 export { Badge, type BadgeProps } from "./badge";
 export { StatusBadge, type StatusBadgeProps } from "./status-badge";
+export {
+  ArtifactAddress,
+  formatAddress,
+  type ArtifactAddressProps,
+  type AddressScope,
+} from "./artifact-address";
 export { Card, type CardProps } from "./card";
 export { Spinner, type SpinnerProps } from "./spinner";
 export {

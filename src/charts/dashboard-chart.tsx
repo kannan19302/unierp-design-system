@@ -75,7 +75,7 @@ export interface DashboardChartProps {
   actions?: React.ReactNode;
 }
 
-const LoadingSkeleton: React.FC<{ height: number }> = ({ height }: any) => (
+const LoadingSkeleton: React.FC<{ height: number }> = ({ height }) => (
   <div
     style={{
       height,
@@ -93,7 +93,7 @@ const LoadingSkeleton: React.FC<{ height: number }> = ({ height }: any) => (
   </div>
 );
 
-const NoDataPlaceholder: React.FC<{ height: number }> = ({ height }: any) => (
+const NoDataPlaceholder: React.FC<{ height: number }> = ({ height }) => (
   <div
     style={{
       height,
@@ -134,7 +134,7 @@ const CustomTooltip: React.FC<{
   active?: boolean;
   payload?: Array<{ name: string; value: number; color: string }>;
   label?: string;
-}> = ({ active, payload, label }: any) => {
+}> = ({ active, payload, label }) => {
   if (!active || !payload || payload.length === 0) return null;
   return (
     <div
@@ -206,7 +206,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
   height = 300,
   loading = false,
   actions,
-}: any) => {
+}) => {
   const [chartType, setChartType] = useState<ChartType>(defaultChartType);
   const {
     xAxisKey = "name",
@@ -575,11 +575,11 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             onChange={setChartType}
             options={
               allowedChartTypes
-                ? allowedChartTypes.map((t: any) => ({
+                ? allowedChartTypes.map((t) => ({
                     type: t,
                     label: t
                       .split("-")
-                      .map((w: any) => w.charAt(0).toUpperCase() + w.slice(1))
+                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
                       .join(" "),
                     icon:
                       {

@@ -1,0 +1,34 @@
+.canvas {
+  position: relative;
+  block-size: 100%;
+  min-block-size: 0;
+  padding: var(--space-4, 1rem);
+  box-sizing: border-box;
+}
+
+/* `linear` artefacts (forms, rule sets, queries) read top-to-bottom and get a
+   centred measure — an 1800px-wide form field is not "maximum canvas area",
+   it is an unreadable line length (UI_UX_BRIEF §4). */
+.linear {
+  max-inline-size: 56rem;
+  margin-inline: auto;
+}
+
+/* `spatial` artefacts (flows, BPMN, pages, dashboards) own their whole area
+   and manage their own zoom/pan; the canvas only supplies the surface. */
+.spatial {
+  block-size: 100%;
+  padding: 0;
+}
+
+.surface:focus-visible {
+  outline: 2px solid var(--color-border-focus, #6366f1);
+  outline-offset: -2px;
+}
+
+.empty {
+  display: flex;
+  block-size: 100%;
+  align-items: center;
+  justify-content: center;
+}

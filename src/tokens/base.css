@@ -115,6 +115,22 @@
   --sidebar-collapsed-width: 64px;
   --header-height: 56px;
   --content-max-width: 1400px;
+
+  /* ── Colour aliases ──
+     `--color-text-muted` is referenced in roughly 40 places across this package
+     (components/, charts/, data-grid/, shell/, styles/layers/utilities.css) and
+     was defined in NO token file — the themes only ever declared the
+     text / -secondary / -tertiary ramp. Every one of those rules therefore
+     resolved to nothing and silently inherited the parent text colour, so
+     "muted" text rendered at full strength.
+
+     Declared as an alias rather than a new colour, and here rather than in each
+     theme, so it follows whichever theme is active: light, dark and
+     high-contrast each redefine --color-text-tertiary on the same :root
+     element, and the remaining four themes inherit the light ramp. The literal
+     fallback keeps this valid for a consumer importing tokens/base.css alone,
+     with no theme sheet. */
+  --color-text-muted: var(--color-text-tertiary, #6b7280);
 }
 
 /* ── Smooth Theme Transitions ── */

@@ -1,0 +1,110 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  block-size: 100%;
+  padding-inline: var(--space-3, 0.75rem);
+  background: var(--studio-chrome-raised, #ffffff);
+  border-block-end: 1px solid var(--studio-chrome-border, #e2e8f0);
+  min-inline-size: 0;
+}
+
+.identity {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2, 0.5rem);
+  min-inline-size: 0;
+  flex: 1 1 auto;
+}
+
+.name {
+  font-family: var(--font-display, var(--font-sans));
+  font-variation-settings:
+    "wdth" var(--display-wdth-label, 100),
+    "wght" var(--display-wght-label, 620);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 600;
+  letter-spacing: var(--display-tracking-label, 0);
+  color: var(--studio-chrome-text, #1e293b);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 1 auto;
+}
+
+/* The address gets the room the name does not need. It is the only identity
+   that survives at full canvas, so it is allowed to take the slack and shrink
+   last — hence `min-inline-size: 0` plus a generous basis rather than a fixed
+   width, which at 900px would have clipped it to three characters. */
+.address {
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  flex: 1 1 auto;
+  opacity: 0.9;
+}
+
+.meta {
+  font-family: var(--font-mono, inherit);
+  font-size: var(--label-size, 0.6875rem);
+  letter-spacing: var(--label-tracking, 0.06em);
+  text-transform: uppercase;
+  color: var(--studio-chrome-text-muted, #64748b);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+/* The dirty marker is a dot AND the word "Unsaved": colour alone never carries
+   meaning (UI_UX_BRIEF §3.5 / WCAG 1.4.1). */
+.dirty {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1, 0.25rem);
+  font-size: var(--font-xs, 0.75rem);
+  color: var(--studio-warning-text, #b45309);
+  white-space: nowrap;
+}
+
+.dirtyDot {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: var(--studio-warning, #f59e0b);
+}
+
+.verbs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1, 0.25rem);
+  flex: 0 0 auto;
+}
+
+/* Publish is the primary action and sits last, after a divider, because it is
+   the only verb in the row that changes what other people see. */
+.divider {
+  inline-size: 1px;
+  block-size: 20px;
+  background: var(--studio-chrome-border, #e2e8f0);
+  margin-inline: var(--space-1, 0.25rem);
+}
+
+.problemCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 18px;
+  block-size: 18px;
+  padding-inline: var(--space-1, 0.25rem);
+  border-radius: var(--radius-full, 999px);
+  /* Subtle fill + -text foreground, matching badge.module.css, rather than a
+     white-on-red pill: the design system has no inverse-text token, and under
+     [data-theme="high-contrast"] every *-subtle surface collapses to white —
+     hardcoding #fff here would produce white on white at exactly the setting
+     that most needs to be legible. The border carries the shape instead. */
+  background: var(--studio-danger-subtle, #fee2e2);
+  color: var(--studio-danger-text, #991b1b);
+  border: 1px solid var(--studio-danger, #dc2626);
+  font-size: var(--font-xs, 0.75rem);
+  font-weight: 600;
+  margin-inline-start: var(--space-1, 0.25rem);
+}

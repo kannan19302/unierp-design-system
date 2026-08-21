@@ -1,0 +1,122 @@
+/* ════════════════════════════════════════════════
+   PATINA — dark
+   ════════════════════════════════════════════════
+
+   Patina is designed dark-first; this is the theme it was drawn in, and the
+   light variant is the derivation. A builder canvas is looked at for six
+   hours at a stretch, and the platform is used at night.
+
+   The one structural difference from the stock `dark` theme: elevation is
+   carried by HUE, not by blur. There are no drop shadows here — a surface
+   rises by getting lighter and by earning a hairline. A dense studio screen
+   with forty stacked panels stays crisp instead of turning to fog, which is
+   exactly where the stock dark theme's layered shadows fail.
+
+   Import after dark.css. See the note in patina.css about source order. */
+
+[data-theme="patina-dark"] {
+  color-scheme: dark;
+
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+
+  /* ── Surfaces ── */
+  --color-bg: #0d1315;
+  --color-bg-elevated: #141d20;
+  --color-bg-sunken: #090e10;
+  --color-bg-hover: #1a2529;
+  --color-bg-active: #223035;
+  --color-bg-overlay: rgb(4 8 9 / 0.72);
+
+  /* ── Borders ── */
+  --color-border: #26343a;
+  --color-border-strong: #33454c;
+  --color-border-focus: #3fb49b;
+
+  /* ── Text ── */
+  --color-text: #dce5e3;
+  --color-text-secondary: #93a5a6;
+  --color-text-tertiary: #64777a;
+  --color-text-inverse: #0d1315;
+  --color-text-link: #3fb49b;
+
+  /* ── Brand / Primary (verdigris) ── */
+  --color-primary: #3fb49b;
+  --color-primary-hover: #55c4ac;
+  --color-primary-active: #6bd0ba;
+  --color-primary-light: rgb(63 180 155 / 0.14);
+  --color-primary-subtle: #10312d;
+  /* Dark text on a bright fill — the inverse of the light theme, which is
+     why this needed a token rather than a hardcoded #fff. */
+  --color-primary-text: #06120f;
+  --on-primary: #06120f;
+
+  /* ── Success ── */
+  --color-success: #4cc47b;
+  --color-success-hover: #62d18d;
+  --color-success-light: rgb(76 196 123 / 0.14);
+  --color-success-text: #a7e6bf;
+
+  /* ── Warning = flux ── */
+  --color-warning: #e5a03b;
+  --color-warning-hover: #f0b055;
+  --color-warning-light: rgb(229 160 59 / 0.14);
+  --color-warning-text: #f3d2a0;
+
+  /* ── Danger = oxide ── */
+  --color-danger: #e0785a;
+  --color-danger-hover: #eb8b6e;
+  --color-danger-light: rgb(224 120 90 / 0.14);
+  --color-danger-text: #f2c0b0;
+
+  /* ── Info ── */
+  --color-info: #5e9bd6;
+  --color-info-hover: #77aee2;
+  --color-info-light: rgb(94 155 214 / 0.14);
+  --color-info-text: #b8d5ef;
+
+  /* ── State aliases ── */
+  --color-success-subtle: var(--color-success-light);
+  --color-success-default: var(--color-success);
+  --color-success-strong: var(--color-success-hover);
+
+  --color-warning-subtle: var(--color-warning-light);
+  --color-warning-default: var(--color-warning);
+  --color-warning-strong: var(--color-warning-hover);
+
+  --color-error-subtle: var(--color-danger-light);
+  --color-error-default: var(--color-danger);
+  --color-error-strong: var(--color-danger-hover);
+
+  --color-info-subtle: var(--color-info-light);
+  --color-info-default: var(--color-info);
+  --color-info-strong: var(--color-info-hover);
+
+  /* ── Sidebar ── */
+  --color-sidebar-bg: #141d20;
+  --color-sidebar-text: #93a5a6;
+  --color-sidebar-text-active: #dce5e3;
+  --color-sidebar-hover: #1a2529;
+  --color-sidebar-active: #10312d;
+  --color-sidebar-border: #26343a;
+
+  /* ── Elevation by hue, not by blur ──
+     Every shadow token collapses to a hairline. Components that reach for
+     --shadow-* or --elevation-* keep working; they just stop producing haze
+     on a ground this dark, where a blurred black shadow is invisible anyway
+     and only serves to smear the edge it was meant to define. */
+  --shadow-xs: 0 0 0 1px rgb(38 52 58 / 0.9);
+  --shadow-sm: 0 0 0 1px rgb(38 52 58 / 0.9);
+  --shadow-md: 0 0 0 1px rgb(51 69 76 / 0.9);
+  --shadow-lg: 0 0 0 1px rgb(51 69 76 / 1);
+  --shadow-xl: 0 0 0 1px rgb(63 180 155 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(63 180 155 / 0.45);
+
+  --elevation-1: 0 0 0 1px rgb(38 52 58 / 0.8);
+  --elevation-2: 0 0 0 1px rgb(38 52 58 / 0.95);
+  --elevation-3: 0 0 0 1px rgb(51 69 76 / 0.95);
+  --elevation-4: 0 0 0 1px rgb(51 69 76 / 1);
+  --elevation-5: 0 0 0 1px rgb(63 180 155 / 0.4);
+  --elevation-hover: 0 0 0 1px rgb(63 180 155 / 0.4);
+}

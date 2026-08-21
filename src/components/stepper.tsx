@@ -19,7 +19,7 @@ export const Stepper: React.FC<StepperProps> = ({
   steps,
   activeStep,
   onStepClick,
-}: any) => (
+}) => (
   <div className={styles.stepper_container}>
     {steps.map((step: any, idx: any) => {
       const isCompleted = idx < activeStep;
@@ -80,7 +80,7 @@ export const FormSection: React.FC<FormSectionProps> = ({
   children,
   collapsible = false,
   defaultOpen = true,
-}: any) => {
+}) => {
   const [open, setOpen] = React.useState(defaultOpen);
 
   return (
@@ -114,7 +114,7 @@ export interface AutosaveIndicatorProps {
 
 export const AutosaveIndicator: React.FC<AutosaveIndicatorProps> = ({
   status,
-}: any) => {
+}) => {
   if (status === "idle") return null;
 
   const config = {

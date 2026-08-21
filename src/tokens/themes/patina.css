@@ -1,0 +1,120 @@
+/* ════════════════════════════════════════════════
+   PATINA — light
+   The developer platform's own theme.
+   ════════════════════════════════════════════════
+
+   Why a theme and not a redesign of `light`: this package is consumed by
+   tenant-admin, provider-admin-os, tenant-apps, tenant-sites and
+   marketing-site as well as developer-platform. Editing `light.css` would
+   restyle all six. Patina is opted into with one attribute
+   (`<html data-theme="patina">`), so the blast radius is exactly the app
+   that asked for it.
+
+   The palette: a black with a GREEN cast (never blue-black, never neutral
+   grey), and verdigris — the colour copper turns after long service — as the
+   only interactive hue. Two semantics sit beside it and never borrow it:
+   flux (amber) for derived / pending / not-yet-real, oxide (copper) for
+   diverged / a decision is owed.
+
+   IMPORT ORDER MATTERS. `light.css` declares its tokens on
+   `[data-theme="light"], :root` — specificity (0,1,0), the same as
+   `[data-theme="patina"]`. Ties break on source order, so patina.css must be
+   imported AFTER light.css in tokens/index.css or every token here loses. */
+
+[data-theme="patina"] {
+  color-scheme: light;
+
+  /* ── Typefaces ──
+     Three faces, three jobs: a grotesque for anything that announces, a
+     public-service face for anything that explains, a systems mono for
+     anything a machine also reads (addresses, ids, versions, counts).
+     developer-platform loads the same three through next/font and assigns
+     them to these variable names; the literals here are what a consumer
+     without next/font falls back to. */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+
+  /* ── Surfaces ── */
+  --color-bg: #eef2f1;
+  --color-bg-elevated: #ffffff;
+  --color-bg-sunken: #e4ebe9;
+  --color-bg-hover: #e8efed;
+  --color-bg-active: #dbe5e2;
+  --color-bg-overlay: rgb(13 19 21 / 0.42);
+
+  /* ── Borders ── */
+  --color-border: #d6e0dd;
+  --color-border-strong: #b3c2be;
+  --color-border-focus: #15776a;
+
+  /* ── Text ── */
+  --color-text: #0d1315;
+  --color-text-secondary: #46585a;
+  --color-text-tertiary: #6e8082;
+  --color-text-inverse: #ffffff;
+  --color-text-link: #15776a;
+
+  /* ── Brand / Primary (verdigris) ──
+     `--on-primary` is new. Every existing theme hardcoded white text on the
+     primary fill via `--color-primary-text`, which holds only while primary
+     is dark. It is kept in step here, and `--on-primary` is the name new
+     components use because it says what it is for. */
+  --color-primary: #15776a;
+  --color-primary-hover: #106359;
+  --color-primary-active: #0c4f48;
+  --color-primary-light: #dfefeb;
+  --color-primary-subtle: #dfefeb;
+  --color-primary-text: #ffffff;
+  --on-primary: #ffffff;
+
+  /* ── Success (a true green, deliberately a different hue from the teal
+     accent so "released" and "clickable" never read as the same thing) ── */
+  --color-success: #2e7d4f;
+  --color-success-hover: #24663f;
+  --color-success-light: #e3f2e8;
+  --color-success-text: #1c5031;
+
+  /* ── Warning = flux ── */
+  --color-warning: #9a6209;
+  --color-warning-hover: #7e4f06;
+  --color-warning-light: #fbf0dc;
+  --color-warning-text: #6d4405;
+
+  /* ── Danger = oxide ── */
+  --color-danger: #b33a22;
+  --color-danger-hover: #952e19;
+  --color-danger-light: #fae7df;
+  --color-danger-text: #7d2614;
+
+  /* ── Info ── */
+  --color-info: #2f6ba6;
+  --color-info-hover: #26588a;
+  --color-info-light: #e4eef7;
+  --color-info-text: #1d4468;
+
+  /* ── State aliases ── */
+  --color-success-subtle: var(--color-success-light);
+  --color-success-default: var(--color-success);
+  --color-success-strong: var(--color-success-hover);
+
+  --color-warning-subtle: var(--color-warning-light);
+  --color-warning-default: var(--color-warning);
+  --color-warning-strong: var(--color-warning-hover);
+
+  --color-error-subtle: var(--color-danger-light);
+  --color-error-default: var(--color-danger);
+  --color-error-strong: var(--color-danger-hover);
+
+  --color-info-subtle: var(--color-info-light);
+  --color-info-default: var(--color-info);
+  --color-info-strong: var(--color-info-hover);
+
+  /* ── Sidebar ── */
+  --color-sidebar-bg: #ffffff;
+  --color-sidebar-text: #46585a;
+  --color-sidebar-text-active: #0d1315;
+  --color-sidebar-hover: #eef2f1;
+  --color-sidebar-active: #dfefeb;
+  --color-sidebar-border: #d6e0dd;
+}
