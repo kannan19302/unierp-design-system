@@ -38,7 +38,19 @@ const SIZES: Record<AvatarSize, number> = {
   xl: 64,
 };
 
-/** Deterministic palette — pure design tokens; no hardcoded colours. */
+/**
+ * Deterministic identity palette, hashed from the display name.
+ *
+ * The fallbacks are a degradation path for a host that has not loaded the
+ * tokens — they are NOT the palette. That distinction used to be untrue: this
+ * comment read "pure design tokens; no hardcoded colours" while not one of the
+ * sixteen `--color-avatar-*` tokens was defined in any token file, so every
+ * avatar in the platform rendered the pre-Meridian indigo fallback, and indices
+ * 1 and 4 shared a background — two of eight "distinct" avatars were identical.
+ *
+ * Both Meridian themes now define all sixteen, all eight backgrounds are
+ * distinct, and check-contrast.mjs verifies every fg/bg pair at AA.
+ */
 const AVATAR_PALETTE_VARS = [
   { bg: "var(--color-avatar-0-bg, #e0e7ff)", fg: "var(--color-avatar-0-fg, #4338ca)" },
   { bg: "var(--color-avatar-1-bg, #fce7f3)", fg: "var(--color-avatar-1-fg, #be185d)" },

@@ -142,7 +142,12 @@ export const PlatformShell: FC<PlatformShellProps> = ({
           display: "flex",
           alignItems: "center",
           gap: "var(--space-4)",
-          height: "56px",
+          // --header-height, not a literal 56. Three components in this
+          // platform were each "nominally 56px" by three different means (this
+          // literal, the token, and a CSS-module class); when a theme moves the
+          // header — compact density already does, to 52 — only the ones
+          // reading the token move, and the chrome stops lining up.
+          height: "var(--header-height)",
           padding: "0 var(--space-4)",
           borderBottom: "1px solid var(--color-border)",
           background: "var(--color-bg-elevated)",

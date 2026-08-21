@@ -17,6 +17,22 @@ import { ArtifactAddress, formatAddress } from "../artifact-address";
  *      emphasised.
  */
 
+/**
+ * `navigator.clipboard` is an accessor with no setter in current jsdom, so the
+ * `Object.assign(navigator, { clipboard })` these two tests used to do threw
+ * "Cannot set property clipboard of #<Navigator> which has only a getter" —
+ * which read as a component failure and was a harness one. defineProperty is
+ * the supported way to stub it, and it is restored afterwards so the two cases
+ * cannot leak into each other.
+ */
+function stubClipboard(value: unknown) {
+  Object.defineProperty(navigator, "clipboard", {
+    value,
+    configurable: true,
+    writable: true,
+  });
+}
+
 describe("formatAddress", () => {
   it("renders an owned artifact as tenant/scope/project/builder/artifact@version", () => {
     expect(
@@ -95,7 +111,7 @@ describe("ArtifactAddress", () => {
 
   it("copies the plain address and says so in the accessible name", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
-    Object.assign(navigator, { clipboard: { writeText } });
+    stubClipboard({ writeText });
 
     render(
       <ArtifactAddress
@@ -121,7 +137,7 @@ describe("ArtifactAddress", () => {
   });
 
   it("does not throw where there is no clipboard", async () => {
-    Object.assign(navigator, { clipboard: undefined });
+    stubClipboard(undefined);
     render(<ArtifactAddress scope="app" project="p" artifact="a" copyable />);
     await userEvent.click(screen.getByRole("button"));
     expect(screen.getByRole("button", { name: /^Copy address/ })).toBeInTheDocument();

@@ -1,0 +1,166 @@
+/* ════════════════════════════════════════════════
+   MERIDIAN — dark
+   ════════════════════════════════════════════════
+
+   The ground is a warm-neutral near-black, matched to the light theme's warm
+   ground rather than swung to the blue-black that dark themes default to. A
+   suite whose light mode is warm and whose dark mode is cold reads as two
+   products with one logo.
+
+   Two structural differences from the stock `dark` theme, both carried over
+   from what patina got right:
+
+   1. ELEVATION BY TONE AND HAIRLINE, NOT BY BLUR. Every shadow token
+      collapses to a hairline. A blurred black shadow on a ground this dark is
+      invisible as depth and visible as smear — it degrades the one edge it
+      was drawn to define. This is also the single thing worth taking from
+      Material 3's tonal elevation, and it is taken without the rest of it.
+
+   2. THE PRIMARY INVERTS ITS FOREGROUND. `--on-primary` is dark here, because
+      the accent has to get lighter to survive on a dark ground and white text
+      on a light teal fails contrast. Any component that hardcoded white on the
+      primary fill is a bug this token exists to make visible.
+
+   Import after dark.css. See the note in meridian.css about source order. */
+
+[data-theme="meridian-dark"] {
+  color-scheme: dark;
+
+  --font-display: "Instrument Sans", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, "IBM Plex Mono", "Consolas", monospace;
+
+  /* ── Surfaces ── */
+  --color-bg: #14171a;
+  --color-bg-elevated: #1c2023;
+  --color-bg-sunken: #0e1113;
+  --color-bg-hover: #23282b;
+  --color-bg-active: #2c3235;
+  --color-bg-overlay: rgb(8 10 11 / 0.72);
+
+  /* ── Borders ── */
+  --color-border: #2e3438;
+  --color-border-strong: #6e7681;
+  --color-border-focus: #48c5ce;
+
+  /* ── Text ── */
+  --color-text: #e6e3de;
+  --color-text-secondary: #a3a29d;
+  --color-text-tertiary: #949289;
+  --color-text-inverse: #14171a;
+  --color-text-link: #48c5ce;
+
+  /* ── Brand / Primary (Meridian teal, lifted) ──
+     9:1 on the page ground. `--on-primary` is the near-black, not white:
+     white on #48c5ce is 2.0:1 and unreadable. */
+  --color-primary: #48c5ce;
+  --color-primary-hover: #63d2da;
+  --color-primary-active: #7cdde3;
+  --color-primary-light: #0f3538;
+  --color-primary-subtle: #0f3538;
+  --color-primary-text: #04262b;
+  --on-primary: #04262b;
+
+
+  /* Foreground ON a solid --color-danger fill. The same inversion argument as
+     --on-primary: a control-plane outage banner is a solid danger ground, and
+     provider-admin-os hardcoded `#fff` on it — which is fine here and 2.6:1 in
+     meridian-dark, where danger lightens to survive the dark ground. A banner
+     announcing an outage is the last thing that should be unreadable. */
+  --on-danger: #2b0507;
+
+  /* ── Success (forest, lifted) ── */
+  --color-success: #45b877;
+  --color-success-hover: #5cc78a;
+  --color-success-light: #10281a;
+  --color-success-text: #a5e2bd;
+
+  /* ── Warning (ochre, lifted) ── */
+  --color-warning: #dfa040;
+  --color-warning-hover: #ecb257;
+  --color-warning-light: #2d2314;
+  --color-warning-text: #f2d19f;
+
+  /* ── Danger (crimson, lifted) ── */
+  --color-danger: #e56a72;
+  --color-danger-hover: #ef8188;
+  --color-danger-light: #2e1517;
+  --color-danger-text: #f5bcc0;
+
+  /* ── Info (indigo-violet, lifted) ── */
+  --color-info: #8b8fe0;
+  --color-info-hover: #a1a4e8;
+  --color-info-light: #1d1f38;
+  --color-info-text: #c8caf2;
+
+  /* ── State aliases ── */
+  --color-success-subtle: var(--color-success-light);
+  --color-success-default: var(--color-success);
+  --color-success-strong: var(--color-success-hover);
+
+  --color-warning-subtle: var(--color-warning-light);
+  --color-warning-default: var(--color-warning);
+  --color-warning-strong: var(--color-warning-hover);
+
+  --color-error-subtle: var(--color-danger-light);
+  --color-error-default: var(--color-danger);
+  --color-error-strong: var(--color-danger-hover);
+
+  --color-info-subtle: var(--color-info-light);
+  --color-info-default: var(--color-info);
+  --color-info-strong: var(--color-info-hover);
+
+  /* ── Sidebar ── */
+  --color-sidebar-bg: #1c2023;
+  --color-sidebar-text: #a3a29d;
+  --color-sidebar-text-active: #e6e3de;
+  --color-sidebar-hover: #23282b;
+  --color-sidebar-active: #0f3538;
+  --color-sidebar-border: #2e3438;
+
+  /* ── Elevation by tone and hairline, not by blur ──
+     Components reaching for --shadow-* or --elevation-* keep working; they
+     stop producing haze. Rank is carried by the hairline getting brighter,
+     and by the surface token the component sits on. */
+  --shadow-xs: 0 0 0 1px rgb(46 52 56 / 0.9);
+  --shadow-sm: 0 0 0 1px rgb(46 52 56 / 0.9);
+  --shadow-md: 0 0 0 1px rgb(65 72 80 / 0.9);
+  --shadow-lg: 0 0 0 1px rgb(65 72 80 / 1);
+  --shadow-xl: 0 0 0 1px rgb(72 197 206 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(72 197 206 / 0.45);
+
+  --elevation-1: 0 0 0 1px rgb(46 52 56 / 0.8);
+  --elevation-2: 0 0 0 1px rgb(46 52 56 / 0.95);
+  --elevation-3: 0 0 0 1px rgb(65 72 80 / 0.95);
+  --elevation-4: 0 0 0 1px rgb(65 72 80 / 1);
+  --elevation-5: 0 0 0 1px rgb(72 197 206 / 0.4);
+  --elevation-hover: 0 0 0 1px rgb(72 197 206 / 0.4);
+
+  /* ── Avatar identity ramp ──
+     Eight deterministic pairs, hashed from a display name. These were
+     referenced as `var(--color-avatar-0-bg, #e0e7ff)` in identity.tsx under a
+     comment reading "pure design tokens; no hardcoded colours" — while NOT ONE
+     of the sixteen was defined in any token file, so the component was entirely
+     hardcoded colours, in the pre-Meridian indigo, and the fallback ramp had
+     the SAME background at indices 1 and 4 (two of eight avatars identical).
+
+     Identity is a fourth colour axis, orthogonal to scope, status and accent:
+     it says WHO, not where or what state. Every pair is checked by
+     check-contrast.mjs at AA body contrast. */
+  --color-avatar-0-bg: #23294a;
+  --color-avatar-0-fg: #aab4f0;
+  --color-avatar-1-bg: #40202e;
+  --color-avatar-1-fg: #f2adc4;
+  --color-avatar-2-bg: #17301f;
+  --color-avatar-2-fg: #8fd4a6;
+  --color-avatar-3-bg: #38290f;
+  --color-avatar-3-fg: #e8c07a;
+  --color-avatar-4-bg: #2c2148;
+  --color-avatar-4-fg: #c3a9f0;
+  --color-avatar-5-bg: #123037;
+  --color-avatar-5-fg: #86cbd8;
+  --color-avatar-6-bg: #3d1e1e;
+  --color-avatar-6-fg: #f0a8a8;
+  --color-avatar-7-bg: #12302b;
+  --color-avatar-7-fg: #86ccc0;
+}

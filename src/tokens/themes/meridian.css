@@ -1,0 +1,190 @@
+/* ════════════════════════════════════════════════
+   MERIDIAN — light
+   The UniERP design language.
+   ════════════════════════════════════════════════
+
+   Meridian is the suite's own language, not one app's. It is still shipped as
+   a THEME rather than as an edit to `light.css` for the same reason patina was
+   (this package is consumed by seven apps and a theme's blast radius is
+   exactly the apps that opt in) — but unlike patina it is intended to become
+   the default for every one of them, adopted app by app under Track B phases
+   M2–M10 rather than in a single flag day.
+
+   THE PALETTE'S ONE DELIBERATE DECISION: the primary is neither blue nor
+   purple. Salesforce (#0176D3), SAP (#0A6ED1), Microsoft (#0078D4), Google
+   (#1A73E8) and Oracle all lead with a blue inside a few degrees of hue of
+   each other; Odoo leads with an adjacent purple; and UniERP's own outgoing
+   indigo (#6366f1) sat between them. A buyer comparing six ERP screenshots
+   sees one colour. Meridian's accent is a deep, desaturated teal — it reads as
+   instrumentation rather than as marketing, and it is the only hue in the
+   product that means "you can click this".
+
+   Warmth is not absent, it is QUARANTINED. `--brand-signal` (coral) exists for
+   the marketing site and for empty-state illustration and is gated out of
+   product CSS, because warmth in a ledger is noise.
+
+   IMPORT ORDER MATTERS. `light.css` declares its tokens on
+   `[data-theme="light"], :root` — specificity (0,1,0), the same as
+   `[data-theme="meridian"]`. Ties break on source order, so this file must be
+   imported AFTER light.css in tokens/index.css or every token here loses. */
+
+[data-theme="meridian"] {
+  color-scheme: light;
+
+  /* ── Typefaces ──
+     Three faces, three jobs.
+
+     Inter STAYS as the body and data face. It is correct at 14px, it has the
+     tabular figures a ledger column requires, and ~785 files already depend on
+     its metrics — swapping the workhorse is a large visual regression bought
+     for nothing. Personality is carried by the two faces around it instead.
+
+     Instrument Sans is the display face: semi-condensed, so a page title can
+     be large without eating the line, with enough character in the R and the g
+     to not read as another grotesque. It appears ONLY in headings, KPI
+     figures, wizard plates and marketing.
+
+     Martian Mono is deliberately not JetBrains Mono — the mono here is doing
+     identity work (the Meridian bar's address, ids, versions, counts), and it
+     should not look like a code editor leaked into the chrome.
+
+     Each app loads these through next/font under the same variable names; the
+     literals are what a consumer without next/font falls back to. */
+  --font-display: "Instrument Sans", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, "IBM Plex Mono", "Consolas", monospace;
+
+  /* ── Surfaces ──
+     Warm-neutral, not blue-grey and not the cream that every generated design
+     currently reaches for. Pure white is still refused as the page ground: it
+     fatigues across an eight-hour shift, which is the actual session length of
+     the surface this theme mostly serves. */
+  --color-bg: #f7f6f4;
+  --color-bg-elevated: #ffffff;
+  --color-bg-sunken: #eeedea;
+  --color-bg-hover: #f0efec;
+  --color-bg-active: #e5e3df;
+  --color-bg-overlay: rgb(20 25 27 / 0.44);
+
+  /* ── Borders ── */
+  --color-border: #e2e0db;
+  --color-border-strong: #948f87;
+  --color-border-focus: #0e6b75;
+
+  /* ── Text ── */
+  --color-text: #14191b;
+  --color-text-secondary: #4c5457;
+  --color-text-tertiary: #626a6d;
+  --color-text-inverse: #ffffff;
+  --color-text-link: #0e6b75;
+
+  /* ── Brand / Primary (Meridian teal) ──
+     6.2:1 on white and 6.0:1 on the page ground, so it is legible as link text
+     and not only as a fill.
+
+     `--on-primary` is the token new components use. `--color-primary-text` is
+     kept in step for the components that still read it, but it was named for a
+     world where the primary fill is always dark and white always sits on it —
+     which stops being true the moment a theme's primary is light. */
+  --color-primary: #0e6b75;
+  --color-primary-hover: #0b5860;
+  --color-primary-active: #08454b;
+  --color-primary-light: #dcedef;
+  --color-primary-subtle: #dcedef;
+  --color-primary-text: #ffffff;
+  --on-primary: #ffffff;
+
+  /* Foreground ON a solid --color-danger fill. The same inversion argument as
+     --on-primary: a control-plane outage banner is a solid danger ground, and
+     provider-admin-os hardcoded `#fff` on it — which is fine here and 2.6:1 in
+     meridian-dark, where danger lightens to survive the dark ground. A banner
+     announcing an outage is the last thing that should be unreadable. */
+  --on-danger: #ffffff;
+
+  /* ── Success (forest) ──
+     Deliberately a different hue from the teal accent. If "approved" and
+     "clickable" are the same colour, a list page teaches the user that green
+     means nothing in particular. */
+  --color-success: #1f7a45;
+  --color-success-hover: #196337;
+  --color-success-light: #e2f1e8;
+  --color-success-text: #14512e;
+
+  /* ── Warning (ochre) ──
+     Pushed deeper and yellower than the stock amber specifically so it cannot
+     be confused with `--brand-signal` coral on a marketing-adjacent surface. */
+  --color-warning: #a15c07;
+  --color-warning-hover: #834a05;
+  --color-warning-light: #faefdc;
+  --color-warning-text: #6f3f04;
+
+  /* ── Danger (crimson) ──
+     A true red, not the orange-red the outgoing rose drifted toward — again so
+     that danger and coral are never a judgement call at a glance. */
+  --color-danger: #b3121f;
+  --color-danger-hover: #950e19;
+  --color-danger-light: #fae4e6;
+  --color-danger-text: #7d0b15;
+
+  /* ── Info (indigo-violet) ──
+     Not a blue. A blue sitting beside a teal accent is two hues ~20° apart
+     doing two different jobs, which is exactly the confusion this palette
+     exists to avoid. */
+  --color-info: #4f53b8;
+  --color-info-hover: #414598;
+  --color-info-light: #e8e9f7;
+  --color-info-text: #333670;
+
+  /* ── State aliases (subtle/default/strong) ── */
+  --color-success-subtle: var(--color-success-light);
+  --color-success-default: var(--color-success);
+  --color-success-strong: var(--color-success-hover);
+
+  --color-warning-subtle: var(--color-warning-light);
+  --color-warning-default: var(--color-warning);
+  --color-warning-strong: var(--color-warning-hover);
+
+  --color-error-subtle: var(--color-danger-light);
+  --color-error-default: var(--color-danger);
+  --color-error-strong: var(--color-danger-hover);
+
+  --color-info-subtle: var(--color-info-light);
+  --color-info-default: var(--color-info);
+  --color-info-strong: var(--color-info-hover);
+
+  /* ── Sidebar ── */
+  --color-sidebar-bg: #ffffff;
+  --color-sidebar-text: #4c5457;
+  --color-sidebar-text-active: #14191b;
+  --color-sidebar-hover: #f0efec;
+  --color-sidebar-active: #dcedef;
+  --color-sidebar-border: #e2e0db;
+
+  /* ── Avatar identity ramp ──
+     Eight deterministic pairs, hashed from a display name. These were
+     referenced as `var(--color-avatar-0-bg, #e0e7ff)` in identity.tsx under a
+     comment reading "pure design tokens; no hardcoded colours" — while NOT ONE
+     of the sixteen was defined in any token file, so the component was entirely
+     hardcoded colours, in the pre-Meridian indigo, and the fallback ramp had
+     the SAME background at indices 1 and 4 (two of eight avatars identical).
+
+     Identity is a fourth colour axis, orthogonal to scope, status and accent:
+     it says WHO, not where or what state. Every pair is checked by
+     check-contrast.mjs at AA body contrast. */
+  --color-avatar-0-bg: #e3e8fb;
+  --color-avatar-0-fg: #333f9e;
+  --color-avatar-1-bg: #fce4ec;
+  --color-avatar-1-fg: #9c2a55;
+  --color-avatar-2-bg: #ddf0e3;
+  --color-avatar-2-fg: #1f6b3a;
+  --color-avatar-3-bg: #fbeedb;
+  --color-avatar-3-fg: #7d4d09;
+  --color-avatar-4-bg: #ece2fb;
+  --color-avatar-4-fg: #5b34a6;
+  --color-avatar-5-bg: #d9f0f4;
+  --color-avatar-5-fg: #0f5f6d;
+  --color-avatar-6-bg: #fce0e0;
+  --color-avatar-6-fg: #9e2222;
+  --color-avatar-7-bg: #dcefe9;
+  --color-avatar-7-fg: #14655a;
+}

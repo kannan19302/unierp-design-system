@@ -10,8 +10,8 @@ export const THEMES = [
   "dark",
   "light",
   "high-contrast",
-  "patina",
-  "patina-dark",
+  "meridian",
+  "meridian-dark",
 ] as const;
 export type ThemeName = (typeof THEMES)[number];
 export const DEFAULT_THEME: ThemeName = "light";

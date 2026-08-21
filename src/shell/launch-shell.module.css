@@ -1,0 +1,201 @@
+/* LaunchShell — anatomy 1 of eleven (UI_UX_BRIEF §11).
+   The Global Platform Wizard, and the in-tenant App Wizard at a smaller scale.
+
+   NOTE ON CLASS NAMES: underscores, never hyphens. */
+
+/* No rail, no top bar, no page header. This is the ONLY in-product screen
+   permitted a hero, and the reason is the session: fifteen seconds, one
+   decision, then gone. Chrome that helps someone who will be here for eight
+   hours is pure obstruction for someone who will be here for fifteen seconds. */
+.root {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  padding: var(--space-8) var(--space-6);
+  box-sizing: border-box;
+}
+
+/* The `shelf` variant is the App Wizard: the same component bounded inside the
+   tenant shell rather than owning the viewport. The codebase already forbids
+   interchanging the two wizards; SCALE is what makes that visible, so the two
+   can never be mistaken for one another at a glance. */
+.root_shelf {
+  min-height: 0;
+  padding: var(--space-5) 0;
+}
+
+.head {
+  max-width: var(--content-max-width);
+  width: 100%;
+  margin: 0 auto var(--space-8);
+  text-align: center;
+}
+
+.root_shelf .head {
+  text-align: left;
+  margin-bottom: var(--space-4);
+}
+
+.title {
+  font-family: var(--font-display, var(--font-sans));
+  font-variation-settings: "wght" var(--display-wght-hero, 700);
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+  letter-spacing: var(--display-tracking-hero, -0.03em);
+  line-height: 1.05;
+  margin: 0 0 var(--space-2);
+}
+
+/* The shelf title is an interface label, not signage — it drops to the ordinary
+   page-title size the rest of the product uses. */
+.root_shelf .title {
+  font-size: var(--text-xl);
+  font-variation-settings: "wght" var(--display-wght-label, 600);
+  letter-spacing: var(--display-tracking-label, normal);
+}
+
+.lede {
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-size: var(--text-base);
+}
+
+.root_shelf .lede {
+  font-size: var(--text-sm);
+}
+
+/* ── Filter ──
+   Type-to-filter is the primary path, not an accessory. Ten plates is already
+   past Miller's Law (§1), and a launcher whose fastest route is the mouse has
+   misread its own session length. */
+.filter {
+  display: block;
+  width: 100%;
+  max-width: var(--filter-max-width);
+  margin: var(--space-5) auto 0;
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+
+.root_shelf .filter {
+  margin-left: 0;
+}
+
+.filter:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ── The plate field ── */
+
+.field {
+  list-style: none;
+  padding: 0;
+  max-width: var(--content-max-width);
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--tile-min), 1fr));
+  gap: var(--space-5);
+  align-content: start;
+}
+
+.root_shelf .field {
+  grid-template-columns: repeat(auto-fill, minmax(var(--tile-min-dense), 1fr));
+  gap: var(--space-3);
+}
+
+.cell {
+  display: flex;
+  min-width: 0;
+}
+
+.plate {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: var(--tile-height);
+  padding: var(--space-5);
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  /* The plate carries its platform's hue as a top edge — the same scope-edge
+     idea as everywhere else: an edge, never a filled tile. Ten filled tiles is
+     the rainbow §13.1 exists to prevent. */
+  border-top: var(--scope-edge-width) solid var(--plate-accent, var(--color-primary));
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font: inherit;
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--ease-default);
+}
+
+.root_shelf .plate {
+  min-height: var(--tile-height-dense);
+  padding: var(--space-4);
+}
+
+.plate:hover {
+  border-color: var(--color-border-strong);
+  border-top-color: var(--plate-accent, var(--color-primary));
+}
+
+.plate:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.plate_name {
+  font-family: var(--font-display, var(--font-sans));
+  font-variation-settings: "wght" var(--display-wght-label, 600);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
+.root_shelf .plate_name {
+  font-size: var(--text-sm);
+}
+
+.plate_desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.plate_code {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: var(--label-size, var(--text-xs));
+  letter-spacing: var(--label-tracking, 0.08em);
+  color: var(--color-text-tertiary);
+}
+
+.foot {
+  max-width: var(--content-max-width);
+  width: 100%;
+  margin: var(--space-8) auto 0;
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 640px) {
+  .root {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .field {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

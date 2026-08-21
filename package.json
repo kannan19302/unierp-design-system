@@ -1,7 +1,7 @@
 {
   "name": "@kannan19302/ui",
   "version": "1.0.15",
-  "description": "UniERP Design System \u2014 one package, subpath exports (PLATFORM_ARCHITECTURE.md \u00a7 7.2)",
+  "description": "UniERP Design System — one package, subpath exports (PLATFORM_ARCHITECTURE.md § 7.2)",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -111,12 +111,17 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs",
+    "build": "node scripts/check-contrast.mjs && node scripts/check-tokens.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs",
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "check:tokens": "node scripts/check-tokens.mjs",
+    "check:tokens:baseline": "node scripts/check-tokens.mjs --baseline",
     "lint": "eslint src/",
     "clean": "rimraf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --passWithNoTests",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "tokens:mobile": "node scripts/generate-cross-platform-tokens.mjs",
+    "check:mobile-tokens": "node scripts/generate-cross-platform-tokens.mjs --check"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",

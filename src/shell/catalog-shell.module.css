@@ -1,0 +1,235 @@
+/* CatalogShell — anatomy 7 of eleven (UI_UX_BRIEF §11).
+   Marketplace: browsing, comparing, installing.
+
+   NOTE ON CLASS NAMES: underscores, never hyphens. */
+
+.root {
+  display: grid;
+  grid-template-columns: var(--panel-width) minmax(0, 1fr);
+  gap: var(--space-6);
+  /* The widest gutters in the product. Browsing is not data entry: the density
+     that serves a ledger makes a catalogue feel like a spreadsheet of software. */
+  padding: var(--space-6);
+  box-sizing: border-box;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* ── Facets ── */
+
+.facets {
+  align-self: start;
+  position: sticky;
+  top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.facet_group {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.facet_legend {
+  font-family: var(--font-mono);
+  font-size: var(--label-size, var(--text-xs));
+  letter-spacing: var(--label-tracking, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  padding: 0;
+  margin-bottom: var(--space-2);
+}
+
+.facet_option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.facet_count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Gallery ── */
+
+.results {
+  min-width: 0;
+}
+
+.results_head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.result_count {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--tile-min), 1fr));
+  gap: var(--space-5);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-5);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+}
+
+.tile:hover {
+  border-color: var(--color-border-strong);
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.tile_head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Larger imagery than anywhere else in the product — the one place a picture is
+   doing real work, because a buyer picks software partly on how it looks. */
+.tile_icon {
+  width: var(--media-icon-size);
+  height: var(--media-icon-size);
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-sunken);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.tile_name {
+  font-family: var(--font-display, var(--font-sans));
+  font-variation-settings: "wght" var(--display-wght-label, 600);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
+.tile_publisher {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+.tile_desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.tile_foot {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Listing (the product page) ── */
+
+.listing {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(var(--panel-width), 3fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.listing_aside {
+  position: sticky;
+  top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.section_title {
+  font-family: var(--font-display, var(--font-sans));
+  font-variation-settings: "wght" var(--display-wght-label, 600);
+  font-size: var(--text-lg);
+  margin: var(--space-6) 0 var(--space-3);
+}
+
+/* The permissions manifest is a LIST OF SENTENCES, not a scope string.
+   "connectors.write" tells an admin nothing about what the thing will do to
+   their data; "Create and update connector credentials" does. */
+.permissions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.permission {
+  display: flex;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-sunken);
+  border-radius: var(--radius-md);
+}
+
+.permission_scope {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .root {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .facets {
+    position: static;
+  }
+
+  .listing {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .listing_aside {
+    position: static;
+  }
+}

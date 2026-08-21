@@ -1,0 +1,174 @@
+/* EditorialShell — anatomy 2 of eleven (UI_UX_BRIEF §11).
+   The marketing site, and nothing else in the product.
+
+   NOTE ON CLASS NAMES: underscores, never hyphens. bundle-css-modules.mjs
+   namespaces each class with a trailing \b and a hyphen IS a word boundary. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* The masthead does NOT use --header-height.
+   Every in-product surface shares that token so the chrome lines up between
+   them; the marketing site is not one of those surfaces, and matching the app's
+   56px would make the first thing a buyer sees feel like a console. This is the
+   one place in the platform where the header is allowed to breathe. */
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-height: var(--masthead-height);
+  padding: var(--space-4) var(--space-6);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.main {
+  flex: 1 1 auto;
+}
+
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-12) var(--space-6);
+  background: var(--color-bg-sunken);
+}
+
+/* ── Bands ──
+   The editorial anatomy is a vertical stack of FULL-BLEED bands whose grounds
+   alternate, not a page of cards on one ground. That is the actual structural
+   difference from every other anatomy in the suite: in the product, a section
+   is a card with a border; here a section is a horizon.
+
+   The band is full width and its CONTENT is what is measured, so a coloured
+   ground always reaches both edges of the viewport. Constraining the band
+   itself is the usual mistake and it leaves slivers of page background beside
+   every tinted section. */
+.band {
+  width: 100%;
+  /* border-box, explicitly. `width: 100%` plus horizontal padding overflows the
+     viewport by exactly the padding, which makes the page body scroll sideways
+     — forbidden by §9 — and it does it silently, because the overflow is off
+     the right edge where nobody looks. The package's own reset would supply
+     this, but a full-bleed band is the one element that must not depend on a
+     host having loaded it. Measured in the harness: 1161px against a 1113px
+     viewport before this line. */
+  box-sizing: border-box;
+  padding: var(--space-16) var(--space-6);
+}
+
+.band_base {
+  background: var(--color-bg);
+}
+
+.band_sunken {
+  background: var(--color-bg-sunken);
+}
+
+.band_ink {
+  /* Inverted band. Uses the elevated/text pair in reverse rather than a
+     hardcoded near-black, so it inverts correctly in both modes instead of
+     being a dark stripe that stays dark in dark mode. */
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.band_signal {
+  /* The ONLY place --brand-signal is permitted (§13.1). scripts/check-tokens.mjs
+     fails the build if the token or its literal appears outside marketing
+     surfaces and this file. */
+  background: var(--brand-signal-subtle, var(--color-bg-sunken));
+}
+
+.inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+/* Asymmetric measure. A marketing column set to the full 1400px is unreadable
+   prose; set to a centred 65ch it looks like a blog. The editorial answer is a
+   narrow measure held OFF-centre, which is what makes the page read as designed
+   rather than as a template. */
+.inner_editorial {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.measure {
+  max-width: 62ch;
+}
+
+/* ── Display type ──
+   Sizes that appear nowhere else in the platform. §4 caps the product at
+   --text-3xl for KPI figures and reserves --text-4xl for "marketing hero only";
+   this is that surface, and it goes further with a fluid clamp because a hero
+   set in px is either small on a laptop or absurd on a 32-inch display. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--label-size, var(--text-xs));
+  letter-spacing: var(--label-tracking, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin: 0 0 var(--space-3);
+}
+
+.hero {
+  font-family: var(--font-display, var(--font-sans));
+  font-variation-settings: "wght" var(--display-wght-hero, 700);
+  font-size: clamp(2.25rem, 1.2rem + 3.6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: var(--display-tracking-hero, -0.03em);
+  margin: 0 0 var(--space-5);
+}
+
+.title {
+  font-family: var(--font-display, var(--font-sans));
+  font-variation-settings: "wght" var(--display-wght-title, 640);
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: var(--display-tracking-title, -0.02em);
+  margin: 0 0 var(--space-4);
+}
+
+.lede {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed, 1.6);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Marketing keeps the softer corner the product gave up — a deliberate register
+   change, not an oversight. §13.4. */
+.card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl-marketing, 16px);
+  padding: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .inner_editorial {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .band {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .masthead {
+    padding: var(--space-3) var(--space-4);
+  }
+}

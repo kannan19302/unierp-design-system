@@ -1,9 +1,24 @@
 import { type FC, type ReactNode } from "react";
+import { Breadcrumb } from "../components";
+import styles from "./page-header.module.css";
 
 export interface PageHeaderProps {
   title: ReactNode;
   description?: string;
   actions?: ReactNode;
+  /**
+   * Rendered above the title.
+   *
+   * This prop was declared on the interface from the beginning and never
+   * destructured — the component accepted it, typechecked, and silently threw it
+   * away. `domain-shell.tsx` and `tenants/provision/page.tsx` both passed it, so
+   * the entire provider control plane rendered with no breadcrumbs at all,
+   * against a brief (APP_FLOW §3) that calls them mandatory on every page with
+   * every segment a link.
+   *
+   * The `: any` annotation on the old destructuring pattern is what hid it: it
+   * suppressed the unused-property signal that would otherwise have surfaced.
+   */
   breadcrumbs?: Array<{ label: string; href?: string }>;
 }
 
@@ -11,62 +26,23 @@ export const PageHeader: FC<PageHeaderProps> = ({
   title,
   description,
   actions,
-}: any) => {
+  breadcrumbs,
+}) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--space-1)",
-        marginBottom: "var(--space-3)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "var(--space-3)",
-        }}
-      >
+    <div className={styles.root}>
+      {breadcrumbs && breadcrumbs.length > 0 && (
+        <div className={styles.crumbs}>
+          <Breadcrumb items={breadcrumbs} />
+        </div>
+      )}
+
+      <div className={styles.title_row}>
         <div>
-          <h1
-            style={{
-              fontSize: "var(--text-xl)",
-              fontWeight: "var(--weight-bold)" as unknown as number,
-              color: "var(--color-text)",
-              lineHeight: "var(--leading-tight)",
-              margin: 0,
-            }}
-          >
-            {title}
-          </h1>
-          {description && (
-            <p
-              style={{
-                marginTop: "2px",
-                marginBottom: 0,
-                fontSize: "var(--text-xs)",
-                color: "var(--color-text-secondary)",
-              }}
-            >
-              {description}
-            </p>
-          )}
+          <h1 className={styles.title}>{title}</h1>
+          {description && <p className={styles.description}>{description}</p>}
         </div>
 
-        {actions && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--space-3)",
-              flexShrink: 0,
-            }}
-          >
-            {actions}
-          </div>
-        )}
+        {actions && <div className={styles.actions}>{actions}</div>}
       </div>
     </div>
   );

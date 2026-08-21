@@ -116,6 +116,54 @@
   --header-height: 56px;
   --content-max-width: 1400px;
 
+  /* Two dimensions the brief specifies literally, so they are tokens rather
+     than magic numbers repeated per component: the 6px status dot (§7 — "a 6px
+     dot in the base colour", the same on every status pill in the platform) and
+     the scope edge (§13.1 — scope renders as a 3px edge or hairline, never a
+     filled badge). Both are structural constants a theme may legitimately want
+     to move; neither is a spacing decision, which is why they do not belong on
+     the --space-* scale. */
+  --status-dot-size: 6px;
+  --scope-edge-width: 3px;
+
+  /* The marketing masthead is deliberately NOT --header-height. Every
+     in-product surface shares that token so the chrome lines up between them;
+     the marketing site is not one of those surfaces, and matching the app's
+     56px makes the first thing a buyer sees feel like a console. Separate
+     token, separate decision, both explicit. */
+  --masthead-height: 72px;
+
+  /* Marketing keeps the softer corner the product gave up. §13.4 tightens
+     --radius-2xl to 8px for the product; the editorial surface opts back out
+     through its own token rather than by hardcoding 16px, so a theme can still
+     move it. */
+  --radius-2xl-marketing: 16px;
+
+  /* ── Shell structure ──
+     The principle: a dimension that appears in MORE THAN ONE file must be a
+     token. That is not pedantry — it is the exact defect this design language
+     was created to fix. Four sidebar widths (260 / 264 / 244 / 232) existed for
+     one product because each shell picked its own, and nothing could move them
+     together afterwards. When the five new anatomies were written, `260px`
+     immediately reappeared in four files and `280px` in three; these tokens are
+     what stop that becoming the next set of four widths.
+
+     Grid minimums inside a single track definition, and media-query
+     breakpoints, are exempt — they are layout structure with no cross-file
+     meaning. Everything below had cross-file meaning. */
+  --rail-icon-size: 40px;      /* ops rail target */
+  --panel-width: 280px;        /* facets · settings index · inspector */
+  --list-column-min: 320px;    /* the list column at two columns */
+  --list-column-min-dense: 260px; /* …and at three, where it compresses */
+  --anchor-nav-width: 180px;   /* object-page anchor rail */
+  --form-measure: 720px;       /* a settings form is prose-shaped, not table-shaped */
+  --tile-min: 260px;           /* launch plates · catalogue tiles */
+  --tile-min-dense: 200px;
+  --tile-height: 148px;
+  --tile-height-dense: 96px;
+  --filter-max-width: 420px;
+  --media-icon-size: 44px;     /* catalogue tile artwork */
+
   /* ── Colour aliases ──
      `--color-text-muted` is referenced in roughly 40 places across this package
      (components/, charts/, data-grid/, shell/, styles/layers/utilities.css) and
@@ -131,6 +179,30 @@
      fallback keeps this valid for a consumer importing tokens/base.css alone,
      with no theme sheet. */
   --color-text-muted: var(--color-text-tertiary, #6b7280);
+  /* ── Compatibility aliases ──
+     Thirteen names that components across this package reference with a
+     fallback — `var(--color-surface, #ffffff)`, `var(--color-muted, #64748b)`,
+     `var(--color-primary-bg, rgba(99, 102, 241, 0.06))` — and that were defined
+     in NO token file. All 62 call sites therefore rendered their fallback,
+     which is the pre-Meridian slate/indigo palette, in EVERY theme: dark mode
+     included, where `--color-surface` painted a white block on a dark ground.
+
+     Defined here as indirections rather than values, so they resolve lazily to
+     whatever the active theme sets and can never fall behind it again. They are
+     aliases, not new vocabulary — new code should use the right-hand side. */
+  --color-surface: var(--color-bg-elevated);
+  --color-surface-2: var(--color-bg-sunken);
+  --color-bg-secondary: var(--color-bg-sunken);
+  --color-bg-subtle: var(--color-bg-sunken);
+  --color-border-subtle: var(--color-border);
+  --color-muted: var(--color-text-tertiary);
+  --color-primary-bg: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  --color-primary-transparent: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  --color-warning-bg: var(--color-warning-light);
+  --color-warning-border: var(--color-warning);
+  --font-xs: var(--text-xs);
+  --font-sm: var(--text-sm);
+  --font-serif: Georgia, "Times New Roman", serif;
 }
 
 /* ── Smooth Theme Transitions ── */
@@ -158,5 +230,6 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
 }
 

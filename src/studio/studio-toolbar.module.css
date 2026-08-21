@@ -19,9 +19,7 @@
 
 .name {
   font-family: var(--font-display, var(--font-sans));
-  font-variation-settings:
-    "wdth" var(--display-wdth-label, 100),
-    "wght" var(--display-wght-label, 620);
+  font-variation-settings: "wght" var(--display-wght-label, 620);
   font-size: var(--text-sm, 0.875rem);
   font-weight: 600;
   letter-spacing: var(--display-tracking-label, 0);

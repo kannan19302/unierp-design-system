@@ -1,0 +1,235 @@
+/* OpsShell — anatomy 6 of eleven (UI_UX_BRIEF §11).
+   Provider Admin OS: internal staff, watching every tenant at once.
+
+   NOTE ON CLASS NAMES: underscores, never hyphens. */
+
+.root {
+  display: grid;
+  grid-template-columns: var(--sidebar-collapsed-width) minmax(0, 1fr);
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* ── Icon rail ──
+   Fixed at the collapsed width, never expanded and never zero. Control-plane
+   work is one screen for hours; a 260px rail spends a fifth of the viewport on
+   twelve words that the operator memorised in week one. It never collapses
+   away either, because the domain switcher is the one control that must always
+   be reachable. */
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  background: var(--color-sidebar-bg);
+  border-right: 1px solid var(--color-sidebar-border);
+  overflow-y: auto;
+}
+
+.rail_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rail-icon-size);
+  height: var(--rail-icon-size);
+  border-radius: var(--radius-md);
+  color: var(--color-sidebar-text);
+  text-decoration: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.rail_item:hover {
+  background: var(--color-sidebar-hover);
+  color: var(--color-sidebar-text-active);
+}
+
+.rail_item_active {
+  background: var(--color-sidebar-active);
+  color: var(--color-primary);
+}
+
+.rail_item:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ── Body ──
+   status strip / domain bar / content / console. The strip is FIRST and always
+   present: this is a monitoring surface, and the platform's health is not a
+   page you navigate to, it is the condition you read everything else in. */
+.body {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  min-width: 0;
+  height: 100vh;
+}
+
+.strip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-2) var(--space-5);
+  background: var(--color-bg-elevated);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* A degraded platform recolours the whole strip, not one chip inside it. An
+   operator scanning a wall of numbers should not have to find the red one. */
+.strip_degraded {
+  background: var(--color-warning-light);
+  border-bottom-color: var(--color-warning);
+  color: var(--color-warning-text);
+}
+
+.strip_down {
+  background: var(--color-danger-light);
+  border-bottom-color: var(--color-danger);
+  color: var(--color-danger-text);
+}
+
+.metric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.metric_label {
+  font-family: var(--font-mono);
+  font-size: var(--label-size, var(--text-xs));
+  letter-spacing: var(--label-tracking, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.strip_degraded .metric_label,
+.strip_down .metric_label {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.metric_value {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  /* Tabular figures — §4.1. A metric that jitters as its digits change is a
+     metric nobody trusts at a glance. */
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Domain bar ── */
+
+.domains {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-1);
+  padding: 0 var(--space-4);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+  list-style: none;
+  margin: 0;
+}
+
+.domain {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-3);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.domain:hover {
+  color: var(--color-text);
+}
+
+.domain_active {
+  color: var(--color-text);
+  border-bottom-color: var(--color-primary);
+  font-weight: var(--weight-medium);
+}
+
+.domain:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+}
+
+/* ── Content ──
+   Full-bleed. §5.2 says data tables are full-bleed and only forms and reading
+   are measured; a control plane is almost entirely tables. */
+.content {
+  overflow: auto;
+  padding: var(--space-5);
+}
+
+/* ── Console drawer ──
+   Collapsed by default (design law 4), with the counts ON the collapsed bar so
+   collapsing can never hide a failure — the same rule §12.4 sets for the Studio
+   console, applied to the operational one. */
+.console {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+}
+
+.console_bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2) var(--space-5);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  text-align: left;
+}
+
+.console_bar:hover {
+  background: var(--color-bg-hover);
+}
+
+.console_bar:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border-radius: var(--radius-full);
+  padding: 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.count_danger {
+  background: var(--color-danger-light);
+  color: var(--color-danger-text);
+}
+
+.count_warning {
+  background: var(--color-warning-light);
+  color: var(--color-warning-text);
+}
+
+.console_panel {
+  max-height: 34vh;
+  overflow-y: auto;
+  padding: var(--space-3) var(--space-5) var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
