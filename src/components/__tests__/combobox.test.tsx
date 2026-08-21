@@ -74,6 +74,25 @@ describe("ComboBox", () => {
     expect(onChange).toHaveBeenCalledWith([]);
   });
 
+  it("never nests an interactive tag action inside the listbox trigger", () => {
+    const { container } = render(
+      <ComboBox
+        options={OPTIONS}
+        multiple
+        value={["sap"]}
+        placeholder="Select ERP..."
+      />,
+    );
+
+    expect(container.querySelector("button button")).toBeNull();
+    expect(
+      screen.getByRole("button", { name: "Remove SAP S/4HANA" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Select ERP...; 1 selected" }),
+    ).toBeInTheDocument();
+  });
+
   it("filters options by search term", async () => {
     render(<ComboBox options={OPTIONS} placeholder="Select ERP..." />);
     await userEvent.click(

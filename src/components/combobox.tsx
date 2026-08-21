@@ -169,13 +169,8 @@ export const ComboBox: FC<ComboBoxProps> = ({
       onKeyDown={handleKeyDown}
       className={`${styles.container} ${className}`}
     >
-      <button
-        type="button"
-        disabled={disabled}
-        onClick={handleToggle}
+      <div
         className={`${styles.trigger} ${disabled ? styles.triggerDisabled : ""}`}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
       >
         <div className={styles.triggerContent}>
           {selectedOptions.length === 0 ? (
@@ -194,12 +189,27 @@ export const ComboBox: FC<ComboBoxProps> = ({
                 </button>
               </span>
             ))
-          ) : (
+          ) : null}
+        </div>
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={handleToggle}
+          className={styles.toggleButton}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-label={
+            multiple
+              ? `${placeholder}; ${selectedOptions.length} selected`
+              : selectedOptions[0]?.label ?? placeholder
+          }
+        >
+          {!multiple && selectedOptions.length > 0 && (
             <span>{selectedOptions[0]?.label}</span>
           )}
-        </div>
-        <ChevronDown size={16} className={styles.chevron} />
-      </button>
+          <ChevronDown size={16} className={styles.chevron} />
+        </button>
+      </div>
 
       {isOpen && (
         <div className={styles.popover}>
