@@ -30,14 +30,13 @@ export const DemoBanner: FC<DemoBannerProps> = ({
 
     setRemoving(true);
     try {
-      const token =
-        typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      // Use cookie-based auth (httpOnly auth_token) — no localStorage.
       const url = module
         ? `${apiBase}/admin/demo/remove/${module}`
         : `${apiBase}/admin/demo/remove`;
       const res = await fetch(url, {
         method: "DELETE",
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        credentials: "include",
       });
       if (res.ok) {
         setDismissed(true);

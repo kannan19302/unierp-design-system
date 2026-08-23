@@ -71,11 +71,10 @@ export const ChangeHistory: FC<ChangeHistoryProps> = ({
     async (pageNum: number) => {
       setLoading(true);
       try {
-        const token =
-          typeof window !== "undefined" ? localStorage.getItem("token") : null;
+        // Use cookie-based auth (httpOnly auth_token) — no localStorage.
         const res = await fetch(
           `${apiBase}/change-history/${entityType}/${entityId}?page=${pageNum}&limit=20`,
-          { headers: token ? { Authorization: `Bearer ${token}` } : {} },
+          { credentials: "include" },
         );
         if (!res.ok) return;
         const result = await res.json();
