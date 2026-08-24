@@ -1,8 +1,11 @@
 "use client";
 
 import { type CSSProperties, type FC, type ReactNode, useEffect, useRef, useState } from "react";
-import { ChevronDown, LayoutGrid, LogOut, Menu, Search, User as UserIcon } from "lucide-react";
+import { ChevronDown, LayoutGrid, LogOut, Menu, Search, Settings, User as UserIcon } from "lucide-react";
 import { Breadcrumb, type BreadcrumbItem } from "../components/extended-navigation";
+import { BrandMark } from "../components/brand-mark";
+import { ThemeQuickToggle } from "../theme/theme-quick-toggle";
+import styles from "./platform-shell.module.css";
 
 /**
  * The navigation contract every UniERP platform shares.
@@ -84,6 +87,13 @@ export interface PlatformShellProps {
    * Wizard (:4000), never a second in-app platform picker. Omit only for the
    * wizard itself, which has nothing to switch back to. */
   platformWizardUrl?: string;
+  /** Unified profile, security, sessions, accessibility and preferences hub. */
+  accountCenterUrl?: string;
+  /** Signature scope strip: makes the current operating context unmistakable. */
+  environmentLabel?: string;
+  realmLabel?: string;
+  /** Light/dark stays in global navigation; advanced themes live in Account Center. */
+  showThemeToggle?: boolean;
 
   breadcrumbs?: BreadcrumbItem[];
   /** The platform's own nav tree — rendered in the sidebar slot. */
@@ -112,6 +122,10 @@ export const PlatformShell: FC<PlatformShellProps> = ({
   availableTenants,
   onTenantChange,
   platformWizardUrl,
+  accountCenterUrl,
+  environmentLabel,
+  realmLabel,
+  showThemeToggle = true,
   breadcrumbs,
   sidebar,
   headerActions,
@@ -137,6 +151,7 @@ export const PlatformShell: FC<PlatformShellProps> = ({
         } as CSSProperties
       }
     >
+      <a href="#unierp-main" className={styles.skipLink}>Skip to main content</a>
       <header
         style={{
           display: "flex",
@@ -168,6 +183,8 @@ export const PlatformShell: FC<PlatformShellProps> = ({
           </button>
         )}
 
+        <BrandMark size="sm" />
+        <div style={{ width: 1, height: 22, background: "var(--color-border)" }} />
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
           {platformIcon}
           <span style={{ fontWeight: 600, fontSize: "var(--text-sm)", color: "var(--shell-accent)" }}>
@@ -186,18 +203,21 @@ export const PlatformShell: FC<PlatformShellProps> = ({
 
         {headerActions}
 
-        {tenant && (
+        {(tenant || environmentLabel || realmLabel) && (
           <div style={{ position: "relative" }}>
             <button
               onClick={() => setTenantMenuOpen((v) => !v)}
               style={pillButtonStyle}
               aria-haspopup="menu"
               aria-expanded={tenantMenuOpen}
+              aria-label="Current operating scope"
             >
-              <span>{tenant.name}</span>
+              {tenant && <span>{tenant.name}</span>}
+              {environmentLabel && <><span aria-hidden="true">/</span><span>{environmentLabel}</span></>}
+              {realmLabel && <><span aria-hidden="true">/</span><span>{realmLabel}</span></>}
               {availableTenants && availableTenants.length > 1 && <ChevronDown size={14} />}
             </button>
-            {tenantMenuOpen && availableTenants && availableTenants.length > 1 && (
+            {tenant && tenantMenuOpen && availableTenants && availableTenants.length > 1 && (
               <TenantMenu
                 tenants={availableTenants}
                 current={tenant.id}
@@ -222,6 +242,8 @@ export const PlatformShell: FC<PlatformShellProps> = ({
           </a>
         )}
 
+        {showThemeToggle && <ThemeQuickToggle />}
+
         {user && (
           <div style={{ position: "relative" }}>
             <button
@@ -242,7 +264,12 @@ export const PlatformShell: FC<PlatformShellProps> = ({
               )}
             </button>
             {userMenuOpen && (
-              <UserMenu user={user} onSignOut={onSignOut} onClose={() => setUserMenuOpen(false)} />
+              <UserMenu
+                user={user}
+                accountCenterUrl={accountCenterUrl}
+                onSignOut={onSignOut}
+                onClose={() => setUserMenuOpen(false)}
+              />
             )}
           </div>
         )}
@@ -259,6 +286,8 @@ export const PlatformShell: FC<PlatformShellProps> = ({
           </div>
         )}
         <main
+          id="unierp-main"
+          tabIndex={-1}
           style={{
             flex: 1,
             minWidth: 0,
@@ -346,8 +375,14 @@ const TenantMenu: FC<{
   );
 };
 
-const UserMenu: FC<{ user: ShellUser; onSignOut?: () => void; onClose: () => void }> = ({
+const UserMenu: FC<{
+  user: ShellUser;
+  accountCenterUrl?: string;
+  onSignOut?: () => void;
+  onClose: () => void;
+}> = ({
   user,
+  accountCenterUrl,
   onSignOut,
   onClose,
 }) => {
@@ -361,6 +396,24 @@ const UserMenu: FC<{ user: ShellUser; onSignOut?: () => void; onClose: () => voi
       </div>
     </div>
     <div style={{ height: 1, background: "var(--color-border)", margin: "var(--space-1) 0" }} />
+    {accountCenterUrl && (
+      <a
+        role="menuitem"
+        href={accountCenterUrl}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "var(--space-2)",
+          padding: "var(--space-2) var(--space-3)",
+          borderRadius: "var(--radius-sm)",
+          fontSize: "var(--text-sm)",
+          color: "var(--color-text)",
+          textDecoration: "none",
+        }}
+      >
+        <Settings size={14} /> Account Center
+      </a>
+    )}
     {onSignOut && (
       <button
         role="menuitem"

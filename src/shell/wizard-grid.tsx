@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, type CSSProperties, type FC, type ReactNode } from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Star } from "lucide-react";
 import { LoadingState, ErrorState, EmptyState, ForbiddenState } from "../components/six-states";
 import styles from "./wizard-grid.module.css";
 
@@ -40,6 +40,13 @@ export interface WizardTile {
    *  hue that clears 4.5:1 on a white card typically drops to ~2:1 on the dark
    *  theme's #1a1b2e surface, so the two cannot be the same value. */
   accentDark?: string;
+  /** Personal launch preference only. It never changes entitlement or the
+   * disabled state supplied by the caller's policy response. */
+  favorite?: boolean;
+  onFavoriteChange?: (favorite: boolean) => void;
+  /** Called immediately before an enabled tile follows its href. Useful for
+   * recording recency with a keepalive request; it must not gate navigation. */
+  onLaunch?: () => void;
 }
 
 interface WizardGridBaseProps {
@@ -158,20 +165,33 @@ function TileCard({ tile }: { tile: WizardTile }) {
   }
 
   return (
-    <a
-      href={tile.href}
-      className={styles.tile}
-      style={accentStyle}
-      // The accessible name stays EXACTLY the platform name. Left to compute
-      // itself, the link would be named by all its text — "Marketplace Discover
-      // and install modules Locked" — which buries the destination and breaks
-      // exact-name queries. The description is still announced, as a
-      // description rather than as part of the name.
-      aria-label={tile.name}
-      aria-describedby={tile.description ? descId : undefined}
-    >
-      {body}
-    </a>
+    <div className={styles.tile_frame} style={accentStyle}>
+      <a
+        href={tile.href}
+        className={`${styles.tile} ${tile.onFavoriteChange ? styles.with_favorite : ""}`}
+        onClick={tile.onLaunch}
+        // The accessible name stays EXACTLY the platform name. Left to compute
+        // itself, the link would be named by all its text — "Marketplace Discover
+        // and install modules Locked" — which buries the destination and breaks
+        // exact-name queries. The description is still announced, as a
+        // description rather than as part of the name.
+        aria-label={tile.name}
+        aria-describedby={tile.description ? descId : undefined}
+      >
+        {body}
+      </a>
+      {tile.onFavoriteChange && (
+        <button
+          type="button"
+          className={styles.favorite}
+          aria-label={`${tile.favorite ? "Remove" : "Add"} ${tile.name} ${tile.favorite ? "from" : "to"} favorites`}
+          aria-pressed={tile.favorite === true}
+          onClick={() => tile.onFavoriteChange?.(!tile.favorite)}
+        >
+          <Star size={17} fill={tile.favorite ? "currentColor" : "none"} aria-hidden="true" />
+        </button>
+      )}
+    </div>
   );
 }
 

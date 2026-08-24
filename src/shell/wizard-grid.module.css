@@ -28,6 +28,11 @@
 }
 
 /* ── Tile ─────────────────────────────────────────────── */
+.tile_frame {
+  position: relative;
+  height: 100%;
+}
+
 .tile {
   --tile_accent_resolved: var(--tile-accent, var(--color-primary));
 
@@ -36,7 +41,7 @@
   flex-direction: column;
   gap: var(--space-4);
   height: 100%;
-  min-height: 148px;
+  min-height: var(--tile-height);
   padding: var(--space-5);
   box-sizing: border-box;
   border: 1px solid var(--color-border);
@@ -52,6 +57,36 @@
     box-shadow var(--duration-normal) var(--ease-default),
     transform var(--duration-normal) var(--ease-default),
     border-color var(--duration-normal) var(--ease-default);
+}
+
+.with_favorite {
+  padding-right: calc(var(--space-5) + var(--media-icon-size));
+}
+
+.favorite {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--media-icon-size);
+  height: var(--media-icon-size);
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.favorite:hover,
+.favorite:focus-visible,
+.favorite[aria-pressed="true"] {
+  border-color: var(--tile_accent_resolved);
+  color: var(--tile_accent_resolved);
+  background: color-mix(in srgb, var(--tile_accent_resolved) 10%, var(--color-bg-elevated));
 }
 
 [data-theme="dark"] .tile {
@@ -81,8 +116,8 @@
 
 /* ── Icon well ────────────────────────────────────────── */
 .icon_well {
-  width: 44px;
-  height: 44px;
+  width: var(--media-icon-size);
+  height: var(--media-icon-size);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -160,7 +195,7 @@
 
 /* ── Loading skeleton ─────────────────────────────────── */
 .skeleton {
-  min-height: 148px;
+  min-height: var(--tile-height);
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   background: linear-gradient(

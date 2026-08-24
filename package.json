@@ -1,6 +1,6 @@
 {
   "name": "@kannan19302/ui",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "UniERP Design System — one package, subpath exports (PLATFORM_ARCHITECTURE.md § 7.2)",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

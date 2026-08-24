@@ -38,9 +38,24 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const STORAGE_KEY = "unerp.theme";
-const BRANDING_KEY = "unerp.branding";
-const DENSITY_KEY = "unerp.density";
+const STORAGE_KEY = "unierp.theme";
+const LEGACY_STORAGE_KEY = "unerp.theme";
+const BRANDING_KEY = "unierp.branding";
+const LEGACY_BRANDING_KEY = "unerp.branding";
+const DENSITY_KEY = "unierp.density";
+const LEGACY_DENSITY_KEY = "unerp.density";
+const THEME_COOKIE = "unierp_theme";
+
+function cookieValue(name: string): string | null {
+  const item = document.cookie
+    .split("; ")
+    .find((entry) => entry.startsWith(`${name}=`));
+  return item ? decodeURIComponent(item.slice(name.length + 1)) : null;
+}
+
+function persistCookie(name: string, value: string): void {
+  document.cookie = `${name}=${encodeURIComponent(value)}; Path=/; Max-Age=31536000; SameSite=Lax`;
+}
 
 function systemTheme(): ThemeName {
   if (
@@ -83,11 +98,15 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
 
   // Hydrate persisted setting + branding on mount.
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const stored = cookieValue(THEME_COOKIE) ??
+      window.localStorage.getItem(STORAGE_KEY) ??
+      window.localStorage.getItem(LEGACY_STORAGE_KEY);
     if (isThemeSetting(stored)) setSetting(stored);
-    const storedDensity = window.localStorage.getItem(DENSITY_KEY);
+    const storedDensity = window.localStorage.getItem(DENSITY_KEY) ??
+      window.localStorage.getItem(LEGACY_DENSITY_KEY);
     if (isDensity(storedDensity)) setDensityState(storedDensity);
-    const branding = window.localStorage.getItem(BRANDING_KEY);
+    const branding = window.localStorage.getItem(BRANDING_KEY) ??
+      window.localStorage.getItem(LEGACY_BRANDING_KEY);
     if (branding) {
       try {
         const tokens = JSON.parse(branding) as BrandingTokens;
@@ -123,6 +142,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
   const setTheme = useCallback((next: ThemeSetting) => {
     setSetting(next);
     window.localStorage.setItem(STORAGE_KEY, next);
+    persistCookie(THEME_COOKIE, next);
   }, []);
 
   const setDensity = useCallback((next: DensityName) => {
@@ -135,7 +155,11 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
       if (key.startsWith("--"))
         document.documentElement.style.setProperty(key, value);
     }
-    window.localStorage.setItem(BRANDING_KEY, JSON.stringify(tokens));
+    const serialized = JSON.stringify(tokens);
+    window.localStorage.setItem(BRANDING_KEY, serialized);
+    // One-release compatibility window for consumers still reading the old
+    // misspelled key before they upgrade to the shared provider.
+    window.localStorage.setItem(LEGACY_BRANDING_KEY, serialized);
   }, []);
 
   const clearBranding = useCallback(() => {
@@ -151,6 +175,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
       }
     }
     window.localStorage.removeItem(BRANDING_KEY);
+    window.localStorage.removeItem(LEGACY_BRANDING_KEY);
   }, []);
 
   const value = useMemo(
@@ -185,4 +210,8 @@ export function useTheme(): ThemeContextValue {
   const ctx = useContext(ThemeContext);
   if (!ctx) throw new Error("useTheme must be used within a <ThemeProvider>");
   return ctx;
+}
+
+export function useOptionalTheme(): ThemeContextValue | null {
+  return useContext(ThemeContext);
 }

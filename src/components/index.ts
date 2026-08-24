@@ -67,6 +67,9 @@ export {
 export { DatePicker, type DatePickerProps } from "./date-picker";
 export { ComboBox, type ComboBoxProps, type ComboBoxOption } from "./combobox";
 export { InfoHint, type InfoHintProps } from "./info-hint";
+export { ProgressHUD, type ProgressHUDProps, type ProgressHUDItem } from "./progress-hud";
+export { BrandMark, type BrandMarkProps } from "./brand-mark";
+export { TrialCountdown, type TrialCountdownProps } from "./trial-countdown";
 
 // Stage B-I Primitive Exports
 export * from "./overlays";

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
 import { PlatformWizardGrid, AppWizardGrid, type WizardTile } from "../wizard-grid";
@@ -72,6 +72,33 @@ describe("PlatformWizardGrid and AppWizardGrid", () => {
     expect(screen.queryByRole("link", { name: /Web Studio/ })).not.toBeInTheDocument();
     expect(screen.getByLabelText("Web Studio (not available)")).toBeInTheDocument();
     expect(screen.getByText("Upgrade required")).toBeInTheDocument();
+  });
+
+  it("exposes favorites as a separate pressed button without changing the launch link", () => {
+    const onFavoriteChange = vi.fn();
+    const onLaunch = vi.fn();
+    render(
+      <PlatformWizardGrid
+        tiles={[{
+          ...tiles[0],
+          favorite: true,
+          onFavoriteChange,
+          onLaunch,
+        }]}
+      />,
+    );
+
+    const favorite = screen.getByRole("button", {
+      name: "Remove Tenant Applications from favorites",
+    });
+    expect(favorite).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(favorite);
+    expect(onFavoriteChange).toHaveBeenCalledWith(false);
+
+    const launchLink = screen.getByRole("link", { name: "Tenant Applications" });
+    launchLink.addEventListener("click", (event) => event.preventDefault());
+    fireEvent.click(launchLink);
+    expect(onLaunch).toHaveBeenCalledOnce();
   });
 
   it("has no axe violations with a populated grid", async () => {

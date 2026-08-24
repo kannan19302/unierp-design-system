@@ -4,10 +4,12 @@
 export {
   ThemeProvider,
   useTheme,
+  useOptionalTheme,
   type ThemeProviderProps,
   type ThemeSetting,
   type BrandingTokens,
 } from "./theme-provider";
+export { ThemeQuickToggle, type ThemeQuickToggleProps } from "./theme-quick-toggle";
 export {
   validateTenantBrandContrast,
   getContrastRatio,
