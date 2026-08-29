@@ -194,3 +194,59 @@ describe("toCsv", () => {
     expect(toCsv(cols, [{ a: null }, {}])).toBe("A\r\n\r\n");
   });
 });
+
+describe("DataTable cumulative column pinning", () => {
+  it("calculates cumulative sticky offsets for multiple pinned left columns", () => {
+    const cols: Column<Row>[] = [
+      { key: "id", header: "ID", pinned: "left", width: 80 },
+      { key: "name", header: "Name", pinned: "left", width: 120 },
+      { key: "qty", header: "Qty", width: 100 },
+    ];
+    render(
+      <DataTable
+        columns={cols}
+        data={data}
+        rowKey={(r) => r.id}
+        selectedKeys={[]}
+        onSelectionChange={() => {}}
+      />,
+    );
+
+    const idHeader = screen.getByText("ID").closest("th");
+    const nameHeader = screen.getByText("Name").closest("th");
+    expect(idHeader).toHaveStyle({ position: "sticky", left: "40px" });
+    expect(nameHeader).toHaveStyle({ position: "sticky", left: "120px" });
+  });
+});
+
+describe("DataTable grouped virtualization", () => {
+  it("renders grouped sections and rows with virtualization enabled", () => {
+    const groupedData = [
+      { id: "1", name: "Alpha", category: "Hardware", qty: 10 },
+      { id: "2", name: "Beta", category: "Hardware", qty: 20 },
+      { id: "3", name: "Gamma", category: "Software", qty: 30 },
+    ];
+    const cols: Column<any>[] = [
+      { key: "name", header: "Name" },
+      { key: "qty", header: "Qty" },
+    ];
+
+    render(
+      <DataTable
+        columns={cols}
+        data={groupedData}
+        groupBy="category"
+        virtualized
+        maxHeight={300}
+        rowHeight={36}
+        rowKey={(r) => r.id}
+      />,
+    );
+
+    expect(screen.getByText("Hardware")).toBeInTheDocument();
+    expect(screen.getByText("Software")).toBeInTheDocument();
+    expect(screen.getByText("Alpha")).toBeInTheDocument();
+    expect(screen.getByText("Gamma")).toBeInTheDocument();
+  });
+});
+

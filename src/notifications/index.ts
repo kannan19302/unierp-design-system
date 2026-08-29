@@ -8,3 +8,10 @@ export {
   type ToastVariant,
 } from "./toast";
 export { DemoBanner, type DemoBannerProps } from "./demo-banner";
+export {
+  NotificationCenter,
+  type NotificationCenterProps,
+  type NotificationItem,
+  type NotificationPriority,
+  type NotificationCategory,
+} from "./notification-center";

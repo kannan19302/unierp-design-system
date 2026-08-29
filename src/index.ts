@@ -195,9 +195,14 @@ export {
   ToastProvider,
   useToast,
   DemoBanner,
+  NotificationCenter,
   type ToastOptions,
   type ToastVariant,
   type DemoBannerProps,
+  type NotificationCenterProps,
+  type NotificationItem,
+  type NotificationPriority,
+  type NotificationCategory,
 } from "./notifications";
 
 export {
@@ -205,6 +210,8 @@ export {
   useTheme,
   useOptionalTheme,
   ThemeQuickToggle,
+  ThemeScope,
+  type ThemeScopeProps,
   THEMES,
   DEFAULT_THEME,
   type ThemeName,
@@ -228,3 +235,26 @@ export {
   FaqBlock,
   type HowItWorksBlockProps,
 } from "./blocks";
+
+export {
+  ApprovalChain,
+  type Approver,
+  type ApprovalStatus,
+  type ApprovalChainProps,
+  LifecycleTracker,
+  type LifecycleStage,
+  type LifecycleTrackerProps,
+} from "./workflow";
+
+export {
+  SettingsPage,
+  type SettingsPageProps,
+  type SettingSchemaEntry,
+  type SettingScope,
+  type SettingType,
+  SchemaForm,
+  type SchemaFormProps,
+  type FormFieldSchema,
+  type FormSectionSchema,
+  type FormFieldType,
+} from "./form-engine";

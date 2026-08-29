@@ -1,0 +1,34 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — Token Entry Point (V2)
+   ══════════════════════════════════════════════════════════════
+
+   This is the V2 token pipeline. Import this instead of (or after)
+   tokens/index.css to activate Design Language 2.0 tokens.
+
+   V2 is ADDITIVE — it layers on top of V1 tokens, does not remove them.
+   V1 consumers continue to work. New DL 2.0 components should prefer
+   V2 semantic tokens (--type-*, --density-*, --surface-*, --platform-accent-*).
+
+   Token pipeline:
+     Primitive (V1 base.css)
+       → V2 Extended Primitives (v2/base.css)
+       → Typography (v2/typography.css)
+       → V1 Themes (meridian.css, meridian-dark.css, high-contrast.css)
+       → V2 Surfaces (v2/surfaces.css)
+       → V2 Density (v2/density.css)
+       → V2 Platform Accents (v2/platform-accents.css)
+
+   IMPORT ORDER MATTERS. Surfaces must come after themes because they
+   reference theme color tokens. Density and platform accents are
+   orthogonal and can be in any order after surfaces.
+   ══════════════════════════════════════════════════════════════ */
+
+/* V1 foundation — everything the existing system provides */
+@import "../index.css";
+
+/* V2 extensions — additive, no conflicts */
+@import "./base.css";
+@import "./typography.css";
+@import "./surfaces.css";
+@import "./density.css";
+@import "./platform-accents.css";

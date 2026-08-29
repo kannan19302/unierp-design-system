@@ -106,6 +106,16 @@ export {
 } from "../components/six-states";
 
 export {
+  InspectorShell,
+  type InspectorShellProps,
+} from "./inspector-shell";
+
+export {
+  WorkbenchShell,
+  type WorkbenchShellProps,
+} from "./workbench-shell";
+
+export {
   type PlatformManifest,
   type PlatformNavItem,
   resolveManifestNav,

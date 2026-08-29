@@ -10,7 +10,15 @@ import {
   type FC,
   type ReactNode,
 } from "react";
-import { THEMES, DENSITIES, type ThemeName, type DensityName } from "../tokens";
+import {
+  THEMES,
+  DENSITIES,
+  PLATFORMS,
+  LEGACY_THEMES,
+  type ThemeName,
+  type DensityName,
+  type PlatformName,
+} from "../tokens";
 
 /** 'system' resolves to light or dark from the OS preference. */
 export type ThemeSetting = ThemeName | "system";
@@ -34,6 +42,13 @@ interface ThemeContextValue {
   density: DensityName;
   setDensity: (density: DensityName) => void;
   densities: readonly DensityName[];
+  /**
+   * DL 2.0: Active platform identity, applied as [data-platform] on <html>.
+   * Controls which platform accent tokens are active.
+   */
+  platform: PlatformName | null;
+  setPlatform: (platform: PlatformName | null) => void;
+  platforms: readonly PlatformName[];
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -44,6 +59,7 @@ const BRANDING_KEY = "unierp.branding";
 const LEGACY_BRANDING_KEY = "unerp.branding";
 const DENSITY_KEY = "unierp.density";
 const LEGACY_DENSITY_KEY = "unerp.density";
+const PLATFORM_KEY = "unierp.platform";
 const THEME_COOKIE = "unierp_theme";
 
 function cookieValue(name: string): string | null {
@@ -62,9 +78,9 @@ function systemTheme(): ThemeName {
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
-    return "dark";
+    return "meridian-dark";
   }
-  return "light";
+  return "meridian";
 }
 
 function isThemeSetting(value: string | null): value is ThemeSetting {
@@ -77,26 +93,58 @@ function isDensity(value: string | null): value is DensityName {
   return (DENSITIES as readonly string[]).includes(value ?? "");
 }
 
+function isPlatform(value: string | null): value is PlatformName {
+  return (PLATFORMS as readonly string[]).includes(value ?? "");
+}
+
+/**
+ * Warn once at runtime when a consumer uses a deprecated legacy theme.
+ * Build-time enforcement comes from scripts/check-tokens.mjs.
+ */
+const warnedLegacy = new Set<string>();
+function warnLegacyTheme(theme: ThemeName): void {
+  if (
+    (LEGACY_THEMES as readonly string[]).includes(theme) &&
+    !warnedLegacy.has(theme)
+  ) {
+    warnedLegacy.add(theme);
+    console.warn(
+      `[UniERP DL 2.0] Theme "${theme}" is deprecated. ` +
+        `Migrate to "meridian", "meridian-dark", or "high-contrast". ` +
+        `Legacy themes will be removed in the next major version.`,
+    );
+  }
+}
+
 export interface ThemeProviderProps {
   children: ReactNode;
-  /** Initial setting when nothing is persisted. Defaults to 'light'. */
+  /** Initial setting when nothing is persisted. Defaults to 'meridian'. */
   defaultSetting?: ThemeSetting;
-  /** Initial density when nothing is persisted. Defaults to 'comfortable'. */
+  /**
+   * Initial density when nothing is persisted.
+   * DL 2.0 default: 'standard'. V1 consumers: set to 'comfortable'.
+   */
   defaultDensity?: DensityName;
+  /** Initial platform identity. Usually set by the platform shell. */
+  defaultPlatform?: PlatformName | null;
 }
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
-  defaultSetting = "light",
-  defaultDensity = "comfortable",
+  defaultSetting = "meridian",
+  defaultDensity = "standard",
+  defaultPlatform = null,
 }: any) => {
   const [setting, setSetting] = useState<ThemeSetting>(defaultSetting);
   const [resolvedTheme, setResolvedTheme] = useState<ThemeName>(
-    defaultSetting === "system" ? "light" : defaultSetting,
+    defaultSetting === "system" ? "meridian" : defaultSetting,
   );
   const [density, setDensityState] = useState<DensityName>(defaultDensity);
+  const [platform, setPlatformState] = useState<PlatformName | null>(
+    defaultPlatform,
+  );
 
-  // Hydrate persisted setting + branding on mount.
+  // Hydrate persisted setting + branding + platform on mount.
   useEffect(() => {
     const stored = cookieValue(THEME_COOKIE) ??
       window.localStorage.getItem(STORAGE_KEY) ??
@@ -105,6 +153,8 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     const storedDensity = window.localStorage.getItem(DENSITY_KEY) ??
       window.localStorage.getItem(LEGACY_DENSITY_KEY);
     if (isDensity(storedDensity)) setDensityState(storedDensity);
+    const storedPlatform = window.localStorage.getItem(PLATFORM_KEY);
+    if (isPlatform(storedPlatform)) setPlatformState(storedPlatform);
     const branding = window.localStorage.getItem(BRANDING_KEY) ??
       window.localStorage.getItem(LEGACY_BRANDING_KEY);
     if (branding) {
@@ -126,6 +176,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
       const next = setting === "system" ? systemTheme() : setting;
       setResolvedTheme(next);
       document.documentElement.setAttribute("data-theme", next);
+      warnLegacyTheme(next);
     };
     apply();
     if (setting !== "system") return;
@@ -139,6 +190,15 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
     document.documentElement.setAttribute("data-density", density);
   }, [density]);
 
+  // Apply platform identity to <html data-platform> whenever it changes.
+  useEffect(() => {
+    if (platform) {
+      document.documentElement.setAttribute("data-platform", platform);
+    } else {
+      document.documentElement.removeAttribute("data-platform");
+    }
+  }, [platform]);
+
   const setTheme = useCallback((next: ThemeSetting) => {
     setSetting(next);
     window.localStorage.setItem(STORAGE_KEY, next);
@@ -148,6 +208,15 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
   const setDensity = useCallback((next: DensityName) => {
     setDensityState(next);
     window.localStorage.setItem(DENSITY_KEY, next);
+  }, []);
+
+  const setPlatform = useCallback((next: PlatformName | null) => {
+    setPlatformState(next);
+    if (next) {
+      window.localStorage.setItem(PLATFORM_KEY, next);
+    } else {
+      window.localStorage.removeItem(PLATFORM_KEY);
+    }
   }, []);
 
   const applyBranding = useCallback((tokens: BrandingTokens) => {
@@ -189,6 +258,9 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
       density,
       setDensity,
       densities: DENSITIES,
+      platform,
+      setPlatform,
+      platforms: PLATFORMS,
     }),
     [
       setting,
@@ -198,6 +270,8 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({
       clearBranding,
       density,
       setDensity,
+      platform,
+      setPlatform,
     ],
   );
 
@@ -215,3 +289,4 @@ export function useTheme(): ThemeContextValue {
 export function useOptionalTheme(): ThemeContextValue | null {
   return useContext(ThemeContext);
 }
+

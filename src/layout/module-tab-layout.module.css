@@ -426,3 +426,41 @@
     min-width: 220px;
   }
 }
+
+/* ── Dirty State & Badges ── */
+.dirtyDot {
+  width: var(--space-1-5, 6px);
+  height: var(--space-1-5, 6px);
+  border-radius: var(--radius-full);
+  background: var(--platform-accent, var(--color-primary));
+  margin-left: 2px;
+  display: inline-block;
+}
+
+.tabBadge {
+  font-size: var(--type-micro, 10px);
+  padding: 0 var(--space-1-5, 6px);
+  border-radius: var(--radius-full);
+  background: var(--surface-2-bg, var(--color-bg-elevated));
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium, 500);
+}
+
+.closeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  margin-left: 2px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  transition: all var(--duration-fast, 150ms) var(--ease-default);
+}
+
+.closeBtn:hover {
+  background: var(--surface-hover, var(--color-bg-hover));
+  color: var(--color-text);
+}

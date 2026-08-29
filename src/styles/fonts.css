@@ -1,0 +1,36 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — Font Declarations
+   ══════════════════════════════════════════════════════════════
+
+   Primary Product Font: Geist Sans
+   Technical / Code Font: Geist Mono
+   Fallback Stack: Inter → Segoe UI → system-ui → -apple-system → Noto Sans
+
+   Provides self-hosted / system-aligned @font-face declarations
+   with font-display: swap, eliminating render-blocking external CDN
+   dependencies while guaranteeing crisp rendering in dense enterprise tables.
+   ══════════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: "Geist Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src:
+    local("Geist Sans"),
+    local("Geist-Regular"),
+    local("Geist"),
+    system-ui;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src:
+    local("Geist Mono"),
+    local("GeistMono-Regular"),
+    local("GeistMono"),
+    ui-monospace;
+}

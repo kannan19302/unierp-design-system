@@ -13,13 +13,15 @@
 
 /* ── Sizes ── */
 .sm {
-  padding: var(--space-0\.5) var(--space-2);
-  font-size: var(--text-xs);
+  padding: var(--space-0\.5) var(--density-badge-padding, var(--space-2));
+  font-size: var(--type-micro, var(--text-xs));
+  height: var(--density-badge-height, auto);
 }
 
 .md {
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--text-sm);
+  padding: var(--space-1) var(--density-badge-padding, var(--space-3));
+  font-size: var(--type-caption, var(--text-sm));
+  height: var(--density-badge-height, auto);
 }
 
 /* ── Variants ── */

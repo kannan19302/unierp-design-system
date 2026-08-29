@@ -290,6 +290,7 @@ export const Slider: FC<SliderProps> = ({ value = 0, min = 0, max = 100, step = 
 
 // ── NumberInput, CurrencyInput, PercentInput ──────────
 export interface NumericInputProps {
+  id?: string;
   value?: number;
   onChange?: (val: number) => void;
   min?: number;
@@ -299,9 +300,10 @@ export interface NumericInputProps {
   placeholder?: string;
 }
 
-export const NumberInput: FC<NumericInputProps> = ({ value, onChange, min, max, step = 1, disabled, placeholder }: any) => {
+export const NumberInput: FC<NumericInputProps> = ({ id, value, onChange, min, max, step = 1, disabled, placeholder }: any) => {
   return (
     <input
+      id={id}
       type="number"
       value={value !== undefined ? value : ""}
       min={min}
@@ -327,6 +329,7 @@ export interface CurrencyInputProps extends NumericInputProps {
 }
 
 export const CurrencyInput: FC<CurrencyInputProps> = ({
+  id,
   value,
   onChange,
   currencySymbol = "$",
@@ -346,20 +349,17 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
         {currencySymbol}
       </span>
       <input
+        id={id}
         type="number"
         step="0.01"
         value={value !== undefined ? value : ""}
         disabled={disabled}
         placeholder={placeholder}
         onChange={(e: any) => {
-          // Integer arithmetic guard: convert to pence (or smallest unit),
-          // round, then divide — prevents floating-point artifacts.
-          // e.g. 1.005 * 100 = 100.50000000000001 with naive multiply;
-          // here we parse the string directly to avoid that.
           const raw = e.target.value;
           const [intPart = "0", fracPart = ""] = raw.split(".");
           const pence = parseInt(intPart, 10) * 100 + parseInt((fracPart + "00").slice(0, 2), 10);
-          const safeVal = pence / 100; // always exactly N.NN — no float drift
+          const safeVal = pence / 100;
           onChange?.(safeVal);
         }}
         style={{
@@ -378,10 +378,11 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
   );
 };
 
-export const PercentInput: FC<NumericInputProps> = ({ value, onChange, disabled, placeholder }: any) => {
+export const PercentInput: FC<NumericInputProps> = ({ id, value, onChange, disabled, placeholder }: any) => {
   return (
     <div style={{ position: "relative", display: "inline-flex", alignItems: "center" }}>
       <input
+        id={id}
         type="number"
         min={0}
         max={100}

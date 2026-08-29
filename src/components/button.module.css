@@ -27,23 +27,23 @@
   box-shadow: none !important;
 }
 
-/* ── Sizes ── */
+/* ── Sizes (Density-Aware) ── */
 .sm {
-  height: calc(var(--space-8)); /* 32px */
-  padding: 0 var(--space-3);
-  font-size: var(--text-xs);
+  height: var(--density-control-height-sm, calc(var(--space-8))); /* 28px compact, 28px standard, 32px comfortable */
+  padding: 0 var(--density-control-padding-x, var(--space-3));
+  font-size: var(--type-micro, var(--text-xs));
 }
 
 .md {
-  height: calc(var(--space-10)); /* 40px */
-  padding: 0 var(--space-4);
-  font-size: var(--text-sm);
+  height: var(--density-control-height, calc(var(--space-10))); /* 28px compact, 32px standard, 40px comfortable */
+  padding: 0 var(--density-control-padding-x, var(--space-4));
+  font-size: var(--type-dense, var(--text-sm));
 }
 
 .lg {
-  height: calc(var(--space-12)); /* 48px */
+  height: var(--density-row-height, calc(var(--space-12))); /* 36px compact, 40px standard, 48px comfortable */
   padding: 0 var(--space-6);
-  font-size: var(--text-base);
+  font-size: var(--type-body-lg, var(--text-base));
 }
 
 /* ── Focus rings (a11y compliance) ── */

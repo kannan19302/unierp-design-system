@@ -1,0 +1,164 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — Surface Hierarchy Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Formalizes the surface depth model into a predictable hierarchy:
+
+     Surface 0  →  Page background (deepest)
+     Surface 1  →  Section surface / content area
+     Surface 2  →  Card / panel / grouped region
+     Surface 3  →  Elevated / popover / dropdown
+     Surface 4  →  Overlay / modal backdrop
+
+   Each surface level carries its own background, border, and shadow.
+   Components reference surface tokens instead of raw color tokens,
+   so surface relationships remain consistent across themes and density.
+
+   This replaces the ad-hoc use of --color-bg, --color-bg-elevated,
+   --color-bg-sunken scattered through components. Those tokens remain
+   as aliases for backward compatibility.
+
+   Prefer structured surfaces, separators, grouping and alignment
+   over wrapping every section inside cards. (DL 2.0 §1)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Light mode surfaces (Meridian) ───────────────────────── */
+[data-theme="meridian"] {
+  /* Surface 0: Page ground */
+  --surface-0-bg: #f7f6f4;
+  --surface-0-border: transparent;
+  --surface-0-shadow: none;
+
+  /* Surface 1: Section / content panel */
+  --surface-1-bg: #ffffff;
+  --surface-1-border: #e2e0db;
+  --surface-1-shadow: var(--elevation-1);
+
+  /* Surface 2: Card / grouped region */
+  --surface-2-bg: #ffffff;
+  --surface-2-border: #e2e0db;
+  --surface-2-shadow: var(--elevation-2);
+
+  /* Surface 3: Elevated / popover / dropdown */
+  --surface-3-bg: #ffffff;
+  --surface-3-border: #e2e0db;
+  --surface-3-shadow: var(--elevation-3);
+
+  /* Surface 4: Overlay / modal backdrop */
+  --surface-4-bg: rgb(20 25 27 / 0.44);
+  --surface-4-border: transparent;
+  --surface-4-shadow: none;
+
+  /* Sunken surface: Below page ground for inset regions */
+  --surface-sunken-bg: #eeedea;
+  --surface-sunken-border: #e2e0db;
+
+  /* Interactive surface: Hover and active states */
+  --surface-hover: #f0efec;
+  --surface-active: #e5e3df;
+  --surface-selected: #dcedef;
+  --surface-selected-hover: #c8e4e8;
+
+  /* Separator */
+  --separator-color: #e2e0db;
+  --separator-color-strong: #c4c1ba;
+  --separator-weight: 1px;
+  --separator-weight-heavy: 2px;
+
+  /* Surface text hierarchy */
+  --surface-text-primary: #14191b;
+  --surface-text-secondary: #4c5457;
+  --surface-text-tertiary: #626a6d;
+  --surface-text-disabled: #948f87;
+}
+
+/* ── Dark mode surfaces (Meridian Dark) ───────────────────── */
+[data-theme="meridian-dark"] {
+  /* Surface 0: Page ground */
+  --surface-0-bg: #14171a;
+  --surface-0-border: transparent;
+  --surface-0-shadow: none;
+
+  /* Surface 1: Section / content panel */
+  --surface-1-bg: #1c2023;
+  --surface-1-border: #2e3438;
+  --surface-1-shadow: 0 0 0 1px rgb(46 52 56 / 0.8);
+
+  /* Surface 2: Card / grouped region */
+  --surface-2-bg: #23282b;
+  --surface-2-border: #2e3438;
+  --surface-2-shadow: 0 0 0 1px rgb(46 52 56 / 0.95);
+
+  /* Surface 3: Elevated / popover / dropdown */
+  --surface-3-bg: #2c3235;
+  --surface-3-border: #414850;
+  --surface-3-shadow: 0 0 0 1px rgb(65 72 80 / 0.95);
+
+  /* Surface 4: Overlay / modal backdrop */
+  --surface-4-bg: rgb(8 10 11 / 0.72);
+  --surface-4-border: transparent;
+  --surface-4-shadow: none;
+
+  /* Sunken surface */
+  --surface-sunken-bg: #0e1113;
+  --surface-sunken-border: #2e3438;
+
+  /* Interactive surface */
+  --surface-hover: #23282b;
+  --surface-active: #2c3235;
+  --surface-selected: #0f3538;
+  --surface-selected-hover: #174045;
+
+  /* Separator */
+  --separator-color: #2e3438;
+  --separator-color-strong: #414850;
+  --separator-weight: 1px;
+  --separator-weight-heavy: 2px;
+
+  /* Surface text hierarchy */
+  --surface-text-primary: #e6e3de;
+  --surface-text-secondary: #a3a29d;
+  --surface-text-tertiary: #949289;
+  --surface-text-disabled: #6e7681;
+}
+
+/* ── High contrast surfaces ───────────────────────────────── */
+[data-theme="high-contrast"] {
+  --surface-0-bg: #ffffff;
+  --surface-0-border: #000000;
+  --surface-0-shadow: none;
+
+  --surface-1-bg: #ffffff;
+  --surface-1-border: #000000;
+  --surface-1-shadow: none;
+
+  --surface-2-bg: #ffffff;
+  --surface-2-border: #000000;
+  --surface-2-shadow: 0 0 0 2px #000000;
+
+  --surface-3-bg: #ffffff;
+  --surface-3-border: #000000;
+  --surface-3-shadow: 0 0 0 2px #000000;
+
+  --surface-4-bg: rgb(0 0 0 / 0.7);
+  --surface-4-border: transparent;
+  --surface-4-shadow: none;
+
+  --surface-sunken-bg: #f0f0f0;
+  --surface-sunken-border: #000000;
+
+  --surface-hover: #e0e0e0;
+  --surface-active: #d0d0d0;
+  --surface-selected: #cce5ff;
+  --surface-selected-hover: #b3d7ff;
+
+  --separator-color: #000000;
+  --separator-color-strong: #000000;
+  --separator-weight: 2px;
+  --separator-weight-heavy: 3px;
+
+  --surface-text-primary: #000000;
+  --surface-text-secondary: #000000;
+  --surface-text-tertiary: #000000;
+  --surface-text-disabled: #666666;
+}

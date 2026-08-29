@@ -1,0 +1,105 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — Extended Primitives
+   ══════════════════════════════════════════════════════════════
+
+   Extends the V1 base.css primitives with DL 2.0 additions.
+   Does NOT redefine anything already in base.css — only adds tokens
+   that the V1 system was missing.
+
+   Import this AFTER tokens/base.css so these additions layer on top
+   without conflicting with existing values.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Navigation dimensions ──
+     Formalized from the values that were scattered or hardcoded
+     across shell components. */
+  --nav-rail-width: 56px;
+  --nav-panel-width: 240px;
+  --nav-panel-width-expanded: 264px;
+  --nav-topbar-height: 48px;
+  --nav-breadcrumb-height: 36px;
+  --nav-tab-bar-height: 40px;
+
+  /* ── Action hierarchy ──
+     Formalized button/control sizing for the DL 2.0 action system.
+     See §14: Primary → Secondary → Contextual → Bulk → Overflow → Command → AI */
+  --action-primary-height: var(--density-control-height, 32px);
+  --action-secondary-height: var(--density-control-height, 32px);
+  --action-compact-height: var(--density-control-height-sm, 28px);
+  --action-icon-button-size: var(--density-control-height, 32px);
+  --action-icon-button-size-sm: var(--density-control-height-sm, 28px);
+
+  /* ── Separator ──
+     DL 2.0 §1: "Prefer structured surfaces, separators, grouping and
+     alignment over wrapping every section inside cards." */
+  --separator-weight: 1px;
+  --separator-weight-heavy: 2px;
+  --separator-style: solid;
+
+  /* ── Data workspace ──
+     DataGrid and dense table dimensions. */
+  --data-header-height: 36px;
+  --data-filter-bar-height: 44px;
+  --data-bulk-action-height: 40px;
+  --data-status-dot-size: 6px;
+  --data-row-number-width: 48px;
+  --data-checkbox-column-width: 40px;
+  --data-action-column-width: 48px;
+
+  /* ── Object workspace ──
+     Standard anatomy dimensions for record/entity views. */
+  --object-header-height: auto;
+  --object-tab-bar-height: 40px;
+  --object-sidebar-width: 320px;
+  --object-facts-bar-height: auto;
+
+  /* ── Context Rail ──
+     Right-hand inspector/context panel. */
+  --context-rail-width: 320px;
+  --context-rail-width-collapsed: 40px;
+  --context-rail-min-width: 280px;
+  --context-rail-max-width: 420px;
+
+  /* ── Workbench (three-pane) ──
+     Classification → Record List → Object Details */
+  --workbench-nav-width: 220px;
+  --workbench-list-width: 360px;
+  --workbench-list-min-width: 280px;
+
+  /* ── KPI & metrics ── */
+  --kpi-card-min-width: 160px;
+  --kpi-strip-height: 72px;
+  --kpi-strip-height-compact: 56px;
+
+  /* ── Command palette & search ── */
+  --command-palette-width: 600px;
+  --command-palette-max-height: 480px;
+  --search-input-height: var(--density-control-height, 32px);
+
+  /* ── Notification & badge ── */
+  --notification-dot-size: 8px;
+  --notification-badge-min-width: 18px;
+  --notification-badge-height: 18px;
+
+  /* ── AI experience ── */
+  --ai-indicator-size: 16px;
+  --ai-accent: var(--color-info);
+  --ai-accent-subtle: var(--color-info-light);
+
+  /* ── Focus ring ──
+     Standardized focus ring for keyboard navigation.
+     DL 2.0 §25: keyboard navigation, visible focus. */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--color-border-focus, var(--color-primary));
+  --focus-ring: var(--focus-ring-width) solid var(--focus-ring-color);
+
+  /* ── Responsive breakpoints ── */
+  --bp-mobile: 640px;
+  --bp-tablet: 768px;
+  --bp-laptop: 1024px;
+  --bp-desktop: 1280px;
+  --bp-wide: 1536px;
+  --bp-ultrawide: 1920px;
+}

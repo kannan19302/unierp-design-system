@@ -3,8 +3,8 @@
 import { type FC, type ReactNode } from "react";
 import { Breadcrumb, type BreadcrumbItem } from "./extended-navigation";
 import { Filter, Bookmark, CheckCircle2, Clock } from "lucide-react";
+import styles from "./enterprise-patterns.module.css";
 export { ChangeHistory, type ChangeHistoryProps } from "../data-grid/change-history";
-
 
 // ── PageHeader ────────────────────────────────────────
 export interface PageHeaderProps {
@@ -19,27 +19,18 @@ export interface PageHeaderProps {
 export const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, description, breadcrumbs, actions, tabs }: any) => {
   const sub = subtitle ?? description;
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--space-3)",
-        marginBottom: "var(--space-4)",
-        paddingBottom: tabs ? 0 : "var(--space-4)",
-        borderBottom: "1px solid var(--color-border)",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "var(--space-4)" }}>
+    <div className={`${styles.page_header} ${tabs ? styles.page_header_with_tabs : ""}`}>
+      <div className={styles.page_header_top}>
         <div>
           {breadcrumbs && (
             <div style={{ marginBottom: "var(--space-2)" }}>
               <Breadcrumb items={breadcrumbs} />
             </div>
           )}
-          <h1 style={{ fontSize: "var(--text-2xl)", fontWeight: 700, margin: 0, color: "var(--color-text)" }}>{title}</h1>
-          {sub && <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)", marginTop: "4px" }}>{sub}</div>}
+          <h1 className={styles.page_header_title}>{title}</h1>
+          {sub && <div className={styles.page_header_subtitle}>{sub}</div>}
         </div>
-        {actions && <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>{actions}</div>}
+        {actions && <div className={styles.page_header_actions}>{actions}</div>}
       </div>
       {tabs && <div style={{ marginTop: "var(--space-2)" }}>{tabs}</div>}
     </div>
@@ -54,28 +45,16 @@ export interface FilterBarProps {
 
 export const FilterBar: FC<FilterBarProps> = ({ children, onClearAll }: any) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        flexWrap: "wrap",
-        gap: "var(--space-3)",
-        padding: "var(--space-3)",
-        background: "var(--color-bg-sunken)",
-        border: "1px solid var(--color-border)",
-        borderRadius: "var(--radius-md)",
-        marginBottom: "var(--space-4)",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", color: "var(--color-text-secondary)", fontSize: "var(--text-xs)", fontWeight: 600 }}>
+    <div className={styles.filter_bar}>
+      <div className={styles.filter_bar_label}>
         <Filter size={14} />
         <span>Filters:</span>
       </div>
-      <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "var(--space-2)", flex: 1 }}>{children}</div>
+      <div className={styles.filter_bar_content}>{children}</div>
       {onClearAll && (
         <button
           onClick={onClearAll}
-          style={{ background: "none", border: "none", color: "var(--color-primary)", fontSize: "var(--text-xs)", cursor: "pointer", fontWeight: 500 }}
+          className={styles.filter_bar_clear}
         >
           Clear all
         </button>

@@ -21,6 +21,8 @@
     "./tokens/charts.css": "./dist/tokens/charts.css",
     "./tokens/index.css": "./dist/tokens/index.css",
     "./tokens/studio.css": "./dist/tokens/studio.css",
+    "./tokens/v2/index.css": "./dist/tokens/v2/index.css",
+    "./tokens/v2": "./dist/tokens/v2/index.css",
     "./tokens/themes/*": "./dist/tokens/themes/*",
     "./tokens": {
       "types": "./dist/tokens/index.d.ts",
@@ -115,8 +117,10 @@
     }
   },
   "scripts": {
-    "build": "node scripts/check-contrast.mjs && node scripts/check-tokens.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs",
+    "build": "node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && node scripts/check-density.mjs && node scripts/check-tokens.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
+    "check:platform-accents": "node scripts/check-platform-accents.mjs",
+    "check:density": "node scripts/check-density.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:tokens:baseline": "node scripts/check-tokens.mjs --baseline",
     "lint": "eslint src/",

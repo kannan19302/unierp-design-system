@@ -1,0 +1,55 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — WorkbenchShell (Three-Pane Workbench)
+   ══════════════════════════════════════════════════════════════ */
+
+.root {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--surface-0-bg, var(--color-bg));
+}
+
+.topBar {
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+}
+
+.workbenchContainer {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Pane 1: Classification / Category Tree ── */
+.classificationPane {
+  flex-shrink: 0;
+  width: var(--workbench-nav-width, 220px);
+  border-right: 1px solid var(--surface-1-border, var(--color-border));
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  overflow-y: auto;
+  padding: var(--density-card-padding, 12px);
+}
+
+/* ── Pane 2: Record List ── */
+.recordListPane {
+  flex-shrink: 0;
+  width: var(--workbench-list-width, 360px);
+  min-width: var(--workbench-list-min-width, 280px);
+  border-right: 1px solid var(--surface-1-border, var(--color-border));
+  background: var(--surface-0-bg, var(--color-bg));
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Pane 3: Object Details & Main Working Area ── */
+.detailsPane {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  overflow-y: auto;
+  padding: var(--density-card-padding, 16px);
+}

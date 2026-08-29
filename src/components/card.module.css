@@ -23,7 +23,7 @@
 }
 
 .p_md {
-  padding: var(--space-6);
+  padding: var(--density-card-padding, var(--space-6));
 }
 
 .p_lg {

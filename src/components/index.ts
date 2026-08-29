@@ -71,6 +71,10 @@ export { ProgressHUD, type ProgressHUDProps, type ProgressHUDItem } from "./prog
 export { BrandMark, type BrandMarkProps } from "./brand-mark";
 export { TrialCountdown, type TrialCountdownProps } from "./trial-countdown";
 
+export { ContextRail, type ContextRailProps, type ContextRailTab } from "./context-rail";
+export { ActionBar, type ActionBarProps, type ActionItem } from "./action-bar";
+export { KPIStrip, type KPIStripProps, type KPICardItem } from "./kpi-strip";
+
 // Stage B-I Primitive Exports
 export * from "./overlays";
 export * from "./feedback";
@@ -82,3 +86,4 @@ export * from "./structure";
 export * from "./identity";
 export * from "./enterprise-patterns";
 export * from "./six-states";
+

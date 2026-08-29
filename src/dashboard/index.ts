@@ -15,3 +15,15 @@ export {
   type MultiPageDashboardProps,
   type DashboardPage,
 } from "./multi-page-dashboard";
+export {
+  OperationalDashboard,
+  type OperationalDashboardProps,
+} from "./operational-dashboard";
+export {
+  ActivityFeed,
+  type ActivityFeedProps,
+  type ActivityItem,
+  type AuditActionType,
+  type FieldDiff,
+} from "./activity-feed";
+

@@ -4,9 +4,10 @@
    Import this file in the root layout.
    ───────────────────────────────────────────────── */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import "./fonts.css";
 
 @import "../tokens/design-tokens.css";
+@import "../tokens/v2/index.css";
 
 /* Import stylesheets */
 @import "./layers/reset.css";

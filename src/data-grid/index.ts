@@ -4,6 +4,9 @@
 export {
   DataTable,
   type Column,
+  type ColumnAlign,
+  type ColumnPin,
+  type AggregateSummary,
   type DataTableProps,
   type SortOrder,
 } from "./table";

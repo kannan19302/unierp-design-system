@@ -1,0 +1,213 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — Platform Accent Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Applied via [data-platform] attribute on <html>, alongside [data-theme]
+   and [data-density]. The platform accent communicates CONTEXT — which
+   UniERP platform the user is currently working in — through sidebar
+   highlights, active nav states, identity bars, and selection accents.
+
+   THE ACCENT IS NOT THE PRIMARY. --color-primary remains the Meridian
+   teal for interactive affordances ("you can click this"). The platform
+   accent is identity ("you are here"). They must be visually distinct.
+
+   Rules:
+   1. Accents are NEVER used as large decorative backgrounds.
+   2. Accents appear in: sidebar active indicator, platform identity mark,
+      active tab underline, platform header element, breadcrumb platform
+      segment, selected facets.
+   3. Every accent must pass WCAG AA (4.5:1) on both Meridian light page
+      ground (#f7f6f4) and Meridian dark elevated surface (#1c2023).
+   4. When no [data-platform] is set, components fall back to the Meridian
+      primary teal — the accent system is additive.
+
+   scripts/check-platform-accents.mjs enforces contrast ratios at build.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Fallback / Platform Wizard ───────────────────────────── */
+:root {
+  --platform-accent: var(--color-primary);
+  --platform-accent-hover: var(--color-primary-hover);
+  --platform-accent-active: var(--color-primary-active);
+  --platform-accent-subtle: var(--color-primary-subtle);
+  --platform-accent-light: var(--color-primary-light);
+  --platform-accent-text: var(--on-primary, var(--color-primary-text));
+  --platform-accent-text-on-surface: var(--color-primary);
+}
+
+/* ── Developer Platform / UniERP Studio ───────────────────── */
+/* Purple/violet — technical, builder-oriented, precise.
+   #6d28d9 is 7.3:1 on #f7f6f4 (light), needs lifting for dark. */
+[data-platform="developer"] {
+  --platform-accent: #6d28d9;
+  --platform-accent-hover: #5b21b6;
+  --platform-accent-active: #4c1d95;
+  --platform-accent-subtle: #ede9fe;
+  --platform-accent-light: #ddd6fe;
+  --platform-accent-text: #ffffff;
+  --platform-accent-text-on-surface: #6d28d9;
+}
+[data-theme="meridian-dark"][data-platform="developer"] {
+  --platform-accent: #a78bfa;
+  --platform-accent-hover: #c4b5fd;
+  --platform-accent-active: #8b5cf6;
+  --platform-accent-subtle: #1e1638;
+  --platform-accent-light: #2d2050;
+  --platform-accent-text: #0f0720;
+  --platform-accent-text-on-surface: #a78bfa;
+}
+
+/* ── Applications Platform ────────────────────────────────── */
+/* Green/emerald — business productivity, operational.
+   #047857 is 5.6:1 on #f7f6f4. */
+[data-platform="apps"] {
+  --platform-accent: #047857;
+  --platform-accent-hover: #065f46;
+  --platform-accent-active: #064e3b;
+  --platform-accent-subtle: #d1fae5;
+  --platform-accent-light: #a7f3d0;
+  --platform-accent-text: #ffffff;
+  --platform-accent-text-on-surface: #047857;
+}
+[data-theme="meridian-dark"][data-platform="apps"] {
+  --platform-accent: #34d399;
+  --platform-accent-hover: #6ee7b7;
+  --platform-accent-active: #10b981;
+  --platform-accent-subtle: #062118;
+  --platform-accent-light: #0a3124;
+  --platform-accent-text: #022c22;
+  --platform-accent-text-on-surface: #34d399;
+}
+
+/* ── Tenant / Organisation Admin Centre ───────────────────── */
+/* Blue — organisation governance.
+   #1d4ed8 is 6.9:1 on #f7f6f4. */
+[data-platform="tenant-admin"] {
+  --platform-accent: #1d4ed8;
+  --platform-accent-hover: #1e40af;
+  --platform-accent-active: #1e3a8a;
+  --platform-accent-subtle: #dbeafe;
+  --platform-accent-light: #bfdbfe;
+  --platform-accent-text: #ffffff;
+  --platform-accent-text-on-surface: #1d4ed8;
+}
+[data-theme="meridian-dark"][data-platform="tenant-admin"] {
+  --platform-accent: #60a5fa;
+  --platform-accent-hover: #93c5fd;
+  --platform-accent-active: #3b82f6;
+  --platform-accent-subtle: #0c1a33;
+  --platform-accent-light: #12264a;
+  --platform-accent-text: #0a1628;
+  --platform-accent-text-on-surface: #60a5fa;
+}
+
+/* ── Platform Admin Centre ────────────────────────────────── */
+/* Magenta/plum — global provider governance, infrastructure/security.
+   #9333ea is 5.0:1 on #f7f6f4. */
+[data-platform="platform-admin"] {
+  --platform-accent: #7e22ce;
+  --platform-accent-hover: #6b21a8;
+  --platform-accent-active: #581c87;
+  --platform-accent-subtle: #f3e8ff;
+  --platform-accent-light: #e9d5ff;
+  --platform-accent-text: #ffffff;
+  --platform-accent-text-on-surface: #7e22ce;
+}
+[data-theme="meridian-dark"][data-platform="platform-admin"] {
+  --platform-accent: #c084fc;
+  --platform-accent-hover: #d8b4fe;
+  --platform-accent-active: #a855f7;
+  --platform-accent-subtle: #1a0e30;
+  --platform-accent-light: #271648;
+  --platform-accent-text: #0e0620;
+  --platform-accent-text-on-surface: #c084fc;
+}
+
+/* ── Operations & Support Centre ──────────────────────────── */
+/* Orange — incidents, monitoring, service operations.
+   #c2410c is 5.2:1 on #f7f6f4. */
+[data-platform="ops"] {
+  --platform-accent: #c2410c;
+  --platform-accent-hover: #9a3412;
+  --platform-accent-active: #7c2d12;
+  --platform-accent-subtle: #ffedd5;
+  --platform-accent-light: #fed7aa;
+  --platform-accent-text: #ffffff;
+  --platform-accent-text-on-surface: #c2410c;
+}
+[data-theme="meridian-dark"][data-platform="ops"] {
+  --platform-accent: #fb923c;
+  --platform-accent-hover: #fdba74;
+  --platform-accent-active: #f97316;
+  --platform-accent-subtle: #291408;
+  --platform-accent-light: #3b1d0c;
+  --platform-accent-text: #1c0a02;
+  --platform-accent-text-on-surface: #fb923c;
+}
+
+/* ── Marketing Administration ─────────────────────────────── */
+/* Teal — content/growth/engagement.
+   Deliberately a different teal from the Meridian primary (cooler, greener).
+   #0f766e is 5.1:1 on #f7f6f4. */
+[data-platform="marketing"] {
+  --platform-accent: #0f766e;
+  --platform-accent-hover: #115e59;
+  --platform-accent-active: #134e4a;
+  --platform-accent-subtle: #ccfbf1;
+  --platform-accent-light: #99f6e4;
+  --platform-accent-text: #ffffff;
+  --platform-accent-text-on-surface: #0f766e;
+}
+[data-theme="meridian-dark"][data-platform="marketing"] {
+  --platform-accent: #2dd4bf;
+  --platform-accent-hover: #5eead4;
+  --platform-accent-active: #14b8a6;
+  --platform-accent-subtle: #052e28;
+  --platform-accent-light: #08403a;
+  --platform-accent-text: #022c22;
+  --platform-accent-text-on-surface: #2dd4bf;
+}
+
+/* ── Marketplace ──────────────────────────────────────────── */
+/* Premium UniERP violet — discovery/ecosystem/extensions.
+   #5b21b6 is 8.5:1 on #f7f6f4. */
+[data-platform="marketplace"] {
+  --platform-accent: #5b21b6;
+  --platform-accent-hover: #4c1d95;
+  --platform-accent-active: #3b0764;
+  --platform-accent-subtle: #ede9fe;
+  --platform-accent-light: #ddd6fe;
+  --platform-accent-text: #ffffff;
+  --platform-accent-text-on-surface: #5b21b6;
+}
+[data-theme="meridian-dark"][data-platform="marketplace"] {
+  --platform-accent: #a78bfa;
+  --platform-accent-hover: #c4b5fd;
+  --platform-accent-active: #8b5cf6;
+  --platform-accent-subtle: #160e2e;
+  --platform-accent-light: #211645;
+  --platform-accent-text: #0a0518;
+  --platform-accent-text-on-surface: #a78bfa;
+}
+
+/* ── Website Platform ─────────────────────────────────────── */
+/* Indigo — creative, editorial.
+   #4338ca is 7.5:1 on #f7f6f4. */
+[data-platform="website"] {
+  --platform-accent: #4338ca;
+  --platform-accent-hover: #3730a3;
+  --platform-accent-active: #312e81;
+  --platform-accent-subtle: #e0e7ff;
+  --platform-accent-light: #c7d2fe;
+  --platform-accent-text: #ffffff;
+  --platform-accent-text-on-surface: #4338ca;
+}
+[data-theme="meridian-dark"][data-platform="website"] {
+  --platform-accent: #818cf8;
+  --platform-accent-hover: #a5b4fc;
+  --platform-accent-active: #6366f1;
+  --platform-accent-subtle: #0f1030;
+  --platform-accent-light: #181a48;
+  --platform-accent-text: #080920;
+  --platform-accent-text-on-surface: #818cf8;
+}

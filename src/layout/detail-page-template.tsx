@@ -26,6 +26,9 @@ export interface DetailPageTemplateProps {
   defaultTab?: string;
   /** Content shown above the tabs (e.g. a summary card row) */
   above?: ReactNode;
+  /** DL 2.0: Context Rail slot for Activity, Comments, AI, Attachments */
+  contextRail?: ReactNode;
+  contextRailOpen?: boolean;
   loading?: boolean;
 }
 
@@ -39,6 +42,8 @@ export const DetailPageTemplate: React.FC<DetailPageTemplateProps> = ({
   tabs,
   defaultTab,
   above,
+  contextRail,
+  contextRailOpen = true,
   loading = false,
 }: any) => {
   const [activeTab, setActiveTab] = useState(defaultTab ?? tabs[0]?.key ?? "");
@@ -101,23 +106,44 @@ export const DetailPageTemplate: React.FC<DetailPageTemplateProps> = ({
         <Tabs tabs={tabItems} value={activeTab} onChange={setActiveTab} />
 
         <div
-          id={`tabpanel-${activeTab}`}
-          role="tabpanel"
-          style={{ paddingTop: "var(--space-6)" }}
+          style={{
+            display: "flex",
+            gap: "var(--density-panel-gap, 16px)",
+            paddingTop: "var(--space-6)",
+            alignItems: "flex-start",
+          }}
         >
-          {loading ? (
-            <div
+          <div
+            id={`tabpanel-${activeTab}`}
+            role="tabpanel"
+            style={{ flex: 1, minWidth: 0 }}
+          >
+            {loading ? (
+              <div
+                style={{
+                  height: "var(--space-48, 200px)",
+                  background:
+                    "linear-gradient(90deg, var(--color-bg-sunken) 25%, var(--color-border) 37%, var(--color-bg-sunken) 63%)",
+                  backgroundSize: "200% 100%",
+                  animation: "shimmer 1.4s ease-in-out infinite",
+                  borderRadius: "var(--radius-lg)",
+                }}
+              />
+            ) : (
+              currentTab?.content
+            )}
+          </div>
+
+          {contextRail && (
+            <aside
+              aria-label="Detail Context Rail"
               style={{
-                height: 200,
-                background:
-                  "linear-gradient(90deg, var(--color-bg-sunken) 25%, var(--color-border) 37%, var(--color-bg-sunken) 63%)",
-                backgroundSize: "200% 100%",
-                animation: "shimmer 1.4s ease-in-out infinite",
-                borderRadius: "var(--radius-lg)",
+                display: contextRailOpen ? "block" : "none",
+                flexShrink: 0,
               }}
-            />
-          ) : (
-            currentTab?.content
+            >
+              {contextRail}
+            </aside>
           )}
         </div>
       </div>

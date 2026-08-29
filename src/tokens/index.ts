@@ -1,6 +1,12 @@
 /**
  * @kannan19302/ui-tokens — design-token metadata.
  * The tokens themselves ship as CSS (import '@kannan19302/ui-tokens/css').
+ *
+ * Design Language 2.0 additions:
+ * - `DENSITIES` now includes "standard" as the middle tier
+ * - `PLATFORMS` defines the UniERP platform identity system
+ * - `DL2_THEMES` is the recommended theme subset for DL 2.0
+ * - Legacy themes are deprecated and will be removed in the next major
  */
 export const THEMES = [
   "enterprise",
@@ -14,12 +20,65 @@ export const THEMES = [
   "meridian-dark",
 ] as const;
 export type ThemeName = (typeof THEMES)[number];
-export const DEFAULT_THEME: ThemeName = "light";
+export const DEFAULT_THEME: ThemeName = "meridian";
 
-/** Density is orthogonal to color theme — applies to any theme via [data-density]. */
-export const DENSITIES = ["comfortable", "compact"] as const;
+/**
+ * DL 2.0 recommended themes — the only themes that receive new token coverage.
+ * Legacy themes (enterprise, modern, minimal, classic, dark, light) are deprecated.
+ */
+export const DL2_THEMES = [
+  "meridian",
+  "meridian-dark",
+  "high-contrast",
+] as const;
+export type DL2ThemeName = (typeof DL2_THEMES)[number];
+
+/** @deprecated Use DL2_THEMES. Legacy themes will be removed in the next major. */
+export const LEGACY_THEMES = [
+  "enterprise",
+  "modern",
+  "minimal",
+  "classic",
+  "dark",
+  "light",
+] as const;
+export type LegacyThemeName = (typeof LEGACY_THEMES)[number];
+
+/**
+ * Density is orthogonal to color theme — applies to any theme via [data-density].
+ *
+ * DL 2.0 introduces "standard" as the balanced default:
+ * - comfortable: onboarding, touch, dashboards, casual users
+ * - standard:    default balanced UniERP experience
+ * - compact:     finance, accounting, inventory, operations, expert users
+ */
+export const DENSITIES = ["comfortable", "standard", "compact"] as const;
 export type DensityName = (typeof DENSITIES)[number];
-export const DEFAULT_DENSITY: DensityName = "comfortable";
+export const DEFAULT_DENSITY: DensityName = "standard";
+
+/**
+ * V1 density default, for consumers that have not yet migrated to DL 2.0.
+ * Set `defaultDensity="comfortable"` in ThemeProvider to preserve V1 behavior.
+ */
+export const V1_DEFAULT_DENSITY: DensityName = "comfortable";
+
+/**
+ * UniERP platform identity system — each platform gets a semantic accent
+ * applied via [data-platform] on <html>. Platform accents communicate
+ * "where you are" (identity), not "what you can do" (interactive affordance).
+ */
+export const PLATFORMS = [
+  "developer",
+  "apps",
+  "tenant-admin",
+  "platform-admin",
+  "ops",
+  "marketing",
+  "marketplace",
+  "website",
+] as const;
+export type PlatformName = (typeof PLATFORMS)[number];
+
 export const CHART_TOKENS = [
   "--chart-1",
   "--chart-2",
@@ -40,6 +99,10 @@ export const Z_INDEX = {
   modal: 300,
   popover: 400,
   toast: 500,
+  /** DL 2.0: Command palette sits above popovers. */
+  commandPalette: 450,
+  /** DL 2.0: Context rail is a panel, not an overlay. */
+  contextRail: 75,
 } as const;
 
 export const ELEVATIONS = {
@@ -49,4 +112,17 @@ export const ELEVATIONS = {
   4: "var(--elevation-4)",
   5: "var(--elevation-5)",
   hover: "var(--elevation-hover)",
+} as const;
+
+/**
+ * DL 2.0 surface depth model.
+ * Components should use these instead of raw --color-bg-* tokens.
+ */
+export const SURFACES = {
+  0: "var(--surface-0-bg)",
+  1: "var(--surface-1-bg)",
+  2: "var(--surface-2-bg)",
+  3: "var(--surface-3-bg)",
+  4: "var(--surface-4-bg)",
+  sunken: "var(--surface-sunken-bg)",
 } as const;

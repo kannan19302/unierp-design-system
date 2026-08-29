@@ -21,6 +21,7 @@ import {
   Check,
   RotateCcw,
   GripVertical,
+  X,
 } from "lucide-react";
 import { useTabPersistence } from "../hooks";
 import styles from "./module-tab-layout.module.css";
@@ -33,6 +34,12 @@ export interface ModuleTab {
   description?: string;
   advanced?: boolean;
   group?: string;
+  /** DL 2.0: Unsaved changes dirty-state dot */
+  isDirty?: boolean;
+  /** DL 2.0: Tab badge count / status */
+  badge?: number | string;
+  /** DL 2.0: Enable close button on this tab */
+  closable?: boolean;
 }
 
 export interface ModuleTabLayoutProps {
@@ -43,6 +50,8 @@ export interface ModuleTabLayoutProps {
   moduleDescription: string;
   headerActions?: ReactNode;
   variant?: "default" | "card";
+  /** DL 2.0: Handler when a closable tab close button is clicked */
+  onCloseTab?: (tabId: string) => void;
   children?: ReactNode;
 }
 
@@ -69,6 +78,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
   moduleDescription,
   headerActions,
   variant = "default",
+  onCloseTab,
   children,
 }) => {
   const pathname = usePathname();
@@ -247,6 +257,16 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
                 >
                   {Icon && <Icon size={16} className={styles.tabIcon} />}
                   <span>{tab.label}</span>
+                  {tab.isDirty && (
+                    <span
+                      className={styles.dirtyDot}
+                      title="Unsaved changes"
+                      aria-label="Unsaved changes"
+                    />
+                  )}
+                  {tab.badge !== undefined && (
+                    <span className={styles.tabBadge}>{tab.badge}</span>
+                  )}
                   {!isEditing && (
                     <button
                       onClick={(e: any) => {
@@ -259,6 +279,20 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
                       aria-pressed={isPinned(tab.id)}
                     >
                       <Star size={12} />
+                    </button>
+                  )}
+                  {tab.closable && onCloseTab && !isEditing && (
+                    <button
+                      onClick={(e: any) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onCloseTab(tab.id);
+                      }}
+                      className={styles.closeBtn}
+                      aria-label={`Close ${tab.label} tab`}
+                      title={`Close ${tab.label}`}
+                    >
+                      <X size={12} />
                     </button>
                   )}
                   {isPinned(tab.id) && !isEditing && (
