@@ -1,0 +1,189 @@
+.container {
+  display: inline-flex;
+  align-items: stretch;
+  position: relative;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  user-select: none;
+}
+
+.mainButton,
+.toggleButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width, 1px) solid transparent;
+  font-family: inherit;
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition-color, background-color var(--duration-fast));
+}
+
+.mainButton {
+  border-top-left-radius: var(--radius-sm);
+  border-bottom-left-radius: var(--radius-sm);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0 var(--space-3);
+  gap: var(--space-1-5, 6px);
+  white-space: nowrap;
+}
+
+.toggleButton {
+  border-top-right-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0 var(--space-2);
+  border-left: var(--border-width, 1px) solid rgb(255 255 255 / 0.2);
+}
+
+.mainButton:focus-visible,
+.toggleButton:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  z-index: 1;
+}
+
+/* Primary Variant */
+.primary .mainButton,
+.primary .toggleButton {
+  background-color: var(--color-primary);
+  color: var(--on-primary);
+  border-color: var(--color-primary);
+}
+
+.primary .mainButton:hover:not(:disabled),
+.primary .toggleButton:hover:not(:disabled),
+.primary .toggleActive {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+/* Secondary Variant */
+.secondary .mainButton,
+.secondary .toggleButton {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.secondary .toggleButton {
+  border-left-color: var(--color-border);
+}
+
+.secondary .mainButton:hover:not(:disabled),
+.secondary .toggleButton:hover:not(:disabled),
+.secondary .toggleActive {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+/* Danger Variant */
+.danger .mainButton,
+.danger .toggleButton {
+  background-color: var(--color-danger);
+  color: var(--on-danger);
+  border-color: var(--color-danger);
+}
+
+.danger .mainButton:hover:not(:disabled),
+.danger .toggleButton:hover:not(:disabled),
+.danger .toggleActive {
+  background-color: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+}
+
+/* Sizes */
+.sm {
+  height: var(--density-control-height-sm, 28px);
+}
+.sm .mainButton {
+  font-size: var(--type-caption);
+  padding: 0 var(--space-2);
+}
+
+.md {
+  height: var(--density-control-height, 32px);
+}
+.md .mainButton {
+  font-size: var(--type-body);
+}
+
+.lg {
+  height: var(--space-10, 40px);
+}
+.lg .mainButton {
+  font-size: var(--type-body-lg);
+  padding: 0 var(--space-4);
+}
+
+.chevron {
+  transition: transform var(--duration-fast) var(--ease-default);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.disabled .mainButton,
+.disabled .toggleButton {
+  cursor: not-allowed;
+}
+
+/* Menu Dropdown */
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-1);
+  min-width: var(--space-24, 96px);
+  background-color: var(--color-surface);
+  border: var(--border-width, 1px) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-3);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-1);
+  animation: var(--transition-scale, scale-in 100ms ease);
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1-5, 6px) var(--space-3);
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--type-caption);
+  font-family: inherit;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.menuItem:hover:not(:disabled) {
+  background-color: var(--color-surface-hover);
+}
+
+.menuItemDanger {
+  color: var(--color-danger);
+}
+
+.menuItemDanger:hover:not(:disabled) {
+  background-color: var(--color-danger-light);
+}
+
+.menuItemDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -18,3 +18,6 @@ export * from "./info-hint";
 export * from "./trial-countdown";
 export * from "./alert";
 export * from "./progress";
+export * from "./split-button";
+export * from "./error-boundary";
+export * from "./live-region";

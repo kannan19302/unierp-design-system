@@ -14,4 +14,5 @@ export * from "./split-view";
 export * from "./audit-trail";
 export * from "./progress-hud";
 export * from "./document-annotator";
+export * from "./file-tree";
 

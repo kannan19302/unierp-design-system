@@ -1,0 +1,97 @@
+.wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+}
+
+.label {
+  font-size: var(--type-caption);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.stepperContainer {
+  display: inline-flex;
+  align-items: center;
+  border: var(--border-width, 1px) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  overflow: hidden;
+  transition: var(--transition-color, border-color var(--duration-fast));
+}
+
+.stepperContainer:focus-within {
+  border-color: var(--color-primary);
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.stepBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-2);
+  height: 100%;
+  border: none;
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-color, background-color var(--duration-fast));
+}
+
+.stepBtn:hover:not(:disabled) {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.stepBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.input {
+  width: var(--space-16, 64px);
+  text-align: center;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: var(--type-body);
+  font-variant-numeric: var(--numeric-variant);
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Sizing */
+.sm .stepperContainer {
+  height: var(--density-control-height-sm, 28px);
+}
+.sm .input {
+  font-size: var(--type-dense);
+}
+
+.md .stepperContainer {
+  height: var(--density-control-height, 32px);
+}
+.md .input {
+  font-size: var(--type-body);
+}
+
+.lg .stepperContainer {
+  height: var(--space-10, 40px);
+}
+.lg .input {
+  font-size: var(--type-body-lg);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

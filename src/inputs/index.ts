@@ -23,3 +23,7 @@ export * from "./code-editor";
 export * from "./signature-pad";
 export * from "./calendar";
 export * from "./scheduler";
+export * from "./inline-edit";
+export * from "./number-stepper";
+export * from "./segmented-control";
+export * from "./color-picker";
