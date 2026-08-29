@@ -12,4 +12,5 @@ export * from "./module-tab-layout";
 export * from "./stat-card-row";
 export * from "./view-switcher";
 export * from "./context-rail";
+export * from "./workspace-tabs";
 export * from "../navigation/sub-tab-bar";

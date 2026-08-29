@@ -13,3 +13,13 @@ export {
   useTabPersistence,
   type UseTabPersistenceReturn,
 } from "./use-tab-persistence";
+export {
+  useKeyboardShortcuts,
+  getRegisteredShortcuts,
+  type ShortcutDefinition,
+} from "./use-keyboard-shortcuts";
+export {
+  useVimNavigation,
+  type UseVimNavigationOptions,
+  type UseVimNavigationReturn,
+} from "./use-vim-navigation";

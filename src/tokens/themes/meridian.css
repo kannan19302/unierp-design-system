@@ -66,6 +66,13 @@
   --color-bg-active: #e5e3df;
   --color-bg-overlay: rgb(20 25 27 / 0.44);
 
+  /* Surface Aliases */
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-surface-sunken: #eeedea;
+  --color-surface-muted: #eeedea;
+  --color-surface-hover: #f0efec;
+
   /* ── Borders ── */
   --color-border: #e2e0db;
   --color-border-strong: #948f87;
@@ -73,10 +80,13 @@
 
   /* ── Text ── */
   --color-text: #14191b;
+  --color-text-primary: #14191b;
   --color-text-secondary: #4c5457;
   --color-text-tertiary: #626a6d;
+  --color-text-muted: #4c5457;
   --color-text-inverse: #ffffff;
   --color-text-link: #0e6b75;
+  --color-brand: #0e6b75;
 
   /* ── Brand / Primary (Meridian teal) ──
      6.2:1 on white and 6.0:1 on the page ground, so it is legible as link text

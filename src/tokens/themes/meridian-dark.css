@@ -38,6 +38,13 @@
   --color-bg-active: #2c3235;
   --color-bg-overlay: rgb(8 10 11 / 0.72);
 
+  /* Surface Aliases */
+  --color-surface: #1c2023;
+  --color-surface-elevated: #1c2023;
+  --color-surface-sunken: #0e1113;
+  --color-surface-muted: #0e1113;
+  --color-surface-hover: #23282b;
+
   /* ── Borders ── */
   --color-border: #2e3438;
   --color-border-strong: #6e7681;
@@ -45,10 +52,13 @@
 
   /* ── Text ── */
   --color-text: #e6e3de;
+  --color-text-primary: #e6e3de;
   --color-text-secondary: #a3a29d;
   --color-text-tertiary: #949289;
+  --color-text-muted: #a3a29d;
   --color-text-inverse: #14171a;
   --color-text-link: #48c5ce;
+  --color-brand: #48c5ce;
 
   /* ── Brand / Primary (Meridian teal, lifted) ──
      9:1 on the page ground. `--on-primary` is the near-black, not white:

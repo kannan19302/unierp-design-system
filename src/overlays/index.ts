@@ -12,3 +12,4 @@ export * from "./dropdown-menu";
 export * from "./context-menu";
 export * from "./toast";
 export * from "./loading-overlay";
+export * from "./shortcut-cheat-sheet";

@@ -102,4 +102,14 @@
   --bp-desktop: 1280px;
   --bp-wide: 1536px;
   --bp-ultrawide: 1920px;
+
+  /* ── Semantic Bridge Aliases (DL 2.0) ── */
+  --color-surface: var(--color-bg-elevated, #ffffff);
+  --color-surface-elevated: var(--color-bg-elevated, #ffffff);
+  --color-surface-sunken: var(--color-bg-sunken, #eeedea);
+  --color-surface-muted: var(--color-bg-sunken, #eeedea);
+  --color-surface-hover: var(--color-bg-hover, #f0efec);
+  --color-text-primary: var(--color-text, #14191b);
+  --color-text-muted: var(--color-text-secondary, #4c5457);
+  --color-brand: var(--color-primary, #0e6b75);
 }
