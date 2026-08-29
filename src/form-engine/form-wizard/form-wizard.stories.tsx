@@ -59,7 +59,7 @@ const sampleSteps: WizardStep[] = [
       <div style={{ padding: "var(--space-4)", background: "var(--color-surface-subtle)", borderRadius: "var(--radius-sm)", maxWidth: 500 }}>
         <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)" }}>Ready to Provision</h4>
         <p style={{ margin: 0, fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
-          Clicking "Complete Setup" will create your tenant database partition, apply PostgreSQL RLS policies, and generate root administrator credentials.
+          {'Clicking "Complete Setup" will create your tenant database partition, apply PostgreSQL RLS policies, and generate root administrator credentials.'}
         </p>
       </div>
     ),
