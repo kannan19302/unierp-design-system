@@ -17,6 +17,12 @@ export {
   type ContrastValidationResult,
 } from "./branding";
 export {
+  ThemeCustomizer,
+  type ThemeCustomizerProps,
+  type TenantThemeConfig,
+} from "./theme-customizer";
+
+export {
   THEMES,
   DEFAULT_THEME,
   type ThemeName,

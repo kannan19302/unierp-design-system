@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  padding: 0;
+  align-self: flex-start;
+}
+
+.metaWrap {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.tabBody {
+  display: flex;
+  gap: var(--density-panel-gap, 16px);
+  padding-top: var(--space-6);
+  align-items: flex-start;
+}
+
+.panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.skeletonLoading {
+  height: var(--space-48, 200px);
+  background: linear-gradient(90deg, var(--color-bg-sunken, #f1f5f9) 25%, var(--color-border-default, #e2e8f0) 37%, var(--color-bg-sunken, #f1f5f9) 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-lg);
+}
+
+.rail {
+  flex-shrink: 0;
+}

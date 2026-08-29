@@ -1,0 +1,181 @@
+/* ─────────────────────────────────────────────────────────────
+   UniERP Design Language 2.0 — VirtualizedTable Styles
+   ───────────────────────────────────────────────────────────── */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+  font-size: var(--density-body-size, var(--text-sm));
+  color: var(--color-text-primary);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-subtle);
+  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.toolbarLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.searchInput {
+  height: var(--density-control-height, 36px);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  min-width: 220px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.searchInput:focus {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 2px var(--color-brand-muted);
+}
+
+.badge {
+  font-size: var(--text-xs);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-hover);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.viewport {
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+
+.headerRow {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface-subtle);
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+  user-select: none;
+}
+
+.headerCell {
+  padding: var(--density-cell-padding-y, var(--space-2)) var(--density-cell-padding-x, var(--space-3));
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+.headerCell:last-child {
+  border-right: none;
+}
+
+.sortableHeader {
+  cursor: pointer;
+}
+
+.sortableHeader:hover {
+  background: var(--color-surface-hover);
+}
+
+.virtualContent {
+  position: relative;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: background-color 0.1s ease;
+}
+
+.row:hover {
+  background: var(--color-surface-hover);
+}
+
+.rowSelected {
+  background: var(--color-brand-subtle) !important;
+}
+
+.cell {
+  padding: var(--density-cell-padding-y, var(--space-2)) var(--density-cell-padding-x, var(--space-3));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+.cell:last-child {
+  border-right: none;
+}
+
+.alignLeft {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.alignCenter {
+  justify-content: center;
+  text-align: center;
+}
+
+.alignRight {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.pinnedLeft {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  background: var(--color-surface);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.headerCell.pinnedLeft {
+  z-index: 15;
+  background: var(--color-surface-subtle);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface-subtle);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}

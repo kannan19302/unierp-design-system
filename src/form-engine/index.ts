@@ -35,3 +35,9 @@ export {
   type FormFieldType,
   type SelectOption,
 } from "./schema-form";
+export {
+  FormWizard,
+  type FormWizardProps,
+  type WizardStep,
+} from "./form-wizard";
+

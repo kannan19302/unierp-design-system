@@ -1,0 +1,76 @@
+.toastRegion {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: min(92vw, var(--toast-max-width, 400px));
+  pointer-events: none;
+}
+
+.toastItem {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border-default, #e2e8f0);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  animation: toastSlideIn 200ms var(--ease-out) forwards;
+}
+
+.toastItemLeaving {
+  animation: toastSlideOut 200ms var(--ease-out) forwards;
+}
+
+.toastContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.toastTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary);
+}
+
+.toastDescription {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}
+
+.dismissBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}

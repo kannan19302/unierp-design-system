@@ -23,3 +23,23 @@ export {
   type KanbanItem,
 } from "./kanban-board";
 export { ChangeHistory, type ChangeHistoryProps } from "./change-history";
+export {
+  VirtualizedTable,
+  type VirtualizedTableProps,
+  type VirtualizedColumn,
+} from "./virtualized-table";
+export {
+  QueryBuilder,
+  type QueryBuilderProps,
+  type QueryField,
+  type QueryRule,
+  type QueryGroup,
+  type QueryOperator,
+  type FieldType,
+} from "./query-builder";
+export {
+  PivotGrid,
+  type PivotGridProps,
+  type PivotAggregation,
+} from "./pivot-grid";
+

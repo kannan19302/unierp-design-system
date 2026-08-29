@@ -27,3 +27,18 @@ export {
   type LifecycleStage,
   type LifecycleTrackerProps,
 } from "./lifecycle-tracker";
+
+export {
+  WorkflowGraph,
+  type WorkflowGraphProps,
+  type WorkflowNode,
+  type WorkflowEdge,
+  type WorkflowNodeStatus,
+} from "./workflow-graph";
+
+export {
+  EntityLineage,
+  type EntityLineageProps,
+  type LineageItem,
+} from "./entity-lineage";
+

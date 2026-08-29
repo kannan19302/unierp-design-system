@@ -1,0 +1,97 @@
+.container {
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  background: var(--color-surface-subtle, #f9fafb);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-subtle, #e5e7eb);
+}
+
+.title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeline {
+  position: relative;
+  padding-left: var(--space-6);
+}
+
+.timelineLine {
+  position: absolute;
+  left: var(--space-2, 8px);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border-default, #e5e7eb);
+}
+
+.entry {
+  position: relative;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+
+.dot {
+  position: absolute;
+  left: calc(-1 * var(--space-5));
+  top: var(--space-1-5, 6px);
+  width: var(--space-2-5, 10px);
+  height: var(--space-2-5, 10px);
+  border-radius: 50%;
+  border: 2px solid var(--color-surface-subtle, #f9fafb);
+}
+
+.dotCreate {
+  background: var(--color-success, #22c55e);
+}
+
+.dotDelete {
+  background: var(--color-danger, #ef4444);
+}
+
+.dotDefault {
+  background: var(--color-brand, #3b82f6);
+}
+
+.entryText {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted, #6b7280);
+}
+
+.userName {
+  font-weight: 500;
+  color: var(--color-text-primary, #111827);
+}
+
+.timestamp {
+  margin-left: var(--space-2);
+  font-size: var(--text-xs);
+  opacity: 0.7;
+}
+
+.fieldChanges {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted, #6b7280);
+}
+
+.oldVal {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.loadMoreBtn {
+  display: block;
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--color-brand, #3b82f6);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}

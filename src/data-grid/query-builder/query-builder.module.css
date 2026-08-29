@@ -1,0 +1,132 @@
+/* ─────────────────────────────────────────────────────────────
+   UniERP Design Language 2.0 — QueryBuilder Styles
+   ───────────────────────────────────────────────────────────── */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--density-body-size, var(--text-sm));
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-brand);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-subtle);
+}
+
+.groupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.combinatorSelect {
+  height: var(--density-control-height, 32px);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.rulesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ruleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding: var(--space-2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.fieldSelect,
+.operatorSelect,
+.valueInput {
+  height: var(--density-control-height, 32px);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  outline: none;
+}
+
+.fieldSelect:focus,
+.operatorSelect:focus,
+.valueInput:focus {
+  border-color: var(--color-brand);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  height: var(--density-control-height, 32px);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--color-surface-hover);
+}
+
+.btnPrimary {
+  background: var(--color-brand);
+  color: #fff;
+  border-color: var(--color-brand);
+}
+
+.btnPrimary:hover {
+  filter: brightness(1.1);
+}
+
+.btnDanger {
+  color: var(--color-danger);
+  border-color: transparent;
+}
+
+.btnDanger:hover {
+  background: var(--color-danger-subtle);
+}
+
+.preview {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-hover);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  overflow-x: auto;
+}

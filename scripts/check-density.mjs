@@ -20,7 +20,8 @@ const REQUIRED_DENSITY_FILES = [
   "src/inputs/date-picker/date-picker.module.css",
   "src/navigation/tabs/tabs.module.css",
   "src/data-display/card/card.module.css",
-  "src/data-grid/table.tsx",
+  "src/data-grid/table/table.tsx",
+
 ];
 
 let failed = false;

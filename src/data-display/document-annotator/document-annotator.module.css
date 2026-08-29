@@ -1,0 +1,96 @@
+/* ─────────────────────────────────────────────────────────────
+   UniERP Design Language 2.0 — DocumentAnnotator Styles
+   ───────────────────────────────────────────────────────────── */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  position: relative;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface-subtle);
+  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-2);
+}
+
+.docCanvas {
+  position: relative;
+  min-height: 480px;
+  background: #f8fafc;
+  padding: var(--space-6);
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+}
+
+.paper {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  min-height: 440px;
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-sm);
+  padding: var(--space-8);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.stamp {
+  position: absolute;
+  border: 2px solid;
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono, monospace);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--text-xs);
+  transform: rotate(-8deg);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+.stampApproved {
+  color: #059669;
+  border-color: #059669;
+  background: rgba(5, 150, 105, 0.08);
+}
+
+.stampRejected {
+  color: #dc2626;
+  border-color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+}
+
+.stampAudit {
+  color: #2563eb;
+  border-color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.annotation {
+  position: absolute;
+  background: #fef08a;
+  color: #713f12;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-xs);
+  max-width: 200px;
+  border: 1px solid #fde047;
+}

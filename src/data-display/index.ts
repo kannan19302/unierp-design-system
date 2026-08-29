@@ -13,3 +13,5 @@ export * from "./empty-state";
 export * from "./split-view";
 export * from "./audit-trail";
 export * from "./progress-hud";
+export * from "./document-annotator";
+
