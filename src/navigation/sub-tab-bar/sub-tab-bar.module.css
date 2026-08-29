@@ -1,0 +1,52 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — SubTabBar Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.bar {
+  display: flex;
+  gap: var(--space-1);
+  padding: 2px;
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-xs, 2px);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+  background: transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  outline: none;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.tab:hover {
+  color: var(--surface-text-primary, var(--color-text));
+  background: var(--surface-hover, var(--color-bg-elevated));
+}
+
+.tabActive {
+  font-weight: var(--weight-semibold);
+  color: var(--surface-text-primary, var(--color-text));
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border-color: var(--surface-1-border, var(--color-border));
+  box-shadow: var(--shadow-xs);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}

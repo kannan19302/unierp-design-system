@@ -11,8 +11,8 @@
  */
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { FormField, Input, Textarea, Select } from "../components";
-import { Switch } from "../components/extended-inputs";
+import { FormField, Input, Textarea, Select } from "../inputs/form-control";
+import { Switch } from "../inputs/switch";
 
 export type SettingScope = "USER" | "TEAM" | "ORGANIZATION" | "TENANT" | "PLATFORM";
 export type SettingType = "string" | "number" | "boolean" | "enum" | "json";

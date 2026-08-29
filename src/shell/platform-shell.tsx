@@ -2,8 +2,8 @@
 
 import { type CSSProperties, type FC, type ReactNode, useEffect, useRef, useState } from "react";
 import { ChevronDown, LayoutGrid, LogOut, Menu, Search, Settings, User as UserIcon } from "lucide-react";
-import { Breadcrumb, type BreadcrumbItem } from "../components/extended-navigation";
-import { BrandMark } from "../components/brand-mark";
+import { Breadcrumb, type BreadcrumbItem } from "../navigation/breadcrumb";
+import { BrandMark } from "../primitives/brand-mark";
 import { ThemeQuickToggle } from "../theme/theme-quick-toggle";
 import styles from "./platform-shell.module.css";
 

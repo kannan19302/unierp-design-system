@@ -1,0 +1,67 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — DropdownMenu Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.menu {
+  position: fixed;
+  z-index: var(--z-dropdown, 1000);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-1) 0;
+  min-width: 180px;
+  box-sizing: border-box;
+  outline: none;
+  font-family: var(--font-sans);
+}
+
+.item {
+  width: 100%;
+  text-align: left;
+  padding: var(--space-1-5) var(--space-3);
+  background: none;
+  border: none;
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-primary, var(--color-text));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  outline: none;
+  user-select: none;
+}
+
+.item:hover:not(:disabled),
+.activeItem:not(:disabled) {
+  background: var(--surface-hover, var(--color-bg-sunken));
+}
+
+.item:disabled {
+  color: var(--surface-text-disabled, var(--color-text-muted));
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.dangerItem {
+  color: var(--color-danger, #ef4444);
+}
+
+.dangerItem:hover:not(:disabled) {
+  background: var(--color-danger-light, #fee2e2);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.label {
+  flex: 1;
+}

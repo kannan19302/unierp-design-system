@@ -1,0 +1,53 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — SavedViewSwitcher Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  font-family: var(--font-sans);
+}
+
+.icon {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  flex-shrink: 0;
+}
+
+.selectWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.select {
+  appearance: none;
+  height: var(--density-control-height-sm, 28px);
+  padding: 0 var(--space-6) 0 var(--space-2);
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  color: var(--surface-text-primary, var(--color-text));
+  cursor: pointer;
+  outline: none;
+}
+
+.select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.arrow {
+  position: absolute;
+  right: var(--space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 4px solid var(--surface-text-secondary, var(--color-text-secondary));
+  pointer-events: none;
+}

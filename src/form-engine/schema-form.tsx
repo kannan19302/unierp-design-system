@@ -8,8 +8,8 @@ import {
   type ReactNode,
 } from "react";
 import { AlertCircle, ChevronDown, ChevronRight } from "lucide-react";
-import { Button } from "../components/button";
-import { Input, Textarea, Select } from "../components/form";
+import { Button } from "../primitives/button";
+import { Input, Textarea, Select } from "../inputs/form-control";
 import {
   Switch,
   Checkbox,
@@ -18,9 +18,9 @@ import {
   PercentInput,
   TagInput,
   MultiSelect,
-} from "../components/extended-inputs";
-import { DatePicker } from "../components/date-picker";
-import { ComboBox } from "../components/combobox";
+} from "../inputs";
+import { DatePicker } from "../inputs/date-picker";
+import { ComboBox } from "../inputs/combobox";
 import styles from "./schema-form.module.css";
 
 export type FormFieldType =
@@ -313,7 +313,7 @@ function renderFieldInput(
           type={field.type}
           placeholder={field.placeholder}
           value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e: any) => onChange(e.target.value)}
           disabled={field.disabled}
           aria-invalid={!!error}
           ref={(el: any) => { fieldRefs.current[field.name] = el; }}
@@ -326,7 +326,7 @@ function renderFieldInput(
           id={id}
           placeholder={field.placeholder}
           value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e: any) => onChange(e.target.value)}
           disabled={field.disabled}
           aria-invalid={!!error}
           ref={(el: any) => { fieldRefs.current[field.name] = el; }}
@@ -370,7 +370,7 @@ function renderFieldInput(
         <Select
           id={id}
           value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e: any) => onChange(e.target.value)}
           disabled={field.disabled}
           aria-invalid={!!error}
           ref={(el: any) => { fieldRefs.current[field.name] = el; }}
@@ -426,8 +426,8 @@ function renderFieldInput(
     case "date":
       return (
         <DatePicker
-          value={value instanceof Date ? value : value ? new Date(value) : undefined}
-          onChange={(d) => onChange(d ? d.toISOString().split("T")[0] : "")}
+          value={typeof value === "string" ? value : value instanceof Date ? value.toISOString().split("T")[0] : ""}
+          onChange={(d: any) => onChange(d ? (typeof d === "string" ? d : d.toISOString().split("T")[0]) : "")}
           disabled={field.disabled}
           placeholder={field.placeholder}
         />
@@ -449,7 +449,7 @@ function renderFieldInput(
         <Input
           id={id}
           value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e: any) => onChange(e.target.value)}
           disabled={field.disabled}
           ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />

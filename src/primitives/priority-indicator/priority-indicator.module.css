@@ -1,0 +1,33 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — PriorityIndicator Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+}
+
+.label {
+  display: inline-block;
+}
+
+.low {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.medium {
+  color: var(--color-info, #0e7490);
+}
+
+.high {
+  color: var(--color-warning, #b45309);
+}
+
+.urgent {
+  color: var(--color-danger, #b91c1c);
+}

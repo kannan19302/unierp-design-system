@@ -1,0 +1,42 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — SplitView Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.pane {
+  overflow: auto;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.splitter {
+  width: 4px;
+  background: var(--surface-1-border, var(--color-border));
+  cursor: col-resize;
+  user-select: none;
+  flex-shrink: 0;
+  transition: background var(--duration-fast) var(--ease-default);
+}
+
+.splitter:hover,
+.splitter:focus-visible {
+  background: var(--color-primary);
+  outline: none;
+}
+
+.resizable {
+  resize: both;
+  overflow: auto;
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  padding: var(--space-3);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  box-sizing: border-box;
+}

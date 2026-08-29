@@ -1,0 +1,79 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Badge Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+}
+
+/* ── Precision Status Dot ── */
+.dot {
+  width: var(--status-dot-size, 6px);
+  height: var(--status-dot-size, 6px);
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.label {
+  display: inline-block;
+}
+
+/* ── Sizes ── */
+.sm {
+  padding: 2px var(--density-badge-padding, 6px);
+  font-size: var(--type-micro, 11px);
+  height: var(--density-badge-height, 20px);
+}
+
+.md {
+  padding: 3px var(--density-badge-padding, 8px);
+  font-size: var(--type-caption, 12px);
+  height: var(--density-badge-height, 24px);
+}
+
+/* ── Variants ── */
+.default {
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  color: var(--color-text-secondary);
+  border-color: var(--surface-1-border, var(--color-border));
+}
+
+.primary {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.success {
+  background: var(--color-success-light);
+  color: var(--color-success-text);
+  border-color: var(--color-success);
+}
+
+.warning {
+  background: var(--color-warning-light);
+  color: var(--color-warning-text);
+  border-color: var(--color-warning);
+}
+
+.danger {
+  background: var(--color-danger-light);
+  color: var(--color-danger-text);
+  border-color: var(--color-danger);
+}
+
+.info {
+  background: var(--color-info-light);
+  color: var(--color-info-text);
+  border-color: var(--color-info);
+}

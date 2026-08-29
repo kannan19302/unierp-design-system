@@ -1,6 +1,6 @@
 import { act, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { TrialCountdown } from "../trial-countdown";
+import { TrialCountdown } from "../index";
 
 describe("TrialCountdown", () => {
   afterEach(() => vi.useRealTimers());

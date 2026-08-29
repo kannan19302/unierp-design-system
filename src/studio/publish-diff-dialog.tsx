@@ -1,8 +1,8 @@
 "use client";
 
 import { type FC, type ReactNode } from "react";
-import { Modal } from "../components/modal";
-import { Button } from "../components/button";
+import { Modal } from "../overlays/modal";
+import { Button } from "../primitives/button";
 import styles from "./publish-diff-dialog.module.css";
 
 /**

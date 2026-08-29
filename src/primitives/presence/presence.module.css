@@ -1,0 +1,32 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Presence Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.presence {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  line-height: 1;
+}
+
+.label {
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+}
+
+.online {
+  color: var(--color-success, #15803d);
+}
+
+.offline {
+  color: var(--color-text-muted, #9ca3af);
+}
+
+.busy {
+  color: var(--color-danger, #b91c1c);
+}
+
+.away {
+  color: var(--color-warning, #b45309);
+}

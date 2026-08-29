@@ -1,32 +1,15 @@
-"use client";
+// ─────────────────────────────────────────────────
+// @kannan19302/ui/layout — Page Headers, Sidebars, Details & Templates
+// ─────────────────────────────────────────────────
 
-// @kannan19302/ui-layout — page scaffolding
-export { PageHeader, type PageHeaderProps } from "./page-header";
-export {
-  ViewSwitcher,
-  type ViewSwitcherProps,
-  type ViewMode,
-} from "./view-switcher";
-export {
-  StatCardRow,
-  type StatCardRowProps,
-  type StatCardItem,
-} from "./stat-card-row";
-export {
-  ListPageTemplate,
-  type ListPageTemplateProps,
-  type ListColumn,
-  type ListPageFilter,
-  type ListPaginationProps,
-} from "./list-page-template";
-export {
-  DetailPageTemplate,
-  type DetailPageTemplateProps,
-  type DetailTab,
-} from "./detail-page-template";
-export {
-  ModuleTabLayout,
-  type ModuleTabLayoutProps,
-  type ModuleTab,
-} from "./module-tab-layout";
-export { SubTabBar, type SubTabBarProps, type SubTab } from "./sub-tab-bar";
+export * from "./page-header";
+export * from "./record-sidebar";
+export * from "./detail-layout";
+export * from "./print-layout";
+export * from "./list-page-template";
+export * from "./detail-page-template";
+export * from "./module-tab-layout";
+export * from "./stat-card-row";
+export * from "./view-switcher";
+export * from "./context-rail";
+export * from "../navigation/sub-tab-bar";

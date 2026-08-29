@@ -1,0 +1,75 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — TagInput Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--density-control-height, 32px);
+  padding: 2px var(--density-control-padding-x, var(--space-3));
+  font-family: var(--font-sans);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.container:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.disabled {
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  cursor: not-allowed;
+}
+
+.tagChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm, 2px);
+  padding: 1px var(--space-2);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  user-select: none;
+}
+
+.tagLabel {
+  display: inline-block;
+}
+
+.removeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  color: currentColor;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.removeBtn:hover {
+  opacity: 1;
+}
+
+.inputField {
+  flex: 1;
+  min-width: 80px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-primary, var(--color-text));
+}

@@ -1,0 +1,37 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — RecordSidebar Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.sidebar {
+  width: 280px;
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  padding: var(--space-4);
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.title {
+  margin: 0 0 var(--space-3);
+  font-size: var(--type-dense, var(--text-sm));
+  font-weight: var(--weight-bold);
+  color: var(--surface-text-primary, var(--color-text));
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  padding-bottom: var(--space-2);
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer {
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--surface-1-border, var(--color-border));
+}

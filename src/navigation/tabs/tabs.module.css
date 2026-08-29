@@ -1,0 +1,118 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Tabs Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.tablist {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  font-family: var(--font-sans);
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--density-control-padding-y, var(--space-2)) var(--density-control-padding-x, var(--space-3));
+  height: var(--density-control-height, auto);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: var(--type-dense, var(--text-sm));
+  font-weight: var(--weight-medium);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+  margin-bottom: -1px;
+  transition: color var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default);
+  outline: none;
+  white-space: nowrap;
+}
+
+.tabBtn:hover {
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.tabBtn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.tabBtnActive {
+  border-bottom-color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+}
+
+.tabBtnDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.tabBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+  line-height: 1;
+}
+
+.tabBtnActive .tabBadge {
+  background: var(--color-primary);
+  color: var(--color-text-inverse, #ffffff);
+}
+
+/* ── Pills Variant ── */
+.tablistPills {
+  display: flex;
+  gap: var(--space-1);
+  padding: 2px;
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border-radius: var(--radius-sm, 2px);
+  border: 1px solid var(--surface-1-border, var(--color-border));
+}
+
+.tabBtnPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: 2px var(--space-3);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs, 2px);
+  cursor: pointer;
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+  outline: none;
+  white-space: nowrap;
+}
+
+.tabBtnPill:hover {
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.tabBtnPillActive {
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border-color: var(--surface-1-border, var(--color-border));
+  color: var(--surface-text-primary, var(--color-text));
+  font-weight: var(--weight-semibold);
+  box-shadow: var(--shadow-xs);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.label {
+  display: inline-block;
+}

@@ -1,11 +1,11 @@
-export interface StepItem {
+export interface HowItWorksStepItem {
   title: string;
   description: string;
 }
 
 export interface HowItWorksBlockProps {
   title?: string;
-  steps?: StepItem[];
+  steps?: HowItWorksStepItem[];
 }
 
 export function HowItWorksBlock({

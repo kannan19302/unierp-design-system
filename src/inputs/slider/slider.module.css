@@ -1,0 +1,39 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Slider Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.rangeInput {
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.rangeInput:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+}
+
+.valueDisplay {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro, 11px);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--surface-text-primary, var(--color-text));
+  min-width: 28px;
+  text-align: right;
+}

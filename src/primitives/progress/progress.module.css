@@ -1,0 +1,14 @@
+.track {
+  width: 100%;
+  height: var(--space-2, 8px);
+  background: var(--color-bg-sunken, #e2e8f0);
+  border-radius: var(--radius-full, 9999px);
+  overflow: hidden;
+}
+
+.indicator {
+  height: 100%;
+  background: var(--platform-accent, var(--color-primary));
+  border-radius: var(--radius-full, 9999px);
+  transition: width var(--duration-normal) var(--ease-default);
+}

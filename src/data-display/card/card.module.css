@@ -1,0 +1,39 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Card Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.card {
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+  transition: box-shadow var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default);
+}
+
+.p_none {
+  padding: 0;
+}
+
+.p_sm {
+  padding: var(--density-card-padding, var(--space-3));
+}
+
+.p_md {
+  padding: var(--density-card-padding, var(--space-4));
+}
+
+.p_lg {
+  padding: var(--space-6);
+}
+
+.hoverable {
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}

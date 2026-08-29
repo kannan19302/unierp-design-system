@@ -109,6 +109,48 @@
       "require": "./dist/shell/index.js",
       "default": "./dist/shell/index.js"
     },
+    "./primitives": {
+      "types": "./dist/primitives/index.d.ts",
+      "import": "./dist/primitives/index.js",
+      "require": "./dist/primitives/index.js",
+      "default": "./dist/primitives/index.js"
+    },
+    "./inputs": {
+      "types": "./dist/inputs/index.d.ts",
+      "import": "./dist/inputs/index.js",
+      "require": "./dist/inputs/index.js",
+      "default": "./dist/inputs/index.js"
+    },
+    "./overlays": {
+      "types": "./dist/overlays/index.d.ts",
+      "import": "./dist/overlays/index.js",
+      "require": "./dist/overlays/index.js",
+      "default": "./dist/overlays/index.js"
+    },
+    "./navigation": {
+      "types": "./dist/navigation/index.d.ts",
+      "import": "./dist/navigation/index.js",
+      "require": "./dist/navigation/index.js",
+      "default": "./dist/navigation/index.js"
+    },
+    "./data-display": {
+      "types": "./dist/data-display/index.d.ts",
+      "import": "./dist/data-display/index.js",
+      "require": "./dist/data-display/index.js",
+      "default": "./dist/data-display/index.js"
+    },
+    "./forms": {
+      "types": "./dist/forms/index.d.ts",
+      "import": "./dist/forms/index.js",
+      "require": "./dist/forms/index.js",
+      "default": "./dist/forms/index.js"
+    },
+    "./blocks": {
+      "types": "./dist/blocks/index.d.ts",
+      "import": "./dist/blocks/index.js",
+      "require": "./dist/blocks/index.js",
+      "default": "./dist/blocks/index.js"
+    },
     "./studio": {
       "types": "./dist/studio/index.d.ts",
       "import": "./dist/studio/index.js",

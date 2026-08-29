@@ -1,0 +1,130 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Toast Notification Styles
+   ══════════════════════════════════════════════════════════════ */
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+}
+
+.container {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: var(--z-toast, 500);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: min(92vw, 360px);
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2-5);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm, 2px);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  box-shadow: var(--shadow-lg);
+  pointer-events: auto;
+  animation: toastSlideIn 200ms var(--ease-spring) forwards;
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.leaving {
+  animation: toastSlideOut 200ms var(--ease-out) forwards;
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--type-dense, var(--text-sm));
+  font-weight: var(--weight-semibold);
+  color: var(--surface-text-primary, var(--color-text));
+  line-height: var(--leading-tight);
+}
+
+.description {
+  font-size: var(--type-caption, var(--text-xs));
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  margin-top: 2px;
+  line-height: var(--leading-normal);
+}
+
+.dismissBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  margin-top: 1px;
+}
+
+.dismissBtn:hover {
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+/* ── Variants ── */
+.success {
+  border-left: 3px solid var(--color-success, #15803d);
+}
+
+.success .icon {
+  color: var(--color-success, #15803d);
+}
+
+.error {
+  border-left: 3px solid var(--color-danger, #ef4444);
+}
+
+.error .icon {
+  color: var(--color-danger, #ef4444);
+}
+
+.warning {
+  border-left: 3px solid var(--color-warning, #b45309);
+}
+
+.warning .icon {
+  color: var(--color-warning, #b45309);
+}
+
+.info {
+  border-left: 3px solid var(--color-primary);
+}
+
+.info .icon {
+  color: var(--color-primary);
+}

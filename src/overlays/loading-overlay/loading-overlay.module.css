@@ -1,0 +1,36 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — LoadingOverlay Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-modal-backdrop, 999);
+  background: var(--surface-overlay, rgba(0, 0, 0, 0.35));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.blur {
+  backdrop-filter: blur(2px);
+}
+
+.dialog {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.message {
+  font-size: var(--type-dense, var(--text-sm));
+  font-weight: var(--weight-medium);
+  color: var(--surface-text-primary, var(--color-text));
+}

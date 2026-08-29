@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { axe } from "vitest-axe";
-import { ArtifactAddress, formatAddress } from "../artifact-address";
+import { ArtifactAddress, formatAddress } from "../../navigation/artifact-address";
 
 /**
  * The claims worth a failing mechanism here are the two that carry meaning

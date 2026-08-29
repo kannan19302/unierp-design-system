@@ -1,0 +1,103 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — StatCard & KPIStrip Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-3);
+  width: 100%;
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.card {
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.cardClickable {
+  cursor: pointer;
+}
+
+.cardClickable:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.cardClickable:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  outline: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.label {
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.headerIcon {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  display: inline-flex;
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.value {
+  font-family: var(--font-sans);
+  font-size: var(--type-metric, var(--text-2xl));
+  font-weight: var(--weight-bold);
+  color: var(--surface-text-primary, var(--color-text));
+  font-variant-numeric: tabular-nums lining-nums;
+  line-height: 1.1;
+}
+
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.trendUp {
+  color: var(--color-success, #15803d);
+}
+
+.trendDown {
+  color: var(--color-danger, #ef4444);
+}
+
+.trendNeutral {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.subtext {
+  margin-top: var(--space-1);
+  font-size: 10px;
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}

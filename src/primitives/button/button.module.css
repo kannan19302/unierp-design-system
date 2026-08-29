@@ -1,0 +1,153 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Button Primitive
+   ══════════════════════════════════════════════════════════════ */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default),
+              color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+  outline: none;
+  position: relative;
+  user-select: none;
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Sizes ── */
+.sm {
+  height: var(--density-control-height-sm, 28px);
+  padding: 0 var(--space-2-5);
+  font-size: var(--type-dense, var(--text-xs));
+}
+
+.md {
+  height: var(--density-control-height, 32px);
+  padding: 0 var(--space-3);
+  font-size: var(--type-body, var(--text-sm));
+}
+
+.lg {
+  height: var(--density-row-height, 40px);
+  padding: 0 var(--space-4);
+  font-size: var(--type-body-lg, var(--text-base));
+}
+
+/* ── Variants ── */
+.primary {
+  background: var(--color-primary);
+  color: var(--color-text-inverse, #ffffff);
+  border-color: var(--color-primary);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.secondary {
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  color: var(--color-text);
+  border-color: var(--surface-1-border, var(--color-border));
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: var(--color-border-hover);
+}
+
+.outline {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.outline:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-text);
+  border-color: transparent;
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--surface-hover);
+  color: var(--color-primary);
+}
+
+.danger {
+  background: var(--color-danger);
+  color: var(--color-text-inverse, #ffffff);
+  border-color: var(--color-danger);
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--color-danger-hover, #dc2626);
+  border-color: var(--color-danger-hover, #dc2626);
+}
+
+.link {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: transparent;
+  padding: 0;
+  height: auto;
+}
+
+.link:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.childrenContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hiddenText {
+  visibility: hidden;
+}
+
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.loader {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

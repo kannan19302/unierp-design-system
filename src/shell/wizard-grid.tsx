@@ -2,7 +2,7 @@
 
 import { useId, type CSSProperties, type FC, type ReactNode } from "react";
 import { ChevronRight, Star } from "lucide-react";
-import { LoadingState, ErrorState, EmptyState, ForbiddenState } from "../components/six-states";
+import { LoadingState, ErrorState, EmptyState, ForbiddenState } from "../data-display/empty-state";
 import styles from "./wizard-grid.module.css";
 
 /**

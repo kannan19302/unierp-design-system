@@ -1,0 +1,59 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — PageHeader Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  margin-bottom: var(--space-4);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.withTabs {
+  padding-bottom: 0;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.titleArea {
+  flex: 1;
+  min-width: 0;
+}
+
+.breadcrumbWrap {
+  margin-bottom: var(--space-1-5);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--type-page-title, var(--text-xl));
+  font-weight: var(--weight-bold);
+  color: var(--surface-text-primary, var(--color-text));
+  line-height: var(--leading-tight);
+}
+
+.subtitle {
+  margin-top: var(--space-1);
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.tabsArea {
+  margin-top: var(--space-2);
+}

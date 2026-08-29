@@ -1,0 +1,61 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Switch Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-sans);
+}
+
+.disabledContainer {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.track {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  transition: background var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default);
+  outline: none;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.track:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+}
+
+.checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.thumb {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-text-inverse, #ffffff);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--duration-fast) var(--ease-default);
+}
+
+.checked .thumb {
+  transform: translateX(14px);
+}
+
+.labelText {
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-primary, var(--color-text));
+}

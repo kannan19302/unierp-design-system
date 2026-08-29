@@ -18,9 +18,7 @@ import userEvent from "@testing-library/user-event";
 // expect.extend(vitest-axe/matchers) globally, so toHaveNoViolations is
 // registered without extending it again below.
 import { axe } from "vitest-axe";
-import { Drawer } from "../overlays";
-import { DropdownMenu } from "../overlays";
-import { ContextMenu } from "../overlays";
+import { Drawer, DropdownMenu, ContextMenu } from "../index";
 
 // ── Drawer: focus trap ────────────────────────────────
 describe("Drawer — focus trap", () => {

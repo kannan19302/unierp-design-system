@@ -1,0 +1,28 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — BrandMark Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.svg {
+  flex-shrink: 0;
+}
+
+.brandText {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.035em;
+  color: var(--surface-text-primary, var(--color-text));
+  font-size: var(--type-workspace, 18px);
+  line-height: 1;
+}
+
+.erpAccent {
+  color: var(--color-primary);
+}

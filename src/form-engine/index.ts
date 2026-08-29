@@ -11,7 +11,6 @@ export {
   TextField,
   FormSection,
   AutosaveIndicator,
-  Stepper,
   type FormFieldProps,
   type InputProps,
   type TextareaProps,
@@ -19,9 +18,14 @@ export {
   type FormSectionProps,
   type AutosaveIndicatorProps,
   type AutosaveStatus,
+} from "../inputs/form-control";
+
+export {
+  Stepper,
   type StepperProps,
   type StepperStep,
-} from "../components";
+} from "../navigation/stepper";
+
 export { SettingsPage, type SettingsPageProps, type SettingSchemaEntry, type SettingScope, type SettingType } from "./settings-renderer";
 export {
   SchemaForm,

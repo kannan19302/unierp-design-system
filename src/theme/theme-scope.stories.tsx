@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ThemeScope } from "./theme-scope";
-import { Button } from "../components/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../components/card";
-import { Badge } from "../components/badge";
+import { Button } from "../primitives/button";
+import { Card, CardHeader, CardTitle, CardContent } from "../data-display/card";
+import { Badge } from "../primitives/badge";
 
 const meta: Meta<typeof ThemeScope> = {
   title: "Theme/ThemeScope",

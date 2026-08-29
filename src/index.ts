@@ -1,241 +1,24 @@
 // ─────────────────────────────────────────────────
-// @kannan19302/ui — the UniERP Design System, one package.
-// The root barrel is the convenience surface; prefer a subpath so the
-// consumer only pays for what it uses:
-//   @kannan19302/ui/components, @kannan19302/ui/layout, @kannan19302/ui/charts,
-//   @kannan19302/ui/data-grid, @kannan19302/ui/dashboard, @kannan19302/ui/notifications,
-//   @kannan19302/ui/theme, @kannan19302/ui/tokens, @kannan19302/ui/hooks, @kannan19302/ui/utils,
-//   @kannan19302/ui/icons, @kannan19302/ui/form-engine, @kannan19302/ui/workflow
-// PLATFORM_ARCHITECTURE.md § 7.2 — the 13 @kannan19302/ui-* packages were merged
-// here so the extraction in Phase 3 publishes one artifact, not fourteen.
+// @kannan19302/ui — UniERP Design Language 1.0 ("Meridian Instrument")
+// Unified Public Root Barrel Export
 // ─────────────────────────────────────────────────
 
-export {
-  Button,
-  type ButtonProps,
-  Badge,
-  type BadgeProps,
-  StatusBadge,
-  type StatusBadgeProps,
-  ArtifactAddress,
-  formatAddress,
-  type ArtifactAddressProps,
-  type AddressScope,
-  Card,
-  type CardProps,
-  Spinner,
-  type SpinnerProps,
-  Skeleton,
-  SkeletonText,
-  type SkeletonProps,
-  type SkeletonTextProps,
-  EmptyState,
-  type EmptyStateProps,
-  Modal,
-  ConfirmDialog,
-  type ModalProps,
-  type ConfirmDialogProps,
-  FormField,
-  Input,
-  Textarea,
-  Select,
-  TextField,
-  type FormFieldProps,
-  type InputProps,
-  type TextareaProps,
-  type SelectProps,
-  Tabs,
-  Pagination,
-  Disclosure,
-  type TabsProps,
-  type TabItem,
-  type PaginationProps,
-  type DisclosureProps,
-  Stepper,
-  FormSection,
-  AutosaveIndicator,
-  type StepperProps,
-  type StepperStep,
-  type FormSectionProps,
-  type AutosaveIndicatorProps,
-  type AutosaveStatus,
-  ProtectedComponent,
-  ProtectedField,
-  PermissionContext,
-  usePermission,
-  useFieldAccess,
-  type ProtectedComponentProps,
-  type ProtectedFieldProps,
-  DatePicker,
-  type DatePickerProps,
-  ComboBox,
-  type ComboBoxProps,
-  type ComboBoxOption,
-  InfoHint,
-  type InfoHintProps,
-  ProgressHUD,
-  type ProgressHUDProps,
-  type ProgressHUDItem,
-  BrandMark,
-  type BrandMarkProps,
-  TrialCountdown,
-  type TrialCountdownProps,
-  CommandPalette,
-  useCommandPalette,
-  Breadcrumb,
-  Steps,
-  SideNav,
-  type CommandPaletteProps,
-  type CommandItem,
-  type BreadcrumbProps,
-  type BreadcrumbItem,
-  type StepsProps,
-  type StepItem,
-  type SideNavProps,
-  type SideNavItem,
-  PageHeader,
-  type PageHeaderProps,
-  FilterBar,
-  type FilterBarProps,
-  SavedViewSwitcher,
-  type SavedViewSwitcherProps,
-  BulkActionBar,
-  type BulkActionBarProps,
-  DetailLayout,
-  type DetailLayoutProps,
-  RecordSidebar,
-  ApprovalTimeline,
-  AuditTrailPanel,
-  PrintLayout,
-  useVirtualScroll,
-  Drawer,
-  Popover,
-  Tooltip,
-  DropdownMenu,
-  ContextMenu,
-  Alert,
-  Banner,
-  Progress,
-  Switch,
-  Checkbox,
-  RadioGroup,
-  Slider,
-  TimePicker,
-  DateTimePicker,
-  Calendar,
-  Scheduler,
-  FiscalPeriodPicker,
-  CodeEditor,
-  RichTextEditor,
-  FileUpload,
-  Accordion,
-  Collapsible,
-  SplitView,
-  ResizablePanel,
-  DescriptionList,
-  Timeline,
-  TreeView,
-  Avatar,
-  AvatarGroup,
-  LoadingState,
-  FilteredEmptyState,
-  ErrorState,
-  ForbiddenState,
-  PartialState,
-  ChangeHistory,
-} from "./components";
-
-export * from "./components";
-
-export {
-  ViewSwitcher,
-  StatCardRow,
-  ListPageTemplate,
-  DetailPageTemplate,
-  ModuleTabLayout,
-  SubTabBar,
-  type ViewSwitcherProps,
-  type ViewMode,
-  type StatCardRowProps,
-  type StatCardItem,
-  type ListPageTemplateProps,
-  type ListColumn,
-  type ListPageFilter,
-  type ListPaginationProps,
-  type DetailPageTemplateProps,
-  type DetailTab,
-  type ModuleTabLayoutProps,
-  type ModuleTab,
-  type SubTabBarProps,
-  type SubTab,
-} from "./layout";
-
+export * from "./primitives";
+export * from "./inputs";
+export * from "./overlays";
+export * from "./navigation";
+export * from "./data-display";
+export * from "./data-grid";
+export * from "./forms";
+export * from "./layout";
 export * from "./shell";
-export * from "./charts";
-
-export {
-  DataTable,
-  KanbanBoard,
-  ColumnPicker,
-  toCsv,
-  exportToCsv,
-  type Column,
-  type SortOrder,
-  type DataTableProps,
-  type KanbanBoardProps,
-  type KanbanColumn,
-  type KanbanItem,
-  type ColumnPickerProps,
-  type ColumnPickerOption,
-} from "./data-grid";
-
+export * from "./studio";
 export * from "./dashboard";
+export * from "./charts";
+export * from "./theme";
+export * from "./blocks";
 
-export {
-  ToastProvider,
-  useToast,
-  DemoBanner,
-  NotificationCenter,
-  type ToastOptions,
-  type ToastVariant,
-  type DemoBannerProps,
-  type NotificationCenterProps,
-  type NotificationItem,
-  type NotificationPriority,
-  type NotificationCategory,
-} from "./notifications";
-
-export {
-  ThemeProvider,
-  useTheme,
-  useOptionalTheme,
-  ThemeQuickToggle,
-  ThemeScope,
-  type ThemeScopeProps,
-  THEMES,
-  DEFAULT_THEME,
-  type ThemeName,
-  type ThemeSetting,
-  type ThemeProviderProps,
-  type BrandingTokens,
-  type ThemeQuickToggleProps,
-  DENSITIES,
-  DEFAULT_DENSITY,
-  type DensityName,
-} from "./theme";
-
-// Website Builder Blocks
-export {
-  HeroBlock,
-  TrustBarBlock,
-  FeaturesGridBlock,
-  SocialProofBlock,
-  HowItWorksBlock,
-  PricingBlock,
-  FaqBlock,
-  type HowItWorksBlockProps,
-} from "./blocks";
-
+// Explicit non-conflicting exports from workflow, form-engine, notifications
 export {
   ApprovalChain,
   type Approver,
@@ -258,3 +41,13 @@ export {
   type FormSectionSchema,
   type FormFieldType,
 } from "./form-engine";
+
+export {
+  DemoBanner,
+  type DemoBannerProps,
+  NotificationCenter,
+  type NotificationCenterProps,
+  type NotificationItem,
+  type NotificationPriority,
+  type NotificationCategory,
+} from "./notifications";

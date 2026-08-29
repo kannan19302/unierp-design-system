@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { Button } from "../button";
+import { Button } from "../index";
 
 describe("Button", () => {
   it("renders and fires onClick", async () => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { NotificationCenter, type NotificationItem } from "./notification-center";
-import { Button } from "../components/button";
+import { Button } from "../primitives/button";
 
 const meta: Meta<typeof NotificationCenter> = {
   title: "Notifications/NotificationCenter",

@@ -1,0 +1,181 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — ComboBox Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  position: relative;
+  width: 100%;
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--density-control-height, 32px);
+  padding: 0 var(--density-control-padding-x, var(--space-3));
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.trigger:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.valueContainer {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placeholder {
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.singleValue {
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.multiTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: 2px 0;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  color: var(--surface-text-primary, var(--color-text));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  padding: 1px var(--space-1-5);
+  font-size: var(--type-micro, 11px);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: var(--space-2);
+  flex-shrink: 0;
+}
+
+.clearBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.clearBtn:hover {
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.chevron {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  transition: transform var(--duration-fast) var(--ease-default);
+}
+
+.openChevron {
+  transform: rotate(180deg);
+}
+
+.popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  box-shadow: var(--shadow-md);
+  z-index: var(--z-dropdown, 100);
+  overflow: hidden;
+}
+
+.searchBox {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+}
+
+.searchInput {
+  width: 100%;
+  height: 28px;
+  padding: 0 var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-primary, var(--color-text));
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  border-color: var(--color-primary);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-1) 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-1-5) var(--space-3);
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-primary, var(--color-text));
+  cursor: pointer;
+  user-select: none;
+}
+
+.item:hover {
+  background: var(--surface-hover, var(--color-bg-sunken));
+}
+
+.highlightedItem {
+  background: var(--surface-hover, var(--color-bg-sunken));
+}
+
+.selectedItem {
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+}
+
+.checkIcon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.empty {
+  padding: var(--space-3);
+  text-align: center;
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}

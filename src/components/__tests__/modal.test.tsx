@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { Modal } from "../modal";
+import { Modal } from "../index";
 
 describe("Modal", () => {
   it("renders title and children when open", () => {

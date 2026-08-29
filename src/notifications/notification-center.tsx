@@ -2,8 +2,8 @@
 
 import { useState, useEffect, type FC, type ReactNode } from "react";
 import { X, CheckCheck, Bell, AlertCircle, Info, ShieldAlert, CreditCard } from "lucide-react";
-import { Badge } from "../components/badge";
-import { Button } from "../components/button";
+import { Badge } from "../primitives/badge";
+import { Button } from "../primitives/button";
 import styles from "./notification-center.module.css";
 
 export type NotificationPriority = "urgent" | "high" | "normal" | "low";
@@ -170,7 +170,7 @@ export const NotificationCenter: FC<NotificationCenterProps> = ({
                     <Button
                       variant="secondary"
                       size="sm"
-                      onClick={(e) => {
+                      onClick={(e: any) => {
                         e.stopPropagation();
                         item.onAction?.();
                       }}

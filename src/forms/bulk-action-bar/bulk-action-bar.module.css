@@ -1,0 +1,73 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — BulkActionBar & ContextualSaveBar Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.bulkBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary-light);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm, 2px);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.count {
+  font-size: var(--type-dense, var(--text-sm));
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Contextual Save Bar ── */
+.contextualSaveBar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky, 200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border-bottom: 2px solid var(--color-primary);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.saveMessage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--type-dense, var(--text-sm));
+  font-weight: var(--weight-semibold);
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.saveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-warning, #b45309);
+  flex-shrink: 0;
+}
+
+.saveActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}

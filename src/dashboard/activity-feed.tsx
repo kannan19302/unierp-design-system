@@ -2,7 +2,7 @@
 
 import { useState, type FC, type ReactNode } from "react";
 import { ChevronDown, ChevronRight, Activity } from "lucide-react";
-import { Badge } from "../components/badge";
+import { Badge } from "../primitives/badge";
 import styles from "./activity-feed.module.css";
 
 export type AuditActionType =

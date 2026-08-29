@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { InspectorShell } from "./inspector-shell";
 import { WorkbenchShell } from "./workbench-shell";
-import { Button } from "../components/button";
-import { Badge } from "../components/badge";
-import { Card } from "../components/card";
+import { Button } from "../primitives/button";
+import { Badge } from "../primitives/badge";
+import { Card } from "../data-display/card";
 
 const meta: Meta = {
   title: "Shell/EnterpriseShells",

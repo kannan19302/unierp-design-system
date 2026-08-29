@@ -1,0 +1,19 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--type-body-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+}
+
+.time {
+  font-family: var(--font-mono, monospace);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text);
+}
+
+.expired {
+  color: var(--color-danger);
+  font-weight: var(--font-weight-medium, 500);
+}

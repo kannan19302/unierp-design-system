@@ -9,8 +9,8 @@ import {
   UserCheck,
   CornerDownRight,
 } from "lucide-react";
-import { Badge } from "../components/badge";
-import { Button } from "../components/button";
+import { Badge } from "../primitives/badge";
+import { Button } from "../primitives/button";
 import styles from "./approval-chain.module.css";
 
 export type ApprovalStatus =

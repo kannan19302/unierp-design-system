@@ -14,12 +14,12 @@ const SRC = join(ROOT, "src");
 
 const REQUIRED_DENSITY_FILES = [
   "src/tokens/v2/density.css",
-  "src/components/button.module.css",
-  "src/components/form.module.css",
-  "src/components/combobox.module.css",
-  "src/components/date-picker.module.css",
-  "src/components/navigation.module.css",
-  "src/components/card.module.css",
+  "src/primitives/button/button.module.css",
+  "src/inputs/form-control/form-control.module.css",
+  "src/inputs/combobox/combobox.module.css",
+  "src/inputs/date-picker/date-picker.module.css",
+  "src/navigation/tabs/tabs.module.css",
+  "src/data-display/card/card.module.css",
   "src/data-grid/table.tsx",
 ];
 

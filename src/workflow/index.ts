@@ -5,11 +5,14 @@
  */
 export {
   Stepper,
-  AutosaveIndicator,
   type StepperProps,
   type StepperStep,
+} from "../navigation/stepper";
+
+export {
+  AutosaveIndicator,
   type AutosaveStatus,
-} from "../components";
+} from "../inputs/form-control";
 
 export {
   ApprovalChain,

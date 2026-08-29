@@ -1,0 +1,90 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — RadioGroup Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.group {
+  display: flex;
+  gap: var(--space-3);
+  font-family: var(--font-sans);
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.item {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.disabledItem {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.hiddenInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.hiddenInput:focus-visible + .radio {
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  border-color: var(--color-primary);
+}
+
+.checked {
+  border-color: var(--color-primary);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.labelContent {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.label {
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-primary, var(--color-text));
+  font-weight: var(--weight-medium);
+}
+
+.hint {
+  font-size: var(--type-micro, 11px);
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  margin-top: 2px;
+}

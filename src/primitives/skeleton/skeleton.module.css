@@ -1,0 +1,46 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Skeleton Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.skeleton {
+  display: block;
+  width: var(--skeleton-w, 100%);
+  height: var(--skeleton-h, 16px);
+  border-radius: var(--skeleton-r, var(--radius-sm, 2px));
+  background: linear-gradient(
+    90deg,
+    var(--surface-sunken-bg, var(--color-bg-sunken)) 25%,
+    var(--surface-hover, var(--color-border)) 37%,
+    var(--surface-sunken-bg, var(--color-bg-sunken)) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  box-sizing: border-box;
+}
+
+.circle {
+  border-radius: 50% !important;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

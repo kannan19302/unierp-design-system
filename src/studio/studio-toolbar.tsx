@@ -8,7 +8,7 @@ import {
   PlayCircle,
   Rocket,
 } from "lucide-react";
-import { Button } from "../components/button";
+import { Button } from "../primitives/button";
 import styles from "./studio-toolbar.module.css";
 
 /**

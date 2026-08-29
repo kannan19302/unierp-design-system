@@ -103,7 +103,7 @@ export {
   ErrorState as PageErrorState,
   EmptyState as PageEmptyState,
   ForbiddenState as PageUnauthorizedState,
-} from "../components/six-states";
+} from "../data-display/empty-state";
 
 export {
   InspectorShell,

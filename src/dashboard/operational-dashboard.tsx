@@ -1,7 +1,7 @@
 "use client";
 
 import { type FC, type ReactNode } from "react";
-import { KPIStrip, type KPICardItem } from "../components/kpi-strip";
+import { KPIStrip, type KPICardItem } from "../data-display/stat-card";
 import styles from "./multi-page-dashboard.module.css";
 
 export interface OperationalDashboardProps {

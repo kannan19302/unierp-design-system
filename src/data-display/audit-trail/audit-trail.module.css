@@ -1,0 +1,176 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — AuditTrail & Approval Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.approvalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  font-family: var(--font-sans);
+}
+
+.approvalStep {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2-5);
+}
+
+.stepIconWrap {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.approvedIcon {
+  color: var(--color-success, #15803d);
+}
+
+.rejectedIcon {
+  color: var(--color-danger, #ef4444);
+}
+
+.pendingIcon {
+  color: var(--color-warning, #b45309);
+}
+
+.stepContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.approver {
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-bold);
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.role {
+  font-size: 10px;
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.statusBadge {
+  font-size: 9px;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1px 4px;
+  border-radius: var(--radius-xs, 2px);
+}
+
+.statusBadge.approved {
+  background: var(--color-success-light, #dcfce7);
+  color: var(--color-success, #15803d);
+}
+
+.statusBadge.rejected {
+  background: var(--color-danger-light, #fee2e2);
+  color: var(--color-danger, #ef4444);
+}
+
+.statusBadge.pending {
+  background: var(--color-warning-light, #fef3c7);
+  color: var(--color-warning, #b45309);
+}
+
+.timestamp {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.stepNotes {
+  font-size: var(--type-micro, 11px);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+  margin-top: 2px;
+}
+
+/* ── Audit Panel ── */
+.auditPanel {
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  padding: var(--space-3);
+  font-family: var(--font-sans);
+}
+
+.auditHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  padding-bottom: var(--space-1-5);
+}
+
+.shieldIcon {
+  color: var(--color-primary);
+}
+
+.auditTitle {
+  margin: 0;
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-bold);
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.logList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.logRow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-bottom: 1px dashed var(--surface-1-border, var(--color-border));
+  padding-bottom: var(--space-1);
+}
+
+.logRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.logMeta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1-5);
+}
+
+.logUser {
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-semibold);
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.logAction {
+  font-size: var(--type-micro, 11px);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+}
+
+.logTimeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logTime {
+  font-size: 10px;
+  color: var(--surface-text-tertiary, var(--color-text-muted));
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.logHash {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--surface-text-tertiary, var(--color-text-muted));
+}

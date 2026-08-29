@@ -1,0 +1,74 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — EmptyState & SixStates Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.iconWell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm, 2px);
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  margin-bottom: var(--space-3);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+}
+
+.title {
+  margin: 0;
+  font-size: var(--type-dense, var(--text-sm));
+  font-weight: var(--weight-bold);
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.description {
+  margin: var(--space-1) 0 0;
+  font-size: var(--type-caption, var(--text-xs));
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  max-width: 320px;
+  line-height: var(--leading-normal);
+}
+
+.actionWrap {
+  margin-top: var(--space-4);
+}
+
+/* ── Six States helpers ── */
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-10) var(--space-4);
+  gap: var(--space-3);
+  font-family: var(--font-sans);
+}
+
+.loadingMessage {
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+}
+
+.filterIcon {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.dangerIcon {
+  color: var(--color-danger, #ef4444);
+}
+
+.warningIcon {
+  color: var(--color-warning, #b45309);
+}

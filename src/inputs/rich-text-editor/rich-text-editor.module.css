@@ -1,0 +1,71 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — RichTextEditor Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  overflow: hidden;
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.container:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+}
+
+.toolBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-xs, 2px);
+  color: var(--surface-text-primary, var(--color-text));
+  cursor: pointer;
+  padding: 0;
+}
+
+.toolBtn:hover {
+  background: var(--surface-hover, rgba(0, 0, 0, 0.05));
+}
+
+.divider {
+  width: 1px;
+  height: 14px;
+  background: var(--surface-1-border, var(--color-border));
+  margin: 0 var(--space-1);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-3);
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-primary, var(--color-text));
+  line-height: var(--leading-normal);
+  resize: vertical;
+  box-sizing: border-box;
+}

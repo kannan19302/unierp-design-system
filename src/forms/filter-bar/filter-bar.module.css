@@ -1,0 +1,90 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — FilterBar Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1-5) var(--space-3);
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+.filterLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-bold);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.filterIcon {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.filterContent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+  color: var(--color-danger, #ef4444);
+  cursor: pointer;
+  outline: none;
+}
+
+.clearBtn:hover {
+  text-decoration: underline;
+}
+
+/* ── FilterTag ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 1px var(--space-2);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-xs, 2px);
+  font-size: var(--type-micro, 11px);
+  color: var(--surface-text-primary, var(--color-text));
+}
+
+.tagLabel {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.tagValue {
+  font-weight: var(--weight-medium);
+}
+
+.tagRemoveBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.tagRemoveBtn:hover {
+  color: var(--color-danger, #ef4444);
+}
