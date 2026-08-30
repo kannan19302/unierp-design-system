@@ -2,7 +2,7 @@
 
 import type { FC } from "react";
 import { Moon, Sun } from "lucide-react";
-import { useOptionalTheme } from "../theme-provider";
+import { useOptionalTheme } from "../theme-provider/theme-provider";
 
 
 export interface ThemeQuickToggleProps {

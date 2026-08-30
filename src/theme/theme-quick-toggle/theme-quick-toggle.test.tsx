@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
 import { ThemeQuickToggle } from "./theme-quick-toggle";
-import { ThemeProvider } from "../theme-provider";
+import { ThemeProvider } from "../theme-provider/theme-provider";
 
 describe("ThemeQuickToggle Primitive", () => {
   it("renders light/dark toggle and responds to click", () => {

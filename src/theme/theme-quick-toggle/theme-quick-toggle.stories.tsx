@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ThemeQuickToggle } from "./theme-quick-toggle";
-import { ThemeProvider } from "../theme-provider";
+import { ThemeProvider } from "../theme-provider/theme-provider";
 
 const meta: Meta<typeof ThemeQuickToggle> = {
   title: "Theme/ThemeQuickToggle",
