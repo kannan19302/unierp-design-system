@@ -149,18 +149,16 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
+const NOOP_TOAST: ToastApi = {
+  toast: () => "",
+  success: () => "",
+  error: () => "",
+  warning: () => "",
+  info: () => "",
+  dismiss: () => {},
+};
+
 export function useToast(): ToastApi {
   const ctx = useContext(ToastContext);
-  if (!ctx) {
-    const noop = (_o: ToastOptions) => "";
-    return {
-      toast: noop,
-      success: (_t, _d) => "",
-      error: (_t, _d) => "",
-      warning: (_t, _d) => "",
-      info: (_t, _d) => "",
-      dismiss: (_id) => {},
-    };
-  }
-  return ctx;
+  return ctx || NOOP_TOAST;
 }
