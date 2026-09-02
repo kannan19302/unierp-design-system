@@ -37,6 +37,14 @@ const meta: Meta<typeof StudioShell> = {
   title: "Studio/StudioShell",
   component: StudioShell,
   parameters: { layout: "fullscreen" },
+  argTypes: {
+    toolbar: { control: false },
+    palette: { control: false },
+    canvas: { control: false },
+    inspector: { control: false },
+    console: { control: false },
+    children: { control: false },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof StudioShell>;

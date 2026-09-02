@@ -5,6 +5,13 @@ const meta: Meta<typeof WorkbenchShell> = {
   title: "Shell/WorkbenchShell",
   component: WorkbenchShell,
   parameters: { layout: "fullscreen" },
+  argTypes: {
+    topBar: { control: false },
+    classificationTree: { control: false },
+    recordList: { control: false },
+    recordDetail: { control: false },
+    children: { control: false },
+  },
 };
 
 export default meta;

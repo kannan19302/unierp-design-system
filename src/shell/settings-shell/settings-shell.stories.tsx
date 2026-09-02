@@ -12,6 +12,13 @@ const meta: Meta<typeof SettingsShell> = {
   title: "Shell/SettingsShell",
   component: SettingsShell,
   parameters: { layout: "fullscreen" },
+  argTypes: {
+    items: { control: false },
+    onSelect: { control: false },
+    onSave: { control: false },
+    onDiscard: { control: false },
+    children: { control: false },
+  },
 };
 
 export default meta;

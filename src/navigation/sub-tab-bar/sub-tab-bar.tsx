@@ -23,8 +23,14 @@ export const SubTabBar: FC<SubTabBarProps> = ({
   ariaLabel,
   className = "",
 }) => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  let pathname = "";
+  let searchParams: any = null;
+  try {
+    pathname = usePathname() || "";
+    searchParams = useSearchParams();
+  } catch {
+    // Non-Next context fallback
+  }
 
   let activeId: string | null = null;
   let bestScore = -1;

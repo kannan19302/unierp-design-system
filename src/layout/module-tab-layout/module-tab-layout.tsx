@@ -82,8 +82,14 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
   onCloseTab,
   children,
 }) => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  let pathname = "";
+  let searchParams: any = new URLSearchParams();
+  try {
+    pathname = usePathname() || "";
+    searchParams = useSearchParams() || new URLSearchParams();
+  } catch {
+    // Non-Next context fallback
+  }
   const {
     pinned,
     togglePin,

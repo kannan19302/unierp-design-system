@@ -227,7 +227,7 @@ function checkTheme(theme) {
 /* ── entry ──────────────────────────────────────────────────────────────── */
 
 const arg = process.argv.indexOf("--theme");
-const themes = arg > -1 ? [process.argv[arg + 1]] : ["meridian", "meridian-dark"];
+const themes = arg > -1 ? [process.argv[arg + 1]] : ["meridian", "meridian-dark", "high-contrast"];
 
 let failed = 0;
 for (const theme of themes) {

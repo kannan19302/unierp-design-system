@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, type FC, type ReactNode } from "react";
+import { useEffect, useCallback, useState, type FC, type ReactNode } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./multi-page-dashboard.module.css";
@@ -19,29 +19,52 @@ export interface MultiPageDashboardProps {
   defaultPageId?: string;
 }
 
+function useSafeDashboardNav(defaultId?: string) {
+  const [localPage, setLocalPage] = useState<string | null>(defaultId ?? null);
+  let router: any = null;
+  let pathname = "";
+  let searchParams: any = null;
+
+  try {
+    router = useRouter();
+    pathname = usePathname() || "";
+    searchParams = useSearchParams();
+  } catch {
+    // Non-Next context fallback
+  }
+
+  const currentId = searchParams?.get?.("dashPage") || localPage || defaultId;
+
+  const goToPage = useCallback(
+    (id: string) => {
+      if (router && pathname && searchParams) {
+        try {
+          const params = new URLSearchParams(searchParams.toString());
+          params.set("dashPage", id);
+          router.push(`${pathname}?${params.toString()}`, { scroll: false });
+          return;
+        } catch {
+          // Local fallback
+        }
+      }
+      setLocalPage(id);
+    },
+    [pathname, router, searchParams],
+  );
+
+  return { currentId, goToPage };
+}
+
 export const MultiPageDashboard: FC<MultiPageDashboardProps> = ({
   pages,
   navActions,
   defaultPageId,
 }: any) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { currentId, goToPage } = useSafeDashboardNav(defaultPageId || pages[0]?.id);
 
-  const currentId =
-    searchParams.get("dashPage") || defaultPageId || pages[0]?.id;
   const currentIndex = pages.findIndex((p: any) => p.id === currentId);
   const safeIndex = currentIndex >= 0 ? currentIndex : 0;
   const currentPage = pages[safeIndex];
-
-  const goToPage = useCallback(
-    (id: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("dashPage", id);
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    },
-    [pathname, router, searchParams],
-  );
 
   const goPrev = useCallback(() => {
     if (safeIndex > 0) goToPage(pages[safeIndex - 1]!.id);

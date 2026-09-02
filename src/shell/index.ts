@@ -5,12 +5,14 @@
  * `AppWizardGrid`), and the manifest schema each platform declares its own
  * nav tree and permission map against.
  *
- * The page-level empty/loading/error/unauthorized states this module's
- * components use already existed in this package before W3 —
- * `LoadingState` / `ErrorState` / `EmptyState` / `ForbiddenState` in
- * `../components/six-states` — and are re-exported here under the names the
- * platform plan uses, so a consumer of `@kannan19302/ui/shell` finds
- * everything the navigation layer needs at one import path.
+ * Meridian Workbench 7 Core Floorplans:
+ * 1. DataWorkspace (List / Ledger / Table)
+ * 2. RecordWorkspace (Object / Record details)
+ * 3. TransactionWorkspace (Document / Line-items / Vouchers)
+ * 4. OperationalWorkspace (Operations / Workbenches / Queues)
+ * 5. PlanningWorkspace (Gantt / Timeline / Scheduling)
+ * 6. SettingsWorkspace (Configuration / Preferences)
+ * 7. StudioWorkspace (Visual Builders / Studio)
  */
 
 export {
@@ -22,6 +24,48 @@ export {
   type MeridianState,
   type MeridianScope,
 } from "./meridian-bar";
+
+export {
+  DataWorkspace,
+  type DataWorkspaceProps,
+  type DataWorkspaceColumn,
+  type DataWorkspaceFilter,
+  type DataWorkspacePagination,
+} from "./data-workspace";
+
+export {
+  TransactionWorkspace,
+  type TransactionWorkspaceProps,
+  type TransactionSummaryItem,
+} from "./transaction-workspace";
+
+export {
+  PlanningWorkspace,
+  type PlanningWorkspaceProps,
+  type PlanningTimeframe,
+} from "./planning-workspace";
+
+export {
+  RecordShell,
+  RecordShell as RecordWorkspace,
+  ObjectPage,
+  type RecordShellProps,
+  type ObjectPageProps,
+  type ObjectSection,
+} from "./record-shell";
+
+export {
+  WorkbenchShell,
+  WorkbenchShell as OperationalWorkspace,
+  type WorkbenchShellProps,
+} from "./workbench-shell";
+
+export {
+  SettingsShell,
+  SettingsShell as SettingsWorkspace,
+  type SettingsShellProps,
+  type SettingsItem,
+} from "./settings-shell";
 
 export {
   CatalogShell,
@@ -45,24 +89,10 @@ export {
 } from "./ops-shell";
 
 export {
-  SettingsShell,
-  type SettingsShellProps,
-  type SettingsItem,
-} from "./settings-shell";
-
-export {
   LaunchShell,
   type LaunchShellProps,
   type LaunchPlate,
 } from "./launch-shell";
-
-export {
-  RecordShell,
-  ObjectPage,
-  type RecordShellProps,
-  type ObjectPageProps,
-  type ObjectSection,
-} from "./record-shell";
 
 export {
   EditorialShell,
@@ -109,11 +139,6 @@ export {
   InspectorShell,
   type InspectorShellProps,
 } from "./inspector-shell";
-
-export {
-  WorkbenchShell,
-  type WorkbenchShellProps,
-} from "./workbench-shell";
 
 export {
   type PlatformManifest,

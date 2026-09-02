@@ -24,6 +24,12 @@ const meta: Meta<typeof RecordShell> = {
   title: "Shell/RecordShell",
   component: RecordShell,
   parameters: { layout: "fullscreen" },
+  argTypes: {
+    bar: { control: false },
+    list: { control: false },
+    inspector: { control: false },
+    children: { control: false },
+  },
 };
 
 export default meta;

@@ -1,30 +1,143 @@
-/* High Contrast — WCAG-oriented: strong borders, pure surfaces, dark text. */
+/* ════════════════════════════════════════════════
+   HIGH CONTRAST
+   WCAG AAA / AA compliant high-contrast theme:
+   Pure surfaces, maximum text contrast, 1px/2px solid borders.
+   ════════════════════════════════════════════════ */
+
 [data-theme="high-contrast"] {
   color-scheme: light;
+
+  /* ── Typefaces ── */
+  --font-display: "Instrument Sans", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, "IBM Plex Mono", "Consolas", monospace;
+
+  /* ── Surfaces ── */
   --color-bg: #ffffff;
   --color-bg-elevated: #ffffff;
   --color-bg-sunken: #f0f0f0;
   --color-bg-hover: #e0e0e0;
   --color-bg-active: #cccccc;
+  --color-bg-overlay: rgb(0 0 0 / 0.7);
+
+  /* Surface Aliases */
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-surface-sunken: #f0f0f0;
+  --color-surface-muted: #f0f0f0;
+  --color-surface-hover: #e0e0e0;
+
+  /* ── Borders ── */
   --color-border: #000000;
   --color-border-strong: #000000;
   --color-border-focus: #0000cc;
+
+  /* ── Text ── */
   --color-text: #000000;
+  --color-text-primary: #000000;
   --color-text-secondary: #1f1f1f;
   --color-text-tertiary: #333333;
+  --color-text-muted: #1f1f1f;
+  --color-text-inverse: #ffffff;
   --color-text-link: #0000cc;
+  --color-brand: #0000cc;
+
+  /* ── Brand / Primary ── */
   --color-primary: #0000cc;
   --color-primary-hover: #0000a3;
   --color-primary-active: #00007a;
   --color-primary-light: #e5e5ff;
+  --color-primary-subtle: #e5e5ff;
+  --color-primary-text: #ffffff;
+  --on-primary: #ffffff;
+  --on-danger: #ffffff;
+
+  /* ── Success ── */
   --color-success: #006400;
+  --color-success-hover: #004d00;
+  --color-success-light: #e6f4e6;
   --color-success-text: #003300;
+
+  /* ── Warning ── */
   --color-warning: #8a5a00;
+  --color-warning-hover: #6e4800;
+  --color-warning-light: #fff4e5;
   --color-warning-text: #4d3200;
+
+  /* ── Danger ── */
   --color-danger: #b30000;
+  --color-danger-hover: #8f0000;
+  --color-danger-light: #ffe5e5;
   --color-danger-text: #660000;
+
+  /* ── Info ── */
   --color-info: #004f8a;
+  --color-info-hover: #003c69;
+  --color-info-light: #e5f2ff;
   --color-info-text: #002b4d;
+
+  /* ── State aliases ── */
+  --color-success-subtle: var(--color-success-light);
+  --color-success-default: var(--color-success);
+  --color-success-strong: var(--color-success-hover);
+
+  --color-warning-subtle: var(--color-warning-light);
+  --color-warning-default: var(--color-warning);
+  --color-warning-strong: var(--color-warning-hover);
+
+  --color-error-subtle: var(--color-danger-light);
+  --color-error-default: var(--color-danger);
+  --color-error-strong: var(--color-danger-hover);
+
+  --color-info-subtle: var(--color-info-light);
+  --color-info-default: var(--color-info);
+  --color-info-strong: var(--color-info-hover);
+
+  /* ── Sidebar ── */
+  --color-sidebar-bg: #ffffff;
+  --color-sidebar-text: #000000;
+  --color-sidebar-text-active: #000000;
+  --color-sidebar-hover: #e0e0e0;
+  --color-sidebar-active: #e5e5ff;
+  --color-sidebar-border: #000000;
+
+  /* ── Scope hues ── */
+  --scope-app: #0000cc;
+  --scope-site: #5500aa;
+  --scope-library: #8a5a00;
+  --scope-manage: #000000;
+
+  /* ── Avatar identity ramp ── */
+  --color-avatar-0-bg: #e5e5ff;
+  --color-avatar-0-fg: #000080;
+  --color-avatar-1-bg: #ffe5f0;
+  --color-avatar-1-fg: #800040;
+  --color-avatar-2-bg: #e5f5e5;
+  --color-avatar-2-fg: #005000;
+  --color-avatar-3-bg: #fff0db;
+  --color-avatar-3-fg: #704000;
+  --color-avatar-4-bg: #f0e5ff;
+  --color-avatar-4-fg: #4b0082;
+  --color-avatar-5-bg: #e0f5f5;
+  --color-avatar-5-fg: #005060;
+  --color-avatar-6-bg: #ffe5e5;
+  --color-avatar-6-fg: #800000;
+  --color-avatar-7-bg: #e0f5ee;
+  --color-avatar-7-fg: #005540;
+
+  /* ── Chart categorical ramp (alternating dark/light for greyscale separation) ── */
+  --chart-1: #000000;
+  --chart-2: #b37400;
+  --chart-3: #0000cc;
+  --chart-4: #00994d;
+  --chart-5: #800000;
+  --chart-6: #b300b3;
+  --chart-7: #004d80;
+  --chart-8: #738c00;
+  --chart-9: #5c246e;
+  --chart-10: #994d00;
+
+  /* ── Shadows (disabled for high contrast) ── */
   --shadow-xs: none;
   --shadow-sm: none;
   --shadow-md: none;
