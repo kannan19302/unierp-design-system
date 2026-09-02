@@ -15,6 +15,7 @@ export const ICON_DENSITY_SIZES: Record<DensityName, number> = {
   comfortable: 20,
   standard: 18,
   compact: 16,
+  "ultra-compact": 14,
 };
 
 export const ICON_SIZE_SCALE = {

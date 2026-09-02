@@ -9,31 +9,46 @@
  * - Legacy themes are deprecated and will be removed in the next major
  */
 export const THEMES = [
+  "strata",
+  "strata-dark",
+  "strata-high-contrast",
+  "meridian",
+  "meridian-dark",
+  "high-contrast",
   "enterprise",
   "modern",
   "minimal",
   "classic",
   "dark",
   "light",
-  "high-contrast",
-  "meridian",
-  "meridian-dark",
 ] as const;
 export type ThemeName = (typeof THEMES)[number];
-export const DEFAULT_THEME: ThemeName = "meridian";
+export const DEFAULT_THEME: ThemeName = "strata";
 
 /**
- * DL 2.0 recommended themes — the only themes that receive new token coverage.
- * Legacy themes (enterprise, modern, minimal, classic, dark, light) are deprecated.
+ * Strata Workbench themes — the primary authoritative theme set for UniERP.
+ */
+export const STRATA_THEMES = [
+  "strata",
+  "strata-dark",
+  "strata-high-contrast",
+] as const;
+export type StrataThemeName = (typeof STRATA_THEMES)[number];
+
+/**
+ * DL 2.0 recommended themes — including Strata and backward-compatible Meridian.
  */
 export const DL2_THEMES = [
+  "strata",
+  "strata-dark",
+  "strata-high-contrast",
   "meridian",
   "meridian-dark",
   "high-contrast",
 ] as const;
 export type DL2ThemeName = (typeof DL2_THEMES)[number];
 
-/** @deprecated Use DL2_THEMES. Legacy themes will be removed in the next major. */
+/** @deprecated Use STRATA_THEMES or DL2_THEMES. */
 export const LEGACY_THEMES = [
   "enterprise",
   "modern",
@@ -47,12 +62,13 @@ export type LegacyThemeName = (typeof LEGACY_THEMES)[number];
 /**
  * Density is orthogonal to color theme — applies to any theme via [data-density].
  *
- * DL 2.0 introduces "standard" as the balanced default:
- * - comfortable: onboarding, touch, dashboards, casual users
- * - standard:    default balanced UniERP experience
- * - compact:     finance, accounting, inventory, operations, expert users
+ * Strata establishes a 4-tier density scale:
+ * - ultra-compact: 24px row for general ledger, financial journals, stock balances
+ * - compact:       28px row for operational queues, triage, expert users
+ * - standard:      32px row for balanced UniERP default experience
+ * - comfortable:   40px row for onboarding, POS, touch, dashboards
  */
-export const DENSITIES = ["comfortable", "standard", "compact"] as const;
+export const DENSITIES = ["comfortable", "standard", "compact", "ultra-compact"] as const;
 export type DensityName = (typeof DENSITIES)[number];
 export const DEFAULT_DENSITY: DensityName = "standard";
 

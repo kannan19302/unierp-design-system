@@ -1,0 +1,135 @@
+/* ════════════════════════════════════════════════
+   STRATA — dark
+   The UniERP Enterprise Design Language.
+   ════════════════════════════════════════════════
+
+   Tactical dark mode engineered for operations centers, developer tooling,
+   and executive consoles.
+*/
+
+[data-theme="strata-dark"],
+[data-theme="meridian-dark"] {
+  color-scheme: dark;
+
+  /* ── Typefaces ── */
+  --font-display: "Plus Jakarta Sans", "Inter Display", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", "Martian Mono", monospace;
+
+  /* ── Surfaces ── */
+  --color-bg: #09090b;
+  --color-bg-elevated: #18181b;
+  --color-bg-sunken: #0c0e12;
+  --color-bg-hover: #27272a;
+  --color-bg-active: #3f3f46;
+  --color-bg-overlay: rgb(0 0 0 / 0.75);
+
+  /* Surface Aliases */
+  --color-surface: #18181b;
+  --color-surface-elevated: #18181b;
+  --color-surface-sunken: #0c0e12;
+  --color-surface-muted: #0c0e12;
+  --color-surface-hover: #27272a;
+
+  /* Strata Specific Aliases */
+  --strata-bg-base: #09090b;
+  --strata-surface-card: #18181b;
+  --strata-surface-sunken: #0c0e12;
+  --strata-border: #27272a;
+
+  /* ── Borders ── */
+  --color-border: #27272a;
+  --color-border-strong: #71717a;
+  --color-border-focus: #38bdf8;
+
+  /* ── Text ── */
+  --color-text: #f4f4f5;
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #9ca3af;
+  --color-text-muted: #a1a1aa;
+  --color-text-inverse: #09090b;
+  --color-text-link: #38bdf8;
+  --color-brand: #38bdf8;
+
+  /* ── Brand / Primary (Electric Sapphire) ── */
+  --color-primary: #38bdf8;
+  --color-primary-hover: #0ea5e9;
+  --color-primary-active: #0284c7;
+  --color-primary-light: #082f49;
+  --color-primary-subtle: #0c4a6e;
+  --color-primary-text: #09090b;
+  --on-primary: #09090b;
+  --on-danger: #09090b;
+
+  /* ── Success (emerald) ── */
+  --color-success: #4ade80;
+  --color-success-hover: #22c55e;
+  --color-success-light: #052e16;
+  --color-success-text: #86efac;
+
+  /* ── Warning (amber) ── */
+  --color-warning: #fbbf24;
+  --color-warning-hover: #f59e0b;
+  --color-warning-light: #451a03;
+  --color-warning-text: #fde68a;
+
+  /* ── Danger (crimson) ── */
+  --color-danger: #f87171;
+  --color-danger-hover: #ef4444;
+  --color-danger-light: #450a0a;
+  --color-danger-text: #fca5a5;
+
+  /* ── Info (sky) ── */
+  --color-info: #60a5fa;
+  --color-info-hover: #3b82f6;
+  --color-info-light: #172554;
+  --color-info-text: #93c5fd;
+
+  /* ── State aliases ── */
+  --color-success-subtle: var(--color-success-light);
+  --color-success-default: var(--color-success);
+  --color-success-strong: var(--color-success-hover);
+
+  --color-warning-subtle: var(--color-warning-light);
+  --color-warning-default: var(--color-warning);
+  --color-warning-strong: var(--color-warning-hover);
+
+  --color-error-subtle: var(--color-danger-light);
+  --color-error-default: var(--color-danger);
+  --color-error-strong: var(--color-danger-hover);
+
+  --color-info-subtle: var(--color-info-light);
+  --color-info-default: var(--color-info);
+  --color-info-strong: var(--color-info-hover);
+
+  /* ── Sidebar ── */
+  --color-sidebar-bg: #09090b;
+  --color-sidebar-text: #a1a1aa;
+  --color-sidebar-text-active: #f4f4f5;
+  --color-sidebar-hover: #18181b;
+  --color-sidebar-active: #1e293b;
+  --color-sidebar-border: #27272a;
+
+  /* ── Scope Edges ── */
+  --scope-app: #38bdf8;
+  --scope-site: #2dd4bf;
+
+  /* ── Avatar identity ramp (dark) ── */
+  --color-avatar-0-bg: #1e3a8a;
+  --color-avatar-0-fg: #93c5fd;
+  --color-avatar-1-bg: #831843;
+  --color-avatar-1-fg: #f9a8d4;
+  --color-avatar-2-bg: #14532d;
+  --color-avatar-2-fg: #86efac;
+  --color-avatar-3-bg: #78350f;
+  --color-avatar-3-fg: #fde68a;
+  --color-avatar-4-bg: #4c1d95;
+  --color-avatar-4-fg: #c4b5fd;
+  --color-avatar-5-bg: #0c4a6e;
+  --color-avatar-5-fg: #7dd3fc;
+  --color-avatar-6-bg: #7f1d1d;
+  --color-avatar-6-fg: #fca5a5;
+  --color-avatar-7-bg: #134e4a;
+  --color-avatar-7-fg: #5eead4;
+}

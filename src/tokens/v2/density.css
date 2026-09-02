@@ -223,12 +223,84 @@
   --duration-slow: 100ms;
 }
 
+/* ── Ultra-Compact (Finance, Ledgers & High-Density Grids) ── */
+[data-density="ultra-compact"] {
+  /* Row & control dimensions */
+  --density-row-height: 24px;
+  --density-row-height-sm: 20px;
+  --density-control-height: 24px;
+  --density-control-height-sm: 20px;
+  --density-touch-target: 24px;
+
+  /* Cell & control padding */
+  --density-cell-padding-y: 2px;
+  --density-cell-padding-x: 6px;
+  --density-control-padding-y: 2px;
+  --density-control-padding-x: 6px;
+
+  /* Navigation */
+  --density-nav-item-height: 24px;
+  --density-nav-item-padding: 2px 6px;
+  --density-nav-group-gap: 2px;
+  --density-sidebar-width: 200px;
+  --density-sidebar-collapsed-width: 44px;
+
+  /* Toolbar & header */
+  --density-toolbar-height: 32px;
+  --density-topbar-height: 36px;
+
+  /* Content spacing */
+  --density-card-padding: 8px;
+  --density-section-gap: 8px;
+  --density-form-gap: 8px;
+  --density-list-item-height: 24px;
+  --density-list-item-padding: 2px 6px;
+
+  /* Tree & hierarchy */
+  --density-tree-indent: 12px;
+  --density-tree-item-height: 20px;
+
+  /* Typography overrides (strictly >= 11px) */
+  --density-body-size: 11px;
+  --density-body-line-height: 1.35;
+  --density-caption-size: 11px;
+  --density-label-size: 11px;
+
+  /* Inspector & panels */
+  --density-inspector-width: 260px;
+  --density-panel-gap: 6px;
+
+  /* Badge & chip */
+  --density-badge-height: 16px;
+  --density-badge-padding: 0 4px;
+  --density-chip-height: 20px;
+
+  /* Icon sizing */
+  --density-icon-size: 14px;
+  --density-icon-size-sm: 12px;
+  --density-icon-size-lg: 16px;
+
+  /* Modal */
+  --density-modal-padding: 12px;
+  --density-modal-gap: 8px;
+
+  /* Metadata */
+  --density-metadata-size: 11px;
+  --density-metadata-line-height: 1.25;
+
+  /* Instantaneous operations */
+  --duration-fast: 0ms;
+  --duration-normal: 0ms;
+  --duration-slow: 50ms;
+}
+
 /* ── Reduced Motion Accessibility ─────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   :root,
   [data-density="comfortable"],
   [data-density="standard"],
-  [data-density="compact"] {
+  [data-density="compact"],
+  [data-density="ultra-compact"] {
     --duration-fast: 0ms !important;
     --duration-normal: 0ms !important;
     --duration-slow: 0ms !important;

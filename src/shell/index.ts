@@ -16,6 +16,25 @@
  */
 
 export {
+  StrataBar,
+  type StrataBarProps,
+  type StrataState,
+  type StrataScope,
+  type LifecycleStep,
+} from "./strata-bar";
+
+export {
+  TabbedConsole,
+  type TabbedConsoleProps,
+  type ConsoleTab,
+} from "./tabbed-console";
+
+export {
+  SplitViewShell,
+  type SplitViewShellProps,
+} from "./split-view-shell";
+
+export {
   MeridianBar,
   formatSegments,
   type MeridianBarProps,
@@ -24,6 +43,7 @@ export {
   type MeridianState,
   type MeridianScope,
 } from "./meridian-bar";
+
 
 export {
   DataWorkspace,

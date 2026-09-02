@@ -1,0 +1,144 @@
+/* ════════════════════════════════════════════════
+   STRATA — light
+   The UniERP Enterprise Design Language.
+   ════════════════════════════════════════════════
+
+   Strata is UniERP's authoritative design language: engineered for
+   data-dense, high-velocity enterprise B2B SaaS.
+
+   THE FOUNDATION:
+   1. Slate/Zinc neutral grounds (#f8fafc canvas, #ffffff elevated surfaces,
+      #f1f5f9 sunken wells) replace warm muddy neutrals with crystalline clarity.
+   2. Strata Cobalt (#2563eb / #1d4ed8) primary accent commands authority,
+      achieving >7.2:1 contrast for high-productivity focus.
+   3. Hairline 1px borders (#e2e8f0, #94a3b8) establish structural framing without
+      unnecessary blur or wasted whitespace.
+   4. Tabular numeric alignment with JetBrains Mono for exact financial column decimals.
+*/
+
+[data-theme="strata"],
+[data-theme="meridian"] {
+  color-scheme: light;
+
+  /* ── Typefaces (Strata Enterprise Triad) ── */
+  --font-display: "Plus Jakarta Sans", "Inter Display", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", "Martian Mono", monospace;
+
+  /* ── Surfaces ── */
+  --color-bg: #f8fafc;
+  --color-bg-elevated: #ffffff;
+  --color-bg-sunken: #f1f5f9;
+  --color-bg-hover: #f1f5f9;
+  --color-bg-active: #e2e8f0;
+  --color-bg-overlay: rgb(15 23 42 / 0.5);
+
+  /* Surface Aliases */
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-surface-sunken: #f1f5f9;
+  --color-surface-muted: #f1f5f9;
+  --color-surface-hover: #f1f5f9;
+
+  /* Strata Specific Aliases */
+  --strata-bg-base: #f8fafc;
+  --strata-surface-card: #ffffff;
+  --strata-surface-sunken: #f1f5f9;
+  --strata-border: #e2e8f0;
+
+  /* ── Borders ── */
+  --color-border: #e2e8f0;
+  --color-border-strong: #64748b;
+  --color-border-focus: #2563eb;
+
+  /* ── Text ── */
+  --color-text: #0f172a;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-tertiary: #475569;
+  --color-text-muted: #475569;
+  --color-text-inverse: #ffffff;
+  --color-text-link: #1d4ed8;
+  --color-brand: #2563eb;
+
+  /* ── Brand / Primary (Strata Cobalt) ── */
+  --color-primary: #1d4ed8;
+  --color-primary-hover: #1e40af;
+  --color-primary-active: #172554;
+  --color-primary-light: #eff6ff;
+  --color-primary-subtle: #dbeafe;
+  --color-primary-text: #ffffff;
+  --on-primary: #ffffff;
+  --on-danger: #ffffff;
+
+  /* ── Success (emerald) ── */
+  --color-success: #15803d;
+  --color-success-hover: #166534;
+  --color-success-light: #f0fdf4;
+  --color-success-text: #14532d;
+
+  /* ── Warning (amber) ── */
+  --color-warning: #b45309;
+  --color-warning-hover: #92400e;
+  --color-warning-light: #fffbeb;
+  --color-warning-text: #78350f;
+
+  /* ── Danger (crimson) ── */
+  --color-danger: #b91c1c;
+  --color-danger-hover: #991b1b;
+  --color-danger-light: #fef2f2;
+  --color-danger-text: #7f1d1d;
+
+  /* ── Info (cobalt/sky) ── */
+  --color-info: #0369a1;
+  --color-info-hover: #075985;
+  --color-info-light: #f0f9ff;
+  --color-info-text: #0c4a6e;
+
+  /* ── State aliases (subtle/default/strong) ── */
+  --color-success-subtle: var(--color-success-light);
+  --color-success-default: var(--color-success);
+  --color-success-strong: var(--color-success-hover);
+
+  --color-warning-subtle: var(--color-warning-light);
+  --color-warning-default: var(--color-warning);
+  --color-warning-strong: var(--color-warning-hover);
+
+  --color-error-subtle: var(--color-danger-light);
+  --color-error-default: var(--color-danger);
+  --color-error-strong: var(--color-danger-hover);
+
+  --color-info-subtle: var(--color-info-light);
+  --color-info-default: var(--color-info);
+  --color-info-strong: var(--color-info-hover);
+
+  /* ── Sidebar ── */
+  --color-sidebar-bg: #ffffff;
+  --color-sidebar-text: #334155;
+  --color-sidebar-text-active: #0f172a;
+  --color-sidebar-hover: #f1f5f9;
+  --color-sidebar-active: #eff6ff;
+  --color-sidebar-border: #e2e8f0;
+
+  /* ── Scope Edges ── */
+  --scope-app: #1d4ed8;
+  --scope-site: #0f766e;
+
+  /* ── Avatar identity ramp (8-way AA contrast pairs) ── */
+  --color-avatar-0-bg: #dbeafe;
+  --color-avatar-0-fg: #1e40af;
+  --color-avatar-1-bg: #fce7f3;
+  --color-avatar-1-fg: #9d174d;
+  --color-avatar-2-bg: #dcfce7;
+  --color-avatar-2-fg: #166534;
+  --color-avatar-3-bg: #fef3c7;
+  --color-avatar-3-fg: #92400e;
+  --color-avatar-4-bg: #ede9fe;
+  --color-avatar-4-fg: #5b21b6;
+  --color-avatar-5-bg: #e0f2fe;
+  --color-avatar-5-fg: #075985;
+  --color-avatar-6-bg: #fee2e2;
+  --color-avatar-6-fg: #991b1b;
+  --color-avatar-7-bg: #ccfbf1;
+  --color-avatar-7-fg: #115e59;
+}

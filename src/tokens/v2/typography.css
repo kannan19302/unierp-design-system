@@ -30,13 +30,13 @@
 
 :root {
   /* ── Font families ──
-     Meridian Workbench font triad:
-     Display: Instrument Sans (semi-condensed, headings & KPIs)
+     Strata Workbench font triad:
+     Display: Plus Jakarta Sans / Inter Display / Instrument Sans (clean geometric hierarchy)
      Body:    Inter (workhorse data & UI text)
-     Mono:    Martian Mono (identifiers, versions, addresses, code) */
+     Mono:    JetBrains Mono / Geist Mono / Martian Mono (tabular numerics & identifiers) */
   --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, "Noto Sans", sans-serif;
-  --font-mono: "Martian Mono", ui-monospace, "IBM Plex Mono", "Consolas", "Liberation Mono", monospace;
-  --font-display: "Instrument Sans", "Archivo", "Helvetica Neue", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", "Martian Mono", ui-monospace, "IBM Plex Mono", "Consolas", monospace;
+  --font-display: "Plus Jakarta Sans", "Inter Display", "Instrument Sans", "Helvetica Neue", "Inter", system-ui, sans-serif;
 
   /* ── Enterprise type scale ──
      Semantic names tied to purpose, not arbitrary size labels.

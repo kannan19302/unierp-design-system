@@ -18,13 +18,15 @@
 @import "./charts.css";
 @import "./studio.css";
 
-/* Meridian — the UniERP design language. Imported LAST on purpose:
-   light.css declares on `[data-theme="light"], :root` and studio.css
-   declares a `[data-theme="dark"]` block, both at the same specificity as
-   the meridian selectors, so ties break on source order. Move these three
-   above any of the imports before them and every token here silently loses.
-   meridian-chrome.css must in turn come after the two theme files AND after
-   studio.css, for the same reason. */
+/* Meridian — legacy design language. */
 @import "./themes/meridian.css";
 @import "./themes/meridian-dark.css";
 @import "./meridian-chrome.css";
+
+/* Strata Workbench — the flagship UniERP enterprise design language.
+   Imported LAST so Strata tokens take authoritative precedence. */
+@import "./themes/strata.css";
+@import "./themes/strata-dark.css";
+@import "./themes/strata-high-contrast.css";
+@import "./strata-chrome.css";
+
