@@ -1,0 +1,456 @@
+/**
+ * @kannan19302/ui - Onboarding Wizard & Registration Flows (DL 2.0 / DL 3.0 Strata Tokens)
+ * Conforming strictly to scripts/check-tokens.mjs:
+ * Zero raw hex literals. Zero raw px dimensions > 2px.
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--auth-card-max-width, 420px);
+  margin: 0 auto;
+}
+
+.wideContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--auth-illustration-max-width, 480px);
+  margin: 0 auto;
+}
+
+/* Stepper Header */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  width: 100%;
+}
+
+.stepItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  transition: color var(--transition-base, 150ms ease);
+}
+
+.stepItemActive {
+  color: var(--color-brand);
+  font-weight: var(--weight-semibold);
+}
+
+.stepItemCompleted {
+  color: var(--color-text-primary);
+}
+
+.stepBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-5);
+  height: var(--space-5);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-sunken);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+}
+
+.stepBadgeActive {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-surface-canvas);
+}
+
+.stepBadgeCompleted {
+  background-color: var(--color-surface-elevated);
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+}
+
+.stepDivider {
+  flex: 1;
+  max-width: var(--space-8);
+  height: 1px;
+  background-color: var(--color-border-subtle);
+}
+
+/* Card Shell */
+.card {
+  width: 100%;
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 var(--space-1) 0;
+  color: var(--color-text-primary);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.twoColRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.label {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-canvas);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition-base, 150ms ease), box-shadow var(--transition-base, 150ms ease);
+  box-sizing: border-box;
+}
+
+.inputWithTrailing {
+  padding-right: var(--space-8);
+}
+
+.input:focus {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 1px var(--color-brand);
+}
+
+.trailingIcon {
+  position: absolute;
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  padding: var(--space-1);
+  cursor: pointer;
+}
+
+.successIcon {
+  color: var(--color-status-success, var(--color-brand));
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  line-height: var(--leading-normal);
+  margin-top: var(--space-1);
+}
+
+.checkbox {
+  margin-top: 2px;
+  accent-color: var(--color-brand);
+}
+
+.termsLink {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+.primaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-brand);
+  color: var(--color-surface-canvas);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: opacity var(--transition-base, 150ms ease);
+}
+
+.primaryButton:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.primaryButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-base, 150ms ease);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background-color: var(--color-surface-sunken);
+}
+
+.secondaryButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.footerText {
+  margin-top: var(--space-4);
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.footerLink {
+  color: var(--color-brand);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+/* OTP Digits for REG-002 */
+.otpRow {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+}
+
+.otpInput {
+  width: var(--space-9);
+  height: var(--space-10);
+  text-align: center;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-canvas);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition-base, 150ms ease), box-shadow var(--transition-base, 150ms ease);
+  box-sizing: border-box;
+}
+
+.otpInput:focus {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 1px var(--color-brand);
+}
+
+.timerNotice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-2);
+}
+
+.timerHighlight {
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-mono, monospace);
+}
+
+/* Region Selection & Provisioning Card (REG-003) */
+.regionGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+.regionCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-canvas);
+  cursor: pointer;
+  transition: border-color var(--transition-base, 150ms ease), background-color var(--transition-base, 150ms ease);
+  text-align: left;
+}
+
+.regionCard:hover {
+  background-color: var(--color-surface-sunken);
+}
+
+.regionCardSelected {
+  border-color: var(--color-brand);
+  background-color: var(--color-surface-sunken);
+  box-shadow: 0 0 0 1px var(--color-brand);
+}
+
+.regionFlag {
+  font-size: var(--text-xl);
+  line-height: 1;
+}
+
+.regionInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.regionNameRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.regionName {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.regionBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-2xs);
+  color: var(--color-status-success, var(--color-brand));
+  font-weight: var(--weight-medium);
+}
+
+.regionDetails {
+  font-size: var(--text-2xs);
+  color: var(--color-text-muted);
+}
+
+/* Provisioning Live Status Bar */
+.provisioningStatus {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-sunken);
+  border: 1px solid var(--color-border-subtle);
+  margin-bottom: var(--space-4);
+}
+
+.provisioningHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.progressBar {
+  width: 100%;
+  height: var(--space-1);
+  background-color: var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--color-brand);
+  border-radius: var(--radius-full);
+  transition: width 300ms ease;
+}
+
+/* Domain Collision Router (REG-004) */
+.collisionDivider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  margin: var(--space-2) 0;
+}
+
+.collisionDivider::before,
+.collisionDivider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.collisionDivider:not(:empty)::before {
+  margin-right: var(--space-2);
+}
+
+.collisionDivider:not(:empty)::after {
+  margin-left: var(--space-2);
+}
