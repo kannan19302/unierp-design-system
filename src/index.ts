@@ -17,6 +17,7 @@ export * from "./dashboard";
 export * from "./charts";
 export * from "./theme";
 export * from "./blocks";
+export * from "./brand";
 
 // Explicit non-conflicting exports from workflow, form-engine, notifications
 export {

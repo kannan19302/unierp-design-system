@@ -1,0 +1,173 @@
+/* ── Universal Footer — Product and marketing footer variants ──
+   Uses Strata DL 3.0 tokens exclusively. Zero raw hex/px values. */
+
+/* ── Product Variant ── */
+.productRoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--footer-height-compact);
+  padding: var(--space-2) var(--space-6);
+  background: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  gap: var(--space-4);
+}
+
+/* ── Marketing Variant ── */
+.marketingRoot {
+  background: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  padding: var(--space-12) var(--space-6) var(--space-8);
+}
+
+.container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-10);
+  padding-bottom: var(--space-10);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brandColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: var(--panel-width);
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.tagline {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+  margin: 0;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* ── Links Grid ── */
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--anchor-nav-width), 1fr));
+  gap: var(--space-8);
+  flex: 1;
+}
+
+.sectionColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.linkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.linkItem {
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Links & Legal ── */
+.link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+.link:hover {
+  color: var(--color-primary);
+}
+
+.productRoot .link {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+.productRoot .link:hover {
+  color: var(--color-text);
+}
+
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-8);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  gap: var(--space-4);
+}
+
+.copyright {
+  white-space: nowrap;
+}
+
+.legalList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.legalItem {
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .topSection {
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .bottomBar,
+  .productRoot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .linksGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

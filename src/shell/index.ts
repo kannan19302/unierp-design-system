@@ -165,3 +165,23 @@ export {
   type PlatformNavItem,
   resolveManifestNav,
 } from "./manifest";
+
+export {
+  AuthShell,
+  type AuthShellProps,
+  type AuthVariant,
+} from "./auth-shell";
+
+export {
+  AccountCenterShell,
+  type AccountCenterShellProps,
+  type AccountSection,
+} from "./account-center";
+
+export {
+  SiteShell,
+  type SiteShellProps,
+  type SiteNavItem,
+} from "./site-shell";
+
+

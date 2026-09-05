@@ -13,4 +13,5 @@ export * from "./stat-card-row";
 export * from "./view-switcher";
 export * from "./context-rail";
 export * from "./workspace-tabs";
+export * from "./footer";
 export * from "../navigation/sub-tab-bar";

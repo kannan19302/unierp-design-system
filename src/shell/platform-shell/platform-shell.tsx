@@ -1,7 +1,22 @@
 "use client";
 
-import { type CSSProperties, type FC, type ReactNode, useEffect, useRef, useState } from "react";
-import { ChevronDown, LayoutGrid, LogOut, Menu, Search, Settings, User as UserIcon } from "lucide-react";
+import {
+  type CSSProperties,
+  type FC,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import {
+  ChevronDown,
+  LayoutGrid,
+  LogOut,
+  Menu,
+  Search,
+  Settings,
+  User as UserIcon,
+} from "lucide-react";
 import { Breadcrumb, type BreadcrumbItem } from "../../navigation/breadcrumb";
 import { BrandMark } from "../../primitives/brand-mark";
 import { ThemeQuickToggle } from "../../theme/theme-quick-toggle";
@@ -9,26 +24,9 @@ import { ThemeQuickToggle } from "../../theme/theme-quick-toggle";
 import styles from "./platform-shell.module.css";
 
 /**
- * The navigation contract every UniERP platform shares.
- *
- * Before this, there was no common header, platform switcher, or tenant
- * switcher anywhere in the ten apps — each would otherwise reinvent its own,
- * and the "one product, ten platforms" experience the wizard exists to
- * deliver would never actually hold at the chrome level. `<PlatformShell>` is
- * the one navigational frame; what varies between platforms is the accent
- * colour and the nav tree it's handed, both of which come from that
- * platform's own `platform.manifest.ts` (see manifest.ts in this directory).
- */
-
-
-/**
  * Closes a dropdown on an outside click (or Escape), rather than on
- * `onMouseLeave`. Mouse-leave closing is fragile for real pointer movement —
- * a path from the trigger to a menu item that clips the gap between them, or
- * simply moves fast, exits the hover area and closes the menu before the
- * click ever lands. Click-outside is the pattern every production dropdown
- * uses for exactly this reason, and it is also what makes the menu usable by
- * keyboard (Escape) rather than only by a mouse that never leaves the area.
+ * `onMouseLeave`. Click-outside is the pattern every production dropdown
+ * uses for robust keyboard and pointer behavior.
  */
 function useCloseOnOutsideInteraction(onClose: () => void) {
   const ref = useRef<HTMLDivElement>(null);
@@ -85,8 +83,7 @@ export interface PlatformShellProps {
   onTenantChange?: (tenantId: string) => void;
 
   /** Renders "Switch platform" — always routes back to the Global Platform
-   * Wizard (:4000), never a second in-app platform picker. Omit only for the
-   * wizard itself, which has nothing to switch back to. */
+   * Wizard (:4000), never a second in-app platform picker. */
   platformWizardUrl?: string;
   /** Unified profile, security, sessions, accessibility and preferences hub. */
   accountCenterUrl?: string;
@@ -102,17 +99,28 @@ export interface PlatformShellProps {
   /** e.g. a notification bell, a command-palette trigger. */
   headerActions?: ReactNode;
 
+  /** Global search or command palette trigger / input slot. */
+  searchSlot?: ReactNode;
+  /** App or module switcher button slot, rendered next to platform name. */
+  appSwitcherSlot?: ReactNode;
+  /** Optional custom user menu / hover card slot overriding default menu. */
+  userMenuSlot?: ReactNode;
+  /** Avatar presence dot color (e.g. "var(--color-success)"). */
+  presenceColor?: string;
+  /** Top-level banner slot (e.g. impersonation warning, trial countdown). */
+  bannerSlot?: ReactNode;
+  /** Context bar slot between header and main workspace (e.g. StrataBar). */
+  contextBarSlot?: ReactNode;
+  /** Additional items rendered inside the user menu panel. */
+  userMenuActions?: ReactNode;
+
   onSignOut?: () => void;
 
   children: ReactNode;
 }
 
 /**
- * The shared chrome: header (platform identity, tenant switcher, user menu,
- * sign-out) plus a sidebar slot and a content region. Every platform's
- * `app/(dashboard)/layout.tsx` wraps its page tree in this, handing it that
- * platform's own manifest-derived nav — the shell does not know what ERP or
- * Web Studio or the Marketplace look like, only how to frame them the same way.
+ * `<PlatformShell>` — The shared navigation and workspace frame across all UniERP platforms.
  */
 export const PlatformShell: FC<PlatformShellProps> = ({
   platformName,
@@ -130,6 +138,13 @@ export const PlatformShell: FC<PlatformShellProps> = ({
   breadcrumbs,
   sidebar,
   headerActions,
+  searchSlot,
+  appSwitcherSlot,
+  userMenuSlot,
+  presenceColor,
+  bannerSlot,
+  contextBarSlot,
+  userMenuActions,
   onSignOut,
   children,
 }) => {
@@ -144,25 +159,21 @@ export const PlatformShell: FC<PlatformShellProps> = ({
           display: "flex",
           flexDirection: "column",
           height: "100vh",
-          // Exposed so a platform's own stylesheet can key off its accent
-          // without this component needing to know what the accent is used
-          // for. React's CSSProperties type doesn't model custom properties,
-          // hence the cast — the value itself is still a plain string.
           "--shell-accent": accentColor,
         } as CSSProperties
       }
     >
-      <a href="#unierp-main" className={styles.skipLink}>Skip to main content</a>
+      <a href="#unierp-main" className={styles.skipLink}>
+        Skip to main content
+      </a>
+
+      {bannerSlot}
+
       <header
         style={{
           display: "flex",
           alignItems: "center",
           gap: "var(--space-4)",
-          // --header-height, not a literal 56. Three components in this
-          // platform were each "nominally 56px" by three different means (this
-          // literal, the token, and a CSS-module class); when a theme moves the
-          // header — compact density already does, to 52 — only the ones
-          // reading the token move, and the chrome stops lining up.
           height: "var(--header-height)",
           padding: "0 var(--space-4)",
           borderBottom: "1px solid var(--color-border)",
@@ -175,9 +186,6 @@ export const PlatformShell: FC<PlatformShellProps> = ({
             aria-label="Toggle navigation"
             onClick={() => setSidebarOpen((v) => !v)}
             style={iconButtonStyle}
-            // Sidebar collapses below the point a fixed 240px rail stops
-            // leaving room for content — the same breakpoint list-page-template
-            // and the rest of this package already design around.
             className="unierp-shell-sidebar-toggle"
           >
             <Menu size={18} />
@@ -185,20 +193,43 @@ export const PlatformShell: FC<PlatformShellProps> = ({
         )}
 
         <BrandMark size="sm" />
-        <div style={{ width: 1, height: 22, background: "var(--color-border)" }} />
-        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+        {appSwitcherSlot}
+        <div
+          style={{ width: 1, height: 22, background: "var(--color-border)" }}
+        />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-2)",
+          }}
+        >
           {platformIcon}
-          <span style={{ fontWeight: 600, fontSize: "var(--text-sm)", color: "var(--shell-accent)" }}>
+          <span
+            style={{
+              fontWeight: 600,
+              fontSize: "var(--text-sm)",
+              color: "var(--shell-accent)",
+            }}
+          >
             {platformName}
           </span>
         </div>
 
         {breadcrumbs && breadcrumbs.length > 0 && (
           <>
-            <div style={{ width: 1, height: 20, background: "var(--color-border)" }} />
+            <div
+              style={{
+                width: 1,
+                height: 20,
+                background: "var(--color-border)",
+              }}
+            />
             <Breadcrumb items={breadcrumbs} />
           </>
         )}
+
+        {searchSlot}
 
         <div style={{ flex: 1 }} />
 
@@ -214,21 +245,36 @@ export const PlatformShell: FC<PlatformShellProps> = ({
               aria-label="Current operating scope"
             >
               {tenant && <span>{tenant.name}</span>}
-              {environmentLabel && <><span aria-hidden="true">/</span><span>{environmentLabel}</span></>}
-              {realmLabel && <><span aria-hidden="true">/</span><span>{realmLabel}</span></>}
-              {availableTenants && availableTenants.length > 1 && <ChevronDown size={14} />}
+              {environmentLabel && (
+                <>
+                  <span aria-hidden="true">/</span>
+                  <span>{environmentLabel}</span>
+                </>
+              )}
+              {realmLabel && (
+                <>
+                  <span aria-hidden="true">/</span>
+                  <span>{realmLabel}</span>
+                </>
+              )}
+              {availableTenants && availableTenants.length > 1 && (
+                <ChevronDown size={14} />
+              )}
             </button>
-            {tenant && tenantMenuOpen && availableTenants && availableTenants.length > 1 && (
-              <TenantMenu
-                tenants={availableTenants}
-                current={tenant.id}
-                onSelect={(id) => {
-                  setTenantMenuOpen(false);
-                  onTenantChange?.(id);
-                }}
-                onClose={() => setTenantMenuOpen(false)}
-              />
-            )}
+            {tenant &&
+              tenantMenuOpen &&
+              availableTenants &&
+              availableTenants.length > 1 && (
+                <TenantMenu
+                  tenants={availableTenants}
+                  current={tenant.id}
+                  onSelect={(id) => {
+                    setTenantMenuOpen(false);
+                    onTenantChange?.(id);
+                  }}
+                  onClose={() => setTenantMenuOpen(false)}
+                />
+              )}
           </div>
         )}
 
@@ -245,11 +291,17 @@ export const PlatformShell: FC<PlatformShellProps> = ({
 
         {showThemeToggle && <ThemeQuickToggle />}
 
-        {user && (
+        {userMenuSlot ? (
+          userMenuSlot
+        ) : user ? (
           <div style={{ position: "relative" }}>
             <button
               onClick={() => setUserMenuOpen((v) => !v)}
-              style={{ ...iconButtonStyle, borderRadius: "50%" }}
+              style={{
+                ...iconButtonStyle,
+                borderRadius: "50%",
+                position: "relative",
+              }}
               aria-haspopup="menu"
               aria-expanded={userMenuOpen}
               aria-label="Account menu"
@@ -263,18 +315,36 @@ export const PlatformShell: FC<PlatformShellProps> = ({
               ) : (
                 <UserIcon size={18} />
               )}
+              {presenceColor && (
+                <span
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    backgroundColor: presenceColor,
+                    border: "1.5px solid var(--color-bg-elevated)",
+                  }}
+                  aria-hidden="true"
+                />
+              )}
             </button>
             {userMenuOpen && (
               <UserMenu
                 user={user}
                 accountCenterUrl={accountCenterUrl}
+                userMenuActions={userMenuActions}
                 onSignOut={onSignOut}
                 onClose={() => setUserMenuOpen(false)}
               />
             )}
           </div>
-        )}
+        ) : null}
       </header>
+
+      {contextBarSlot}
 
       <div style={{ display: "flex", flex: 1, minHeight: 0 }}>
         {sidebar && (
@@ -350,97 +420,111 @@ const TenantMenu: FC<{
 }> = ({ tenants, current, onSelect, onClose }) => {
   const ref = useCloseOnOutsideInteraction(onClose);
   return (
-  <div ref={ref} role="menu" style={menuPanelStyle}>
-    {tenants.map((t) => (
-      <button
-        key={t.id}
-        role="menuitem"
-        onClick={() => onSelect(t.id)}
-        style={{
-          display: "block",
-          width: "100%",
-          textAlign: "left",
-          padding: "var(--space-2) var(--space-3)",
-          border: "none",
-          background: t.id === current ? "var(--color-bg-sunken)" : "transparent",
-          borderRadius: "var(--radius-sm)",
-          fontSize: "var(--text-sm)",
-          cursor: "pointer",
-          fontWeight: t.id === current ? 600 : 400,
-        }}
-      >
-        {t.name}
-      </button>
-    ))}
-  </div>
+    <div ref={ref} role="menu" style={menuPanelStyle}>
+      {tenants.map((t) => (
+        <button
+          key={t.id}
+          role="menuitem"
+          onClick={() => onSelect(t.id)}
+          style={{
+            display: "block",
+            width: "100%",
+            textAlign: "left",
+            padding: "var(--space-2) var(--space-3)",
+            border: "none",
+            background:
+              t.id === current ? "var(--color-bg-sunken)" : "transparent",
+            borderRadius: "var(--radius-sm)",
+            fontSize: "var(--text-sm)",
+            cursor: "pointer",
+            fontWeight: t.id === current ? 600 : 400,
+          }}
+        >
+          {t.name}
+        </button>
+      ))}
+    </div>
   );
 };
 
 const UserMenu: FC<{
   user: ShellUser;
   accountCenterUrl?: string;
+  userMenuActions?: ReactNode;
   onSignOut?: () => void;
   onClose: () => void;
-}> = ({
-  user,
-  accountCenterUrl,
-  onSignOut,
-  onClose,
-}) => {
+}> = ({ user, accountCenterUrl, userMenuActions, onSignOut, onClose }) => {
   const ref = useCloseOnOutsideInteraction(onClose);
   return (
-  <div ref={ref} role="menu" style={menuPanelStyle}>
-    <div style={{ padding: "var(--space-2) var(--space-3)", marginBottom: "var(--space-1)" }}>
-      <div style={{ fontSize: "var(--text-sm)", fontWeight: 600 }}>{user.name}</div>
-      <div style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
-        {user.email}
+    <div ref={ref} role="menu" style={menuPanelStyle}>
+      <div
+        style={{
+          padding: "var(--space-2) var(--space-3)",
+          marginBottom: "var(--space-1)",
+        }}
+      >
+        <div style={{ fontSize: "var(--text-sm)", fontWeight: 600 }}>
+          {user.name}
+        </div>
+        <div
+          style={{
+            fontSize: "var(--text-xs)",
+            color: "var(--color-text-muted)",
+          }}
+        >
+          {user.email}
+        </div>
       </div>
+      <div
+        style={{
+          height: 1,
+          background: "var(--color-border)",
+          margin: "var(--space-1) 0",
+        }}
+      />
+      {accountCenterUrl && (
+        <a
+          role="menuitem"
+          href={accountCenterUrl}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-2)",
+            padding: "var(--space-2) var(--space-3)",
+            borderRadius: "var(--radius-sm)",
+            fontSize: "var(--text-sm)",
+            color: "var(--color-text)",
+            textDecoration: "none",
+          }}
+        >
+          <Settings size={14} /> Account Center
+        </a>
+      )}
+      {userMenuActions}
+      {onSignOut && (
+        <button
+          role="menuitem"
+          onClick={onSignOut}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-2)",
+            width: "100%",
+            textAlign: "left",
+            padding: "var(--space-2) var(--space-3)",
+            border: "none",
+            background: "transparent",
+            borderRadius: "var(--radius-sm)",
+            fontSize: "var(--text-sm)",
+            cursor: "pointer",
+            color: "var(--color-danger)",
+          }}
+        >
+          <LogOut size={14} /> Sign out
+        </button>
+      )}
     </div>
-    <div style={{ height: 1, background: "var(--color-border)", margin: "var(--space-1) 0" }} />
-    {accountCenterUrl && (
-      <a
-        role="menuitem"
-        href={accountCenterUrl}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "var(--space-2)",
-          padding: "var(--space-2) var(--space-3)",
-          borderRadius: "var(--radius-sm)",
-          fontSize: "var(--text-sm)",
-          color: "var(--color-text)",
-          textDecoration: "none",
-        }}
-      >
-        <Settings size={14} /> Account Center
-      </a>
-    )}
-    {onSignOut && (
-      <button
-        role="menuitem"
-        onClick={onSignOut}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "var(--space-2)",
-          width: "100%",
-          textAlign: "left",
-          padding: "var(--space-2) var(--space-3)",
-          border: "none",
-          background: "transparent",
-          borderRadius: "var(--radius-sm)",
-          fontSize: "var(--text-sm)",
-          cursor: "pointer",
-          color: "var(--color-danger)",
-        }}
-      >
-        <LogOut size={14} /> Sign out
-      </button>
-    )}
-  </div>
   );
 };
 
-// Re-exported so a consumer can build a header search affordance that matches
-// the shell's own icon sizing without importing lucide-react directly.
 export { Search };

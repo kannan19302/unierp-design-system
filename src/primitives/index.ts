@@ -21,3 +21,4 @@ export * from "./progress";
 export * from "./split-button";
 export * from "./error-boundary";
 export * from "./live-region";
+export * from "./profile-card";

@@ -30,13 +30,13 @@
 
 :root {
   /* ── Font families ──
-     Strata Workbench font triad:
-     Display: Plus Jakarta Sans / Inter Display / Instrument Sans (clean geometric hierarchy)
+     Strata Workbench unified typography:
+     Display: Inter (SemiBold / Bold with -0.02em tracking)
      Body:    Inter (workhorse data & UI text)
-     Mono:    JetBrains Mono / Geist Mono / Martian Mono (tabular numerics & identifiers) */
-  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, "Noto Sans", sans-serif;
-  --font-mono: "JetBrains Mono", "Geist Mono", "Martian Mono", ui-monospace, "IBM Plex Mono", "Consolas", monospace;
-  --font-display: "Plus Jakarta Sans", "Inter Display", "Instrument Sans", "Helvetica Neue", "Inter", system-ui, sans-serif;
+     Mono:    IBM Plex Mono / JetBrains Mono (tabular numerics & identifiers) */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", sans-serif;
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "JetBrains Mono", "Geist Mono", ui-monospace, "Consolas", monospace;
 
   /* ── Enterprise type scale ──
      Semantic names tied to purpose, not arbitrary size labels.

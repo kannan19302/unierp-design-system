@@ -1,6 +1,6 @@
 {
   "name": "@kannan19302/ui",
-  "version": "1.0.16",
+  "version": "1.1.0",
   "packageManager": "pnpm@9.15.4",
   "engines": {
     "node": ">=22 <23"
@@ -41,6 +41,12 @@
       "import": "./dist/components/index.js",
       "require": "./dist/components/index.js",
       "default": "./dist/components/index.js"
+    },
+    "./brand": {
+      "types": "./dist/brand/index.d.ts",
+      "import": "./dist/brand/index.js",
+      "require": "./dist/brand/index.js",
+      "default": "./dist/brand/index.js"
     },
     "./layout": {
       "types": "./dist/layout/index.d.ts",

@@ -6,7 +6,8 @@
    ───────────────────────────────────────────────── */
 
 :root {
-  /* ── Typography ── */
+  /* ── Typography (Strata DL 3.0 — Inter-family triad) ── */
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
   --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
 
@@ -163,6 +164,9 @@
   --tile-height-dense: 96px;
   --filter-max-width: 420px;
   --media-icon-size: 44px;     /* catalogue tile artwork */
+  --auth-card-max-width: 400px;
+  --auth-illustration-max-width: 480px;
+  --footer-height-compact: 40px;
 
   /* ── Colour aliases ──
      `--color-text-muted` is referenced in roughly 40 places across this package
@@ -230,6 +234,29 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-
 }
 
+/* ── Density Scale ──
+   Enterprise data surfaces need three density tiers: default (40px rows),
+   compact (32px), and ultra-compact (24px). Set `data-density` on any
+   container to cascade the scale through all Strata shell and data-grid
+   descendants. */
+:root {
+  --density-row-height: 40px;
+  --density-compact-row-height: 32px;
+  --density-ultra-compact-row-height: 24px;
+  --density-cell-padding-y: var(--space-2);
+  --density-cell-padding-x: var(--space-3);
+}
+
+[data-density="compact"] {
+  --density-row-height: var(--density-compact-row-height);
+  --density-cell-padding-y: var(--space-1);
+  --density-cell-padding-x: var(--space-2);
+}
+
+[data-density="ultra-compact"] {
+  --density-row-height: var(--density-ultra-compact-row-height);
+  --density-cell-padding-y: var(--space-half);
+  --density-cell-padding-x: var(--space-1);
+}

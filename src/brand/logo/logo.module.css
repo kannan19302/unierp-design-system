@@ -1,0 +1,117 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  font-family: var(--font-display, var(--font-sans));
+  line-height: var(--leading-tight, 1.25);
+  box-sizing: border-box;
+}
+
+.glyph {
+  display: block;
+  flex-shrink: 0;
+}
+
+.horizontalStack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: var(--space-2-5, var(--space-2));
+}
+
+.textStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-2);
+  text-align: center;
+}
+
+.wordmark {
+  font-family: var(--font-display, var(--font-sans));
+  font-weight: var(--weight-bold, 700);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.tagline {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold, 600);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: var(--space-1);
+}
+
+/* ── Variants ── */
+.variant-horizontal {
+  flex-direction: row;
+  align-items: center;
+}
+
+.variant-stacked {
+  flex-direction: column;
+  align-items: center;
+}
+
+.variant-glyph {
+  display: inline-flex;
+}
+
+.variant-wordmark {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+/* ── Sizes ── */
+.size-sm .glyph {
+  width: var(--space-6);
+  height: var(--space-6);
+}
+
+.size-sm .wordmark {
+  font-size: var(--text-base);
+}
+
+.size-sm .tagline {
+  font-size: var(--text-xs);
+}
+
+.size-md .glyph {
+  width: var(--space-9);
+  height: var(--space-9);
+}
+
+.size-md .wordmark {
+  font-size: var(--text-xl);
+}
+
+.size-md .tagline {
+  font-size: var(--text-xs);
+}
+
+.size-lg .glyph {
+  width: var(--space-12);
+  height: var(--space-12);
+}
+
+.size-lg .wordmark {
+  font-size: var(--text-2xl);
+}
+
+.size-lg .tagline {
+  font-size: var(--text-xs);
+}
+
+.size-xl .glyph {
+  width: var(--space-16);
+  height: var(--space-16);
+}
+
+.size-xl .wordmark {
+  font-size: var(--text-3xl);
+}
+
+.size-xl .tagline {
+  font-size: var(--text-sm);
+}

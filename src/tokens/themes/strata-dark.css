@@ -11,10 +11,10 @@
 [data-theme="meridian-dark"] {
   color-scheme: dark;
 
-  /* ── Typefaces ── */
-  --font-display: "Plus Jakarta Sans", "Inter Display", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Geist Mono", "Martian Mono", monospace;
+  /* ── Typefaces (Strata Enterprise Typography) ── */
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "JetBrains Mono", monospace;
 
   /* ── Surfaces ── */
   --color-bg: #09090b;
