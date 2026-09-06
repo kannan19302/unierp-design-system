@@ -45,3 +45,12 @@ export {
   type ConflictResolverProps,
   type ConflictFieldDiff,
 } from "./conflict-resolver";
+
+export { DynamicFieldRenderer, type DynamicFieldRendererProps } from "./dynamic-field-renderer";
+export { FieldValidationSummary, type FieldValidationSummaryProps } from "./field-validation-summary";
+export { FormFieldVisibilityEngine, type FormFieldVisibilityEngineProps } from "./form-field-visibility-engine";
+export { CalculatedFieldDisplay, type CalculatedFieldDisplayProps } from "./calculated-field-display";
+export { FormLayoutBuilder, type FormLayoutBuilderProps } from "./form-layout-builder";
+export { LookupFieldResolver, type LookupFieldResolverProps } from "./lookup-field-resolver";
+export { FormVersionHistory, type FormVersionHistoryProps } from "./form-version-history";
+export { RepeatableSectionEngine, type RepeatableSectionEngineProps } from "./repeatable-section-engine";

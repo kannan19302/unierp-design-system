@@ -1,0 +1,237 @@
+.container {
+  width: 100%;
+  border: 1px solid var(--color-border-default, #e2e8f0);
+  border-radius: var(--radius-lg, 8px);
+  background: var(--color-surface-elevated, #ffffff);
+  padding: var(--space-4);
+  overflow: hidden;
+}
+
+.bars, .barsVertical {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-1);
+  height: 100%;
+}
+
+.barsHorizontal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.barGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.barStack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.segments {
+  display: flex;
+  flex-direction: column-reverse;
+  border-radius: var(--radius-sm, 4px);
+  overflow: hidden;
+  width: 100%;
+  max-width: var(--space-10, 2.5rem);
+}
+
+.segment {
+  width: 100%;
+  transition: opacity var(--duration-fast, 150ms);
+}
+
+.segment:hover {
+  opacity: 0.85;
+}
+
+.bar {
+  width: 100%;
+  max-width: var(--space-10, 2.5rem);
+  border-radius: var(--radius-sm, 4px) var(--radius-sm, 4px) 0 0;
+  transition: opacity var(--duration-fast, 150ms);
+}
+
+.bar:hover {
+  opacity: 1 !important;
+}
+
+.barValue {
+  font-size: var(--text-2xs, 0.625rem);
+  font-weight: var(--weight-semibold, 600);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.barLabel, .catLabel {
+  font-size: var(--text-2xs, 0.625rem);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: var(--space-16, 3.75rem);
+}
+
+.label {
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.track {
+  position: relative;
+  height: var(--space-6, 1.5rem);
+  border-radius: var(--radius-sm, 4px);
+  overflow: hidden;
+  background: var(--color-bg-sunken, #f1f5f9);
+}
+
+.range {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.actual {
+  position: absolute;
+  top: var(--space-1-5, 0.375rem);
+  left: 0;
+  height: var(--space-3, 0.75rem);
+  background: var(--color-brand, #2563eb);
+  border-radius: var(--radius-xs, 2px);
+  z-index: 2;
+}
+
+.marker {
+  position: absolute;
+  top: 2px;
+  width: 2px;
+  height: var(--space-5, 1.25rem);
+  background: var(--color-text-primary);
+  z-index: 3;
+}
+
+.values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-1);
+  font-size: var(--text-2xs, 0.625rem);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  height: 100%;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm, 4px);
+  color: var(--color-text-inverse, #ffffff);
+  min-width: var(--space-16, 3.75rem);
+}
+
+.cellLabel {
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.cellValue {
+  font-size: var(--text-2xs, 0.625rem);
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+.columns {
+  display: flex;
+  gap: var(--space-2);
+  height: 100%;
+}
+
+.nodeColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: var(--space-20, 5rem);
+}
+
+.flowArea {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+}
+
+.flowPlaceholder {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.flowBand {
+  border-radius: var(--radius-sm, 4px);
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm, 4px);
+  color: var(--color-text-inverse, #ffffff);
+}
+
+.nodeLabel {
+  font-size: var(--text-2xs, 0.625rem);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.nodeValue {
+  font-size: var(--text-2xs, 0.625rem);
+  opacity: 0.8;
+  font-variant-numeric: tabular-nums;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-subtle, #f1f5f9);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs, 12px);
+  color: var(--color-text-secondary);
+}
+
+.legendDot {
+  width: var(--space-2, 8px);
+  height: var(--space-2, 8px);
+  border-radius: var(--radius-full, 50%);
+  flex-shrink: 0;
+}
