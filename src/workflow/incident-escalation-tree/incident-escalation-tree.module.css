@@ -1,0 +1,453 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  gap: var(--space-4);
+  font-family: var(--font-sans, inherit);
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+}
+
+.compact {
+  padding: var(--space-3);
+  gap: var(--space-3);
+}
+
+.comfortable {
+  padding: var(--space-6);
+  gap: var(--space-6);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-3);
+  gap: var(--space-4);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.iconBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.statusGroup {
+  display: flex;
+  align-items: center;
+}
+
+.policyBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  letter-spacing: 0.05em;
+}
+
+.policy_standby {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.policy_active,
+.policy_escalated {
+  background-color: var(--color-danger-subtle);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+
+.policy_resolved {
+  background-color: var(--color-success-subtle);
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+}
+
+/* Layout */
+.flowLayout {
+  display: grid;
+  grid-template-columns: 1fr minmax(18rem, 22rem);
+  gap: var(--space-4);
+}
+
+@media (max-width: 800px) {
+  .flowLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ladder List */
+.ladderList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ladderItem {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.tierCard {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.tierSelectButton {
+  all: unset;
+  display: block;
+  cursor: pointer;
+  text-align: left;
+  border-radius: var(--radius-sm);
+}
+
+.tierSelectButton:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.tierCardSelected {
+  border-color: var(--color-brand);
+  background-color: var(--color-brand-subtle);
+}
+
+.tierCardActive {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 1px var(--color-danger);
+}
+
+.tierHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tierNumberBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-brand);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-2);
+}
+
+.statusBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.badgePaging {
+  background-color: var(--color-danger-subtle);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+
+.badgeAck {
+  background-color: var(--color-warning-subtle);
+  border: 1px solid var(--color-warning);
+  color: var(--color-warning);
+}
+
+.badgeEscalated {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.badgeResolved {
+  background-color: var(--color-success-subtle);
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+}
+
+.badgeWaiting {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+}
+
+.tierName {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.responderAvatars {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.avatarChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+.resp_on_call {
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+}
+
+.resp_backup {
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.resp_acknowledged {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.resp_offline {
+  border-color: var(--color-border-subtle);
+  color: var(--color-text-muted);
+}
+
+.responderCount {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.tierActions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.ackButton {
+  background-color: var(--color-brand);
+  color: var(--color-surface);
+  border: 1px solid var(--color-brand);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.ackButton:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.escalateButton {
+  background-color: var(--color-surface);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.escalateButton:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Connector */
+.connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) 0;
+  gap: var(--space-2);
+}
+
+.connectorLine {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.timeoutBadge {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+/* Detail Inspection Panel */
+.detailPanel {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-2);
+}
+
+.detailTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.detailMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+}
+
+.metaLabel {
+  color: var(--color-text-muted);
+}
+
+.metaVal {
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.respondersHeading {
+  margin: var(--space-2) 0 0 0;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.responderList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.responderItem {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.responderMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.responderInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.responderName {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.responderRole {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.contactBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.channelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.channelLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.channelIcons {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.channelChip {
+  font-size: var(--text-xs);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-1);
+  color: var(--color-text-secondary);
+}

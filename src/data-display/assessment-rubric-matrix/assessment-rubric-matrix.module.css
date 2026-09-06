@@ -1,0 +1,209 @@
+/* AssessmentRubricMatrix — Canvas SpeedGrader & Blackboard Learn benchmarked */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+  font-family: inherit;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.rubricBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  padding: var(--space-0-5) var(--space-1-5);
+  background: var(--color-brand);
+  color: var(--color-text-inverse, #ffffff);
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.05em;
+}
+
+.titleTextWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.subject {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.scorePill {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-brand-subtle);
+  border: 1px solid var(--color-brand);
+  border-radius: var(--radius-full);
+}
+
+.scoreNumber {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-brand);
+}
+
+.scorePercentage {
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+  color: var(--color-brand);
+}
+
+/* Criteria List */
+.matrixList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.criterionCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.criterionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.critNameBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.critTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.critDescription {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.critScoreBadge {
+  display: flex;
+  align-items: center;
+}
+
+.earnedPoints {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-success);
+  background: var(--color-success-subtle);
+  border: 1px solid var(--color-success);
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-xs);
+}
+
+.unscoredText {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* Level Grid */
+.levelGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--space-48, 12rem), 1fr));
+  gap: var(--space-2);
+}
+
+.levelCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-2-5);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all var(--duration-fast, 150ms) ease;
+  outline: none;
+}
+
+.levelCard:hover:not(:disabled) {
+  border-color: var(--color-brand);
+  background: var(--color-surface-hover);
+}
+
+.levelCard:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-brand);
+}
+
+.levelCard.levelCardSelected {
+  border-color: var(--color-brand);
+  background: var(--color-brand-subtle);
+  box-shadow: 0 0 0 2px var(--color-brand);
+}
+
+.levelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.levelLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.levelPoints {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-brand);
+}
+
+.levelDesc {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed, 1.6);
+}

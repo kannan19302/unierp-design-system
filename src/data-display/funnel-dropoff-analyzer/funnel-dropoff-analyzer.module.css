@@ -1,0 +1,257 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-md, 0.5rem);
+  color: var(--color-text-primary, #0f172a);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  font-family: var(--font-family-sans, sans-serif);
+  overflow: hidden;
+}
+
+/* Densities */
+.ultra-compact {
+  padding: var(--space-2, 0.5rem);
+  gap: var(--space-2, 0.5rem);
+}
+
+.compact {
+  padding: var(--space-3, 0.75rem);
+  gap: var(--space-3, 0.75rem);
+}
+
+.standard {
+  padding: var(--space-4, 1rem);
+  gap: var(--space-4, 1rem);
+}
+
+.comfortable {
+  padding: var(--space-6, 1.5rem);
+  gap: var(--space-6, 1.5rem);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-bottom: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.titleGroup {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  align-items: center;
+}
+
+.iconTag {
+  font-size: var(--text-2xl, 1.5rem);
+}
+
+.metaRow {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  align-items: center;
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+.badge {
+  background-color: var(--color-surface-muted, #f1f5f9);
+  color: var(--color-text-secondary, #475569);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-medium, 500);
+}
+
+.overallRate {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.segmentPicker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.segmentLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+  font-weight: var(--weight-medium, 500);
+}
+
+.segmentSelect {
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  border: 1px solid var(--color-border-subtle, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.funnelFlow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.stepWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.stepBarCard {
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-3, 0.75rem);
+  background-color: var(--color-surface, #ffffff);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  transition: all 0.15s ease-in-out;
+}
+
+.selectedCard {
+  border-color: var(--color-brand, #2563eb);
+  background-color: var(--color-surface-subtle, #eff6ff);
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2, 0.5rem);
+}
+
+.stepNum {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-brand, #2563eb);
+  background-color: var(--color-surface-muted, #f1f5f9);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.stepNameBtn {
+  background: none;
+  border: none;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0f172a);
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  flex: 1;
+}
+
+.stepNameBtn:hover {
+  color: var(--color-brand, #2563eb);
+  text-decoration: underline;
+}
+
+.stepCount {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.barTrack {
+  width: 100%;
+  height: 0.5rem;
+  background-color: var(--color-surface-muted, #f1f5f9);
+  border-radius: var(--radius-full, 9999px);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-brand, #2563eb) 0%,
+    var(--color-brand-active, #1d4ed8) 100%
+  );
+  border-radius: var(--radius-full, 9999px);
+}
+
+.metricsRow {
+  display: flex;
+  gap: var(--space-4, 1rem);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.connector {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-1, 0.25rem) 0;
+}
+
+.dropoffBadge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-danger, #dc2626);
+  background-color: var(--color-danger-subtle, #fee2e2);
+  padding: var(--space-1, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.diagnosticPane {
+  border-top: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-top: var(--space-3, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.paneTitle {
+  margin: 0;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.diagnosticGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-3, 0.75rem);
+}
+
+.diagCard {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.diagLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.diagVal {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-bold, 700);
+}
+
+.dropHighlight {
+  color: var(--color-danger, #dc2626);
+}
+
+.diagEvent {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}

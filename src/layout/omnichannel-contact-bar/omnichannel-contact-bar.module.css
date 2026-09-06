@@ -1,0 +1,307 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 0.375rem);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  font-family: var(--font-sans, inherit);
+  color: var(--color-text-primary, #0f172a);
+  position: relative;
+  z-index: 50;
+}
+
+.docked {
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  width: 100%;
+}
+
+.floating {
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+/* Density Variants */
+.ultra-compact {
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+}
+.ultra-compact .barContent {
+  min-height: 1.75rem;
+}
+
+.compact {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+}
+.compact .barContent {
+  min-height: 2.25rem;
+}
+
+.standard {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+}
+.standard .barContent {
+  min-height: 2.75rem;
+}
+
+.comfortable {
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+}
+.comfortable .barContent {
+  min-height: 3.25rem;
+}
+
+/* Bar Content Layout */
+.barContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.agentStateGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.iconTag {
+  font-size: var(--text-base, 1rem);
+}
+
+.stateSelect {
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  cursor: pointer;
+}
+
+.state_available {
+  background-color: var(--color-success-muted, #dcfce7);
+  color: var(--color-success, #15803d);
+}
+
+.state_in_call {
+  background-color: var(--color-brand-muted, #eff6ff);
+  color: var(--color-brand, #2563eb);
+}
+
+.state_wrap_up {
+  background-color: var(--color-warning-muted, #fef3c7);
+  color: var(--color-warning-text, #b45309);
+}
+
+.state_paused {
+  background-color: var(--color-surface-subtle, #f1f5f9);
+  color: var(--color-text-muted, #64748b);
+}
+
+/* Caller Card */
+.callerCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+}
+
+.callerPrimary {
+  display: flex;
+  flex-direction: column;
+}
+
+.customerName {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.callerNumber {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  color: var(--color-text-secondary, #64748b);
+}
+
+.callerMeta {
+  display: flex;
+  gap: var(--space-1, 0.25rem);
+}
+
+.acctBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  background-color: var(--color-surface-hover, #f1f5f9);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.tierBadge {
+  font-size: 0.6875rem;
+  font-weight: var(--weight-semibold, 600);
+  background-color: var(--color-brand-muted, #eff6ff);
+  color: var(--color-brand, #1d4ed8);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.idleMessage {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+  font-style: italic;
+}
+
+/* Timer */
+.timerBox {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--color-brand-muted, #eff6ff);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-brand-border, #bfdbfe);
+}
+
+.timerDigits {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-brand, #1d4ed8);
+}
+
+/* Actions */
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  flex-wrap: wrap;
+}
+
+.controlBtn,
+.notesBtn {
+  background: none;
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-secondary, #475569);
+  cursor: pointer;
+}
+
+.controlBtn:hover,
+.notesBtn:hover {
+  background-color: var(--color-surface-hover, #f1f5f9);
+}
+
+.btnActiveMute {
+  background-color: var(--color-warning-muted, #fef3c7);
+  color: var(--color-warning-text, #b45309);
+  border-color: var(--color-warning-border, #f59e0b);
+}
+
+.btnActiveHold {
+  background-color: var(--color-brand-muted, #dbeafe);
+  color: var(--color-brand, #1d4ed8);
+  border-color: var(--color-brand, #2563eb);
+}
+
+.endCallBtn {
+  background-color: var(--color-danger, #ef4444);
+  color: var(--color-text-on-brand, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  cursor: pointer;
+}
+
+.endCallBtn:hover {
+  background-color: var(--color-danger-text, #b91c1c);
+}
+
+/* Wrap-up stage */
+.wrapUpControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.dispositionSelect {
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--color-surface-elevated, #ffffff);
+}
+
+.completeWrapBtn {
+  background-color: var(--color-success, #16a34a);
+  color: var(--color-text-on-brand, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  cursor: pointer;
+}
+
+/* Scratchpad Drawer */
+.scratchpadDrawer {
+  border-top: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.scratchpadHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scratchpadTitle {
+  margin: 0;
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.closeDrawerBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted, #94a3b8);
+  cursor: pointer;
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.notesArea {
+  width: 100%;
+  padding: var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-family: var(--font-sans, inherit);
+  resize: vertical;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

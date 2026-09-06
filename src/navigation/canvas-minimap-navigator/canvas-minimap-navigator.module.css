@@ -1,0 +1,98 @@
+.minimapContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-md, 6px);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  color: var(--color-text-primary, #0f172a);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.radarWindow {
+  position: relative;
+  width: 12rem;
+  height: 8rem;
+  background-color: var(--color-surface-subtle, #f8fafc);
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+}
+
+.viewfinder {
+  position: absolute;
+  border: 2px solid var(--color-primary, #2563eb);
+  background-color: rgba(37, 99, 235, 0.1);
+  border-radius: var(--radius-xs, 2px);
+  cursor: grab;
+  box-sizing: border-box;
+}
+
+.viewfinder:active {
+  cursor: grabbing;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  background-color: var(--color-surface, #ffffff);
+}
+
+.zoomLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-2xs, 0.6875rem);
+  font-weight: 600;
+  color: var(--color-text-secondary, #64748b);
+}
+
+.actionsGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0-5, 0.125rem);
+}
+
+.toolBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary, #475569);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  border-radius: var(--radius-xs, 2px);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.toolBtn:hover {
+  background-color: var(--color-surface-hover, #f1f5f9);
+  color: var(--color-text-primary, #0f172a);
+}
+
+/* Density overrides */
+.minimapContainer[data-density="ultra-compact"] .radarWindow {
+  width: 9rem;
+  height: 6rem;
+}
+
+.minimapContainer[data-density="compact"] .radarWindow {
+  width: 10.5rem;
+  height: 7rem;
+}
+
+.minimapContainer[data-density="standard"] .radarWindow {
+  width: 12rem;
+  height: 8rem;
+}
+
+.minimapContainer[data-density="comfortable"] .radarWindow {
+  width: 14rem;
+  height: 9.5rem;
+}

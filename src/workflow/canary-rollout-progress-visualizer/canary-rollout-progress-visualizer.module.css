@@ -1,0 +1,342 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-lg, 0.5rem);
+  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
+  font-family: var(--font-sans, inherit);
+  color: var(--color-text-primary, #0f172a);
+  overflow: hidden;
+}
+
+/* Density Variants */
+.ultra-compact {
+  padding: var(--space-2, 0.5rem);
+  gap: var(--space-2, 0.5rem);
+}
+
+.compact {
+  padding: var(--space-3, 0.75rem);
+  gap: var(--space-3, 0.75rem);
+}
+
+.standard {
+  padding: var(--space-4, 1rem);
+  gap: var(--space-4, 1rem);
+}
+
+.comfortable {
+  padding: var(--space-6, 1.5rem);
+  gap: var(--space-5, 1.25rem);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  padding-bottom: var(--space-3, 0.75rem);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+}
+
+.iconTag {
+  font-size: var(--text-xl, 1.25rem);
+  background-color: var(--color-surface-hover, #f8fafc);
+  padding: var(--space-2, 0.5rem);
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem);
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+.clusterBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.75rem);
+  background-color: var(--color-surface-subtle, #f1f5f9);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+  color: var(--color-text-secondary, #475569);
+}
+
+.versionTag {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  background-color: var(--color-warning-muted, #fef3c7);
+  color: var(--color-warning-text, #b45309);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.stableTag {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2, 0.5rem);
+}
+
+.statusBadge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.statusAnalyzing {
+  background-color: var(--color-brand-muted, #eff6ff);
+  color: var(--color-brand, #2563eb);
+}
+
+.statusPaused {
+  background-color: var(--color-warning-muted, #fef3c7);
+  color: var(--color-warning-text, #b45309);
+}
+
+.statusPromoted {
+  background-color: var(--color-success-muted, #dcfce7);
+  color: var(--color-success, #15803d);
+}
+
+.statusAborted {
+  background-color: var(--color-danger-muted, #fee2e2);
+  color: var(--color-danger, #b91c1c);
+}
+
+.actionGroup {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+}
+
+.pauseBtn {
+  background: none;
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-secondary, #475569);
+  cursor: pointer;
+}
+
+.promoteBtn {
+  background-color: var(--color-success, #16a34a);
+  color: var(--color-text-on-brand, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  cursor: pointer;
+}
+
+.abortBtn {
+  background-color: var(--color-danger, #ef4444);
+  color: var(--color-text-on-brand, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  cursor: pointer;
+}
+
+/* Traffic Bar */
+.trafficSection {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 0.375rem);
+  padding: var(--space-3, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.trafficHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem);
+}
+
+.trafficLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.stepTimer {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+}
+
+.trafficTrack {
+  height: 1.5rem;
+  display: flex;
+  border-radius: var(--radius-sm, 0.25rem);
+  overflow: hidden;
+  border: 1px solid var(--color-border, #cbd5e1);
+}
+
+.stableFill {
+  background-color: var(--color-brand, #1e40af);
+  color: var(--color-text-on-brand, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s ease;
+}
+
+.canaryFill {
+  background-color: var(--color-warning, #f59e0b);
+  color: var(--color-warning-text, #78350f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s ease;
+}
+
+.barInnerText {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+}
+
+/* Metrics Grid */
+.metricsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.metricsHeading {
+  margin: 0;
+  font-size: var(--text-xs, 0.75rem);
+  text-transform: uppercase;
+  color: var(--color-text-muted, #64748b);
+  letter-spacing: 0.05em;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--space-3, 0.75rem);
+}
+
+.metricCard {
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 0.375rem);
+  padding: var(--space-3, 0.75rem);
+  background-color: var(--color-surface-elevated, #ffffff);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.metricPass {
+  border-left: 2px solid var(--color-success, #16a34a);
+}
+
+.metricWarn {
+  border-left: 2px solid var(--color-warning, #f59e0b);
+}
+
+
+.metricHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metricName {
+  margin: 0;
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.metricStatusPill {
+  font-size: 0.625rem;
+  font-weight: var(--weight-bold, 700);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.pillPass {
+  background-color: var(--color-success-muted, #dcfce7);
+  color: var(--color-success, #15803d);
+}
+
+.pillFail {
+  background-color: var(--color-danger-muted, #fee2e2);
+  color: var(--color-danger, #b91c1c);
+}
+
+.metricValuesRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.valCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.valLabel {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted, #64748b);
+}
+
+.valNum {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-bold, 700);
+}
+
+.valDivider {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #94a3b8);
+}
+
+.textSuccess {
+  color: var(--color-success, #16a34a);
+}
+
+.textDanger {
+  color: var(--color-danger, #ef4444);
+}
+
+.thresholdInfo {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted, #64748b);
+  border-top: 1px solid var(--color-border-subtle, #f1f5f9);
+  padding-top: var(--space-1, 0.25rem);
+}

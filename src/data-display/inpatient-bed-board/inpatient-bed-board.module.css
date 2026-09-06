@@ -1,0 +1,307 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  gap: var(--space-4);
+  font-family: var(--font-sans, inherit);
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+}
+
+.compact {
+  padding: var(--space-3);
+  gap: var(--space-3);
+}
+
+.comfortable {
+  padding: var(--space-6);
+  gap: var(--space-6);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-3);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.iconTag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.facilityText {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.censusPill {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-brand);
+  background-color: var(--color-brand-subtle);
+  border-radius: var(--radius-full);
+  padding: 0 var(--space-2);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* Filter Group */
+.filterGroup {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.filterBtn {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filterBtn:hover {
+  border-color: var(--color-brand);
+  color: var(--color-text-primary);
+}
+
+.filterBtnActive {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-surface);
+}
+
+.filterBtn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Grid */
+.bedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--space-3);
+}
+
+.bedCard {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+}
+
+.bedCard:hover {
+  border-color: var(--color-brand);
+}
+
+.bedCardSelected {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.bedCard:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.bedTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roomCode {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-primary);
+}
+
+.statePill {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.stateOccupied {
+  border-color: var(--color-brand);
+}
+
+.stateDirty {
+  border-color: var(--color-warning);
+}
+
+.stateCleaning {
+  border-color: var(--color-warning);
+}
+
+.stateReady {
+  border-color: var(--color-success);
+}
+
+.patientPreview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.patientRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.patientCode {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.acuityBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-1);
+  color: var(--color-brand);
+}
+
+.physicianText {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.isoBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-1);
+}
+
+.isoAirborne {
+  background-color: var(--color-danger-subtle);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+}
+
+.isoContact {
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+}
+
+.isoDroplet {
+  background-color: var(--color-brand-subtle);
+  color: var(--color-brand);
+  border: 1px solid var(--color-brand);
+}
+
+.dischargeTag {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-success);
+}
+
+.emptyBedMessage {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: var(--space-2) 0;
+}
+
+/* Detail Drawer */
+.detailDrawer {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-2);
+}
+
+.drawerTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.drawerSub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.drawerMetaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--space-3);
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.metaLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.metaVal {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}

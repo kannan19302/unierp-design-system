@@ -1,0 +1,192 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 2.0 — TimeRangeScrubber
+   Inspired by Datadog (#53), Grafana (#52), Elastic Kibana (#54)
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-surface, var(--color-bg-elevated));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+/* ── Main Toolbar ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.presetGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+}
+
+.clockIcon {
+  color: var(--color-primary);
+}
+
+.presetList {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1px;
+}
+
+.presetBtn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  padding: var(--space-0-5, 2px) var(--space-2, var(--space-1));
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.presetBtn:hover {
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.presetBtnActive {
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+.dateInputsGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+}
+
+.calendarIcon {
+  color: var(--color-text-muted);
+}
+
+.dateTimeInput {
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary, var(--color-text));
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  box-sizing: border-box;
+}
+
+.dateTimeInput:focus,
+.select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.dateSep {
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-muted);
+}
+
+.controlsGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.selectWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fieldIcon {
+  position: absolute;
+  left: var(--space-2);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.select {
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2) 0 var(--space-6, 24px);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary, var(--color-text));
+  font-size: var(--text-2xs, var(--text-xs));
+  box-sizing: border-box;
+}
+
+.spinActive {
+  color: var(--color-success, #10b981);
+}
+
+/* ── Brush Ribbon ── */
+.brushRibbon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1-5, var(--space-1)) var(--space-3);
+  background-color: var(--color-surface);
+}
+
+.sliderIcon {
+  color: var(--color-text-muted);
+}
+
+.brushLabel {
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+.brushSlider {
+  flex: 1;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.brushPercent {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-primary, var(--color-text));
+  font-weight: var(--weight-bold);
+  min-width: var(--space-8, 32px);
+  text-align: right;
+}
+
+/* ── 4-Tier Density ── */
+.container[data-density="ultra-compact"] .dateTimeInput,
+.container[data-density="ultra-compact"] .select {
+  height: var(--density-row-height);
+}
+
+.container[data-density="compact"] .dateTimeInput,
+.container[data-density="compact"] .select {
+  height: var(--density-row-height);
+}
+
+.container[data-density="standard"] .dateTimeInput,
+.container[data-density="standard"] .select {
+  height: var(--density-row-height);
+}
+
+.container[data-density="comfortable"] .dateTimeInput,
+.container[data-density="comfortable"] .select {
+  height: var(--density-row-height);
+}

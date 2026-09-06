@@ -1,0 +1,313 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-lg, 0.5rem);
+  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
+  font-family: var(--font-sans, inherit);
+  color: var(--color-text-primary, #0f172a);
+  overflow: hidden;
+}
+
+/* Density Variants */
+.ultra-compact {
+  padding: var(--space-2, 0.5rem);
+  gap: var(--space-2, 0.5rem);
+}
+.ultra-compact .studentRow td {
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.compact {
+  padding: var(--space-3, 0.75rem);
+  gap: var(--space-3, 0.75rem);
+}
+.compact .studentRow td {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  font-size: var(--text-sm, 0.875rem);
+}
+
+.standard {
+  padding: var(--space-4, 1rem);
+  gap: var(--space-4, 1rem);
+}
+.standard .studentRow td {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  font-size: var(--text-sm, 0.875rem);
+}
+
+.comfortable {
+  padding: var(--space-6, 1.5rem);
+  gap: var(--space-5, 1.25rem);
+}
+.comfortable .studentRow td {
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  font-size: var(--text-base, 1rem);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  padding-bottom: var(--space-3, 0.75rem);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+}
+
+.iconTag {
+  font-size: var(--text-xl, 1.25rem);
+  background-color: var(--color-surface-hover, #f8fafc);
+  padding: var(--space-2, 0.5rem);
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+.courseBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  background-color: var(--color-brand-muted, #eff6ff);
+  color: var(--color-brand, #2563eb);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.termBadge {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  background-color: var(--color-surface-hover, #f1f5f9);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.rosterCount {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.searchInput {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  width: 15rem;
+  background-color: var(--color-surface-elevated, #ffffff);
+}
+
+/* Table */
+.tableWrapper {
+  overflow-x: auto;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 0.375rem);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  padding: var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+  border-bottom: 2px solid var(--color-border, #cbd5e1);
+}
+
+.studentTh {
+  min-width: 12rem;
+}
+
+.gradeTh {
+  text-align: center;
+  min-width: 6rem;
+}
+
+.asgTh {
+  text-align: right;
+  min-width: 7rem;
+}
+
+.asgHeaderBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.asgName {
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.asgMeta {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted, #64748b);
+  font-weight: var(--weight-normal, 400);
+}
+
+.studentRow {
+  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+}
+
+.studentRow:hover {
+  background-color: var(--color-surface-hover, #f8fafc);
+}
+
+.studentCell {
+  vertical-align: middle;
+}
+
+.studentInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-full, 9999px);
+  background-color: var(--color-brand-muted, #eff6ff);
+  color: var(--color-brand, #2563eb);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-bold, 700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  display: block;
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #1e293b);
+}
+
+.idTag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  color: var(--color-text-muted, #94a3b8);
+}
+
+.gradeCell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.letterPill {
+  display: inline-block;
+  font-family: var(--font-mono, monospace);
+  font-weight: var(--weight-bold, 700);
+  font-size: var(--text-xs, 0.75rem);
+  background-color: var(--color-brand-muted, #eff6ff);
+  color: var(--color-brand, #2563eb);
+  padding: 0.0625rem 0.375rem;
+  border-radius: var(--radius-xs, 0.125rem);
+  margin-right: 0.25rem;
+}
+
+.pctText {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+}
+
+.scoreCell {
+  text-align: right;
+  vertical-align: middle;
+  font-family: var(--font-mono, monospace);
+  font-variant-numeric: tabular-nums;
+}
+
+.scoreBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.ptsEarned {
+  font-weight: var(--weight-semibold, 600);
+}
+
+.badgeExcused {
+  font-size: 0.625rem;
+  font-weight: var(--weight-bold, 700);
+  background-color: var(--color-surface-hover, #f1f5f9);
+  color: var(--color-text-muted, #64748b);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.badgeMissing {
+  font-size: 0.625rem;
+  font-weight: var(--weight-bold, 700);
+  background-color: var(--color-danger-muted, #fee2e2);
+  color: var(--color-danger, #b91c1c);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.badgeLate {
+  font-size: 0.625rem;
+  color: var(--color-warning-text, #b45309);
+  font-weight: var(--weight-bold, 700);
+}
+
+.textMuted {
+  color: var(--color-text-muted, #94a3b8);
+}
+
+/* Stats Footer */
+.statsRow th,
+.statsRow td {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-top: 2px solid var(--color-border, #cbd5e1);
+  padding: var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+}
+
+.statsLabel {
+  text-transform: uppercase;
+  color: var(--color-text-secondary, #475569);
+}
+
+.asgStatCell {
+  text-align: right;
+  font-family: var(--font-mono, monospace);
+}
+
+.statAvgPts {
+  color: var(--color-text-primary, #0f172a);
+}
+
+.statAvgPct {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted, #64748b);
+  margin-left: 0.25rem;
+}

@@ -1,0 +1,246 @@
+/* CapTableScenarioSimulator — Carta & Goldman Sachs benchmarked */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+  font-family: inherit;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.capBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  padding: var(--space-0-5) var(--space-1-5);
+  background: var(--color-brand);
+  color: var(--color-text-inverse, #ffffff);
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.05em;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.metricPill {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-mono);
+  color: var(--color-brand);
+  background: var(--color-brand-subtle);
+  border-radius: var(--radius-full);
+  padding: var(--space-0-5) var(--space-2);
+}
+
+.poolTimingGroup {
+  display: flex;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.timingBtn {
+  font-size: var(--text-xs);
+  font-family: inherit;
+  padding: var(--space-1) var(--space-2-5);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast, 150ms) ease;
+}
+
+.timingBtn.timingBtnActive {
+  background: var(--color-brand);
+  color: var(--color-text-inverse, #ffffff);
+  font-weight: var(--weight-semibold);
+}
+
+/* Parameter Grid */
+.paramsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--space-64, 16rem), 1fr));
+  gap: var(--space-3);
+}
+
+.paramCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.paramLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.sliderInput {
+  width: 100%;
+  accent-color: var(--color-brand);
+  cursor: pointer;
+}
+
+.paramMinMax {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+}
+
+/* Metrics bar */
+.metricsBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.metricItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.metricLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.metricValueBrand {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-brand);
+}
+
+.metricValueMono {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.divider {
+  width: 1px;
+  height: var(--space-8);
+  background: var(--color-border);
+}
+
+/* Table */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-xs);
+}
+
+.thName,
+.thClass {
+  text-align: left;
+  padding: var(--space-2);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.thNumeric {
+  text-align: right;
+  padding: var(--space-2);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tr {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.tr:hover {
+  background: var(--color-surface-hover);
+}
+
+.trNewInvestor {
+  background: var(--color-brand-subtle);
+  border-top: 1px solid var(--color-brand);
+  border-bottom: 1px solid var(--color-brand);
+}
+
+.td {
+  padding: var(--space-2);
+}
+
+.tdName {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.tdClass {
+  color: var(--color-text-secondary);
+}
+
+.tdNumeric {
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+.dilutionText {
+  color: var(--color-danger);
+}
+
+.additionText {
+  color: var(--color-success);
+  font-weight: var(--weight-bold);
+}
+
+.investorHighlight {
+  color: var(--color-brand);
+}
+
+.valueText {
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.tfootRow {
+  background: var(--color-surface-subtle);
+  border-top: 2px solid var(--color-border);
+  font-weight: var(--weight-bold);
+}

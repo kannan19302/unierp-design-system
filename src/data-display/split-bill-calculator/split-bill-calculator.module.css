@@ -1,0 +1,355 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-md, 0.5rem);
+  color: var(--color-text-primary, #0f172a);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  font-family: var(--font-family-sans, sans-serif);
+  overflow: hidden;
+}
+
+/* Densities */
+.ultra-compact {
+  padding: var(--space-2, 0.5rem);
+  gap: var(--space-2, 0.5rem);
+}
+
+.compact {
+  padding: var(--space-3, 0.75rem);
+  gap: var(--space-3, 0.75rem);
+}
+
+.standard {
+  padding: var(--space-4, 1rem);
+  gap: var(--space-4, 1rem);
+}
+
+.comfortable {
+  padding: var(--space-6, 1.5rem);
+  gap: var(--space-6, 1.5rem);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-bottom: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.titleGroup {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  align-items: center;
+}
+
+.iconTag {
+  font-size: var(--text-2xl, 1.5rem);
+}
+
+.metaRow {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+  align-items: center;
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+.checkBadge {
+  background-color: var(--color-surface-muted, #f1f5f9);
+  color: var(--color-brand, #2563eb);
+  padding: var(--space-1, 0.125rem) var(--space-2, 0.375rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+}
+
+.tableBadge {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  font-weight: var(--weight-medium, 500);
+}
+
+.paidBadge {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-success, #16a34a);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.dueBadge {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-danger, #dc2626);
+  font-weight: var(--weight-bold, 700);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.modeTabs {
+  display: flex;
+  gap: var(--space-1, 0.25rem);
+}
+
+.modeTab {
+  background: none;
+  border: 1px solid var(--color-border-subtle, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  cursor: pointer;
+}
+
+.activeModeTab {
+  background-color: var(--color-brand, #2563eb);
+  color: var(--color-white, #ffffff);
+  border-color: var(--color-brand, #2563eb);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+  background-color: var(--color-surface-muted, #f1f5f9);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.guestSelector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.toolLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.tipPresets {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1, 0.25rem);
+}
+
+.tipBtn {
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border-subtle, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.125rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  cursor: pointer;
+}
+
+.activeTip {
+  background-color: var(--color-brand, #2563eb);
+  color: var(--color-white, #ffffff);
+  border-color: var(--color-brand, #2563eb);
+}
+
+.breakdownRibbon {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-2, 0.5rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.ribbonItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.125rem);
+}
+
+.ribbonLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.ribbonValue {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-bold, 700);
+  font-family: var(--font-family-mono, monospace);
+}
+
+.totalHighlight {
+  color: var(--color-text-primary, #0f172a);
+}
+
+.shareHighlight {
+  color: var(--color-brand, #2563eb);
+}
+
+.splitMainArea {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3, 0.75rem);
+}
+
+@media (max-width: 48rem) {
+  .splitMainArea {
+    grid-template-columns: 1fr;
+  }
+}
+
+.itemsPane,
+.tenderPane {
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-3, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.paneTitle {
+  margin: 0;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-xs, 0.75rem);
+  padding: var(--space-1, 0.25rem) 0;
+  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+}
+
+.itemQty {
+  color: var(--color-brand, #2563eb);
+  font-weight: var(--weight-bold, 700);
+  width: 2rem;
+}
+
+.itemName {
+  flex: 1;
+}
+
+.itemPrice {
+  font-family: var(--font-family-mono, monospace);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.tenderForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-2, 0.5rem);
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.125rem);
+}
+
+.fieldLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  font-weight: var(--weight-medium, 500);
+}
+
+.select,
+.input {
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  border: 1px solid var(--color-border-subtle, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.applyBtn {
+  background-color: var(--color-brand, #2563eb);
+  color: var(--color-white, #ffffff);
+  border: 1px solid transparent;
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  cursor: pointer;
+}
+
+.applyBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tenderHistory {
+  margin-top: var(--space-2, 0.5rem);
+  border-top: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-top: var(--space-2, 0.5rem);
+}
+
+.historyTitle {
+  margin: 0 0 var(--space-1, 0.25rem) 0;
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.emptyTenders {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #94a3b8);
+}
+
+.tenderList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.125rem);
+}
+
+.tenderRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs, 0.75rem);
+  padding: var(--space-1, 0.125rem) 0;
+}
+
+.tenderAmount {
+  font-family: var(--font-family-mono, monospace);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-success, #16a34a);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-top: var(--space-3, 0.75rem);
+}
+
+.finalizeBtn {
+  background-color: var(--color-success, #16a34a);
+  color: var(--color-white, #ffffff);
+  border: 1px solid transparent;
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  cursor: pointer;
+}

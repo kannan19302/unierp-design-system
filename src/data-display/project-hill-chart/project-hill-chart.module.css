@@ -1,0 +1,236 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-md, 0.5rem);
+  color: var(--color-text-primary, #0f172a);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  font-family: var(--font-family-sans, sans-serif);
+  overflow: hidden;
+}
+
+/* Densities */
+.ultra-compact {
+  padding: var(--space-2, 0.5rem);
+  gap: var(--space-2, 0.5rem);
+}
+
+.compact {
+  padding: var(--space-3, 0.75rem);
+  gap: var(--space-3, 0.75rem);
+}
+
+.standard {
+  padding: var(--space-4, 1rem);
+  gap: var(--space-4, 1rem);
+}
+
+.comfortable {
+  padding: var(--space-6, 1.5rem);
+  gap: var(--space-6, 1.5rem);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-bottom: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem);
+}
+
+.titleGroup {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  align-items: center;
+}
+
+.iconTag {
+  font-size: var(--text-2xl, 1.5rem);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.legend {
+  display: flex;
+  gap: var(--space-4, 1rem);
+}
+
+.legendStage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.uphillIndicator {
+  width: var(--space-2, 0.5rem);
+  height: var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+  background-color: var(--color-warning, #d97706);
+}
+
+.downhillIndicator {
+  width: var(--space-2, 0.5rem);
+  height: var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+  background-color: var(--color-success, #16a34a);
+}
+
+.stageLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+}
+
+.canvasWrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-4, 1rem);
+  position: relative;
+}
+
+.svgCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 18rem;
+  overflow: visible;
+}
+
+.baseline {
+  stroke: var(--color-border-strong, #cbd5e1);
+  stroke-width: 1;
+}
+
+.centerDivider {
+  stroke: var(--color-border-subtle, #e2e8f0);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.hillLine {
+  fill: none;
+  stroke: var(--color-brand, #2563eb);
+  stroke-width: 2;
+}
+
+.markerGroup {
+  cursor: pointer;
+  outline: none;
+}
+
+.markerDot {
+  fill: var(--color-brand, #2563eb);
+  stroke: var(--color-surface, #ffffff);
+  stroke-width: 2;
+  transition: transform 0.15s ease-in-out;
+}
+
+.markerGroup:hover .markerDot,
+.markerGroup:focus .markerDot {
+  fill: var(--color-brand-active, #1d4ed8);
+  r: 8;
+}
+
+.markerGlow {
+  fill: var(--color-brand-subtle, #dbeafe);
+  opacity: 0.6;
+}
+
+.markerText {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  fill: var(--color-text-primary, #0f172a);
+  paint-order: stroke;
+  stroke: var(--color-surface, #ffffff);
+  stroke-width: 2;
+}
+
+.phaseLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text-secondary, #64748b);
+  border-top: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-top: var(--space-2, 0.5rem);
+}
+
+.phaseLeft {
+  color: var(--color-warning, #d97706);
+}
+
+.phaseMid {
+  color: var(--color-text-secondary, #64748b);
+  font-style: italic;
+}
+
+.phaseRight {
+  color: var(--color-success, #16a34a);
+}
+
+.detailPane {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-surface-muted, #f1f5f9);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.scopeMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.scopeBadge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-brand, #2563eb);
+}
+
+.scopeName {
+  margin: 0;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.assignee {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.positionMeter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+  min-width: 12rem;
+}
+
+.meterLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+}
+
+.slider {
+  cursor: pointer;
+}

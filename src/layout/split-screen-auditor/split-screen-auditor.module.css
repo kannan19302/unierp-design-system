@@ -1,0 +1,140 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 2.0 — SplitScreenAuditor Styles
+   Inspired by Bill.com (#41) & Canvas SpeedGrader (#103)
+   ══════════════════════════════════════════════════════════════ */
+
+.root {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: var(--auditor-min-height, 480px);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: var(--font-sans);
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  min-width: var(--space-24, 96px);
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-surface, var(--color-bg-elevated));
+}
+
+.formPane {
+  border-left: 1px solid var(--color-border);
+}
+
+.paneHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  border-bottom: 1px solid var(--color-border);
+  min-height: var(--density-row-height, 32px);
+  flex-shrink: 0;
+}
+
+.headerTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow: hidden;
+}
+
+.paneIcon {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.paneTitle {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary, var(--color-text));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.paneControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.paneActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.paneBody {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: var(--space-3);
+}
+
+/* ── Splitter Resizer Handle ── */
+.splitter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-2, 8px);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  cursor: col-resize;
+  user-select: none;
+  transition: background-color var(--duration-fast, 150ms) ease;
+  flex-shrink: 0;
+}
+
+.splitter:hover,
+.splitter:focus-visible {
+  background-color: var(--color-primary-subtle, rgba(37, 99, 235, 0.15));
+  outline: none;
+}
+
+.splitter:focus-visible {
+  border-color: var(--color-primary);
+}
+
+.gripHandle {
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+.splitter:hover .gripHandle,
+.splitter:focus-visible .gripHandle {
+  opacity: 1;
+  color: var(--color-primary);
+}
+
+/* ── 4-Tier Density Adaptations ── */
+.root[data-density="ultra-compact"] .paneHeader {
+  min-height: var(--density-row-height);
+  padding: var(--space-1) var(--space-2);
+}
+
+.root[data-density="ultra-compact"] .paneBody {
+  padding: var(--space-2);
+}
+
+.root[data-density="compact"] .paneHeader {
+  min-height: var(--density-row-height);
+}
+
+.root[data-density="standard"] .paneHeader {
+  min-height: var(--density-row-height);
+}
+
+.root[data-density="comfortable"] .paneHeader {
+  min-height: var(--density-row-height);
+  padding: var(--space-3);
+}

@@ -1,0 +1,295 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 0.5rem);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  color: var(--color-text-primary, #0f172a);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-4, 1rem);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  background-color: var(--color-surface-subtle, #f8fafc);
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.logisticsBadge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  letter-spacing: 0.05em;
+  color: var(--color-brand, #2563eb);
+  background-color: var(--color-brand-subtle, #eff6ff);
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.carrierCountBadge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-muted, #64748b);
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-base, 1rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.laneRoute {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.lanePoint {
+  color: var(--color-text-primary, #0f172a);
+}
+
+.laneArrow {
+  color: var(--color-brand, #2563eb);
+}
+
+.specStrip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-3, 0.75rem);
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  background-color: var(--color-surface, #ffffff);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+}
+
+.specItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.specLabel {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text-muted, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.specValue {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.valBest {
+  color: var(--color-success, #16a34a);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.table th {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  color: var(--color-text-muted, #64748b);
+  font-weight: var(--weight-semibold, 600);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  vertical-align: middle;
+}
+
+.awardedRow {
+  background-color: var(--color-success-subtle, #f0fdf4);
+}
+
+.carrierCell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5, 0.125rem);
+}
+
+.carrierName {
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.scacCode {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+  font-family: var(--font-mono, monospace);
+}
+
+.modeBadge {
+  display: inline-block;
+  padding: var(--space-0-5, 0.125rem) var(--space-1-5, 0.375rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-secondary, #334155);
+}
+
+.transitCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, 0.375rem);
+}
+
+.daysText {
+  font-weight: var(--weight-medium, 500);
+}
+
+.fastestPill {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-brand, #2563eb);
+  background-color: var(--color-brand-subtle, #eff6ff);
+  padding: var(--space-0-5, 0.125rem) var(--space-1, 0.25rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.monoCell {
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-secondary, #334155);
+}
+
+.costCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, 0.375rem);
+}
+
+.costValue {
+  font-family: var(--font-mono, monospace);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.costBest {
+  color: var(--color-success, #16a34a);
+}
+
+.bestRatePill {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-success, #16a34a);
+  background-color: var(--color-success-subtle, #f0fdf4);
+  padding: var(--space-0-5, 0.125rem) var(--space-1, 0.25rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.statusPill {
+  display: inline-block;
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  text-transform: uppercase;
+}
+
+.statusAwarded {
+  background-color: var(--color-success-subtle, #f0fdf4);
+  color: var(--color-success, #16a34a);
+  border: 1px solid var(--color-success-border, #bbf7d0);
+}
+
+.statusQuoted {
+  background-color: var(--color-brand-subtle, #eff6ff);
+  color: var(--color-brand, #2563eb);
+  border: 1px solid var(--color-brand-border, #bfdbfe);
+}
+
+.statusDeclined {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  color: var(--color-text-muted, #64748b);
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+.awardBtn {
+  cursor: pointer;
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-brand, #2563eb);
+  background-color: var(--color-brand, #2563eb);
+  color: var(--color-text-inverse, #ffffff);
+  transition: all 0.15s ease-in-out;
+}
+
+.awardBtn:hover:not(:disabled) {
+  background-color: var(--color-brand-hover, #1d4ed8);
+  border-color: var(--color-brand-hover, #1d4ed8);
+}
+
+.awardBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: var(--color-surface-muted, #f1f5f9);
+  border-color: var(--color-border, #e2e8f0);
+  color: var(--color-text-muted, #64748b);
+}
+
+.footer {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-top: 1px solid var(--color-border, #e2e8f0);
+}
+
+.footerNote {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+}
+
+/* Densities */
+[data-density="ultra-compact"] .table th,
+[data-density="ultra-compact"] .table td {
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+}
+
+[data-density="comfortable"] .table th,
+[data-density="comfortable"] .table td {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+}

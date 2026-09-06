@@ -1,0 +1,176 @@
+.trailNav {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  color: var(--color-text-primary, #0f172a);
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 6px);
+  padding: var(--space-1-5, 0.375rem) var(--space-3, 0.75rem);
+  box-sizing: border-box;
+  width: 100%;
+  gap: var(--space-1-5, 0.375rem);
+}
+
+.trailList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: var(--space-1, 0.25rem);
+  flex-wrap: wrap;
+}
+
+.segmentItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1, 0.25rem);
+}
+
+.segmentBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, 0.375rem);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm, 4px);
+  color: var(--color-text-secondary, #475569);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.segmentBtn:hover {
+  background-color: var(--color-surface-hover, #f1f5f9);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.segmentCurrent {
+  color: var(--color-primary, #2563eb);
+  font-weight: 700;
+  background-color: var(--color-primary-subtle, #eff6ff);
+}
+
+.chevron {
+  font-size: var(--text-2xs, 0.6875rem);
+  color: var(--color-text-tertiary, #94a3b8);
+  user-select: none;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + var(--space-1, 0.25rem));
+  left: 0;
+  width: 16rem;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-md, 6px);
+  box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1));
+  z-index: 50;
+  padding: var(--space-2, 0.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5, 0.375rem);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 4px);
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #0f172a);
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-primary, #2563eb);
+}
+
+.siblingList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 12rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5, 0.125rem);
+}
+
+.siblingBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-1-5, 0.375rem) var(--space-2, 0.5rem);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #334155);
+  cursor: pointer;
+  text-align: left;
+}
+
+.siblingBtn:hover {
+  background-color: var(--color-surface-hover, #f1f5f9);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.siblingCurrent {
+  background-color: var(--color-primary-subtle, #eff6ff);
+  color: var(--color-primary, #2563eb);
+  font-weight: 600;
+}
+
+.actionsSection {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1, 0.25rem);
+}
+
+.copyBtn {
+  background: transparent;
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 4px);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-size: var(--text-2xs, 0.6875rem);
+  color: var(--color-text-secondary, #64748b);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.copyBtn:hover {
+  background-color: var(--color-surface-hover, #f1f5f9);
+  color: var(--color-text-primary, #0f172a);
+}
+
+/* Density overrides */
+.trailNav[data-density="ultra-compact"] {
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+}
+
+.trailNav[data-density="ultra-compact"] .segmentBtn {
+  padding: 0 var(--space-1, 0.25rem);
+  font-size: var(--text-2xs, 0.6875rem);
+}
+
+.trailNav[data-density="compact"] {
+  padding: var(--space-1, 0.25rem) var(--space-2-5, 0.625rem);
+}
+
+.trailNav[data-density="standard"] {
+  padding: var(--space-1-5, 0.375rem) var(--space-3, 0.75rem);
+}
+
+.trailNav[data-density="comfortable"] {
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+}

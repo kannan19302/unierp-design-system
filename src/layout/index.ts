@@ -14,4 +14,9 @@ export * from "./view-switcher";
 export * from "./context-rail";
 export * from "./workspace-tabs";
 export * from "./footer";
+export * from "./fact-box";
+export * from "./split-screen-auditor";
+export * from "./billable-timer-dock";
+export * from "./omnichannel-contact-bar";
 export * from "../navigation/sub-tab-bar";
+

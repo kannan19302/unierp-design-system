@@ -1,0 +1,438 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-lg, 0.5rem);
+  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
+  font-family: var(--font-sans, inherit);
+  color: var(--color-text-primary, #0f172a);
+  overflow: hidden;
+}
+
+/* Density Variants */
+.ultra-compact {
+  padding: var(--space-2, 0.5rem);
+  gap: var(--space-2, 0.5rem);
+}
+
+.compact {
+  padding: var(--space-3, 0.75rem);
+  gap: var(--space-3, 0.75rem);
+}
+
+.standard {
+  padding: var(--space-4, 1rem);
+  gap: var(--space-4, 1rem);
+}
+
+.comfortable {
+  padding: var(--space-6, 1.5rem);
+  gap: var(--space-5, 1.25rem);
+}
+
+/* Patient Banner */
+.patientBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  padding: var(--space-3, 0.75rem);
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+.patientPrimary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+}
+
+.bedBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-base, 1rem);
+  font-weight: var(--weight-bold, 700);
+  background-color: var(--color-brand, #2563eb);
+  color: var(--color-text-on-brand, #ffffff);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.patientName {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.patientMeta {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+  margin-top: 0.125rem;
+}
+
+.allergyCorridor {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  background-color: var(--color-danger-muted, #fee2e2);
+  border: 1px solid var(--color-danger-border, #fecaca);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.allergyLabel {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-danger-text, #b91c1c);
+}
+
+.allergyTags {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.allergyBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  background-color: var(--color-danger, #ef4444);
+  color: var(--color-text-on-brand, #ffffff);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.noAllergies {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-success, #15803d);
+  font-weight: var(--weight-semibold, 600);
+}
+
+/* Contraindication Alert */
+.contraindicationAlert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3, 0.75rem);
+  background-color: var(--color-danger-muted, #fee2e2);
+  border: 2px solid var(--color-danger, #dc2626);
+  padding: var(--space-3, 0.75rem);
+  border-radius: var(--radius-md, 0.375rem);
+  color: var(--color-danger-text, #991b1b);
+  font-size: var(--text-sm, 0.875rem);
+}
+
+.alertIcon {
+  font-size: var(--text-xl, 1.25rem);
+}
+
+.alertText {
+  flex: 1;
+}
+
+.overrideCheckWrap {
+  margin-top: var(--space-2, 0.5rem);
+}
+
+.overrideLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-danger-text, #991b1b);
+  cursor: pointer;
+}
+
+/* Order Grid */
+.orderGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 0.375rem);
+  overflow: hidden;
+}
+
+.paneTitle {
+  margin: 0;
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  text-transform: uppercase;
+  color: var(--color-text-muted, #64748b);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  letter-spacing: 0.05em;
+}
+
+.entryPane {
+  border-right: 1px solid var(--color-border, #e2e8f0);
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryTabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border, #cbd5e1);
+  background-color: var(--color-surface-hover, #f1f5f9);
+}
+
+.catTab {
+  flex: 1;
+  padding: var(--space-2, 0.5rem);
+  background: none;
+  border: none;
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-secondary, #475569);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.catTabActive {
+  background-color: var(--color-surface-elevated, #ffffff);
+  color: var(--color-brand, #2563eb);
+  border-bottom-color: var(--color-brand, #2563eb);
+}
+
+.orderForm {
+  padding: var(--space-3, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+}
+
+.formRow {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+}
+
+.inputWrap {
+  flex: 1;
+  min-width: 12rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.inputWrapNarrow {
+  width: 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-secondary, #475569);
+}
+
+.textInput,
+.selectInput {
+  padding: var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--color-surface-elevated, #ffffff);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.textInput:focus,
+.selectInput:focus {
+  outline: 2px solid var(--color-brand, #2563eb);
+  border-color: var(--color-brand, #2563eb);
+}
+
+.addOrderBtn {
+  align-self: flex-start;
+  background-color: var(--color-brand, #2563eb);
+  color: var(--color-text-on-brand, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  cursor: pointer;
+}
+
+/* Basket Pane */
+.basketPane {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  display: flex;
+  flex-direction: column;
+}
+
+.orderList {
+  padding: var(--space-3, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  overflow-y: auto;
+  max-height: 20rem;
+}
+
+.emptyBasket {
+  margin: 0;
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #94a3b8);
+  font-style: italic;
+  text-align: center;
+  padding: var(--space-6, 1.5rem) 0;
+}
+
+.orderCard {
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-2, 0.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cardContraindicated {
+  border-color: var(--color-danger, #ef4444);
+  background-color: var(--color-danger-muted, #fee2e2);
+}
+
+.orderCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.orderCatBadge {
+  font-size: 0.625rem;
+  font-weight: var(--weight-bold, 700);
+  background-color: var(--color-surface-hover, #f1f5f9);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.prioBadge {
+  font-size: 0.625rem;
+  font-weight: var(--weight-bold, 700);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.prioStat {
+  background-color: var(--color-danger, #ef4444);
+  color: var(--color-text-on-brand, #ffffff);
+}
+
+.prioUrgent {
+  background-color: var(--color-warning-muted, #fef3c7);
+  color: var(--color-warning-text, #b45309);
+}
+
+.prioRoutine {
+  background-color: var(--color-surface-subtle, #f1f5f9);
+  color: var(--color-text-secondary, #475569);
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted, #94a3b8);
+  cursor: pointer;
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.removeBtn:hover {
+  color: var(--color-danger, #ef4444);
+}
+
+.orderCardName {
+  margin: 0;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.orderCardDetails {
+  margin: 0;
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+}
+
+.contraWarningText {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-danger-text, #b91c1c);
+}
+
+/* Sign-off Footer */
+.signOffFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+  border-top: 1px solid var(--color-border-subtle, #f1f5f9);
+  padding-top: var(--space-3, 0.75rem);
+}
+
+.providerInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.providerName {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.credentialsBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  color: var(--color-text-muted, #64748b);
+  background-color: var(--color-surface-hover, #f1f5f9);
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--radius-xs, 0.125rem);
+}
+
+.signActionGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.pinLabel {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-secondary, #475569);
+}
+
+.pinInput {
+  width: 4.5rem;
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-sm, 0.875rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 0.25rem);
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+.submitOrdersBtn {
+  background-color: var(--color-brand, #2563eb);
+  color: var(--color-text-on-brand, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  cursor: pointer;
+}
+
+.submitOrdersBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

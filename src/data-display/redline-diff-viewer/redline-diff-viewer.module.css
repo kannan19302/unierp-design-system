@@ -1,0 +1,294 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 2.0 — RedlineDiffViewer
+   Inspired by Ironclad (#114), GitHub Primer (#9), GitLab (#10)
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-surface, var(--color-bg-elevated));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+/* ── Header Toolbar ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2-5, var(--space-2)) var(--space-3);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.titleIcon {
+  color: var(--color-primary);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.changeBadge {
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-warning, #f59e0b);
+  background-color: var(--color-warning-subtle, rgba(245, 158, 11, 0.15));
+  padding: var(--space-0-5, 2px) var(--space-1-5, var(--space-1));
+  border-radius: var(--radius-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.navGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6, 24px);
+  height: var(--space-6, 24px);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.iconBtn:hover:not(:disabled) {
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.iconBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.counterText {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  min-width: var(--space-24, 96px);
+  text-align: center;
+}
+
+.actionsGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.modeToggleGroup {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1px;
+}
+
+.modeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.modeBtn:hover {
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.modeBtnActive {
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+.decisionActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.acceptBtn,
+.rejectBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2-5, var(--space-2));
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.acceptBtn {
+  background-color: var(--color-success-subtle, rgba(16, 185, 129, 0.15));
+  border: 1px solid var(--color-success, #10b981);
+  color: var(--color-success, #10b981);
+}
+
+.acceptBtn:hover {
+  background-color: var(--color-success, #10b981);
+  color: var(--color-white, #ffffff);
+}
+
+.rejectBtn {
+  background-color: var(--color-danger-subtle, rgba(239, 68, 68, 0.15));
+  border: 1px solid var(--color-danger, #ef4444);
+  color: var(--color-danger, #ef4444);
+}
+
+.rejectBtn:hover {
+  background-color: var(--color-danger, #ef4444);
+  color: var(--color-white, #ffffff);
+}
+
+/* ── Split Grid Layout ── */
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: var(--space-72, 288px);
+}
+
+@media (max-width: 768px) {
+  .splitGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pane:first-child {
+  border-right: 1px solid var(--color-border);
+}
+
+.paneHeader {
+  padding: var(--space-1-5, var(--space-1)) var(--space-3);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-bold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.diffTableWrap,
+.unifiedTableWrap {
+  overflow-x: auto;
+  max-height: var(--space-96, 384px);
+}
+
+.diffTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed, 1.6);
+}
+
+.lineRow {
+  height: var(--density-row-height, 32px);
+  border-bottom: 1px solid var(--color-border-subtle, transparent);
+}
+
+.rowRemoved {
+  background-color: var(--color-danger-subtle, rgba(239, 68, 68, 0.12));
+}
+
+.rowAdded {
+  background-color: var(--color-success-subtle, rgba(16, 185, 129, 0.12));
+}
+
+.rowActive {
+  outline: 1px solid var(--color-primary);
+  outline-offset: -1px;
+}
+
+.lineNum {
+  width: var(--space-10, 40px);
+  min-width: var(--space-10, 40px);
+  padding: 0 var(--space-2);
+  text-align: right;
+  color: var(--color-text-muted);
+  user-select: none;
+  border-right: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  font-size: var(--text-2xs, var(--text-xs));
+}
+
+.diffSign {
+  width: var(--space-5, 20px);
+  min-width: var(--space-5, 20px);
+  text-align: center;
+  font-weight: var(--weight-bold);
+  user-select: none;
+  color: var(--color-text-muted);
+}
+
+.lineContent {
+  padding: 0 var(--space-2);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.delText {
+  text-decoration: line-through;
+  color: var(--color-danger, #ef4444);
+}
+
+.insText {
+  color: var(--color-success, #10b981);
+  font-weight: var(--weight-medium);
+}
+
+/* ── 4-Tier Density ── */
+.container[data-density="ultra-compact"] .lineRow {
+  height: var(--density-row-height);
+}
+
+.container[data-density="compact"] .lineRow {
+  height: var(--density-row-height);
+}
+
+.container[data-density="standard"] .lineRow {
+  height: var(--density-row-height);
+}
+
+.container[data-density="comfortable"] .lineRow {
+  height: var(--density-row-height);
+}

@@ -1,0 +1,341 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 2.0 — PeriodCloseCockpit
+   Inspired by Workday Financials (#33), SAP S/4HANA Finance (#12)
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-surface, var(--color-bg-elevated));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+/* ── Header ── */
+.header {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5, var(--space-2));
+}
+
+.headerTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.periodInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.calendarIcon {
+  color: var(--color-primary);
+}
+
+.periodTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.lockBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-bold);
+  padding: var(--space-0-5, 2px) var(--space-2, var(--space-1));
+  border-radius: var(--radius-sm);
+}
+
+.badgeHardLocked {
+  background-color: var(--color-danger-subtle, rgba(239, 68, 68, 0.15));
+  color: var(--color-danger, #ef4444);
+  border: 1px solid var(--color-danger, #ef4444);
+}
+
+.badgeUnlocked {
+  background-color: var(--color-primary-subtle, rgba(14, 165, 233, 0.15));
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hardLockBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-3);
+  background-color: var(--color-danger, #ef4444);
+  border: 1px solid var(--color-danger, #ef4444);
+  border-radius: var(--radius-sm);
+  color: var(--color-white, #ffffff);
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.hardLockBtn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.hardLockBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.progressTrack {
+  flex: 1;
+  height: var(--space-1-5, var(--space-1));
+  background-color: var(--color-border);
+  border-radius: var(--radius-full, 9999px);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--color-success, #10b981);
+  border-radius: var(--radius-full, 9999px);
+  transition: width var(--transition-normal, 250ms ease);
+}
+
+.progressText {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* ── Category Filter Bar ── */
+.filterBar {
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+}
+
+.categoryTabs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  overflow-x: auto;
+}
+
+.catBtn {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  padding: var(--space-1) var(--space-2-5, var(--space-2));
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.catBtn:hover {
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.catBtnActive {
+  background-color: var(--color-primary-subtle, rgba(14, 165, 233, 0.12));
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+/* ── Tasks Table ── */
+.tableScroll {
+  overflow-x: auto;
+  max-height: var(--space-96, 384px);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-xs);
+  text-align: left;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-2xs, var(--text-xs));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: var(--space-1-5, var(--space-1)) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1;
+}
+
+.row {
+  border-bottom: 1px solid var(--color-border);
+  height: var(--density-row-height, 32px);
+  transition: background-color var(--transition-fast, 150ms ease);
+}
+
+.row:hover {
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+}
+
+.rowDone {
+  background-color: var(--color-success-subtle, rgba(16, 185, 129, 0.05));
+}
+
+.titleCell {
+  padding: 0 var(--space-3);
+  width: 35%;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.taskTitle {
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.exceptionPill {
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-danger, #ef4444);
+  background-color: var(--color-danger-subtle, rgba(239, 68, 68, 0.15));
+  padding: var(--space-0-5, 2px) var(--space-1-5, var(--space-1));
+  border-radius: var(--radius-sm);
+  font-weight: var(--weight-bold);
+}
+
+.categoryCell {
+  padding: 0 var(--space-3);
+  width: 18%;
+}
+
+.categoryTag {
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-muted);
+}
+
+.ownerCell {
+  padding: 0 var(--space-3);
+  color: var(--color-text-muted);
+  width: 15%;
+}
+
+.dateCell {
+  padding: 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-muted);
+  width: 12%;
+}
+
+.statusCell {
+  padding: 0 var(--space-3);
+  width: 12%;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-bold);
+  padding: var(--space-0-5, 2px) var(--space-1-5, var(--space-1));
+  border-radius: var(--radius-sm);
+}
+
+.statusCompleted {
+  background-color: var(--color-success-subtle, rgba(16, 185, 129, 0.15));
+  color: var(--color-success, #10b981);
+}
+
+.statusProgress {
+  background-color: var(--color-primary-subtle, rgba(14, 165, 233, 0.15));
+  color: var(--color-primary);
+}
+
+.statusBlocked {
+  background-color: var(--color-danger-subtle, rgba(239, 68, 68, 0.15));
+  color: var(--color-danger, #ef4444);
+}
+
+.statusPending {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+}
+
+.actionCol {
+  text-align: right;
+  padding: 0 var(--space-3);
+  width: 8%;
+}
+
+.drilldownBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.drilldownBtn:hover {
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* ── 4-Tier Density ── */
+.container[data-density="ultra-compact"] .row {
+  height: var(--density-row-height);
+}
+
+.container[data-density="compact"] .row {
+  height: var(--density-row-height);
+}
+
+.container[data-density="standard"] .row {
+  height: var(--density-row-height);
+}
+
+.container[data-density="comfortable"] .row {
+  height: var(--density-row-height);
+}

@@ -1,0 +1,324 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-elevated, #ffffff);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-md, 0.5rem);
+  color: var(--color-text-primary, #0f172a);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  font-family: var(--font-family-sans, sans-serif);
+  overflow: hidden;
+}
+
+/* Densities */
+.ultra-compact {
+  padding: var(--space-2, 0.5rem);
+  gap: var(--space-2, 0.5rem);
+}
+
+.compact {
+  padding: var(--space-3, 0.75rem);
+  gap: var(--space-3, 0.75rem);
+}
+
+.standard {
+  padding: var(--space-4, 1rem);
+  gap: var(--space-4, 1rem);
+}
+
+.comfortable {
+  padding: var(--space-6, 1.5rem);
+  gap: var(--space-6, 1.5rem);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-bottom: var(--space-3, 0.75rem);
+}
+
+.titleGroup {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  align-items: center;
+}
+
+.iconTag {
+  font-size: var(--text-2xl, 1.5rem);
+}
+
+.metaRow {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+  align-items: center;
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+.appBadge {
+  background-color: var(--color-surface-muted, #f1f5f9);
+  color: var(--color-text-secondary, #475569);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.unitTag,
+.propTag {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.nameRow {
+  margin-top: var(--space-1, 0.25rem);
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-secondary, #475569);
+}
+
+.scoreDialBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: var(--color-surface-muted, #f8fafc);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-md, 0.375rem);
+}
+
+.scoreDialLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--weight-medium, 500);
+}
+
+.scoreDialNumber {
+  font-size: var(--text-2xl, 1.5rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-brand, #2563eb);
+  display: flex;
+  align-items: baseline;
+}
+
+.scoreDialMax {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+  margin-left: var(--space-1, 0.25rem);
+}
+
+.financialRibbon {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-3, 0.75rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding: var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.ribbonItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.ribbonLabel {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.ribbonVal {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.ratioGood {
+  color: var(--color-success, #16a34a);
+}
+
+.ratioWarning {
+  color: var(--color-warning, #d97706);
+}
+
+.verdictBadge {
+  display: inline-block;
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  text-align: center;
+}
+
+.verdictApprove {
+  background-color: var(--color-success-subtle, #dcfce7);
+  color: var(--color-success, #166534);
+}
+
+.verdictConditional {
+  background-color: var(--color-warning-subtle, #fef3c7);
+  color: var(--color-warning, #92400e);
+}
+
+.verdictDecline {
+  background-color: var(--color-danger-subtle, #fee2e2);
+  color: var(--color-danger, #991b1b);
+}
+
+.rubricPane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.paneTitle {
+  margin: 0;
+  font-size: var(--text-md, 1rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.criteriaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--space-3, 0.75rem);
+}
+
+.criteriaCard {
+  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-3, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  background-color: var(--color-surface, #ffffff);
+}
+
+.cardPass {
+  border-left: 2px solid var(--color-success, #16a34a);
+}
+
+.cardConditional {
+  border-left: 2px solid var(--color-warning, #d97706);
+}
+
+.cardFail {
+  border-left: 2px solid var(--color-danger, #dc2626);
+}
+
+.criteriaHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.statusIcon {
+  font-size: var(--text-base, 1rem);
+}
+
+.criteriaName {
+  margin: 0;
+  flex: 1;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.statusBadge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--color-surface-muted, #f1f5f9);
+}
+
+.metricRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.criteriaDetails {
+  margin: 0;
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+  line-height: var(--leading-normal, 1.4);
+}
+
+.decisionFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-top: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.decisionPrompt {
+  display: flex;
+  flex-direction: column;
+}
+
+.promptTitle {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.promptSub {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.decisionButtons {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+}
+
+.decisionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1, 0.25rem);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  border-radius: var(--radius-sm, 0.25rem);
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-color: var(--color-surface-muted, #f1f5f9);
+  color: var(--color-text-primary, #0f172a);
+  transition: all 0.15s ease-in-out;
+}
+
+.decisionBtn:hover {
+  background-color: var(--color-surface-hover, #e2e8f0);
+}
+
+.approveBtn.activeChoice {
+  background-color: var(--color-success, #16a34a);
+  color: var(--color-white, #ffffff);
+}
+
+.conditionalBtn.activeChoice {
+  background-color: var(--color-warning, #d97706);
+  color: var(--color-white, #ffffff);
+}
+
+.declineBtn.activeChoice {
+  background-color: var(--color-danger, #dc2626);
+  color: var(--color-white, #ffffff);
+}

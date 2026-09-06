@@ -1,0 +1,316 @@
+/* TopologyDependencyGraph — Argo CD & Cisco Momentum benchmarked */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+  font-family: inherit;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.topBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  padding: var(--space-0-5) var(--space-1-5);
+  background: var(--color-brand);
+  color: var(--color-text-inverse, #ffffff);
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.05em;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.metricPill {
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-0-5) var(--space-2);
+}
+
+/* Filter Group */
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.filterBtn {
+  font-size: var(--text-xs);
+  font-family: inherit;
+  padding: var(--space-1) var(--space-2-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast, 150ms) ease;
+}
+
+.filterBtn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.filterBtn.filterBtnActive {
+  background: var(--color-brand);
+  color: var(--color-text-inverse, #ffffff);
+  border-color: var(--color-brand);
+}
+
+/* Workspace Grid */
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr var(--space-72, 18rem);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* SVG Canvas */
+.canvasContainer {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  overflow: hidden;
+}
+
+.svgCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.edgePath {
+  transition: stroke var(--duration-fast, 150ms) ease;
+}
+
+.edgeDegraded {
+  stroke-dasharray: 4;
+  animation: dashAnimation 1s linear infinite;
+}
+
+@keyframes dashAnimation {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+/* Node Groups */
+.nodeGroup {
+  cursor: pointer;
+  outline: none;
+  transition: opacity var(--duration-fast, 150ms) ease;
+}
+
+.nodeDimmed {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.nodeRect {
+  fill: var(--color-surface-elevated);
+  stroke: var(--color-border);
+  stroke-width: 1px;
+  transition: all var(--duration-fast, 150ms) ease;
+}
+
+.nodeGroup:hover .nodeRect {
+  stroke: var(--color-brand);
+  fill: var(--color-surface-hover);
+}
+
+.nodeGroup:focus-visible .nodeRect,
+.nodeRectSelected {
+  stroke: var(--color-brand);
+  stroke-width: 2px;
+  fill: var(--color-brand-subtle);
+}
+
+.nodeTypeText {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  fill: var(--color-text-muted);
+}
+
+.nodeTitleText {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-sans);
+  fill: var(--color-text-primary);
+}
+
+/* Dots */
+.healthIndicatorDot {
+  stroke-width: 1px;
+  stroke: var(--color-surface-elevated);
+}
+
+.dotHealthy {
+  fill: var(--color-success);
+}
+
+.dotWarning {
+  fill: var(--color-warning);
+}
+
+.dotError {
+  fill: var(--color-danger);
+}
+
+/* Inspector */
+.inspector {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyInspector {
+  padding: var(--space-6);
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+  line-height: var(--leading-relaxed, 1.6);
+}
+
+.inspectorBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.inspHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-2);
+}
+
+.inspCategory {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+}
+
+.inspTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.healthStatusRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statusLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.statusBadge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  padding: var(--space-0-5) var(--space-1-5);
+  border-radius: var(--radius-xs);
+}
+
+.badgeHealthy {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.badgeWarning {
+  background: var(--color-warning-subtle);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+}
+
+.badgeError {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.metricBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.mLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.mValue {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.textDanger {
+  color: var(--color-danger);
+}
+
+.incidentNotice {
+  padding: var(--space-2);
+  background: var(--color-warning-subtle);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-xs);
+  color: var(--color-warning);
+  line-height: var(--leading-relaxed, 1.6);
+}

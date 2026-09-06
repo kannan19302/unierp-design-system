@@ -1,0 +1,299 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}
+
+.contractInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+}
+
+.clmBadge {
+  font-size: var(--text-2xs, 0.6875rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 4px);
+  background-color: var(--color-primary-subtle, #eff6ff);
+  color: var(--color-primary, #2563eb);
+  border: 1px solid var(--color-primary-border, #bfdbfe);
+}
+
+.contractTitle {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 700;
+  color: var(--color-text-primary, #0f172a);
+}
+
+.counterpartyText {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.filterControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.selectLabel {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  color: var(--color-text-secondary, #475569);
+}
+
+.selectInput {
+  font-size: var(--text-xs, 0.75rem);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 4px);
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.title {
+  font-size: var(--text-base, 1rem);
+  font-weight: 700;
+  color: var(--color-text-primary, #0f172a);
+  margin: 0;
+}
+
+.riskSummary {
+  display: flex;
+  gap: var(--space-3, 0.75rem);
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.clauseList {
+  display: flex;
+  flex-direction: column;
+  divide-y: 1px solid var(--color-border, #e2e8f0);
+}
+
+.clauseCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+}
+
+.clauseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem);
+}
+
+.clauseTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.sectionNumber {
+  font-size: var(--text-xs, 0.75rem);
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-secondary, #64748b);
+  background-color: var(--color-surface-subtle, #f1f5f9);
+  padding: 0.125rem var(--space-1-5, 0.375rem);
+  border-radius: var(--radius-xs, 2px);
+}
+
+.clauseName {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 700;
+  color: var(--color-text-primary, #0f172a);
+}
+
+.badgeGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.severityPill {
+  display: inline-flex;
+  font-size: var(--text-2xs, 0.6875rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.125rem var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid transparent;
+}
+
+.sevHigh {
+  background-color: var(--color-danger-subtle, #fef2f2);
+  color: var(--color-danger, #dc2626);
+  border-color: var(--color-danger-border, #fecaca);
+}
+
+.sevMedium {
+  background-color: var(--color-warning-subtle, #fffbeb);
+  color: var(--color-warning, #d97706);
+  border-color: var(--color-warning-border, #fef3c7);
+}
+
+.sevLow {
+  background-color: var(--color-success-subtle, #f0fdf4);
+  color: var(--color-success, #16a34a);
+  border-color: var(--color-success-border, #bbf7d0);
+}
+
+.diffContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3, 0.75rem);
+}
+
+@media (max-width: 48rem) {
+  .diffContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+.diffBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: var(--space-2-5, 0.625rem);
+  border-radius: var(--radius-md, 6px);
+  font-size: var(--text-xs, 0.75rem);
+  line-height: 1.4;
+}
+
+.standardBox {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border, #cbd5e1);
+}
+
+.proposedBox {
+  background-color: var(--color-warning-subtle, #fffbeb);
+  border: 1px solid var(--color-warning-border, #fef3c7);
+}
+
+.boxLabel {
+  font-size: var(--text-2xs, 0.6875rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-secondary, #64748b);
+}
+
+.clauseText {
+  color: var(--color-text-primary, #0f172a);
+}
+
+.rationaleAlert {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-danger, #b91c1c);
+  background-color: var(--color-danger-subtle, #fef2f2);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 4px);
+  border: 1px solid var(--color-danger-border, #fecaca);
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2, 0.5rem);
+}
+
+.acceptBtn {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  color: var(--color-success, #16a34a);
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-success-border, #86efac);
+  border-radius: var(--radius-sm, 4px);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  cursor: pointer;
+}
+
+.acceptBtn:hover:not(:disabled) {
+  background-color: var(--color-success-subtle, #f0fdf4);
+}
+
+.revertBtn {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  color: var(--color-primary, #2563eb);
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-primary-border, #bfdbfe);
+  border-radius: var(--radius-sm, 4px);
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
+  cursor: pointer;
+}
+
+.revertBtn:hover:not(:disabled) {
+  background-color: var(--color-primary-subtle, #eff6ff);
+}
+
+.statusLabel {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  color: var(--color-text-secondary, #64748b);
+  align-self: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3, 0.75rem) var(--space-5, 1.25rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-top: 1px solid var(--color-border, #e2e8f0);
+  font-size: var(--text-2xs, 0.6875rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+/* Density overrides */
+.container[data-density="ultra-compact"] .clauseCard {
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  gap: var(--space-2, 0.5rem);
+}
+
+.container[data-density="compact"] .clauseCard {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+}
+
+.container[data-density="standard"] .clauseCard {
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+}
+
+.container[data-density="comfortable"] .clauseCard {
+  padding: var(--space-5, 1.25rem) var(--space-6, 1.5rem);
+}
