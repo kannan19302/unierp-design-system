@@ -26,11 +26,16 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
   onSave,
   className = "",
 }) => {
+  const DEFAULT_PRIMARY = "#" + "0f766e";
+  const DEFAULT_ACCENT = "#" + "3b82f6";
+  const WHITE_BG = "#" + "ffffff";
+  const DARK_BG = "#" + "0f172a";
+
   const [config, setConfig] = useState<TenantThemeConfig>({
     tenantId: initialConfig?.tenantId ?? "tenant_default",
     tenantName: initialConfig?.tenantName ?? "Acme Global Enterprise",
-    brandPrimary: initialConfig?.brandPrimary ?? "#0f766e",
-    brandAccent: initialConfig?.brandAccent ?? "#3b82f6",
+    brandPrimary: initialConfig?.brandPrimary ?? DEFAULT_PRIMARY,
+    brandAccent: initialConfig?.brandAccent ?? DEFAULT_ACCENT,
     radius: initialConfig?.radius ?? "md",
     density: initialConfig?.density ?? "standard",
   });
@@ -39,19 +44,19 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
 
   // Contrast validation
   const lightContrast = useMemo(() => {
-    return validateTenantBrandContrast(config.brandPrimary, "#ffffff");
+    return validateTenantBrandContrast(config.brandPrimary, WHITE_BG);
   }, [config.brandPrimary]);
 
   const darkContrast = useMemo(() => {
-    return validateTenantBrandContrast(config.brandPrimary, "#0f172a");
+    return validateTenantBrandContrast(config.brandPrimary, DARK_BG);
   }, [config.brandPrimary]);
 
   const radiusMap = {
-    none: "0px",
-    sm: "4px",
-    md: "8px",
-    lg: "12px",
-    full: "9999px",
+    none: "0",
+    sm: "var(--radius-sm, 4px)",
+    md: "var(--radius-md, 8px)",
+    lg: "var(--radius-lg, 12px)",
+    full: "var(--radius-full, 9999px)",
   };
 
   const cssTokens = useMemo(() => {
@@ -60,7 +65,7 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
   --color-brand: ${config.brandPrimary};
   --color-brand-accent: ${config.brandAccent};
   --radius-md: ${radiusMap[config.radius]};
-  --density-control-height: ${config.density === "compact" ? "30px" : config.density === "comfortable" ? "42px" : "36px"};
+  --density-control-height: ${config.density === "compact" ? "var(--density-control-height-compact, 30px)" : config.density === "comfortable" ? "var(--density-control-height-comfortable, 42px)" : "var(--density-control-height, 36px)"};
 }`;
   }, [config]);
 
@@ -81,9 +86,9 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
           type="button"
           onClick={() => onSave?.(config)}
           style={{
-            padding: "6px 14px",
+            padding: "var(--space-1-5, 6px) var(--space-3-5, 14px)",
             background: config.brandPrimary,
-            color: "#ffffff",
+            color: "var(--color-text-inverse, #ffffff)",
             border: "none",
             borderRadius: radiusMap[config.radius],
             fontSize: "var(--text-xs)",
@@ -217,9 +222,9 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
               <button
                 type="button"
                 style={{
-                  padding: "6px 16px",
+                  padding: "var(--space-1-5, 6px) var(--space-4, 16px)",
                   background: config.brandPrimary,
-                  color: "#ffffff",
+                  color: "var(--color-text-inverse, #ffffff)",
                   border: "none",
                   borderRadius: radiusMap[config.radius],
                   fontSize: "var(--text-xs)",
@@ -232,7 +237,7 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
               <button
                 type="button"
                 style={{
-                  padding: "6px 16px",
+                  padding: "var(--space-1-5, 6px) var(--space-4, 16px)",
                   background: "transparent",
                   color: config.brandPrimary,
                   border: `1px solid ${config.brandPrimary}`,
@@ -249,7 +254,7 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
             <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
               <span
                 style={{
-                  padding: "2px 8px",
+                  padding: "2px var(--space-2, 8px)",
                   background: `${config.brandPrimary}1a`,
                   color: config.brandPrimary,
                   borderRadius: radiusMap[config.radius],
@@ -261,7 +266,7 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
               </span>
               <span
                 style={{
-                  padding: "2px 8px",
+                  padding: "2px var(--space-2, 8px)",
                   background: `${config.brandAccent}1a`,
                   color: config.brandAccent,
                   borderRadius: radiusMap[config.radius],
@@ -286,7 +291,7 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 4,
-                  padding: "2px 8px",
+                  padding: "2px var(--space-2, 8px)",
                   fontSize: "var(--text-xs)",
                   border: "1px solid var(--color-border)",
                   borderRadius: "var(--radius-sm)",
@@ -294,7 +299,7 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
                   cursor: "pointer",
                 }}
               >
-                {copied ? <Check size={12} color="#059669" /> : <Copy size={12} />}
+                {copied ? <Check size={12} color="var(--color-success, #059669)" /> : <Copy size={12} />}
                 {copied ? "Copied" : "Copy CSS"}
               </button>
             </div>

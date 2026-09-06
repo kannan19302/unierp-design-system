@@ -87,7 +87,7 @@
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + var(--space-1, 4px));
   left: 0;
   right: 0;
   background: var(--surface-1-bg, var(--color-bg-elevated));
@@ -97,7 +97,7 @@
   list-style: none;
   margin: 0;
   padding: var(--space-1) 0;
-  max-height: 220px;
+  max-height: var(--select-menu-max-height, 220px);
   overflow-y: auto;
   z-index: var(--z-dropdown, 100);
 }
@@ -127,8 +127,8 @@
 }
 
 .checkSquare {
-  width: 14px;
-  height: 14px;
+  width: var(--size-check-sm, 14px);
+  height: var(--size-check-sm, 14px);
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: 2px;
   display: inline-flex;

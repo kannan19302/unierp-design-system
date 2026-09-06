@@ -31,7 +31,7 @@ export const SixStatesMatrix: FC<SixStatesMatrixProps> = ({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
       <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: 700 }}>{title}</h3>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "var(--space-4)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(var(--card-min-width, 340px), 1fr))", gap: "var(--space-4)" }}>
         {states.map(({ label, component }) => (
           <div
             key={label}

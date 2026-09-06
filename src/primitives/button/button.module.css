@@ -23,7 +23,7 @@
 }
 
 .button:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
 }
 
 .button:disabled {
@@ -138,8 +138,8 @@
 
 .loader {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: var(--button-loader-size, 14px);
+  height: var(--button-loader-size, 14px);
   border: 2px solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;

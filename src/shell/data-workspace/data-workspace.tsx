@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type ReactNode, type ChangeEvent } from "react";
+import { useState, type ReactNode, type ChangeEvent, type KeyboardEvent } from "react";
+import { Search } from "lucide-react";
 import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianState } from "../meridian-bar";
 import { PageHeader } from "../../layout/page-header";
 import styles from "./data-workspace.module.css";
@@ -29,9 +30,9 @@ export interface DataWorkspacePagination {
 }
 
 export interface DataWorkspaceProps<T = Record<string, unknown>> {
-  /** Meridian context address segments (e.g. ['finance', 'general-ledger', 'journals']) */
+  /** Meridian/Strata context address segments */
   segments?: MeridianSegment[];
-  /** Meridian status pill */
+  /** Status pill at context boundary */
   state?: { label: string; tone?: MeridianState };
   /** Primary next verb at the context boundary */
   action?: MeridianAction;
@@ -43,11 +44,25 @@ export interface DataWorkspaceProps<T = Record<string, unknown>> {
   loading?: boolean;
   searchable?: boolean;
   searchPlaceholder?: string;
+  /** Explicit list of row field keys to search; defaults to columns or string fields */
+  searchableFields?: Array<keyof T | string>;
+  /** Controlled search query */
+  searchQuery?: string;
+  /** Search change handler for server-side search or controlled input */
+  onSearchChange?: (query: string) => void;
+  /** Operating mode: client filters data array locally, server expects caller to paginate/filter */
+  mode?: "client" | "server";
   filters?: DataWorkspaceFilter[];
+  activeFilters?: Record<string, string>;
+  onFilterChange?: (filters: Record<string, string>) => void;
   pagination?: DataWorkspacePagination;
   onRowClick?: (row: T) => void;
+  /** Function to extract a unique stable key for each row */
+  getRowId?: (row: T, index: number) => string | number;
   emptyTitle?: string;
   emptyDescription?: string;
+  /** Error message or alert banner to render when query fails */
+  error?: ReactNode;
   /** Bulk action slot shown when rows are selected */
   bulkActions?: ReactNode;
   selectedCount?: number;
@@ -68,41 +83,92 @@ export function DataWorkspace<T = Record<string, unknown>>({
   loading = false,
   searchable = true,
   searchPlaceholder = "Search records…",
+  searchableFields,
+  searchQuery: controlledSearch,
+  onSearchChange,
+  mode = "client",
   filters,
+  activeFilters: controlledFilters,
+  onFilterChange,
   pagination,
   onRowClick,
+  getRowId,
   emptyTitle = "No records found",
   emptyDescription = "Try adjusting your search criteria or active filters.",
+  error,
   bulkActions,
   selectedCount = 0,
   above,
   className = "",
 }: DataWorkspaceProps<T>) {
-  const [search, setSearch] = useState("");
-  const [filterValues, setFilterValues] = useState<Record<string, string>>({});
+  const [internalSearch, setInternalSearch] = useState("");
+  const [internalFilters, setInternalFilters] = useState<Record<string, string>>({});
 
-  const filtered = data.filter((row) => {
-    if (search) {
-      const haystack = Object.values(row as Record<string, unknown>)
-        .join(" ")
-        .toLowerCase();
-      if (!haystack.includes(search.toLowerCase())) return false;
+  const search = controlledSearch !== undefined ? controlledSearch : internalSearch;
+  const filterValues = controlledFilters !== undefined ? controlledFilters : internalFilters;
+
+  const handleSearchChange = (val: string) => {
+    if (controlledSearch === undefined) {
+      setInternalSearch(val);
     }
-    for (const [key, val] of Object.entries(filterValues)) {
-      if (val && String((row as Record<string, unknown>)[key]) !== val) {
-        return false;
-      }
-    }
-    return true;
-  });
+    onSearchChange?.(val);
+  };
 
   const handleFilterChange = (key: string, value: string) => {
-    setFilterValues((prev) => ({ ...prev, [key]: value }));
+    const next = { ...filterValues, [key]: value };
+    if (controlledFilters === undefined) {
+      setInternalFilters(next);
+    }
+    onFilterChange?.(next);
+  };
+
+  // Only perform local filtering in client mode
+  const filtered = mode === "server"
+    ? data
+    : data.filter((row) => {
+        if (search) {
+          const lower = search.toLowerCase();
+          if (searchableFields && searchableFields.length > 0) {
+            const matchesField = searchableFields.some((field) => {
+              const val = (row as Record<string, unknown>)[field as string];
+              return val != null && String(val).toLowerCase().includes(lower);
+            });
+            if (!matchesField) return false;
+          } else {
+            const matchesCol = columns.some((col) => {
+              const val = (row as Record<string, unknown>)[col.key];
+              return val != null && String(val).toLowerCase().includes(lower);
+            });
+            if (!matchesCol) return false;
+          }
+        }
+        for (const [key, val] of Object.entries(filterValues)) {
+          if (val && String((row as Record<string, unknown>)[key]) !== val) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+  const resolveRowKey = (row: T, index: number): string | number => {
+    if (getRowId) return getRowId(row, index);
+    const r = row as Record<string, unknown>;
+    if (r.id != null) return String(r.id);
+    if (r.key != null) return String(r.key);
+    if (r.uuid != null) return String(r.uuid);
+    return `row-${index}`;
+  };
+
+  const handleRowKeyDown = (e: KeyboardEvent<HTMLTableRowElement>, row: T) => {
+    if (onRowClick && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      onRowClick(row);
+    }
   };
 
   return (
     <div className={`${styles.root} ${className}`.trim()} data-floorplan="data-workspace">
-      {/* Meridian Context Boundary */}
+      {/* Context Boundary */}
       {segments && segments.length > 0 && (
         <MeridianBar
           segments={segments}
@@ -120,6 +186,9 @@ export function DataWorkspace<T = Record<string, unknown>>({
         </div>
       )}
 
+      {/* Error state */}
+      {error && <div className={styles.errorWrap}>{error}</div>}
+
       {/* Above slot (KPIs, tabs, etc.) */}
       {above && <div className={styles.aboveSlot}>{above}</div>}
 
@@ -135,11 +204,11 @@ export function DataWorkspace<T = Record<string, unknown>>({
             <>
               {searchable && (
                 <div className={styles.searchWrap}>
-                  <span className={styles.searchIcon} aria-hidden="true">🔍</span>
+                  <Search size={16} className={styles.searchIcon} aria-hidden="true" />
                   <input
                     type="search"
                     value={search}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleSearchChange(e.target.value)}
                     placeholder={searchPlaceholder}
                     className={styles.searchInput}
                     aria-label="Search records"
@@ -207,26 +276,32 @@ export function DataWorkspace<T = Record<string, unknown>>({
                   </td>
                 </tr>
               ) : (
-                filtered.map((row, ri) => (
-                  <tr
-                    key={ri}
-                    onClick={onRowClick ? () => onRowClick(row) : undefined}
-                    className={onRowClick ? styles.clickableRow : undefined}
-                  >
-                    {columns.map((col) => {
-                      const raw = (row as Record<string, unknown>)[col.key];
-                      return (
-                        <td
-                          key={col.key}
-                          className={styles.td}
-                          style={{ textAlign: col.align ?? "left" }}
-                        >
-                          {col.render ? col.render(raw, row) : String(raw ?? "")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))
+                filtered.map((row, ri) => {
+                  const rowKey = resolveRowKey(row, ri);
+                  return (
+                    <tr
+                      key={rowKey}
+                      onClick={onRowClick ? () => onRowClick(row) : undefined}
+                      onKeyDown={onRowClick ? (e) => handleRowKeyDown(e, row) : undefined}
+                      role={onRowClick ? "button" : undefined}
+                      tabIndex={onRowClick ? 0 : undefined}
+                      className={onRowClick ? styles.clickableRow : undefined}
+                    >
+                      {columns.map((col) => {
+                        const raw = (row as Record<string, unknown>)[col.key];
+                        return (
+                          <td
+                            key={col.key}
+                            className={styles.td}
+                            style={{ textAlign: col.align ?? "left" }}
+                          >
+                            {col.render ? col.render(raw, row) : String(raw ?? "")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>

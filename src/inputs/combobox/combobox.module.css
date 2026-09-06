@@ -102,7 +102,7 @@
 
 .popover {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + var(--space-1, 4px));
   left: 0;
   right: 0;
   background: var(--surface-1-bg, var(--color-bg-elevated));
@@ -120,7 +120,7 @@
 
 .searchInput {
   width: 100%;
-  height: 28px;
+  height: var(--density-control-height-sm, 28px);
   padding: 0 var(--space-2);
   font-family: var(--font-sans);
   font-size: var(--type-dense, var(--text-sm));
@@ -140,7 +140,7 @@
   list-style: none;
   margin: 0;
   padding: var(--space-1) 0;
-  max-height: 200px;
+  max-height: var(--combobox-list-max-height, 200px);
   overflow-y: auto;
 }
 

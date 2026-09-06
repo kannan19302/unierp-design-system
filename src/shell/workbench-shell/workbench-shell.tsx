@@ -16,6 +16,18 @@ export interface WorkbenchShellProps {
   /** Pane 3: Selected record details, forms, tabs, and actions */
   detailWorkspace: ReactNode;
 
+  /**
+   * Landmark tag for the details pane. Defaults to 'main' for standalone use,
+   * or 'section' when nested inside an outer shell that already renders <main>.
+   */
+  detailsAs?: "main" | "section" | "div";
+
+  /** Custom ID for the details pane. Set to null to omit id. Defaults to 'unierp-main'. */
+  detailsId?: string | null;
+
+  /** Set to true when WorkbenchShell is nested inside an outer shell like PlatformShell */
+  nested?: boolean;
+
   className?: string;
 }
 
@@ -32,8 +44,14 @@ export const WorkbenchShell: FC<WorkbenchShellProps> = ({
   classificationTree,
   recordList,
   detailWorkspace,
+  detailsAs,
+  detailsId,
+  nested = false,
   className = "",
 }) => {
+  const Tag = detailsAs ?? (nested ? "section" : "main");
+  const resolvedId = detailsId !== undefined ? (detailsId ?? undefined) : (nested ? undefined : "unierp-main");
+
   return (
     <div className={`${styles.root} ${className}`.trim()}>
       <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%" }}>
@@ -48,9 +66,9 @@ export const WorkbenchShell: FC<WorkbenchShellProps> = ({
             {recordList}
           </section>
 
-          <main className={styles.detailsPane} id="unierp-main" aria-label="Workspace Details">
+          <Tag className={styles.detailsPane} id={resolvedId} aria-label="Workspace Details">
             {detailWorkspace}
-          </main>
+          </Tag>
         </div>
       </div>
     </div>

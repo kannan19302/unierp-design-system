@@ -27,6 +27,23 @@ describe("WorkspaceShell Primitive", () => {
     expect(screen.getByText("Canvas Workspace Area")).toBeInTheDocument();
   });
 
+  it("applies data-floorplan and data-density attributes correctly", () => {
+    const { container } = render(
+      <WorkspaceShell
+        backHref="/apps"
+        backLabel="Back"
+        identity={{ name: "Portal Designer", kindLabel: "App Workspace" }}
+        nav={MOCK_NAV}
+        density="compact"
+      >
+        <div>Content</div>
+      </WorkspaceShell>
+    );
+    const root = container.querySelector('[data-floorplan="workspace-shell"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-density", "compact");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <WorkspaceShell

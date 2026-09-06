@@ -64,8 +64,8 @@
 
 .inputField {
   flex: 1;
-  min-width: 80px;
-  height: 24px;
+  min-width: var(--tag-input-min-width, 80px);
+  height: var(--density-badge-height, 24px);
   border: none;
   background: transparent;
   outline: none;

@@ -19,6 +19,9 @@ export interface InspectorShellProps {
   inspectorOpen?: boolean;
   onToggleInspector?: () => void;
 
+  /** Density scale */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
+
   className?: string;
 }
 
@@ -37,10 +40,15 @@ export const InspectorShell: FC<InspectorShellProps> = ({
   list,
   inspector,
   inspectorOpen = true,
+  density,
   className = "",
 }) => {
   return (
-    <div className={`${styles.root} ${className}`.trim()}>
+    <div
+      className={`${styles.root} ${className}`.trim()}
+      data-floorplan="inspector-shell"
+      data-density={density}
+    >
       {navigation && (
         <aside
           className={`${styles.navRail} ${

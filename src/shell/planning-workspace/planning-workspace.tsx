@@ -7,6 +7,10 @@ import styles from "./planning-workspace.module.css";
 
 export type PlanningTimeframe = "day" | "week" | "month" | "quarter" | "year";
 
+export type StrataSegment = MeridianSegment;
+export type StrataAction = MeridianAction;
+export type StrataState = MeridianState;
+
 export interface PlanningWorkspaceProps {
   /** Context address segments */
   segments?: MeridianSegment[];
@@ -32,6 +36,8 @@ export interface PlanningWorkspaceProps {
   legend?: ReactNode;
   /** Main timeline, Gantt chart, or grid */
   children: ReactNode;
+  /** Density mode */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
@@ -52,6 +58,7 @@ export const PlanningWorkspace: FC<PlanningWorkspaceProps> = ({
   filters,
   legend,
   children,
+  density = "compact",
   className = "",
 }) => {
   const [currentTimeframe, setCurrentTimeframe] = useState<PlanningTimeframe>(selectedTimeframe);
@@ -62,7 +69,11 @@ export const PlanningWorkspace: FC<PlanningWorkspaceProps> = ({
   };
 
   return (
-    <div className={`${styles.root} ${className}`.trim()} data-floorplan="planning-workspace">
+    <div
+      className={`${styles.root} ${className}`.trim()}
+      data-floorplan="planning-workspace"
+      data-density={density}
+    >
       {/* Context boundary */}
       {segments && segments.length > 0 && (
         <MeridianBar

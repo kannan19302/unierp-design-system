@@ -57,19 +57,19 @@
 
 /* ── Sizes ── */
 .sm {
-  width: 420px;
+  width: var(--modal-width-sm, 420px);
 }
 
 .md {
-  width: 560px;
+  width: var(--modal-width-md, 560px);
 }
 
 .lg {
-  width: 760px;
+  width: var(--modal-width-lg, 760px);
 }
 
 .xl {
-  width: 960px;
+  width: var(--modal-width-xl, 960px);
 }
 
 /* ── Header ── */
@@ -119,7 +119,7 @@
 }
 
 .closeBtn:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
 }
 
 /* ── Body ── */

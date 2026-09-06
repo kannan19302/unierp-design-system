@@ -100,6 +100,15 @@ describe("SettingsShell", () => {
     expect(screen.getByRole("button", { name: "Discard" })).toBeDisabled();
   });
 
+  it("applies data-floorplan and data-density attributes correctly", () => {
+    const { container } = render(
+      <SettingsShell items={ITEMS} density="compact" />,
+    );
+    const root = container.querySelector('[data-floorplan="settings-shell"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-density", "compact");
+  });
+
   it("has no axe violations, clean and dirty", async () => {
     const clean = render(
       <SettingsShell items={ITEMS} activeId="sso">

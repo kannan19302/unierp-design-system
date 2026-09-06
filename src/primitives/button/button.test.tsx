@@ -29,4 +29,36 @@ describe("Button Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("renders polymorphically with asChild and a real anchor child", () => {
+    render(
+      <Button asChild variant="secondary">
+        <a href="/dashboard">Go to Dashboard</a>
+      </Button>,
+    );
+    const link = screen.getByRole("link", { name: /go to dashboard/i });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute("href", "/dashboard");
+    expect(link.className).toContain("button");
+  });
+
+  it("handles disabled state on polymorphic anchor by setting aria-disabled and preventing click", () => {
+    const onClick = vi.fn();
+    render(
+      <Button asChild disabled onClick={onClick}>
+        <a href="/restricted">Restricted Area</a>
+      </Button>,
+    );
+    const link = screen.getByRole("link", { name: /restricted area/i });
+    expect(link).toHaveAttribute("aria-disabled", "true");
+    expect(link).toHaveAttribute("tabindex", "-1");
+
+    fireEvent.click(link);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("sets aria-busy when isLoading is true", () => {
+    render(<Button isLoading>Processing</Button>);
+    expect(screen.getByRole("button")).toHaveAttribute("aria-busy", "true");
+  });
 });

@@ -20,7 +20,7 @@
   gap: var(--space-3);
   padding: var(--space-3);
   border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-brand);
+  border-left: var(--scope-edge-width, 3px) solid var(--color-brand);
   border-radius: var(--radius-sm);
   background: var(--color-surface-subtle);
 }
@@ -103,7 +103,7 @@
 
 .btnPrimary {
   background: var(--color-brand);
-  color: #fff;
+  color: var(--color-text-inverse, #fff);
   border-color: var(--color-brand);
 }
 

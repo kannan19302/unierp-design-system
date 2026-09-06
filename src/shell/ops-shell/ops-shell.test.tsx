@@ -108,6 +108,17 @@ describe("OpsShell", () => {
     // Design law 4: a console with nothing wrong is quiet.
   });
 
+  it("supports canonical floorplan and density attributes", () => {
+    const { container } = render(
+      <OpsShell density="compact">
+        <div>Operations Content</div>
+      </OpsShell>,
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.getAttribute("data-floorplan")).toBe("ops-shell");
+    expect(root.getAttribute("data-density")).toBe("compact");
+  });
+
   it("has no axe violations", async () => {
     const { container } = render(
       <OpsShell

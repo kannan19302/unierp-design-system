@@ -16,7 +16,7 @@ function mirror(dir) {
       mirror(from);
       continue;
     }
-    if (!from.endsWith('.css')) continue;
+    if (!from.endsWith('.css') && !from.endsWith('.json')) continue;
     const to = join(DIST, from.slice(SRC.length + 1));
     mkdirSync(dirname(to), { recursive: true });
     copyFileSync(from, to);

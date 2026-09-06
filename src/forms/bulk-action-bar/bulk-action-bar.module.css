@@ -59,8 +59,8 @@
 }
 
 .saveDot {
-  width: 8px;
-  height: 8px;
+  width: var(--space-2, 8px);
+  height: var(--space-2, 8px);
   border-radius: 50%;
   background: var(--color-warning, #b45309);
   flex-shrink: 0;

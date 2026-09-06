@@ -20,8 +20,8 @@
   border-radius: var(--radius-sm, 2px);
   box-shadow: var(--shadow-lg);
   padding: var(--space-3);
-  min-width: 200px;
-  max-width: 360px;
+  min-width: var(--popover-min-width, 200px);
+  max-width: var(--popover-max-width, 360px);
   font-family: var(--font-sans);
   box-sizing: border-box;
 }

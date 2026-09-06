@@ -44,6 +44,21 @@ describe("TransactionWorkspace", () => {
     expect(screen.getByText("INV-100")).toBeInTheDocument();
   });
 
+  it("applies data-density attribute correctly", () => {
+    const { container } = render(
+      <TransactionWorkspace
+        title="Journal"
+        density="ultra-compact"
+        headerFields={<div>Header</div>}
+      >
+        <div>Content</div>
+      </TransactionWorkspace>,
+    );
+
+    const root = container.querySelector('[data-floorplan="transaction-workspace"]');
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <TransactionWorkspace

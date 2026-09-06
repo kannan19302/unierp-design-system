@@ -4,7 +4,7 @@
 
 .strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--stat-card-min-width, 200px), 1fr));
   gap: var(--space-3);
   width: 100%;
   font-family: var(--font-sans);
@@ -34,7 +34,7 @@
 }
 
 .cardClickable:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
   outline: none;
 }
 
@@ -98,6 +98,6 @@
 
 .subtext {
   margin-top: var(--space-1);
-  font-size: 10px;
+  font-size: var(--type-micro-dense, 10px);
   color: var(--surface-text-secondary, var(--color-text-muted));
 }

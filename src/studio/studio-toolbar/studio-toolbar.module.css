@@ -64,8 +64,8 @@
 }
 
 .dirtyDot {
-  inline-size: 6px;
-  block-size: 6px;
+  inline-size: var(--size-dot-sm, 6px);
+  block-size: var(--size-dot-sm, 6px);
   border-radius: 50%;
   background: var(--studio-warning, #f59e0b);
 }
@@ -81,7 +81,7 @@
    the only verb in the row that changes what other people see. */
 .divider {
   inline-size: 1px;
-  block-size: 20px;
+  block-size: var(--size-divider-lg, 20px);
   background: var(--studio-chrome-border, #e2e8f0);
   margin-inline: var(--space-1, 0.25rem);
 }
@@ -90,8 +90,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-inline-size: 18px;
-  block-size: 18px;
+  min-inline-size: var(--badge-size-sm, 18px);
+  block-size: var(--badge-size-sm, 18px);
   padding-inline: var(--space-1, 0.25rem);
   border-radius: var(--radius-full, 999px);
   /* Subtle fill + -text foreground, matching badge.module.css, rather than a

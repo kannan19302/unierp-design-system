@@ -23,7 +23,7 @@
 
 .dialog {
   width: 100%;
-  max-width: 580px;
+  max-width: var(--command-palette-width, 36.25rem);
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
@@ -74,7 +74,7 @@
 }
 
 .list {
-  max-height: 320px;
+  max-height: var(--command-palette-list-height, 20rem);
   overflow-y: auto;
   padding: var(--space-1-5);
 }
@@ -125,12 +125,12 @@
 }
 
 .itemCategory {
-  font-size: 10px;
+  font-size: var(--text-2xs, 0.625rem);
   font-weight: var(--weight-bold);
   text-transform: uppercase;
   color: var(--surface-text-secondary, var(--color-text-muted));
   letter-spacing: 0.05em;
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
-  padding: 1px 4px;
-  border-radius: 2px;
+  padding: 1px var(--space-1, 4px);
+  border-radius: var(--radius-xs, 2px);
 }

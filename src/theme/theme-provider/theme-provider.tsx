@@ -79,9 +79,9 @@ function systemTheme(): ThemeName {
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
-    return "meridian-dark";
+    return "strata-dark";
   }
-  return "meridian";
+  return "strata";
 }
 
 function isThemeSetting(value: string | null): value is ThemeSetting {
@@ -110,8 +110,9 @@ function warnLegacyTheme(theme: ThemeName): void {
   ) {
     warnedLegacy.add(theme);
     console.warn(
-      `[UniERP DL 2.0] Theme "${theme}" is deprecated. ` +
-        `Migrate to "meridian", "meridian-dark", or "high-contrast". ` +
+      `[UniERP Strata] Theme "${theme}" is deprecated. ` +
+        `Migrate to "strata", "strata-dark", or "strata-high-contrast" ` +
+        `(supported aliases: "meridian", "meridian-dark", "high-contrast"). ` +
         `Legacy themes will be removed in the next major version.`,
     );
   }
@@ -119,7 +120,7 @@ function warnLegacyTheme(theme: ThemeName): void {
 
 export interface ThemeProviderProps {
   children: ReactNode;
-  /** Initial setting when nothing is persisted. Defaults to 'meridian'. */
+  /** Initial setting when nothing is persisted. Defaults to 'strata'. */
   defaultSetting?: ThemeSetting;
   /**
    * Initial density when nothing is persisted.
@@ -132,13 +133,13 @@ export interface ThemeProviderProps {
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({
   children,
-  defaultSetting = "meridian",
+  defaultSetting = "strata",
   defaultDensity = "standard",
   defaultPlatform = null,
 }: any) => {
   const [setting, setSetting] = useState<ThemeSetting>(defaultSetting);
   const [resolvedTheme, setResolvedTheme] = useState<ThemeName>(
-    defaultSetting === "system" ? "meridian" : defaultSetting,
+    defaultSetting === "system" ? "strata" : defaultSetting,
   );
   const [density, setDensityState] = useState<DensityName>(defaultDensity);
   const [platform, setPlatformState] = useState<PlatformName | null>(

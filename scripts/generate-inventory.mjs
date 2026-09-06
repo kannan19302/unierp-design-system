@@ -35,6 +35,10 @@ const SUBPATH_CATEGORIES = [
   "hooks",
   "utils",
   "icons",
+  "brand",
+  "components",
+  "form-engine",
+  "workflow",
 ];
 
 const FLOORPLANS = [
@@ -59,22 +63,32 @@ function scanCategory(category) {
     if (!statSync(full).isDirectory()) continue;
 
     const files = readdirSync(full);
-    const hasTsx = files.some((f) => f.endsWith(".tsx") && !f.endsWith(".stories.tsx") && !f.endsWith(".test.tsx"));
+    const hasSource = files.some(
+      (f) =>
+        (f.endsWith(".tsx") || f.endsWith(".ts")) &&
+        !f.endsWith(".stories.tsx") &&
+        !f.endsWith(".test.tsx") &&
+        !f.endsWith(".stories.ts") &&
+        !f.endsWith(".test.ts") &&
+        f !== "index.ts" &&
+        f !== "index.tsx"
+    );
     const hasCssModule = files.some((f) => f.endsWith(".module.css"));
     const hasStory = files.some((f) => f.endsWith(".stories.tsx") || f.endsWith(".stories.ts"));
     const hasTest = files.some((f) => f.endsWith(".test.tsx") || f.endsWith(".test.ts"));
     const hasIndex = files.includes("index.ts") || files.includes("index.tsx");
 
-    if (hasTsx || hasIndex) {
+    if (hasSource || hasIndex) {
       components.push({
         name: entry,
         category,
         path: `src/${category}/${entry}`,
+        hasSource,
         hasCssModule,
         hasStory,
         hasTest,
         hasIndex,
-        isConformant5FileAnatomy: hasTsx && hasCssModule && hasStory && hasTest && hasIndex,
+        isConformant5FileAnatomy: hasSource && hasCssModule && hasStory && hasTest && hasIndex,
       });
     }
   }

@@ -21,22 +21,34 @@ export const BrandMark: FC<BrandMarkProps> = ({
     <span
       className={`${styles.container} ${className}`.trim()}
       aria-label="UniERP"
+      role="img"
     >
       <svg
         aria-hidden="true"
         width={pixels}
         height={pixels}
-        viewBox="0 0 32 32"
+        viewBox="0 0 100 100"
         fill="none"
         className={styles.svg}
       >
-        <path
-          d="M4 5.5 16 1l12 4.5v9.7c0 7.2-4.8 12.5-12 15.8C8.8 27.7 4 22.4 4 15.2V5.5Z"
-          fill="var(--color-primary)"
+        <rect
+          width="100"
+          height="100"
+          rx="30"
+          fill="var(--color-primary, var(--color-brand, #2563eb))"
         />
         <path
-          d="M10 9v7.2c0 4 2.2 6.1 6 6.1s6-2.1 6-6.1V9h-3.7v7c0 2.1-.7 3.1-2.3 3.1s-2.3-1-2.3-3.1V9H10Z"
-          fill="var(--surface-1-bg, white)"
+          d="M36 32V58C36 66.284 42.716 73 51 73C59.284 73 66 66.284 66 58V50"
+          stroke="var(--color-white, #ffffff)"
+          strokeWidth="15"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle
+          cx="66"
+          cy="33"
+          r="8"
+          fill="var(--color-brand-cyan, #38bdf8)"
         />
       </svg>
       {!compact && (

@@ -26,8 +26,8 @@
 }
 
 .box {
-  width: 16px;
-  height: 16px;
+  width: var(--checkbox-size, 16px);
+  height: var(--checkbox-size, 16px);
   border-radius: var(--radius-sm, 2px);
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
@@ -42,7 +42,7 @@
 }
 
 .hiddenInput:focus-visible + .box {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
   border-color: var(--color-primary);
 }
 

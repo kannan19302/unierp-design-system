@@ -96,6 +96,10 @@ export interface WorkspaceShellProps {
   /** e.g. a project-scoped command-palette trigger, a publish button. */
   headerActions?: ReactNode;
 
+  /** Density mode */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
+  className?: string;
+
   children: ReactNode;
 }
 
@@ -116,13 +120,17 @@ export const WorkspaceShell: FC<WorkspaceShellProps> = ({
   nav,
   navFooter,
   headerActions,
+  density,
+  className = "",
   children,
 }: any) => {
   return (
     <div
-      className={[styles.shell, scope ? SCOPE_CLASS[scope as WorkspaceScope] ?? "" : ""]
+      className={[styles.shell, scope ? SCOPE_CLASS[scope as WorkspaceScope] ?? "" : "", className]
         .filter(Boolean)
         .join(" ")}
+      data-floorplan="workspace-shell"
+      data-density={density}
     >
       <aside className={styles.rail}>
         <a href={backHref} className={styles.back}>

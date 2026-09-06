@@ -147,7 +147,7 @@ const CustomTooltip: React.FC<{
       {label && (
         <p
           style={{
-            margin: "0 0 4px",
+            margin: "0 0 var(--space-1, 4px)",
             fontWeight: "var(--weight-semibold, 600)",
             color: "var(--color-text-primary)",
           }}

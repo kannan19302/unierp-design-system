@@ -40,8 +40,8 @@
 }
 
 .radio {
-  width: 16px;
-  height: 16px;
+  width: var(--radio-size, 16px);
+  height: var(--radio-size, 16px);
   border-radius: 50%;
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
@@ -56,7 +56,7 @@
 }
 
 .hiddenInput:focus-visible + .radio {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
   border-color: var(--color-primary);
 }
 
@@ -65,8 +65,8 @@
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: var(--radio-dot-size, 8px);
+  height: var(--radio-dot-size, 8px);
   border-radius: 50%;
   background: var(--color-primary);
 }

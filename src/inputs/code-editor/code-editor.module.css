@@ -32,7 +32,7 @@
 
 .langTag {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-micro-dense, 10px);
   text-transform: uppercase;
   color: var(--surface-text-secondary, var(--color-text-muted));
   font-weight: var(--weight-bold);
@@ -41,7 +41,7 @@
 
 .textarea {
   width: 100%;
-  min-height: 140px;
+  min-height: var(--code-editor-min-height, 140px);
   padding: var(--space-3);
   background: transparent;
   color: var(--surface-text-primary, var(--color-text));

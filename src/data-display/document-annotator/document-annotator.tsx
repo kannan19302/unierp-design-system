@@ -74,13 +74,13 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
               <button
                 type="button"
                 style={{
-                  height: 28,
-                  padding: "0 8px",
+                  height: "var(--density-control-height-sm, 28px)",
+                  padding: "0 var(--space-2, 8px)",
                   fontSize: "var(--text-xs)",
                   borderRadius: "var(--radius-sm)",
-                  border: "1px solid #059669",
-                  background: "#ecfdf5",
-                  color: "#059669",
+                  border: "1px solid var(--color-success, #059669)",
+                  background: "var(--color-success-subtle, #ecfdf5)",
+                  color: "var(--color-success, #059669)",
                   fontWeight: 600,
                   cursor: "pointer",
                 }}
@@ -91,13 +91,13 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
               <button
                 type="button"
                 style={{
-                  height: 28,
-                  padding: "0 8px",
+                  height: "var(--density-control-height-sm, 28px)",
+                  padding: "0 var(--space-2, 8px)",
                   fontSize: "var(--text-xs)",
                   borderRadius: "var(--radius-sm)",
-                  border: "1px solid #2563eb",
-                  background: "#eff6ff",
-                  color: "#2563eb",
+                  border: "1px solid var(--color-brand, #2563eb)",
+                  background: "var(--color-brand-subtle, #eff6ff)",
+                  color: "var(--color-brand, #2563eb)",
                   fontWeight: 600,
                   cursor: "pointer",
                 }}
@@ -112,8 +112,8 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
             <button
               type="button"
               style={{
-                height: 28,
-                padding: "0 8px",
+                height: "var(--density-control-height-sm, 28px)",
+                padding: "0 var(--space-2, 8px)",
                 fontSize: "var(--text-xs)",
                 borderRadius: "var(--radius-sm)",
                 border: "1px solid var(--color-border)",
@@ -123,7 +123,7 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
                 cursor: "pointer",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 4,
+                gap: "var(--space-1, 4px)",
               }}
               onClick={() => setIsAddingNote(!isAddingNote)}
             >
@@ -134,18 +134,18 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
       </div>
 
       {isAddingNote && (
-        <div style={{ padding: "var(--space-3)", background: "#fef9c3", borderBottom: "1px solid #fde047", display: "flex", gap: "var(--space-2)" }}>
+        <div style={{ padding: "var(--space-3)", background: "var(--color-warning-subtle, #fef9c3)", borderBottom: "1px solid var(--color-warning-border, #fde047)", display: "flex", gap: "var(--space-2)" }}>
           <input
             type="text"
             placeholder="Type reviewer annotation..."
             value={annotationText}
             onChange={(e) => setAnnotationText(e.target.value)}
-            style={{ flex: 1, padding: "4px 8px", borderRadius: "var(--radius-sm)", border: "1px solid #ca8a04", fontSize: "var(--text-xs)" }}
+            style={{ flex: 1, padding: "var(--space-1, 4px) var(--space-2, 8px)", borderRadius: "var(--radius-sm)", border: "1px solid var(--color-warning-border, #ca8a04)", fontSize: "var(--text-xs)" }}
           />
           <button
             type="button"
             onClick={handleCreateNote}
-            style={{ padding: "4px 12px", background: "#ca8a04", color: "#fff", border: "none", borderRadius: "var(--radius-sm)", fontSize: "var(--text-xs)", fontWeight: 600, cursor: "pointer" }}
+            style={{ padding: "var(--space-1, 4px) var(--space-3, 12px)", background: "var(--color-warning, #ca8a04)", color: "var(--color-text-inverse, #fff)", border: "none", borderRadius: "var(--radius-sm)", fontSize: "var(--text-xs)", fontWeight: 600, cursor: "pointer" }}
           >
             Post Note
           </button>

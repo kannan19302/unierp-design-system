@@ -32,5 +32,5 @@
 
 .sidebar {
   flex-shrink: 0;
-  width: 300px;
+  width: var(--detail-sidebar-width, 300px);
 }

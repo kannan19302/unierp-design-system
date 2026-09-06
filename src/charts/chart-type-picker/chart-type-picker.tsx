@@ -55,7 +55,7 @@ export const ChartTypePicker: React.FC<ChartTypePickerProps> = ({
       >
         <span style={{ flexShrink: 0 }}>{selected?.icon}</span>
         <span>{selected?.label}</span>
-        <span style={{ fontSize: "8px", marginLeft: "2px", flexShrink: 0 }}>
+        <span style={{ fontSize: "var(--text-micro, 8px)", marginLeft: "2px", flexShrink: 0 }}>
           ▼
         </span>
       </button>

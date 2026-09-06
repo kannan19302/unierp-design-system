@@ -27,14 +27,26 @@
 }
 
 .search_wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
   padding: var(--space-4);
   border-bottom: 1px solid var(--color-border);
+}
+
+.search_icon {
+  position: absolute;
+  left: calc(var(--space-4) + var(--space-2-5, 10px));
+  width: var(--space-4, 16px);
+  height: var(--space-4, 16px);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
 }
 
 .search {
   width: 100%;
   box-sizing: border-box;
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-3) var(--space-2) calc(var(--space-2-5, 10px) + var(--space-4, 16px) + var(--space-1-5, 6px));
   font: inherit;
   font-size: var(--text-sm);
   color: var(--color-text);

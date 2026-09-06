@@ -51,16 +51,16 @@
 }
 
 .role {
-  font-size: 10px;
+  font-size: var(--type-micro, 10px);
   color: var(--surface-text-secondary, var(--color-text-muted));
 }
 
 .statusBadge {
-  font-size: 9px;
+  font-size: var(--type-micro, 9px);
   font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 1px 4px;
+  padding: 1px var(--space-1, 4px);
   border-radius: var(--radius-xs, 2px);
 }
 
@@ -81,7 +81,7 @@
 
 .timestamp {
   margin-left: auto;
-  font-size: 10px;
+  font-size: var(--type-micro, 10px);
   color: var(--surface-text-secondary, var(--color-text-muted));
   font-variant-numeric: tabular-nums lining-nums;
 }
@@ -164,13 +164,13 @@
 }
 
 .logTime {
-  font-size: 10px;
+  font-size: var(--type-micro, 10px);
   color: var(--surface-text-tertiary, var(--color-text-muted));
   font-variant-numeric: tabular-nums lining-nums;
 }
 
 .logHash {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--type-micro, 9px);
   color: var(--surface-text-tertiary, var(--color-text-muted));
 }

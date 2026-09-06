@@ -17,6 +17,19 @@ describe("SplitViewShell", () => {
     expect(getByText("Details")).toBeDefined();
   });
 
+  it("supports canonical floorplan and density attributes", () => {
+    const { container } = render(
+      <SplitViewShell
+        density="compact"
+        masterContent={<div>Queue</div>}
+        detailContent={<div>Details</div>}
+      />,
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.getAttribute("data-floorplan")).toBe("split-view-shell");
+    expect(root.getAttribute("data-density")).toBe("compact");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <SplitViewShell

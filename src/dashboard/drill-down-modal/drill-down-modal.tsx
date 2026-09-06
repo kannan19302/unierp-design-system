@@ -138,7 +138,7 @@ export const DrillDownModal: React.FC<DrillDownModalProps> = ({
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{
               width: "100%",
-              maxWidth: "320px",
+              maxWidth: "var(--search-input-max-width, 320px)",
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--color-border-default, #e2e8f0)",
               borderRadius: "var(--radius-md)",

@@ -285,7 +285,7 @@ export const MiniBarChart: React.FC<MiniBarChartProps> = ({
             {showValues && (
               <span
                 style={{
-                  fontSize: "10px",
+                  fontSize: "var(--text-micro, 10px)",
                   color: "var(--color-text-secondary)",
                 }}
               >
@@ -314,7 +314,7 @@ export const MiniBarChart: React.FC<MiniBarChartProps> = ({
               style={{
                 flex: 1,
                 textAlign: "center",
-                fontSize: "9px",
+                fontSize: "var(--text-micro, 9px)",
                 color: "var(--color-text-tertiary)",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -406,7 +406,7 @@ export const MiniDonutChart: React.FC<MiniDonutChartProps> = ({
           )}
           {centerLabel && (
             <span
-              style={{ fontSize: "10px", color: "var(--color-text-secondary)" }}
+              style={{ fontSize: "var(--text-micro, 10px)", color: "var(--color-text-secondary)" }}
             >
               {centerLabel}
             </span>
@@ -496,8 +496,8 @@ export const FunnelChart: FC<{ stages: { label: string; value: number }[] }> = (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", width: "100%" }}>
       {stages.map((s: any, idx: any) => (
         <div key={idx} style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-          <span style={{ width: "80px", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>{s.label}</span>
-          <div style={{ flex: 1, background: "var(--color-bg-sunken)", height: "20px", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
+          <span style={{ width: "var(--chart-label-width, 80px)", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>{s.label}</span>
+          <div style={{ flex: 1, background: "var(--color-bg-sunken)", height: "var(--chart-bar-height, 20px)", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
             <div style={{ width: `${(s.value / max) * 100}%`, height: "100%", background: "var(--color-primary)" }} />
           </div>
           <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>{s.value}</span>
@@ -518,8 +518,8 @@ export const HeatmapChart: FC<{ matrix: number[][] }> = ({ matrix }: any) => {
               title={String(val)}
               aria-label={`Value ${val}`}
               style={{
-                width: "20px",
-                height: "20px",
+                width: "var(--chart-cell-size, 20px)",
+                height: "var(--chart-cell-size, 20px)",
                 borderRadius: "2px",
                 // B10: no hardcoded colour — use chart-1 token with opacity
                 background: `color-mix(in srgb, var(--chart-1) ${Math.round(Math.min(1, Math.max(0.1, val)) * 100)}%, transparent)`,

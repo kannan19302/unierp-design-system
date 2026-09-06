@@ -88,4 +88,47 @@ describe("DataWorkspace", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("activates row on keyboard Enter and Space keys", () => {
+    const handleRowClick = vi.fn();
+    render(<DataWorkspace columns={COLUMNS} data={DATA} onRowClick={handleRowClick} />);
+
+    const rows = screen.getAllByRole("button");
+    fireEvent.keyDown(rows[0], { key: "Enter" });
+    expect(handleRowClick).toHaveBeenCalledWith(DATA[0]);
+
+    fireEvent.keyDown(rows[1], { key: " " });
+    expect(handleRowClick).toHaveBeenCalledWith(DATA[1]);
+  });
+
+  it("extracts custom row IDs with getRowId prop", () => {
+    const getRowId = vi.fn((row: typeof DATA[0]) => `custom-${row.id}`);
+    const { container } = render(
+      <DataWorkspace columns={COLUMNS} data={DATA} getRowId={getRowId} />,
+    );
+
+    expect(getRowId).toHaveBeenCalled();
+    const tr = container.querySelector('tr[role="button"]') ?? container.querySelector("tbody tr");
+    expect(tr).toBeInTheDocument();
+  });
+
+  it("preserves data rows in server mode when search input changes without client filtering", () => {
+    const onSearchChange = vi.fn();
+    render(
+      <DataWorkspace
+        columns={COLUMNS}
+        data={DATA}
+        mode="server"
+        onSearchChange={onSearchChange}
+      />,
+    );
+
+    const searchInput = screen.getByRole("searchbox", { name: "Search records" });
+    fireEvent.change(searchInput, { target: { value: "NonExistent" } });
+
+    expect(onSearchChange).toHaveBeenCalledWith("NonExistent");
+    // In server mode, client-side data is not truncated locally
+    expect(screen.getByText("Alpha")).toBeInTheDocument();
+    expect(screen.getByText("Beta")).toBeInTheDocument();
+  });
 });

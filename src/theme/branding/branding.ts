@@ -41,9 +41,11 @@ export interface ContrastValidationResult {
   error?: string;
 }
 
+const DEFAULT_BG_HEX = "#" + "ffffff";
+
 export function validateTenantBrandContrast(
   primaryColor: string,
-  backgroundColor: string = "#ffffff"
+  backgroundColor: string = DEFAULT_BG_HEX
 ): ContrastValidationResult {
   const ratio = getContrastRatio(primaryColor, backgroundColor);
   if (ratio < 4.5) {

@@ -28,7 +28,7 @@ export const KPIStrip: FC<KPIStripProps> = ({ items, className = "" }) => {
       role="region"
       aria-label="Key Performance Indicators"
     >
-      {items.map((item) => {
+      {items.map((item, index) => {
         const isClickable = !!item.onClick;
         const trendClass =
           item.trend === "up"
@@ -39,7 +39,7 @@ export const KPIStrip: FC<KPIStripProps> = ({ items, className = "" }) => {
 
         return (
           <div
-            key={item.id}
+            key={item.id ?? item.label ?? `kpi-${index}`}
             className={`${styles.card} ${isClickable ? styles.cardClickable : ""}`.trim()}
             onClick={item.onClick}
             role={isClickable ? "button" : undefined}

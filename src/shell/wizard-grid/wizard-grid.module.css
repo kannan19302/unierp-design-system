@@ -20,7 +20,7 @@
   display: grid;
   /* Intrinsic sizing rather than breakpoints — the dominant responsive idiom in
      this package (see .ui-grid-auto in styles/layers/components.css). */
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--wizard-tile-min-width, 260px), 1fr));
   gap: var(--space-6);
   padding: var(--space-6);
   max-width: var(--content-max-width);

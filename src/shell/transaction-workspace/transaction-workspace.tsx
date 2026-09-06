@@ -5,6 +5,10 @@ import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianSt
 import { PageHeader } from "../../layout/page-header";
 import styles from "./transaction-workspace.module.css";
 
+export type StrataSegment = MeridianSegment;
+export type StrataAction = MeridianAction;
+export type StrataState = MeridianState;
+
 export interface TransactionSummaryItem {
   label: string;
   value: string | number;
@@ -31,6 +35,8 @@ export interface TransactionWorkspaceProps {
   validationAlerts?: ReactNode;
   /** Action footer buttons (Save Draft, Post, Submit, Cancel) */
   footerActions?: ReactNode;
+  /** Density mode for transaction ledger and header */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
@@ -46,10 +52,15 @@ export const TransactionWorkspace: FC<TransactionWorkspaceProps> = ({
   summaryItems,
   validationAlerts,
   footerActions,
+  density = "compact",
   className = "",
 }) => {
   return (
-    <div className={`${styles.root} ${className}`.trim()} data-floorplan="transaction-workspace">
+    <div
+      className={`${styles.root} ${className}`.trim()}
+      data-floorplan="transaction-workspace"
+      data-density={density}
+    >
       {/* Context boundary */}
       {segments && segments.length > 0 && (
         <MeridianBar

@@ -48,8 +48,8 @@ export const Drawer: FC<DrawerProps> = ({
   const sideStyles: Record<string, CSSProperties> = {
     right: { width: `${contentWidth}px` },
     left: { width: `${contentWidth}px` },
-    top: { height: "320px" },
-    bottom: { height: "320px" },
+    top: { height: "var(--drawer-height-vertical, 320px)" },
+    bottom: { height: "var(--drawer-height-vertical, 320px)" },
   };
 
   const panelClass = [styles.panel, styles[side], className]

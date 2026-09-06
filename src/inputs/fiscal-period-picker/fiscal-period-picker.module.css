@@ -53,8 +53,8 @@
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 5px solid var(--surface-text-secondary, var(--color-text-secondary));
+  border-left: var(--space-1, 4px) solid transparent;
+  border-right: var(--space-1, 4px) solid transparent;
+  border-top: var(--select-arrow-height, 5px) solid var(--surface-text-secondary, var(--color-text-secondary));
   pointer-events: none;
 }

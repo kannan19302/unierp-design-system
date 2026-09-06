@@ -3,7 +3,7 @@
    ══════════════════════════════════════════════════════════════ */
 
 .container {
-  width: 240px;
+  width: var(--sidenav-width, 240px);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border-right: 1px solid var(--surface-1-border, var(--color-border));
   display: flex;
@@ -51,7 +51,7 @@
 }
 
 .itemBtn:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
 }
 
 .active {
@@ -80,11 +80,11 @@
 }
 
 .badge {
-  font-size: 10px;
+  font-size: var(--type-micro, 10px);
   font-weight: var(--weight-bold);
   background: var(--surface-1-border, var(--color-border));
   color: var(--surface-text-primary, var(--color-text));
-  padding: 1px 6px;
+  padding: 1px var(--space-1-5, 6px);
   border-radius: var(--radius-full);
 }
 

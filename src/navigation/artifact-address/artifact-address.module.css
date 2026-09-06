@@ -23,7 +23,7 @@
 
 /* ── Sizes ── */
 .sm {
-  font-size: 10px;
+  font-size: var(--type-micro-dense, 10px);
 }
 
 .md {

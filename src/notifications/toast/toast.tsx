@@ -147,7 +147,7 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
               role="status"
               aria-live="polite"
               className={`${styles.toastItem} ${t.leaving ? styles.toastItemLeaving : ""}`}
-              style={{ borderLeft: `3px solid ${meta.color}` }}
+              style={{ borderLeft: `var(--scope-edge-width, 3px) solid ${meta.color}` }}
             >
               <Icon
                 size={18}

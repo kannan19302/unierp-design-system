@@ -58,17 +58,17 @@
 }
 
 .mpd-tab-num {
-  font-size: 10px;
+  font-size: var(--type-micro, 10px);
   font-weight: var(--weight-bold);
-  padding: 1px 5px;
-  border-radius: 999px;
+  padding: 1px var(--space-1-5, 5px);
+  border-radius: var(--radius-full, 999px);
   background: var(--color-border);
   color: var(--color-text-secondary);
 }
 
 .mpd-tab-btn.active .mpd-tab-num {
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-text-inverse, #fff);
 }
 
 .mpd-counter-badge {
@@ -88,7 +88,7 @@
 @keyframes mpd-fadein {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(var(--space-1, 4px));
   }
   to {
     opacity: 1;
@@ -102,8 +102,8 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
-  width: 36px;
-  height: 48px;
+  width: var(--side-arrow-width, 36px);
+  height: var(--side-arrow-height, 48px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -131,9 +131,9 @@
 
 .mpd-side-arrow:hover:not(:disabled) {
   background: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-text-inverse, #ffffff);
   border-color: var(--color-primary);
-  box-shadow: 0 4px 14px
+  box-shadow: 0 var(--space-1, 4px) var(--space-3-5, 14px)
     color-mix(in srgb, var(--color-primary) 35%, transparent);
   transform: translateY(-50%) scale(1.06);
 }

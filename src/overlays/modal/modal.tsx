@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FC, type ReactNode } from "react";
+import { useState, useId, type FC, type ReactNode } from "react";
 import { X } from "lucide-react";
 import { Portal } from "../portal";
 import { useEscapeKey, useFocusTrap, useScrollLock } from "../overlay-hooks";
@@ -16,6 +16,10 @@ export interface ModalProps {
   children?: ReactNode;
   closeOnOverlay?: boolean;
   className?: string;
+  /** Accessible name when no visible title is present */
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
+  "aria-describedby"?: string;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -28,8 +32,14 @@ export const Modal: FC<ModalProps> = ({
   children,
   closeOnOverlay = true,
   className = "",
+  "aria-label": ariaLabel,
+  "aria-labelledby": customAriaLabelledBy,
+  "aria-describedby": customAriaDescribedBy,
 }) => {
   const [dialog, setDialog] = useState<HTMLDivElement | null>(null);
+  const autoId = useId();
+  const titleId = title ? `modal-title-${autoId}` : undefined;
+  const descId = description ? `modal-desc-${autoId}` : undefined;
 
   useEscapeKey(onClose, open);
   useFocusTrap(dialog, open);
@@ -40,6 +50,9 @@ export const Modal: FC<ModalProps> = ({
   const dialogClass = [styles.dialog, styles[size], className]
     .filter(Boolean)
     .join(" ");
+
+  const resolvedLabelledBy = customAriaLabelledBy ?? titleId;
+  const resolvedDescribedBy = customAriaDescribedBy ?? descId;
 
   return (
     <Portal>
@@ -52,7 +65,9 @@ export const Modal: FC<ModalProps> = ({
         ref={setDialog}
         role="dialog"
         aria-modal="true"
-        aria-labelledby={title ? "modal-title" : undefined}
+        aria-labelledby={resolvedLabelledBy}
+        aria-describedby={resolvedDescribedBy}
+        aria-label={!resolvedLabelledBy ? (ariaLabel ?? (typeof title === "string" ? title : undefined)) : undefined}
         className={dialogClass}
         tabIndex={-1}
       >
@@ -60,11 +75,15 @@ export const Modal: FC<ModalProps> = ({
           <div className={styles.header}>
             <div>
               {title && (
-                <h2 id="modal-title" className={styles.title}>
+                <h2 id={titleId} className={styles.title}>
                   {title}
                 </h2>
               )}
-              {description && <p className={styles.description}>{description}</p>}
+              {description && (
+                <p id={descId} className={styles.description}>
+                  {description}
+                </p>
+              )}
             </div>
             <button
               type="button"

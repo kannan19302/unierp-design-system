@@ -17,7 +17,7 @@
 
 .dropzone:focus-visible {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
 }
 
 .dragOver {
@@ -50,5 +50,5 @@
   font-family: var(--font-sans);
   font-size: var(--type-micro, 11px);
   color: var(--surface-text-secondary, var(--color-text-muted));
-  margin-top: 4px;
+  margin-top: var(--space-1, 4px);
 }

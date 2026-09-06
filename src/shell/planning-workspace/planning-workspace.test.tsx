@@ -42,6 +42,17 @@ describe("PlanningWorkspace", () => {
     expect(screen.getByText("Milestone Schedule")).toBeInTheDocument();
   });
 
+  it("applies data-density attribute correctly", () => {
+    const { container } = render(
+      <PlanningWorkspace title="Roadmap" density="ultra-compact">
+        <div>Timeline</div>
+      </PlanningWorkspace>,
+    );
+    const root = container.querySelector('[data-floorplan="planning-workspace"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <PlanningWorkspace

@@ -20,6 +20,18 @@ describe("InspectorShell Primitive", () => {
     expect(screen.getByText("Invoice Details Panel")).toBeInTheDocument();
   });
 
+  it("supports canonical floorplan and density attributes", () => {
+    const { container } = render(
+      <InspectorShell
+        density="compact"
+        list={<div>Invoices Table</div>}
+      />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.getAttribute("data-floorplan")).toBe("inspector-shell");
+    expect(root.getAttribute("data-density")).toBe("compact");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <InspectorShell

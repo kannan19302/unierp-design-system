@@ -222,10 +222,14 @@ for (const [file, n] of Object.entries(counts)) {
 
 if (regressions.length === 0) {
   const debt = Object.values(baseline).reduce((a, b) => a + b, 0);
-  console.log(
-    `  ok    token gate — no new violations` +
-      (debt ? ` (${debt} baselined, in ${Object.keys(baseline).length} file(s); these may only go down)` : ""),
-  );
+  if (debt === 0 && violations.length === 0) {
+    console.log(`  ok    token gate — zero-debt verified (100% compliant across all files)`);
+  } else {
+    console.log(
+      `  ok    token gate — no new violations` +
+        (debt ? ` (${debt} baselined, in ${Object.keys(baseline).length} file(s); these may only go down)` : ""),
+    );
+  }
   process.exit(0);
 }
 

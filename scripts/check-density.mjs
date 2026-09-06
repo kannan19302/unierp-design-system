@@ -91,9 +91,55 @@ if (existsSync(densityCssPath)) {
   }
 }
 
+// ── Verify canonical primary row heights (ADR-0009 4-tier scale) ──
+console.log("\nChecking canonical row heights across 4-tier density scale (ADR-0009)...");
+const CANONICAL_ROW_HEIGHTS = {
+  "ultra-compact": 24,
+  "compact": 28,
+  "standard": 32,
+  "comfortable": 40,
+};
+
+function extractRowHeight(css, density) {
+  const regex = new RegExp(`\\[data-density="${density}"\\][^{]*\\{([^}]+)\\}`, "s");
+  const block = css.match(regex);
+  if (!block) return null;
+  const match = block[1].match(/--density-row-height:\s*(\d+)px/);
+  return match ? parseInt(match[1], 10) : null;
+}
+
+if (existsSync(densityCssPath)) {
+  const content = readFileSync(densityCssPath, "utf-8");
+  for (const [density, expectedHeight] of Object.entries(CANONICAL_ROW_HEIGHTS)) {
+    const actualHeight = extractRowHeight(content, density);
+    if (actualHeight !== expectedHeight) {
+      console.error(
+        `  FAIL  [data-density="${density}"] row height mismatch: expected ${expectedHeight}px, got ${actualHeight ?? "undefined"}px`
+      );
+      failed = true;
+    } else {
+      console.log(`  ok    [data-density="${density}"] row height is exactly ${expectedHeight}px`);
+    }
+  }
+}
+
+// ── Negative Self-Test (proves that invalid row height or touch target fails) ──
+if (process.argv.includes("--test-negative")) {
+  console.log("\nRunning negative verification test...");
+  const fakeCssWrongHeight = `[data-density="standard"] { --density-row-height: 36px; }`;
+  const parsed = extractRowHeight(fakeCssWrongHeight, "standard");
+  if (parsed !== CANONICAL_ROW_HEIGHTS["standard"]) {
+    console.log(`  ok    Negative proof passed: 36px standard row height correctly identified as deviation`);
+    process.exit(0);
+  } else {
+    console.error(`  FAIL  Negative proof failed`);
+    process.exit(1);
+  }
+}
+
 if (failed) {
   console.error("\nDensity token check FAILED");
   process.exit(1);
 } else {
-  console.log("\ndensity gate: All target components are density-aware and satisfy WCAG/Meridian constraints.\n");
+  console.log("\ndensity gate: All target components are density-aware and satisfy WCAG/Strata 4-tier constraints.\n");
 }

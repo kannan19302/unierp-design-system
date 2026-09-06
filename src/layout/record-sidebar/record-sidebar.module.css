@@ -3,7 +3,7 @@
    ══════════════════════════════════════════════════════════════ */
 
 .sidebar {
-  width: 280px;
+  width: var(--record-sidebar-width, 280px);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);

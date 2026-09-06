@@ -40,6 +40,6 @@
 
 .role {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: var(--type-micro-dense, 10px);
   color: var(--surface-text-secondary, var(--color-text-muted));
 }

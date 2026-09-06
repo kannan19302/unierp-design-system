@@ -17,6 +17,8 @@ export interface TabbedConsoleProps {
   activeTabId?: string;
   onTabChange?: (tabId: string) => void;
   onTabClose?: (tabId: string) => void;
+  /** Density scale */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
@@ -25,6 +27,7 @@ export const TabbedConsole: FC<TabbedConsoleProps> = ({
   activeTabId,
   onTabChange,
   onTabClose,
+  density,
   className,
 }) => {
   const [internalActiveId, setInternalActiveId] = useState<string>(
@@ -45,7 +48,11 @@ export const TabbedConsole: FC<TabbedConsoleProps> = ({
   };
 
   return (
-    <div className={`${styles.root} ${className ?? ""}`}>
+    <div
+      className={`${styles.root} ${className ?? ""}`}
+      data-floorplan="tabbed-console"
+      data-density={density}
+    >
       <div role="tablist" aria-label="Console Workspace Tabs" className={styles.tab_strip}>
         {tabs.map((tab) => {
           const isActive = tab.id === currentId;

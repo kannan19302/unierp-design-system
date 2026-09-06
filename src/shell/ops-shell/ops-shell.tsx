@@ -60,6 +60,8 @@ export interface OpsShellProps {
   consoleErrors?: number;
   consoleWarnings?: number;
   consoleLabel?: string;
+  /** Density scale */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
   children?: ReactNode;
 }
@@ -81,13 +83,18 @@ export const OpsShell: FC<OpsShellProps> = ({
   consoleErrors = 0,
   consoleWarnings = 0,
   consoleLabel = "Console",
+  density,
   className = "",
   children,
 }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={`${styles.root} ${className}`.trim()}>
+    <div
+      className={`${styles.root} ${className}`.trim()}
+      data-floorplan="ops-shell"
+      data-density={density}
+    >
       {rail && (
         <nav className={styles.rail} aria-label="Domains">
           {rail.map((item) => (

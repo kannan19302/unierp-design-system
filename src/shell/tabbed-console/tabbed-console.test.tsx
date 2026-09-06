@@ -20,6 +20,15 @@ describe("TabbedConsole", () => {
     expect(getByText("Content 2")).toBeDefined();
   });
 
+  it("supports canonical floorplan and density attributes", () => {
+    const { container } = render(
+      <TabbedConsole tabs={tabs} density="ultra-compact" />,
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.getAttribute("data-floorplan")).toBe("tabbed-console");
+    expect(root.getAttribute("data-density")).toBe("ultra-compact");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<TabbedConsole tabs={tabs} />);
     const results = await axe(container);

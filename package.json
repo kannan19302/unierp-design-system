@@ -23,6 +23,7 @@
     "./tokens/studio.css": "./dist/tokens/studio.css",
     "./tokens/v2/index.css": "./dist/tokens/v2/index.css",
     "./tokens/v2": "./dist/tokens/v2/index.css",
+    "./tokens/tokens.json": "./dist/tokens/tokens.g.json",
     "./tokens/themes/*": "./dist/tokens/themes/*",
     "./tokens": {
       "types": "./dist/tokens/index.d.ts",
@@ -165,19 +166,21 @@
     }
   },
   "scripts": {
-    "build": "node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && node scripts/check-density.mjs && node scripts/check-tokens.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs && node scripts/generate-inventory.mjs",
+    "build": "node scripts/check-inventory.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && node scripts/check-density.mjs && node scripts/check-tokens.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs && node scripts/generate-inventory.mjs",
+    "check:inventory": "node scripts/check-inventory.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:platform-accents": "node scripts/check-platform-accents.mjs",
     "check:density": "node scripts/check-density.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:tokens:baseline": "node scripts/check-tokens.mjs --baseline",
-    "lint": "eslint src/",
+    "lint": "node scripts/check-inventory.mjs && node scripts/check-tokens.mjs && node scripts/check-layer.mjs && node scripts/check-density.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && tsc --noEmit",
     "clean": "rimraf dist",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run",
     "test:watch": "vitest",
     "tokens:mobile": "node scripts/generate-cross-platform-tokens.mjs",
-    "check:mobile-tokens": "node scripts/generate-cross-platform-tokens.mjs --check"
+    "check:mobile-tokens": "node scripts/generate-cross-platform-tokens.mjs --check",
+    "scaffold": "node scripts/scaffold-page.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
@@ -218,6 +221,7 @@
   },
   "files": [
     "dist",
+    "assets",
     "README.md"
   ]
 }

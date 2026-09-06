@@ -63,6 +63,19 @@
   flex-direction: column;
 }
 
+/* ── Themes ── */
+.theme-light {
+  color-scheme: light;
+}
+
+.theme-dark {
+  color-scheme: dark;
+}
+
+.theme-monochrome {
+  color: currentColor;
+}
+
 /* ── Sizes ── */
 .size-sm .glyph {
   width: var(--space-6);

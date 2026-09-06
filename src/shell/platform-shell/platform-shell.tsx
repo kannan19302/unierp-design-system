@@ -401,7 +401,7 @@ const pillButtonStyle = {
 
 const menuPanelStyle = {
   position: "absolute",
-  top: "calc(100% + 4px)",
+  top: "calc(100% + var(--space-1, 4px))",
   right: 0,
   minWidth: 200,
   background: "var(--color-bg-elevated)",

@@ -19,21 +19,21 @@
 }
 
 .sm {
-  width: 14px;
-  height: 14px;
-  border-width: 2px;
+  width: var(--spinner-size-sm, 14px);
+  height: var(--spinner-size-sm, 14px);
+  border-width: var(--spinner-border-sm, 2px);
 }
 
 .md {
-  width: 20px;
-  height: 20px;
-  border-width: 2.5px;
+  width: var(--spinner-size-md, 20px);
+  height: var(--spinner-size-md, 20px);
+  border-width: var(--spinner-border-md, 2.5px);
 }
 
 .lg {
-  width: 32px;
-  height: 32px;
-  border-width: 3px;
+  width: var(--spinner-size-lg, 32px);
+  height: var(--spinner-size-lg, 32px);
+  border-width: var(--spinner-border-lg, 3px);
 }
 
 .srOnly {

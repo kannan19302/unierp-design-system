@@ -46,8 +46,8 @@
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-top: 4px solid var(--surface-text-secondary, var(--color-text-secondary));
+  border-left: var(--select-arrow-half-width, 3px) solid transparent;
+  border-right: var(--select-arrow-half-width, 3px) solid transparent;
+  border-top: var(--space-1, 4px) solid var(--surface-text-secondary, var(--color-text-secondary));
   pointer-events: none;
 }

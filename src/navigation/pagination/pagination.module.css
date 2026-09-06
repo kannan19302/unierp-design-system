@@ -36,7 +36,7 @@
 }
 
 .pageBtn:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
 }
 
 .pageBtn:disabled {

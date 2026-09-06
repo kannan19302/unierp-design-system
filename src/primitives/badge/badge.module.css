@@ -36,7 +36,7 @@
 }
 
 .md {
-  padding: 3px var(--density-badge-padding, 8px);
+  padding: var(--badge-padding-y-md, 3px) var(--density-badge-padding, 8px);
   font-size: var(--type-caption, 12px);
   height: var(--density-badge-height, 24px);
 }

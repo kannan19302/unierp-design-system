@@ -47,6 +47,8 @@ export interface RecordShellProps {
   detail?: ReactNode;
   /** Column 3 — the inspector. Sheds first at narrow widths. */
   inspector?: ReactNode;
+  /** Density scale */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
   children?: ReactNode;
 }
@@ -58,6 +60,7 @@ export const RecordShell: FC<RecordShellProps> = ({
   list,
   detail,
   inspector,
+  density,
   className = "",
   children,
 }) => {
@@ -69,7 +72,11 @@ export const RecordShell: FC<RecordShellProps> = ({
     count >= 3 ? styles.cols_3 : count === 2 ? styles.cols_2 : styles.cols_1;
 
   return (
-    <div className={`${styles.root} ${className}`.trim()}>
+    <div
+      className={`${styles.root} ${className}`.trim()}
+      data-floorplan="record-shell"
+      data-density={density}
+    >
       {rail && (
         <nav
           className={`${styles.rail} ${railCollapsed ? styles.rail_collapsed : ""}`.trim()}
@@ -79,7 +86,7 @@ export const RecordShell: FC<RecordShellProps> = ({
         </nav>
       )}
 
-      <div style={{ display: "grid", gridTemplateRows: "auto minmax(0, 1fr)", minWidth: 0 }}>
+      <div className={styles.content_pane}>
         {bar}
         <div className={`${styles.columns} ${colsClass}`} data-columns={count}>
           {list && <section className={styles.column}>{list}</section>}

@@ -23,14 +23,14 @@
 /* ── Comfortable ──────────────────────────────────────────── */
 [data-density="comfortable"] {
   /* Row & control dimensions */
-  --density-row-height: 48px;
-  --density-row-height-sm: 40px;
+  --density-row-height: 40px;
+  --density-row-height-sm: 36px;
   --density-control-height: 40px;
   --density-control-height-sm: 32px;
   --density-touch-target: 44px;
 
   /* Cell & control padding */
-  --density-cell-padding-y: 12px;
+  --density-cell-padding-y: 10px;
   --density-cell-padding-x: 16px;
   --density-control-padding-y: 10px;
   --density-control-padding-x: 16px;
@@ -50,8 +50,8 @@
   --density-card-padding: 20px;
   --density-section-gap: 28px;
   --density-form-gap: 20px;
-  --density-list-item-height: 48px;
-  --density-list-item-padding: 12px 16px;
+  --density-list-item-height: 40px;
+  --density-list-item-padding: 10px 16px;
 
   /* Tree & hierarchy */
   --density-tree-indent: 24px;
@@ -89,8 +89,8 @@
 /* ── Standard (DL 2.0 Default) ────────────────────────────── */
 [data-density="standard"] {
   /* Row & control dimensions */
-  --density-row-height: 36px;
-  --density-row-height-sm: 32px;
+  --density-row-height: 32px;
+  --density-row-height-sm: 28px;
   --density-control-height: 32px;
   --density-control-height-sm: 28px;
   --density-touch-target: 32px;

@@ -3,8 +3,8 @@
    ══════════════════════════════════════════════════════════════ */
 
 .box {
-  width: 120px;
-  height: 120px;
+  width: var(--image-upload-size, 120px);
+  height: var(--image-upload-size, 120px);
   border: 1px dashed var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
   display: flex;
@@ -22,7 +22,7 @@
 
 .box:focus-visible {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
 }
 
 .disabled {

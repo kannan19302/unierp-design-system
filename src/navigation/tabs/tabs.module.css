@@ -54,11 +54,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
+  min-width: var(--badge-size-sm, 18px);
+  height: var(--badge-size-sm, 18px);
+  padding: 0 var(--space-1, 4px);
   border-radius: var(--radius-full);
-  font-size: 10px;
+  font-size: var(--type-micro, 10px);
   font-weight: var(--weight-bold);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   color: var(--surface-text-secondary, var(--color-text-secondary));

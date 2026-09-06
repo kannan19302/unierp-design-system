@@ -75,6 +75,15 @@ describe("RecordShell", () => {
     expect(at1280).toMatch(/column_inspector/);
     expect(at1280).not.toMatch(/column:first-child/);
   });
+
+  it("applies data-floorplan and data-density attributes correctly", () => {
+    const { container } = render(
+      <RecordShell density="compact" detail={<p>record</p>} />,
+    );
+    const root = container.querySelector('[data-floorplan="record-shell"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-density", "compact");
+  });
 });
 
 describe("ObjectPage", () => {

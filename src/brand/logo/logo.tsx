@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./logo.module.css";
 
-export type LogoVariant = "horizontal" | "stacked" | "glyph" | "wordmark";
+export type LogoVariant = "horizontal" | "stacked" | "glyph" | "wordmark" | "favicon";
 export type LogoTheme = "light" | "dark" | "monochrome";
 export type LogoSize = "sm" | "md" | "lg" | "xl";
 
@@ -38,11 +38,11 @@ export const Logo: React.FC<LogoProps> = ({
     .join(" ");
 
   // Color tokens based on theme
-  const brandCobalt = theme === "monochrome" ? "currentColor" : "var(--color-brand, #0052cc)";
-  const uStrokeColor = theme === "monochrome" ? "var(--color-bg, #ffffff)" : "#ffffff";
+  const brandCobalt = theme === "monochrome" ? "currentColor" : "var(--color-primary, var(--color-brand, #2563eb))";
+  const uStrokeColor = theme === "monochrome" ? "var(--color-bg, #ffffff)" : "var(--color-white, #ffffff)";
   const accentPrismColor = theme === "monochrome" ? "currentColor" : "var(--color-brand-cyan, #38bdf8)";
-  const wordmarkColor = theme === "dark" ? "#ffffff" : theme === "monochrome" ? "currentColor" : "var(--color-text-primary, #0f172a)";
-  const taglineTextColor = theme === "dark" ? "var(--color-brand-cyan, #38bdf8)" : theme === "monochrome" ? "currentColor" : "var(--color-brand, #0052cc)";
+  const wordmarkColor = theme === "dark" ? "var(--color-text-inverse, #ffffff)" : theme === "monochrome" ? "currentColor" : "var(--color-text-primary, var(--color-text, #0f172a))";
+  const taglineTextColor = theme === "dark" ? "var(--color-brand-cyan, #38bdf8)" : theme === "monochrome" ? "currentColor" : "var(--color-primary, var(--color-brand, #2563eb))";
 
   const renderGlyph = (glyphSize: number) => (
     <svg
@@ -65,6 +65,19 @@ export const Logo: React.FC<LogoProps> = ({
       <circle cx="66" cy="33" r="8" fill={accentPrismColor} />
     </svg>
   );
+
+  if (variant === "favicon") {
+    return (
+      <div
+        className={containerClasses}
+        role="img"
+        aria-label={ariaLabel}
+        {...props}
+      >
+        {renderGlyph(32)}
+      </div>
+    );
+  }
 
   if (variant === "glyph") {
     return (

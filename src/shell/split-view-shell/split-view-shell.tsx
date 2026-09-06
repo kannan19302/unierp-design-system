@@ -8,6 +8,8 @@ export interface SplitViewShellProps {
   masterContent: ReactNode;
   detailContent: ReactNode;
   masterWidth?: number | string;
+  /** Density scale */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
@@ -16,6 +18,7 @@ export const SplitViewShell: FC<SplitViewShellProps> = ({
   masterContent,
   detailContent,
   masterWidth,
+  density,
   className,
 }) => {
   const style = masterWidth
@@ -23,7 +26,12 @@ export const SplitViewShell: FC<SplitViewShellProps> = ({
     : undefined;
 
   return (
-    <div className={`${styles.root} ${className ?? ""}`} style={style}>
+    <div
+      className={`${styles.root} ${className ?? ""}`}
+      style={style}
+      data-floorplan="split-view-shell"
+      data-density={density}
+    >
       <aside aria-label="Triage Queue" className={styles.master_pane}>
         {masterHeader && <div className={styles.master_header}>{masterHeader}</div>}
         <div className={styles.master_list}>{masterContent}</div>

@@ -38,8 +38,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 14px;
-  height: 14px;
+  width: var(--size-icon-sm, 14px);
+  height: var(--size-icon-sm, 14px);
   padding: 0;
   background: none;
   border: none;
@@ -50,7 +50,7 @@
 }
 
 .indentSpacer {
-  width: 14px;
+  width: var(--size-indent-step, 14px);
   flex-shrink: 0;
 }
 
@@ -75,11 +75,11 @@
 }
 
 .badge {
-  font-size: 9px;
+  font-size: var(--type-micro, 9px);
   font-weight: var(--weight-bold);
   background: var(--surface-1-border, var(--color-border));
   color: var(--surface-text-secondary, var(--color-text-muted));
-  padding: 0 4px;
+  padding: 0 var(--space-1, 4px);
   border-radius: var(--radius-full);
 }
 

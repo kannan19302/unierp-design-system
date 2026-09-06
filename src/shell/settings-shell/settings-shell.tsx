@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, type FC, type ReactNode } from "react";
+import { Search } from "lucide-react";
 import styles from "./settings-shell.module.css";
 
 /**
@@ -54,6 +55,8 @@ export interface SettingsShellProps {
   /** Replaces the footer entirely when a page needs something else there. */
   footer?: ReactNode;
   searchLabel?: string;
+  /** Density scale */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
@@ -68,6 +71,7 @@ export const SettingsShell: FC<SettingsShellProps> = ({
   saving = false,
   footer,
   searchLabel = "Search settings",
+  density,
   className = "",
 }) => {
   const [query, setQuery] = useState("");
@@ -96,9 +100,14 @@ export const SettingsShell: FC<SettingsShellProps> = ({
   const matchCount = groups.reduce((n, [, list]) => n + list.length, 0);
 
   return (
-    <div className={`${styles.root} ${className}`.trim()}>
+    <div
+      className={`${styles.root} ${className}`.trim()}
+      data-floorplan="settings-shell"
+      data-density={density}
+    >
       <nav className={styles.index} aria-label="Settings">
         <div className={styles.search_wrap}>
+          <Search className={styles.search_icon} aria-hidden="true" />
           <input
             type="search"
             className={styles.search}

@@ -10,7 +10,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(var(--space-2, 8px));
   }
   to {
     opacity: 1;
@@ -20,7 +20,7 @@
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-16px);
+    transform: translateX(calc(-1 * var(--space-4, 16px)));
   }
   to {
     opacity: 1;
@@ -245,11 +245,11 @@
   color: var(--color-text-secondary);
 }
 .ui-text-caption {
-  font-size: 11px;
+  font-size: var(--type-micro, 11px);
   color: var(--color-text-secondary);
 }
 .ui-text-micro {
-  font-size: 10px;
+  font-size: var(--type-micro, 10px);
   color: var(--color-text-tertiary);
 }
 .ui-text-tertiary {
@@ -772,8 +772,9 @@
 .h-auto {
   height: auto;
 }
-.min-h-\[500px\] {
-  min-height: 500px;
+.min-h-500px,
+.min-h-lg {
+  min-height: var(--container-min-height-lg, 500px);
 }
 .max-w-7xl {
   max-width: var(--content-max-width, 1400px);

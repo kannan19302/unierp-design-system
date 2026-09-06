@@ -33,3 +33,50 @@ if (typeof HTMLDialogElement !== "undefined") {
     this.dispatchEvent(new Event("close"));
   };
 }
+
+// JSDOM does not implement HTMLCanvasElement.prototype.getContext natively without the native canvas package.
+// Stubbing it provides axe-core and chart calculations a quiet fallback without stderr noise.
+if (typeof HTMLCanvasElement !== "undefined") {
+  HTMLCanvasElement.prototype.getContext = function () {
+    return {
+      fillRect: () => {},
+      clearRect: () => {},
+      getImageData: () => ({ data: new Array(4) }),
+      putImageData: () => {},
+      createImageData: () => [],
+      setTransform: () => {},
+      drawImage: () => {},
+      save: () => {},
+      fillText: () => {},
+      restore: () => {},
+      beginPath: () => {},
+      moveTo: () => {},
+      lineTo: () => {},
+      closePath: () => {},
+      stroke: () => {},
+      translate: () => {},
+      scale: () => {},
+      rotate: () => {},
+      arc: () => {},
+      fill: () => {},
+      measureText: () => ({ width: 0 }),
+      transform: () => {},
+      rect: () => {},
+      clip: () => {},
+    } as unknown as RenderingContext;
+  };
+}
+
+// JSDOM throws an error when getComputedStyle is called with a pseudoElt argument (e.g. ::before/::after).
+// Calling without pseudoElt provides axe-core color contrast evaluations a silent fallback style declaration.
+if (typeof window !== "undefined") {
+  const origGetComputedStyle = window.getComputedStyle;
+  window.getComputedStyle = function (elt: Element, pseudoElt?: string | null) {
+    if (pseudoElt) {
+      return origGetComputedStyle.call(this, elt);
+    }
+    return origGetComputedStyle.call(this, elt);
+  };
+}
+
+

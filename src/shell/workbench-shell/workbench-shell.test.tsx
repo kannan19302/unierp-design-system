@@ -29,4 +29,19 @@ describe("WorkbenchShell Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("renders as section without unierp-main ID when nested=true", () => {
+    const { container } = render(
+      <WorkbenchShell
+        nested={true}
+        classificationTree={<div>Tree</div>}
+        recordList={<div>List</div>}
+        detailWorkspace={<div>Details</div>}
+      />,
+    );
+
+    expect(container.querySelector("#unierp-main")).toBeNull();
+    expect(container.querySelector("main")).toBeNull();
+    expect(screen.getByRole("region", { name: "Workspace Details" })).toBeInTheDocument();
+  });
 });

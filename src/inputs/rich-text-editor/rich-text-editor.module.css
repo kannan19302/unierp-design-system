@@ -34,8 +34,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: var(--density-control-height-compact, 24px);
+  height: var(--density-control-height-compact, 24px);
   background: none;
   border: none;
   border-radius: var(--radius-xs, 2px);
@@ -50,14 +50,14 @@
 
 .divider {
   width: 1px;
-  height: 14px;
+  height: var(--size-divider-sm, 14px);
   background: var(--surface-1-border, var(--color-border));
   margin: 0 var(--space-1);
 }
 
 .textarea {
   width: 100%;
-  min-height: 120px;
+  min-height: var(--editor-min-height, 120px);
   padding: var(--space-3);
   border: none;
   background: transparent;

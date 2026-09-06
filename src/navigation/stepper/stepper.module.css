@@ -43,8 +43,8 @@
 }
 
 .indicator {
-  width: 24px;
-  height: 24px;
+  width: var(--stepper-indicator-size, 24px);
+  height: var(--stepper-indicator-size, 24px);
   border-radius: 50%;
   border: 1px solid var(--surface-1-border, var(--color-border));
   background: var(--surface-sunken-bg, var(--color-bg-sunken));

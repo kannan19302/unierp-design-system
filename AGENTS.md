@@ -63,8 +63,11 @@ src/<category>/<component-name>/
 
 ### 5. Mandatory Quality Gates & Verification Checklist
 Before committing any changes to the design system, every agent MUST verify:
-1. `pnpm typecheck` — 0 TypeScript errors (`tsc --noEmit`).
-2. `pnpm test` — 100% Vitest test pass rate across all 139+ component suites.
-3. `pnpm build` — Contrast, platform accent, density, and token gate checks pass cleanly.
-4. `pnpm build-storybook` (in `../storybook`) — Storybook builds with 0 errors.
+1. `pnpm lint` — Single-command architectural and token health check passing all 7 gates.
+2. `pnpm check:inventory` — 100% 5-file uniform component anatomy across all 165 components.
+3. `pnpm typecheck` — 0 TypeScript errors (`tsc --noEmit`).
+4. `pnpm test` — 100% Vitest test pass rate across all 177 test suites (622 tests).
+5. `pnpm build` — Clean production bundle (contrast, platform accent, density, token zero-debt, and cross-platform checks pass cleanly).
+6. `pnpm build-storybook` (in `../storybook`) — Storybook builds cleanly with zero errors.
+
 

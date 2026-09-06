@@ -51,4 +51,58 @@ describe("Modal Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("assigns distinct stable IDs to two simultaneous modal instances", () => {
+    render(
+      <>
+        <Modal open={true} onClose={() => {}} title="Modal One">
+          <p>Body One</p>
+        </Modal>
+        <Modal open={true} onClose={() => {}} title="Modal Two">
+          <p>Body Two</p>
+        </Modal>
+      </>,
+    );
+
+    const dialogs = screen.getAllByRole("dialog");
+    expect(dialogs).toHaveLength(2);
+
+    const id1 = dialogs[0].getAttribute("aria-labelledby");
+    const id2 = dialogs[1].getAttribute("aria-labelledby");
+
+    expect(id1).toBeTruthy();
+    expect(id2).toBeTruthy();
+    expect(id1).not.toBe(id2);
+  });
+
+  it("associates description via aria-describedby", () => {
+    render(
+      <Modal
+        open={true}
+        onClose={() => {}}
+        title="Payment Confirmation"
+        description="This will execute immediately."
+      >
+        <p>Details</p>
+      </Modal>,
+    );
+
+    const dialog = screen.getByRole("dialog");
+    const descId = dialog.getAttribute("aria-describedby");
+    expect(descId).toBeTruthy();
+    const descElement = document.getElementById(descId!);
+    expect(descElement).toHaveTextContent("This will execute immediately.");
+  });
+
+  it("supports aria-label when no visible title exists", () => {
+    render(
+      <Modal open={true} onClose={() => {}} aria-label="Borderless Inspector">
+        <p>Raw content</p>
+      </Modal>,
+    );
+
+    expect(
+      screen.getByRole("dialog", { name: "Borderless Inspector" }),
+    ).toBeInTheDocument();
+  });
 });

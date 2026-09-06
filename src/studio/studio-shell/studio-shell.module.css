@@ -28,7 +28,7 @@
 /* Density is orthogonal to theme (UI_UX_BRIEF §2), so compact shrinks the
    chrome only — never the canvas, which is the thing the user came for. */
 :global([data-density="compact"]) .shell {
-  grid-template-rows: 40px minmax(0, 1fr) auto;
+  grid-template-rows: var(--density-row-height, 40px) minmax(0, 1fr) auto;
 }
 
 .toolbar {

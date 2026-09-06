@@ -17,8 +17,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: var(--space-11, 44px);
+  height: var(--space-11, 44px);
   border-radius: var(--radius-sm, 2px);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border: 1px solid var(--surface-1-border, var(--color-border));
@@ -37,7 +37,7 @@
   margin: var(--space-1) 0 0;
   font-size: var(--type-caption, var(--text-xs));
   color: var(--surface-text-secondary, var(--color-text-muted));
-  max-width: 320px;
+  max-width: var(--empty-state-max-width, 320px);
   line-height: var(--leading-normal);
 }
 
