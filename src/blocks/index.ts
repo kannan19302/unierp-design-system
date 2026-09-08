@@ -16,3 +16,5 @@ export * from "./logo-cloud";
 export * from "./cta-banner";
 export * from "./changelog-section";
 export * from "./newsletter-signup";
+export * from "./auth-card";
+export * from "./registration-flow";
