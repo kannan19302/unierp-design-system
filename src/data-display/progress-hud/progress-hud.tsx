@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CheckCircle2, Circle, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import styles from "./progress-hud.module.css";
 
@@ -27,6 +27,27 @@ export const ProgressHUD: React.FC<ProgressHUDProps> = ({
   title = "Setup Checklist",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   const radius = 10;
   const circumference = 2 * Math.PI * radius;
@@ -37,6 +58,7 @@ export const ProgressHUD: React.FC<ProgressHUDProps> = ({
 
   return (
     <div
+      ref={containerRef}
       className={styles.hudContainer}
       onClick={() => setIsOpen(!isOpen)}
       role="button"
@@ -102,9 +124,9 @@ export const ProgressHUD: React.FC<ProgressHUDProps> = ({
               >
                 <div className={styles.drawerItemLeft}>
                   {item.isCompleted ? (
-                    <CheckCircle2 size={14} color="var(--token-color-success)" />
+                    <CheckCircle2 size={14} color="var(--color-success, #16a34a)" />
                   ) : (
-                    <Circle size={14} color="var(--token-color-text-tertiary)" />
+                    <Circle size={14} color="var(--color-text-tertiary, #94a3b8)" />
                   )}
                   <span>{item.label}</span>
                 </div>
