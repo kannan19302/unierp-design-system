@@ -1,0 +1,34 @@
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests/visual',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 2 : 4,
+  reporter: 'html',
+  use: {
+    baseURL: 'http://localhost:6006',
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+  },
+  snapshotPathTemplate: '../unierp-workspace/scripts/ci/visual-baselines/{arg}{ext}',
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
+  webServer: {
+    command: 'pnpm run storybook',
+    url: 'http://localhost:6006',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
+  },
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixels: 100,
+      threshold: 0.2,
+    },
+  },
+});
