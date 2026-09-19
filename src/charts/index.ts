@@ -35,3 +35,4 @@ export { ScatterPlotChart, type ScatterPlotChartProps } from "./scatter-plot-cha
 export { StackedBarChart, type StackedBarChartProps } from "./stacked-bar-chart";
 export { CohortRetentionChart, type CohortRetentionChartProps } from "./cohort-retention-chart";
 export { SparklineGrid, type SparklineGridProps } from "./sparkline-grid";
+export * from "./dual-axis-telemetry-chart";

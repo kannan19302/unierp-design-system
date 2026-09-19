@@ -1,28 +1,17 @@
 "use client";
 
-import { useId, useState, type FC, type ReactNode } from "react";
+import { useId, useState, forwardRef, type ReactNode } from "react";
 import styles from "./studio-inspector.module.css";
-
-/**
- * `<StudioInspector>` — the right rail, and the reason four builders can drop
- * their modals.
- *
- * UI_UX_BRIEF §10 forbids modal-on-modal, and the builders were heading
- * straight for it: `GenericBuilderModal` and `FormLogicModal` opened over a
- * canvas that already had a properties dialog. Editing a property is not a
- * decision that needs the rest of the screen taken away — it needs the canvas
- * still visible so the user can see what their change did. That is what a rail
- * gives and a modal cannot.
- *
- * Four tabs, fixed, for the same consistency reason as the toolbar's five
- * verbs. A builder that has nothing to put in `style` passes nothing and the
- * tab renders its placeholder rather than vanishing, so the tab row does not
- * change shape between artefacts.
- */
 
 export type InspectorTabId = "properties" | "logic" | "style" | "advanced";
 
-const TAB_ORDER: { id: InspectorTabId; label: string }[] = [
+export interface CustomInspectorTab {
+  id: string;
+  label: string;
+  content: ReactNode;
+}
+
+const DEFAULT_TAB_ORDER: { id: InspectorTabId; label: string }[] = [
   { id: "properties", label: "Properties" },
   { id: "logic", label: "Logic" },
   { id: "style", label: "Style" },
@@ -30,80 +19,150 @@ const TAB_ORDER: { id: InspectorTabId; label: string }[] = [
 ];
 
 export interface StudioInspectorProps {
-  /** What is being inspected, e.g. "Email field". Announced with the region. */
+  /** What is being inspected, e.g. "Hero" or "supplierTable". */
   subject?: string;
+  /** Optional icon rendered in inspector header beside subject title */
+  headerIcon?: ReactNode;
+  /** Optional badge rendered in inspector header (e.g. "User Task", "Component") */
+  headerBadge?: string;
+  /** Optional action menu or close button in header (e.g. "..." menu) */
+  actionMenu?: ReactNode;
+  /** Custom tabs array (e.g. [{ id: "settings", label: "Settings", content: <SettingsPanel /> }]) */
+  customTabs?: CustomInspectorTab[];
+  /** Controlled active tab ID */
+  activeTabId?: string;
+  /** Callback fired on tab selection */
+  onTabChange?: (tabId: string) => void;
+
+  /** Legacy slot: Properties pane */
   properties?: ReactNode;
+  /** Legacy slot: Logic pane */
   logic?: ReactNode;
+  /** Legacy slot: Style pane */
   style?: ReactNode;
+  /** Legacy slot: Advanced pane */
   advanced?: ReactNode;
   /** Shown across all tabs when nothing is selected. */
   emptyState?: ReactNode;
+  className?: string;
 }
 
-export const StudioInspector: FC<StudioInspectorProps> = ({
+/**
+ * `<StudioInspector>` — Properties and configuration drawer for Strata visual builders.
+ * Supports builder-specific custom tabs (e.g. Settings/Styles or Properties/Data/Events),
+ * element badge header with action buttons, and accessible keyboard navigation.
+ *
+ * @maturity stable
+ */
+export const StudioInspector = forwardRef<HTMLDivElement, StudioInspectorProps>(({
   subject,
+  headerIcon,
+  headerBadge,
+  actionMenu,
+  customTabs,
+  activeTabId,
+  onTabChange,
   properties,
   logic,
   style,
   advanced,
   emptyState,
-}) => {
-  const [active, setActive] = useState<InspectorTabId>("properties");
+  className = "",
+}, ref) => {
   const baseId = useId();
-  const panes: Record<InspectorTabId, ReactNode> = {
-    properties,
-    logic,
-    style,
-    advanced,
+  const [internalActive, setInternalActive] = useState<string>(
+    customTabs && customTabs.length > 0 ? customTabs[0]!.id : "properties"
+  );
+  const currentTabId = activeTabId !== undefined ? activeTabId : internalActive;
+
+  const handleTabClick = (id: string) => {
+    setInternalActive(id);
+    onTabChange?.(id);
   };
 
   const nothingSelected = !subject;
 
+  // Derive tab list
+  const tabList = customTabs && customTabs.length > 0
+    ? customTabs.map((t) => ({ id: t.id, label: t.label }))
+    : DEFAULT_TAB_ORDER;
+
+  // Derive active content
+  let activeContent: ReactNode = null;
+  if (customTabs && customTabs.length > 0) {
+    const found = customTabs.find((t) => t.id === currentTabId);
+    activeContent = found ? found.content : customTabs[0]?.content;
+  } else {
+    const panes: Record<string, ReactNode> = {
+      properties,
+      logic,
+      style,
+      advanced,
+    };
+    activeContent = panes[currentTabId];
+  }
+
   return (
     <div
-      className={styles.inspector}
+      ref={ref}
+      className={`${styles.inspector} ${className}`.trim()}
       role="region"
       aria-label={subject ? `Inspector — ${subject}` : "Inspector"}
     >
+      {subject && (
+        <div className={styles.header}>
+          <div className={styles.headerIdentity}>
+            {headerIcon && <span className={styles.headerIcon}>{headerIcon}</span>}
+            <span className={styles.headerTitle}>{subject}</span>
+            {headerBadge && <span className={styles.headerBadge}>{headerBadge}</span>}
+          </div>
+          {actionMenu && <div className={styles.headerActions}>{actionMenu}</div>}
+        </div>
+      )}
+
       <div className={styles.tabs} role="tablist" aria-label="Inspector sections">
-        {TAB_ORDER.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            id={`${baseId}-tab-${tab.id}`}
-            className={`${styles.tab} ${active === tab.id ? styles.tabActive : ""}`}
-            role="tab"
-            aria-selected={active === tab.id}
-            aria-controls={`${baseId}-panel-${tab.id}`}
-            tabIndex={active === tab.id ? 0 : -1}
-            onClick={() => setActive(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
+        {tabList.map((tab) => {
+          const isActive = tab.id === currentTabId;
+          const tabButtonId = `${baseId}-tab-${tab.id}`;
+          const panelId = `${baseId}-panel-${tab.id}`;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              id={tabButtonId}
+              role="tab"
+              aria-selected={isActive}
+              aria-controls={panelId}
+              tabIndex={isActive ? 0 : -1}
+              className={`${styles.tab} ${isActive ? styles.tabActive : ""}`.trim()}
+              onClick={() => handleTabClick(tab.id)}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
 
       <div
-        className={styles.body}
+        id={`${baseId}-panel-${currentTabId}`}
         role="tabpanel"
-        id={`${baseId}-panel-${active}`}
-        aria-labelledby={`${baseId}-tab-${active}`}
-        tabIndex={0}
+        aria-labelledby={`${baseId}-tab-${currentTabId}`}
+        className={styles.body}
       >
         {nothingSelected ? (
-          emptyState ?? (
-            <p className={styles.placeholder}>
-              Select something on the canvas to edit its properties.
-            </p>
-          )
+          <div className={styles.placeholder}>
+            {emptyState ?? "Select something on the canvas to inspect its properties."}
+          </div>
         ) : (
-          panes[active] ?? (
-            <p className={styles.placeholder}>
-              {subject} has no {active} settings.
-            </p>
+          activeContent ?? (
+            <div className={styles.placeholder}>
+              {subject ?? "This element"} has no {currentTabId} settings.
+            </div>
           )
         )}
       </div>
     </div>
   );
-};
+});
+
+StudioInspector.displayName = "StudioInspector";

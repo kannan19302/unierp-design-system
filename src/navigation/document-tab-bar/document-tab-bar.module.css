@@ -1,13 +1,13 @@
 .container {
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 2.5rem;
-  background-color: var(--color-surface-subtle, #f1f5f9);
-  border-bottom: 1px solid var(--color-border, #cbd5e1);
+  inline-size: 100%;
+  block-size: 2.5rem;
+  background-color: var(--color-bg-sunken);
+  border-block-end: 1px solid var(--color-border);
   box-sizing: border-box;
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-  color: var(--color-text-primary, #0f172a);
+  font-family: var(--font-sans);
+  color: var(--color-fg-default);
   user-select: none;
 }
 
@@ -15,7 +15,7 @@
   display: flex;
   align-items: flex-end;
   flex: 1;
-  height: 100%;
+  block-size: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
@@ -28,7 +28,7 @@
 .tabList {
   display: flex;
   align-items: flex-end;
-  height: 100%;
+  block-size: 100%;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -38,54 +38,62 @@
   position: relative;
   display: flex;
   align-items: center;
-  height: calc(100% - 2px);
-  background-color: var(--color-surface-subtle, #e2e8f0);
-  border-right: 1px solid var(--color-border, #cbd5e1);
-  border-top: 2px solid transparent;
-  transition: all 0.15s ease;
+  block-size: calc(100% - 2px);
+  background-color: var(--color-bg-sunken);
+  border-inline-end: 1px solid var(--color-border);
+  border-block-start: 2px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .tabItemWrapper:hover {
-  background-color: var(--color-surface-hover, #f8fafc);
+  background-color: var(--color-bg-hover);
 }
 
 .tabItemWrapperActive {
-  background-color: var(--color-surface, #ffffff);
-  border-top-color: var(--color-primary, #2563eb);
-  height: 100%;
+  background-color: var(--color-bg-elevated);
+  border-block-start-color: var(--color-primary);
+  block-size: 100%;
 }
 
 .tabButton {
   display: flex;
   align-items: center;
-  gap: var(--space-1-5, 0.375rem);
-  height: 100%;
-  max-width: 14rem;
-  min-width: 6rem;
-  padding: 0 var(--space-2, 0.5rem);
+  gap: var(--space-xs);
+  block-size: 100%;
+  max-inline-size: 14rem;
+  min-inline-size: 6rem;
+  padding-block: 0;
+  padding-inline: var(--space-sm);
   background: transparent;
   border: none;
-  color: var(--color-text-secondary, #64748b);
-  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-xs);
   cursor: pointer;
-  text-align: left;
+  text-align: start;
 }
 
 .tabButtonActive {
-  color: var(--color-primary, #2563eb);
+  color: var(--color-fg-default);
   font-weight: 600;
 }
 
 .tabPinned .tabButton {
-  min-width: 2.25rem;
-  max-width: 2.25rem;
+  min-inline-size: 2.25rem;
+  max-inline-size: 2.25rem;
   justify-content: center;
   padding: 0;
 }
 
 .tabIcon {
-  font-size: var(--text-xs, 0.75rem);
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-xs);
   flex-shrink: 0;
+  color: var(--color-fg-muted);
+}
+
+.tabButtonActive .tabIcon {
+  color: var(--color-primary);
 }
 
 .tabTitle {
@@ -96,10 +104,10 @@
 }
 
 .dirtyDot {
-  width: 0.375rem;
-  height: 0.375rem;
-  border-radius: var(--radius-full, 9999px);
-  background-color: var(--color-warning, #d97706);
+  inline-size: 0.375rem;
+  block-size: 0.375rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-warning);
   flex-shrink: 0;
 }
 
@@ -107,34 +115,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.125rem;
-  height: 1.125rem;
-  border-radius: var(--radius-xs, 2px);
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  border-radius: var(--radius-xs);
   background: transparent;
   border: none;
-  color: var(--color-text-secondary, #94a3b8);
+  color: var(--color-fg-muted);
   cursor: pointer;
   padding: 0;
-  font-size: var(--text-2xs, 0.6875rem);
-  opacity: 0;
-  transition: opacity 0.15s ease, background-color 0.15s ease;
+  margin-inline-end: var(--space-xs);
+  opacity: 0.7;
+  transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
-.tabItem:hover .closeButton,
-.tabActive .closeButton {
+.tabItemWrapper:hover .closeButton,
+.tabItemWrapperActive .closeButton {
   opacity: 1;
 }
 
 .closeButton:hover {
-  background-color: var(--color-surface-hover, #e2e8f0);
-  color: var(--color-text-primary, #0f172a);
+  background-color: var(--color-bg-hover);
+  color: var(--color-fg-default);
 }
 
 .actionButtons {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0 var(--space-2, 0.5rem);
+  gap: var(--space-xs);
+  padding-inline: var(--space-xs);
   flex-shrink: 0;
 }
 
@@ -142,39 +150,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: var(--radius-sm, 4px);
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border-radius: var(--radius-sm);
   background: transparent;
-  border: none;
-  color: var(--color-text-secondary, #64748b);
+  border: 1px dashed var(--color-border);
+  color: var(--color-fg-muted);
   cursor: pointer;
-  font-size: var(--text-xs, 0.75rem);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .iconBtn:hover {
-  background-color: var(--color-surface-hover, #e2e8f0);
-  color: var(--color-text-primary, #0f172a);
+  background-color: var(--color-bg-hover);
+  color: var(--color-fg-default);
+  border-color: var(--color-border-strong);
 }
 
 /* Density overrides */
 .container[data-density="ultra-compact"] {
-  height: 2rem;
-}
-
-.container[data-density="ultra-compact"] .tabItem {
-  font-size: var(--text-2xs, 0.6875rem);
-  min-width: 5rem;
+  block-size: 2rem;
 }
 
 .container[data-density="compact"] {
-  height: 2.25rem;
+  block-size: 2.25rem;
 }
 
 .container[data-density="standard"] {
-  height: 2.5rem;
+  block-size: 2.5rem;
 }
 
 .container[data-density="comfortable"] {
-  height: 3rem;
+  block-size: 3rem;
+}
+
+@media (forced-colors: active) {
+  .tabItemWrapperActive {
+    border-block-start: 2px solid Highlight;
+  }
+  .dirtyDot {
+    background-color: Highlight;
+  }
 }

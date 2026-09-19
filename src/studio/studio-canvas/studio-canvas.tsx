@@ -2,11 +2,12 @@
 
 import {
   createContext,
+  forwardRef,
   useCallback,
   useContext,
   useMemo,
   useState,
-  type FC,
+  type CSSProperties,
   type KeyboardEvent,
   type ReactNode,
 } from "react";
@@ -15,8 +16,9 @@ import styles from "./studio-canvas.module.css";
 /**
  * `<StudioCanvas>` — the artefact surface, and the one place selection lives.
  *
- * Two variants, because the platform's builders are two different shapes and
- * pretending otherwise is what produced thirteen bespoke canvases:
+ * @maturity stable
+ *
+ * Two variants, because the platform's builders are two different shapes:
  *
  *   `linear`  — forms, rule sets, queries. Reads top to bottom, no zoom, and
  *               a bounded measure so fields stay readable.
@@ -26,18 +28,9 @@ import styles from "./studio-canvas.module.css";
  *
  * Accessibility is the reason selection is centralised here rather than left
  * to each builder: a `<div>` full of draggable `<div>`s announces nothing at
- * all, which is what four of the builders ship today.
+ * all.
  *
  * The role is `group` by default and `listbox` only when the builder opts in.
- * That distinction is not pedantry — `aria-required-children` means a
- * `listbox` MUST contain `option` children, and this component cannot make
- * that true on its own: it renders whatever the builder passes. Declaring
- * `listbox` unconditionally is a lie a screen reader acts on, and axe catches
- * it (it caught it here). A builder that genuinely renders `role="option"`
- * rows — the form builder's field list, the rule table — passes
- * `selectionRole="listbox"` and gets `aria-activedescendant` with it. A
- * spatial builder embedding `@xyflow/react` keeps `group`, because its nodes
- * are not a list.
  */
 
 export interface StudioCanvasContextValue {
@@ -75,72 +68,111 @@ export interface StudioCanvasProps {
    * `id` matching what is registered through `setIds`. Otherwise leave it.
    */
   selectionRole?: "group" | "listbox";
+  /** Optional selection overlay such as bounding box handles */
+  selectionOverlay?: ReactNode;
+  /** Optional bottom dock such as data query or simulation results console */
+  bottomDock?: ReactNode;
+  className?: string;
+  style?: CSSProperties;
 }
 
-export const StudioCanvas: FC<StudioCanvasProps> = ({
-  variant = "linear",
-  children,
-  label,
-  empty,
-  isEmpty = false,
-  selectedId: controlledId,
-  onSelect,
-  selectionRole = "group",
-}) => {
-  const [uncontrolledId, setUncontrolledId] = useState<string | null>(null);
-  const [ids, setIds] = useState<string[]>([]);
-
-  const selectedId = controlledId !== undefined ? controlledId : uncontrolledId;
-
-  const select = useCallback(
-    (id: string | null) => {
-      if (controlledId === undefined) setUncontrolledId(id);
-      onSelect?.(id);
+export const StudioCanvas = forwardRef<HTMLDivElement, StudioCanvasProps>(
+  (
+    {
+      variant = "linear",
+      children,
+      label,
+      empty,
+      isEmpty = false,
+      selectedId: controlledId,
+      onSelect,
+      selectionRole = "group",
+      selectionOverlay,
+      bottomDock,
+      className,
+      style,
     },
-    [controlledId, onSelect],
-  );
+    ref,
+  ) => {
+    const [uncontrolledId, setUncontrolledId] = useState<string | null>(null);
+    const [ids, setIds] = useState<string[]>([]);
 
-  const ctx = useMemo(
-    () => ({ selectedId, select, ids, setIds }),
-    [selectedId, select, ids],
-  );
+    const selectedId = controlledId !== undefined ? controlledId : uncontrolledId;
 
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        select(null);
-        return;
-      }
-      if (ids.length === 0) return;
-      const at = selectedId ? ids.indexOf(selectedId) : -1;
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-        e.preventDefault();
-        select(ids[(at + 1) % ids.length] ?? null);
-      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-        e.preventDefault();
-        select(ids[(at - 1 + ids.length) % ids.length] ?? null);
-      }
-    },
-    [ids, selectedId, select],
-  );
+    const select = useCallback(
+      (id: string | null) => {
+        if (controlledId === undefined) setUncontrolledId(id);
+        onSelect?.(id);
+      },
+      [controlledId, onSelect],
+    );
 
-  return (
-    <StudioCanvasContext.Provider value={ctx}>
-      <div
-        className={`${styles.canvas} ${variant === "spatial" ? styles.spatial : styles.linear} ${styles.surface}`}
-        role={selectionRole}
-        aria-label={label}
-        // Only meaningful on a composite widget role; on a plain group it is
-        // ignored at best and misreported at worst.
-        aria-activedescendant={
-          selectionRole === "listbox" ? (selectedId ?? undefined) : undefined
+    const ctx = useMemo(
+      () => ({ selectedId, select, ids, setIds }),
+      [selectedId, select, ids],
+    );
+
+    const onKeyDown = useCallback(
+      (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          select(null);
+          return;
         }
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-      >
-        {isEmpty && empty ? <div className={styles.empty}>{empty}</div> : children}
-      </div>
-    </StudioCanvasContext.Provider>
-  );
-};
+        if (ids.length === 0) return;
+        const at = selectedId ? ids.indexOf(selectedId) : -1;
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+          e.preventDefault();
+          select(ids[(at + 1) % ids.length] ?? null);
+        } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          select(ids[(at - 1 + ids.length) % ids.length] ?? null);
+        }
+      },
+      [ids, selectedId, select],
+    );
+
+    const canvasClasses = [
+      styles.canvas,
+      variant === "spatial" ? styles.spatial : styles.linear,
+      styles.surface,
+      bottomDock ? styles.hasBottomDock : "",
+      className ?? "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    return (
+      <StudioCanvasContext.Provider value={ctx}>
+        <div
+          ref={ref}
+          className={canvasClasses}
+          style={style}
+          role={selectionRole}
+          aria-label={label}
+          aria-activedescendant={
+            selectionRole === "listbox" ? (selectedId ?? undefined) : undefined
+          }
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+        >
+          {isEmpty && empty ? (
+            <div className={styles.empty}>{empty}</div>
+          ) : (
+            <div className={styles.canvasBody}>
+              {children}
+              {selectionOverlay && (
+                <div className={styles.overlayLayer} aria-hidden="true">
+                  {selectionOverlay}
+                </div>
+              )}
+            </div>
+          )}
+          {bottomDock && <div className={styles.bottomDock}>{bottomDock}</div>}
+        </div>
+      </StudioCanvasContext.Provider>
+    );
+  },
+);
+
+StudioCanvas.displayName = "StudioCanvas";

@@ -292,4 +292,6 @@ export {
   type AssetClassImpact,
 } from "./portfolio-risk-stress-tester";
 
+export * from "./quality-gates-table";
+
 

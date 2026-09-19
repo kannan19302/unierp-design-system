@@ -38,3 +38,4 @@ export { DashboardWidgetToolbar, type DashboardWidgetToolbarProps } from "./dash
 export { MetricTrendCard, type MetricTrendCardProps } from "./metric-trend-card";
 export { AlertThresholdConfigurator, type AlertThresholdConfiguratorProps } from "./alert-threshold-configurator";
 export { EmbeddedReportFrame, type EmbeddedReportFrameProps } from "./embedded-report-frame";
+export * from "./service-health-kpi-grid";

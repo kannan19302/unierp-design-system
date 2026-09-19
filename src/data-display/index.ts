@@ -59,3 +59,4 @@ export * from "./compute-cluster-topology-map";
 export * from "./statistical-process-control-chart";
 export * from "./inpatient-acuity-scorecard";
 export * from "./compensation-band-range-visualizer";
+export * from "./project-card";

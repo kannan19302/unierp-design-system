@@ -2,13 +2,14 @@
   position: relative;
   block-size: 100%;
   min-block-size: 0;
-  padding: var(--space-4, 1rem);
+  padding: var(--space-4);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 /* `linear` artefacts (forms, rule sets, queries) read top-to-bottom and get a
-   centred measure — an 1800px-wide form field is not "maximum canvas area",
-   it is an unreadable line length (UI_UX_BRIEF §4). */
+   centred measure */
 .linear {
   max-inline-size: 56rem;
   margin-inline: auto;
@@ -22,8 +23,32 @@
 }
 
 .surface:focus-visible {
-  outline: 2px solid var(--color-border-focus, #6366f1);
+  outline: 2px solid var(--color-brand);
   outline-offset: -2px;
+}
+
+.canvasBody {
+  position: relative;
+  flex: 1 1 auto;
+  min-block-size: 0;
+  inline-size: 100%;
+}
+
+.overlayLayer {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.bottomDock {
+  flex: 0 0 auto;
+  border-block-start: 1px solid var(--color-border);
+  background: var(--color-surface);
+  z-index: 20;
 }
 
 .empty {

@@ -192,6 +192,23 @@ export {
   type CustomerSlaTicket,
   type SlaSeverityLevel,
   type SlaBreachStatus,
+  BpmnPalette,
+  type BpmnPaletteProps,
+  type BpmnPaletteItem,
+  BpmnSimulationBar,
+  type BpmnSimulationBarProps,
+  type SimulationStep,
+  type SimulationStatus,
+  type SlaStatus,
+  type SimulationSpeed,
+  ReleasePipelineStepper,
+  type ReleasePipelineStepperProps,
+  type ReleaseStage,
+  type PipelineStageStatus,
+  PromotionApprovalInspector,
+  type PromotionApprovalInspectorProps,
+  type PromotionChangesSummary,
+  type ReleaseRiskLevel,
 } from "./workflow";
 
 

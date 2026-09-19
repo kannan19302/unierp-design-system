@@ -1,34 +1,20 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import {
+  Check,
   CheckCircle2,
   Eye,
   History,
+  Laptop,
   PlayCircle,
   Rocket,
+  Smartphone,
+  Tablet,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "../../primitives/button";
-
 import styles from "./studio-toolbar.module.css";
-
-/**
- * `<StudioToolbar>` — the five verbs, in the same order, in every builder.
- *
- * UI_UX_BRIEF §12 rule 3. The order is fixed by this component, not chosen by
- * the caller, and that is deliberate: the platform's third design law is
- * "learning one module must teach you all 45", and a toolbar whose order a
- * builder could rearrange is exactly how that promise was being broken. A
- * builder supplies handlers; it does not supply layout.
- *
- *   Validate · Preview · Test-run · Version · Publish
- *
- * A verb with no handler renders disabled rather than disappearing, so the
- * shape of the bar is identical everywhere and a user never has to re-find a
- * control that moved because this particular builder cannot do one of them.
- * `disabledReason` is what makes that honest — a disabled control with no
- * explanation is worse than an absent one.
- */
 
 export interface StudioVerb {
   onAction?: () => void;
@@ -37,6 +23,8 @@ export interface StudioVerb {
   /** In-flight (publishing, running). Renders the button's own spinner. */
   busy?: boolean;
 }
+
+export type DevicePreviewMode = "desktop" | "tablet" | "mobile";
 
 export interface StudioToolbarProps {
   /** The artefact's name — what the user thinks they are editing. */
@@ -51,17 +39,26 @@ export interface StudioToolbarProps {
   problemCount?: number;
   /** The environment this artefact publishes to. Usually a `<Select>`. */
   environment?: ReactNode;
-  /**
-   * The artefact's canonical address — an `<ArtifactAddress>`.
-   *
-   * A full-canvas editor deliberately sheds every rail, which leaves the user
-   * with no on-screen answer to "which app's form is this, and which version
-   * am I looking at". The name alone does not answer it: six apps can each
-   * have a form called "Leave request". This is the only place that identity
-   * survives at full canvas, which is why it sits in the toolbar rather than
-   * in chrome the editor hides.
-   */
+  /** The artefact's canonical address or breadcrumb trail. */
   address?: ReactNode;
+  /** Breadcrumb hierarchy array or node, e.g. ["Acme Corp", "Supplier portal", "Development", "Draft"] */
+  breadcrumbs?: ReactNode | string[];
+  /** Live save status indicator */
+  saveStatus?: "saved" | "saving" | "unsaved";
+  /** Canvas navigation tabs, e.g. Website / Design / Content / Interactions */
+  canvasTabs?: ReactNode;
+  /** Active device preview mode */
+  deviceMode?: DevicePreviewMode;
+  /** Callback fired when device preview mode changes */
+  onDeviceModeChange?: (mode: DevicePreviewMode) => void;
+  /** Canvas zoom level percentage (e.g. 100) */
+  zoomPercent?: number;
+  /** Callback fired when zoom level changes */
+  onZoomChange?: (zoom: number) => void;
+  /** Primary prominent action button (e.g. "Review release") */
+  primaryAction?: ReactNode;
+  /** Secondary action button (e.g. "Preview") */
+  secondaryAction?: ReactNode;
 
   validate?: StudioVerb;
   preview?: StudioVerb;
@@ -77,7 +74,13 @@ const verbProps = (verb: StudioVerb | undefined) => ({
   title: verb?.disabledReason,
 });
 
-export const StudioToolbar: FC<StudioToolbarProps> = ({
+/**
+ * `<StudioToolbar>` — Universal control bar for Strata Studio and Developer Platform builders.
+ * Integrates breadcrumbs, auto-save status, device preview switchers, zoom controls, and standard verbs.
+ *
+ * @maturity stable
+ */
+export const StudioToolbar = forwardRef<HTMLDivElement, StudioToolbarProps>(({
   name,
   kind,
   dirty = false,
@@ -85,82 +88,179 @@ export const StudioToolbar: FC<StudioToolbarProps> = ({
   problemCount = 0,
   environment,
   address,
+  breadcrumbs,
+  saveStatus,
+  canvasTabs,
+  deviceMode = "desktop",
+  onDeviceModeChange,
+  zoomPercent,
+  onZoomChange,
+  primaryAction,
+  secondaryAction,
   validate,
   preview,
   testRun,
   version_,
   publish,
-}) => (
-  <div className={styles.toolbar} role="toolbar" aria-label={`${name} actions`}>
-    <div className={styles.identity}>
-      <span className={styles.name} title={name}>
-        {name}
-      </span>
-      {kind ? <span className={styles.meta}>{kind}</span> : null}
-      {address ? <span className={styles.address}>{address}</span> : null}
-      {version ? <span className={styles.meta}>{version}</span> : null}
-      {dirty ? (
-        <span className={styles.dirty}>
-          <span className={styles.dirtyDot} aria-hidden="true" />
-          Unsaved
-        </span>
-      ) : null}
-    </div>
+}, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={styles.toolbar}
+      role="toolbar"
+      aria-label={`${name} actions`}
+    >
+      <div className={styles.identity}>
+        {breadcrumbs ? (
+          <div className={styles.breadcrumbNav}>
+            {Array.isArray(breadcrumbs) ? (
+              <span className={styles.breadcrumbTrail}>
+                {breadcrumbs.map((crumb, idx) => (
+                  <span key={idx} className={styles.crumbItem}>
+                    {idx > 0 && <span className={styles.crumbSeparator}>/</span>}
+                    <span className={idx === breadcrumbs.length - 1 ? styles.crumbTerminal : styles.crumbAncestor}>
+                      {crumb}
+                    </span>
+                  </span>
+                ))}
+              </span>
+            ) : (
+              breadcrumbs
+            )}
+          </div>
+        ) : (
+          <>
+            <span className={styles.name} title={name}>
+              {name}
+            </span>
+            {kind ? <span className={styles.meta}>{kind}</span> : null}
+            {address ? <span className={styles.address}>{address}</span> : null}
+            {version ? <span className={styles.meta}>{version}</span> : null}
+          </>
+        )}
 
-    {environment ? <div className={styles.verbs}>{environment}</div> : null}
-
-    <div className={styles.verbs}>
-      <Button
-        variant="ghost"
-        size="sm"
-        leftIcon={<CheckCircle2 size={14} aria-hidden="true" />}
-        {...verbProps(validate)}
-      >
-        Validate
-        {problemCount > 0 ? (
-          <span className={styles.problemCount} aria-label={`${problemCount} problems`}>
-            {problemCount}
+        {saveStatus === "saved" ? (
+          <span className={styles.savedStatus}>
+            <Check size={12} className={styles.savedCheck} aria-hidden="true" />
+            Saved
+          </span>
+        ) : saveStatus === "saving" ? (
+          <span className={styles.savingStatus}>Saving...</span>
+        ) : (dirty || saveStatus === "unsaved") ? (
+          <span className={styles.dirty}>
+            <span className={styles.dirtyDot} aria-hidden="true" />
+            Unsaved
           </span>
         ) : null}
-      </Button>
+      </div>
 
-      <Button
-        variant="ghost"
-        size="sm"
-        leftIcon={<Eye size={14} aria-hidden="true" />}
-        {...verbProps(preview)}
-      >
-        Preview
-      </Button>
+      {canvasTabs && <div className={styles.canvasTabsWrapper}>{canvasTabs}</div>}
 
-      <Button
-        variant="ghost"
-        size="sm"
-        leftIcon={<PlayCircle size={14} aria-hidden="true" />}
-        {...verbProps(testRun)}
-      >
-        Test run
-      </Button>
+      {onDeviceModeChange && (
+        <div className={styles.deviceModeSwitch} role="group" aria-label="Device preview mode">
+          <button
+            type="button"
+            className={`${styles.deviceBtn} ${deviceMode === "desktop" ? styles.deviceBtnActive : ""}`}
+            onClick={() => onDeviceModeChange("desktop")}
+            aria-label="Desktop preview"
+            aria-pressed={deviceMode === "desktop"}
+          >
+            <Laptop size={14} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className={`${styles.deviceBtn} ${deviceMode === "tablet" ? styles.deviceBtnActive : ""}`}
+            onClick={() => onDeviceModeChange("tablet")}
+            aria-label="Tablet preview"
+            aria-pressed={deviceMode === "tablet"}
+          >
+            <Tablet size={14} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className={`${styles.deviceBtn} ${deviceMode === "mobile" ? styles.deviceBtnActive : ""}`}
+            onClick={() => onDeviceModeChange("mobile")}
+            aria-label="Mobile preview"
+            aria-pressed={deviceMode === "mobile"}
+          >
+            <Smartphone size={14} aria-hidden="true" />
+          </button>
+        </div>
+      )}
 
-      <Button
-        variant="ghost"
-        size="sm"
-        leftIcon={<History size={14} aria-hidden="true" />}
-        {...verbProps(version_)}
-      >
-        Version
-      </Button>
+      {zoomPercent !== undefined && (
+        <button
+          type="button"
+          className={styles.zoomControl}
+          onClick={() => onZoomChange?.(zoomPercent === 100 ? 75 : 100)}
+          aria-label={`Zoom level ${zoomPercent} percent`}
+        >
+          <span className={styles.zoomLabel}>{zoomPercent}%</span>
+          <ChevronDown size={12} className={styles.zoomChevron} aria-hidden="true" />
+        </button>
+      )}
 
-      <span className={styles.divider} aria-hidden="true" />
+      {environment ? <div className={styles.verbs}>{environment}</div> : null}
 
-      <Button
-        variant="primary"
-        size="sm"
-        leftIcon={<Rocket size={14} aria-hidden="true" />}
-        {...verbProps(publish)}
-      >
-        Publish
-      </Button>
+      <div className={styles.verbs}>
+        {secondaryAction}
+
+        <Button
+          variant="ghost"
+          size="sm"
+          leftIcon={<CheckCircle2 size={14} aria-hidden="true" />}
+          {...verbProps(validate)}
+        >
+          Validate
+          {problemCount > 0 ? (
+            <span className={styles.problemCount} aria-label={`${problemCount} problems`}>
+              {problemCount}
+            </span>
+          ) : null}
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          leftIcon={<Eye size={14} aria-hidden="true" />}
+          {...verbProps(preview)}
+        >
+          Preview
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          leftIcon={<PlayCircle size={14} aria-hidden="true" />}
+          {...verbProps(testRun)}
+        >
+          Test run
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          leftIcon={<History size={14} aria-hidden="true" />}
+          {...verbProps(version_)}
+        >
+          Version
+        </Button>
+
+        <span className={styles.divider} aria-hidden="true" />
+
+        <Button
+          variant="primary"
+          size="sm"
+          leftIcon={<Rocket size={14} aria-hidden="true" />}
+          {...verbProps(publish)}
+        >
+          Publish
+        </Button>
+
+        {primaryAction}
+      </div>
     </div>
-  </div>
-);
+  );
+});
+
+StudioToolbar.displayName = "StudioToolbar";

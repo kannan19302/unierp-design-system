@@ -13,8 +13,8 @@ describe("DocumentTabBar", () => {
 
   it("renders document tabs and dirty indicator", () => {
     render(<DocumentTabBar />);
-    expect(screen.getByText("Q3_Close_Ledger_Reconciliation.sql")).toBeInTheDocument();
-    expect(screen.getByText("PO-88219 (Titanium Blades)")).toBeInTheDocument();
+    expect(screen.getByText("Projects")).toBeInTheDocument();
+    expect(screen.getByText("Supplier portal")).toBeInTheDocument();
     expect(screen.getByTitle("Unsaved changes")).toBeInTheDocument();
   });
 
@@ -23,9 +23,9 @@ describe("DocumentTabBar", () => {
     const onClose = vi.fn();
     render(<DocumentTabBar onSelectTab={onSelect} onCloseTab={onClose} />);
 
-    const poTab = screen.getByText("PO-88219 (Titanium Blades)");
-    fireEvent.click(poTab);
-    expect(onSelect).toHaveBeenCalledWith("tab_po_approval");
+    const supplierTab = screen.getByText("Supplier portal");
+    fireEvent.click(supplierTab);
+    expect(onSelect).toHaveBeenCalledWith("tab_supplier_portal");
 
     const closeButtons = screen.getAllByRole("button", { name: /Close tab:/i });
     fireEvent.click(closeButtons[0]);
