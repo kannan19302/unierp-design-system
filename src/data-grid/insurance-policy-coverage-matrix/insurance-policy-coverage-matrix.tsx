@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, Fragment, useId, useState, useMemo, type MouseEvent } from "react";
 import styles from "./insurance-policy-coverage-matrix.module.css";
 
 export type CoverageStatus = "bound" | "active" | "renewal_quoted" | "expired";
@@ -32,7 +32,12 @@ export interface InsurancePolicyCoverageMatrixProps {
   className?: string;
 }
 
-export const InsurancePolicyCoverageMatrix: React.FC<InsurancePolicyCoverageMatrixProps> = ({
+/**
+ * InsurancePolicyCoverageMatrix renders multi-line commercial insurance policy schedules, endorsements, and peril sub-limits.
+ *
+ * @maturity stable
+ */
+export const InsurancePolicyCoverageMatrix = forwardRef<HTMLElement, InsurancePolicyCoverageMatrixProps>(({
   policyholderName,
   masterPolicyNumber,
   effectiveDates,
@@ -40,7 +45,7 @@ export const InsurancePolicyCoverageMatrix: React.FC<InsurancePolicyCoverageMatr
   onSelectLine,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
 
@@ -48,7 +53,7 @@ export const InsurancePolicyCoverageMatrix: React.FC<InsurancePolicyCoverageMatr
     return coverageLines.reduce((sum, line) => sum + line.annualPremium, 0);
   }, [coverageLines]);
 
-  const toggleRow = (id: string, e: React.MouseEvent) => {
+  const toggleRow = (id: string, e: MouseEvent) => {
     e.stopPropagation();
     setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
   };
@@ -71,6 +76,7 @@ export const InsurancePolicyCoverageMatrix: React.FC<InsurancePolicyCoverageMatr
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -124,7 +130,7 @@ export const InsurancePolicyCoverageMatrix: React.FC<InsurancePolicyCoverageMatr
               const hasSublimits = Boolean(line.sublimits && line.sublimits.length > 0);
 
               return (
-                <React.Fragment key={line.id}>
+                <Fragment key={line.id}>
                   <tr
                     className={`${styles.row} ${isExpanded ? styles.rowExpanded : ""}`}
                     onClick={() => onSelectLine?.(line)}
@@ -190,7 +196,7 @@ export const InsurancePolicyCoverageMatrix: React.FC<InsurancePolicyCoverageMatr
                       </td>
                     </tr>
                   )}
-                </React.Fragment>
+                </Fragment>
               );
             })}
           </tbody>
@@ -212,4 +218,7 @@ export const InsurancePolicyCoverageMatrix: React.FC<InsurancePolicyCoverageMatr
       </div>
     </section>
   );
-};
+});
+
+InsurancePolicyCoverageMatrix.displayName = "InsurancePolicyCoverageMatrix";
+

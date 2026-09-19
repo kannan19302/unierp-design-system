@@ -59,6 +59,7 @@ const meta: Meta<typeof IntercompanyEliminationMatrix> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   args: {
     lines: sampleLines,
   },
@@ -69,6 +70,27 @@ type Story = StoryObj<typeof IntercompanyEliminationMatrix>;
 
 export const Default: Story = {
   args: {},
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Compact View</h4>
+        <IntercompanyEliminationMatrix lines={sampleLines} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <IntercompanyEliminationMatrix lines={sampleLines} density="ultra-compact" />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {

@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./intercompany-elimination-matrix.module.css";
 
 export type IntercompanyTransactionType =
@@ -37,7 +37,12 @@ export interface IntercompanyEliminationMatrixProps {
   className?: string;
 }
 
-export const IntercompanyEliminationMatrix: React.FC<IntercompanyEliminationMatrixProps> = ({
+/**
+ * IntercompanyEliminationMatrix audits, reconciles, and eliminates bilateral intercompany transactions and ledger balances.
+ *
+ * @maturity stable
+ */
+export const IntercompanyEliminationMatrix = forwardRef<HTMLElement, IntercompanyEliminationMatrixProps>(({
   consolidationPeriod = "FY2026-M09 (September Period Close)",
   reportingCurrency = "USD",
   lines: initialLines,
@@ -45,7 +50,7 @@ export const IntercompanyEliminationMatrix: React.FC<IntercompanyEliminationMatr
   onFlagDiscrepancy,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [lines, setLines] = useState<IntercompanyPairLine[]>(initialLines);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -124,6 +129,7 @@ export const IntercompanyEliminationMatrix: React.FC<IntercompanyEliminationMatr
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -322,4 +328,7 @@ export const IntercompanyEliminationMatrix: React.FC<IntercompanyEliminationMatr
       </div>
     </section>
   );
-};
+});
+
+IntercompanyEliminationMatrix.displayName = "IntercompanyEliminationMatrix";
+

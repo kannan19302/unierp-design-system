@@ -26,14 +26,14 @@ const KanbanDemo = () => {
   };
 
   return (
-    <div style={{ padding: "var(--space-4)" }}>
+    <div style={{ paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)" }}>
       <KanbanBoard
         columns={MOCK_COLUMNS}
         items={cards}
         onCardMove={handleCardMove}
         renderCard={(item) => (
           <div>
-            <div style={{ fontWeight: 600, fontSize: "var(--text-sm)", marginBottom: "var(--space-1)" }}>
+            <div style={{ fontWeight: 600, fontSize: "var(--text-sm)", marginBlockEnd: "var(--space-1)" }}>
               {String(item.title)}
             </div>
             <div style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
@@ -47,14 +47,38 @@ const KanbanDemo = () => {
 };
 
 const meta: Meta<typeof KanbanBoard> = {
-  title: "DataGrid/KanbanBoard",
-  component: KanbanDemo,
+  title: "Data Grid/KanbanBoard",
+  component: KanbanBoard,
   parameters: { layout: "fullscreen" },
+  tags: ["autodocs"],
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<typeof KanbanBoard>;
 
 export const Default: Story = {
   render: () => <KanbanDemo />,
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => <KanbanDemo />,
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Active Kanban Workflow</h4>
+        <KanbanDemo />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Empty Columns Board</h4>
+        <KanbanBoard
+          columns={MOCK_COLUMNS}
+          items={[]}
+          renderCard={(item) => <div>{String(item.title)}</div>}
+        />
+      </div>
+    </div>
+  ),
 };

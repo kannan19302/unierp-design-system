@@ -1,4 +1,4 @@
-import React from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -63,6 +63,12 @@ describe("InboundReceivingDiscrepancyLog", () => {
     fireEvent.change(actionSelect, { target: { value: "ACCEPTED" } });
 
     expect(handleUpdate).toHaveBeenCalledWith("rcv_line_01", "ACCEPTED");
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<InboundReceivingDiscrepancyLog ref={ref} lines={sampleLines} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

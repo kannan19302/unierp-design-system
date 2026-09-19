@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import {
   InsurancePolicyCoverageMatrix,
   PolicyCoverageLine,
@@ -61,6 +61,20 @@ describe("InsurancePolicyCoverageMatrix", () => {
     fireEvent.click(expandBtn);
 
     expect(screen.getByText("Personal & Advertising Injury")).toBeDefined();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <InsurancePolicyCoverageMatrix
+        ref={ref}
+        policyholderName="Acme Global Corp"
+        masterPolicyNumber="POL-2026-US-8910"
+        effectiveDates="Jan 1, 2026 – Dec 31, 2026"
+        coverageLines={sampleLines}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -68,6 +69,12 @@ describe("IntercompanyEliminationMatrix", () => {
     fireEvent.click(eliminateBtn);
 
     expect(onEliminate).toHaveBeenCalledWith(["ic-1"]);
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<IntercompanyEliminationMatrix ref={ref} lines={sampleLines} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

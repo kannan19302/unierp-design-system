@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./inbound-receiving-discrepancy-log.module.css";
 
 export type ReceivingDisposition =
@@ -30,7 +30,12 @@ export interface InboundReceivingDiscrepancyLogProps {
   className?: string;
 }
 
-export const InboundReceivingDiscrepancyLog: React.FC<InboundReceivingDiscrepancyLogProps> = ({
+/**
+ * InboundReceivingDiscrepancyLog tracks warehouse receiving quantities, variances, damages, and quality dispositions.
+ *
+ * @maturity stable
+ */
+export const InboundReceivingDiscrepancyLog = forwardRef<HTMLElement, InboundReceivingDiscrepancyLogProps>(({
   poNumber = "PO-2026-9914",
   supplierName = "Honeywell Aerospace Avionics",
   dockDoor = "Dock 04B",
@@ -38,7 +43,7 @@ export const InboundReceivingDiscrepancyLog: React.FC<InboundReceivingDiscrepanc
   onUpdateDisposition,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [lines, setLines] = useState<InboundReceivingLine[]>(initialLines);
 
@@ -56,6 +61,7 @@ export const InboundReceivingDiscrepancyLog: React.FC<InboundReceivingDiscrepanc
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -193,4 +199,7 @@ export const InboundReceivingDiscrepancyLog: React.FC<InboundReceivingDiscrepanc
       </footer>
     </section>
   );
-};
+});
+
+InboundReceivingDiscrepancyLog.displayName = "InboundReceivingDiscrepancyLog";
+

@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -27,6 +28,19 @@ describe("KanbanBoard Primitive", () => {
     expect(screen.getByText("Completed")).toBeInTheDocument();
     expect(screen.getByText("Build Design System")).toBeInTheDocument();
     expect(screen.getByText("Setup Monorepo")).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <KanbanBoard
+        ref={ref}
+        columns={MOCK_COLS}
+        items={MOCK_ITEMS}
+        renderCard={(item) => <div>{String(item.title)}</div>}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

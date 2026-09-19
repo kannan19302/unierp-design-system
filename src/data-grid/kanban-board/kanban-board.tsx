@@ -1,6 +1,13 @@
 "use client";
 
-import React from "react";
+import {
+  forwardRef,
+  type ReactNode,
+  type DragEvent,
+  type ForwardedRef,
+  type Ref,
+  type ReactElement,
+} from "react";
 import styles from "./kanban-board.module.css";
 
 export interface KanbanColumn {
@@ -18,23 +25,26 @@ export interface KanbanItem {
 export interface KanbanBoardProps<T extends KanbanItem> {
   columns: KanbanColumn[];
   items: T[];
-  renderCard: (item: T) => React.ReactNode;
+  renderCard: (item: T) => ReactNode;
   onCardMove?: (itemId: string, fromColumn: string, toColumn: string) => void;
 }
 
-export function KanbanBoard<T extends KanbanItem>({
-  columns,
-  items,
-  renderCard,
-  onCardMove,
-}: KanbanBoardProps<T>) {
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+function KanbanBoardInner<T extends KanbanItem>(
+  {
+    columns,
+    items,
+    renderCard,
+    onCardMove,
+  }: KanbanBoardProps<T>,
+  ref: ForwardedRef<HTMLDivElement>
+) {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
   };
 
   const handleDrop = (
-    e: React.DragEvent<HTMLDivElement>,
+    e: DragEvent<HTMLDivElement>,
     targetColumn: string,
   ) => {
     e.preventDefault();
@@ -46,7 +56,7 @@ export function KanbanBoard<T extends KanbanItem>({
   };
 
   const handleDragStart = (
-    e: React.DragEvent<HTMLDivElement>,
+    e: DragEvent<HTMLDivElement>,
     itemId: string,
   ) => {
     e.dataTransfer.setData("text/plain", itemId);
@@ -54,7 +64,7 @@ export function KanbanBoard<T extends KanbanItem>({
   };
 
   return (
-    <div className={styles.board} role="region" aria-label="Kanban Board">
+    <div ref={ref} className={styles.board} role="region" aria-label="Kanban Board">
       {columns.map((col) => {
         const colItems = items.filter((i) => i.columnKey === col.key);
         return (
@@ -99,3 +109,14 @@ export function KanbanBoard<T extends KanbanItem>({
     </div>
   );
 }
+
+/**
+ * KanbanBoard organizes items into draggable columns representing workflow states.
+ *
+ * @maturity stable
+ */
+export const KanbanBoard = forwardRef(KanbanBoardInner) as <T extends KanbanItem = KanbanItem>(
+  props: KanbanBoardProps<T> & { ref?: Ref<HTMLDivElement> }
+) => ReactElement | null;
+
+(KanbanBoard as unknown as { displayName: string }).displayName = "KanbanBoard";

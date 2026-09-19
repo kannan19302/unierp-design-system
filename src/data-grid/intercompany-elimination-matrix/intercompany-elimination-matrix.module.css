@@ -14,9 +14,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-4, 1rem);
+  padding-block: var(--space-4, 1rem);
+  padding-inline: var(--space-4, 1rem);
   background-color: var(--color-surface-elevated, #f8fafc);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
   gap: var(--space-4, 1rem);
   flex-wrap: wrap;
 }
@@ -38,7 +39,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2, 0.5rem);
-  margin-bottom: var(--space-1, 0.25rem);
+  margin-block-end: var(--space-1, 0.25rem);
 }
 
 .periodTag {
@@ -46,7 +47,8 @@
   font-weight: 600;
   color: var(--color-brand, #2563eb);
   background-color: var(--color-brand-subtle, #eff6ff);
-  padding: 0.125rem 0.5rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.5rem;
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -57,7 +59,8 @@
 }
 
 .title {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--text-base, 1rem);
   font-weight: 700;
   color: var(--color-text-primary, #0f172a);
@@ -74,7 +77,8 @@
   color: var(--color-brand-contrast, #ffffff);
   border: none;
   border-radius: var(--radius-md, 0.375rem);
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: 600;
   cursor: pointer;
@@ -97,16 +101,18 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: var(--space-3, 0.75rem);
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  padding-block: var(--space-3, 0.75rem);
+  padding-inline: var(--space-4, 1rem);
   background-color: var(--color-surface, #ffffff);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
 }
 
 .kpiCard {
   background-color: var(--color-surface-elevated, #f8fafc);
   border: 1px solid var(--color-border, #e2e8f0);
   border-radius: var(--radius-md, 0.375rem);
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
@@ -140,9 +146,10 @@
 .filterToolbar {
   display: flex;
   align-items: center;
-  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-4, 1rem);
   background-color: var(--color-surface-elevated, #f8fafc);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
 }
 
 .filterGroup {
@@ -161,7 +168,8 @@
   font-size: var(--text-xs, 0.75rem);
   border: 1px solid var(--color-border, #cbd5e1);
   border-radius: var(--radius-sm, 0.25rem);
-  padding: 0.25rem 0.5rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
   background-color: var(--color-surface, #ffffff);
   color: var(--color-text-primary, #0f172a);
 }
@@ -171,9 +179,9 @@
 }
 
 .matrixTable {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: start;
   font-size: var(--text-xs, 0.75rem);
 }
 
@@ -181,14 +189,16 @@
   background-color: var(--color-surface-elevated, #f8fafc);
   color: var(--color-text-secondary, #475569);
   font-weight: 600;
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  border-bottom: 1px solid var(--color-border, #cbd5e1);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
+  border-block-end: 1px solid var(--color-border, #cbd5e1);
   white-space: nowrap;
 }
 
 .matrixTable tbody td {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
   vertical-align: middle;
 }
 
@@ -202,13 +212,13 @@
 
 .checkTh,
 .checkTd {
-  width: 2.5rem;
+  inline-size: 2.5rem;
   text-align: center;
 }
 
 .numTh,
 .numTd {
-  text-align: right;
+  text-align: end;
   font-family: var(--font-mono, monospace);
   font-variant-numeric: tabular-nums lining-nums;
   white-space: nowrap;
@@ -218,7 +228,8 @@
   display: inline-block;
   font-size: 0.6875rem;
   font-weight: 700;
-  padding: 0.125rem 0.375rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.375rem;
   border-radius: var(--radius-sm, 0.25rem);
   background-color: var(--color-surface-elevated, #e2e8f0);
   color: var(--color-text-secondary, #334155);
@@ -256,7 +267,8 @@
   align-items: center;
   font-size: 0.6875rem;
   font-weight: 700;
-  padding: 0.125rem 0.5rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.5rem;
   border-radius: var(--radius-sm, 0.25rem);
   white-space: nowrap;
 }
@@ -280,7 +292,8 @@
   background-color: transparent;
   border: 1px solid var(--color-border, #cbd5e1);
   color: var(--color-text-secondary, #334155);
-  padding: 0.125rem 0.375rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.375rem;
   border-radius: var(--radius-sm, 0.25rem);
   font-size: 0.6875rem;
   font-weight: 600;
@@ -295,16 +308,19 @@
 
 .emptyCell {
   text-align: center;
-  padding: var(--space-6, 1.5rem);
+  padding-block: var(--space-6, 1.5rem);
+  padding-inline: var(--space-6, 1.5rem);
   color: var(--color-text-muted, #64748b);
 }
 
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  inline-size: 1px;
+  block-size: 1px;
+  padding-block: 0;
+  padding-inline: 0;
+  margin-block: -1px;
+  margin-inline: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -314,23 +330,27 @@
 /* Density Scales */
 .ultra-compact .matrixTable thead th,
 .ultra-compact .matrixTable tbody td {
-  padding: 0.25rem 0.5rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
   font-size: 0.6875rem;
 }
 
 .compact .matrixTable thead th,
 .compact .matrixTable tbody td {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
 }
 
 .standard .matrixTable thead th,
 .standard .matrixTable tbody td {
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  padding-block: var(--space-3, 0.75rem);
+  padding-inline: var(--space-4, 1rem);
   font-size: var(--text-sm, 0.875rem);
 }
 
 .comfortable .matrixTable thead th,
 .comfortable .matrixTable tbody td {
-  padding: var(--space-4, 1rem) var(--space-4, 1rem);
+  padding-block: var(--space-4, 1rem);
+  padding-inline: var(--space-4, 1rem);
   font-size: var(--text-base, 1rem);
 }
