@@ -13,7 +13,16 @@
   color: var(--color-text);
 }
 
+.warning .time {
+  color: var(--color-warning);
+}
+
+.critical .time {
+  color: var(--color-danger);
+}
+
 .expired {
   color: var(--color-danger);
   font-weight: var(--font-weight-medium, 500);
 }
+

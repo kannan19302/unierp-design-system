@@ -12,17 +12,27 @@
   border: 1px solid var(--surface-1-border, var(--color-border));
   user-select: none;
   box-sizing: border-box;
+  transition: background var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default);
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+.interactive:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-border-strong);
+}
+
+.interactive:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring, 0 0 0 2px var(--color-focus));
 }
 
 .avatarWrap {
   position: relative;
   display: inline-flex;
-}
-
-.presenceWrap {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
 }
 
 .meta {
@@ -42,4 +52,28 @@
   font-family: var(--font-sans);
   font-size: var(--type-micro-dense, 10px);
   color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.removeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-left: 2px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--text-sm, 14px);
+  line-height: 1;
+}
+
+.removeBtn:hover {
+  color: var(--color-danger);
+}
+
+.removeBtn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring, 0 0 0 2px var(--color-focus));
 }

@@ -16,19 +16,34 @@ export const Quarter: Story = {
   args: {
     value: 25,
     max: 100,
+    label: "Quarter complete",
+    showValue: true,
   },
 };
 
-export const Half: Story = {
+export const HalfSuccess: Story = {
   args: {
     value: 50,
     max: 100,
+    variant: "success",
+    label: "Sync Status",
+    showValue: true,
   },
 };
 
-export const Complete: Story = {
+export const DangerWarning: Story = {
   args: {
-    value: 100,
+    value: 92,
     max: 100,
+    variant: "danger",
+    label: "Memory Capacity",
+    showValue: true,
+  },
+};
+
+export const Indeterminate: Story = {
+  args: {
+    label: "Processing batch...",
+    variant: "primary",
   },
 };

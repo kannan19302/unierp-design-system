@@ -10,6 +10,12 @@ describe("Presence Primitive", () => {
     expect(screen.getByText("Online")).toBeInTheDocument();
   });
 
+  it("renders dot variant with aria-label", () => {
+    render(<Presence status="away" variant="dot" pulse showLabel />);
+    expect(screen.getByLabelText("Away")).toBeInTheDocument();
+    expect(screen.getByText("Away")).toBeInTheDocument();
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<Presence status="busy" showLabel />);
     const results = await axe(container);

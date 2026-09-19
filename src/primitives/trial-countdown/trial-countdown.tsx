@@ -45,8 +45,15 @@ export const TrialCountdown: FC<TrialCountdownProps> = ({
   }
 
   const duration = `${remaining.days}d ${String(remaining.hours).padStart(2, "0")}h ${String(remaining.minutes).padStart(2, "0")}m ${String(remaining.seconds).padStart(2, "0")}s`;
+  const urgencyClass =
+    remaining.days === 0
+      ? styles.critical
+      : remaining.days <= 3
+        ? styles.warning
+        : "";
+
   return (
-    <span className={`${styles.container} ${className}`.trim()}>
+    <span className={`${styles.container} ${urgencyClass} ${className}`.trim()}>
       <span className="sr-only">Your Free Trial is active.</span>
       <span aria-hidden="true">Your Free Trial is active. You have </span>
       <time className={styles.time} dateTime={deadline.toISOString()} aria-label={`${remaining.days} days remaining`}>

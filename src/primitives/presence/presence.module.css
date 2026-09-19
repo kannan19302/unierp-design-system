@@ -15,18 +15,43 @@
   font-weight: var(--weight-medium);
 }
 
+.dot {
+  width: var(--space-2, 8px);
+  height: var(--space-2, 8px);
+  border-radius: var(--radius-full, 9999px);
+  background-color: currentColor;
+  display: inline-block;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1.5px var(--color-bg-surface);
+}
+
+.pulse .dot {
+  animation: presencePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes presencePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+}
+
 .online {
-  color: var(--color-success, #15803d);
+  color: var(--color-success);
 }
 
 .offline {
-  color: var(--color-text-muted, #9ca3af);
+  color: var(--color-text-muted);
 }
 
 .busy {
-  color: var(--color-danger, #b91c1c);
+  color: var(--color-danger);
 }
 
 .away {
-  color: var(--color-warning, #b45309);
+  color: var(--color-warning);
 }

@@ -1,15 +1,19 @@
 "use client";
 
 import { useState, type FC, type ReactNode, Children } from "react";
+import { Presence, type PresenceStatus } from "../presence";
 import styles from "./avatar.module.css";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type AvatarShape = "circle" | "square";
 
 export interface AvatarProps {
   src?: string;
   name?: string;
   initials?: string;
   size?: AvatarSize;
+  shape?: AvatarShape;
+  presence?: PresenceStatus;
   alt?: string;
   className?: string;
 }
@@ -19,6 +23,8 @@ export const Avatar: FC<AvatarProps> = ({
   name,
   initials: explicitInitials,
   size = "md",
+  shape = "circle",
+  presence,
   alt,
   className = "",
 }) => {
@@ -33,52 +39,57 @@ export const Avatar: FC<AvatarProps> = ({
 
   const initials = explicitInitials || getInitials(name);
   const sizeClass = styles[size] || styles.md;
+  const shapeClass = shape === "square" ? styles.square : styles.circle;
   const avatarLabel = alt || name || "Avatar";
 
-  if (src && !imgError) {
-    return (
+  return (
+    <div className={`${styles.wrapper} ${sizeClass} ${className}`.trim()}>
       <div
-        className={`${styles.avatar} ${sizeClass} ${className}`.trim()}
+        className={`${styles.avatar} ${shapeClass}`}
+        data-shape={shape}
+        style={
+          src && !imgError
+            ? undefined
+            : { backgroundColor: getBackgroundColor(name || initials) }
+        }
         role="img"
         aria-label={avatarLabel}
       >
-        <img
-          src={src}
-          alt={avatarLabel}
-          className={styles.image}
-          onError={() => setImgError(true)}
-        />
+        {src && !imgError ? (
+          <img
+            src={src}
+            alt={avatarLabel}
+            className={styles.image}
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <span className={styles.initials}>{initials || "?"}</span>
+        )}
       </div>
-    );
-  }
-
-  // Stable color hash for background
-  const getBackgroundColor = (str?: string): string => {
-    if (!str) return "var(--surface-3-bg, var(--color-bg-muted))";
-    const colors = [
-      "var(--color-primary-light)",
-      "var(--color-info-light)",
-      "var(--color-success-light)",
-      "var(--color-warning-light)",
-    ];
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const index = Math.abs(hash) % colors.length;
-    return colors[index] || colors[0]!;
-  };
-
-  return (
-    <div
-      className={`${styles.avatar} ${sizeClass} ${className}`.trim()}
-      style={{ backgroundColor: getBackgroundColor(name || initials) }}
-      role="img"
-      aria-label={avatarLabel}
-    >
-      <span className={styles.initials}>{initials || "?"}</span>
+      {presence && (
+        <span className={styles.presenceIndicator}>
+          <Presence status={presence} variant="dot" />
+        </span>
+      )}
     </div>
   );
+};
+
+// Stable color hash for background
+const getBackgroundColor = (str?: string): string => {
+  if (!str) return "var(--surface-3-bg, var(--color-bg-muted))";
+  const colors = [
+    "var(--color-primary-light)",
+    "var(--color-info-light)",
+    "var(--color-success-light)",
+    "var(--color-warning-light)",
+  ];
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % colors.length;
+  return colors[index] || colors[0]!;
 };
 
 export interface AvatarGroupProps {

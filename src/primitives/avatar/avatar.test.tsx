@@ -14,11 +14,21 @@ describe("Avatar Primitive", () => {
     expect(screen.getByText("A")).toBeInTheDocument();
   });
 
+  it("renders with presence status", () => {
+    render(<Avatar name="John Doe" presence="online" />);
+    expect(screen.getByRole("status")).toBeInTheDocument();
+  });
+
+  it("renders square shape", () => {
+    const { container } = render(<Avatar name="Team Workspace" shape="square" />);
+    expect(container.querySelector('[data-shape="square"]')).toBeInTheDocument();
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <AvatarGroup>
-        <Avatar name="Sarah Connor" />
-        <Avatar name="John Connor" />
+        <Avatar name="Sarah Connor" presence="online" />
+        <Avatar name="John Connor" shape="square" />
       </AvatarGroup>
     );
     const results = await axe(container);

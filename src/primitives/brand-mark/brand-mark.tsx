@@ -35,11 +35,11 @@ export const BrandMark: FC<BrandMarkProps> = ({
           width="100"
           height="100"
           rx="30"
-          fill="var(--color-primary, var(--color-brand, #2563eb))"
+          fill="var(--color-primary)"
         />
         <path
           d="M36 32V58C36 66.284 42.716 73 51 73C59.284 73 66 66.284 66 58V50"
-          stroke="var(--color-white, #ffffff)"
+          stroke="var(--color-text-inverse, #ffffff)"
           strokeWidth="15"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -48,7 +48,7 @@ export const BrandMark: FC<BrandMarkProps> = ({
           cx="66"
           cy="33"
           r="8"
-          fill="var(--color-brand-cyan, #38bdf8)"
+          fill="var(--color-info)"
         />
       </svg>
       {!compact && (

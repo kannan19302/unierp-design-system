@@ -28,13 +28,34 @@
 }
 
 .good {
-  color: var(--color-success, #15803d);
+  color: var(--color-success);
 }
 
 .fair {
-  color: var(--color-warning, #b45309);
+  color: var(--color-warning-text);
 }
 
 .poor {
-  color: var(--color-danger, #b91c1c);
+  color: var(--color-danger);
+}
+
+.pill {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid transparent;
+}
+
+.pill.good {
+  background: var(--color-success-light);
+  border-color: var(--color-success);
+}
+
+.pill.fair {
+  background: var(--color-warning-light);
+  border-color: var(--color-warning);
+}
+
+.pill.poor {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
 }

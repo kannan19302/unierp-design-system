@@ -10,6 +10,25 @@ describe("UserChip Primitive", () => {
     expect(screen.getByText("Senior Accountant")).toBeInTheDocument();
   });
 
+  it("handles interactive clicks and remove button", () => {
+    let clicked = false;
+    let removed = false;
+    render(
+      <UserChip
+        name="Marcus Vance"
+        role="Finance Lead"
+        onClick={() => {
+          clicked = true;
+        }}
+        onRemove={() => {
+          removed = true;
+        }}
+      />
+    );
+    screen.getByRole("button", { name: "Remove Marcus Vance" }).click();
+    expect(removed).toBe(true);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<UserChip name="Sarah Connor" role="Admin" status="away" />);
     const results = await axe(container);

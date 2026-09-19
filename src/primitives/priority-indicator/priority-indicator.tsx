@@ -16,21 +16,23 @@ const PRIORITY_META = {
 export interface PriorityIndicatorProps {
   priority: Priority;
   showLabel?: boolean;
+  variant?: "text" | "pill";
   className?: string;
 }
 
 export const PriorityIndicator: FC<PriorityIndicatorProps> = ({
   priority,
   showLabel = true,
+  variant = "text",
   className = "",
 }) => {
   const meta = PRIORITY_META[priority];
-  const { Icon, variant } = meta;
+  const { Icon, variant: tone } = meta;
 
   return (
     <span
       aria-label={`Priority: ${meta.label}`}
-      className={`${styles.indicator} ${styles[variant]} ${className}`.trim()}
+      className={`${styles.indicator} ${styles[tone]} ${variant === "pill" ? styles.pill : ""} ${className}`.trim()}
     >
       <Icon size={12} aria-hidden />
       {showLabel && <span className={styles.label}>{meta.label}</span>}

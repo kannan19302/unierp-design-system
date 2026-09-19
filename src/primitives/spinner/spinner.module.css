@@ -4,12 +4,28 @@
 
 .spinner {
   display: inline-block;
-  border-radius: 50%;
+  border-radius: var(--radius-full, 9999px);
   border-style: solid;
-  border-color: var(--color-primary);
-  border-right-color: transparent;
+  border-color: var(--color-border-subtle);
+  border-top-color: var(--platform-accent, var(--color-primary));
   animation: spin var(--duration-slower, 600ms) linear infinite;
   box-sizing: border-box;
+}
+
+.primary {
+  border-color: var(--color-border-subtle);
+  border-top-color: var(--platform-accent, var(--color-primary));
+}
+
+.current {
+  border-color: currentColor;
+  opacity: 0.85;
+  border-right-color: transparent;
+}
+
+.white {
+  border-color: var(--color-border-subtle);
+  border-top-color: var(--color-text-inverse, #ffffff);
 }
 
 @media (prefers-reduced-motion: reduce) {

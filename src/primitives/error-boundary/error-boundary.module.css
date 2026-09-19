@@ -5,9 +5,9 @@
   padding: var(--space-4);
   border: var(--border-width, 1px) solid var(--color-danger);
   border-radius: var(--radius-md);
-  background-color: var(--color-surface);
+  background-color: var(--color-surface, var(--color-bg-elevated));
   font-family: var(--font-sans);
-  color: var(--color-text-primary);
+  color: var(--color-text-primary, var(--color-text));
 }
 
 .header {
@@ -37,7 +37,7 @@
   margin: 0;
   font-size: var(--type-section);
   font-weight: var(--weight-semibold);
-  color: var(--color-text-primary);
+  color: var(--color-text-primary, var(--color-text));
 }
 
 .description {
@@ -62,8 +62,8 @@
   height: var(--density-control-height, 32px);
   border: var(--border-width, 1px) solid var(--color-border);
   border-radius: var(--radius-sm);
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
+  background-color: var(--color-surface, var(--color-bg-elevated));
+  color: var(--color-text-primary, var(--color-text));
   font-size: var(--type-caption);
   font-family: inherit;
   font-weight: var(--weight-medium);
@@ -72,7 +72,7 @@
 }
 
 .retryButton:hover {
-  background-color: var(--color-surface-hover);
+  background-color: var(--color-surface-hover, var(--color-bg-hover));
   border-color: var(--color-border-strong);
 }
 
@@ -100,7 +100,7 @@
   margin: var(--space-2) 0 0 0;
   padding: var(--space-3);
   border-radius: var(--radius-sm);
-  background-color: var(--color-surface-sunken);
+  background-color: var(--color-surface-sunken, var(--color-bg-sunken));
   color: var(--color-text-secondary);
   font-family: var(--font-mono);
   font-size: var(--type-micro);

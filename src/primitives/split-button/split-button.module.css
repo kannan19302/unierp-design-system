@@ -36,7 +36,7 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   padding: 0 var(--space-2);
-  border-left: var(--border-width, 1px) solid rgb(255 255 255 / 0.2);
+  border-left: var(--border-width, 1px) solid var(--color-border-subtle);
 }
 
 .mainButton:focus-visible,
@@ -50,8 +50,12 @@
 .primary .mainButton,
 .primary .toggleButton {
   background-color: var(--color-primary);
-  color: var(--on-primary);
+  color: var(--on-primary, var(--color-text-inverse));
   border-color: var(--color-primary);
+}
+
+.primary .toggleButton {
+  border-left-color: var(--color-border-subtle);
 }
 
 .primary .mainButton:hover:not(:disabled),
@@ -64,8 +68,8 @@
 /* Secondary Variant */
 .secondary .mainButton,
 .secondary .toggleButton {
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
+  background-color: var(--color-surface, var(--color-bg-elevated));
+  color: var(--color-text-primary, var(--color-text));
   border-color: var(--color-border);
 }
 
@@ -76,7 +80,7 @@
 .secondary .mainButton:hover:not(:disabled),
 .secondary .toggleButton:hover:not(:disabled),
 .secondary .toggleActive {
-  background-color: var(--color-surface-hover);
+  background-color: var(--color-surface-hover, var(--color-bg-hover));
   border-color: var(--color-border-strong);
 }
 
@@ -84,8 +88,12 @@
 .danger .mainButton,
 .danger .toggleButton {
   background-color: var(--color-danger);
-  color: var(--on-danger);
+  color: var(--on-danger, var(--color-text-inverse));
   border-color: var(--color-danger);
+}
+
+.danger .toggleButton {
+  border-left-color: var(--color-border-subtle);
 }
 
 .danger .mainButton:hover:not(:disabled),
@@ -144,10 +152,10 @@
   right: 0;
   margin-top: var(--space-1);
   min-width: var(--space-24, 96px);
-  background-color: var(--color-surface);
+  background-color: var(--color-surface, var(--color-bg-elevated));
   border: var(--border-width, 1px) solid var(--color-border);
   border-radius: var(--radius-sm);
-  box-shadow: var(--elevation-3);
+  box-shadow: var(--elevation-3, var(--shadow-md));
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -162,7 +170,7 @@
   padding: var(--space-1-5, 6px) var(--space-3);
   border: none;
   background: transparent;
-  color: var(--color-text-primary);
+  color: var(--color-text-primary, var(--color-text));
   font-size: var(--type-caption);
   font-family: inherit;
   border-radius: var(--radius-sm);
@@ -172,7 +180,7 @@
 }
 
 .menuItem:hover:not(:disabled) {
-  background-color: var(--color-surface-hover);
+  background-color: var(--color-surface-hover, var(--color-bg-hover));
 }
 
 .menuItemDanger {

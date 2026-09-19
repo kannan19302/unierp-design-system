@@ -29,6 +29,10 @@ export const Away: Story = {
   args: { status: "away", showLabel: true },
 };
 
-export const Offline: Story = {
-  args: { status: "offline", showLabel: true },
+export const DotVariant: Story = {
+  args: { status: "online", variant: "dot", showLabel: true },
+};
+
+export const PulsingBusyDot: Story = {
+  args: { status: "busy", variant: "dot", pulse: true, showLabel: true },
 };

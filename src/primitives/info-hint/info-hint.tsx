@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties, FC, ReactNode } from "react";
+import { Info } from "lucide-react";
 import { Tooltip } from "../../overlays/tooltip";
 import styles from "./info-hint.module.css";
 
@@ -28,11 +29,10 @@ export const InfoHint: FC<InfoHintProps> = ({
       style={{
         width: size,
         height: size,
-        fontSize: Math.round(size * 0.68),
         ...style,
       }}
     >
-      i
+      <Info size={size} aria-hidden="true" className={styles.svgIcon} />
     </span>
   </Tooltip>
 );

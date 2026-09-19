@@ -21,13 +21,39 @@
 }
 
 .medium {
-  color: var(--color-info, #0e7490);
+  color: var(--color-info);
 }
 
 .high {
-  color: var(--color-warning, #b45309);
+  color: var(--color-warning-text);
 }
 
 .urgent {
-  color: var(--color-danger, #b91c1c);
+  color: var(--color-danger);
+}
+
+.pill {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid transparent;
+}
+
+.pill.low {
+  background: var(--color-bg-sunken);
+  border-color: var(--color-border);
+}
+
+.pill.medium {
+  background: var(--color-info-light);
+  border-color: var(--color-info);
+}
+
+.pill.high {
+  background: var(--color-warning-light);
+  border-color: var(--color-warning);
+}
+
+.pill.urgent {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
 }
