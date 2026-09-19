@@ -74,6 +74,43 @@ export const Default: Story = {
   },
 };
 
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Healthy Retainer Escrow</h4>
+        <MatterTrustLedger
+          matterId="MAT-2026-0812"
+          matterName="Acme Corp vs. Apex Logistics — Patent Infringement"
+          clientName="Acme Corporation"
+          minimumRetainerThreshold: 15000,
+          ioltaBankBalance: 18650.0,
+          entries: mockEntries,
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Below Retainer Threshold Warning</h4>
+        <MatterTrustLedger
+          matterId="MAT-2026-0812"
+          matterName="Acme Corp vs. Apex Logistics — Patent Infringement"
+          clientName="Acme Corporation"
+          minimumRetainerThreshold: 25000,
+          ioltaBankBalance: 18650.0,
+          entries: mockEntries,
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
 export const BelowThresholdWarning: Story = {
   args: {
     matterId: "MAT-2026-0812",

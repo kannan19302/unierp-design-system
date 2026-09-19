@@ -1,6 +1,6 @@
-import React from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
 import {
   LeaseAmortizationSchedule,
@@ -64,6 +64,12 @@ describe("LeaseAmortizationSchedule", () => {
     fireEvent.change(yearSelect, { target: { value: "2026" } });
     expect(screen.getByText("2026-10-01")).toBeInTheDocument();
     expect(screen.queryByText("2027-01-01")).not.toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<LeaseAmortizationSchedule ref={ref} periods={samplePeriods} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

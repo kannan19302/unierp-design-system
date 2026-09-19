@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import {
   MatterTrustLedger,
   TrustLedgerEntry,
@@ -77,6 +77,20 @@ describe("MatterTrustLedger", () => {
     });
     fireEvent.click(replenishBtn);
     expect(onReplenish).toHaveBeenCalledWith("MAT-2026-0812", 10850);
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <MatterTrustLedger
+        ref={ref}
+        matterId="MAT-2026-0812"
+        matterName="Acme Patent Dispute"
+        clientName="Acme Corporation"
+        entries={mockEntries}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("passes automated accessibility (axe) checks", async () => {

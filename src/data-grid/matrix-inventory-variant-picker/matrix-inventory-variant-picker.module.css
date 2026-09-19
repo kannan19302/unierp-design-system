@@ -12,51 +12,59 @@
 
 /* Densities */
 .ultra-compact {
-  padding: var(--space-2, 0.5rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-2, 0.5rem);
   gap: var(--space-2, 0.5rem);
 }
 
 .ultra-compact .table th,
 .ultra-compact .table td {
-  padding: var(--space-1, 0.125rem) var(--space-1, 0.25rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-1, 0.25rem);
 }
 
 .compact {
-  padding: var(--space-3, 0.75rem);
+  padding-block: var(--space-3, 0.75rem);
+  padding-inline: var(--space-3, 0.75rem);
   gap: var(--space-3, 0.75rem);
 }
 
 .compact .table th,
 .compact .table td {
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.375rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.375rem);
 }
 
 .standard {
-  padding: var(--space-4, 1rem);
+  padding-block: var(--space-4, 1rem);
+  padding-inline: var(--space-4, 1rem);
   gap: var(--space-4, 1rem);
 }
 
 .standard .table th,
 .standard .table td {
-  padding: var(--space-2, 0.375rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-2, 0.375rem);
+  padding-inline: var(--space-2, 0.5rem);
 }
 
 .comfortable {
-  padding: var(--space-6, 1.5rem);
+  padding-block: var(--space-6, 1.5rem);
+  padding-inline: var(--space-6, 1.5rem);
   gap: var(--space-6, 1.5rem);
 }
 
 .comfortable .table th,
 .comfortable .table td {
-  padding: var(--space-3, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-3, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
-  padding-bottom: var(--space-3, 0.75rem);
+  border-block-end: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-block-end: var(--space-3, 0.75rem);
   flex-wrap: wrap;
   gap: var(--space-3, 0.75rem);
 }
@@ -75,13 +83,14 @@
   display: flex;
   gap: var(--space-2, 0.5rem);
   align-items: center;
-  margin-bottom: var(--space-1, 0.25rem);
+  margin-block-end: var(--space-1, 0.25rem);
 }
 
 .skuBadge {
   background-color: var(--color-surface-muted, #f1f5f9);
   color: var(--color-brand, #2563eb);
-  padding: var(--space-1, 0.125rem) var(--space-2, 0.375rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-2, 0.375rem);
   border-radius: var(--radius-sm, 0.25rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-bold, 700);
@@ -97,12 +106,14 @@
   color: var(--color-danger, #dc2626);
   font-weight: var(--weight-semibold, 600);
   background-color: var(--color-danger-subtle, #fee2e2);
-  padding: var(--space-1, 0.125rem) var(--space-2, 0.375rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-2, 0.375rem);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
 .title {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--text-lg, 1.125rem);
   font-weight: var(--weight-bold, 700);
   color: var(--color-text-primary, #0f172a);
@@ -112,7 +123,8 @@
   background-color: var(--color-brand, #2563eb);
   color: var(--color-white, #ffffff);
   border: 1px solid transparent;
-  padding: var(--space-2, 0.375rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.375rem);
+  padding-inline: var(--space-3, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-semibold, 600);
@@ -125,7 +137,8 @@
   gap: var(--space-3, 0.75rem);
   background-color: var(--color-surface-subtle, #f8fafc);
   border: 1px solid var(--color-border-subtle, #e2e8f0);
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -159,11 +172,12 @@
 }
 
 .searchInput {
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.5rem);
   font-size: var(--text-xs, 0.75rem);
   border: 1px solid var(--color-border-subtle, #cbd5e1);
   border-radius: var(--radius-sm, 0.25rem);
-  min-width: 14rem;
+  min-inline-size: 14rem;
 }
 
 .matrixHint {
@@ -179,9 +193,9 @@
 }
 
 .table {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: start;
   font-size: var(--text-xs, 0.75rem);
 }
 
@@ -189,25 +203,25 @@
   background-color: var(--color-surface-muted, #f8fafc);
   color: var(--color-text-secondary, #475569);
   font-weight: var(--weight-semibold, 600);
-  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-block-end: 1px solid var(--color-border-subtle, #e2e8f0);
 }
 
 .thYAxis {
-  min-width: 6rem;
+  min-inline-size: 6rem;
 }
 
 .thCol {
-  min-width: 7rem;
+  min-inline-size: 7rem;
   text-align: center;
 }
 
 .thTotal {
-  min-width: 5rem;
-  text-align: right;
+  min-inline-size: 5rem;
+  text-align: end;
 }
 
 .tableRow {
-  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-block-end: 1px solid var(--color-border-subtle, #e2e8f0);
 }
 
 .yHeaderCell {
@@ -217,7 +231,7 @@
 
 .cellTd {
   text-align: center;
-  border-left: 1px solid var(--color-border-subtle, #f1f5f9);
+  border-inline-start: 1px solid var(--color-border-subtle, #f1f5f9);
 }
 
 .cellWrap {
@@ -225,7 +239,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-1, 0.125rem);
-  padding: var(--space-1, 0.125rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-1, 0.125rem);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -234,9 +249,10 @@
 }
 
 .qtyInput {
-  width: 4.5rem;
+  inline-size: 4.5rem;
   text-align: center;
-  padding: var(--space-1, 0.125rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-1, 0.125rem);
   font-size: var(--text-xs, 0.75rem);
   font-family: var(--font-family-mono, monospace);
   font-weight: var(--weight-bold, 700);
@@ -250,17 +266,19 @@
 }
 
 .rowTotalCell {
-  text-align: right;
+  text-align: end;
   font-family: var(--font-family-mono, monospace);
   color: var(--color-text-primary, #0f172a);
 }
 
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  inline-size: 1px;
+  block-size: 1px;
+  padding-block: 0;
+  padding-inline: 0;
+  margin-block: -1px;
+  margin-inline: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -270,12 +288,13 @@
 .footer {
   display: flex;
   justify-content: flex-end;
-  padding-top: var(--space-3, 0.75rem);
-  border-top: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-block-start: var(--space-3, 0.75rem);
+  border-block-start: 1px solid var(--color-border-subtle, #e2e8f0);
 }
 
 .saveButton {
-  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-4, 1rem);
   font-size: var(--text-sm, 0.875rem);
   font-weight: var(--weight-semibold, 600);
   background-color: var(--color-brand, #0284c7);
@@ -289,4 +308,3 @@
 .saveButton:hover {
   opacity: 0.9;
 }
-

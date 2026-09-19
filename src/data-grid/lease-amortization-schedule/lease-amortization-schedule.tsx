@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./lease-amortization-schedule.module.css";
 
 export type LeaseClassification = "operating" | "finance";
@@ -32,7 +32,12 @@ export interface LeaseAmortizationScheduleProps {
   className?: string;
 }
 
-export const LeaseAmortizationSchedule: React.FC<LeaseAmortizationScheduleProps> = ({
+/**
+ * LeaseAmortizationSchedule generates and displays ASC 842 / IFRS 16 lease liability amortization and ROU asset schedules.
+ *
+ * @maturity stable
+ */
+export const LeaseAmortizationSchedule = forwardRef<HTMLElement, LeaseAmortizationScheduleProps>(({
   leaseIdentifier = "LSE-HQ-008",
   assetDescription = "Floor 14-16 Corporate Headquarters (45,000 sq ft)",
   lessorName = "Brookfield Commercial Properties REIT",
@@ -47,7 +52,7 @@ export const LeaseAmortizationSchedule: React.FC<LeaseAmortizationScheduleProps>
   onRecalculate,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [selectedYear, setSelectedYear] = useState<number | "all">("all");
 
@@ -94,6 +99,7 @@ export const LeaseAmortizationSchedule: React.FC<LeaseAmortizationScheduleProps>
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -225,4 +231,7 @@ export const LeaseAmortizationSchedule: React.FC<LeaseAmortizationScheduleProps>
       </div>
     </section>
   );
-};
+});
+
+LeaseAmortizationSchedule.displayName = "LeaseAmortizationSchedule";
+

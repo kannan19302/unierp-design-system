@@ -1,4 +1,4 @@
-import React, { useId, useMemo } from "react";
+import { forwardRef, useId, useMemo } from "react";
 import styles from "./matter-trust-ledger.module.css";
 
 export type TrustTransactionType =
@@ -32,7 +32,12 @@ export interface MatterTrustLedgerProps {
   className?: string;
 }
 
-export const MatterTrustLedger: React.FC<MatterTrustLedgerProps> = ({
+/**
+ * MatterTrustLedger manages IOLTA client trust accounting, escrow retainers, and three-way reconciliations.
+ *
+ * @maturity stable
+ */
+export const MatterTrustLedger = forwardRef<HTMLElement, MatterTrustLedgerProps>(({
   matterId,
   matterName,
   clientName,
@@ -43,7 +48,7 @@ export const MatterTrustLedger: React.FC<MatterTrustLedgerProps> = ({
   onRequestReplenishment,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
 
   const currentBalance = useMemo(() => {
@@ -67,6 +72,7 @@ export const MatterTrustLedger: React.FC<MatterTrustLedgerProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -222,4 +228,7 @@ export const MatterTrustLedger: React.FC<MatterTrustLedgerProps> = ({
       </div>
     </section>
   );
-};
+});
+
+MatterTrustLedger.displayName = "MatterTrustLedger";
+

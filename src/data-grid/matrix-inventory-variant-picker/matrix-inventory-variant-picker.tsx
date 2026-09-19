@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./matrix-inventory-variant-picker.module.css";
 
 export interface VariantStockCell {
@@ -24,7 +24,12 @@ export interface MatrixInventoryVariantPickerProps {
   className?: string;
 }
 
-export const MatrixInventoryVariantPicker: React.FC<MatrixInventoryVariantPickerProps> = ({
+/**
+ * MatrixInventoryVariantPicker manages 2D SKU matrix variants, stock allocations, and valuation totals.
+ *
+ * @maturity stable
+ */
+export const MatrixInventoryVariantPicker = forwardRef<HTMLElement, MatrixInventoryVariantPickerProps>(({
   productTitle,
   baseSku,
   wholesalePrice,
@@ -39,7 +44,7 @@ export const MatrixInventoryVariantPicker: React.FC<MatrixInventoryVariantPicker
   onSaveInventory,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [stockMatrix, setStockMatrix] =
     useState<Record<string, VariantStockCell>>(initialStockMatrix);
@@ -102,6 +107,7 @@ export const MatrixInventoryVariantPicker: React.FC<MatrixInventoryVariantPicker
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -272,4 +278,7 @@ export const MatrixInventoryVariantPicker: React.FC<MatrixInventoryVariantPicker
       </div>
     </section>
   );
-};
+});
+
+MatrixInventoryVariantPicker.displayName = "MatrixInventoryVariantPicker";
+

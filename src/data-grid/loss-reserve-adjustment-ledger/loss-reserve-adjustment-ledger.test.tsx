@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -100,6 +101,18 @@ describe("LossReserveAdjustmentLedger", () => {
 
     expect(onSignoff).toHaveBeenCalledWith("adj-2");
     expect(screen.getByText("✓ Approved")).toBeDefined();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <LossReserveAdjustmentLedger
+        ref={ref}
+        claim={sampleClaim}
+        initialAdjustments={sampleAdjustments}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

@@ -90,6 +90,41 @@ export const Default: Story = {
   },
 };
 
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Operating Lease (Default Compact)</h4>
+        <LeaseAmortizationSchedule
+          leaseIdentifier="LSE-HQ-008"
+          assetDescription="Floor 14-16 Corporate Headquarters (45,000 sq ft)"
+          lessorName="Brookfield Commercial Properties REIT"
+          classification="operating"
+          periods={mockPeriods}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Finance Lease (Ultra-Compact)</h4>
+        <LeaseAmortizationSchedule
+          leaseIdentifier="LSE-EQ-442"
+          assetDescription="CNC 5-Axis Milling Machinery Unit #3"
+          lessorName="Siemens Financial Services AG"
+          classification="finance"
+          periods={mockPeriods}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
 export const FinanceLease: Story = {
   args: {
     leaseIdentifier: "LSE-EQ-442",

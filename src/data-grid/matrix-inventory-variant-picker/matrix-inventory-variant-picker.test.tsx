@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import { MatrixInventoryVariantPicker } from "./matrix-inventory-variant-picker";
 
 describe("MatrixInventoryVariantPicker", () => {
@@ -50,6 +50,12 @@ describe("MatrixInventoryVariantPicker", () => {
     const saveBtn = screen.getByRole("button", { name: /commit stock changes/i });
     fireEvent.click(saveBtn);
     expect(handleSave).toHaveBeenCalled();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<MatrixInventoryVariantPicker ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("passes accessibility axe audit", async () => {

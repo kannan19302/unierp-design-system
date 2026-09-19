@@ -65,6 +65,7 @@ const meta: Meta<typeof LossReserveAdjustmentLedger> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   args: {
     claim: sampleClaim,
     initialAdjustments: sampleAdjustments,
@@ -76,6 +77,35 @@ type Story = StoryObj<typeof LossReserveAdjustmentLedger>;
 
 export const Default: Story = {
   args: {},
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Compact View</h4>
+        <LossReserveAdjustmentLedger
+          claim={sampleClaim}
+          initialAdjustments={sampleAdjustments}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <LossReserveAdjustmentLedger
+          claim={sampleClaim}
+          initialAdjustments={sampleAdjustments}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {

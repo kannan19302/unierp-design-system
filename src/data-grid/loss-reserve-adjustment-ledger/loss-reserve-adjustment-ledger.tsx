@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo, type FormEvent } from "react";
 import styles from "./loss-reserve-adjustment-ledger.module.css";
 
 export type ReserveBucket = "indemnity" | "medical" | "expense_dcc" | "expense_ao";
@@ -38,14 +38,19 @@ export interface LossReserveAdjustmentLedgerProps {
   className?: string;
 }
 
-export const LossReserveAdjustmentLedger: React.FC<LossReserveAdjustmentLedgerProps> = ({
+/**
+ * LossReserveAdjustmentLedger tracks actuarial reserve adjustments, supervisor signoffs, and incurred loss reconciliations.
+ *
+ * @maturity stable
+ */
+export const LossReserveAdjustmentLedger = forwardRef<HTMLElement, LossReserveAdjustmentLedgerProps>(({
   claim,
   initialAdjustments = [],
   onAddAdjustment,
   onApproveSupervisorSignoff,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [adjustments, setAdjustments] = useState<ReserveAdjustmentRecord[]>(initialAdjustments);
 
@@ -61,7 +66,7 @@ export const LossReserveAdjustmentLedger: React.FC<LossReserveAdjustmentLedgerPr
     return bucketAdj[bucketAdj.length - 1]?.newReserve ?? 25000;
   }, [adjustments, bucket]);
 
-  const handlePostAdjustment = (e: React.FormEvent) => {
+  const handlePostAdjustment = (e: FormEvent) => {
     e.preventDefault();
     const amountNum = parseFloat(adjustmentAmount);
     if (isNaN(amountNum) || amountNum === 0) return;
@@ -97,26 +102,30 @@ export const LossReserveAdjustmentLedger: React.FC<LossReserveAdjustmentLedgerPr
       adjusterNpn: newRecord.adjusterNpn,
       reasonCode: newRecord.reasonCode,
       requiresSupervisorSignoff: newRecord.requiresSupervisorSignoff,
+      isSignedOff: newRecord.isSignedOff,
     });
   };
 
-  const handleSignoff = (id: string) => {
-    setAdjustments((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, isSignedOff: true } : a))
+  const handleSignoff = (adjId: string) => {
+    setAdjustments(
+      adjustments.map((a) => (a.id === adjId ? { ...a, isSignedOff: true } : a))
     );
-    onApproveSupervisorSignoff?.(id);
+    onApproveSupervisorSignoff?.(adjId);
   };
 
-  const formatCurrency = (val: number) =>
-    new Intl.NumberFormat("en-US", {
+  const formatCurrency = (val: number) => {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-      minimumFractionDigits: 2,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(val);
+  };
 
   return (
     <section
-      className={`${styles.container} ${styles[density]} ${className}`}
+      ref={ref}
+      className={`${styles.container} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
     >
@@ -336,4 +345,7 @@ export const LossReserveAdjustmentLedger: React.FC<LossReserveAdjustmentLedgerPr
       </div>
     </section>
   );
-};
+});
+
+LossReserveAdjustmentLedger.displayName = "LossReserveAdjustmentLedger";
+

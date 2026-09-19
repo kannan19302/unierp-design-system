@@ -40,20 +40,43 @@ const sampleStock = {
   "2XL__Arctic White": { quantity: 2, reserved: 0, skuSuffix: "WHT-2XL" },
 };
 
+const defaultProps = {
+  productTitle: "Meridian Technical Waterproof Parka",
+  baseSku: "PRK-900",
+  wholesalePrice: 145.0,
+  msrp: 295.0,
+  xAxisAttributeName: "Color",
+  xAxisValues: ["Obsidian Black", "Navy Blue", "Alpine Sage", "Arctic White"],
+  yAxisAttributeName: "Size",
+  yAxisValues: ["XS", "S", "M", "L", "XL", "2XL"],
+  initialStockMatrix: sampleStock,
+  lowStockThreshold: 10,
+  density: "compact" as const,
+};
+
 export const Default: Story = {
+  args: defaultProps,
+};
+
+export const AnatomyAndComposition: Story = {
   args: {
-    productTitle: "Meridian Technical Waterproof Parka",
-    baseSku: "PRK-900",
-    wholesalePrice: 145.0,
-    msrp: 295.0,
-    xAxisAttributeName: "Color",
-    xAxisValues: ["Obsidian Black", "Navy Blue", "Alpine Sage", "Arctic White"],
-    yAxisAttributeName: "Size",
-    yAxisValues: ["XS", "S", "M", "L", "XL", "2XL"],
-    initialStockMatrix: sampleStock,
-    lowStockThreshold: 10,
-    density: "compact",
+    ...Default.args,
   },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Compact View</h4>
+        <MatrixInventoryVariantPicker {...defaultProps} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <MatrixInventoryVariantPicker {...defaultProps} density="ultra-compact" />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {
