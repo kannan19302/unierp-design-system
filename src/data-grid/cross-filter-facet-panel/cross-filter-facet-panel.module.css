@@ -2,8 +2,8 @@
 .panel {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: var(--space-80, 20rem);
+  inline-size: 100%;
+  max-inline-size: var(--space-80);
   background: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -17,9 +17,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-3) var(--space-4);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
   background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
 }
 
 .headerTitleGroup {
@@ -41,14 +42,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: var(--space-5);
-  height: var(--space-5);
-  padding: 0 var(--space-1);
+  min-inline-size: var(--space-5);
+  block-size: var(--space-5);
+  padding-block: 0;
+  padding-inline: var(--space-1);
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   font-family: var(--font-mono);
   background: var(--color-brand);
-  color: var(--color-text-inverse, #ffffff);
+  color: var(--color-text-inverse);
   border-radius: var(--radius-full);
 }
 
@@ -60,7 +62,8 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: var(--space-1) var(--space-2);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   border-radius: var(--radius-xs);
   transition: background var(--duration-fast, 150ms) ease;
 }
@@ -71,9 +74,10 @@
 
 /* Active Chips */
 .activeChipsContainer {
-  padding: var(--space-2) var(--space-3);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
   background: var(--color-surface-subtle);
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-block-end: 1px solid var(--color-border-subtle);
 }
 
 .chipsScroll {
@@ -86,7 +90,8 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  padding: var(--space-0-5) var(--space-2);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
   font-size: var(--text-xs);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -114,7 +119,7 @@
   padding: 0;
   font-size: var(--text-sm);
   line-height: var(--leading-none, 1);
-  margin-left: var(--space-0-5);
+  margin-inline-start: var(--space-0-5);
 }
 
 .chipRemove:hover {
@@ -128,11 +133,11 @@
 }
 
 .categorySection {
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-block-end: 1px solid var(--color-border-subtle);
 }
 
 .categorySection:last-child {
-  border-bottom: none;
+  border-block-end: none;
 }
 
 /* Category Header */
@@ -140,7 +145,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-2) var(--space-3);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
   background: var(--color-surface);
 }
 
@@ -153,7 +159,7 @@
   cursor: pointer;
   padding: 0;
   font-family: inherit;
-  text-align: left;
+  text-align: start;
   color: var(--color-text-primary);
 }
 
@@ -178,7 +184,8 @@
   font-family: var(--font-mono);
   background: var(--color-brand-subtle);
   color: var(--color-brand);
-  padding: 0 var(--space-1-5);
+  padding-block: 0;
+  padding-inline: var(--space-1-5);
   border-radius: var(--radius-full);
 }
 
@@ -195,7 +202,8 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0 var(--space-1);
+  padding-block: 0;
+  padding-inline: var(--space-1);
   border-radius: var(--radius-xs);
 }
 
@@ -210,7 +218,9 @@
 
 /* Category Body */
 .categoryBody {
-  padding: var(--space-2) var(--space-3) var(--space-3);
+  padding-block-start: var(--space-2);
+  padding-block-end: var(--space-3);
+  padding-inline: var(--space-3);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -223,9 +233,10 @@
 }
 
 .searchInput {
-  width: 100%;
-  padding: var(--space-1) var(--space-2);
-  padding-right: var(--space-6);
+  inline-size: 100%;
+  padding-block: var(--space-1);
+  padding-inline-start: var(--space-2);
+  padding-inline-end: var(--space-6);
   font-size: var(--text-xs);
   font-family: inherit;
   background: var(--color-surface);
@@ -241,7 +252,7 @@
 
 .searchClear {
   position: absolute;
-  right: var(--space-2);
+  inset-inline-end: var(--space-2);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -259,7 +270,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  max-height: var(--space-48, 12rem);
+  max-block-size: var(--space-48);
   overflow-y: auto;
 }
 
@@ -267,7 +278,8 @@
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   font-style: italic;
-  padding: var(--space-2) 0;
+  padding-block: var(--space-2);
+  padding-inline: 0;
   text-align: center;
 }
 
@@ -275,7 +287,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-0-5);
-  padding: var(--space-1) var(--space-1-5);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1-5);
   border-radius: var(--radius-xs);
   transition: background var(--duration-fast, 150ms) ease;
 }
@@ -293,8 +306,8 @@
 }
 
 .checkbox {
-  width: var(--space-3-5);
-  height: var(--space-3-5);
+  inline-size: var(--space-3-5);
+  block-size: var(--space-3-5);
   accent-color: var(--color-brand);
   cursor: pointer;
 }
@@ -316,20 +329,20 @@
 
 /* Proportional Distribution Fill Bar */
 .distributionTrack {
-  height: var(--space-0-5);
-  width: 100%;
+  block-size: var(--space-0-5);
+  inline-size: 100%;
   background: var(--color-border-subtle);
   border-radius: var(--radius-full);
   overflow: hidden;
-  margin-left: var(--space-5);
-  max-width: calc(100% - var(--space-5));
+  margin-inline-start: var(--space-5);
+  max-inline-size: calc(100% - var(--space-5));
 }
 
 .distributionFill {
-  height: 100%;
+  block-size: 100%;
   background: var(--color-border);
   border-radius: var(--radius-full);
-  transition: width var(--duration-fast, 150ms) ease;
+  transition: inline-size var(--duration-fast, 150ms) ease;
 }
 
 .distributionFillActive {

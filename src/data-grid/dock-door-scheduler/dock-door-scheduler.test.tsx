@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -28,6 +29,18 @@ const testAppointments: DockAppointment[] = [
 ];
 
 describe("DockDoorScheduler", () => {
+  it("forwards ref to root section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <DockDoorScheduler
+        ref={ref}
+        facilityTitle="Northwest Inbound Terminal"
+        appointments={testAppointments}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders facility title and appointment matrix correctly", () => {
     render(
       <DockDoorScheduler

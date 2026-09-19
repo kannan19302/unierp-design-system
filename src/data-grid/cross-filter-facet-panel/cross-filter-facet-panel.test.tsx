@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { CrossFilterFacetPanel } from "./cross-filter-facet-panel";
@@ -27,6 +27,18 @@ const TEST_CATEGORIES = [
 ];
 
 describe("CrossFilterFacetPanel", () => {
+  it("forwards ref to root aside element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <CrossFilterFacetPanel
+        ref={ref}
+        title="Ledger Filters"
+        categories={TEST_CATEGORIES}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders facet categories and options with zero accessibility violations", async () => {
     const { container } = render(
       <CrossFilterFacetPanel

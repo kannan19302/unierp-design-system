@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   DnsZoneRecordEditor,
@@ -77,4 +78,40 @@ export const UltraCompactDensity: Story = {
     records: mockRecords,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>Authoritative DNS Zone Editor Anatomy</h3>
+      <DnsZoneRecordEditor
+        zoneName="unierp.io"
+        records={mockRecords}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Standard Density</h4>
+        <DnsZoneRecordEditor
+          zoneName="unierp.io"
+          records={mockRecords}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4>Comfortable Density</h4>
+        <DnsZoneRecordEditor
+          zoneName="unierp.io"
+          records={mockRecords}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

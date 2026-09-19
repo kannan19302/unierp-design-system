@@ -1,22 +1,22 @@
 .container {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
-  border-radius: var(--radius-lg, 0.5rem);
-  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-  color: var(--color-text-primary, #0f172a);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans, inherit);
+  color: var(--color-text-primary);
   overflow: hidden;
 }
 
 .header {
-  padding: var(--space-4, 1rem);
-  background-color: var(--color-surface-subtle, #f8fafc);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  padding: var(--space-4);
+  background-color: var(--color-surface-subtle);
+  border-block-end: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2, 0.5rem);
+  gap: var(--space-2);
 }
 
 .badgeRow {
@@ -26,33 +26,35 @@
 }
 
 .categoryBadge {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.05em;
-  color: var(--color-primary, #2563eb);
-  background-color: var(--color-primary-subtle, #eff6ff);
-  padding: 0.125rem 0.5rem;
-  border-radius: var(--radius-sm, 0.25rem);
-  border: 1px solid var(--color-primary-border, #bfdbfe);
+  color: var(--color-brand);
+  background-color: var(--color-brand-subtle);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-brand-subtle);
 }
 
 .pendingPill {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
-  padding: 0.125rem 0.625rem;
-  border-radius: var(--radius-full, 9999px);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2-5);
+  border-radius: var(--radius-full);
 }
 
 .pillSynced {
-  background-color: var(--color-success-subtle, #f0fdf4);
-  color: var(--color-success-text, #15803d);
-  border: 1px solid var(--color-success-border, #bbf7d0);
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
 }
 
 .pillPending {
-  background-color: var(--color-warning-subtle, #fffbeb);
-  color: var(--color-warning-text, #b45309);
-  border: 1px solid var(--color-warning-border, #fde68a);
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
 }
 
 .titleRow {
@@ -60,36 +62,37 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-3, 0.75rem);
+  gap: var(--space-3);
 }
 
 .title {
-  font-size: var(--text-base, 1rem);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
   margin: 0;
-  color: var(--color-text-primary, #0f172a);
+  color: var(--color-text-primary);
 }
 
 .rolePicker {
   display: flex;
   align-items: center;
-  gap: var(--space-2, 0.5rem);
+  gap: var(--space-2);
 }
 
 .roleLabel {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-medium, 500);
-  color: var(--color-text-secondary, #475569);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
 }
 
 .roleSelect {
-  padding: 0.3125rem 0.625rem;
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
-  border: 1px solid var(--color-border, #cbd5e1);
-  border-radius: var(--radius-md, 0.375rem);
-  background-color: var(--color-surface, #ffffff);
-  color: var(--color-text-primary, #0f172a);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
   cursor: pointer;
 }
 
@@ -98,38 +101,40 @@
 }
 
 .matrixTable {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  text-align: left;
-  font-size: var(--text-xs, 0.75rem);
+  text-align: start;
+  font-size: var(--text-xs);
 }
 
 .matrixTable th {
-  background-color: var(--color-surface-subtle, #f8fafc);
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
-  color: var(--color-text-secondary, #475569);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  background-color: var(--color-surface-subtle);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  border-block-end: 1px solid var(--color-border);
   white-space: nowrap;
 }
 
 .matrixTable td {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border-block-end: 1px solid var(--color-border-subtle);
   vertical-align: middle;
 }
 
 .objectCol {
-  min-width: 12rem;
+  min-inline-size: 12rem;
 }
 
 .typeCol {
-  width: 6rem;
+  inline-size: 6rem;
 }
 
 .privCol {
   text-align: center;
-  width: 6rem;
+  inline-size: 6rem;
 }
 
 .objectCell {
@@ -139,20 +144,21 @@
 
 .objectCode {
   font-family: var(--font-mono, monospace);
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
-  color: var(--color-text-primary, #0f172a);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
 }
 
 .typeBadge {
   display: inline-block;
   font-size: 0.625rem;
-  font-weight: var(--weight-semibold, 600);
-  color: var(--color-text-tertiary, #64748b);
-  background-color: var(--color-surface-subtle, #f1f5f9);
-  padding: 0.125rem 0.375rem;
-  border-radius: var(--radius-sm, 0.25rem);
-  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-subtle);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .cellAlign {
@@ -163,38 +169,39 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 5rem;
-  padding: 0.125rem 0.375rem;
+  inline-size: 100%;
+  max-inline-size: 5rem;
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1-5);
   font-size: 0.6875rem;
-  font-weight: var(--weight-semibold, 600);
-  border-radius: var(--radius-sm, 0.25rem);
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background-color 0.1s ease-in-out;
 }
 
 .cellGranted {
-  background-color: var(--color-success-subtle, #f0fdf4);
-  color: var(--color-success-text, #15803d);
-  border: 1px solid var(--color-success-border, #bbf7d0);
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
 }
 
 .cellInherited {
-  background-color: var(--color-primary-subtle, #eff6ff);
-  color: var(--color-primary, #2563eb);
-  border: 1px solid var(--color-primary-border, #bfdbfe);
+  background-color: var(--color-brand-subtle);
+  color: var(--color-brand);
+  border: 1px solid var(--color-brand);
 }
 
 .cellRevoked {
-  background-color: var(--color-danger-subtle, #fef2f2);
-  color: var(--color-danger-text, #b91c1c);
-  border: 1px solid var(--color-danger-border, #fecaca);
+  background-color: var(--color-danger-subtle);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
 }
 
 .cellNone {
-  background-color: var(--color-surface, #ffffff);
-  color: var(--color-text-tertiary, #94a3b8);
-  border: 1px solid var(--color-border, #e2e8f0);
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
 }
 
 .footer {
@@ -202,18 +209,19 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-3, 0.75rem);
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
-  background-color: var(--color-surface-subtle, #f8fafc);
-  border-top: 1px solid var(--color-border, #e2e8f0);
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface-subtle);
+  border-block-start: 1px solid var(--color-border);
 }
 
 .legend {
   display: flex;
   align-items: center;
-  gap: var(--space-3, 0.75rem);
-  font-size: var(--text-xs, 0.75rem);
-  color: var(--color-text-secondary, #475569);
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
 }
 
 .legendItem {
@@ -223,36 +231,37 @@
 }
 
 .legendDot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--radius-full, 9999px);
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--radius-full);
 }
 
 .dotGranted {
-  background-color: var(--color-success-text, #15803d);
+  background-color: var(--color-success);
 }
 
 .dotInherited {
-  background-color: var(--color-primary, #2563eb);
+  background-color: var(--color-brand);
 }
 
 .dotRevoked {
-  background-color: var(--color-danger-text, #b91c1c);
+  background-color: var(--color-danger);
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: var(--space-2, 0.5rem);
+  gap: var(--space-2);
 }
 
 .discardBtn {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  font-size: var(--text-xs, 0.75rem);
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #cbd5e1);
-  border-radius: var(--radius-md, 0.375rem);
-  color: var(--color-text-primary, #0f172a);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  font-size: var(--text-xs);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
   cursor: pointer;
 }
 
@@ -262,13 +271,14 @@
 }
 
 .applyBtn {
-  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
-  background-color: var(--color-primary, #2563eb);
-  border: 1px solid var(--color-primary, #2563eb);
-  border-radius: var(--radius-md, 0.375rem);
-  color: var(--color-surface, #ffffff);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  background-color: var(--color-brand);
+  border: 1px solid var(--color-brand);
+  border-radius: var(--radius-md);
+  color: var(--color-text-inverse);
   cursor: pointer;
 }
 
@@ -280,15 +290,18 @@
 /* Density overrides */
 [data-density="ultra-compact"] .matrixTable th,
 [data-density="ultra-compact"] .matrixTable td {
-  padding: 0.25rem 0.5rem;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
 }
 
 [data-density="compact"] .matrixTable th,
 [data-density="compact"] .matrixTable td {
-  padding: 0.375rem 0.625rem;
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-2-5);
 }
 
 [data-density="comfortable"] .matrixTable th,
 [data-density="comfortable"] .matrixTable td {
-  padding: 0.75rem 1rem;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
 }

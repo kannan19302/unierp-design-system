@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { DockDoorScheduler, type DockAppointment } from "./dock-door-scheduler";
 
@@ -83,4 +84,43 @@ export const Compact: Story = {
     appointments: mockAppointments,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>Cross-Dock Scheduling Matrix Anatomy</h3>
+      <DockDoorScheduler
+        facilityTitle="East Coast Logistics Gateway DC #02"
+        dateLabel="Today, Sep 06, 2026"
+        appointments={mockAppointments}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Default Density</h4>
+        <DockDoorScheduler
+          facilityTitle="East Coast Logistics Gateway DC #02"
+          dateLabel="Today, Sep 06, 2026"
+          appointments={mockAppointments}
+          density="comfortable"
+        />
+      </div>
+      <div>
+        <h4>Compact Density</h4>
+        <DockDoorScheduler
+          facilityTitle="East Coast Logistics Gateway DC #02"
+          dateLabel="Today, Sep 06, 2026"
+          appointments={mockAppointments}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
 };

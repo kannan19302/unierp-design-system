@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { CrossFilterFacetPanel } from "./cross-filter-facet-panel";
 
@@ -59,4 +60,43 @@ export const EmptySelection: Story = {
     categories: SAMPLE_CATEGORIES,
     selectedIds: [],
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>Cross-Filter Facet Panel Anatomy</h3>
+      <CrossFilterFacetPanel
+        title="Ledger Cross-Filters"
+        categories={SAMPLE_CATEGORIES}
+        selectedIds={["reg-na", "tier-enterprise"]}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Default Density (Active Filters)</h4>
+        <CrossFilterFacetPanel
+          title="Filter Records"
+          categories={SAMPLE_CATEGORIES}
+          selectedIds={["reg-na", "comp-soc2"]}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4>Comfortable Density (No Selection)</h4>
+        <CrossFilterFacetPanel
+          title="Filter Records"
+          categories={SAMPLE_CATEGORIES}
+          selectedIds={[]}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

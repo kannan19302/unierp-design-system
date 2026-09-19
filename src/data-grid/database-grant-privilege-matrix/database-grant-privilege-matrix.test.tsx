@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -20,6 +21,19 @@ const mockObjects = [
 ];
 
 describe("DatabaseGrantPrivilegeMatrix", () => {
+  it("forwards ref to root section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <DatabaseGrantPrivilegeMatrix
+        ref={ref}
+        currentRole="ANALYST"
+        roles={["SYSADMIN", "ANALYST"]}
+        objects={mockObjects}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes axe accessibility tests with zero violations", async () => {
     const { container } = render(
       <DatabaseGrantPrivilegeMatrix

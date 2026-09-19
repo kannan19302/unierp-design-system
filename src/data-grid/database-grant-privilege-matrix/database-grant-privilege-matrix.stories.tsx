@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { DatabaseGrantPrivilegeMatrix } from "./database-grant-privilege-matrix";
 
@@ -93,4 +94,43 @@ export const Comfortable: Story = {
     objects: mockObjects,
     density: "comfortable",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>Database Catalog RBAC Matrix Anatomy</h3>
+      <DatabaseGrantPrivilegeMatrix
+        currentRole="DATA_ENGINEER"
+        roles={["ACCOUNTADMIN", "SYSADMIN", "DATA_ENGINEER"]}
+        objects={mockObjects}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Standard Density</h4>
+        <DatabaseGrantPrivilegeMatrix
+          currentRole="DATA_ANALYST"
+          roles={["ACCOUNTADMIN", "DATA_ANALYST"]}
+          objects={mockObjects}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4>Comfortable Density</h4>
+        <DatabaseGrantPrivilegeMatrix
+          currentRole="ACCOUNTADMIN"
+          roles={["ACCOUNTADMIN", "SYSADMIN"]}
+          objects={mockObjects}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

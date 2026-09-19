@@ -1,7 +1,7 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import {
   DnsZoneRecordEditor,
   DnsZoneRecord,
@@ -28,6 +28,12 @@ const mockRecords: DnsZoneRecord[] = [
 ];
 
 describe("DnsZoneRecordEditor", () => {
+  it("forwards ref to root section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<DnsZoneRecordEditor ref={ref} zoneName="unierp.io" records={mockRecords} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders zone records and search filter", () => {
     render(<DnsZoneRecordEditor zoneName="unierp.io" records={mockRecords} />);
     expect(screen.getByText("DNS Records: unierp.io")).toBeInTheDocument();
