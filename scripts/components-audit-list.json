@@ -1,0 +1,3462 @@
+[
+  {
+    "category": "primitives",
+    "name": "alert",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-alert--info",
+    "storybookTitle": "Primitives/Alert",
+    "storyName": "Info",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-alert--info"
+  },
+  {
+    "category": "primitives",
+    "name": "avatar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-avatar--default",
+    "storybookTitle": "Primitives/Avatar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-avatar--default"
+  },
+  {
+    "category": "primitives",
+    "name": "badge",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-badge--default",
+    "storybookTitle": "Primitives/Badge",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-badge--default"
+  },
+  {
+    "category": "primitives",
+    "name": "brand-mark",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-brandmark--default",
+    "storybookTitle": "Primitives/BrandMark",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-brandmark--default"
+  },
+  {
+    "category": "primitives",
+    "name": "button",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-button--primary",
+    "storybookTitle": "Primitives/Button",
+    "storyName": "Primary",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-button--primary"
+  },
+  {
+    "category": "primitives",
+    "name": "error-boundary",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-errorboundary--default",
+    "storybookTitle": "Primitives/ErrorBoundary",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-errorboundary--default"
+  },
+  {
+    "category": "primitives",
+    "name": "health-score",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-healthscore--good",
+    "storybookTitle": "Primitives/HealthScore",
+    "storyName": "Good",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-healthscore--good"
+  },
+  {
+    "category": "primitives",
+    "name": "info-hint",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-infohint--default",
+    "storybookTitle": "Primitives/InfoHint",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-infohint--default"
+  },
+  {
+    "category": "primitives",
+    "name": "live-region",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-liveregion--default",
+    "storybookTitle": "Primitives/LiveRegion",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-liveregion--default"
+  },
+  {
+    "category": "primitives",
+    "name": "presence",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-presence--online",
+    "storybookTitle": "Primitives/Presence",
+    "storyName": "Online",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-presence--online"
+  },
+  {
+    "category": "primitives",
+    "name": "priority-indicator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-priorityindicator--low",
+    "storybookTitle": "Primitives/PriorityIndicator",
+    "storyName": "Low",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-priorityindicator--low"
+  },
+  {
+    "category": "primitives",
+    "name": "profile-card",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-profilecard--default",
+    "storybookTitle": "Primitives/ProfileCard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-profilecard--default"
+  },
+  {
+    "category": "primitives",
+    "name": "progress",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-progress--default",
+    "storybookTitle": "Primitives/Progress",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-progress--default"
+  },
+  {
+    "category": "primitives",
+    "name": "protected-component",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-protectedcomponent--default",
+    "storybookTitle": "Primitives/ProtectedComponent",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-protectedcomponent--default"
+  },
+  {
+    "category": "primitives",
+    "name": "skeleton",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-skeleton--default",
+    "storybookTitle": "Primitives/Skeleton",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-skeleton--default"
+  },
+  {
+    "category": "primitives",
+    "name": "spinner",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-spinner--default",
+    "storybookTitle": "Primitives/Spinner",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-spinner--default"
+  },
+  {
+    "category": "primitives",
+    "name": "split-button",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-splitbutton--default",
+    "storybookTitle": "Primitives/SplitButton",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-splitbutton--default"
+  },
+  {
+    "category": "primitives",
+    "name": "tag",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-tag--default",
+    "storybookTitle": "Primitives/Tag",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-tag--default"
+  },
+  {
+    "category": "primitives",
+    "name": "trial-countdown",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-trialcountdown--default",
+    "storybookTitle": "Primitives/TrialCountdown",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-trialcountdown--default"
+  },
+  {
+    "category": "primitives",
+    "name": "user-chip",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "primitives-userchip--default",
+    "storybookTitle": "Primitives/UserChip",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/primitives-userchip--default"
+  },
+  {
+    "category": "inputs",
+    "name": "acl-policy-visualizer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-aclpolicyvisualizer--default-policy",
+    "storybookTitle": "Inputs/AclPolicyVisualizer",
+    "storyName": "DefaultPolicy",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-aclpolicyvisualizer--default-policy"
+  },
+  {
+    "category": "inputs",
+    "name": "calendar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-calendar--default",
+    "storybookTitle": "Inputs/Calendar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-calendar--default"
+  },
+  {
+    "category": "inputs",
+    "name": "checkbox",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-checkbox--default",
+    "storybookTitle": "Inputs/Checkbox",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-checkbox--default"
+  },
+  {
+    "category": "inputs",
+    "name": "code-editor",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-codeeditor--type-script",
+    "storybookTitle": "Inputs/CodeEditor",
+    "storyName": "TypeScript",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-codeeditor--type-script"
+  },
+  {
+    "category": "inputs",
+    "name": "color-picker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-colorpicker--default",
+    "storybookTitle": "Inputs/ColorPicker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-colorpicker--default"
+  },
+  {
+    "category": "inputs",
+    "name": "combobox",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-combobox--default",
+    "storybookTitle": "Inputs/ComboBox",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-combobox--default"
+  },
+  {
+    "category": "inputs",
+    "name": "currency-input",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-currencyinput--default",
+    "storybookTitle": "Inputs/CurrencyInput",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-currencyinput--default"
+  },
+  {
+    "category": "inputs",
+    "name": "date-picker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-datepicker--default",
+    "storybookTitle": "Inputs/DatePicker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-datepicker--default"
+  },
+  {
+    "category": "inputs",
+    "name": "date-time-picker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-datetimepicker--default",
+    "storybookTitle": "Inputs/DateTimePicker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-datetimepicker--default"
+  },
+  {
+    "category": "inputs",
+    "name": "feature-rollout-slider",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-featurerolloutslider--default",
+    "storybookTitle": "Inputs/FeatureRolloutSlider",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-featurerolloutslider--default"
+  },
+  {
+    "category": "inputs",
+    "name": "file-upload",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-fileupload--default",
+    "storybookTitle": "Inputs/FileUpload",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-fileupload--default"
+  },
+  {
+    "category": "inputs",
+    "name": "fiscal-period-picker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-fiscalperiodpicker--calendar-year",
+    "storybookTitle": "Inputs/FiscalPeriodPicker",
+    "storyName": "CalendarYear",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-fiscalperiodpicker--calendar-year"
+  },
+  {
+    "category": "inputs",
+    "name": "form-control",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-formcontrol--default",
+    "storybookTitle": "Inputs/FormControl",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-formcontrol--default"
+  },
+  {
+    "category": "inputs",
+    "name": "image-upload",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-imageupload--default",
+    "storybookTitle": "Inputs/ImageUpload",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-imageupload--default"
+  },
+  {
+    "category": "inputs",
+    "name": "inline-edit",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-inlineedit--default",
+    "storybookTitle": "Inputs/InlineEdit",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-inlineedit--default"
+  },
+  {
+    "category": "inputs",
+    "name": "multi-select",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-multiselect--default",
+    "storybookTitle": "Inputs/MultiSelect",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-multiselect--default"
+  },
+  {
+    "category": "inputs",
+    "name": "number-input",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-numberinput--default",
+    "storybookTitle": "Inputs/NumberInput",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-numberinput--default"
+  },
+  {
+    "category": "inputs",
+    "name": "number-stepper",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-numberstepper--default",
+    "storybookTitle": "Inputs/NumberStepper",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-numberstepper--default"
+  },
+  {
+    "category": "inputs",
+    "name": "percent-input",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-percentinput--default",
+    "storybookTitle": "Inputs/PercentInput",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-percentinput--default"
+  },
+  {
+    "category": "inputs",
+    "name": "policy-simulator-inspector",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "inputs-policysimulatorinspector--default",
+    "storybookTitle": "Inputs/PolicySimulatorInspector",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-policysimulatorinspector--default"
+  },
+  {
+    "category": "inputs",
+    "name": "radio-group",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-radiogroup--default",
+    "storybookTitle": "Inputs/RadioGroup",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-radiogroup--default"
+  },
+  {
+    "category": "inputs",
+    "name": "record-field-policy-matrix",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "inputs-recordfieldpolicymatrix--default",
+    "storybookTitle": "Inputs/RecordFieldPolicyMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-recordfieldpolicymatrix--default"
+  },
+  {
+    "category": "inputs",
+    "name": "rich-text-editor",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-richtexteditor--default",
+    "storybookTitle": "Inputs/RichTextEditor",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-richtexteditor--default"
+  },
+  {
+    "category": "inputs",
+    "name": "scheduler",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-scheduler--default",
+    "storybookTitle": "Inputs/Scheduler",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-scheduler--default"
+  },
+  {
+    "category": "inputs",
+    "name": "secret-environment-editor",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-secretenvironmenteditor--production-secrets",
+    "storybookTitle": "Inputs/SecretEnvironmentEditor",
+    "storyName": "ProductionSecrets",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-secretenvironmenteditor--production-secrets"
+  },
+  {
+    "category": "inputs",
+    "name": "segmented-control",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-segmentedcontrol--default",
+    "storybookTitle": "Inputs/SegmentedControl",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-segmentedcontrol--default"
+  },
+  {
+    "category": "inputs",
+    "name": "signature-pad",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-signaturepad--default",
+    "storybookTitle": "Inputs/SignaturePad",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-signaturepad--default"
+  },
+  {
+    "category": "inputs",
+    "name": "slider",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-slider--default",
+    "storybookTitle": "Inputs/Slider",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-slider--default"
+  },
+  {
+    "category": "inputs",
+    "name": "switch",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-switch--default",
+    "storybookTitle": "Inputs/Switch",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-switch--default"
+  },
+  {
+    "category": "inputs",
+    "name": "tag-input",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "inputs-taginput--default",
+    "storybookTitle": "Inputs/TagInput",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/inputs-taginput--default"
+  },
+  {
+    "category": "shell",
+    "name": "account-center",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-accountcentershell--default",
+    "storybookTitle": "Shell/AccountCenterShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-accountcentershell--default"
+  },
+  {
+    "category": "shell",
+    "name": "auth-cards",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-authcards--sign-in",
+    "storybookTitle": "Shell/AuthCards",
+    "storyName": "SignIn",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-authcards--sign-in"
+  },
+  {
+    "category": "shell",
+    "name": "auth-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-authshell--login",
+    "storybookTitle": "Shell/AuthShell",
+    "storyName": "Login",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-authshell--login"
+  },
+  {
+    "category": "shell",
+    "name": "catalog-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-catalogshell--default",
+    "storybookTitle": "Shell/CatalogShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-catalogshell--default"
+  },
+  {
+    "category": "shell",
+    "name": "data-workspace",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-floorplans-dataworkspace--default",
+    "storybookTitle": "Shell/Floorplans/DataWorkspace",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-floorplans-dataworkspace--default"
+  },
+  {
+    "category": "shell",
+    "name": "editorial-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-editorialshell--default",
+    "storybookTitle": "Shell/EditorialShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-editorialshell--default"
+  },
+  {
+    "category": "shell",
+    "name": "inspector-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-inspectorshell--default",
+    "storybookTitle": "Shell/InspectorShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-inspectorshell--default"
+  },
+  {
+    "category": "shell",
+    "name": "launch-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-launchshell--hero-launcher",
+    "storybookTitle": "Shell/LaunchShell",
+    "storyName": "HeroLauncher",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-launchshell--hero-launcher"
+  },
+  {
+    "category": "shell",
+    "name": "meridian-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-meridianbar--invoice-approval",
+    "storybookTitle": "Shell/MeridianBar",
+    "storyName": "InvoiceApproval",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-meridianbar--invoice-approval"
+  },
+  {
+    "category": "shell",
+    "name": "onboarding-wizard",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-onboardingwizard--interactive-wizard",
+    "storybookTitle": "Shell/OnboardingWizard",
+    "storyName": "InteractiveWizard",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-onboardingwizard--interactive-wizard"
+  },
+  {
+    "category": "shell",
+    "name": "ops-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-opsshell--operational",
+    "storybookTitle": "Shell/OpsShell",
+    "storyName": "Operational",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-opsshell--operational"
+  },
+  {
+    "category": "shell",
+    "name": "planning-workspace",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-floorplans-planningworkspace--project-roadmap",
+    "storybookTitle": "Shell/Floorplans/PlanningWorkspace",
+    "storyName": "ProjectRoadmap",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-floorplans-planningworkspace--project-roadmap"
+  },
+  {
+    "category": "shell",
+    "name": "platform-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-platformshell--default",
+    "storybookTitle": "Shell/PlatformShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-platformshell--default"
+  },
+  {
+    "category": "shell",
+    "name": "record-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-recordshell--three-pane-record",
+    "storybookTitle": "Shell/RecordShell",
+    "storyName": "ThreePaneRecord",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-recordshell--three-pane-record"
+  },
+  {
+    "category": "shell",
+    "name": "settings-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-settingsshell--default",
+    "storybookTitle": "Shell/SettingsShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-settingsshell--default"
+  },
+  {
+    "category": "shell",
+    "name": "site-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": true,
+    "storyId": "product--default",
+    "storybookTitle": "Product",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/product--default"
+  },
+  {
+    "category": "shell",
+    "name": "split-view-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-splitviewshell--default",
+    "storybookTitle": "Shell/SplitViewShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-splitviewshell--default"
+  },
+  {
+    "category": "shell",
+    "name": "strata-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-stratabar--default",
+    "storybookTitle": "Shell/StrataBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-stratabar--default"
+  },
+  {
+    "category": "shell",
+    "name": "tabbed-console",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-tabbedconsole--default",
+    "storybookTitle": "Shell/TabbedConsole",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-tabbedconsole--default"
+  },
+  {
+    "category": "shell",
+    "name": "transaction-workspace",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-floorplans-transactionworkspace--journal-entry",
+    "storybookTitle": "Shell/Floorplans/TransactionWorkspace",
+    "storyName": "JournalEntry",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-floorplans-transactionworkspace--journal-entry"
+  },
+  {
+    "category": "shell",
+    "name": "wizard-grid",
+    "hasLegacyFont": false,
+    "hasMissingTabular": true,
+    "storyId": "shell-platformwizardgrid--default",
+    "storybookTitle": "Shell/PlatformWizardGrid",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-platformwizardgrid--default"
+  },
+  {
+    "category": "shell",
+    "name": "workbench-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-workbenchshell--default",
+    "storybookTitle": "Shell/WorkbenchShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-workbenchshell--default"
+  },
+  {
+    "category": "shell",
+    "name": "workspace-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "shell-workspaceshell--default",
+    "storybookTitle": "Shell/WorkspaceShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/shell-workspaceshell--default"
+  },
+  {
+    "category": "overlays",
+    "name": "context-menu",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-contextmenu--default",
+    "storybookTitle": "Overlays/ContextMenu",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-contextmenu--default"
+  },
+  {
+    "category": "overlays",
+    "name": "drawer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-drawer--right-inspector",
+    "storybookTitle": "Overlays/Drawer",
+    "storyName": "RightInspector",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-drawer--right-inspector"
+  },
+  {
+    "category": "overlays",
+    "name": "dropdown-menu",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-dropdownmenu--default",
+    "storybookTitle": "Overlays/DropdownMenu",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-dropdownmenu--default"
+  },
+  {
+    "category": "overlays",
+    "name": "dual-control-modal",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-dualcontrolmodal--wire-transfer-approval",
+    "storybookTitle": "Overlays/DualControlModal",
+    "storyName": "WireTransferApproval",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-dualcontrolmodal--wire-transfer-approval"
+  },
+  {
+    "category": "overlays",
+    "name": "focus-trap",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-focustrap--default",
+    "storybookTitle": "Overlays/FocusTrap",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-focustrap--default"
+  },
+  {
+    "category": "overlays",
+    "name": "loading-overlay",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-loadingoverlay--default",
+    "storybookTitle": "Overlays/LoadingOverlay",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-loadingoverlay--default"
+  },
+  {
+    "category": "overlays",
+    "name": "modal",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-modal--default",
+    "storybookTitle": "Overlays/Modal",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-modal--default"
+  },
+  {
+    "category": "overlays",
+    "name": "popover",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-popover--default",
+    "storybookTitle": "Overlays/Popover",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-popover--default"
+  },
+  {
+    "category": "overlays",
+    "name": "portal",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-portal--default",
+    "storybookTitle": "Overlays/Portal",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-portal--default"
+  },
+  {
+    "category": "overlays",
+    "name": "shortcut-cheat-sheet",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-shortcutcheatsheet--default",
+    "storybookTitle": "Overlays/ShortcutCheatSheet",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-shortcutcheatsheet--default"
+  },
+  {
+    "category": "overlays",
+    "name": "toast",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-toast--interactive",
+    "storybookTitle": "Overlays/Toast",
+    "storyName": "Interactive",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-toast--interactive"
+  },
+  {
+    "category": "overlays",
+    "name": "tooltip",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "overlays-tooltip--default",
+    "storybookTitle": "Overlays/Tooltip",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/overlays-tooltip--default"
+  },
+  {
+    "category": "navigation",
+    "name": "app-launcher-waffle-grid",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-applauncherwafflegrid--default",
+    "storybookTitle": "Navigation/AppLauncherWaffleGrid",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-applauncherwafflegrid--default"
+  },
+  {
+    "category": "navigation",
+    "name": "artifact-address",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-artifactaddress--default",
+    "storybookTitle": "Navigation/ArtifactAddress",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-artifactaddress--default"
+  },
+  {
+    "category": "navigation",
+    "name": "bim-model-viewer-toolbar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-bimmodelviewertoolbar--default",
+    "storybookTitle": "Navigation/BimModelViewerToolbar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-bimmodelviewertoolbar--default"
+  },
+  {
+    "category": "navigation",
+    "name": "blade-navigation-stack",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-bladenavigationstack--default",
+    "storybookTitle": "Navigation/BladeNavigationStack",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-bladenavigationstack--default"
+  },
+  {
+    "category": "navigation",
+    "name": "bottom-utility-dock-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-bottomutilitydockbar--default",
+    "storybookTitle": "Navigation/BottomUtilityDockBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-bottomutilitydockbar--default"
+  },
+  {
+    "category": "navigation",
+    "name": "breadcrumb",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-breadcrumb--default",
+    "storybookTitle": "Navigation/Breadcrumb",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-breadcrumb--default"
+  },
+  {
+    "category": "navigation",
+    "name": "canvas-minimap-navigator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-canvasminimapnavigator--default",
+    "storybookTitle": "Navigation/CanvasMinimapNavigator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-canvasminimapnavigator--default"
+  },
+  {
+    "category": "navigation",
+    "name": "catalog-schema-explorer-tree",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-catalogschemaexplorertree--default",
+    "storybookTitle": "Navigation/CatalogSchemaExplorerTree",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-catalogschemaexplorertree--default"
+  },
+  {
+    "category": "navigation",
+    "name": "command-palette",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-commandpalette--default",
+    "storybookTitle": "Navigation/CommandPalette",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-commandpalette--default"
+  },
+  {
+    "category": "navigation",
+    "name": "contextual-action-floating-dock",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-contextualactionfloatingdock--default",
+    "storybookTitle": "Navigation/ContextualActionFloatingDock",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-contextualactionfloatingdock--default"
+  },
+  {
+    "category": "navigation",
+    "name": "document-tab-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "projects--default",
+    "storybookTitle": "Projects",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/projects--default"
+  },
+  {
+    "category": "navigation",
+    "name": "enterprise-command-ribbon",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-enterprisecommandribbon--default",
+    "storybookTitle": "Navigation/EnterpriseCommandRibbon",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-enterprisecommandribbon--default"
+  },
+  {
+    "category": "navigation",
+    "name": "faceted-filter-navigation-rail",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-facetedfilternavigationrail--default",
+    "storybookTitle": "Navigation/FacetedFilterNavigationRail",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-facetedfilternavigationrail--default"
+  },
+  {
+    "category": "navigation",
+    "name": "fact-box-nav-drawer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-factboxnavdrawer--default",
+    "storybookTitle": "Navigation/FactBoxNavDrawer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-factboxnavdrawer--default"
+  },
+  {
+    "category": "navigation",
+    "name": "guided-flow-step-navigator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-guidedflowstepnavigator--default",
+    "storybookTitle": "Navigation/GuidedFlowStepNavigator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-guidedflowstepnavigator--default"
+  },
+  {
+    "category": "navigation",
+    "name": "hierarchical-path-dropdown-trail",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-hierarchicalpathdropdowntrail--default",
+    "storybookTitle": "Navigation/HierarchicalPathDropdownTrail",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-hierarchicalpathdropdowntrail--default"
+  },
+  {
+    "category": "navigation",
+    "name": "keyboard-shortcut-legend",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-keyboardshortcutlegend--default",
+    "storybookTitle": "Navigation/KeyboardShortcutLegend",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-keyboardshortcutlegend--default"
+  },
+  {
+    "category": "navigation",
+    "name": "master-detail-split-navigator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-masterdetailsplitnavigator--default",
+    "storybookTitle": "Navigation/MasterDetailSplitNavigator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-masterdetailsplitnavigator--default"
+  },
+  {
+    "category": "navigation",
+    "name": "omni-jump-navigator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-omnijumpnavigator--default",
+    "storybookTitle": "Navigation/OmniJumpNavigator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-omnijumpnavigator--default"
+  },
+  {
+    "category": "navigation",
+    "name": "pagination",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-pagination--default",
+    "storybookTitle": "Navigation/Pagination",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-pagination--default"
+  },
+  {
+    "category": "navigation",
+    "name": "perspective-mode-switcher",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-perspectivemodeswitcher--default",
+    "storybookTitle": "Navigation/PerspectiveModeSwitcher",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-perspectivemodeswitcher--default"
+  },
+  {
+    "category": "navigation",
+    "name": "pinned-bookmarks-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-pinnedbookmarksbar--default",
+    "storybookTitle": "Navigation/PinnedBookmarksBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-pinnedbookmarksbar--default"
+  },
+  {
+    "category": "navigation",
+    "name": "recent-items-history-menu",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-recentitemshistorymenu--default",
+    "storybookTitle": "Navigation/RecentItemsHistoryMenu",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-recentitemshistorymenu--default"
+  },
+  {
+    "category": "navigation",
+    "name": "record-anchor-navigation-strip",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-recordanchornavigationstrip--vertical",
+    "storybookTitle": "Navigation/RecordAnchorNavigationStrip",
+    "storyName": "Vertical",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-recordanchornavigationstrip--vertical"
+  },
+  {
+    "category": "navigation",
+    "name": "saved-view-switcher",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-savedviewswitcher--default",
+    "storybookTitle": "Navigation/SavedViewSwitcher",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-savedviewswitcher--default"
+  },
+  {
+    "category": "navigation",
+    "name": "sidenav",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-sidenav--default",
+    "storybookTitle": "Navigation/SideNav",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-sidenav--default"
+  },
+  {
+    "category": "navigation",
+    "name": "stage-path-navigator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-stagepathnavigator--default",
+    "storybookTitle": "Navigation/StagePathNavigator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-stagepathnavigator--default"
+  },
+  {
+    "category": "navigation",
+    "name": "stepper",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-stepper--default",
+    "storybookTitle": "Navigation/Stepper",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-stepper--default"
+  },
+  {
+    "category": "navigation",
+    "name": "sub-tab-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-subtabbar--default",
+    "storybookTitle": "Navigation/SubTabBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-subtabbar--default"
+  },
+  {
+    "category": "navigation",
+    "name": "tabs",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-tabs--underline",
+    "storybookTitle": "Navigation/Tabs",
+    "storyName": "Underline",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-tabs--underline"
+  },
+  {
+    "category": "navigation",
+    "name": "temporal-timeline-scrubber",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-temporaltimelinescrubber--default",
+    "storybookTitle": "Navigation/TemporalTimelineScrubber",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-temporaltimelinescrubber--default"
+  },
+  {
+    "category": "navigation",
+    "name": "tenant-hierarchy-scope-selector",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-tenanthierarchyscopeselector--default",
+    "storybookTitle": "Navigation/TenantHierarchyScopeSelector",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-tenanthierarchyscopeselector--default"
+  },
+  {
+    "category": "navigation",
+    "name": "workspace-global-rail",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-workspaceglobalrail--default",
+    "storybookTitle": "Navigation/WorkspaceGlobalRail",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-workspaceglobalrail--default"
+  },
+  {
+    "category": "navigation",
+    "name": "workspace-pane-layout-selector",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "navigation-workspacepanelayoutselector--default",
+    "storybookTitle": "Navigation/WorkspacePaneLayoutSelector",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/navigation-workspacepanelayoutselector--default"
+  },
+  {
+    "category": "studio",
+    "name": "css-properties-inspector",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "studio-csspropertiesinspector--default",
+    "storybookTitle": "Studio/CssPropertiesInspector",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-csspropertiesinspector--default"
+  },
+  {
+    "category": "studio",
+    "name": "data-query-drawer",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "studio-dataquerydrawer--default",
+    "storybookTitle": "Studio/DataQueryDrawer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-dataquerydrawer--default"
+  },
+  {
+    "category": "studio",
+    "name": "publish-diff-dialog",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "studio-publishdiffdialog--default",
+    "storybookTitle": "Studio/PublishDiffDialog",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-publishdiffdialog--default"
+  },
+  {
+    "category": "studio",
+    "name": "studio-canvas",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "studio-studiocanvas--default",
+    "storybookTitle": "Studio/StudioCanvas",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-studiocanvas--default"
+  },
+  {
+    "category": "studio",
+    "name": "studio-console",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "studio-studioconsole--expanded",
+    "storybookTitle": "Studio/StudioConsole",
+    "storyName": "Expanded",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-studioconsole--expanded"
+  },
+  {
+    "category": "studio",
+    "name": "studio-inspector",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "studio-studioinspector--default",
+    "storybookTitle": "Studio/StudioInspector",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-studioinspector--default"
+  },
+  {
+    "category": "studio",
+    "name": "studio-palette",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "studio-studiopalette--default",
+    "storybookTitle": "Studio/StudioPalette",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-studiopalette--default"
+  },
+  {
+    "category": "studio",
+    "name": "studio-shell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "studio-studioshell--default",
+    "storybookTitle": "Studio/StudioShell",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-studioshell--default"
+  },
+  {
+    "category": "studio",
+    "name": "studio-toolbar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "studio-studiotoolbar--default",
+    "storybookTitle": "Studio/StudioToolbar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-studiotoolbar--default"
+  },
+  {
+    "category": "studio",
+    "name": "wysiwyg-canvas",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "studio-wysiwygcanvas--default",
+    "storybookTitle": "Studio/WysiwygCanvas",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/studio-wysiwygcanvas--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "activity-feed",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-activityfeed--default",
+    "storybookTitle": "Dashboard/ActivityFeed",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-activityfeed--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "alert-threshold-configurator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-alertthresholdconfigurator--default",
+    "storybookTitle": "Dashboard/AlertThresholdConfigurator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-alertthresholdconfigurator--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "comparison-panel",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-comparisonpanel--default",
+    "storybookTitle": "Dashboard/ComparisonPanel",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-comparisonpanel--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "cross-filter-dashboard",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-crossfilterdashboard--default",
+    "storybookTitle": "Dashboard/CrossFilterDashboard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-crossfilterdashboard--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "dashboard-grid-layout",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-dashboardgridlayout--default",
+    "storybookTitle": "Dashboard/DashboardGridLayout",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-dashboardgridlayout--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "dashboard-kpi-card",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-kpicard--revenue",
+    "storybookTitle": "Dashboard/KPICard",
+    "storyName": "Revenue",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-kpicard--revenue"
+  },
+  {
+    "category": "dashboard",
+    "name": "dashboard-widget-toolbar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-dashboardwidgettoolbar--default",
+    "storybookTitle": "Dashboard/DashboardWidgetToolbar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-dashboardwidgettoolbar--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "drill-down-modal",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-drilldownmodal--default",
+    "storybookTitle": "Dashboard/DrillDownModal",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-drilldownmodal--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "embedded-report-frame",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-embeddedreportframe--default",
+    "storybookTitle": "Dashboard/EmbeddedReportFrame",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-embeddedreportframe--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "executive-summary-dashboard",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-executivesummarydashboard--default",
+    "storybookTitle": "Dashboard/ExecutiveSummaryDashboard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-executivesummarydashboard--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "financial-statement-viewer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-financialstatementviewer--default",
+    "storybookTitle": "Dashboard/FinancialStatementViewer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-financialstatementviewer--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "metric-trend-card",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-metrictrendcard--default",
+    "storybookTitle": "Dashboard/MetricTrendCard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-metrictrendcard--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "multi-page-dashboard",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "financial-health--default",
+    "storybookTitle": "Financial Health",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/financial-health--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "operational-dashboard",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-operationaldashboard--default",
+    "storybookTitle": "Dashboard/OperationalDashboard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-operationaldashboard--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "real-time-metrics-board",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "dashboard-realtimemetricsboard--default",
+    "storybookTitle": "Dashboard/RealTimeMetricsBoard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-realtimemetricsboard--default"
+  },
+  {
+    "category": "dashboard",
+    "name": "service-health-kpi-grid",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "dashboard-servicehealthkpigrid--default",
+    "storybookTitle": "Dashboard/ServiceHealthKpiGrid",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/dashboard-servicehealthkpigrid--default"
+  },
+  {
+    "category": "charts",
+    "name": "box-plot-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-boxplotchart--default",
+    "storybookTitle": "Charts/BoxPlotChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-boxplotchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "bubble-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-bubblechart--default",
+    "storybookTitle": "Charts/BubbleChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-bubblechart--default"
+  },
+  {
+    "category": "charts",
+    "name": "bullet-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-bulletchart--default",
+    "storybookTitle": "Charts/BulletChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-bulletchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "candlestick-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-candlestickchart--default",
+    "storybookTitle": "Charts/CandlestickChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-candlestickchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "chart-type-picker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-charttypepicker--default",
+    "storybookTitle": "Charts/ChartTypePicker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-charttypepicker--default"
+  },
+  {
+    "category": "charts",
+    "name": "charts",
+    "hasLegacyFont": false,
+    "hasMissingTabular": true,
+    "storyId": "charts-chartssuite--default",
+    "storybookTitle": "Charts/ChartsSuite",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-chartssuite--default"
+  },
+  {
+    "category": "charts",
+    "name": "cohort-retention-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-cohortretentionchart--default",
+    "storybookTitle": "Charts/CohortRetentionChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-cohortretentionchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "dashboard-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-dashboardchart--default",
+    "storybookTitle": "Charts/DashboardChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-dashboardchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "dual-axis-telemetry-chart",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "charts-dualaxistelemetrychart--default",
+    "storybookTitle": "Charts/DualAxisTelemetryChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-dualaxistelemetrychart--default"
+  },
+  {
+    "category": "charts",
+    "name": "radar-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-radarchart--default",
+    "storybookTitle": "Charts/RadarChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-radarchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "sankey-diagram",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-sankeydiagram--default",
+    "storybookTitle": "Charts/SankeyDiagram",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-sankeydiagram--default"
+  },
+  {
+    "category": "charts",
+    "name": "scatter-plot-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-scatterplotchart--default",
+    "storybookTitle": "Charts/ScatterPlotChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-scatterplotchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "sparkline-grid",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-sparklinegrid--default",
+    "storybookTitle": "Charts/SparklineGrid",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-sparklinegrid--default"
+  },
+  {
+    "category": "charts",
+    "name": "stacked-bar-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-stackedbarchart--default",
+    "storybookTitle": "Charts/StackedBarChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-stackedbarchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "treemap-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-treemapchart--default",
+    "storybookTitle": "Charts/TreemapChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-treemapchart--default"
+  },
+  {
+    "category": "charts",
+    "name": "waterfall-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "charts-waterfallchart--default",
+    "storybookTitle": "Charts/WaterfallChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/charts-waterfallchart--default"
+  },
+  {
+    "category": "data-display",
+    "name": "accordion",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-accordion--default",
+    "storybookTitle": "Data Display/Accordion",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-accordion--default"
+  },
+  {
+    "category": "data-display",
+    "name": "api-rate-limit-throttle-console",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-display-apiratelimitthrottleconsole--default",
+    "storybookTitle": "Data Display/ApiRateLimitThrottleConsole",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-apiratelimitthrottleconsole--default"
+  },
+  {
+    "category": "data-display",
+    "name": "assessment-rubric-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-assessmentrubricmatrix--default-engineering-review",
+    "storybookTitle": "Data Display/AssessmentRubricMatrix",
+    "storyName": "DefaultEngineeringReview",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-assessmentrubricmatrix--default-engineering-review"
+  },
+  {
+    "category": "data-display",
+    "name": "audit-trail",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-audittrail--default",
+    "storybookTitle": "Data Display/AuditTrail",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-audittrail--default"
+  },
+  {
+    "category": "data-display",
+    "name": "cap-table-scenario-simulator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-captablescenariosimulator--default-series-a",
+    "storybookTitle": "DataDisplay/CapTableScenarioSimulator",
+    "storyName": "DefaultSeriesA",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-captablescenariosimulator--default-series-a"
+  },
+  {
+    "category": "data-display",
+    "name": "card",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-card--default",
+    "storybookTitle": "DataDisplay/Card",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-card--default"
+  },
+  {
+    "category": "data-display",
+    "name": "cash-flow-forecast-waterfall",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-cashflowforecastwaterfall--default",
+    "storybookTitle": "DataDisplay/CashFlowForecastWaterfall",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-cashflowforecastwaterfall--default"
+  },
+  {
+    "category": "data-display",
+    "name": "clause-library-browser",
+    "hasLegacyFont": false,
+    "hasMissingTabular": true,
+    "storyId": "data-display-clauselibrarybrowser--anatomy-and-composition",
+    "storybookTitle": "Data Display/ClauseLibraryBrowser",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-clauselibrarybrowser--anatomy-and-composition"
+  },
+  {
+    "category": "data-display",
+    "name": "compensation-band-range-visualizer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-compensationbandrangevisualizer--default",
+    "storybookTitle": "Data Display/CompensationBandRangeVisualizer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-compensationbandrangevisualizer--default"
+  },
+  {
+    "category": "data-display",
+    "name": "computational-notebook-cell",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-computationalnotebookcell--sql-success",
+    "storybookTitle": "DataDisplay/ComputationalNotebookCell",
+    "storyName": "SqlSuccess",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-computationalnotebookcell--sql-success"
+  },
+  {
+    "category": "data-display",
+    "name": "compute-cluster-topology-map",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-computeclustertopologymap--default",
+    "storybookTitle": "Data Display/ComputeClusterTopologyMap",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-computeclustertopologymap--default"
+  },
+  {
+    "category": "data-display",
+    "name": "container-exec-terminal-console",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "data-display-containerexecterminalconsole--default",
+    "storybookTitle": "Data Display/ContainerExecTerminalConsole",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-containerexecterminalconsole--default"
+  },
+  {
+    "category": "data-display",
+    "name": "currency-rate-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-currencyratematrix--default-base-usd",
+    "storybookTitle": "DataDisplay/CurrencyRateMatrix",
+    "storyName": "DefaultBaseUSD",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-currencyratematrix--default-base-usd"
+  },
+  {
+    "category": "data-display",
+    "name": "database-query-explain-plan",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "data-display-databasequeryexplainplan--default",
+    "storybookTitle": "Data Display/DatabaseQueryExplainPlan",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-databasequeryexplainplan--default"
+  },
+  {
+    "category": "data-display",
+    "name": "description-list",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-descriptionlist--default",
+    "storybookTitle": "DataDisplay/DescriptionList",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-descriptionlist--default"
+  },
+  {
+    "category": "data-display",
+    "name": "distributed-trace-flame-graph",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-display-distributedtraceflamegraph--default",
+    "storybookTitle": "Data Display/DistributedTraceFlameGraph",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-distributedtraceflamegraph--default"
+  },
+  {
+    "category": "data-display",
+    "name": "document-annotator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-documentannotator--invoice-with-stamps",
+    "storybookTitle": "DataDisplay/DocumentAnnotator",
+    "storyName": "InvoiceWithStamps",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-documentannotator--invoice-with-stamps"
+  },
+  {
+    "category": "data-display",
+    "name": "drawing-sheet-punch-annotator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "conduit-stub-up-out-of-tolerance--default",
+    "storybookTitle": "Conduit Stub-up Out of Tolerance",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/conduit-stub-up-out-of-tolerance--default"
+  },
+  {
+    "category": "data-display",
+    "name": "drug-allergy-interaction-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-drugallergyinteractionmatrix--default",
+    "storybookTitle": "Data Display/DrugAllergyInteractionMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-drugallergyinteractionmatrix--default"
+  },
+  {
+    "category": "data-display",
+    "name": "empty-state",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-emptystate--default",
+    "storybookTitle": "DataDisplay/EmptyState",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-emptystate--default"
+  },
+  {
+    "category": "data-display",
+    "name": "file-tree",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-filetree--default",
+    "storybookTitle": "Data Display/FileTree",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-filetree--default"
+  },
+  {
+    "category": "data-display",
+    "name": "funnel-dropoff-analyzer",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "data-display-funneldropoffanalyzer--default",
+    "storybookTitle": "Data Display/FunnelDropoffAnalyzer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-funneldropoffanalyzer--default"
+  },
+  {
+    "category": "data-display",
+    "name": "gantt-milestone-scheduler",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-ganttmilestonescheduler--default",
+    "storybookTitle": "Data Display/GanttMilestoneScheduler",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-ganttmilestonescheduler--default"
+  },
+  {
+    "category": "data-display",
+    "name": "gitops-deployment-sync-tree",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-display-gitopsdeploymentsynctree--default",
+    "storybookTitle": "Data Display/GitOpsDeploymentSyncTree",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-gitopsdeploymentsynctree--default"
+  },
+  {
+    "category": "data-display",
+    "name": "graphql-schema-relationship-viewer",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-display-graphqlschemarelationshipviewer--default",
+    "storybookTitle": "Data Display/GraphQLSchemaRelationshipViewer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-graphqlschemarelationshipviewer--default"
+  },
+  {
+    "category": "data-display",
+    "name": "inpatient-acuity-scorecard",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-inpatientacuityscorecard--critical-acuity",
+    "storybookTitle": "Data Display/InpatientAcuityScorecard",
+    "storyName": "CriticalAcuity",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-inpatientacuityscorecard--critical-acuity"
+  },
+  {
+    "category": "data-display",
+    "name": "inpatient-bed-board",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-inpatientbedboard--default",
+    "storybookTitle": "DataDisplay/InpatientBedBoard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-inpatientbedboard--default"
+  },
+  {
+    "category": "data-display",
+    "name": "kafka-consumer-group-lag-matrix",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-display-kafkaconsumergrouplagmatrix--default",
+    "storybookTitle": "Data Display/KafkaConsumerGroupLagMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-kafkaconsumergrouplagmatrix--default"
+  },
+  {
+    "category": "data-display",
+    "name": "kitchen-display-station-expediter",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-kitchendisplaystationexpediter--default",
+    "storybookTitle": "Data Display/KitchenDisplayStationExpediter",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-kitchendisplaystationexpediter--default"
+  },
+  {
+    "category": "data-display",
+    "name": "medication-administration-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-medicationadministrationmatrix--default",
+    "storybookTitle": "DataDisplay/MedicationAdministrationMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-medicationadministrationmatrix--default"
+  },
+  {
+    "category": "data-display",
+    "name": "merkle-proof-audit-trail-verifier",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-merkleproofaudittrailverifier--default",
+    "storybookTitle": "DataDisplay/MerkleProofAuditTrailVerifier",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-merkleproofaudittrailverifier--default"
+  },
+  {
+    "category": "data-display",
+    "name": "multi-calendar-availability-scheduler",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "strata-dl-2-0-design-review--default",
+    "storybookTitle": "Strata DL 2.0 Design Review",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/strata-dl-2-0-design-review--default"
+  },
+  {
+    "category": "data-display",
+    "name": "option-vesting-schedule-waterfall",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-display-optionvestingschedulewaterfall--default",
+    "storybookTitle": "Data Display/OptionVestingScheduleWaterfall",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-optionvestingschedulewaterfall--default"
+  },
+  {
+    "category": "data-display",
+    "name": "order-ticket-rack",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-orderticketrack--default",
+    "storybookTitle": "DataDisplay/OrderTicketRack",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-orderticketrack--default"
+  },
+  {
+    "category": "data-display",
+    "name": "org-chart-hierarchy-tree",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "chief-executive-officer--default",
+    "storybookTitle": "Chief Executive Officer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/chief-executive-officer--default"
+  },
+  {
+    "category": "data-display",
+    "name": "progress-hud",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-display-progresshud--in-progress",
+    "storybookTitle": "Data Display/ProgressHUD",
+    "storyName": "InProgress",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-progresshud--in-progress"
+  },
+  {
+    "category": "data-display",
+    "name": "project-card",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-display-projectcard--default",
+    "storybookTitle": "Data Display/ProjectCard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-projectcard--default"
+  },
+  {
+    "category": "data-display",
+    "name": "project-hill-chart",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-display-projecthillchart--default",
+    "storybookTitle": "Data Display/ProjectHillChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-projecthillchart--default"
+  },
+  {
+    "category": "data-display",
+    "name": "query-execution-plan-viewer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-queryexecutionplanviewer--default",
+    "storybookTitle": "DataDisplay/QueryExecutionPlanViewer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-queryexecutionplanviewer--default"
+  },
+  {
+    "category": "data-display",
+    "name": "redline-diff-viewer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-redlinediffviewer--split-screen-redline",
+    "storybookTitle": "DataDisplay/RedlineDiffViewer",
+    "storyName": "SplitScreenRedline",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-redlinediffviewer--split-screen-redline"
+  },
+  {
+    "category": "data-display",
+    "name": "resource-capacity-heatmap",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "distributed-subledger-sharding--default",
+    "storybookTitle": "Distributed Subledger Sharding",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/distributed-subledger-sharding--default"
+  },
+  {
+    "category": "data-display",
+    "name": "rest-api-client-workbench",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-restapiclientworkbench--default",
+    "storybookTitle": "DataDisplay/RestApiClientWorkbench",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-restapiclientworkbench--default"
+  },
+  {
+    "category": "data-display",
+    "name": "restaurant-floorplan-table-map",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-restaurantfloorplantablemap--default",
+    "storybookTitle": "DataDisplay/RestaurantFloorplanTableMap",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-restaurantfloorplantablemap--default"
+  },
+  {
+    "category": "data-display",
+    "name": "shipment-tracking-milestone-tracker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-shipmenttrackingmilestonetracker--default",
+    "storybookTitle": "DataDisplay/ShipmentTrackingMilestoneTracker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-shipmenttrackingmilestonetracker--default"
+  },
+  {
+    "category": "data-display",
+    "name": "sla-performance-gauge",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-slaperformancegauge--default",
+    "storybookTitle": "DataDisplay/SlaPerformanceGauge",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-slaperformancegauge--default"
+  },
+  {
+    "category": "data-display",
+    "name": "split-bill-calculator",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "datadisplay-splitbillcalculator--default",
+    "storybookTitle": "DataDisplay/SplitBillCalculator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-splitbillcalculator--default"
+  },
+  {
+    "category": "data-display",
+    "name": "split-view",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-splitview--default",
+    "storybookTitle": "DataDisplay/SplitView",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-splitview--default"
+  },
+  {
+    "category": "data-display",
+    "name": "stack-trace-inspector",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-stacktraceinspector--production-exception-with-commit",
+    "storybookTitle": "DataDisplay/StackTraceInspector",
+    "storyName": "ProductionExceptionWithCommit",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-stacktraceinspector--production-exception-with-commit"
+  },
+  {
+    "category": "data-display",
+    "name": "stat-card",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-kpistrip--executive-strip",
+    "storybookTitle": "DataDisplay/KPIStrip",
+    "storyName": "ExecutiveStrip",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-kpistrip--executive-strip"
+  },
+  {
+    "category": "data-display",
+    "name": "statistical-process-control-chart",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-statisticalprocesscontrolchart--default",
+    "storybookTitle": "DataDisplay/StatisticalProcessControlChart",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-statisticalprocesscontrolchart--default"
+  },
+  {
+    "category": "data-display",
+    "name": "supply-chain-disruption-risk-heatmap",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "datadisplay-supplychaindisruptionriskheatmap--default",
+    "storybookTitle": "DataDisplay/SupplyChainDisruptionRiskHeatmap",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-supplychaindisruptionriskheatmap--default"
+  },
+  {
+    "category": "data-display",
+    "name": "tenant-screening-scorecard",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "data-display-tenantscreeningscorecard--default",
+    "storybookTitle": "Data Display/TenantScreeningScorecard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-tenantscreeningscorecard--default"
+  },
+  {
+    "category": "data-display",
+    "name": "time-range-scrubber",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-timerangescrubber--default-telemetry-window",
+    "storybookTitle": "DataDisplay/TimeRangeScrubber",
+    "storyName": "DefaultTelemetryWindow",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-timerangescrubber--default-telemetry-window"
+  },
+  {
+    "category": "data-display",
+    "name": "timeline",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-timeline--audit-history",
+    "storybookTitle": "DataDisplay/Timeline",
+    "storyName": "AuditHistory",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-timeline--audit-history"
+  },
+  {
+    "category": "data-display",
+    "name": "tree-view",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-treeview--chart-of-accounts",
+    "storybookTitle": "DataDisplay/TreeView",
+    "storyName": "ChartOfAccounts",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-treeview--chart-of-accounts"
+  },
+  {
+    "category": "data-display",
+    "name": "visual-inspection-lens",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-visualinspectionlens--default",
+    "storybookTitle": "DataDisplay/VisualInspectionLens",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-visualinspectionlens--default"
+  },
+  {
+    "category": "data-display",
+    "name": "vital-signs-trend-strip",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datadisplay-vitalsignstrendstrip--default-telemetry",
+    "storybookTitle": "DataDisplay/VitalSignsTrendStrip",
+    "storyName": "DefaultTelemetry",
+    "storybookUrl": "http://localhost:6006/?path=/story/datadisplay-vitalsignstrendstrip--default-telemetry"
+  },
+  {
+    "category": "data-grid",
+    "name": "audit-log-forensic-explorer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-auditlogforensicexplorer--default",
+    "storybookTitle": "DataGrid/AuditLogForensicExplorer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-auditlogforensicexplorer--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "batch-reconciliation-matcher",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-batchreconciliationmatcher--unmatched-initial-state",
+    "storybookTitle": "DataGrid/BatchReconciliationMatcher",
+    "storyName": "UnmatchedInitialState",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-batchreconciliationmatcher--unmatched-initial-state"
+  },
+  {
+    "category": "data-grid",
+    "name": "bill-of-materials-explosion-tree",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-billofmaterialsexplosiontree--default",
+    "storybookTitle": "DataGrid/BillOfMaterialsExplosionTree",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-billofmaterialsexplosiontree--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "bill-of-materials-tree-grid",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-billofmaterialstreegrid--default",
+    "storybookTitle": "Data Grid/BillOfMaterialsTreeGrid",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-billofmaterialstreegrid--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "bin-location-grid",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-binlocationgrid--default",
+    "storybookTitle": "DataGrid/BinLocationGrid",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-binlocationgrid--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "cam-expense-reconciliation-ledger",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-camexpensereconciliationledger--default",
+    "storybookTitle": "Data Grid/CamExpenseReconciliationLedger",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-camexpensereconciliationledger--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "change-history",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-changehistory--default",
+    "storybookTitle": "DataGrid/ChangeHistory",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-changehistory--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "column-picker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-columnpicker--default",
+    "storybookTitle": "DataGrid/ColumnPicker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-columnpicker--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "cross-filter-facet-panel",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-crossfilterfacetpanel--default",
+    "storybookTitle": "DataGrid/CrossFilterFacetPanel",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-crossfilterfacetpanel--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "database-grant-privilege-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-databasegrantprivilegematrix--default",
+    "storybookTitle": "DataGrid/DatabaseGrantPrivilegeMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-databasegrantprivilegematrix--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "dns-zone-record-editor",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-dnszonerecordeditor--default",
+    "storybookTitle": "Data Grid/DnsZoneRecordEditor",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-dnszonerecordeditor--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "dock-door-scheduler",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "datagrid-dockdoorscheduler--default",
+    "storybookTitle": "DataGrid/DockDoorScheduler",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/datagrid-dockdoorscheduler--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "esg-emissions-calculator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-esgemissionscalculator--default",
+    "storybookTitle": "Data Grid/EsgEmissionsCalculator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-esgemissionscalculator--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "freight-carrier-rate-comparator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-freightcarrierratecomparator--default",
+    "storybookTitle": "Data Grid/FreightCarrierRateComparator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-freightcarrierratecomparator--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "gradebook-matrix-grid",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-gradebookmatrixgrid--default",
+    "storybookTitle": "Data Grid/GradebookMatrixGrid",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-gradebookmatrixgrid--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "iam-permission-matrix-auditor",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "data-grid-iampermissionmatrixauditor--default",
+    "storybookTitle": "Data Grid/IamPermissionMatrixAuditor",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-iampermissionmatrixauditor--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "inbound-receiving-discrepancy-log",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-inboundreceivingdiscrepancylog--default",
+    "storybookTitle": "Data Grid/InboundReceivingDiscrepancyLog",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-inboundreceivingdiscrepancylog--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "insurance-policy-coverage-matrix",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-insurancepolicycoveragematrix--default",
+    "storybookTitle": "Data Grid/InsurancePolicyCoverageMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-insurancepolicycoveragematrix--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "intercompany-elimination-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-intercompanyeliminationmatrix--default",
+    "storybookTitle": "Data Grid/IntercompanyEliminationMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-intercompanyeliminationmatrix--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "kanban-board",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "backlog--default",
+    "storybookTitle": "Backlog",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/backlog--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "lease-amortization-schedule",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-leaseamortizationschedule--default",
+    "storybookTitle": "Data Grid/LeaseAmortizationSchedule",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-leaseamortizationschedule--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "loss-reserve-adjustment-ledger",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-lossreserveadjustmentledger--default",
+    "storybookTitle": "Data Grid/LossReserveAdjustmentLedger",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-lossreserveadjustmentledger--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "matrix-inventory-variant-picker",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "data-grid-matrixinventoryvariantpicker--default",
+    "storybookTitle": "Data Grid/MatrixInventoryVariantPicker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-matrixinventoryvariantpicker--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "matter-trust-ledger",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-mattertrustledger--default",
+    "storybookTitle": "Data Grid/MatterTrustLedger",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-mattertrustledger--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "multi-unit-leasing-matrix",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-multiunitleasingmatrix--default",
+    "storybookTitle": "Data Grid/MultiUnitLeasingMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-multiunitleasingmatrix--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "nine-box-talent-calibration-matrix",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "data-grid-nineboxtalentcalibrationmatrix--default",
+    "storybookTitle": "Data Grid/NineBoxTalentCalibrationMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-nineboxtalentcalibrationmatrix--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "pivot-grid",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-pivotgrid--default",
+    "storybookTitle": "Data Grid/PivotGrid",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-pivotgrid--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "portfolio-risk-stress-tester",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-portfolioriskstresstester--default",
+    "storybookTitle": "Data Grid/PortfolioRiskStressTester",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-portfolioriskstresstester--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "quality-gates-table",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "data-display-qualitygatestable--default",
+    "storybookTitle": "Data Display/QualityGatesTable",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-display-qualitygatestable--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "query-builder",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-querybuilder--default",
+    "storybookTitle": "Data Grid/QueryBuilder",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-querybuilder--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "rent-roll-financial-schedule",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-rentrollfinancialschedule--default",
+    "storybookTitle": "Data Grid/RentRollFinancialSchedule",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-rentrollfinancialschedule--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "secret-vault-access-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-secretvaultaccessmatrix--default",
+    "storybookTitle": "Data Grid/SecretVaultAccessMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-secretvaultaccessmatrix--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "share-class-cap-table-structure",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-shareclasscaptablestructure--default",
+    "storybookTitle": "Data Grid/ShareClassCapTableStructure",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-shareclasscaptablestructure--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "shift-roster-scheduler",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-shiftrosterscheduler--default",
+    "storybookTitle": "Data Grid/ShiftRosterScheduler",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-shiftrosterscheduler--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "spend-category-sourcing-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-spendcategorysourcingmatrix--default",
+    "storybookTitle": "Data Grid/SpendCategorySourcingMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-spendcategorysourcingmatrix--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "spreadsheet-grid",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-spreadsheetgrid--budget-forecasting",
+    "storybookTitle": "Data Grid/SpreadsheetGrid",
+    "storyName": "BudgetForecasting",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-spreadsheetgrid--budget-forecasting"
+  },
+  {
+    "category": "data-grid",
+    "name": "subcontractor-compliance-lien-tracker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-subcontractorcompliancelientracker--default",
+    "storybookTitle": "Data Grid/SubcontractorComplianceLienTracker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-subcontractorcompliancelientracker--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "subledger-distribution-table",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-subledgerdistributiontable--balanced-voucher",
+    "storybookTitle": "Data Grid/SubledgerDistributionTable",
+    "storyName": "BalancedVoucher",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-subledgerdistributiontable--balanced-voucher"
+  },
+  {
+    "category": "data-grid",
+    "name": "table",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-datatable--default",
+    "storybookTitle": "Data Grid/DataTable",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-datatable--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "tax-engine-breakdown-table",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-taxenginebreakdowntable--default",
+    "storybookTitle": "Data Grid/TaxEngineBreakdownTable",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-taxenginebreakdowntable--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "three-way-matching-matrix",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-threewaymatchingmatrix--default",
+    "storybookTitle": "Data Grid/ThreeWayMatchingMatrix",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-threewaymatchingmatrix--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "virtualized-table",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-virtualizedtable--default",
+    "storybookTitle": "Data Grid/VirtualizedTable",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-virtualizedtable--default"
+  },
+  {
+    "category": "data-grid",
+    "name": "webhook-delivery-attempt-ledger",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "data-grid-webhookdeliveryattemptledger--default",
+    "storybookTitle": "Data Grid/WebhookDeliveryAttemptLedger",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/data-grid-webhookdeliveryattemptledger--default"
+  },
+  {
+    "category": "forms",
+    "name": "action-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-actionbar--default",
+    "storybookTitle": "Forms/ActionBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-actionbar--default"
+  },
+  {
+    "category": "forms",
+    "name": "address-auto-complete-form",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-addressautocompleteform--default",
+    "storybookTitle": "Forms/AddressAutoCompleteForm",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-addressautocompleteform--default"
+  },
+  {
+    "category": "forms",
+    "name": "approval-signature-form",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-approvalsignatureform--default",
+    "storybookTitle": "Forms/ApprovalSignatureForm",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-approvalsignatureform--default"
+  },
+  {
+    "category": "forms",
+    "name": "batch-entry-form",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-batchentryform--default",
+    "storybookTitle": "Forms/BatchEntryForm",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-batchentryform--default"
+  },
+  {
+    "category": "forms",
+    "name": "bulk-action-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-bulkactionbar--default",
+    "storybookTitle": "Forms/BulkActionBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-bulkactionbar--default"
+  },
+  {
+    "category": "forms",
+    "name": "cash-drawer-reconciliation-terminal",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-cashdrawerreconciliationterminal--default",
+    "storybookTitle": "Forms/CashDrawerReconciliationTerminal",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-cashdrawerreconciliationterminal--default"
+  },
+  {
+    "category": "forms",
+    "name": "conditional-field-group",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-conditionalfieldgroup--default",
+    "storybookTitle": "Forms/ConditionalFieldGroup",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-conditionalfieldgroup--default"
+  },
+  {
+    "category": "forms",
+    "name": "document-upload-form",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-documentuploadform--default",
+    "storybookTitle": "Forms/DocumentUploadForm",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-documentuploadform--default"
+  },
+  {
+    "category": "forms",
+    "name": "enterprise-checkout-address-validator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-enterprisecheckoutaddressvalidator--default",
+    "storybookTitle": "Forms/EnterpriseCheckoutAddressValidator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-enterprisecheckoutaddressvalidator--default"
+  },
+  {
+    "category": "forms",
+    "name": "filter-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-filterbar--default",
+    "storybookTitle": "Forms/FilterBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-filterbar--default"
+  },
+  {
+    "category": "forms",
+    "name": "hierarchical-picker-form",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-hierarchicalpickerform--default",
+    "storybookTitle": "Forms/HierarchicalPickerForm",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-hierarchicalpickerform--default"
+  },
+  {
+    "category": "forms",
+    "name": "inline-editable-record",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-inlineeditablerecord--default",
+    "storybookTitle": "Forms/InlineEditableRecord",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-inlineeditablerecord--default"
+  },
+  {
+    "category": "forms",
+    "name": "multi-step-transaction-form",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-multisteptransactionform--default",
+    "storybookTitle": "Forms/MultiStepTransactionForm",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-multisteptransactionform--default"
+  },
+  {
+    "category": "forms",
+    "name": "permission-matrix-form",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-permissionmatrixform--default",
+    "storybookTitle": "Forms/PermissionMatrixForm",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-permissionmatrixform--default"
+  },
+  {
+    "category": "forms",
+    "name": "repeater-field-group",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "forms-repeaterfieldgroup--default",
+    "storybookTitle": "Forms/RepeaterFieldGroup",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-repeaterfieldgroup--default"
+  },
+  {
+    "category": "forms",
+    "name": "vendor-payment-method-selector",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "forms-vendorpaymentmethodselector--default-ach",
+    "storybookTitle": "Forms/VendorPaymentMethodSelector",
+    "storyName": "DefaultACH",
+    "storybookUrl": "http://localhost:6006/?path=/story/forms-vendorpaymentmethodselector--default-ach"
+  },
+  {
+    "category": "workflow",
+    "name": "activity-work-log-stream",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-activityworklogstream--default",
+    "storybookTitle": "Workflow/ActivityWorkLogStream",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-activityworklogstream--default"
+  },
+  {
+    "category": "workflow",
+    "name": "alert-rule-condition-builder",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-alertruleconditionbuilder--default",
+    "storybookTitle": "Workflow/AlertRuleConditionBuilder",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-alertruleconditionbuilder--default"
+  },
+  {
+    "category": "workflow",
+    "name": "allocation-rule-builder",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-allocationrulebuilder--default-percentage-balanced",
+    "storybookTitle": "Workflow/AllocationRuleBuilder",
+    "storyName": "DefaultPercentageBalanced",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-allocationrulebuilder--default-percentage-balanced"
+  },
+  {
+    "category": "workflow",
+    "name": "approval-chain",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-approvalchain--default",
+    "storybookTitle": "Workflow/ApprovalChain",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-approvalchain--default"
+  },
+  {
+    "category": "workflow",
+    "name": "bank-rule-condition-builder",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-bankruleconditionbuilder--default",
+    "storybookTitle": "Workflow/BankRuleConditionBuilder",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-bankruleconditionbuilder--default"
+  },
+  {
+    "category": "workflow",
+    "name": "billable-time-stopwatch-dock",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "workflow-billabletimestopwatchdock--default",
+    "storybookTitle": "Workflow/BillableTimeStopwatchDock",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-billabletimestopwatchdock--default"
+  },
+  {
+    "category": "workflow",
+    "name": "bpmn-palette",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-bpmnpalette--default",
+    "storybookTitle": "Workflow/BpmnPalette",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-bpmnpalette--default"
+  },
+  {
+    "category": "workflow",
+    "name": "bpmn-simulation-bar",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "workflow-bpmnsimulationbar--default",
+    "storybookTitle": "Workflow/BpmnSimulationBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-bpmnsimulationbar--default"
+  },
+  {
+    "category": "workflow",
+    "name": "canary-rollout-progress-visualizer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-canaryrolloutprogressvisualizer--default",
+    "storybookTitle": "Workflow/CanaryRolloutProgressVisualizer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-canaryrolloutprogressvisualizer--default"
+  },
+  {
+    "category": "workflow",
+    "name": "cash-sweep-liquidity-optimizer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-cashsweepliquidityoptimizer--default",
+    "storybookTitle": "Workflow/CashSweepLiquidityOptimizer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-cashsweepliquidityoptimizer--default"
+  },
+  {
+    "category": "workflow",
+    "name": "clinical-decision-support-alert",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "workflow-clinicaldecisionsupportalert--critical-contraindication",
+    "storybookTitle": "Workflow/ClinicalDecisionSupportAlert",
+    "storyName": "CriticalContraindication",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-clinicaldecisionsupportalert--critical-contraindication"
+  },
+  {
+    "category": "workflow",
+    "name": "clinical-edc-field-verifier",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-clinicaledcfieldverifier--default",
+    "storybookTitle": "Workflow/ClinicalEdcFieldVerifier",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-clinicaledcfieldverifier--default"
+  },
+  {
+    "category": "workflow",
+    "name": "clinical-order-entry-pad",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-clinicalorderentrypad--default",
+    "storybookTitle": "Workflow/ClinicalOrderEntryPad",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-clinicalorderentrypad--default"
+  },
+  {
+    "category": "workflow",
+    "name": "clinical-trial-cohort-randomizer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-clinicaltrialcohortrandomizer--default",
+    "storybookTitle": "Workflow/ClinicalTrialCohortRandomizer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-clinicaltrialcohortrandomizer--default"
+  },
+  {
+    "category": "workflow",
+    "name": "compliance-evidence-collector",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-complianceevidencecollector--default",
+    "storybookTitle": "Workflow/ComplianceEvidenceCollector",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-complianceevidencecollector--default"
+  },
+  {
+    "category": "workflow",
+    "name": "construction-submittal-register",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "high-strength-structural-concrete-mix-design-c-40--default",
+    "storybookTitle": "High-Strength Structural Concrete Mix Design C-40",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/high-strength-structural-concrete-mix-design-c-40--default"
+  },
+  {
+    "category": "workflow",
+    "name": "contract-clause-risk-analyzer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-contractclauseriskanalyzer--default",
+    "storybookTitle": "Workflow/ContractClauseRiskAnalyzer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-contractclauseriskanalyzer--default"
+  },
+  {
+    "category": "workflow",
+    "name": "customer-sla-breach-timeline",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-customerslabreachtimeline--default",
+    "storybookTitle": "Workflow/CustomerSlaBreachTimeline",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-customerslabreachtimeline--default"
+  },
+  {
+    "category": "workflow",
+    "name": "data-pipeline-dag-visualizer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-datapipelinedagvisualizer--default",
+    "storybookTitle": "Workflow/DataPipelineDagVisualizer",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-datapipelinedagvisualizer--default"
+  },
+  {
+    "category": "workflow",
+    "name": "dsar-request-lifecycle-manager",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-dsarrequestlifecyclemanager--default",
+    "storybookTitle": "Workflow/DsarRequestLifecycleManager",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-dsarrequestlifecyclemanager--default"
+  },
+  {
+    "category": "workflow",
+    "name": "entity-lineage",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-entitylineage--procure-to-pay-lineage",
+    "storybookTitle": "Workflow/EntityLineage",
+    "storyName": "ProcureToPayLineage",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-entitylineage--procure-to-pay-lineage"
+  },
+  {
+    "category": "workflow",
+    "name": "expense-policy-rule-auditor",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-expensepolicyruleauditor--default",
+    "storybookTitle": "Workflow/ExpensePolicyRuleAuditor",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-expensepolicyruleauditor--default"
+  },
+  {
+    "category": "workflow",
+    "name": "feature-flag-targeting-rule-builder",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "workflow-featureflagtargetingrulebuilder--default",
+    "storybookTitle": "Workflow/FeatureFlagTargetingRuleBuilder",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-featureflagtargetingrulebuilder--default"
+  },
+  {
+    "category": "workflow",
+    "name": "incident-escalation-tree",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-incidentescalationtree--default",
+    "storybookTitle": "Workflow/IncidentEscalationTree",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-incidentescalationtree--default"
+  },
+  {
+    "category": "workflow",
+    "name": "kubernetes-pod-console",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "workflow-kubernetespodconsole--default",
+    "storybookTitle": "Workflow/KubernetesPodConsole",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-kubernetespodconsole--default"
+  },
+  {
+    "category": "workflow",
+    "name": "legal-hold-custodian-tracker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-legalholdcustodiantracker--default",
+    "storybookTitle": "Workflow/LegalHoldCustodianTracker",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-legalholdcustodiantracker--default"
+  },
+  {
+    "category": "workflow",
+    "name": "lifecycle-tracker",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-lifecycletracker--in-progress",
+    "storybookTitle": "Workflow/LifecycleTracker",
+    "storyName": "InProgress",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-lifecycletracker--in-progress"
+  },
+  {
+    "category": "workflow",
+    "name": "mass-payout-batch-approver",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "workflow-masspayoutbatchapprover--default",
+    "storybookTitle": "Workflow/MassPayoutBatchApprover",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-masspayoutbatchapprover--default"
+  },
+  {
+    "category": "workflow",
+    "name": "on-call-rotation-schedule-calendar",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "tier-1-primary-on-call--default",
+    "storybookTitle": "Tier 1: Primary On-Call",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/tier-1-primary-on-call--default"
+  },
+  {
+    "category": "workflow",
+    "name": "payment-run-cockpit",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-paymentruncockpit--default",
+    "storybookTitle": "Workflow/PaymentRunCockpit",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-paymentruncockpit--default"
+  },
+  {
+    "category": "workflow",
+    "name": "period-close-cockpit",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "accounts-payable-invoice-matching-hard-lock--quarter-end-in-progress",
+    "storybookTitle": "Accounts Payable Invoice Matching & Hard Lock",
+    "storyName": "QuarterEndInProgress",
+    "storybookUrl": "http://localhost:6006/?path=/story/accounts-payable-invoice-matching-hard-lock--quarter-end-in-progress"
+  },
+  {
+    "category": "workflow",
+    "name": "promotion-approval-inspector",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "workflow-promotionapprovalinspector--default",
+    "storybookTitle": "Workflow/PromotionApprovalInspector",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-promotionapprovalinspector--default"
+  },
+  {
+    "category": "workflow",
+    "name": "release-pipeline-stepper",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "workflow-releasepipelinestepper--default",
+    "storybookTitle": "Workflow/ReleasePipelineStepper",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-releasepipelinestepper--default"
+  },
+  {
+    "category": "workflow",
+    "name": "rfi-submission-workflow",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "workflow-rfisubmissionworkflow--in-review",
+    "storybookTitle": "Workflow/RfiSubmissionWorkflow",
+    "storyName": "InReview",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-rfisubmissionworkflow--in-review"
+  },
+  {
+    "category": "workflow",
+    "name": "security-waf-rule-inspector",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-securitywafruleinspector--default",
+    "storybookTitle": "Workflow/SecurityWafRuleInspector",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-securitywafruleinspector--default"
+  },
+  {
+    "category": "workflow",
+    "name": "service-catalog-cart-checkout",
+    "hasLegacyFont": true,
+    "hasMissingTabular": true,
+    "storyId": "workflow-servicecatalogcartcheckout--default",
+    "storybookTitle": "Workflow/ServiceCatalogCartCheckout",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-servicecatalogcartcheckout--default"
+  },
+  {
+    "category": "workflow",
+    "name": "stage-progression-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-stageprogressionbar--sales-opportunity-lifecycle",
+    "storybookTitle": "Workflow/StageProgressionBar",
+    "storyName": "SalesOpportunityLifecycle",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-stageprogressionbar--sales-opportunity-lifecycle"
+  },
+  {
+    "category": "workflow",
+    "name": "supplier-tax-compliance-verifier",
+    "hasLegacyFont": true,
+    "hasMissingTabular": false,
+    "storyId": "workflow-suppliertaxcomplianceverifier--default",
+    "storybookTitle": "Workflow/SupplierTaxComplianceVerifier",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-suppliertaxcomplianceverifier--default"
+  },
+  {
+    "category": "workflow",
+    "name": "tax-withholding-compliance-cockpit",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-taxwithholdingcompliancecockpit--default",
+    "storybookTitle": "Workflow/TaxWithholdingComplianceCockpit",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-taxwithholdingcompliancecockpit--default"
+  },
+  {
+    "category": "workflow",
+    "name": "topology-dependency-graph",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-topologydependencygraph--default-service-graph",
+    "storybookTitle": "Workflow/TopologyDependencyGraph",
+    "storyName": "DefaultServiceGraph",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-topologydependencygraph--default-service-graph"
+  },
+  {
+    "category": "workflow",
+    "name": "warehouse-pick-pack-wave-console",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "workflow-warehousepickpackwaveconsole--default",
+    "storybookTitle": "Workflow/WarehousePickPackWaveConsole",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/workflow-warehousepickpackwaveconsole--default"
+  },
+  {
+    "category": "workflow",
+    "name": "workflow-graph",
+    "hasLegacyFont": false,
+    "hasMissingTabular": true,
+    "storyId": "draft-created--approval-chain-dag",
+    "storybookTitle": "Draft Created",
+    "storyName": "ApprovalChainDAG",
+    "storybookUrl": "http://localhost:6006/?path=/story/draft-created--approval-chain-dag"
+  },
+  {
+    "category": "layout",
+    "name": "billable-timer-dock",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-billabletimerdock--expanded-dock",
+    "storybookTitle": "Layout/BillableTimerDock",
+    "storyName": "ExpandedDock",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-billabletimerdock--expanded-dock"
+  },
+  {
+    "category": "layout",
+    "name": "context-rail",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-contextrail--default",
+    "storybookTitle": "Layout/ContextRail",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-contextrail--default"
+  },
+  {
+    "category": "layout",
+    "name": "detail-layout",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-detaillayout--anatomy-and-composition",
+    "storybookTitle": "Layout/DetailLayout",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-detaillayout--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "detail-page-template",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-detailpagetemplate--anatomy-and-composition",
+    "storybookTitle": "Layout/DetailPageTemplate",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-detailpagetemplate--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "fact-box",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-factbox--anatomy-and-composition",
+    "storybookTitle": "Layout/FactBox",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-factbox--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "footer",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "platform--anatomy-and-composition",
+    "storybookTitle": "Platform",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/platform--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "list-page-template",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-listpagetemplate--anatomy-and-composition",
+    "storybookTitle": "Layout/ListPageTemplate",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-listpagetemplate--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "module-tab-layout",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-moduletablayout--anatomy-and-composition",
+    "storybookTitle": "Layout/ModuleTabLayout",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-moduletablayout--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "omnichannel-contact-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-omnichannelcontactbar--anatomy-and-composition",
+    "storybookTitle": "Layout/OmnichannelContactBar",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-omnichannelcontactbar--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "page-header",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-pageheader--anatomy-and-composition",
+    "storybookTitle": "Layout/PageHeader",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-pageheader--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "print-layout",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-printlayout--anatomy-and-composition",
+    "storybookTitle": "Layout/PrintLayout",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-printlayout--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "record-sidebar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-recordsidebar--anatomy-and-composition",
+    "storybookTitle": "Layout/RecordSidebar",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-recordsidebar--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "split-screen-auditor",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-splitscreenauditor--anatomy-and-composition",
+    "storybookTitle": "Layout/SplitScreenAuditor",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-splitscreenauditor--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "stat-card-row",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-statcardrow--anatomy-and-composition",
+    "storybookTitle": "Layout/StatCardRow",
+    "storyName": "AnatomyAndComposition",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-statcardrow--anatomy-and-composition"
+  },
+  {
+    "category": "layout",
+    "name": "view-switcher",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-viewswitcher--default",
+    "storybookTitle": "Layout/ViewSwitcher",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-viewswitcher--default"
+  },
+  {
+    "category": "layout",
+    "name": "workspace-tabs",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "layout-workspacetabs--default",
+    "storybookTitle": "Layout/WorkspaceTabs",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/layout-workspacetabs--default"
+  },
+  {
+    "category": "notifications",
+    "name": "alert-banner",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-alertbanner--default",
+    "storybookTitle": "Notifications/AlertBanner",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-alertbanner--default"
+  },
+  {
+    "category": "notifications",
+    "name": "announcement-card",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-announcementcard--default",
+    "storybookTitle": "Notifications/AnnouncementCard",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-announcementcard--default"
+  },
+  {
+    "category": "notifications",
+    "name": "changelog-timeline",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-changelogtimeline--default",
+    "storybookTitle": "Notifications/ChangelogTimeline",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-changelogtimeline--default"
+  },
+  {
+    "category": "notifications",
+    "name": "demo-banner",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-demobanner--default",
+    "storybookTitle": "Notifications/DemoBanner",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-demobanner--default"
+  },
+  {
+    "category": "notifications",
+    "name": "escalation-alert-stack",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "database-cpu-at-98--default",
+    "storybookTitle": "Database CPU at 98%",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/database-cpu-at-98--default"
+  },
+  {
+    "category": "notifications",
+    "name": "inbox-notification-stream",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "new-invoice-approved--default",
+    "storybookTitle": "New Invoice Approved",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/new-invoice-approved--default"
+  },
+  {
+    "category": "notifications",
+    "name": "notification-center",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-notificationcenter--interactive-drawer",
+    "storybookTitle": "Notifications/NotificationCenter",
+    "storyName": "InteractiveDrawer",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-notificationcenter--interactive-drawer"
+  },
+  {
+    "category": "notifications",
+    "name": "presence-indicator",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-presenceindicator--default",
+    "storybookTitle": "Notifications/PresenceIndicator",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-presenceindicator--default"
+  },
+  {
+    "category": "notifications",
+    "name": "progress-notification",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-progressnotification--default",
+    "storybookTitle": "Notifications/ProgressNotification",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-progressnotification--default"
+  },
+  {
+    "category": "notifications",
+    "name": "system-status-bar",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-systemstatusbar--default",
+    "storybookTitle": "Notifications/SystemStatusBar",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-systemstatusbar--default"
+  },
+  {
+    "category": "notifications",
+    "name": "toast",
+    "hasLegacyFont": false,
+    "hasMissingTabular": false,
+    "storyId": "notifications-toast--default",
+    "storybookTitle": "Notifications/Toast",
+    "storyName": "Default",
+    "storybookUrl": "http://localhost:6006/?path=/story/notifications-toast--default"
+  }
+]

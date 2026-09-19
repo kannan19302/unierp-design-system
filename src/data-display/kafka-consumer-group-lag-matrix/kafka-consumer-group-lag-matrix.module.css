@@ -5,7 +5,7 @@
   border: 1px solid var(--color-border, #e2e8f0);
   border-radius: var(--radius-lg, 0.75rem);
   box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
-  font-family: var(--font-family-sans, system-ui, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   color: var(--color-text-primary, #0f172a);
   overflow: hidden;
   box-sizing: border-box;
@@ -85,7 +85,7 @@
 
 .bootstrapText {
   font-size: 0.65rem;
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   color: var(--color-text-secondary, #475569);
   background-color: var(--color-surface, #ffffff);
   border: 1px solid var(--color-border, #cbd5e1);
@@ -227,12 +227,12 @@
   composes: tdLeft;
   text-align: right;
   font-variant-numeric: tabular-nums;
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
 }
 
 .partitionId {
   font-size: var(--font-sub);
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   font-weight: var(--weight-bold, 700);
   background-color: var(--color-surface-subtle, #f1f5f9);
   border: 1px solid var(--color-border, #cbd5e1);
@@ -242,7 +242,7 @@
 
 .topicName {
   font-size: var(--font-cell);
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   font-weight: var(--weight-medium, 500);
 }
 
@@ -260,13 +260,13 @@
 
 .clientId {
   font-size: var(--font-sub);
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   color: var(--color-text-primary, #0f172a);
 }
 
 .clientHost {
   font-size: 0.65rem;
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   color: var(--color-text-muted, #64748b);
 }
 

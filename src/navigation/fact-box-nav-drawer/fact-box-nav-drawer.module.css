@@ -116,6 +116,7 @@
   font-weight: var(--font-weight-semibold, 600);
   color: var(--color-text-primary);
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .drilldownBtn {

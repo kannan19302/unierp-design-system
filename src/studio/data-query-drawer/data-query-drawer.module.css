@@ -58,7 +58,7 @@
 }
 
 .queryTitle {
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
 }
 
@@ -194,7 +194,7 @@
   inline-size: 100%;
   block-size: 100%;
   padding: var(--space-3);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   background: var(--color-surface-subtle);
   color: var(--color-text);

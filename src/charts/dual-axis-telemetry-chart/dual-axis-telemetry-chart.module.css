@@ -79,13 +79,13 @@
 .axisLabel {
   font-size: var(--font-size-2xs, 0.625rem);
   fill: var(--color-text-muted);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
 }
 
 .xAxisLabel {
   font-size: var(--font-size-2xs, 0.625rem);
   fill: var(--color-text-muted);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
 }
 
 .latencyBar {
@@ -143,7 +143,7 @@
 
 .tooltipTime {
   font-weight: var(--font-weight-semibold);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
 }
 
 .tooltipMetrics {

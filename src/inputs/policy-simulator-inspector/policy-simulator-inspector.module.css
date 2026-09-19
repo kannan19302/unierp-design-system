@@ -157,7 +157,7 @@
 }
 
 .val {
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
 }

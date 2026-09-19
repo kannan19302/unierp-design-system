@@ -5,7 +5,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  font-family: var(--font-family-sans);
+  font-family: var(--font-sans);
   color: var(--color-text-primary);
   overflow: hidden;
   box-sizing: border-box;
@@ -89,7 +89,7 @@
 
 .tzBadge {
   font-size: 0.65rem;
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   color: var(--color-text-secondary);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -265,7 +265,7 @@
 
 .shiftHours {
   font-size: var(--font-time);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   opacity: 0.85;
   margin-block-start: 0.1rem;
 }
@@ -315,7 +315,7 @@
 .drawerEmail {
   margin: 0;
   font-size: var(--text-xs);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   color: var(--color-text-muted);
 }
 

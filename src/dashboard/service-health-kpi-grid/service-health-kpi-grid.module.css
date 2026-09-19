@@ -83,7 +83,7 @@
 .kpiValue {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   color: var(--color-text);
   line-height: var(--line-height-tight);
 }
@@ -147,7 +147,7 @@
 }
 
 .targetText {
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
 }
 
 .subText {

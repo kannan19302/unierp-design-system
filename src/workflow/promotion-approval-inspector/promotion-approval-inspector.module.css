@@ -117,7 +117,7 @@
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
   color: var(--color-text);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
 }
 
 .metricLabel {

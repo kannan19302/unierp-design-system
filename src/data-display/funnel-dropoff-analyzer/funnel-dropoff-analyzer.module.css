@@ -6,7 +6,7 @@
   border-radius: var(--radius-md, 0.5rem);
   color: var(--color-text-primary, #0f172a);
   box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
-  font-family: var(--font-family-sans, sans-serif);
+  font-family: var(--font-sans);
   overflow: hidden;
 }
 

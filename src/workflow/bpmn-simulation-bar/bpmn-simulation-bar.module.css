@@ -127,8 +127,9 @@
 
 .metricValue {
   font-weight: var(--font-weight-semibold);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   color: var(--color-text);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .slaBadge {
@@ -206,7 +207,7 @@
 }
 
 .stepDuration {
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono);
   font-size: var(--font-size-2xs, 0.6875rem);
   opacity: 0.8;
 }

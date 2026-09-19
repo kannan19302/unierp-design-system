@@ -94,6 +94,7 @@
   font-weight: var(--weight-bold);
   color: var(--color-text-primary);
   font-family: var(--font-mono, monospace);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .statValuePrimary {
@@ -101,6 +102,7 @@
   font-weight: var(--weight-bold);
   color: var(--color-brand);
   font-family: var(--font-mono, monospace);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .statValueAlert {
@@ -108,6 +110,7 @@
   font-weight: var(--weight-bold);
   color: var(--color-danger);
   font-family: var(--font-mono, monospace);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .toolbar {

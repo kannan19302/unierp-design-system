@@ -68,6 +68,13 @@
   --color-primary-light: #eff6ff;
   --color-primary-subtle: #dbeafe;
   --color-primary-text: #ffffff;
+  --color-brand-subtle: #dbeafe;
+  --color-primary-border: #2563eb;
+  --color-focus: #2563eb;
+  --color-focus-ring: #2563eb;
+  --color-border-default: #e2e8f0;
+  --color-surface-subtle: #f1f5f9;
+  --color-bg-surface: #ffffff;
   --on-primary: #ffffff;
   --on-danger: #ffffff;
 

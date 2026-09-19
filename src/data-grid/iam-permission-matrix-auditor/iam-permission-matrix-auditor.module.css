@@ -8,7 +8,7 @@
   padding-block: var(--space-4, 1rem);
   padding-inline: var(--space-4, 1rem);
   color: var(--color-text-primary, #0f172a);
-  font-family: var(--font-family-sans, system-ui, sans-serif);
+  font-family: var(--font-sans);
 }
 
 .header {
@@ -80,15 +80,17 @@
 .metricValue {
   font-size: var(--text-base, 1rem);
   font-weight: var(--weight-bold, 700);
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   color: var(--color-text-primary, #0f172a);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .metricValueDanger {
   font-size: var(--text-base, 1rem);
   font-weight: var(--weight-bold, 700);
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   color: var(--color-danger, #dc2626);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .toolbar {
@@ -228,7 +230,7 @@
 
 .serviceChip {
   display: inline-block;
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   font-weight: var(--weight-bold, 700);
   background-color: var(--color-surface-muted, #f1f5f9);
   padding-block: 0.125rem;
@@ -321,7 +323,7 @@
 }
 
 .policySource {
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   color: var(--color-text-secondary, #475569);
   font-size: 0.6875rem;
 }
@@ -403,7 +405,7 @@
 }
 
 .panelValue {
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono);
   color: var(--color-text-primary, #0f172a);
 }
 
