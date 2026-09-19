@@ -1,4 +1,4 @@
-import React, { useState, useId, useMemo } from "react";
+import { forwardRef, useState, useId, useMemo } from "react";
 import styles from "./assessment-rubric-matrix.module.css";
 
 export interface RubricLevel {
@@ -22,7 +22,7 @@ export interface AssessmentRubricMatrixProps {
   /** Subject / candidate name */
   subjectName?: string;
   /** Rubric criteria list */
-  criteria: RubricCriterion[];
+  criteria?: RubricCriterion[];
   /** Initial scored level IDs keyed by criterion ID */
   initialSelections?: Record<string, string>;
   /** Callback fired when scores change */
@@ -76,7 +76,12 @@ const DEFAULT_CRITERIA: RubricCriterion[] = [
   },
 ];
 
-export const AssessmentRubricMatrix: React.FC<AssessmentRubricMatrixProps> = ({
+/**
+ * AssessmentRubricMatrix provides an interactive grading grid evaluated against structured performance rubrics.
+ *
+ * @maturity stable
+ */
+export const AssessmentRubricMatrix = forwardRef<HTMLDivElement, AssessmentRubricMatrixProps>(({
   title,
   subjectName = "Candidate Evaluation",
   criteria = DEFAULT_CRITERIA,
@@ -85,7 +90,7 @@ export const AssessmentRubricMatrix: React.FC<AssessmentRubricMatrixProps> = ({
   readOnly = false,
   density = "compact",
   className,
-}) => {
+}, ref) => {
   const rubricId = useId();
   const [selections, setSelections] = useState<Record<string, string>>(initialSelections);
 
@@ -142,6 +147,7 @@ export const AssessmentRubricMatrix: React.FC<AssessmentRubricMatrixProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
       aria-labelledby={`${rubricId}-title`}
@@ -229,4 +235,6 @@ export const AssessmentRubricMatrix: React.FC<AssessmentRubricMatrixProps> = ({
       </div>
     </div>
   );
-};
+});
+
+AssessmentRubricMatrix.displayName = "AssessmentRubricMatrix";

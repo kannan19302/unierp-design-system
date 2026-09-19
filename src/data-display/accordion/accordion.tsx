@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FC, type ReactNode } from "react";
+import { forwardRef, useState, type ReactNode } from "react";
 import { ChevronRight, ChevronDown } from "lucide-react";
 import styles from "./accordion.module.css";
 
@@ -16,17 +16,22 @@ export interface AccordionProps {
   className?: string;
 }
 
-export const Accordion: FC<AccordionProps> = ({
+/**
+ * Accordion provides vertically stacked disclosure panels for complex record views.
+ *
+ * @maturity stable
+ */
+export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(({
   items,
   defaultOpenKey,
   className = "",
-}) => {
+}, ref) => {
   const [openKey, setOpenKey] = useState<string | null>(
     defaultOpenKey !== undefined ? defaultOpenKey : items[0]?.key || null
   );
 
   return (
-    <div className={`${styles.accordion} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.accordion} ${className}`.trim()}>
       {items.map((item) => {
         const isOpen = openKey === item.key;
         return (
@@ -50,7 +55,9 @@ export const Accordion: FC<AccordionProps> = ({
       })}
     </div>
   );
-};
+});
+
+Accordion.displayName = "Accordion";
 
 export interface CollapsibleProps {
   title: ReactNode;
@@ -59,16 +66,21 @@ export interface CollapsibleProps {
   className?: string;
 }
 
-export const Collapsible: FC<CollapsibleProps> = ({
+/**
+ * Collapsible provides a lightweight toggleable disclosure region.
+ *
+ * @maturity stable
+ */
+export const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(({
   title,
   children,
   defaultOpen = false,
   className = "",
-}) => {
+}, ref) => {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div className={`${styles.collapsible} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.collapsible} ${className}`.trim()}>
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -85,7 +97,9 @@ export const Collapsible: FC<CollapsibleProps> = ({
       {open && <div className={styles.collapsibleContent}>{children}</div>}
     </div>
   );
-};
+});
+
+Collapsible.displayName = "Collapsible";
 
 export const Disclosure = Collapsible;
 export type DisclosureProps = CollapsibleProps;

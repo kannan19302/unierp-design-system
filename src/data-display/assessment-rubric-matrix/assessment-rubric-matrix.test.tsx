@@ -1,5 +1,5 @@
+import { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { AssessmentRubricMatrix, RubricCriterion } from "./assessment-rubric-matrix";
@@ -55,5 +55,17 @@ describe("AssessmentRubricMatrix", () => {
       percentage: 100,
       selections: { c1: "c1-3" },
     });
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <AssessmentRubricMatrix
+        ref={ref}
+        title="Engineering Evaluation"
+        criteria={TEST_CRITERIA}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 });

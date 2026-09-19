@@ -13,10 +13,12 @@
 
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  inline-size: 1px;
+  block-size: 1px;
+  padding-block: 0;
+  padding-inline: 0;
+  margin-block: -1px;
+  margin-inline: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -25,32 +27,40 @@
 
 /* Density Scale */
 .container[data-density="ultra-compact"] {
-  --pad-header: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  --pad-cell: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  --pad-header-block: var(--space-2, 0.5rem);
+  --pad-header-inline: var(--space-3, 0.75rem);
+  --pad-cell-block: var(--space-1, 0.25rem);
+  --pad-cell-inline: var(--space-2, 0.5rem);
   --font-cell: var(--text-xs, 0.75rem);
   --font-sub: 0.65rem;
   --bar-height: 0.35rem;
 }
 
 .container[data-density="compact"] {
-  --pad-header: var(--space-3, 0.75rem) var(--space-4, 1rem);
-  --pad-cell: var(--space-1-5, 0.375rem) var(--space-3, 0.75rem);
+  --pad-header-block: var(--space-3, 0.75rem);
+  --pad-header-inline: var(--space-4, 1rem);
+  --pad-cell-block: var(--space-1-5, 0.375rem);
+  --pad-cell-inline: var(--space-3, 0.75rem);
   --font-cell: var(--text-sm, 0.875rem);
   --font-sub: var(--text-xs, 0.75rem);
   --bar-height: 0.5rem;
 }
 
 .container[data-density="standard"] {
-  --pad-header: var(--space-4, 1rem) var(--space-5, 1.25rem);
-  --pad-cell: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  --pad-header-block: var(--space-4, 1rem);
+  --pad-header-inline: var(--space-5, 1.25rem);
+  --pad-cell-block: var(--space-2, 0.5rem);
+  --pad-cell-inline: var(--space-4, 1rem);
   --font-cell: var(--text-base, 1rem);
   --font-sub: var(--text-xs, 0.75rem);
   --bar-height: 0.65rem;
 }
 
 .container[data-density="comfortable"] {
-  --pad-header: var(--space-5, 1.25rem) var(--space-6, 1.5rem);
-  --pad-cell: var(--space-3, 0.75rem) var(--space-5, 1.25rem);
+  --pad-header-block: var(--space-5, 1.25rem);
+  --pad-header-inline: var(--space-6, 1.5rem);
+  --pad-cell-block: var(--space-3, 0.75rem);
+  --pad-cell-inline: var(--space-5, 1.25rem);
   --font-cell: var(--text-base, 1rem);
   --font-sub: var(--text-sm, 0.875rem);
   --bar-height: 0.8rem;
@@ -61,9 +71,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--pad-header);
+  padding-block: var(--pad-header-block);
+  padding-inline: var(--pad-header-inline);
   background-color: var(--color-surface-subtle, #f8fafc);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
   flex-wrap: wrap;
   gap: var(--space-3, 0.75rem);
 }
@@ -93,19 +104,22 @@
   color: var(--color-text-secondary, #475569);
   background-color: var(--color-surface, #ffffff);
   border: 1px solid var(--color-border, #cbd5e1);
-  padding: 0.05rem var(--space-1-5, 0.375rem);
+  padding-block: 0.05rem;
+  padding-inline: var(--space-1-5, 0.375rem);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
 .title {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--text-base, 1rem);
   font-weight: var(--weight-bold, 700);
   color: var(--color-text-primary, #0f172a);
 }
 
 .subtitle {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--text-xs, 0.75rem);
   color: var(--color-text-muted, #64748b);
 }
@@ -121,7 +135,8 @@
   background-color: var(--color-surface, #ffffff);
   border: 1px solid var(--color-border, #e2e8f0);
   border-radius: var(--radius-sm, 0.25rem);
-  padding: var(--space-1-5, 0.375rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-1-5, 0.375rem);
+  padding-inline: var(--space-3, 0.75rem);
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
@@ -149,19 +164,20 @@
 }
 
 .table {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: start;
 }
 
 .thLeft {
-  padding: var(--pad-cell);
+  padding-block: var(--pad-cell-block);
+  padding-inline: var(--pad-cell-inline);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-semibold, 600);
   color: var(--color-text-secondary, #475569);
   background-color: var(--color-surface-subtle, #f8fafc);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
-  text-align: left;
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
+  text-align: start;
 }
 
 .thCenter {
@@ -171,11 +187,11 @@
 
 .thRight {
   composes: thLeft;
-  text-align: right;
+  text-align: end;
 }
 
 .row {
-  border-bottom: 1px solid var(--color-border, #f1f5f9);
+  border-block-end: 1px solid var(--color-border, #f1f5f9);
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
@@ -189,10 +205,11 @@
 }
 
 .tdLeft {
-  padding: var(--pad-cell);
+  padding-block: var(--pad-cell-block);
+  padding-inline: var(--pad-cell-inline);
   font-size: var(--font-cell);
   color: var(--color-text-primary, #0f172a);
-  text-align: left;
+  text-align: start;
   vertical-align: middle;
 }
 
@@ -203,7 +220,7 @@
 
 .tdRight {
   composes: tdLeft;
-  text-align: right;
+  text-align: end;
   font-variant-numeric: tabular-nums;
   font-family: var(--font-family-mono, monospace);
 }
@@ -230,20 +247,20 @@
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  min-width: 9rem;
+  min-inline-size: 9rem;
 }
 
 .quotaBarTrack {
-  height: var(--bar-height);
+  block-size: var(--bar-height);
   background-color: var(--color-surface-subtle, #e2e8f0);
   border-radius: var(--radius-full, 9999px);
   overflow: hidden;
 }
 
 .quotaBarFill {
-  height: 100%;
+  block-size: 100%;
   border-radius: var(--radius-full, 9999px);
-  transition: width 0.3s ease;
+  transition: inline-size 0.3s ease;
 }
 
 .fillNormal {
@@ -268,7 +285,8 @@
 .tierBadge {
   font-size: var(--font-sub);
   font-weight: var(--weight-semibold, 600);
-  padding: 0.15rem var(--space-2, 0.5rem);
+  padding-block: 0.15rem;
+  padding-inline: var(--space-2, 0.5rem);
   border-radius: var(--radius-full, 9999px);
 }
 
@@ -297,7 +315,8 @@
   font-weight: var(--weight-bold, 700);
   color: var(--color-status-danger-text, #b91c1c);
   background-color: var(--color-status-danger-subtle, #fee2e2);
-  padding: 0.1rem var(--space-1-5, 0.375rem);
+  padding-block: 0.1rem;
+  padding-inline: var(--space-1-5, 0.375rem);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -319,7 +338,8 @@
 .toggleBtn {
   font-size: var(--font-sub);
   font-weight: var(--weight-medium, 500);
-  padding: 0.15rem var(--space-2, 0.5rem);
+  padding-block: 0.15rem;
+  padding-inline: var(--space-2, 0.5rem);
   border: 1px solid var(--color-border, #cbd5e1);
   border-radius: var(--radius-sm, 0.25rem);
   background-color: var(--color-surface, #ffffff);

@@ -11,19 +11,20 @@
 }
 
 .item {
-  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  border-block-end: 1px solid var(--surface-1-border, var(--color-border));
 }
 
 .item:last-child {
-  border-bottom: none;
+  border-block-end: none;
 }
 
 .headerBtn {
-  width: 100%;
-  padding: var(--space-2-5) var(--space-3);
+  inline-size: 100%;
+  padding-block: var(--space-2-5);
+  padding-inline: var(--space-3);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border: none;
-  text-align: left;
+  text-align: start;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,7 +53,8 @@
 }
 
 .content {
-  padding: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
   background: var(--surface-1-bg, var(--color-bg-elevated));
@@ -70,7 +72,8 @@
   gap: var(--space-1-5);
   background: none;
   border: none;
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
   cursor: pointer;
   outline: none;
 }
@@ -82,8 +85,8 @@
 }
 
 .collapsibleContent {
-  margin-top: var(--space-2);
-  padding-left: var(--space-4);
+  margin-block-start: var(--space-2);
+  padding-inline-start: var(--space-4);
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
 }

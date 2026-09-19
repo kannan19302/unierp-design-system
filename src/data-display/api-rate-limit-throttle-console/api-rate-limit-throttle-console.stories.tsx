@@ -52,6 +52,7 @@ const meta: Meta<typeof ApiRateLimitThrottleConsole> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: { type: "select" },
@@ -70,6 +71,37 @@ export const Default: Story = {
     quotas: sampleQuotas,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", inlineSize: "100%" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default State (Active Quotas)</h4>
+        <ApiRateLimitThrottleConsole
+          gatewayHost="api-edge.gateway.unierp.io"
+          activeWindowMinutes={60}
+          quotas={sampleQuotas}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra Compact Density</h4>
+        <ApiRateLimitThrottleConsole
+          gatewayHost="api-edge.gateway.unierp.io"
+          activeWindowMinutes={60}
+          quotas={sampleQuotas}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {

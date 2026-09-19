@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import {
   ApiRateLimitThrottleConsole,
   TenantApiQuota,
@@ -62,6 +62,12 @@ describe("ApiRateLimitThrottleConsole", () => {
     fireEvent.click(bypassBtn);
 
     expect(handleToggle).toHaveBeenCalledWith("cust_7411b", true);
+  });
+
+  it("forwards ref to section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<ApiRateLimitThrottleConsole ref={ref} quotas={sampleQuotas} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -27,6 +28,27 @@ describe("AuditTrail & Approval Primitive", () => {
     expect(screen.getByText("Audit Trail & Verification")).toBeInTheDocument();
     expect(screen.getByText("Admin")).toBeInTheDocument();
     expect(screen.getByText("Deleted record")).toBeInTheDocument();
+  });
+
+  it("forwards ref to container elements", () => {
+    const timelineRef = createRef<HTMLDivElement>();
+    const panelRef = createRef<HTMLDivElement>();
+
+    render(
+      <div>
+        <ApprovalTimeline
+          ref={timelineRef}
+          steps={[{ id: "1", approver: "Carol", status: "approved" }]}
+        />
+        <AuditTrailPanel
+          ref={panelRef}
+          logs={[{ id: "1", user: "Admin", action: "Deleted record", time: "12:00" }]}
+        />
+      </div>
+    );
+
+    expect(timelineRef.current).toBeInstanceOf(HTMLDivElement);
+    expect(panelRef.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

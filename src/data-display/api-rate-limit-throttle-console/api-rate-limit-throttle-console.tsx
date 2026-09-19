@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./api-rate-limit-throttle-console.module.css";
 
 export type RateLimitTier = "tier_standard" | "tier_pro" | "tier_enterprise" | "tier_internal";
@@ -27,7 +27,12 @@ export interface ApiRateLimitThrottleConsoleProps {
   className?: string;
 }
 
-export const ApiRateLimitThrottleConsole: React.FC<ApiRateLimitThrottleConsoleProps> = ({
+/**
+ * ApiRateLimitThrottleConsole visualizes and controls tenant rate limiting, token buckets, and quota enforcement.
+ *
+ * @maturity stable
+ */
+export const ApiRateLimitThrottleConsole = forwardRef<HTMLElement, ApiRateLimitThrottleConsoleProps>(({
   gatewayHost = "api.gateway.unierp.io",
   activeWindowMinutes = 60,
   quotas,
@@ -35,7 +40,7 @@ export const ApiRateLimitThrottleConsole: React.FC<ApiRateLimitThrottleConsolePr
   onSelectTenant,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [selectedTenantId, setSelectedTenantId] = useState<string>(
     quotas[0]?.tenantId ?? ""
@@ -68,6 +73,7 @@ export const ApiRateLimitThrottleConsole: React.FC<ApiRateLimitThrottleConsolePr
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -79,57 +85,52 @@ export const ApiRateLimitThrottleConsole: React.FC<ApiRateLimitThrottleConsolePr
             <span className={styles.gatewayHostText}>{gatewayHost}</span>
           </div>
           <h2 id={headingId} className={styles.title}>
-            API Rate Limit & Token Bucket Throttling Console
+            API Rate Limit &amp; Token Bucket Throttling Console
           </h2>
           <p className={styles.subtitle}>
-            Enforcing token replenishment, burst capacity & tenant isolation ({activeWindowMinutes}m rolling window)
+            Enforcing token replenishment, burst capacity &amp; tenant isolation ({activeWindowMinutes}m rolling window)
           </p>
         </div>
 
         <div className={styles.kpiRow}>
           <div className={styles.kpiCard}>
-            <span className={styles.kpiLabel}>Global Traffic</span>
-            <strong className={styles.kpiValue}>{totalRps.toLocaleString()} RPS</strong>
+            <span className={styles.kpiLabel}>Total Aggregate Load</span>
+            <span className={styles.kpiValue}>{totalRps} RPS</span>
           </div>
           <div className={styles.kpiCard}>
-            <span className={styles.kpiLabel}>HTTP 429 Throttles</span>
-            <strong
-              className={`${styles.kpiValue} ${
-                total429s > 0 ? styles.alertText : ""
-              }`}
-            >
-              {total429s.toLocaleString()} Throttled
-            </strong>
+            <span className={styles.kpiLabel}>Active Managed Keys</span>
+            <span className={styles.kpiValue}>{quotas.length}</span>
           </div>
           <div className={styles.kpiCard}>
-            <span className={styles.kpiLabel}>Monitored Tenants</span>
-            <strong className={styles.kpiValue}>{quotas.length}</strong>
+            <span className={styles.kpiLabel}>429 Drops (Window)</span>
+            <span className={`${styles.kpiValue} ${total429s > 0 ? styles.alertText : ""}`}>
+              {total429s}
+            </span>
           </div>
         </div>
       </header>
 
       <div className={styles.tableWrapper}>
-        <table className={styles.table} aria-label="Tenant API Quotas and Rate Limits">
-          <caption className={styles.srOnly}>
-            API consumer rate limits, current RPS usage, token burst allowances, and 429 throttle events
-          </caption>
+        <table className={styles.table} aria-label="Tenant API Quotas">
           <thead>
             <tr>
-              <th scope="col" className={styles.thLeft}>Tenant / Organization</th>
-              <th scope="col" className={styles.thCenter}>Tier</th>
-              <th scope="col" className={styles.thRight}>Current RPS</th>
-              <th scope="col" className={styles.thRight}>Limit / Burst</th>
-              <th scope="col" className={styles.thLeft}>Daily Quota Consumption</th>
-              <th scope="col" className={styles.thRight}>429 Drops</th>
-              <th scope="col" className={styles.thCenter}>Exemption</th>
-              <th scope="col" className={styles.thCenter}>Actions</th>
+              <th className={styles.thLeft}>Tenant &amp; Key Details</th>
+              <th className={styles.thCenter}>Tier</th>
+              <th className={styles.thRight}>Current Load (RPS)</th>
+              <th className={styles.thRight}>Burst Limit</th>
+              <th className={styles.thLeft}>Daily Quota Consumption</th>
+              <th className={styles.thRight}>429 Throttles</th>
+              <th className={styles.thCenter}>State</th>
+              <th className={styles.thCenter}>Bypass Control</th>
             </tr>
           </thead>
           <tbody>
             {quotas.map((q) => {
               const isSelected = selectedTenant?.tenantId === q.tenantId;
-              const usagePercent = Math.min(100, Math.round((q.dailyUsageRequests / q.dailyLimitRequests) * 100));
-              const rpsPercent = Math.min(100, Math.round((q.currentRps / q.limitRps) * 100));
+              const usagePercent = Math.min(
+                100,
+                Math.round((q.dailyUsageRequests / q.dailyLimitRequests) * 100)
+              );
 
               return (
                 <tr
@@ -139,21 +140,27 @@ export const ApiRateLimitThrottleConsole: React.FC<ApiRateLimitThrottleConsolePr
                     setSelectedTenantId(q.tenantId);
                     onSelectTenant?.(q);
                   }}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setSelectedTenantId(q.tenantId);
+                      onSelectTenant?.(q);
+                    }
+                  }}
+                  aria-selected={isSelected}
                 >
                   <td className={styles.tdLeft}>
-                    <strong className={styles.tenantName}>{q.tenantName}</strong>
+                    <span className={styles.tenantName}>{q.tenantName}</span>
                     <span className={styles.keyPrefix}>{q.apiKeyPrefix}</span>
                   </td>
                   <td className={styles.tdCenter}>{getTierBadge(q.tier)}</td>
                   <td className={styles.tdRight}>
-                    <strong className={rpsPercent > 90 ? styles.alertText : ""}>
-                      {q.currentRps} RPS
-                    </strong>
+                    <strong>{q.currentRps}</strong>{" "}
+                    <span className={styles.limitText}>/ {q.limitRps} rps</span>
                   </td>
                   <td className={styles.tdRight}>
-                    <span className={styles.limitText}>
-                      {q.limitRps} / {q.burstLimit} RPS
-                    </span>
+                    <span className={styles.limitText}>{q.burstLimit} rps</span>
                   </td>
                   <td className={styles.tdLeft}>
                     <div className={styles.quotaBarWrapper}>
@@ -166,7 +173,7 @@ export const ApiRateLimitThrottleConsole: React.FC<ApiRateLimitThrottleConsolePr
                               ? styles.fillWarning
                               : styles.fillNormal
                           }`}
-                          style={{ width: `${usagePercent}%` }}
+                          style={{ inlineSize: `${usagePercent}%` }}
                         />
                       </div>
                       <span className={styles.quotaPct}>
@@ -210,4 +217,6 @@ export const ApiRateLimitThrottleConsole: React.FC<ApiRateLimitThrottleConsolePr
       </div>
     </section>
   );
-};
+});
+
+ApiRateLimitThrottleConsole.displayName = "ApiRateLimitThrottleConsole";
