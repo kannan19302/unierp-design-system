@@ -89,6 +89,12 @@
   border-radius: var(--radius-full);
   background: var(--color-warning);
   flex-shrink: 0;
+  animation: dirty-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dirty-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
 }
 
 .draft_badge {

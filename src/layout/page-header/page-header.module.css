@@ -35,8 +35,10 @@
 
 .title {
   margin: 0;
+  font-family: var(--font-display, var(--font-sans));
   font-size: var(--type-page-title, var(--text-xl));
   font-weight: var(--weight-bold);
+  letter-spacing: var(--display-tracking-title, -0.02em);
   color: var(--surface-text-primary, var(--color-text));
   line-height: var(--leading-tight);
 }

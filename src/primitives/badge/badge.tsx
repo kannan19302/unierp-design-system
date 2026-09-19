@@ -7,6 +7,7 @@ export interface BadgeProps {
   variant?: "default" | "primary" | "success" | "warning" | "danger" | "info";
   size?: "sm" | "md";
   dot?: boolean;
+  pulse?: boolean;
   children: ReactNode;
   className?: string;
 }
@@ -15,6 +16,7 @@ export const Badge: FC<BadgeProps> = ({
   variant = "default",
   size = "sm",
   dot = false,
+  pulse = false,
   children,
   className = "",
 }) => {
@@ -24,7 +26,12 @@ export const Badge: FC<BadgeProps> = ({
 
   return (
     <span className={badgeClass}>
-      {dot && <span className={styles.dot} aria-hidden="true" />}
+      {dot && (
+        <span
+          className={`${styles.dot} ${pulse ? styles.pulse : ""}`.trim()}
+          aria-hidden="true"
+        />
+      )}
       <span className={styles.label}>{children}</span>
     </span>
   );

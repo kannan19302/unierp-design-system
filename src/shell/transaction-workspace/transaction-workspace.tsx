@@ -2,6 +2,7 @@
 
 import { type FC, type ReactNode } from "react";
 import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianState } from "../meridian-bar";
+import { StrataBar } from "../strata-bar";
 import { PageHeader } from "../../layout/page-header";
 import styles from "./transaction-workspace.module.css";
 
@@ -17,7 +18,7 @@ export interface TransactionSummaryItem {
 
 export interface TransactionWorkspaceProps {
   /** Context address segments */
-  segments?: MeridianSegment[];
+  segments?: MeridianSegment[] | readonly string[];
   /** Lifecycle / approval status */
   state?: { label: string; tone?: MeridianState };
   /** Primary next verb */
@@ -63,13 +64,29 @@ export const TransactionWorkspace: FC<TransactionWorkspaceProps> = ({
     >
       {/* Context boundary */}
       {segments && segments.length > 0 && (
-        <MeridianBar
-          segments={segments}
-          state={state}
-          action={action}
-          copyable
-          className={styles.meridianBar}
-        />
+        typeof segments[0] === "string" ? (
+          <StrataBar
+            segments={segments as readonly string[]}
+            state={
+              state
+                ? {
+                    kind: (state.tone as any) || "neutral",
+                    label: state.label,
+                  }
+                : undefined
+            }
+            action={action as any}
+            className={styles.meridianBar}
+          />
+        ) : (
+          <MeridianBar
+            segments={segments as MeridianSegment[]}
+            state={state}
+            action={action}
+            copyable
+            className={styles.meridianBar}
+          />
+        )
       )}
 
       {/* Header */}

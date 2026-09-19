@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, type ReactNode, type ChangeEvent } from "react";
+import { Search } from "lucide-react";
 import { PageHeader } from "../page-header";
 import styles from "./list-page-template.module.css";
 
@@ -118,7 +119,7 @@ export function ListPageTemplate<T = Record<string, unknown>>({
         <div className={styles.toolbar}>
           {searchable && (
             <div className={styles.searchWrap}>
-              <span className={styles.searchIcon}>🔍</span>
+              <Search size={16} className={styles.searchIcon} aria-hidden="true" />
               <input
                 type="search"
                 value={search}

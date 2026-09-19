@@ -24,38 +24,55 @@
   transform: translateY(-50%);
   color: var(--color-text-tertiary);
   pointer-events: none;
-  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
 }
 
 .searchInput {
   width: 100%;
   padding-left: var(--space-8);
   padding-right: var(--space-3);
-  height: var(--space-9, 36px);
-  border: 1px solid var(--color-border-default, #e2e8f0);
+  height: var(--density-control-height, var(--space-8));
+  border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-md);
-  background: var(--color-surface-elevated, #ffffff);
-  color: var(--color-text-primary);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  color: var(--color-text);
   font-size: var(--text-sm);
   outline: none;
   box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.searchInput:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-border-focus);
 }
 
 .filterSelect {
-  height: var(--space-9, 36px);
+  height: var(--density-control-height, var(--space-8));
   padding: 0 var(--space-3);
-  border: 1px solid var(--color-border-default, #e2e8f0);
+  border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-md);
-  background: var(--color-surface-elevated, #ffffff);
-  color: var(--color-text-primary);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  color: var(--color-text);
   font-size: var(--text-sm);
   cursor: pointer;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.filterSelect:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-border-focus);
 }
 
 .tableCard {
-  background: var(--color-surface-elevated, #ffffff);
-  border: 1px solid var(--color-border-default, #e2e8f0);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
 
@@ -76,23 +93,23 @@
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid var(--color-border-default, #e2e8f0);
-  background: var(--color-bg-sunken, #f8fafc);
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  background: var(--color-bg-sunken);
   white-space: nowrap;
 }
 
 .td {
   padding: var(--space-3) var(--space-4);
   font-size: var(--text-sm);
-  color: var(--color-text-primary);
-  border-bottom: 1px solid var(--color-border-default, #e2e8f0);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
   vertical-align: middle;
 }
 
 .skeletonBar {
   height: var(--space-3-5, 14px);
   border-radius: var(--radius-sm);
-  background: linear-gradient(90deg, var(--color-bg-sunken, #f1f5f9) 25%, var(--color-border-default, #e2e8f0) 37%, var(--color-bg-sunken, #f1f5f9) 63%);
+  background: linear-gradient(90deg, var(--color-bg-sunken) 25%, var(--color-border) 37%, var(--color-bg-sunken) 63%);
   background-size: 200% 100%;
   animation: shimmer 1.4s ease-in-out infinite;
 }
@@ -115,7 +132,7 @@
 }
 
 .clickableRow:hover {
-  background: var(--color-bg-hover, #f1f5f9);
+  background: var(--color-bg-hover);
 }
 
 .pagination {
@@ -123,7 +140,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--color-border-default, #e2e8f0);
+  border-top: 1px solid var(--surface-1-border, var(--color-border));
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   flex-wrap: wrap;
@@ -138,10 +155,10 @@
 
 .pageBtn {
   padding: var(--space-1) var(--space-2-5, 10px);
-  border: 1px solid var(--color-border-default, #e2e8f0);
+  border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-md);
-  background: var(--color-surface-elevated, #ffffff);
-  color: var(--color-text-primary);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  color: var(--color-text);
   font-size: var(--text-sm);
   cursor: pointer;
 }

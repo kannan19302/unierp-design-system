@@ -3,6 +3,7 @@
 import { useState, type ReactNode, type ChangeEvent, type KeyboardEvent } from "react";
 import { Search } from "lucide-react";
 import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianState } from "../meridian-bar";
+import { StrataBar } from "../strata-bar";
 import { PageHeader } from "../../layout/page-header";
 import styles from "./data-workspace.module.css";
 
@@ -31,7 +32,7 @@ export interface DataWorkspacePagination {
 
 export interface DataWorkspaceProps<T = Record<string, unknown>> {
   /** Meridian/Strata context address segments */
-  segments?: MeridianSegment[];
+  segments?: MeridianSegment[] | readonly string[];
   /** Status pill at context boundary */
   state?: { label: string; tone?: MeridianState };
   /** Primary next verb at the context boundary */
@@ -170,13 +171,29 @@ export function DataWorkspace<T = Record<string, unknown>>({
     <div className={`${styles.root} ${className}`.trim()} data-floorplan="data-workspace">
       {/* Context Boundary */}
       {segments && segments.length > 0 && (
-        <MeridianBar
-          segments={segments}
-          state={state}
-          action={action}
-          copyable
-          className={styles.meridianBar}
-        />
+        typeof segments[0] === "string" ? (
+          <StrataBar
+            segments={segments as readonly string[]}
+            state={
+              state
+                ? {
+                    kind: (state.tone as "neutral" | "success" | "warning" | "danger" | "info") || "neutral",
+                    label: state.label,
+                  }
+                : undefined
+            }
+            action={action as any}
+            className={styles.meridianBar}
+          />
+        ) : (
+          <MeridianBar
+            segments={segments as MeridianSegment[]}
+            state={state}
+            action={action}
+            copyable
+            className={styles.meridianBar}
+          />
+        )
       )}
 
       {/* Page Title & Actions */}

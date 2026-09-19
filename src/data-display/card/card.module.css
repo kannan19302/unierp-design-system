@@ -5,12 +5,13 @@
 .card {
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
-  border-radius: var(--radius-sm, 2px);
+  border-radius: var(--radius-md, 6px);
   box-shadow: var(--shadow-sm);
   font-family: var(--font-sans);
   box-sizing: border-box;
   transition: box-shadow var(--duration-fast) var(--ease-default),
-              border-color var(--duration-fast) var(--ease-default);
+              border-color var(--duration-fast) var(--ease-default),
+              transform var(--duration-fast) var(--ease-default);
 }
 
 .p_none {
@@ -36,4 +37,5 @@
 .hoverable:hover {
   border-color: var(--color-primary);
   box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }

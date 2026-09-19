@@ -55,11 +55,13 @@
   background: var(--color-bg-elevated);
   color: var(--color-text);
   outline: none;
-  transition: border-color var(--duration-fast) var(--ease-default);
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
 }
 
 .searchInput:focus {
   border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-border-focus);
 }
 
 .filterSelect {
@@ -72,10 +74,13 @@
   color: var(--color-text);
   outline: none;
   cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
 }
 
 .filterSelect:focus {
   border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-border-focus);
 }
 
 .bulkWrap {
@@ -105,6 +110,7 @@
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
 

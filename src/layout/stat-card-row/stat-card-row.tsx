@@ -27,13 +27,13 @@ const StatCard: React.FC<StatCardItem> = ({
   change,
   changeLabel,
   icon,
-  color = "var(--color-primary, #3b82f6)",
+  color = "var(--color-primary)",
   loading = false,
 }) => {
   const isPositive = typeof change === "number" && change >= 0;
   const changeColor = isPositive
-    ? "var(--color-success-text, #059669)"
-    : "var(--color-danger-text, #dc2626)";
+    ? "var(--color-success-text)"
+    : "var(--color-danger-text)";
 
   return (
     <div className={styles.card}>
