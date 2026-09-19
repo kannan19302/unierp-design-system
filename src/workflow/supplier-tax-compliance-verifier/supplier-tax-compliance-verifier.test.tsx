@@ -73,6 +73,12 @@ describe("SupplierTaxComplianceVerifier", () => {
     expect(onApprove).toHaveBeenCalledWith("VEND-8891");
   });
 
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<SupplierTaxComplianceVerifier supplier={mockSupplier} ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes automated accessibility (axe) checks", async () => {
     const { container } = render(
       <SupplierTaxComplianceVerifier supplier={mockSupplier} />

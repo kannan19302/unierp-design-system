@@ -80,6 +80,18 @@ describe("WarehousePickPackWaveConsole", () => {
     expect(screen.getByText(/All Wave Picks Completed!/i)).toBeInTheDocument();
   });
 
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <WarehousePickPackWaveConsole
+        initialTasks={sampleTasks}
+        toteSlots={sampleTotes}
+        ref={ref}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <WarehousePickPackWaveConsole

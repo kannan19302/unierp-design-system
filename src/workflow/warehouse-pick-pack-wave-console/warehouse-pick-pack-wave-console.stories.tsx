@@ -123,3 +123,38 @@ export const CompletedWave: Story = {
     initialTasks: mockTasks.map((t) => ({ ...t, isCompleted: true })),
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <WarehousePickPackWaveConsole
+        {...args}
+        initialTasks={mockTasks}
+        toteSlots={mockTotes}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Active Picking In Progress</h3>
+        <WarehousePickPackWaveConsole
+          initialTasks={mockTasks}
+          toteSlots={mockTotes}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Completed Wave State</h3>
+        <WarehousePickPackWaveConsole
+          initialTasks={mockTasks.map((t) => ({ ...t, isCompleted: true }))}
+          toteSlots={mockTotes}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};

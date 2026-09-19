@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -65,5 +66,11 @@ describe("TaxWithholdingComplianceCockpit", () => {
 
     expect(handleFire).toHaveBeenCalledTimes(1);
     expect(screen.getByText("IRS FIRE BATCH DISPATCHED")).toBeInTheDocument();
+  });
+
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<TaxWithholdingComplianceCockpit vendors={mockVendors} ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 });

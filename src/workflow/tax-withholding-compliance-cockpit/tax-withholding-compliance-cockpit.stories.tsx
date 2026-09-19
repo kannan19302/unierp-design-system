@@ -76,3 +76,26 @@ export const Comfortable: Story = {
     density: "comfortable",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <TaxWithholdingComplianceCockpit {...args} vendors={mockVendors} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Standard Tax Year 2026 View</h3>
+        <TaxWithholdingComplianceCockpit vendors={mockVendors} density="standard" />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Ultra Compact Density</h3>
+        <TaxWithholdingComplianceCockpit vendors={mockVendors} density="ultra-compact" />
+      </div>
+    </div>
+  ),
+};

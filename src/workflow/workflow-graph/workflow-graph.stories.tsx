@@ -53,6 +53,7 @@ const sampleEdges: WorkflowEdge[] = [
 const meta: Meta<typeof WorkflowGraph> = {
   title: "Workflow/WorkflowGraph",
   component: WorkflowGraph,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -67,4 +68,34 @@ export const ApprovalChainDAG: Story = {
     edges: sampleEdges,
     height: 400,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <WorkflowGraph {...args} nodes={sampleNodes} edges={sampleEdges} height={400} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Multi-Tier Approval DAG</h3>
+        <WorkflowGraph nodes={sampleNodes} edges={sampleEdges} height={380} />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Linear 2-Stage Pipeline</h3>
+        <WorkflowGraph
+          nodes={[
+            { id: "s1", title: "Input Validation", status: "completed", x: 40, y: 100 },
+            { id: "s2", title: "Batch Processing", status: "running", x: 340, y: 100 },
+          ]}
+          edges={[{ id: "e1", from: "s1", to: "s2", label: "Triggered" }]}
+          height={260}
+        />
+      </div>
+    </div>
+  ),
 };

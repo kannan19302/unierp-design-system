@@ -76,3 +76,40 @@ export const UltraCompactDensity: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <SupplierTaxComplianceVerifier {...args} supplier={mockSupplier} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Verified Status with Active Treaties</h3>
+        <SupplierTaxComplianceVerifier supplier={mockSupplier} density="standard" />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Pending VIES Verification (Empty Certificates)</h3>
+        <SupplierTaxComplianceVerifier
+          supplier={{
+            ...mockSupplier,
+            supplierId: "VEND-9923",
+            legalName: "Tokyo Robotics Engineering K.K.",
+            operatingCountry: "Japan (JP)",
+            taxIdType: "UK-UTR",
+            taxIdentificationNumber: "JP-7010401012345",
+            status: "pending_vies",
+            withholdingTaxRatePct: 20.42,
+            certificates: [],
+            auditNotes: "Awaiting signed Form W-8BEN-E to determine treaty rate eligibility.",
+          }}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};

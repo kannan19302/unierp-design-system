@@ -42,4 +42,16 @@ describe("TopologyDependencyGraph", () => {
       expect.objectContaining({ id: "n1", name: "Gateway" })
     );
   });
+
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <TopologyDependencyGraph
+        nodes={TEST_NODES}
+        edges={[]}
+        ref={ref}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });

@@ -1,7 +1,8 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { WorkflowGraph, type WorkflowNode, type WorkflowEdge } from "../workflow-graph";
+import { WorkflowGraph, type WorkflowNode, type WorkflowEdge } from "./workflow-graph";
 
 const mockNodes: WorkflowNode[] = [
   { id: "1", title: "Stage 1", status: "completed", x: 10, y: 10 },
@@ -29,6 +30,12 @@ describe("WorkflowGraph Primitive", () => {
     fireEvent.click(node1);
 
     expect(onNodeSelect).toHaveBeenCalledWith(mockNodes[0]);
+  });
+
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<WorkflowGraph nodes={mockNodes} edges={mockEdges} ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {
