@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FC, type ReactNode } from "react";
+import { useState, forwardRef, type ReactNode } from "react";
 import { ChevronRight, ChevronDown, Folder, FolderOpen, FileText } from "lucide-react";
 import styles from "./tree-view.module.css";
 
@@ -19,12 +19,20 @@ export interface TreeViewProps {
   className?: string;
 }
 
-export const TreeView: FC<TreeViewProps> = ({
-  nodes,
-  selectedId,
-  onNodeSelect,
-  className = "",
-}) => {
+/**
+ * TreeView component renders hierarchical navigation structures with expanding branches.
+ * @maturity stable
+ */
+export const TreeView = forwardRef<HTMLDivElement, TreeViewProps>(
+  (
+    {
+      nodes,
+      selectedId,
+      onNodeSelect,
+      className = "",
+    },
+    ref
+  ) => {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   const toggle = (id: string) => {
@@ -86,9 +94,12 @@ export const TreeView: FC<TreeViewProps> = ({
     );
   };
 
-  return (
-    <div className={`${styles.tree} ${className}`.trim()} role="tree">
-      {nodes.map((node) => renderNode(node, 0))}
-    </div>
-  );
-};
+    return (
+      <div ref={ref} className={`${styles.tree} ${className}`.trim()} role="tree">
+        {nodes.map((node) => renderNode(node, 0))}
+      </div>
+    );
+  }
+);
+
+TreeView.displayName = "TreeView";

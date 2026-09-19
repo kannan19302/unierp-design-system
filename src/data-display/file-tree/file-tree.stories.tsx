@@ -48,6 +48,7 @@ const meta: Meta<typeof FileTree> = {
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -57,7 +58,7 @@ function InteractiveFileTree() {
   const [selected, setSelected] = useState<string>("button-tsx");
 
   return (
-    <div style={{ width: 320, padding: 12, border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
+    <div style={{ inlineSize: 320, paddingBlock: 12, paddingInline: 12, border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
       <FileTree
         nodes={SAMPLE_FILES}
         selectedId={selected}
@@ -70,4 +71,33 @@ function InteractiveFileTree() {
 
 export const Default: Story = {
   render: () => <InteractiveFileTree />,
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => <InteractiveFileTree />,
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Expanded File Structure</h4>
+        <div style={{ inlineSize: 320, paddingBlock: 12, paddingInline: 12, border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
+          <FileTree
+            nodes={SAMPLE_FILES}
+            defaultExpandedIds={["src", "components", "tokens", "docs"]}
+          />
+        </div>
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Collapsed Root Folders</h4>
+        <div style={{ inlineSize: 320, paddingBlock: 12, paddingInline: 12, border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
+          <FileTree
+            nodes={SAMPLE_FILES}
+            defaultExpandedIds={[]}
+          />
+        </div>
+      </div>
+    </div>
+  ),
 };

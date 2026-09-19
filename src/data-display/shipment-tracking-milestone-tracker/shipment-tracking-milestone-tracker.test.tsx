@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -68,4 +69,17 @@ describe("ShipmentTrackingMilestoneTracker", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <ShipmentTrackingMilestoneTracker
+        ref={ref}
+        shipmentNumber="MSCU-849102-1"
+        milestones={testMilestones}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

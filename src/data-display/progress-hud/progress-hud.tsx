@@ -20,14 +20,24 @@ export interface ProgressHUDProps {
   title?: string;
 }
 
-export const ProgressHUD: React.FC<ProgressHUDProps> = ({
-  percentComplete,
-  items,
-  onActionClick,
-  title = "Setup Checklist",
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+/**
+ * ProgressHUD displays a floating circular onboarding progress widget with interactive checklist drawer.
+ *
+ * @maturity stable
+ */
+export const ProgressHUD = React.forwardRef<HTMLDivElement, ProgressHUDProps>(
+  function ProgressHUD(
+    {
+      percentComplete,
+      items,
+      onActionClick,
+      title = "Setup Checklist",
+    },
+    ref
+  ) {
+    const [isOpen, setIsOpen] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+    React.useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -147,4 +157,7 @@ export const ProgressHUD: React.FC<ProgressHUDProps> = ({
       )}
     </div>
   );
-};
+});
+
+ProgressHUD.displayName = "ProgressHUD";
+

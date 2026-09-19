@@ -5,6 +5,12 @@ import { axe } from "vitest-axe";
 import { CompensationBandRangeVisualizer } from "./compensation-band-range-visualizer";
 
 describe("CompensationBandRangeVisualizer", () => {
+  it("forwards ref to container element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<CompensationBandRangeVisualizer ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders with zero axe accessibility violations", async () => {
     const { container } = render(<CompensationBandRangeVisualizer />);
     const results = await axe(container);

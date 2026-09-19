@@ -44,3 +44,53 @@ export const AuditHistory: Story = {
     ],
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <Timeline {...args} />
+    </div>
+  ),
+  args: {
+    items: [
+      {
+        id: "1",
+        title: "Event Started",
+        timestamp: "09:00",
+        status: "complete",
+      },
+      {
+        id: "2",
+        title: "In Progress",
+        timestamp: "09:30",
+        status: "current",
+      },
+    ],
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Complete and Current States</h4>
+        <Timeline
+          items={[
+            { id: "1", title: "Signed", timestamp: "Yesterday", status: "complete" },
+            { id: "2", title: "Reviewing", timestamp: "Today", status: "current" },
+            { id: "3", title: "Pending Execution", timestamp: "Tomorrow", status: "pending" },
+          ]}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Danger State</h4>
+        <Timeline
+          items={[
+            { id: "1", title: "Attempt Failed", timestamp: "12:00", status: "danger" },
+          ]}
+        />
+      </div>
+    </div>
+  ),
+};
+

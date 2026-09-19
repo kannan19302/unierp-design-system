@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -28,4 +29,16 @@ describe("Timeline Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <Timeline
+        ref={ref}
+        items={[{ id: "1", title: "Started", timestamp: "Now" }]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

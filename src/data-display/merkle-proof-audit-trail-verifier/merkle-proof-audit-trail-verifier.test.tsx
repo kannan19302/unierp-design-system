@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -71,4 +72,18 @@ describe("MerkleProofAuditTrailVerifier", () => {
     expect(handleVerify).toHaveBeenCalledWith(true);
     expect(screen.getByText("CRYPTOGRAPHICALLY VERIFIED")).toBeInTheDocument();
   });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <MerkleProofAuditTrailVerifier
+        ref={ref}
+        expectedRootHash="root-hash-001"
+        blockEpoch={100}
+        targetRecord={mockTarget}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

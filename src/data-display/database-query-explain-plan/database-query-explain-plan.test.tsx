@@ -38,6 +38,12 @@ describe("DatabaseQueryExplainPlan", () => {
     onSelectNode: vi.fn(),
   };
 
+  it("forwards ref to container element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<DatabaseQueryExplainPlan ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders query execution plan, metrics, and operation nodes", () => {
     render(<DatabaseQueryExplainPlan {...defaultProps} />);
     expect(

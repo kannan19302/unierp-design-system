@@ -37,16 +37,25 @@ export interface GraphQLSchemaRelationshipViewerProps {
   className?: string;
 }
 
-export const GraphQLSchemaRelationshipViewer: React.FC<GraphQLSchemaRelationshipViewerProps> = ({
-  subgraphName,
-  schemaVersion = "v2.14.0-federation2",
-  types,
-  selectedTypeName,
-  onSelectType,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * GraphQLSchemaRelationshipViewer provides visual exploration of federated GraphQL types and schemas.
+ *
+ * @maturity stable
+ */
+export const GraphQLSchemaRelationshipViewer = React.forwardRef<HTMLElement, GraphQLSchemaRelationshipViewerProps>(
+  function GraphQLSchemaRelationshipViewer(
+    {
+      subgraphName,
+      schemaVersion = "v2.14.0-federation2",
+      types,
+      selectedTypeName,
+      onSelectType,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTypeName, setActiveTypeName] = useState<string>(
     selectedTypeName ?? (types[0]?.name ?? "")
@@ -82,6 +91,7 @@ export const GraphQLSchemaRelationshipViewer: React.FC<GraphQLSchemaRelationship
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -260,4 +270,7 @@ export const GraphQLSchemaRelationshipViewer: React.FC<GraphQLSchemaRelationship
       </div>
     </section>
   );
-};
+});
+
+GraphQLSchemaRelationshipViewer.displayName = "GraphQLSchemaRelationshipViewer";
+

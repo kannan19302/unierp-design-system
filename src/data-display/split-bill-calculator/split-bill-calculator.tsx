@@ -34,19 +34,30 @@ export interface SplitBillCalculatorProps {
   className?: string;
 }
 
-export const SplitBillCalculator: React.FC<SplitBillCalculatorProps> = ({
-  checkNumber,
-  tableNumber,
-  items,
-  initialGuestCount = 2,
-  taxRate = 0.08875,
-  initialTipPct = 18,
-  tenders = [],
-  onRecordPayment,
-  onFinalizeCheck,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * SplitBillCalculator facilitates restaurant check splits evenly or by item with tip computation and multi-tender settlement.
+ *
+ * @maturity stable
+ */
+export const SplitBillCalculator = React.forwardRef<
+  HTMLElement,
+  SplitBillCalculatorProps
+>(function SplitBillCalculator(
+  {
+    checkNumber,
+    tableNumber,
+    items,
+    initialGuestCount = 2,
+    taxRate = 0.08875,
+    initialTipPct = 18,
+    tenders = [],
+    onRecordPayment,
+    onFinalizeCheck,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [splitMode, setSplitMode] = useState<SplitMode>("split_evenly");
   const [guestCount, setGuestCount] = useState<number>(initialGuestCount);
@@ -92,6 +103,7 @@ export const SplitBillCalculator: React.FC<SplitBillCalculatorProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -334,4 +346,7 @@ export const SplitBillCalculator: React.FC<SplitBillCalculatorProps> = ({
       )}
     </section>
   );
-};
+});
+
+SplitBillCalculator.displayName = "SplitBillCalculator";
+

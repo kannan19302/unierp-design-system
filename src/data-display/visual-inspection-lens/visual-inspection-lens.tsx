@@ -1,4 +1,4 @@
-import React, { useState, useId, useRef, useCallback } from "react";
+import React, { useState, useId, useRef, useCallback, forwardRef } from "react";
 import styles from "./visual-inspection-lens.module.css";
 
 export interface InspectionPin {
@@ -33,18 +33,27 @@ export interface VisualInspectionLensProps {
   className?: string;
 }
 
-export const VisualInspectionLens: React.FC<VisualInspectionLensProps> = ({
-  baseImageUrl,
-  baseLabel = "Base Revision",
-  revisedImageUrl,
-  revisedLabel = "Revised Version",
-  initialSplitPercent = 50,
-  pins = [],
-  onPinClick,
-  mode: initialMode = "split",
-  density = "compact",
-  className,
-}) => {
+/**
+ * VisualInspectionLens component provides curtain-split and opacity-fade image comparison.
+ * @maturity stable
+ */
+export const VisualInspectionLens = forwardRef<HTMLDivElement, VisualInspectionLensProps>(
+  (
+    {
+      baseImageUrl,
+      baseLabel = "Base Revision",
+      revisedImageUrl,
+      revisedLabel = "Revised Version",
+      initialSplitPercent = 50,
+      pins = [],
+      onPinClick,
+      mode: initialMode = "split",
+      density = "compact",
+      className,
+    },
+    ref
+  ) => {
+
   const lensId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
   const [splitPercent, setSplitPercent] = useState<number>(initialSplitPercent);
@@ -106,6 +115,7 @@ export const VisualInspectionLens: React.FC<VisualInspectionLensProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
       aria-labelledby={`${lensId}-title`}
@@ -300,4 +310,7 @@ export const VisualInspectionLens: React.FC<VisualInspectionLensProps> = ({
       )}
     </div>
   );
-};
+});
+
+VisualInspectionLens.displayName = "VisualInspectionLens";
+

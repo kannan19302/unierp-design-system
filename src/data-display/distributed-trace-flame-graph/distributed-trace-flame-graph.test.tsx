@@ -35,6 +35,12 @@ describe("DistributedTraceFlameGraph", () => {
     onSelectSpan: vi.fn(),
   };
 
+  it("forwards ref to container element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<DistributedTraceFlameGraph ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders trace header, spans, and inspector", () => {
     render(<DistributedTraceFlameGraph {...defaultProps} />);
     expect(

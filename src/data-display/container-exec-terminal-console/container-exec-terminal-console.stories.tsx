@@ -34,6 +34,7 @@ const meta: Meta<typeof ContainerExecTerminalConsole> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: { type: "select" },
@@ -59,4 +60,35 @@ export const UltraCompact: Story = {
     ...Default.args,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Compact TTY Session</h4>
+        <ContainerExecTerminalConsole
+          clusterName="prod-eks-us-east-1"
+          namespace="production"
+          sessions={sampleSessions}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Ultra-Compact Session</h4>
+        <ContainerExecTerminalConsole
+          clusterName="staging-eks-us-west-2"
+          namespace="staging"
+          sessions={sampleSessions}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };

@@ -69,3 +69,39 @@ export const EmptyQueue: Story = {
     tickets: [],
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <OrderTicketRack
+        title="Kitchen Display System (KDS)"
+        tickets={SAMPLE_TICKETS}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Active Queue</h3>
+        <OrderTicketRack
+          title="Active Kitchen Queue"
+          tickets={SAMPLE_TICKETS}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Empty Queue</h3>
+        <OrderTicketRack
+          title="Station 1 - Expo"
+          tickets={[]}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

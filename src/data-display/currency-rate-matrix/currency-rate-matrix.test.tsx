@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+import { createRef } from "react";
 import { axe } from "vitest-axe";
 import { CurrencyRateMatrix } from "./currency-rate-matrix";
 import type { ExchangeRateEntry } from "./currency-rate-matrix";
@@ -28,6 +29,12 @@ const mockRates: ExchangeRateEntry[] = [
 ];
 
 describe("CurrencyRateMatrix", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<CurrencyRateMatrix ref={ref} rates={mockRates} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("renders base currency and foreign exchange rates", () => {
     render(<CurrencyRateMatrix rates={mockRates} baseCurrency="USD" />);
 

@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -90,4 +91,18 @@ describe("StackTraceInspector", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <StackTraceInspector
+        ref={ref}
+        exceptionName="ConnectionFailed"
+        exceptionMessage="Timeout connecting to backend"
+        frames={mockFrames}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

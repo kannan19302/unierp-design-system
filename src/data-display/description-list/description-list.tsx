@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import styles from "./description-list.module.css";
 
 export interface DescriptionItem {
@@ -8,20 +8,28 @@ export interface DescriptionItem {
   value: ReactNode;
 }
 
-export interface DescriptionListProps {
+export interface DescriptionListProps extends HTMLAttributes<HTMLDListElement> {
   items: DescriptionItem[];
   columns?: 1 | 2 | 3;
   className?: string;
 }
 
-export const DescriptionList: FC<DescriptionListProps> = ({
+/**
+ * DescriptionList renders high-density key-value pairs formatted as semantic definition lists.
+ *
+ * @maturity stable
+ */
+export const DescriptionList = forwardRef<HTMLDListElement, DescriptionListProps>(({
   items,
   columns = 1,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   return (
     <dl
+      ref={ref}
       className={`${styles.list} ${styles[`cols_${columns}`]} ${className}`.trim()}
+      {...props}
     >
       {items.map((item, idx) => (
         <div key={idx} className={styles.row}>
@@ -31,6 +39,8 @@ export const DescriptionList: FC<DescriptionListProps> = ({
       ))}
     </dl>
   );
-};
+});
+
+DescriptionList.displayName = "DescriptionList";
 
 export const KeyValueList = DescriptionList;

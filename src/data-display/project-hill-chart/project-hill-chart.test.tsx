@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import { ProjectHillChart, HillChartScope } from "./project-hill-chart";
 
 const mockScopes: HillChartScope[] = [
@@ -51,6 +51,12 @@ describe("ProjectHillChart", () => {
 
     fireEvent.keyDown(marker, { key: "ArrowLeft" });
     expect(onMove).toHaveBeenCalledWith("scope-1", 20);
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<ProjectHillChart ref={ref} scopes={mockScopes} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("passes automated accessibility (axe) checks", async () => {

@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./drawing-sheet-punch-annotator.module.css";
 
 export type PunchTrade = "electrical" | "plumbing" | "hvac" | "finishes" | "safety";
@@ -36,14 +36,19 @@ export interface DrawingSheetPunchAnnotatorProps {
   className?: string;
 }
 
-export const DrawingSheetPunchAnnotator: React.FC<DrawingSheetPunchAnnotatorProps> = ({
+/**
+ * DrawingSheetPunchAnnotator provides architectural blueprint / drawing sheet pin annotation and punch list management.
+ *
+ * @maturity stable
+ */
+export const DrawingSheetPunchAnnotator = forwardRef<HTMLElement, DrawingSheetPunchAnnotatorProps>(({
   sheet,
   initialPins = [],
   onSelectPin,
   onUpdatePinStatus,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [pins, setPins] = useState<PunchItemPin[]>(initialPins);
   const [selectedPinId, setSelectedPinId] = useState<string | null>(
@@ -79,12 +84,13 @@ export const DrawingSheetPunchAnnotator: React.FC<DrawingSheetPunchAnnotatorProp
     electrical: "var(--color-warning, #f59e0b)",
     plumbing: "var(--color-brand, #2563eb)",
     hvac: "var(--color-success, #16a34a)",
-    finishes: "#8b5cf6",
+    finishes: "var(--color-accent, #8b5cf6)",
     safety: "var(--color-danger, #ef4444)",
   };
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -303,4 +309,6 @@ export const DrawingSheetPunchAnnotator: React.FC<DrawingSheetPunchAnnotatorProp
       </div>
     </section>
   );
-};
+});
+
+DrawingSheetPunchAnnotator.displayName = "DrawingSheetPunchAnnotator";

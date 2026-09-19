@@ -41,15 +41,26 @@ export interface QueryExecutionPlanViewerProps {
   className?: string;
 }
 
-export const QueryExecutionPlanViewer: React.FC<QueryExecutionPlanViewerProps> = ({
-  queryTitle = "SELECT o.id, c.name, SUM(i.amount) FROM orders o JOIN customers c ON ...",
-  totalDurationMs = 142.8,
-  totalCostUnits = 12450,
-  rootNode,
-  onSelectNode,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * QueryExecutionPlanViewer displays a hierarchical tree and telemetry for SQL query execution plans.
+ *
+ * @maturity stable
+ */
+export const QueryExecutionPlanViewer = React.forwardRef<
+  HTMLElement,
+  QueryExecutionPlanViewerProps
+>(function QueryExecutionPlanViewer(
+  {
+    queryTitle = "SELECT o.id, c.name, SUM(i.amount) FROM orders o JOIN customers c ON ...",
+    totalDurationMs = 142.8,
+    totalCostUnits = 12450,
+    rootNode,
+    onSelectNode,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const [selectedNodeId, setSelectedNodeId] = useState<string>(rootNode.id);
   const headingId = useId();
 
@@ -154,6 +165,7 @@ export const QueryExecutionPlanViewer: React.FC<QueryExecutionPlanViewerProps> =
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -229,4 +241,7 @@ export const QueryExecutionPlanViewer: React.FC<QueryExecutionPlanViewerProps> =
       </div>
     </section>
   );
-};
+});
+
+QueryExecutionPlanViewer.displayName = "QueryExecutionPlanViewer";
+

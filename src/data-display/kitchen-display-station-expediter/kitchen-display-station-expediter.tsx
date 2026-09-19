@@ -31,15 +31,24 @@ export interface KitchenDisplayStationExpediterProps {
   className?: string;
 }
 
-export const KitchenDisplayStationExpediter: React.FC<KitchenDisplayStationExpediterProps> = ({
-  stationName,
-  ticketOrders: initialTickets,
-  onBumpTicket,
-  onToggleItemComplete,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * KitchenDisplayStationExpediter provides real-time ticket expediting and bump-bar management for restaurant kitchens.
+ *
+ * @maturity stable
+ */
+export const KitchenDisplayStationExpediter = React.forwardRef<HTMLElement, KitchenDisplayStationExpediterProps>(
+  function KitchenDisplayStationExpediter(
+    {
+      stationName,
+      ticketOrders: initialTickets,
+      onBumpTicket,
+      onToggleItemComplete,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
   const [tickets, setTickets] = useState<KdsTicketOrder[]>(initialTickets);
 
   const activeTickets = tickets.filter((t) => t.status !== "BUMPED");
@@ -72,6 +81,7 @@ export const KitchenDisplayStationExpediter: React.FC<KitchenDisplayStationExped
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -210,4 +220,7 @@ export const KitchenDisplayStationExpediter: React.FC<KitchenDisplayStationExped
       </footer>
     </section>
   );
-};
+});
+
+KitchenDisplayStationExpediter.displayName = "KitchenDisplayStationExpediter";
+

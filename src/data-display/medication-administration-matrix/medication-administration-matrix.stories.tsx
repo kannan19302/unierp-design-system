@@ -95,3 +95,43 @@ export const CriticalAllergy: Story = {
     ],
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <MedicationAdministrationMatrix
+        patientName="Eleanor Vance (Age 68)"
+        mrn="MRN-884109-A"
+        allergies={["Penicillin", "Sulfa Drugs"]}
+        orders={mockOrders}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <MedicationAdministrationMatrix
+          patientName="Eleanor Vance"
+          mrn="MRN-884109-A"
+          orders={mockOrders.slice(0, 2)}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Comfortable Density</h3>
+        <MedicationAdministrationMatrix
+          patientName="Eleanor Vance"
+          mrn="MRN-884109-A"
+          orders={mockOrders.slice(0, 2)}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
+};
+

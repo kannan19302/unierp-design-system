@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -31,4 +31,11 @@ describe("InpatientAcuityScorecard", () => {
     expect(onAcknowledge).toHaveBeenCalledWith(expect.any(Number), "HIGH_CRITICAL");
     expect(screen.getByText("MET Team Dispatched")).toBeInTheDocument();
   });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<InpatientAcuityScorecard ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

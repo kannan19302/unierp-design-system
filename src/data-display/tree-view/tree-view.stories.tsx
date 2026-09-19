@@ -41,3 +41,48 @@ export const ChartOfAccounts: Story = {
     ],
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: 400 }}>
+      <h4>Component Anatomy &amp; Composition</h4>
+      <TreeView {...args} />
+    </div>
+  ),
+  args: {
+    ...ChartOfAccounts.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", maxWidth: 500 }}>
+      <div>
+        <h4>Standard Hierarchical Tree</h4>
+        <TreeView
+          nodes={[
+            {
+              id: "root-1",
+              label: "Organization Core",
+              children: [
+                { id: "sub-1", label: "Engineering Operations" },
+                { id: "sub-2", label: "Financial Reporting" },
+              ],
+            },
+          ]}
+        />
+      </div>
+      <div>
+        <h4>Flat Single-Level Selection</h4>
+        <TreeView
+          selectedId="leaf-1"
+          nodes={[
+            { id: "leaf-1", label: "Selected Active Document" },
+            { id: "leaf-2", label: "Secondary Document" },
+          ]}
+        />
+      </div>
+    </div>
+  ),
+};
+

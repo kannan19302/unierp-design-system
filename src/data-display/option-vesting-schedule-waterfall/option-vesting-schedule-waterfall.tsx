@@ -29,23 +29,32 @@ export interface OptionVestingScheduleWaterfallProps {
   className?: string;
 }
 
-export const OptionVestingScheduleWaterfall: React.FC<OptionVestingScheduleWaterfallProps> = ({
-  grantNumber,
-  granteeName,
-  grantType,
-  totalGrantedShares,
-  strikePrice,
-  currentFairMarketValue,
-  vestingCommencementDate,
-  cliffDate,
-  cliffShares,
-  election83bFiled,
-  tranches,
-  onExerciseVestedShares,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * OptionVestingScheduleWaterfall visualizes equity vesting tranches, cliff schedules, and exercisable shares.
+ *
+ * @maturity stable
+ */
+export const OptionVestingScheduleWaterfall = React.forwardRef<HTMLElement, OptionVestingScheduleWaterfallProps>(
+  function OptionVestingScheduleWaterfall(
+    {
+      grantNumber,
+      granteeName,
+      grantType,
+      totalGrantedShares,
+      strikePrice,
+      currentFairMarketValue,
+      vestingCommencementDate,
+      cliffDate,
+      cliffShares,
+      election83bFiled,
+      tranches,
+      onExerciseVestedShares,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
 
   const { vestedShares, exercisableShares, unvestedShares } = useMemo(() => {
     const vested = tranches
@@ -77,6 +86,7 @@ export const OptionVestingScheduleWaterfall: React.FC<OptionVestingScheduleWater
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -210,4 +220,7 @@ export const OptionVestingScheduleWaterfall: React.FC<OptionVestingScheduleWater
       </div>
     </section>
   );
-};
+});
+
+OptionVestingScheduleWaterfall.displayName = "OptionVestingScheduleWaterfall";
+

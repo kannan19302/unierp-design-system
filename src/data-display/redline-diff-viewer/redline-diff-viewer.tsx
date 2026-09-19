@@ -4,7 +4,7 @@ import {
   useState,
   useMemo,
   Fragment,
-  type FC,
+  forwardRef,
 } from "react";
 import {
   ChevronLeft,
@@ -52,17 +52,23 @@ export interface RedlineDiffViewerProps {
 /**
  * `<RedlineDiffViewer>` — High-precision contract redline and text revision inspector.
  * Benchmarked against Ironclad CLM (#114), GitHub Primer (#9), and GitLab Pajamas (#10).
+ *
+ * @maturity stable
  */
-export const RedlineDiffViewer: FC<RedlineDiffViewerProps> = ({
-  originalText,
-  revisedText,
-  defaultViewMode = "split",
-  documentTitle = "Document Revision Comparison",
-  onAcceptChange,
-  onRejectChange,
-  density = "compact",
-  className = "",
-}) => {
+export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerProps>(
+  function RedlineDiffViewer(
+    {
+      originalText,
+      revisedText,
+      defaultViewMode = "split",
+      documentTitle = "Document Revision Comparison",
+      onAcceptChange,
+      onRejectChange,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
   const [viewMode, setViewMode] = useState<DiffViewMode>(defaultViewMode);
   const [activeDiffIndex, setActiveDiffIndex] = useState(0);
 
@@ -144,6 +150,7 @@ export const RedlineDiffViewer: FC<RedlineDiffViewerProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className}`.trim()}
       data-density={density}
       role="region"
@@ -402,4 +409,7 @@ export const RedlineDiffViewer: FC<RedlineDiffViewerProps> = ({
       )}
     </div>
   );
-};
+});
+
+RedlineDiffViewer.displayName = "RedlineDiffViewer";
+

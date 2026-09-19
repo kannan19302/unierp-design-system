@@ -1,9 +1,20 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+import { createRef } from "react";
 import { axe } from "vitest-axe";
 import { DocumentAnnotator } from "./document-annotator";
 
 describe("DocumentAnnotator Primitive", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <DocumentAnnotator ref={ref} title="Test Document">
+        <div>Doc</div>
+      </DocumentAnnotator>
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("renders document title and stamp actions", () => {
     const onAddStamp = vi.fn();
     render(

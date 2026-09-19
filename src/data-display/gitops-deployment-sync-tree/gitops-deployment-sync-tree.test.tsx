@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import {
   GitOpsDeploymentSyncTree,
   GitOpsResourceNode,
@@ -68,6 +68,21 @@ describe("GitOpsDeploymentSyncTree", () => {
     expect(handleSyncNode).toHaveBeenCalled();
   });
 
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <GitOpsDeploymentSyncTree
+        ref={ref}
+        appName="unierp-platform-production"
+        gitRepo="github.com/unierp/platform-infra"
+        gitRevision="main"
+        targetCluster="aws-eks-us-east-1-prod"
+        rootNodes={sampleTree}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <GitOpsDeploymentSyncTree
@@ -83,3 +98,4 @@ describe("GitOpsDeploymentSyncTree", () => {
     expect(results).toHaveNoViolations();
   });
 });
+

@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./drug-allergy-interaction-matrix.module.css";
 
 export type InteractionSeverity = "CONTRAINDICATED" | "MAJOR" | "MODERATE" | "MINOR";
@@ -25,7 +25,12 @@ export interface DrugAllergyInteractionMatrixProps {
   className?: string;
 }
 
-export const DrugAllergyInteractionMatrix: React.FC<DrugAllergyInteractionMatrixProps> = ({
+/**
+ * DrugAllergyInteractionMatrix provides a clinical decision support matrix highlighting contraindicated interactions and provider overrides.
+ *
+ * @maturity stable
+ */
+export const DrugAllergyInteractionMatrix = forwardRef<HTMLElement, DrugAllergyInteractionMatrixProps>(({
   patientName,
   mrn,
   activeMedications,
@@ -34,7 +39,7 @@ export const DrugAllergyInteractionMatrix: React.FC<DrugAllergyInteractionMatrix
   onOverrideInteraction,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [interactions, setInteractions] = useState<DrugAllergyInteractionItem[]>(initialInteractions);
   const [overrideModalId, setOverrideModalId] = useState<string | null>(null);
@@ -63,6 +68,7 @@ export const DrugAllergyInteractionMatrix: React.FC<DrugAllergyInteractionMatrix
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -222,4 +228,6 @@ export const DrugAllergyInteractionMatrix: React.FC<DrugAllergyInteractionMatrix
       </footer>
     </section>
   );
-};
+});
+
+DrugAllergyInteractionMatrix.displayName = "DrugAllergyInteractionMatrix";

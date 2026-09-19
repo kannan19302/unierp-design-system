@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -36,4 +37,20 @@ describe("KPIStrip & StatCard Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element in KPIStrip and StatCard", () => {
+    const stripRef = createRef<HTMLDivElement>();
+    render(
+      <KPIStrip
+        ref={stripRef}
+        items={[{ id: "1", label: "Margin", value: "24%" }]}
+      />
+    );
+    expect(stripRef.current).toBeInstanceOf(HTMLDivElement);
+
+    const cardRef = createRef<HTMLDivElement>();
+    render(<StatCard ref={cardRef} id="kpi" label="Headcount" value="42" />);
+    expect(cardRef.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

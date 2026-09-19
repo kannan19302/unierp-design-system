@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import {
@@ -46,6 +47,18 @@ const samplePins: PunchItemPin[] = [
 ];
 
 describe("DrawingSheetPunchAnnotator", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <DrawingSheetPunchAnnotator
+        ref={ref}
+        sheet={sampleSheet}
+        initialPins={samplePins}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders blueprint sheet and interactive pin drops", () => {
     render(
       <DrawingSheetPunchAnnotator

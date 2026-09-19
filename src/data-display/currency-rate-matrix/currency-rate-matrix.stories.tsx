@@ -99,6 +99,7 @@ const meta: Meta<typeof CurrencyRateMatrix> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: "select",
@@ -135,4 +136,25 @@ export const ComfortablePresentation: Story = {
     density: "comfortable",
     onRefreshRates: () => {},
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...DefaultBaseUSD.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Base USD (Compact)</h4>
+        <CurrencyRateMatrix baseCurrency="USD" rates={mockRates} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Base EUR (Ultra-Compact)</h4>
+        <CurrencyRateMatrix baseCurrency="EUR" rates={mockRates} density="ultra-compact" />
+      </div>
+    </div>
+  ),
 };

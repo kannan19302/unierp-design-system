@@ -26,35 +26,45 @@ export interface GanttMilestoneSchedulerProps {
   className?: string;
 }
 
-export const GanttMilestoneScheduler: React.FC<GanttMilestoneSchedulerProps> = ({
-  projectTitle = "Project Hyperion: Autonomous Flight Software Migration",
-  projectCode = "PRJ-HYP-801",
-  timeframeLabel = "October 2026 (30-Day Milestone Sprint)",
-  totalDays = 30,
-  tasks,
-  onTaskSelect,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
-  const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
-  const [criticalOnly, setCriticalOnly] = useState<boolean>(false);
+/**
+ * GanttMilestoneScheduler visualizes project schedules, critical paths, and milestone deadlines.
+ *
+ * @maturity stable
+ */
+export const GanttMilestoneScheduler = React.forwardRef<HTMLElement, GanttMilestoneSchedulerProps>(
+  function GanttMilestoneScheduler(
+    {
+      projectTitle = "Project Hyperion: Autonomous Flight Software Migration",
+      projectCode = "PRJ-HYP-801",
+      timeframeLabel = "October 2026 (30-Day Milestone Sprint)",
+      totalDays = 30,
+      tasks,
+      onTaskSelect,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
+    const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
+    const [criticalOnly, setCriticalOnly] = useState<boolean>(false);
 
-  const displayedTasks = criticalOnly
-    ? tasks.filter((t) => t.isCriticalPath)
-    : tasks;
+    const displayedTasks = criticalOnly
+      ? tasks.filter((t) => t.isCriticalPath)
+      : tasks;
 
-  const handleTaskClick = (taskId: string) => {
-    setActiveTaskId(taskId);
-    onTaskSelect?.(taskId);
-  };
+    const handleTaskClick = (taskId: string) => {
+      setActiveTaskId(taskId);
+      onTaskSelect?.(taskId);
+    };
 
-  return (
-    <section
-      className={`${styles.container} ${styles[density]} ${className}`}
-      aria-labelledby={headingId}
-      data-density={density}
-    >
+    return (
+      <section
+        ref={ref}
+        className={`${styles.container} ${styles[density]} ${className}`}
+        aria-labelledby={headingId}
+        data-density={density}
+      >
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.titleGroup}>
@@ -190,4 +200,6 @@ export const GanttMilestoneScheduler: React.FC<GanttMilestoneSchedulerProps> = (
       </div>
     </section>
   );
-};
+});
+
+GanttMilestoneScheduler.displayName = "GanttMilestoneScheduler";

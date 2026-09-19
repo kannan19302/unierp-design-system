@@ -81,3 +81,24 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Standard Density Plan</h4>
+        <DatabaseQueryExplainPlan {...(Default.args as any)} density="standard" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Ultra Compact Plan</h4>
+        <DatabaseQueryExplainPlan {...(Default.args as any)} density="ultra-compact" />
+      </div>
+    </div>
+  ),
+};

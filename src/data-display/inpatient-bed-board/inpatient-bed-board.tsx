@@ -33,15 +33,24 @@ export interface InpatientBedBoardProps {
   className?: string;
 }
 
-export const InpatientBedBoard: React.FC<InpatientBedBoardProps> = ({
-  wardTitle = "4-North Inpatient Surgical & Step-Down Ward",
-  facilityName = "Memorial Academic Health Center",
-  beds,
-  onSelectBed,
-  density = "compact",
-  className = "",
-}) => {
-  const [selectedBedId, setSelectedBedId] = useState<string | null>(beds[0]?.id || null);
+/**
+ * InpatientBedBoard manages hospital ward census, patient turnover, and isolation precautions.
+ *
+ * @maturity stable
+ */
+export const InpatientBedBoard = React.forwardRef<HTMLElement, InpatientBedBoardProps>(
+  function InpatientBedBoard(
+    {
+      wardTitle = "4-North Inpatient Surgical & Step-Down Ward",
+      facilityName = "Memorial Academic Health Center",
+      beds,
+      onSelectBed,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const [selectedBedId, setSelectedBedId] = useState<string | null>(beds[0]?.id || null);
   const [filterState, setFilterState] = useState<"all" | BedOccupancyState>("all");
   const headingId = useId();
 
@@ -102,6 +111,7 @@ export const InpatientBedBoard: React.FC<InpatientBedBoardProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -270,4 +280,7 @@ export const InpatientBedBoard: React.FC<InpatientBedBoardProps> = ({
       )}
     </section>
   );
-};
+});
+
+InpatientBedBoard.displayName = "InpatientBedBoard";
+

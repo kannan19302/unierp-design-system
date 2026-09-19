@@ -3,7 +3,7 @@
 import {
   useState,
   useMemo,
-  type FC,
+  forwardRef,
 } from "react";
 import {
   AlertOctagon,
@@ -60,16 +60,22 @@ export interface StackTraceInspectorProps {
 /**
  * `<StackTraceInspector>` — Production exception & call-stack inspection inspector.
  * Benchmarked against Sentry Error Tracking (#96), Datadog APM (#53), and GitHub Primer (#9).
+ *
+ * @maturity stable
  */
-export const StackTraceInspector: FC<StackTraceInspectorProps> = ({
-  exceptionName,
-  exceptionMessage,
-  frames,
-  suspectCommit,
-  defaultInAppOnly = true,
-  density = "compact",
-  className = "",
-}) => {
+export const StackTraceInspector = forwardRef<HTMLDivElement, StackTraceInspectorProps>(
+  function StackTraceInspector(
+    {
+      exceptionName,
+      exceptionMessage,
+      frames,
+      suspectCommit,
+      defaultInAppOnly = true,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
   const [inAppOnly, setInAppOnly] = useState(defaultInAppOnly);
   const [expandedFrameIds, setExpandedFrameIds] = useState<Set<string>>(() => {
     // Expand first in-app frame by default
@@ -110,6 +116,7 @@ export const StackTraceInspector: FC<StackTraceInspectorProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className}`.trim()}
       data-density={density}
       role="region"
@@ -241,4 +248,7 @@ export const StackTraceInspector: FC<StackTraceInspectorProps> = ({
       </div>
     </div>
   );
-};
+});
+
+StackTraceInspector.displayName = "StackTraceInspector";
+

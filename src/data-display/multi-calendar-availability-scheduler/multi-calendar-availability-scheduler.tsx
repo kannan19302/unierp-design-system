@@ -45,19 +45,28 @@ const defaultHours = [
   "17:00",
 ];
 
-export const MultiCalendarAvailabilityScheduler: React.FC<
+/**
+ * MultiCalendarAvailabilityScheduler renders a multi-resource booking and availability matrix.
+ *
+ * @maturity stable
+ */
+export const MultiCalendarAvailabilityScheduler = React.forwardRef<
+  HTMLElement,
   MultiCalendarAvailabilitySchedulerProps
-> = ({
-  selectedDate,
-  resources,
-  bookings,
-  timeSlots = defaultHours,
-  timeZone = "America/New_York (UTC-4)",
-  onSelectSlot,
-  onBookingClick,
-  density = "compact",
-  className = "",
-}) => {
+>(function MultiCalendarAvailabilityScheduler(
+  {
+    selectedDate,
+    resources,
+    bookings,
+    timeSlots = defaultHours,
+    timeZone = "America/New_York (UTC-4)",
+    onSelectSlot,
+    onBookingClick,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [activeTimeZone, setActiveTimeZone] = useState(timeZone);
   const [enabledResources, setEnabledResources] = useState<Record<string, boolean>>(() => {
@@ -86,6 +95,7 @@ export const MultiCalendarAvailabilityScheduler: React.FC<
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -208,4 +218,7 @@ export const MultiCalendarAvailabilityScheduler: React.FC<
       </div>
     </section>
   );
-};
+});
+
+MultiCalendarAvailabilityScheduler.displayName = "MultiCalendarAvailabilityScheduler";
+

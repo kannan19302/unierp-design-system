@@ -79,4 +79,16 @@ describe("VitalSignsTrendStrip", () => {
     fireEvent.keyDown(spo2Card, { key: "Enter" });
     expect(spo2Card.className).toMatch(/channelSelected/);
   });
+
+  it("forwards ref to container element", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <VitalSignsTrendStrip
+        ref={ref}
+        series={TEST_SERIES}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

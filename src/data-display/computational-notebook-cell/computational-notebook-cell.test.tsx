@@ -1,9 +1,23 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+import { createRef } from "react";
 import { axe } from "vitest-axe";
 import { ComputationalNotebookCell } from "./computational-notebook-cell";
 
 describe("ComputationalNotebookCell", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <ComputationalNotebookCell
+        ref={ref}
+        cellId="cmd_01"
+        language="sql"
+        initialCode="SELECT 1;"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes axe accessibility tests with zero violations", async () => {
     const { container } = render(
       <ComputationalNotebookCell

@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -80,4 +81,11 @@ describe("RestaurantFloorplanTableMap", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<RestaurantFloorplanTableMap ref={ref} tables={sampleTables} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -69,4 +70,11 @@ describe("QueryExecutionPlanViewer", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<QueryExecutionPlanViewer ref={ref} rootNode={testPlan} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

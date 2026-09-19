@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -66,6 +66,18 @@ describe("KitchenDisplayStationExpediter", () => {
     fireEvent.click(bumpBtn);
     expect(handleBump).toHaveBeenCalledWith("T-104");
     expect(screen.getByText(/All orders bumped/i)).toBeInTheDocument();
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <KitchenDisplayStationExpediter
+        ref={ref}
+        stationName="Station 2"
+        ticketOrders={sampleTickets}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

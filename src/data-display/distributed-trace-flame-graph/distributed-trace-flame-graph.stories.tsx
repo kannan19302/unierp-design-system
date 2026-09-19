@@ -142,3 +142,24 @@ export const WithError: Story = {
     ],
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Standard Success Waterfall</h4>
+        <DistributedTraceFlameGraph {...(Default.args as any)} density="standard" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Trace With Timeout Error</h4>
+        <DistributedTraceFlameGraph {...(WithError.args as any)} density="compact" />
+      </div>
+    </div>
+  ),
+};

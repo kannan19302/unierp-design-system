@@ -7,6 +7,7 @@ const meta: Meta<typeof TimeRangeScrubber> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: "select",
@@ -53,3 +54,34 @@ export const FullZoomWithBrush: Story = {
     density: "standard",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <TimeRangeScrubber {...args} />
+    </div>
+  ),
+  args: {
+    initialRange: {
+      preset: "4h",
+      timezone: "UTC",
+      autoRefresh: "10s",
+    },
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>With Brush Slider</h4>
+        <TimeRangeScrubber showBrushSlider={true} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Ultra Compact (Without Slider)</h4>
+        <TimeRangeScrubber showBrushSlider={false} density="ultra-compact" />
+      </div>
+    </div>
+  ),
+};
+

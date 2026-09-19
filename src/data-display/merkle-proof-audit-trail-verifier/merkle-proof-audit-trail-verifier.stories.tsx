@@ -64,3 +64,42 @@ export const Comfortable: Story = {
     density: "comfortable",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <MerkleProofAuditTrailVerifier
+        expectedRootHash="7d793037a0760186574b0282f2f435e70ec71e169d275743b40f8b4be14ecdbf"
+        blockEpoch={489210}
+        targetRecord={mockTarget}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <MerkleProofAuditTrailVerifier
+          expectedRootHash="7d793037a0760186574b0282f2f435e70ec71e169d275743b40f8b4be14ecdbf"
+          blockEpoch={489210}
+          targetRecord={mockTarget}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Comfortable Density</h3>
+        <MerkleProofAuditTrailVerifier
+          expectedRootHash="7d793037a0760186574b0282f2f435e70ec71e169d275743b40f8b4be14ecdbf"
+          blockEpoch={489210}
+          targetRecord={mockTarget}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
+};
+

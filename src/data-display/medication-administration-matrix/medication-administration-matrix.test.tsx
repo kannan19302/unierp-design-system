@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -71,6 +72,18 @@ describe("MedicationAdministrationMatrix", () => {
     fireEvent.click(confirmBtn);
 
     expect(onAdmin).toHaveBeenCalledWith("med-1", "RN Marcus Aurel");
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <MedicationAdministrationMatrix
+        ref={ref}
+        patientName="Eleanor Vance"
+        orders={testOrders}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

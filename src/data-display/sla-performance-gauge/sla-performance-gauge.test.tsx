@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -50,4 +51,17 @@ describe("SlaPerformanceGauge", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <SlaPerformanceGauge
+        ref={ref}
+        ticketRef="INC-88912"
+        milestones={testMilestones}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

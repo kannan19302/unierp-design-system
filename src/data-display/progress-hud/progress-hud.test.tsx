@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { ProgressHUD } from "./progress-hud";
@@ -15,9 +16,16 @@ describe("ProgressHUD Data Display", () => {
     expect(screen.getByText("50%")).toBeInTheDocument();
   });
 
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<ProgressHUD ref={ref} percentComplete={50} items={items} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<ProgressHUD percentComplete={50} items={items} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 });
+

@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -54,6 +55,12 @@ describe("InpatientBedBoard", () => {
     expect(screen.queryByText("Room 401-A")).not.toBeInTheDocument();
   });
 
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<InpatientBedBoard ref={ref} beds={testBeds} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <InpatientBedBoard
@@ -66,3 +73,4 @@ describe("InpatientBedBoard", () => {
     expect(results).toHaveNoViolations();
   });
 });
+

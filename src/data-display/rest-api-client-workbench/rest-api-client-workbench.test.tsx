@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -37,4 +37,11 @@ describe("RestApiClientWorkbench", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<RestApiClientWorkbench ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

@@ -22,17 +22,28 @@ export interface StatisticalProcessControlChartProps {
   className?: string;
 }
 
-export const StatisticalProcessControlChart: React.FC<StatisticalProcessControlChartProps> = ({
-  processName = "Cylinder Bore Diameter Machining (Station CNC-04)",
-  nominalMean = 85.0,
-  ucl = 85.045,
-  lcl = 84.955,
-  unitOfMeasure = "mm",
-  subgroups: initialSubgroups,
-  onInspectSample,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * StatisticalProcessControlChart displays Six Sigma X-bar and R-charts with Upper and Lower Control Limits.
+ *
+ * @maturity stable
+ */
+export const StatisticalProcessControlChart = React.forwardRef<
+  HTMLElement,
+  StatisticalProcessControlChartProps
+>(function StatisticalProcessControlChart(
+  {
+    processName = "Cylinder Bore Diameter Machining (Station CNC-04)",
+    nominalMean = 85.0,
+    ucl = 85.045,
+    lcl = 84.955,
+    unitOfMeasure = "mm",
+    subgroups: initialSubgroups,
+    onInspectSample,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [subgroups] = useState<SpcSubgroupSample[]>(initialSubgroups);
   const [activeSampleIndex, setActiveSampleIndex] = useState<number | null>(null);
@@ -71,6 +82,7 @@ export const StatisticalProcessControlChart: React.FC<StatisticalProcessControlC
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -255,4 +267,7 @@ export const StatisticalProcessControlChart: React.FC<StatisticalProcessControlC
       </footer>
     </section>
   );
-};
+});
+
+StatisticalProcessControlChart.displayName = "StatisticalProcessControlChart";
+

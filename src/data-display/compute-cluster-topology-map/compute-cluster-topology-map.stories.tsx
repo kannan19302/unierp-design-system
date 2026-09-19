@@ -57,6 +57,7 @@ const meta: Meta<typeof ComputeClusterTopologyMap> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -77,4 +78,35 @@ export const UltraCompact: Story = {
     nodes: sampleNodes,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Standard Density Topology</h4>
+        <ComputeClusterTopologyMap
+          clusterName="ClickHouse Production Primary"
+          clusterRegion="us-east-1"
+          nodes={sampleNodes}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Ultra-Compact Topology</h4>
+        <ComputeClusterTopologyMap
+          clusterName="ClickHouse Production Compact"
+          clusterRegion="us-west-2"
+          nodes={sampleNodes}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };

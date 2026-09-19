@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { ResourceCapacityHeatmap, ResourceRow } from "./resource-capacity-heatmap";
@@ -67,4 +67,17 @@ describe("ResourceCapacityHeatmap", () => {
     expect(screen.getByText("API Gateway Refactor")).toBeInTheDocument();
     expect(screen.getByText("35h")).toBeInTheDocument();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <ResourceCapacityHeatmap
+        ref={ref}
+        periods={TEST_PERIODS}
+        resources={TEST_RESOURCES}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

@@ -34,6 +34,12 @@ const mockSteps: FunnelStep[] = [
 ];
 
 describe("FunnelDropoffAnalyzer", () => {
+  it("forwards ref to container element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<FunnelDropoffAnalyzer ref={ref} steps={mockSteps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders steps and conversion statistics", () => {
     render(<FunnelDropoffAnalyzer steps={mockSteps} />);
     expect(

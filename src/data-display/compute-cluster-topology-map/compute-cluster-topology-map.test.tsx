@@ -33,6 +33,12 @@ const sampleNodes: ClusterNodeSpecification[] = [
 ];
 
 describe("ComputeClusterTopologyMap", () => {
+  it("forwards ref to container element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<ComputeClusterTopologyMap ref={ref} nodes={sampleNodes} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders cluster header and compute node cards truthfully", () => {
     render(
       <ComputeClusterTopologyMap

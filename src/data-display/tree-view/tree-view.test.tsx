@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -38,4 +39,11 @@ describe("TreeView Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to container div", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<TreeView ref={ref} nodes={[{ id: "1", label: "Root" }]} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

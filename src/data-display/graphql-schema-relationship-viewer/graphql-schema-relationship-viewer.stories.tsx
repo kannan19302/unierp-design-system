@@ -80,6 +80,7 @@ const sampleTypes: GraphQLTypeDef[] = [
 const meta: Meta<typeof GraphQLSchemaRelationshipViewer> = {
   title: "Data Display/GraphQLSchemaRelationshipViewer",
   component: GraphQLSchemaRelationshipViewer,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -109,3 +110,40 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <GraphQLSchemaRelationshipViewer
+        subgraphName="inventory-federated-subgraph"
+        schemaVersion="v2.14.0-federation2"
+        types={sampleTypes}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <GraphQLSchemaRelationshipViewer
+          subgraphName="orders-subgraph"
+          types={sampleTypes}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Standard Density</h3>
+        <GraphQLSchemaRelationshipViewer
+          subgraphName="orders-subgraph"
+          types={sampleTypes}
+          density="standard"
+        />
+      </div>
+    </div>
+  ),
+};
+

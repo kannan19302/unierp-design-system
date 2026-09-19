@@ -84,3 +84,24 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...SqlSuccess.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>SQL Success Execution</h4>
+        <ComputationalNotebookCell {...(SqlSuccess.args as any)} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Python Traceback Error</h4>
+        <ComputationalNotebookCell {...(PythonError.args as any)} />
+      </div>
+    </div>
+  ),
+};

@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./database-query-explain-plan.module.css";
 
 export type ExplainNodeType =
@@ -48,7 +48,12 @@ export interface DatabaseQueryExplainPlanProps {
   className?: string;
 }
 
-export const DatabaseQueryExplainPlan: React.FC<DatabaseQueryExplainPlanProps> = ({
+/**
+ * DatabaseQueryExplainPlan renders a visual execution plan for database queries with performance breakdown and bottlenecks.
+ *
+ * @maturity stable
+ */
+export const DatabaseQueryExplainPlan = forwardRef<HTMLElement, DatabaseQueryExplainPlanProps>(({
   querySql,
   planningTimeMs,
   executionTimeMs,
@@ -58,7 +63,7 @@ export const DatabaseQueryExplainPlan: React.FC<DatabaseQueryExplainPlanProps> =
   onSelectNode,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [selectedId, setSelectedId] = useState<string>(
     initialSelectedId ?? rootNode.id
@@ -108,7 +113,7 @@ export const DatabaseQueryExplainPlan: React.FC<DatabaseQueryExplainPlanProps> =
       <div key={node.id} className={styles.treeBranch}>
         <div
           className={`${styles.treeNodeRow} ${isSelected ? styles.selectedRow : ""}`}
-          style={{ paddingLeft: `calc(${depth} * var(--space-4, 1rem) + var(--space-2, 0.5rem))` }}
+          style={{ paddingInlineStart: `calc(${depth} * var(--space-4, 1rem) + var(--space-2, 0.5rem))` }}
         >
           <button
             type="button"
@@ -171,6 +176,7 @@ export const DatabaseQueryExplainPlan: React.FC<DatabaseQueryExplainPlanProps> =
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${className}`}
       data-density={density}
       aria-labelledby={headingId}
@@ -287,4 +293,6 @@ export const DatabaseQueryExplainPlan: React.FC<DatabaseQueryExplainPlanProps> =
       </div>
     </section>
   );
-};
+});
+
+DatabaseQueryExplainPlan.displayName = "DatabaseQueryExplainPlan";

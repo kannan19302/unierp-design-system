@@ -63,6 +63,7 @@ const meta: Meta<typeof DrawingSheetPunchAnnotator> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   args: {
     sheet: sampleSheet,
     initialPins: samplePins,
@@ -80,4 +81,25 @@ export const UltraCompact: Story = {
   args: {
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Standard Blueprint View</h4>
+        <DrawingSheetPunchAnnotator sheet={sampleSheet} initialPins={samplePins} density="standard" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Ultra-Compact Blueprint View</h4>
+        <DrawingSheetPunchAnnotator sheet={sampleSheet} initialPins={samplePins} density="ultra-compact" />
+      </div>
+    </div>
+  ),
 };

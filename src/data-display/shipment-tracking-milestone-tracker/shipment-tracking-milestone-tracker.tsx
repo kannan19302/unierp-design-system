@@ -40,18 +40,29 @@ export interface ShipmentTrackingMilestoneTrackerProps {
   className?: string;
 }
 
-export const ShipmentTrackingMilestoneTracker: React.FC<ShipmentTrackingMilestoneTrackerProps> = ({
-  shipmentNumber = "MSCU-849102-1",
-  routeSummary = "Shanghai Port (CNSHA) → Port of Long Beach (USLGB) → Chicago Rail Hub",
-  projectedEta = "2026-09-18 14:00 CST",
-  etaVariance = "+3d 4h Delayed (Port Congestion)",
-  isDemurrageRisk = true,
-  sealNumber = "SEAL-US-99410",
-  temperatureStatus = "-18.5°C (Reefer Normal)",
-  milestones,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * ShipmentTrackingMilestoneTracker visualizes multi-modal transit legs, demurrage risks, and dwell status for global freight.
+ *
+ * @maturity stable
+ */
+export const ShipmentTrackingMilestoneTracker = React.forwardRef<
+  HTMLElement,
+  ShipmentTrackingMilestoneTrackerProps
+>(function ShipmentTrackingMilestoneTracker(
+  {
+    shipmentNumber = "MSCU-849102-1",
+    routeSummary = "Shanghai Port (CNSHA) → Port of Long Beach (USLGB) → Chicago Rail Hub",
+    projectedEta = "2026-09-18 14:00 CST",
+    etaVariance = "+3d 4h Delayed (Port Congestion)",
+    isDemurrageRisk = true,
+    sealNumber = "SEAL-US-99410",
+    temperatureStatus = "-18.5°C (Reefer Normal)",
+    milestones,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const [selectedMilestoneId, setSelectedMilestoneId] = useState<string>(
     milestones.find((m) => m.status === "in_transit" || m.status === "delayed")?.id ||
       milestones[0]?.id ||
@@ -94,6 +105,7 @@ export const ShipmentTrackingMilestoneTracker: React.FC<ShipmentTrackingMileston
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -250,4 +262,7 @@ export const ShipmentTrackingMilestoneTracker: React.FC<ShipmentTrackingMileston
       )}
     </section>
   );
-};
+});
+
+ShipmentTrackingMilestoneTracker.displayName = "ShipmentTrackingMilestoneTracker";
+

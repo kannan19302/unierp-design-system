@@ -83,3 +83,42 @@ export const Default: Story = {
     resources: SAMPLE_RESOURCES,
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <ResourceCapacityHeatmap {...args} />
+    </div>
+  ),
+  args: {
+    title: "Engineering Squad Alpha — Capacity Allocation",
+    periods: SAMPLE_PERIODS,
+    resources: SAMPLE_RESOURCES,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Compact Density</h4>
+        <ResourceCapacityHeatmap
+          title="Team Workload (Compact)"
+          periods={SAMPLE_PERIODS}
+          resources={SAMPLE_RESOURCES}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Comfortable Density</h4>
+        <ResourceCapacityHeatmap
+          title="Team Workload (Comfortable)"
+          periods={SAMPLE_PERIODS}
+          resources={SAMPLE_RESOURCES}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
+};
+

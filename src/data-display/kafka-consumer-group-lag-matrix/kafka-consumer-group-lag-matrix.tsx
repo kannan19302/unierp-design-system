@@ -26,17 +26,26 @@ export interface KafkaConsumerGroupLagMatrixProps {
   className?: string;
 }
 
-export const KafkaConsumerGroupLagMatrix: React.FC<KafkaConsumerGroupLagMatrixProps> = ({
-  consumerGroupId,
-  clusterBootstrap = "kafka-prod-broker:9092",
-  protocolType = "consumer (round-robin)",
-  partitions,
-  onSelectPartition,
-  onResetOffset,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * KafkaConsumerGroupLagMatrix displays partition offsets, lag status, and consumer cluster health.
+ *
+ * @maturity stable
+ */
+export const KafkaConsumerGroupLagMatrix = React.forwardRef<HTMLElement, KafkaConsumerGroupLagMatrixProps>(
+  function KafkaConsumerGroupLagMatrix(
+    {
+      consumerGroupId,
+      clusterBootstrap = "kafka-prod-broker:9092",
+      protocolType = "consumer (round-robin)",
+      partitions,
+      onSelectPartition,
+      onResetOffset,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
   const [topicFilter, setTopicFilter] = useState<string>("all");
   const [selectedPartitionId, setSelectedPartitionId] = useState<number | null>(
     partitions[0]?.partitionId ?? null
@@ -72,6 +81,7 @@ export const KafkaConsumerGroupLagMatrix: React.FC<KafkaConsumerGroupLagMatrixPr
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -211,4 +221,7 @@ export const KafkaConsumerGroupLagMatrix: React.FC<KafkaConsumerGroupLagMatrixPr
       </div>
     </section>
   );
-};
+});
+
+KafkaConsumerGroupLagMatrix.displayName = "KafkaConsumerGroupLagMatrix";
+

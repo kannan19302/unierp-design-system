@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import {
   SupplyChainDisruptionRiskHeatmap,
   LaneRiskCell,
@@ -85,4 +85,18 @@ describe("SupplyChainDisruptionRiskHeatmap", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <SupplyChainDisruptionRiskHeatmap
+        ref={ref}
+        origins={sampleOrigins}
+        destinations={sampleDestinations}
+        cells={sampleCells}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

@@ -53,6 +53,7 @@ const meta: Meta<typeof DrugAllergyInteractionMatrix> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -77,4 +78,39 @@ export const UltraCompact: Story = {
     interactions: sampleInteractions,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Standard Clinical Safety Review</h4>
+        <DrugAllergyInteractionMatrix
+          patientName="Eleanor Vance"
+          mrn="EHR-902-8471"
+          activeMedications={["Warfarin Sodium 5mg", "Lisinopril 20mg"]}
+          documentedAllergies={["Penicillin"]}
+          interactions={sampleInteractions}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Ultra Compact EHR Layout</h4>
+        <DrugAllergyInteractionMatrix
+          patientName="John Doe"
+          mrn="EHR-552-1109"
+          activeMedications={["Warfarin Sodium 5mg"]}
+          documentedAllergies={[]}
+          interactions={sampleInteractions}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };

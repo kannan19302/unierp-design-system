@@ -1,9 +1,6 @@
-"use client";
-
-import { useState, type ReactNode, type FC } from "react";
+import { useState, forwardRef, type ReactNode } from "react";
 import { MessageSquare, ShieldCheck } from "lucide-react";
 import styles from "./document-annotator.module.css";
-
 
 export type DocumentStampType = "APPROVED" | "REJECTED" | "POSTED" | "AUDITED";
 
@@ -35,7 +32,12 @@ export interface DocumentAnnotatorProps {
   className?: string;
 }
 
-export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
+/**
+ * DocumentAnnotator provides document markup, digital stamping, and contextual annotations on ERP record bodies.
+ *
+ * @maturity stable
+ */
+export const DocumentAnnotator = forwardRef<HTMLDivElement, DocumentAnnotatorProps>(({
   title,
   documentNumber,
   children,
@@ -44,7 +46,7 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
   onAddStamp,
   onAddAnnotation,
   className = "",
-}) => {
+}, ref) => {
   const [annotationText, setAnnotationText] = useState("");
   const [isAddingNote, setIsAddingNote] = useState(false);
 
@@ -56,7 +58,7 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
   };
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div ref={ref} className={`${styles.container} ${className}`}>
       <div className={styles.toolbar}>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
           <ShieldCheck size={16} style={{ color: "var(--color-brand)" }} />
@@ -170,10 +172,10 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
               <div
                 key={stamp.id}
                 className={`${styles.stamp} ${stampClass}`}
-                style={{ top: stamp.y, left: stamp.x }}
+                style={{ insetBlockStart: stamp.y, insetInlineStart: stamp.x }}
               >
                 <div>✓ {stamp.type}</div>
-                <div style={{ fontSize: 9, fontWeight: 500, opacity: 0.85 }}>
+                <div style={{ fontSize: "var(--text-2xs, 9px)", fontWeight: 500, opacity: 0.85 }}>
                   {stamp.signee} · {stamp.timestamp}
                 </div>
               </div>
@@ -185,7 +187,7 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
             <div
               key={ann.id}
               className={styles.annotation}
-              style={{ top: ann.y, left: ann.x }}
+              style={{ insetBlockStart: ann.y, insetInlineStart: ann.x }}
             >
               <strong>{ann.author}:</strong>
               <div>{ann.text}</div>
@@ -195,4 +197,6 @@ export const DocumentAnnotator: FC<DocumentAnnotatorProps> = ({
       </div>
     </div>
   );
-};
+});
+
+DocumentAnnotator.displayName = "DocumentAnnotator";

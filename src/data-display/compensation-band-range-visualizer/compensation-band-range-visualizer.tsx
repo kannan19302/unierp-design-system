@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./compensation-band-range-visualizer.module.css";
 
 export interface CompensationPercentiles {
@@ -88,14 +88,19 @@ export interface CompensationBandRangeVisualizerProps {
   className?: string;
 }
 
-export const CompensationBandRangeVisualizer: React.FC<CompensationBandRangeVisualizerProps> = ({
+/**
+ * CompensationBandRangeVisualizer renders job level compensation ranges with compa-ratios and percentiles.
+ *
+ * @maturity stable
+ */
+export const CompensationBandRangeVisualizer = forwardRef<HTMLElement, CompensationBandRangeVisualizerProps>(({
   currentOfferOrSalary = 265000,
   initialBandId = "band_swe_l6_z1",
   bands = defaultCompensationBands,
   onSelectBand,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const selectId = useId();
   const [selectedId, setSelectedId] = useState<string>(initialBandId);
@@ -134,6 +139,7 @@ export const CompensationBandRangeVisualizer: React.FC<CompensationBandRangeVisu
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -274,4 +280,6 @@ export const CompensationBandRangeVisualizer: React.FC<CompensationBandRangeVisu
       </footer>
     </section>
   );
-};
+});
+
+CompensationBandRangeVisualizer.displayName = "CompensationBandRangeVisualizer";

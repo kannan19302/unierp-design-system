@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import {
   OptionVestingScheduleWaterfall,
   VestingTranche,
@@ -75,6 +75,27 @@ describe("OptionVestingScheduleWaterfall", () => {
     });
     fireEvent.click(exerciseBtn);
     expect(onExercise).toHaveBeenCalledWith("ESOP-2024-042", 12000);
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <OptionVestingScheduleWaterfall
+        ref={ref}
+        grantNumber="ESOP-2024-042"
+        granteeName="Elena Rostova"
+        grantType="ISO"
+        totalGrantedShares={48000}
+        strikePrice={1.25}
+        currentFairMarketValue={18.5}
+        vestingCommencementDate="2024-03-01"
+        cliffDate="2025-03-01"
+        cliffShares={12000}
+        election83bFiled={true}
+        tranches={mockTranches}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("passes automated accessibility (axe) checks", async () => {

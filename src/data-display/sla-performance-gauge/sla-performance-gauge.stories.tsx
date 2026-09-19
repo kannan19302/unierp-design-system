@@ -68,3 +68,50 @@ export const Breached: Story = {
     ],
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <SlaPerformanceGauge {...args} />
+    </div>
+  ),
+  args: {
+    ticketRef: "INC-88912",
+    commitmentTier: "Mission-Critical Tier 1 (99.99% Availability SLA)",
+    milestones: mockMilestones,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>On-Track State</h4>
+        <SlaPerformanceGauge
+          ticketRef="INC-88912"
+          commitmentTier="Mission-Critical Tier 1"
+          milestones={mockMilestones}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Breached State</h4>
+        <SlaPerformanceGauge
+          ticketRef="INC-88990"
+          commitmentTier="Platinum SLA 24/7"
+          milestones={[
+            {
+              id: "sla-1",
+              name: "First Response Target (< 15 mins)",
+              type: "first_response",
+              targetMinutes: 15,
+              elapsedMinutes: 45,
+              status: "breached",
+              penaltyAmount: 2500,
+            },
+          ]}
+        />
+      </div>
+    </div>
+  ),
+};
+

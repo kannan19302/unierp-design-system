@@ -148,11 +148,12 @@ const sampleCells: LaneRiskCell[] = [
 ];
 
 const meta: Meta<typeof SupplyChainDisruptionRiskHeatmap> = {
-  title: "Data Display/SupplyChainDisruptionRiskHeatmap",
+  title: "DataDisplay/SupplyChainDisruptionRiskHeatmap",
   component: SupplyChainDisruptionRiskHeatmap,
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: { type: "select" },
@@ -180,3 +181,42 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <SupplyChainDisruptionRiskHeatmap {...args} />
+    </div>
+  ),
+  args: {
+    origins: sampleOrigins,
+    destinations: sampleDestinations,
+    cells: sampleCells,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Compact Density</h4>
+        <SupplyChainDisruptionRiskHeatmap
+          origins={sampleOrigins}
+          destinations={sampleDestinations}
+          cells={sampleCells}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Ultra Compact Density</h4>
+        <SupplyChainDisruptionRiskHeatmap
+          origins={sampleOrigins}
+          destinations={sampleDestinations}
+          cells={sampleCells}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

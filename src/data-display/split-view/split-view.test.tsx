@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -18,4 +19,11 @@ describe("SplitView Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<SplitView ref={ref} left={<div>Left</div>} right={<div>Right</div>} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

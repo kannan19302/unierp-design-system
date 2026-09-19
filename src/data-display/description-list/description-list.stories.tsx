@@ -29,3 +29,52 @@ export const Default: Story = {
     ],
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>1 Column Layout</h4>
+        <DescriptionList
+          columns={1}
+          items={[
+            { label: "Company", value: "Acme Corp" },
+            { label: "Status", value: "Active" },
+          ]}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>2 Column Layout</h4>
+        <DescriptionList
+          columns={2}
+          items={[
+            { label: "Company", value: "Acme Corp" },
+            { label: "Status", value: "Active" },
+            { label: "Plan", value: "Enterprise" },
+            { label: "Seats", value: "250" },
+          ]}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>3 Column Layout</h4>
+        <DescriptionList
+          columns={3}
+          items={[
+            { label: "Company", value: "Acme Corp" },
+            { label: "Status", value: "Active" },
+            { label: "Plan", value: "Enterprise" },
+            { label: "Seats", value: "250" },
+            { label: "Region", value: "US-East" },
+            { label: "Tier", value: "Tier 1" },
+          ]}
+        />
+      </div>
+    </div>
+  ),
+};

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import {
   GraphQLSchemaRelationshipViewer,
   GraphQLTypeDef,
@@ -70,6 +70,18 @@ describe("GraphQLSchemaRelationshipViewer", () => {
 
     expect(handleSelect).toHaveBeenCalledWith(sampleTypes[1]);
     expect(screen.getByText("batchId")).toBeDefined();
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <GraphQLSchemaRelationshipViewer
+        ref={ref}
+        subgraphName="inventory-federated-subgraph"
+        types={sampleTypes}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

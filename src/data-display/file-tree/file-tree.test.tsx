@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { FileTree, type FileTreeNode } from "./file-tree";
@@ -16,6 +17,12 @@ const testNodes: FileTreeNode[] = [
 ];
 
 describe("FileTree Component", () => {
+  it("forwards ref to ul element", () => {
+    const ref = createRef<HTMLUListElement>();
+    render(<FileTree ref={ref} nodes={testNodes} />);
+    expect(ref.current).toBeInstanceOf(HTMLUListElement);
+  });
+
   it("renders root files and toggles directory expansion", () => {
     render(<FileTree nodes={testNodes} defaultExpandedIds={[]} />);
 

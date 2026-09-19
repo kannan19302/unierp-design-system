@@ -25,6 +25,12 @@ const sampleSessions: TerminalSessionTab[] = [
 ];
 
 describe("ContainerExecTerminalConsole", () => {
+  it("forwards ref to container element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<ContainerExecTerminalConsole ref={ref} sessions={sampleSessions} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders cluster header, container tabs, and logs", () => {
     render(<ContainerExecTerminalConsole sessions={sampleSessions} />);
 

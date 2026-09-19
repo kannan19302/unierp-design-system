@@ -65,6 +65,7 @@ const samplePartitions: KafkaPartitionLag[] = [
 const meta: Meta<typeof KafkaConsumerGroupLagMatrix> = {
   title: "Data Display/KafkaConsumerGroupLagMatrix",
   component: KafkaConsumerGroupLagMatrix,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -94,3 +95,42 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <KafkaConsumerGroupLagMatrix
+        consumerGroupId="order-fulfillment-stream-group"
+        clusterBootstrap="kafka-prod-broker-01.internal:9092"
+        partitions={samplePartitions}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <KafkaConsumerGroupLagMatrix
+          consumerGroupId="payment-reconciliation-group"
+          clusterBootstrap="kafka-prod-broker-01.internal:9092"
+          partitions={samplePartitions.slice(0, 2)}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Standard Density</h3>
+        <KafkaConsumerGroupLagMatrix
+          consumerGroupId="payment-reconciliation-group"
+          clusterBootstrap="kafka-prod-broker-01.internal:9092"
+          partitions={samplePartitions.slice(0, 2)}
+          density="standard"
+        />
+      </div>
+    </div>
+  ),
+};
+

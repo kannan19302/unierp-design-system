@@ -1,9 +1,7 @@
-"use client";
-
 import {
   useState,
   useMemo,
-  type FC,
+  forwardRef,
   type ChangeEvent,
 } from "react";
 import {
@@ -50,14 +48,16 @@ export interface CurrencyRateMatrixProps {
 /**
  * `<CurrencyRateMatrix>` — High-density foreign exchange rates & multi-currency matrix.
  * Benchmarked against Mercury Banking (#45), SAP S/4HANA FX (#12), and Coupa (#34).
+ *
+ * @maturity stable
  */
-export const CurrencyRateMatrix: FC<CurrencyRateMatrixProps> = ({
+export const CurrencyRateMatrix = forwardRef<HTMLDivElement, CurrencyRateMatrixProps>(({
   baseCurrency = "USD",
   rates,
   onRefreshRates,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [calcAmount, setCalcAmount] = useState<number>(1000);
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
@@ -93,6 +93,7 @@ export const CurrencyRateMatrix: FC<CurrencyRateMatrixProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className}`.trim()}
       data-density={density}
       role="region"
@@ -262,4 +263,6 @@ export const CurrencyRateMatrix: FC<CurrencyRateMatrixProps> = ({
       </div>
     </div>
   );
-};
+});
+
+CurrencyRateMatrix.displayName = "CurrencyRateMatrix";

@@ -74,6 +74,7 @@ const sampleBookings: ScheduledBooking[] = [
 const meta: Meta<typeof MultiCalendarAvailabilityScheduler> = {
   title: "Data Display/MultiCalendarAvailabilityScheduler",
   component: MultiCalendarAvailabilityScheduler,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -103,3 +104,42 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <MultiCalendarAvailabilityScheduler
+        selectedDate="2026-09-15"
+        resources={sampleResources}
+        bookings={sampleBookings}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <MultiCalendarAvailabilityScheduler
+          selectedDate="2026-09-16"
+          resources={sampleResources.slice(0, 2)}
+          bookings={sampleBookings.slice(0, 2)}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Comfortable Density</h3>
+        <MultiCalendarAvailabilityScheduler
+          selectedDate="2026-09-16"
+          resources={sampleResources.slice(0, 2)}
+          bookings={sampleBookings.slice(0, 2)}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
+};
+

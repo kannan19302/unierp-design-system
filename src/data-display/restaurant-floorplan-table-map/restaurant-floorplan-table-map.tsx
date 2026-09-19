@@ -35,15 +35,26 @@ export interface RestaurantFloorplanTableMapProps {
   className?: string;
 }
 
-export const RestaurantFloorplanTableMap: React.FC<RestaurantFloorplanTableMapProps> = ({
-  restaurantName = "L'Osteria Meridian Ristorante",
-  shiftLabel = "Friday Dinner Service (Turn 2)",
-  tables: initialTables,
-  onSelectTable,
-  onUpdateTableStatus,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * RestaurantFloorplanTableMap provides an interactive 2D floorplan visualization and management tool for restaurant dining rooms.
+ *
+ * @maturity stable
+ */
+export const RestaurantFloorplanTableMap = React.forwardRef<
+  HTMLElement,
+  RestaurantFloorplanTableMapProps
+>(function RestaurantFloorplanTableMap(
+  {
+    restaurantName = "L'Osteria Meridian Ristorante",
+    shiftLabel = "Friday Dinner Service (Turn 2)",
+    tables: initialTables,
+    onSelectTable,
+    onUpdateTableStatus,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [tables, setTables] = useState<DiningTableItem[]>(initialTables);
   const [activeZone, setActiveZone] = useState<string>("all");
@@ -130,6 +141,7 @@ export const RestaurantFloorplanTableMap: React.FC<RestaurantFloorplanTableMapPr
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -349,4 +361,7 @@ export const RestaurantFloorplanTableMap: React.FC<RestaurantFloorplanTableMapPr
       </div>
     </section>
   );
-};
+});
+
+RestaurantFloorplanTableMap.displayName = "RestaurantFloorplanTableMap";
+

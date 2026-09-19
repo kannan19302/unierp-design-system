@@ -66,11 +66,12 @@ const sampleTables: DiningTableItem[] = [
 ];
 
 const meta: Meta<typeof RestaurantFloorplanTableMap> = {
-  title: "Data Display/RestaurantFloorplanTableMap",
+  title: "DataDisplay/RestaurantFloorplanTableMap",
   component: RestaurantFloorplanTableMap,
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   args: {
     restaurantName: "L'Osteria Meridian Ristorante",
     shiftLabel: "Friday Dinner Service (Turn 2)",
@@ -90,3 +91,40 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <RestaurantFloorplanTableMap {...args} />
+    </div>
+  ),
+  args: {
+    restaurantName: "Anatomy Restaurant Map",
+    shiftLabel: "Full Dining Service",
+    tables: sampleTables,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Compact Density</h4>
+        <RestaurantFloorplanTableMap
+          restaurantName="L'Osteria Meridian"
+          tables={sampleTables}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Ultra Compact Density</h4>
+        <RestaurantFloorplanTableMap
+          restaurantName="L'Osteria Meridian"
+          tables={sampleTables}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

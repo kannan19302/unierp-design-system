@@ -71,3 +71,39 @@ export const UltraCompactDensity: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <ProjectHillChart
+        scopes={mockScopes}
+        title="Sprint 38 Execution Trajectory"
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <ProjectHillChart
+          scopes={mockScopes.slice(0, 3)}
+          title="Milestone 1 Scopes"
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Comfortable Density</h3>
+        <ProjectHillChart
+          scopes={mockScopes.slice(0, 3)}
+          title="Milestone 1 Scopes"
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
+};
+

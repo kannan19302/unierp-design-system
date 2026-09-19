@@ -89,3 +89,40 @@ export const OnSchedule: Story = {
     milestones: mockMilestones.slice(0, 3).map((m) => ({ ...m, status: "completed" })),
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <ShipmentTrackingMilestoneTracker {...args} />
+    </div>
+  ),
+  args: {
+    shipmentNumber: "MSCU-849102-1",
+    routeSummary: "Shanghai Port (CNSHA) → Port of Long Beach (USLGB)",
+    milestones: mockMilestones,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Delayed State (Demurrage Risk)</h4>
+        <ShipmentTrackingMilestoneTracker
+          shipmentNumber="MSCU-849102-1"
+          milestones={mockMilestones}
+          isDemurrageRisk={true}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>On-Schedule State</h4>
+        <ShipmentTrackingMilestoneTracker
+          shipmentNumber="HLCU-119284-9"
+          milestones={mockMilestones.slice(0, 3).map((m) => ({ ...m, status: "completed" }))}
+          isDemurrageRisk={false}
+        />
+      </div>
+    </div>
+  ),
+};
+

@@ -31,15 +31,26 @@ export interface SlaPerformanceGaugeProps {
   className?: string;
 }
 
-export const SlaPerformanceGauge: React.FC<SlaPerformanceGaugeProps> = ({
-  ticketRef = "INC-88912",
-  commitmentTier = "Mission-Critical Tier 1 (99.99% Availability SLA)",
-  milestones,
-  isBusinessHoursOnly = true,
-  currency = "USD",
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * SlaPerformanceGauge provides a real-time SLA commitment monitor with penalty exposure tracking.
+ *
+ * @maturity stable
+ */
+export const SlaPerformanceGauge = React.forwardRef<
+  HTMLElement,
+  SlaPerformanceGaugeProps
+>(function SlaPerformanceGauge(
+  {
+    ticketRef = "INC-88912",
+    commitmentTier = "Mission-Critical Tier 1 (99.99% Availability SLA)",
+    milestones,
+    isBusinessHoursOnly = true,
+    currency = "USD",
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
 
   // Find active or highest priority milestone
@@ -94,6 +105,7 @@ export const SlaPerformanceGauge: React.FC<SlaPerformanceGaugeProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -210,4 +222,7 @@ export const SlaPerformanceGauge: React.FC<SlaPerformanceGaugeProps> = ({
       </div>
     </section>
   );
-};
+});
+
+SlaPerformanceGauge.displayName = "SlaPerformanceGauge";
+

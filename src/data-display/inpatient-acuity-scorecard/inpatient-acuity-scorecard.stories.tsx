@@ -27,6 +27,7 @@ const normalVitals: NewsVitalObservation[] = [
 const meta: Meta<typeof InpatientAcuityScorecard> = {
   title: "Data Display/InpatientAcuityScorecard",
   component: InpatientAcuityScorecard,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -52,3 +53,45 @@ export const NormalAcuity: Story = {
     vitalObservations: normalVitals,
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <InpatientAcuityScorecard
+        patientName="Arthur Pendelton"
+        mrn="MRN-104-9921"
+        wardLocation="ICU Stepdown Bed 04B"
+        vitalObservations={sampleVitals}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Critical Acuity State</h3>
+        <InpatientAcuityScorecard
+          patientName="Arthur Pendelton"
+          mrn="MRN-104-9921"
+          wardLocation="ICU Stepdown Bed 04B"
+          vitalObservations={sampleVitals}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Normal Baseline State</h3>
+        <InpatientAcuityScorecard
+          patientName="Evelyn Reed"
+          mrn="MRN-108-4102"
+          wardLocation="Post-Surgical Ward Bed 12A"
+          vitalObservations={normalVitals}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

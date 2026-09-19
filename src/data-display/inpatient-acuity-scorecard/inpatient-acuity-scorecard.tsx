@@ -31,16 +31,25 @@ export interface InpatientAcuityScorecardProps {
   className?: string;
 }
 
-export const InpatientAcuityScorecard: React.FC<InpatientAcuityScorecardProps> = ({
-  patientName = "Arthur Pendelton",
-  mrn = "MRN-104-9921",
-  wardLocation = "ICU Stepdown Bed 04B",
-  vitalObservations = defaultVitalObservations,
-  onAcknowledgeEscalation,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * InpatientAcuityScorecard visualizes clinical acuity and NEWS2 early warning metrics.
+ *
+ * @maturity stable
+ */
+export const InpatientAcuityScorecard = React.forwardRef<HTMLElement, InpatientAcuityScorecardProps>(
+  function InpatientAcuityScorecard(
+    {
+      patientName = "Arthur Pendelton",
+      mrn = "MRN-104-9921",
+      wardLocation = "ICU Stepdown Bed 04B",
+      vitalObservations = defaultVitalObservations,
+      onAcknowledgeEscalation,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
   const [isEscalationAcknowledged, setIsEscalationAcknowledged] = useState<boolean>(false);
 
   const totalScore = vitalObservations.reduce((acc, obs) => acc + obs.score, 0);
@@ -87,6 +96,7 @@ export const InpatientAcuityScorecard: React.FC<InpatientAcuityScorecardProps> =
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -191,4 +201,7 @@ export const InpatientAcuityScorecard: React.FC<InpatientAcuityScorecardProps> =
       </footer>
     </section>
   );
-};
+});
+
+InpatientAcuityScorecard.displayName = "InpatientAcuityScorecard";
+

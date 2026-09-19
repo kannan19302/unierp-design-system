@@ -20,16 +20,25 @@ export interface ProjectHillChartProps {
   className?: string;
 }
 
-export const ProjectHillChart: React.FC<ProjectHillChartProps> = ({
-  title = "Project Certainty Hill Chart",
-  scopes,
-  selectedScopeId,
-  onScopeSelect,
-  onScopeMove,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * ProjectHillChart visualizes project uncertainty and execution trajectory using the Basecamp Shape Up hill chart model.
+ *
+ * @maturity stable
+ */
+export const ProjectHillChart = React.forwardRef<HTMLElement, ProjectHillChartProps>(
+  function ProjectHillChart(
+    {
+      title = "Project Certainty Hill Chart",
+      scopes,
+      selectedScopeId,
+      onScopeSelect,
+      onScopeMove,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
   const [internalSelectedId, setInternalSelectedId] = useState<string | undefined>(
     selectedScopeId || (scopes.length > 0 ? scopes[0]?.id : undefined)
   );
@@ -90,6 +99,7 @@ export const ProjectHillChart: React.FC<ProjectHillChartProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -230,4 +240,7 @@ export const ProjectHillChart: React.FC<ProjectHillChartProps> = ({
       )}
     </section>
   );
-};
+});
+
+ProjectHillChart.displayName = "ProjectHillChart";
+

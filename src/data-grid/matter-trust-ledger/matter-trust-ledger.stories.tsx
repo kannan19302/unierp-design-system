@@ -89,9 +89,9 @@ export const AllStatesGallery: Story = {
           matterId="MAT-2026-0812"
           matterName="Acme Corp vs. Apex Logistics — Patent Infringement"
           clientName="Acme Corporation"
-          minimumRetainerThreshold: 15000,
-          ioltaBankBalance: 18650.0,
-          entries: mockEntries,
+          minimumRetainerThreshold={15000}
+          ioltaBankBalance={18650.0}
+          entries={mockEntries}
           density="compact"
         />
       </div>
@@ -101,9 +101,9 @@ export const AllStatesGallery: Story = {
           matterId="MAT-2026-0812"
           matterName="Acme Corp vs. Apex Logistics — Patent Infringement"
           clientName="Acme Corporation"
-          minimumRetainerThreshold: 25000,
-          ioltaBankBalance: 18650.0,
-          entries: mockEntries,
+          minimumRetainerThreshold={25000}
+          ioltaBankBalance={18650.0}
+          entries={mockEntries}
           density="ultra-compact"
         />
       </div>

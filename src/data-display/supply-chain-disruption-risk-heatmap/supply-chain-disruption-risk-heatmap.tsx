@@ -30,18 +30,29 @@ export interface SupplyChainDisruptionRiskHeatmapProps {
   className?: string;
 }
 
-export const SupplyChainDisruptionRiskHeatmap: React.FC<SupplyChainDisruptionRiskHeatmapProps> = ({
-  title = "Global Supply Chain Disruption Heatmap",
-  subtitle = "Real-time lane latency, port bottleneck indexing & proactive contingency routing",
-  corridorName = "Trans-Pacific & Maritime Corridors",
-  origins,
-  destinations,
-  cells,
-  selectedLaneId,
-  onSelectLane,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * SupplyChainDisruptionRiskHeatmap visualizes global freight lane congestion, dwell times, and alternative routing contingencies.
+ *
+ * @maturity stable
+ */
+export const SupplyChainDisruptionRiskHeatmap = React.forwardRef<
+  HTMLElement,
+  SupplyChainDisruptionRiskHeatmapProps
+>(function SupplyChainDisruptionRiskHeatmap(
+  {
+    title = "Global Supply Chain Disruption Heatmap",
+    subtitle = "Real-time lane latency, port bottleneck indexing & proactive contingency routing",
+    corridorName = "Trans-Pacific & Maritime Corridors",
+    origins,
+    destinations,
+    cells,
+    selectedLaneId,
+    onSelectLane,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [filterCategory, setFilterCategory] = useState<DisruptionCategory>("composite");
   const [activeLaneId, setActiveLaneId] = useState<string | null>(
@@ -83,6 +94,7 @@ export const SupplyChainDisruptionRiskHeatmap: React.FC<SupplyChainDisruptionRis
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -262,4 +274,7 @@ export const SupplyChainDisruptionRiskHeatmap: React.FC<SupplyChainDisruptionRis
       </div>
     </section>
   );
-};
+});
+
+SupplyChainDisruptionRiskHeatmap.displayName = "SupplyChainDisruptionRiskHeatmap";
+

@@ -15,11 +15,12 @@ const sampleSubgroups: SpcSubgroupSample[] = [
 ];
 
 const meta: Meta<typeof StatisticalProcessControlChart> = {
-  title: "Data Display/StatisticalProcessControlChart",
+  title: "DataDisplay/StatisticalProcessControlChart",
   component: StatisticalProcessControlChart,
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -47,3 +48,39 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <StatisticalProcessControlChart {...args} />
+    </div>
+  ),
+  args: {
+    processName: "Bore Machining SPC",
+    subgroups: sampleSubgroups,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Standard Density</h4>
+        <StatisticalProcessControlChart
+          processName="Cylinder Bore Diameter"
+          subgroups={sampleSubgroups}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Ultra Compact Density</h4>
+        <StatisticalProcessControlChart
+          processName="Cylinder Bore Diameter"
+          subgroups={sampleSubgroups}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

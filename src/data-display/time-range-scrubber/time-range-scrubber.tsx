@@ -2,7 +2,7 @@
 
 import {
   useState,
-  type FC,
+  forwardRef,
   type ChangeEvent,
 } from "react";
 import {
@@ -46,15 +46,21 @@ const DEFAULT_PRESETS: PresetDuration[] = ["15m", "1h", "4h", "24h", "7d", "30d"
 /**
  * `<TimeRangeScrubber>` — High-density temporal window selector & timeline scrubber.
  * Benchmarked against Datadog Dashboards (#53), Grafana (#52), and Elastic Kibana (#54).
+ *
+ * @maturity stable
  */
-export const TimeRangeScrubber: FC<TimeRangeScrubberProps> = ({
-  initialRange,
-  onChange,
-  presets = DEFAULT_PRESETS,
-  showBrushSlider = true,
-  density = "compact",
-  className = "",
-}) => {
+export const TimeRangeScrubber = forwardRef<HTMLDivElement, TimeRangeScrubberProps>(
+  function TimeRangeScrubber(
+    {
+      initialRange,
+      onChange,
+      presets = DEFAULT_PRESETS,
+      showBrushSlider = true,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
   const [selectedPreset, setSelectedPreset] = useState<PresetDuration | undefined>(
     initialRange?.preset || "24h"
   );
@@ -159,6 +165,7 @@ export const TimeRangeScrubber: FC<TimeRangeScrubberProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className}`.trim()}
       data-density={density}
       role="region"
@@ -267,4 +274,7 @@ export const TimeRangeScrubber: FC<TimeRangeScrubberProps> = ({
       )}
     </div>
   );
-};
+});
+
+TimeRangeScrubber.displayName = "TimeRangeScrubber";
+

@@ -29,19 +29,28 @@ export interface GitOpsDeploymentSyncTreeProps {
   className?: string;
 }
 
-export const GitOpsDeploymentSyncTree: React.FC<GitOpsDeploymentSyncTreeProps> = ({
-  appName,
-  gitRepo,
-  gitRevision,
-  targetCluster,
-  rootNodes,
-  onSyncAll,
-  onSyncNode,
-  onViewDiff,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * GitOpsDeploymentSyncTree visualizes Kubernetes resource hierarchies and deployment drift.
+ *
+ * @maturity stable
+ */
+export const GitOpsDeploymentSyncTree = React.forwardRef<HTMLElement, GitOpsDeploymentSyncTreeProps>(
+  function GitOpsDeploymentSyncTree(
+    {
+      appName,
+      gitRepo,
+      gitRevision,
+      targetCluster,
+      rootNodes,
+      onSyncAll,
+      onSyncNode,
+      onViewDiff,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
   const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>(() => {
     const init: Record<string, boolean> = {};
     const expandAll = (nodes: GitOpsResourceNode[]) => {
@@ -93,7 +102,7 @@ export const GitOpsDeploymentSyncTree: React.FC<GitOpsDeploymentSyncTreeProps> =
       <div key={node.id} className={styles.treeNodeWrapper}>
         <div
           className={`${styles.nodeRow} ${selectedNode?.id === node.id ? styles.nodeRowSelected : ""}`}
-          style={{ paddingLeft: `calc(var(--pad-indent, 1rem) * ${level} + var(--space-2, 0.5rem))` }}
+          style={{ paddingInlineStart: `calc(var(--pad-indent, 1rem) * ${level} + var(--space-2, 0.5rem))` }}
           onClick={() => setSelectedNode(node)}
           role="treeitem"
           aria-expanded={hasChildren ? isExpanded : undefined}
@@ -160,6 +169,7 @@ export const GitOpsDeploymentSyncTree: React.FC<GitOpsDeploymentSyncTreeProps> =
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -204,4 +214,7 @@ export const GitOpsDeploymentSyncTree: React.FC<GitOpsDeploymentSyncTreeProps> =
       )}
     </section>
   );
-};
+});
+
+GitOpsDeploymentSyncTree.displayName = "GitOpsDeploymentSyncTree";
+

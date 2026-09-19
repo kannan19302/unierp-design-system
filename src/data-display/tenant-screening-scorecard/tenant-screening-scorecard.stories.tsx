@@ -120,3 +120,39 @@ export const UltraCompactDensity: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <TenantScreeningScorecard {...args} />
+    </div>
+  ),
+  args: {
+    applicant: mockApplicant,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Approved State (Score 88)</h4>
+        <TenantScreeningScorecard applicant={mockApplicant} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Conditional State (Score 68)</h4>
+        <TenantScreeningScorecard
+          applicant={{
+            ...mockApplicant,
+            applicantId: "APP-2026-915",
+            fullName: "Elena Rostova",
+            overallScore: 68,
+            automatedRecommendation: "conditional_deposit",
+          }}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

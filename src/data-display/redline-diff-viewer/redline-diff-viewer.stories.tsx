@@ -19,6 +19,7 @@ const meta: Meta<typeof RedlineDiffViewer> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     defaultViewMode: {
       control: "select",
@@ -63,3 +64,40 @@ export const UltraCompactDensity: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <RedlineDiffViewer {...args} />
+    </div>
+  ),
+  args: {
+    originalText: sampleOriginal,
+    revisedText: sampleRevised,
+    documentTitle: "Anatomy of Redline Diff Viewer",
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Split View Mode</h4>
+        <RedlineDiffViewer
+          originalText={sampleOriginal}
+          revisedText={sampleRevised}
+          defaultViewMode="split"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Unified View Mode</h4>
+        <RedlineDiffViewer
+          originalText={sampleOriginal}
+          revisedText={sampleRevised}
+          defaultViewMode="unified"
+        />
+      </div>
+    </div>
+  ),
+};
+

@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./distributed-trace-flame-graph.module.css";
 
 export interface TraceSpan {
@@ -25,7 +25,12 @@ export interface DistributedTraceFlameGraphProps {
   className?: string;
 }
 
-export const DistributedTraceFlameGraph: React.FC<DistributedTraceFlameGraphProps> = ({
+/**
+ * DistributedTraceFlameGraph provides an OpenTelemetry trace flame chart and waterfall visualizer with span timing metrics.
+ *
+ * @maturity stable
+ */
+export const DistributedTraceFlameGraph = forwardRef<HTMLElement, DistributedTraceFlameGraphProps>(({
   traceId,
   rootServiceName,
   totalDurationMs,
@@ -34,7 +39,7 @@ export const DistributedTraceFlameGraph: React.FC<DistributedTraceFlameGraphProp
   onSelectSpan,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [selectedSpanId, setSelectedSpanId] = useState<string | undefined>(
     initialSelectedId ?? (spans.length > 0 ? spans[0]?.id : undefined)
@@ -74,6 +79,7 @@ export const DistributedTraceFlameGraph: React.FC<DistributedTraceFlameGraphProp
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${className}`}
       data-density={density}
       aria-labelledby={headingId}
@@ -273,4 +279,6 @@ export const DistributedTraceFlameGraph: React.FC<DistributedTraceFlameGraphProp
       </div>
     </section>
   );
-};
+});
+
+DistributedTraceFlameGraph.displayName = "DistributedTraceFlameGraph";

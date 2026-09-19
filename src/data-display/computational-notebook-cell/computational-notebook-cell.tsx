@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./computational-notebook-cell.module.css";
 
 export type NotebookCellStatus = "IDLE" | "RUNNING" | "SUCCESS" | "ERROR";
@@ -24,7 +24,12 @@ export interface ComputationalNotebookCellProps {
   className?: string;
 }
 
-export const ComputationalNotebookCell: React.FC<ComputationalNotebookCellProps> = ({
+/**
+ * ComputationalNotebookCell provides an interactive SQL/Python query execution cell with performance metrics and tabular output.
+ *
+ * @maturity stable
+ */
+export const ComputationalNotebookCell = forwardRef<HTMLElement, ComputationalNotebookCellProps>(({
   cellId,
   language = "sql",
   initialCode,
@@ -34,7 +39,7 @@ export const ComputationalNotebookCell: React.FC<ComputationalNotebookCellProps>
   onExecute,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const codeEditorId = useId();
   const [code, setCode] = useState<string>(initialCode);
@@ -66,6 +71,7 @@ export const ComputationalNotebookCell: React.FC<ComputationalNotebookCellProps>
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -213,4 +219,6 @@ export const ComputationalNotebookCell: React.FC<ComputationalNotebookCellProps>
       )}
     </section>
   );
-};
+});
+
+ComputationalNotebookCell.displayName = "ComputationalNotebookCell";

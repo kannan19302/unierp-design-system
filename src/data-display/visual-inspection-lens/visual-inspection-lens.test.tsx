@@ -102,4 +102,17 @@ describe("VisualInspectionLens", () => {
     );
     expect(screen.getByText("Crack detected in foundation wall")).toBeInTheDocument();
   });
+
+  it("forwards ref to root container div", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <VisualInspectionLens
+        ref={ref}
+        baseImageUrl="/test-base.png"
+        revisedImageUrl="/test-revised.png"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

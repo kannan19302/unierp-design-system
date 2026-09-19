@@ -91,3 +91,30 @@ export const Compact: Story = {
     density: "compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <QueryExecutionPlanViewer {...args} />
+    </div>
+  ),
+  args: {
+    rootNode: mockPlan,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Comfortable Density</h4>
+        <QueryExecutionPlanViewer rootNode={mockPlan} density="comfortable" />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Compact Density</h4>
+        <QueryExecutionPlanViewer rootNode={mockPlan} density="compact" />
+      </div>
+    </div>
+  ),
+};
+

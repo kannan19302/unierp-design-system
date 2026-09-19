@@ -80,3 +80,42 @@ export const HighCensus: Story = {
     beds: mockBeds.map((b) => ({ ...b, occupancyState: "occupied" })),
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <InpatientBedBoard
+        wardTitle="4-North Inpatient Surgical & Step-Down Ward"
+        facilityName="Memorial Academic Health Center"
+        beds={mockBeds}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Standard Occupancy</h3>
+        <InpatientBedBoard
+          wardTitle="Cardiology Ward"
+          facilityName="St. Jude Medical"
+          beds={mockBeds}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Full Occupancy (High Surge)</h3>
+        <InpatientBedBoard
+          wardTitle="ICU Overflow"
+          facilityName="St. Jude Medical"
+          beds={mockBeds.map((b) => ({ ...b, occupancyState: "occupied" }))}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

@@ -91,3 +91,66 @@ export const UltraCompactDensity: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <OptionVestingScheduleWaterfall
+        grantNumber="ESOP-2024-042"
+        granteeName="Elena Rostova"
+        grantType="ISO"
+        totalGrantedShares={48000}
+        strikePrice={1.25}
+        currentFairMarketValue={18.5}
+        vestingCommencementDate="2024-03-01"
+        cliffDate="2025-03-01"
+        cliffShares={12000}
+        election83bFiled={true}
+        tranches={mockTranches}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <OptionVestingScheduleWaterfall
+          grantNumber="ESOP-2024-042"
+          granteeName="Elena Rostova"
+          grantType="ISO"
+          totalGrantedShares={48000}
+          strikePrice={1.25}
+          currentFairMarketValue={18.5}
+          vestingCommencementDate="2024-03-01"
+          cliffDate="2025-03-01"
+          cliffShares={12000}
+          election83bFiled={true}
+          tranches={mockTranches}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Ultra Compact Density</h3>
+        <OptionVestingScheduleWaterfall
+          grantNumber="ESOP-2024-042"
+          granteeName="Elena Rostova"
+          grantType="ISO"
+          totalGrantedShares={48000}
+          strikePrice={1.25}
+          currentFairMarketValue={18.5}
+          vestingCommencementDate="2024-03-01"
+          cliffDate="2025-03-01"
+          cliffShares={12000}
+          election83bFiled={true}
+          tranches={mockTranches}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -61,6 +61,17 @@ describe("OrgChartHierarchyTree", () => {
     const collapseBtn = screen.getByRole("button", { name: /Collapse direct reports/i });
     fireEvent.click(collapseBtn);
     expect(screen.queryByText("Marcus Thorne")).not.toBeInTheDocument();
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <OrgChartHierarchyTree
+        ref={ref}
+        rootNode={sampleRoot}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

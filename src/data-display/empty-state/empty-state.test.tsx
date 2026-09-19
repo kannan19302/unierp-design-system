@@ -1,10 +1,17 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+import { createRef } from "react";
 import { axe } from "vitest-axe";
 import { EmptyState } from "./empty-state";
 import { FilteredEmptyState, ErrorState, ForbiddenState, LoadingState } from "./six-states";
 
 describe("EmptyState & SixStates Primitive", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<EmptyState ref={ref} title="No items" />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("renders empty state with title and action", () => {
     render(<EmptyState title="No items" description="Please create one" action={<button>Add</button>} />);
     expect(screen.getByRole("status")).toBeInTheDocument();

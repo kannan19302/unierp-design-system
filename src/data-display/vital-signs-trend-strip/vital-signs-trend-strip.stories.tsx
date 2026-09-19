@@ -93,3 +93,39 @@ export const DefaultTelemetry: Story = {
     series: SAMPLE_SERIES,
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <h4>Component Anatomy &amp; Composition</h4>
+      <VitalSignsTrendStrip {...args} />
+    </div>
+  ),
+  args: {
+    ...DefaultTelemetry.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+      <div>
+        <h4>Standard Normal Vitals</h4>
+        <VitalSignsTrendStrip
+          subjectTitle="General Ward Telemetry"
+          locationNote="Bed 12-B"
+          series={SAMPLE_SERIES.slice(0, 2)}
+        />
+      </div>
+      <div>
+        <h4>Telemetry with Alarm Conditions</h4>
+        <VitalSignsTrendStrip
+          subjectTitle="Emergency Resuscitation Bay 1"
+          locationNote="Telemetry Channel 1"
+          series={SAMPLE_SERIES.slice(2)}
+        />
+      </div>
+    </div>
+  ),
+};
+

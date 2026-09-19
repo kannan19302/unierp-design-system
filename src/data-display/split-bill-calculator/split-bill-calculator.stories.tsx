@@ -13,7 +13,7 @@ const mockItems: BillLineItem[] = [
 ];
 
 const meta: Meta<typeof SplitBillCalculator> = {
-  title: "Data Display/SplitBillCalculator",
+  title: "DataDisplay/SplitBillCalculator",
   component: SplitBillCalculator,
   parameters: {
     layout: "padded",
@@ -60,3 +60,42 @@ export const UltraCompactDensity: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <SplitBillCalculator {...args} />
+    </div>
+  ),
+  args: {
+    checkNumber: "CHK-8812",
+    tableNumber: "Table 14",
+    items: mockItems,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Compact Density</h4>
+        <SplitBillCalculator
+          checkNumber="CHK-101"
+          tableNumber="Table 4"
+          items={mockItems}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: "8px" }}>Ultra Compact Density</h4>
+        <SplitBillCalculator
+          checkNumber="CHK-102"
+          tableNumber="Table 8"
+          items={mockItems}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import {
   TenantScreeningScorecard,
   TenantApplicantProfile,
@@ -78,4 +78,16 @@ describe("TenantScreeningScorecard", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <TenantScreeningScorecard
+        ref={ref}
+        applicant={mockApplicant}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

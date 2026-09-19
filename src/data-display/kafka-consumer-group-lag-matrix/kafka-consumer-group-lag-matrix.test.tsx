@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import {
   KafkaConsumerGroupLagMatrix,
   KafkaPartitionLag,
@@ -65,6 +65,18 @@ describe("KafkaConsumerGroupLagMatrix", () => {
     fireEvent.click(resetBtn);
 
     expect(handleReset).toHaveBeenCalledWith(0);
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <KafkaConsumerGroupLagMatrix
+        ref={ref}
+        consumerGroupId="order-fulfillment-group"
+        partitions={samplePartitions}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

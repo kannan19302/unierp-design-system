@@ -35,15 +35,24 @@ export interface OrderTicketRackProps {
   className?: string;
 }
 
-export const OrderTicketRack: React.FC<OrderTicketRackProps> = ({
-  title = "Live Order Queue",
-  tickets,
-  onBumpTicket,
-  onToggleItem,
-  density = "compact",
-  className,
-}) => {
-  const rackId = useId();
+/**
+ * OrderTicketRack organizes live kitchen and service tickets into a density-responsive rack.
+ *
+ * @maturity stable
+ */
+export const OrderTicketRack = React.forwardRef<HTMLDivElement, OrderTicketRackProps>(
+  function OrderTicketRack(
+    {
+      title = "Live Order Queue",
+      tickets,
+      onBumpTicket,
+      onToggleItem,
+      density = "compact",
+      className,
+    },
+    ref
+  ) {
+    const rackId = useId();
   const [filter, setFilter] = useState<"all" | "Dine-In" | "Takeout" | "Delivery">("all");
 
   const filteredTickets = tickets.filter((t) => {
@@ -65,6 +74,7 @@ export const OrderTicketRack: React.FC<OrderTicketRackProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
       aria-labelledby={`${rackId}-title`}
@@ -222,4 +232,7 @@ export const OrderTicketRack: React.FC<OrderTicketRackProps> = ({
       </div>
     </div>
   );
-};
+});
+
+OrderTicketRack.displayName = "OrderTicketRack";
+

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import {
   SplitBillCalculator,
   BillLineItem,
@@ -64,4 +64,18 @@ describe("SplitBillCalculator", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <SplitBillCalculator
+        ref={ref}
+        checkNumber="CHK-8812"
+        tableNumber="Table 14"
+        items={mockItems}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 });
+

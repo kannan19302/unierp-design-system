@@ -74,6 +74,7 @@ const sampleTickets: KdsTicketOrder[] = [
 const meta: Meta<typeof KitchenDisplayStationExpediter> = {
   title: "Data Display/KitchenDisplayStationExpediter",
   component: KitchenDisplayStationExpediter,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -96,3 +97,39 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <KitchenDisplayStationExpediter
+        stationName="Station 2 - Grill & Hot Entrées"
+        ticketOrders={sampleTickets}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <KitchenDisplayStationExpediter
+          stationName="Line Station 1"
+          ticketOrders={sampleTickets}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Ultra Compact Density</h3>
+        <KitchenDisplayStationExpediter
+          stationName="Line Station 1"
+          ticketOrders={sampleTickets}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+

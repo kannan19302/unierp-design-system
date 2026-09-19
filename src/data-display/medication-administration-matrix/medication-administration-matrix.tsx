@@ -40,17 +40,26 @@ export interface MedicationAdministrationMatrixProps {
   className?: string;
 }
 
-export const MedicationAdministrationMatrix: React.FC<MedicationAdministrationMatrixProps> = ({
-  patientName = "Eleanor Vance (Age 68)",
-  mrn = "MRN-884109-A",
-  allergies = ["Penicillin", "Sulfa Drugs"],
-  shiftLabel = "Day Shift (07:00 – 19:00)",
-  orders: initialOrders,
-  onAdministerDose,
-  density = "compact",
-  className = "",
-}) => {
-  const [orders, setOrders] = useState<MedicationOrder[]>(initialOrders);
+/**
+ * MedicationAdministrationMatrix renders the electronic Medication Administration Record (eMAR).
+ *
+ * @maturity stable
+ */
+export const MedicationAdministrationMatrix = React.forwardRef<HTMLElement, MedicationAdministrationMatrixProps>(
+  function MedicationAdministrationMatrix(
+    {
+      patientName = "Eleanor Vance (Age 68)",
+      mrn = "MRN-884109-A",
+      allergies = ["Penicillin", "Sulfa Drugs"],
+      shiftLabel = "Day Shift (07:00 – 19:00)",
+      orders: initialOrders,
+      onAdministerDose,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const [orders, setOrders] = useState<MedicationOrder[]>(initialOrders);
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const [witnessName, setWitnessName] = useState<string>("");
   const headingId = useId();
@@ -94,6 +103,7 @@ export const MedicationAdministrationMatrix: React.FC<MedicationAdministrationMa
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -270,4 +280,7 @@ export const MedicationAdministrationMatrix: React.FC<MedicationAdministrationMa
       )}
     </section>
   );
-};
+});
+
+MedicationAdministrationMatrix.displayName = "MedicationAdministrationMatrix";
+

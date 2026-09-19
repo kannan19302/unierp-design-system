@@ -36,54 +36,64 @@ export interface RestApiClientWorkbenchProps {
   className?: string;
 }
 
-export const RestApiClientWorkbench: React.FC<RestApiClientWorkbenchProps> = ({
-  initialMethod = "POST",
-  initialUrl = "https://api.enterprise.unierp.com/v1/ledger/journal-entries",
-  initialHeaders = [
-    { id: "h1", key: "Authorization", value: "Bearer eyJhbGciOi...", enabled: true },
-    { id: "h2", key: "Content-Type", value: "application/json", enabled: true },
-    { id: "h3", key: "X-Tenant-Id", value: "tenant_corp_091", enabled: true },
-  ],
-  initialParams = [
-    { id: "p1", key: "fiscalYear", value: "2026", enabled: true },
-    { id: "p2", key: "includeAudits", value: "true", enabled: false },
-  ],
-  initialBody = JSON.stringify(
-    {
-      batchId: "batch_2026_09_close",
-      entriesCount: 142,
-      currency: "USD",
-      autoPost: true,
-    },
-    null,
-    2
-  ),
-  initialResponse = {
-    status: 200,
-    statusText: "OK",
-    timeMs: 42,
-    sizeBytes: 1248,
-    body: JSON.stringify(
+/**
+ * RestApiClientWorkbench provides an in-app REST API request testing console with headers, params, and body inspectors.
+ *
+ * @maturity stable
+ */
+export const RestApiClientWorkbench = React.forwardRef<
+  HTMLElement,
+  RestApiClientWorkbenchProps
+>(function RestApiClientWorkbench(
+  {
+    initialMethod = "POST",
+    initialUrl = "https://api.enterprise.unierp.com/v1/ledger/journal-entries",
+    initialHeaders = [
+      { id: "h1", key: "Authorization", value: "Bearer eyJhbGciOi...", enabled: true },
+      { id: "h2", key: "Content-Type", value: "application/json", enabled: true },
+      { id: "h3", key: "X-Tenant-Id", value: "tenant_corp_091", enabled: true },
+    ],
+    initialParams = [
+      { id: "p1", key: "fiscalYear", value: "2026", enabled: true },
+      { id: "p2", key: "includeAudits", value: "true", enabled: false },
+    ],
+    initialBody = JSON.stringify(
       {
-        transactionId: "txn_89410941",
-        status: "COMMITTED",
-        reconciled: true,
-        postedAt: "2026-09-06T05:20:00Z",
-        affectedAccounts: ["1010-CASH", "4010-REVENUE"],
+        batchId: "batch_2026_09_close",
+        entriesCount: 142,
+        currency: "USD",
+        autoPost: true,
       },
       null,
       2
     ),
-    headers: {
-      "content-type": "application/json; charset=utf-8",
-      "x-request-id": "req_88192a7",
-      "x-ratelimit-remaining": "4980",
+    initialResponse = {
+      status: 200,
+      statusText: "OK",
+      timeMs: 42,
+      sizeBytes: 1248,
+      body: JSON.stringify(
+        {
+          transactionId: "txn_89410941",
+          status: "COMMITTED",
+          reconciled: true,
+          postedAt: "2026-09-06T05:20:00Z",
+          affectedAccounts: ["1010-CASH", "4010-REVENUE"],
+        },
+        null,
+        2
+      ),
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+        "x-request-id": "req_882941019a4",
+      },
     },
+    onSendRequest,
+    density = "compact",
+    className = "",
   },
-  onSendRequest,
-  density = "compact",
-  className = "",
-}) => {
+  ref
+) {
   const headingId = useId();
   const urlInputId = useId();
 
@@ -125,6 +135,7 @@ export const RestApiClientWorkbench: React.FC<RestApiClientWorkbenchProps> = ({
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -344,4 +355,7 @@ export const RestApiClientWorkbench: React.FC<RestApiClientWorkbenchProps> = ({
       </footer>
     </section>
   );
-};
+});
+
+RestApiClientWorkbench.displayName = "RestApiClientWorkbench";
+

@@ -1,9 +1,21 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
+import { createRef } from "react";
 import { axe } from "vitest-axe";
 import { DescriptionList } from "./description-list";
 
 describe("DescriptionList Primitive", () => {
+  it("forwards ref to dl element", () => {
+    const ref = createRef<HTMLDListElement>();
+    render(
+      <DescriptionList
+        ref={ref}
+        items={[{ label: "Account Code", value: "1010-CASH" }]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDListElement);
+  });
+
   it("renders key value definition pairs", () => {
     render(
       <DescriptionList

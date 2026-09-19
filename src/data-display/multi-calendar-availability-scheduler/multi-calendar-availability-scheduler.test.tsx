@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import {
   MultiCalendarAvailabilityScheduler,
   CalendarResource,
@@ -67,6 +67,19 @@ describe("MultiCalendarAvailabilityScheduler", () => {
     fireEvent.click(slotBtn);
 
     expect(handleSlotSelect).toHaveBeenCalledWith("res-1", "10:00");
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <MultiCalendarAvailabilityScheduler
+        ref={ref}
+        selectedDate="2026-09-15"
+        resources={sampleResources}
+        bookings={sampleBookings}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

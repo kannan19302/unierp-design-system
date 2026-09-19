@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, type ReactNode } from "react";
+import { useState, forwardRef, type ReactNode } from "react";
 import {
   Folder,
   FolderOpen,
@@ -120,7 +118,7 @@ function NodeItem({
           isSelected && styles.selected,
           node.disabled && styles.disabled,
         )}
-        style={{ paddingLeft: `calc(${depth} * var(--space-4, 16px) + var(--space-2, 8px))` }}
+        style={{ paddingInlineStart: `calc(${depth} * var(--space-4, 16px) + var(--space-2, 8px))` }}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         tabIndex={node.disabled ? -1 : 0}
@@ -170,13 +168,18 @@ function NodeItem({
   );
 }
 
-export function FileTree({
+/**
+ * FileTree displays hierarchical nested folders and files with expand/collapse states and file type badges.
+ *
+ * @maturity stable
+ */
+export const FileTree = forwardRef<HTMLUListElement, FileTreeProps>(({
   nodes,
   selectedId,
   onSelect,
   defaultExpandedIds = [],
   className,
-}: FileTreeProps) {
+}, ref) => {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(
     () => new Set(defaultExpandedIds),
   );
@@ -194,7 +197,7 @@ export function FileTree({
   };
 
   return (
-    <ul role="tree" className={cn(styles.treeRoot, className)} aria-label="File tree navigation">
+    <ul ref={ref} role="tree" className={cn(styles.treeRoot, className)} aria-label="File tree navigation">
       {nodes.map((node) => (
         <NodeItem
           key={node.id}
@@ -208,4 +211,6 @@ export function FileTree({
       ))}
     </ul>
   );
-}
+});
+
+FileTree.displayName = "FileTree";

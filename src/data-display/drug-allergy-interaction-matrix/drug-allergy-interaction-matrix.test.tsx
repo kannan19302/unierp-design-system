@@ -19,6 +19,21 @@ const sampleInteractions: DrugAllergyInteractionItem[] = [
 ];
 
 describe("DrugAllergyInteractionMatrix", () => {
+  it("forwards ref to container element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <DrugAllergyInteractionMatrix
+        ref={ref}
+        patientName="Eleanor Vance"
+        mrn="EHR-902-8471"
+        activeMedications={["Warfarin Sodium 5mg"]}
+        documentedAllergies={["Penicillin"]}
+        interactions={sampleInteractions}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders patient banner and clinical interaction alerts", () => {
     render(
       <DrugAllergyInteractionMatrix

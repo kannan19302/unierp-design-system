@@ -44,14 +44,25 @@ export interface ResourceCapacityHeatmapProps {
   className?: string;
 }
 
-export const ResourceCapacityHeatmap: React.FC<ResourceCapacityHeatmapProps> = ({
-  title = "Team Capacity & Workload Allocation",
-  periods,
-  resources,
-  onSelectCell,
-  density = "compact",
-  className,
-}) => {
+/**
+ * ResourceCapacityHeatmap displays team workload allocation and capacity utilization across periods.
+ *
+ * @maturity stable
+ */
+export const ResourceCapacityHeatmap = React.forwardRef<
+  HTMLDivElement,
+  ResourceCapacityHeatmapProps
+>(function ResourceCapacityHeatmap(
+  {
+    title = "Team Capacity & Workload Allocation",
+    periods,
+    resources,
+    onSelectCell,
+    density = "compact",
+    className,
+  },
+  ref
+) {
   const heatmapId = useId();
   const [selectedCellKey, setSelectedCellKey] = useState<string | null>(null);
 
@@ -106,6 +117,7 @@ export const ResourceCapacityHeatmap: React.FC<ResourceCapacityHeatmapProps> = (
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
       aria-labelledby={`${heatmapId}-title`}
@@ -267,4 +279,7 @@ export const ResourceCapacityHeatmap: React.FC<ResourceCapacityHeatmapProps> = (
       )}
     </div>
   );
-};
+});
+
+ResourceCapacityHeatmap.displayName = "ResourceCapacityHeatmap";
+

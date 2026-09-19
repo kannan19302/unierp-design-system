@@ -71,6 +71,7 @@ const sampleTree: GitOpsResourceNode[] = [
 const meta: Meta<typeof GitOpsDeploymentSyncTree> = {
   title: "Data Display/GitOpsDeploymentSyncTree",
   component: GitOpsDeploymentSyncTree,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -102,3 +103,48 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <GitOpsDeploymentSyncTree
+        appName="unierp-platform-production"
+        gitRepo="github.com/unierp/platform-infra"
+        gitRevision="main (8f2a91b)"
+        targetCluster="aws-eks-us-east-1-prod"
+        rootNodes={sampleTree}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Compact Density</h3>
+        <GitOpsDeploymentSyncTree
+          appName="staging-cluster-apps"
+          gitRepo="github.com/unierp/staging-infra"
+          gitRevision="develop (a1b2c3d)"
+          targetCluster="aws-eks-staging"
+          rootNodes={sampleTree}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-fg-muted)" }}>Standard Density</h3>
+        <GitOpsDeploymentSyncTree
+          appName="staging-cluster-apps"
+          gitRepo="github.com/unierp/staging-infra"
+          gitRevision="develop (a1b2c3d)"
+          targetCluster="aws-eks-staging"
+          rootNodes={sampleTree}
+          density="standard"
+        />
+      </div>
+    </div>
+  ),
+};
+

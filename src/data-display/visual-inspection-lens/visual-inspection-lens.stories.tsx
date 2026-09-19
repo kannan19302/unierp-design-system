@@ -61,3 +61,43 @@ export const OpacityFadeMode: Story = {
     pins: SAMPLE_PINS,
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <h4>Component Anatomy &amp; Composition</h4>
+      <VisualInspectionLens {...args} />
+    </div>
+  ),
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+      <div>
+        <h4>Split Curtain Mode (50%)</h4>
+        <VisualInspectionLens
+          baseImageUrl="https://images.unsplash.com/photo-1541888946425-d0fbb18615f3?w=1200&auto=format&fit=crop&q=80"
+          baseLabel="Rev A"
+          revisedImageUrl="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&auto=format&fit=crop&q=80"
+          revisedLabel="Rev B"
+          initialSplitPercent={50}
+        />
+      </div>
+      <div>
+        <h4>Opacity Overlay Mode</h4>
+        <VisualInspectionLens
+          baseImageUrl="https://images.unsplash.com/photo-1541888946425-d0fbb18615f3?w=1200&auto=format&fit=crop&q=80"
+          baseLabel="Rev A"
+          revisedImageUrl="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&auto=format&fit=crop&q=80"
+          revisedLabel="Rev B"
+          mode="overlay"
+        />
+      </div>
+    </div>
+  ),
+};
+

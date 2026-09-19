@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./funnel-dropoff-analyzer.module.css";
 
 export interface FunnelStep {
@@ -27,7 +27,12 @@ export interface FunnelDropoffAnalyzerProps {
   className?: string;
 }
 
-export const FunnelDropoffAnalyzer: React.FC<FunnelDropoffAnalyzerProps> = ({
+/**
+ * FunnelDropoffAnalyzer provides conversion and drop-off rate analytics across sequenced workflow and customer journey steps.
+ *
+ * @maturity stable
+ */
+export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyzerProps>(({
   funnelName = "Enterprise Customer Acquisition Funnel",
   timeRangeLabel = "Last 30 Days",
   steps,
@@ -38,7 +43,7 @@ export const FunnelDropoffAnalyzer: React.FC<FunnelDropoffAnalyzerProps> = ({
   onSegmentChange,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [internalSelectedId, setInternalSelectedId] = useState<string | undefined>(
     selectedStepId || (steps.length > 0 ? steps[0]?.id : undefined)
@@ -61,6 +66,7 @@ export const FunnelDropoffAnalyzer: React.FC<FunnelDropoffAnalyzerProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -205,4 +211,6 @@ export const FunnelDropoffAnalyzer: React.FC<FunnelDropoffAnalyzerProps> = ({
       )}
     </section>
   );
-};
+});
+
+FunnelDropoffAnalyzer.displayName = "FunnelDropoffAnalyzer";

@@ -36,6 +36,7 @@ const meta: Meta<typeof DocumentAnnotator> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -104,5 +105,50 @@ export const InvoiceWithStamps: Story = {
         </tfoot>
       </table>
     </DocumentAnnotator>
+  ),
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <DocumentAnnotator
+      title="Anatomy & Composition Document"
+      documentNumber="DOC-ANAT-01"
+      stamps={sampleStamps}
+      annotations={sampleAnnotations}
+    >
+      <div style={{ paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", fontSize: "var(--text-sm)" }}>
+        <p style={{ marginBlock: 0, marginInline: 0 }}>Standard legal binding agreement document body with stamps and review annotations.</p>
+      </div>
+    </DocumentAnnotator>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Document With Verified Stamps</h4>
+        <DocumentAnnotator
+          title="Purchase Order Authorization"
+          documentNumber="PO-2026-99"
+          stamps={sampleStamps}
+        >
+          <div style={{ paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", fontSize: "var(--text-xs)" }}>
+            Approved purchase requisition #PO-2026-99.
+          </div>
+        </DocumentAnnotator>
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Clean Document Without Annotations</h4>
+        <DocumentAnnotator
+          title="Draft Service Agreement"
+          documentNumber="AGR-DRAFT-01"
+        >
+          <div style={{ paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", fontSize: "var(--text-xs)" }}>
+            Awaiting executive review and digital signature stamp.
+          </div>
+        </DocumentAnnotator>
+      </div>
+    </div>
   ),
 };

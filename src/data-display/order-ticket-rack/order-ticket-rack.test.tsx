@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { OrderTicketRack, OrderTicket } from "./order-ticket-rack";
@@ -85,4 +85,16 @@ describe("OrderTicketRack", () => {
     expect(screen.getByText("#202")).toBeInTheDocument();
     expect(screen.queryByText("#201")).not.toBeInTheDocument();
   });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <OrderTicketRack
+        ref={ref}
+        tickets={TEST_TICKETS}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
 });
+

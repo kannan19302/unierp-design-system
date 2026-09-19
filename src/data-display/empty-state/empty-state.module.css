@@ -8,7 +8,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--space-8) var(--space-4);
+  padding-block: var(--space-8);
+  padding-inline: var(--space-4);
   font-family: var(--font-sans);
   box-sizing: border-box;
 }
@@ -17,32 +18,35 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--space-11, 44px);
-  height: var(--space-11, 44px);
+  inline-size: var(--space-11, 44px);
+  block-size: var(--space-11, 44px);
   border-radius: var(--radius-sm, 2px);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border: 1px solid var(--surface-1-border, var(--color-border));
-  margin-bottom: var(--space-3);
+  margin-block-end: var(--space-3);
   color: var(--surface-text-secondary, var(--color-text-secondary));
 }
 
 .title {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--type-dense, var(--text-sm));
   font-weight: var(--weight-bold);
   color: var(--surface-text-primary, var(--color-text));
 }
 
 .description {
-  margin: var(--space-1) 0 0;
+  margin-block-start: var(--space-1);
+  margin-block-end: 0;
+  margin-inline: 0;
   font-size: var(--type-caption, var(--text-xs));
   color: var(--surface-text-secondary, var(--color-text-muted));
-  max-width: var(--empty-state-max-width, 320px);
+  max-inline-size: var(--empty-state-max-width, 320px);
   line-height: var(--leading-normal);
 }
 
 .actionWrap {
-  margin-top: var(--space-4);
+  margin-block-start: var(--space-4);
 }
 
 /* ── Six States helpers ── */
@@ -51,7 +55,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-10) var(--space-4);
+  padding-block: var(--space-10);
+  padding-inline: var(--space-4);
   gap: var(--space-3);
   font-family: var(--font-sans);
 }

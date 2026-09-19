@@ -1,4 +1,4 @@
-import React, { useId, useState, useRef, useEffect } from "react";
+import { forwardRef, useId, useState, useRef, useEffect } from "react";
 import styles from "./container-exec-terminal-console.module.css";
 
 export type ContainerState = "running" | "terminating" | "waiting" | "crash_loop";
@@ -37,7 +37,12 @@ const defaultMockLogs: Record<string, TerminalLogLine[]> = {
   ],
 };
 
-export const ContainerExecTerminalConsole: React.FC<ContainerExecTerminalConsoleProps> = ({
+/**
+ * ContainerExecTerminalConsole provides an interactive Kubernetes container shell/exec terminal emulator.
+ *
+ * @maturity stable
+ */
+export const ContainerExecTerminalConsole = forwardRef<HTMLElement, ContainerExecTerminalConsoleProps>(({
   clusterName = "aws-eks-prod-us-east-1",
   namespace = "production",
   sessions,
@@ -45,7 +50,7 @@ export const ContainerExecTerminalConsole: React.FC<ContainerExecTerminalConsole
   onExecuteCommand,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const inputId = useId();
   const [activeSessionId, setActiveSessionId] = useState<string>(
@@ -108,6 +113,7 @@ export const ContainerExecTerminalConsole: React.FC<ContainerExecTerminalConsole
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -216,4 +222,6 @@ export const ContainerExecTerminalConsole: React.FC<ContainerExecTerminalConsole
       </div>
     </section>
   );
-};
+});
+
+ContainerExecTerminalConsole.displayName = "ContainerExecTerminalConsole";

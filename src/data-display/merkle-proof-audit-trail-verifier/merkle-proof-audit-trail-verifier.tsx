@@ -25,15 +25,24 @@ export interface MerkleProofAuditTrailVerifierProps {
   className?: string;
 }
 
-export const MerkleProofAuditTrailVerifier: React.FC<MerkleProofAuditTrailVerifierProps> = ({
-  expectedRootHash,
-  blockEpoch,
-  targetRecord,
-  onVerificationComplete,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * MerkleProofAuditTrailVerifier cryptographically verifies ledger integrity and audit trails.
+ *
+ * @maturity stable
+ */
+export const MerkleProofAuditTrailVerifier = React.forwardRef<HTMLElement, MerkleProofAuditTrailVerifierProps>(
+  function MerkleProofAuditTrailVerifier(
+    {
+      expectedRootHash,
+      blockEpoch,
+      targetRecord,
+      onVerificationComplete,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
   const [verificationState, setVerificationState] = useState<"IDLE" | "VERIFIED" | "FAILED">("IDLE");
 
   // In production enterprise client, proof hashes are folded: hash(left, right)
@@ -46,6 +55,7 @@ export const MerkleProofAuditTrailVerifier: React.FC<MerkleProofAuditTrailVerifi
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -150,4 +160,7 @@ export const MerkleProofAuditTrailVerifier: React.FC<MerkleProofAuditTrailVerifi
       </footer>
     </section>
   );
-};
+});
+
+MerkleProofAuditTrailVerifier.displayName = "MerkleProofAuditTrailVerifier";
+

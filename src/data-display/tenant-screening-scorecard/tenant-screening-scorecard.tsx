@@ -35,14 +35,25 @@ export interface TenantScreeningScorecardProps {
   className?: string;
 }
 
-export const TenantScreeningScorecard: React.FC<TenantScreeningScorecardProps> = ({
-  applicant,
-  onApproveApplication,
-  onDeclineApplication,
-  onOverrideDecision,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * TenantScreeningScorecard evaluates prospective tenant underwriting, FICO credit, criminal, eviction, and income criteria.
+ *
+ * @maturity stable
+ */
+export const TenantScreeningScorecard = React.forwardRef<
+  HTMLElement,
+  TenantScreeningScorecardProps
+>(function TenantScreeningScorecard(
+  {
+    applicant,
+    onApproveApplication,
+    onDeclineApplication,
+    onOverrideDecision,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [activeDecision, setActiveDecision] = useState<ScreeningDecision>(
     applicant.automatedRecommendation
@@ -69,6 +80,7 @@ export const TenantScreeningScorecard: React.FC<TenantScreeningScorecardProps> =
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -215,4 +227,7 @@ export const TenantScreeningScorecard: React.FC<TenantScreeningScorecardProps> =
       </footer>
     </section>
   );
-};
+});
+
+TenantScreeningScorecard.displayName = "TenantScreeningScorecard";
+

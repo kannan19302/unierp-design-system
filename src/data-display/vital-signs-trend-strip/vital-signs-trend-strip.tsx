@@ -1,4 +1,4 @@
-import React, { useState, useId } from "react";
+import { useState, useId, forwardRef } from "react";
 import styles from "./vital-signs-trend-strip.module.css";
 
 export type VitalStatus = "normal" | "warning" | "critical";
@@ -31,19 +31,29 @@ export interface VitalSignsTrendStripProps {
   className?: string;
 }
 
-export const VitalSignsTrendStrip: React.FC<VitalSignsTrendStripProps> = ({
-  subjectTitle = "Telemetry Patient Monitored Feed",
-  locationNote = "ICU Bed 04-A • Telemetry Channel Live",
-  series,
-  onAcknowledgeAlarm,
-  density = "compact",
-  className,
-}) => {
+/**
+ * VitalSignsTrendStrip component displays real-time patient vital sign metrics and telemetry sparklines.
+ * @maturity stable
+ */
+export const VitalSignsTrendStrip = forwardRef<HTMLDivElement, VitalSignsTrendStripProps>(
+  (
+    {
+      subjectTitle = "Telemetry Patient Monitored Feed",
+      locationNote = "ICU Bed 04-A • Telemetry Channel Live",
+      series,
+      onAcknowledgeAlarm,
+      density = "compact",
+      className,
+    },
+    ref
+  ) => {
+
   const stripId = useId();
   const [selectedChannelId, setSelectedChannelId] = useState<string | null>(null);
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
       aria-labelledby={`${stripId}-title`}
@@ -189,4 +199,7 @@ export const VitalSignsTrendStrip: React.FC<VitalSignsTrendStripProps> = ({
       </div>
     </div>
   );
-};
+});
+
+VitalSignsTrendStrip.displayName = "VitalSignsTrendStrip";
+

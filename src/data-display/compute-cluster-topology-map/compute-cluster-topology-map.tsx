@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./compute-cluster-topology-map.module.css";
 
 export type ClusterNodeRole = "PRIMARY" | "READ_REPLICA" | "SHARD_COORDINATOR";
@@ -26,7 +26,12 @@ export interface ComputeClusterTopologyMapProps {
   className?: string;
 }
 
-export const ComputeClusterTopologyMap: React.FC<ComputeClusterTopologyMapProps> = ({
+/**
+ * ComputeClusterTopologyMap displays database and compute cluster topology with node health, replication lag, and failover actions.
+ *
+ * @maturity stable
+ */
+export const ComputeClusterTopologyMap = forwardRef<HTMLElement, ComputeClusterTopologyMapProps>(({
   clusterName = "Production ClickHouse OLAP Cluster",
   clusterRegion = "us-east-1 (N. Virginia)",
   nodes: initialNodes,
@@ -34,7 +39,7 @@ export const ComputeClusterTopologyMap: React.FC<ComputeClusterTopologyMapProps>
   onDrainNode,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [nodes, setNodes] = useState<ClusterNodeSpecification[]>(initialNodes);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
@@ -67,6 +72,7 @@ export const ComputeClusterTopologyMap: React.FC<ComputeClusterTopologyMapProps>
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -219,4 +225,6 @@ export const ComputeClusterTopologyMap: React.FC<ComputeClusterTopologyMapProps>
       </footer>
     </section>
   );
-};
+});
+
+ComputeClusterTopologyMap.displayName = "ComputeClusterTopologyMap";

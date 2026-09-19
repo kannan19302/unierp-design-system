@@ -21,14 +21,23 @@ export interface OrgChartHierarchyTreeProps {
   className?: string;
 }
 
-export const OrgChartHierarchyTree: React.FC<OrgChartHierarchyTreeProps> = ({
-  rootNode,
-  organizationName = "UniERP Global Aerospace Engineering",
-  onSelectEmployee,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
+/**
+ * OrgChartHierarchyTree visualizes organizational hierarchies, direct reports, and spans of control.
+ *
+ * @maturity stable
+ */
+export const OrgChartHierarchyTree = React.forwardRef<HTMLElement, OrgChartHierarchyTreeProps>(
+  function OrgChartHierarchyTree(
+    {
+      rootNode,
+      organizationName = "UniERP Global Aerospace Engineering",
+      onSelectEmployee,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
+    const headingId = useId();
   const [expandedNodeIds, setExpandedNodeIds] = useState<Set<string>>(
     new Set([rootNode.id])
   );
@@ -119,6 +128,7 @@ export const OrgChartHierarchyTree: React.FC<OrgChartHierarchyTreeProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -149,4 +159,7 @@ export const OrgChartHierarchyTree: React.FC<OrgChartHierarchyTreeProps> = ({
       </div>
     </section>
   );
-};
+});
+
+OrgChartHierarchyTree.displayName = "OrgChartHierarchyTree";
+
