@@ -11,7 +11,16 @@ import {
 const meta: Meta<typeof EditorialShell> = {
   title: "Shell/EditorialShell",
   component: EditorialShell,
-  parameters: { layout: "fullscreen" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
 };
 
 export default meta;
@@ -38,3 +47,50 @@ export const Default: Story = {
     </EditorialShell>
   ),
 };
+
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
+  render: () => Default.render ? Default.render(Default.args as any, {} as any) : null,
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Base Tone & Sunken Band</h4>
+        <div style={{ height: "380px", border: "1px solid var(--color-border)", position: "relative" }}>
+          <EditorialShell
+            brand={<strong>UniERP Global</strong>}
+            actions={<button type="button">Contact Sales</button>}
+          >
+            <EditorialBand tone="base">
+              <HeroTitle>Modern Financial Infrastructure</HeroTitle>
+              <Lede>Full RLS enforcement and immutable audit ledgers.</Lede>
+            </EditorialBand>
+            <EditorialBand tone="sunken">
+              <BandTitle>Global Compliance</BandTitle>
+              <p>SOC2 Type II, ISO27001, and HIPAA compliance baked into platform primitives.</p>
+            </EditorialBand>
+          </EditorialShell>
+        </div>
+      </div>
+
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Ink Horizon Band (Dark Ground)</h4>
+        <div style={{ height: "320px", border: "1px solid var(--color-border)", position: "relative" }}>
+          <EditorialShell
+            brand={<strong>UniERP Security</strong>}
+          >
+            <EditorialBand tone="ink">
+              <Eyebrow>Zero Trust Architecture</Eyebrow>
+              <HeroTitle>Encrypted KMS Enclaves</HeroTitle>
+              <Lede>Dedicated cryptographic boundaries for every sovereign cloud region.</Lede>
+            </EditorialBand>
+          </EditorialShell>
+        </div>
+      </div>
+    </div>
+  ),
+};
+

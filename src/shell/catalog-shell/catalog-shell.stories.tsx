@@ -36,7 +36,16 @@ const MOCK_TILES: CatalogTile[] = [
 const meta: Meta<typeof CatalogShell> = {
   title: "Shell/CatalogShell",
   component: CatalogShell,
-  parameters: { layout: "fullscreen" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
 };
 
 export default meta;
@@ -48,4 +57,44 @@ export const Default: Story = {
     resultSummary: "Showing 2 Verified Integrations",
     children: <CatalogGallery tiles={MOCK_TILES} />,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Populated Storefront</h4>
+        <div style={{ height: "420px", border: "1px solid var(--color-border)", position: "relative" }}>
+          <CatalogShell
+            facets={MOCK_FACETS}
+            resultSummary="Showing 2 Verified Integrations"
+          >
+            <CatalogGallery tiles={MOCK_TILES} />
+          </CatalogShell>
+        </div>
+      </div>
+
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Empty State</h4>
+        <div style={{ height: "300px", border: "1px solid var(--color-border)", position: "relative" }}>
+          <CatalogShell
+            facets={MOCK_FACETS}
+            resultSummary="0 apps found"
+          >
+            <div style={{ padding: "var(--space-8)", textAlign: "center", color: "var(--color-text-secondary)" }}>
+              No applications match the selected category filters.
+            </div>
+          </CatalogShell>
+        </div>
+      </div>
+    </div>
+  ),
 };

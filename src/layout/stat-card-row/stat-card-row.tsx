@@ -16,7 +16,7 @@ export interface StatCardItem {
   loading?: boolean;
 }
 
-export interface StatCardRowProps {
+export interface StatCardRowProps extends React.HTMLAttributes<HTMLDivElement> {
   stats: StatCardItem[];
   columns?: 2 | 3 | 4 | 5;
 }
@@ -75,19 +75,33 @@ const StatCard: React.FC<StatCardItem> = ({
   );
 };
 
-export const StatCardRow: React.FC<StatCardRowProps> = ({ stats, columns }) => {
-  const cols = columns ?? (Math.min(stats.length, 4) as 2 | 3 | 4 | 5);
+/**
+ * `<StatCardRow>` arranges high-level KPI tiles in a responsive grid,
+ * supporting comparative trend indicators, custom brand accents, and loading shimmers.
+ *
+ * @maturity stable
+ */
+export const StatCardRow = React.forwardRef<HTMLDivElement, StatCardRowProps>(
+  ({ stats, columns, className = "", style, ...props }, ref) => {
+    const cols = columns ?? (Math.min(stats.length, 4) as 2 | 3 | 4 | 5);
 
-  return (
-    <div
-      className={styles.rowGrid}
-      style={{
-        gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-      }}
-    >
-      {stats.map((stat, i) => (
-        <StatCard key={i} {...stat} />
-      ))}
-    </div>
-  );
-};
+    return (
+      <div
+        ref={ref}
+        className={`${styles.rowGrid} ${className}`.trim()}
+        style={{
+          ...style,
+          gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+        }}
+        {...props}
+      >
+        {stats.map((stat, i) => (
+          <StatCard key={i} {...stat} />
+        ))}
+      </div>
+    );
+  }
+);
+
+StatCardRow.displayName = "StatCardRow";
+

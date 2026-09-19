@@ -1,10 +1,8 @@
-"use client";
-
 import {
   useState,
   useCallback,
   useEffect,
-  type FC,
+  forwardRef,
   type ReactNode,
   type MouseEvent as ReactMouseEvent,
 } from "react";
@@ -18,11 +16,15 @@ export interface ContextMenuProps {
   className?: string;
 }
 
-export const ContextMenu: FC<ContextMenuProps> = ({
-  children,
-  items,
-  className = "",
-}) => {
+/**
+ * ContextMenu component for contextual right-click actions.
+ *
+ * @maturity stable
+ */
+export const ContextMenu = forwardRef<HTMLDivElement, ContextMenuProps>(function ContextMenu(
+  { children, items, className = "" },
+  ref
+) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const open = pos !== null;
 
@@ -53,7 +55,7 @@ export const ContextMenu: FC<ContextMenuProps> = ({
   }, [open, close, menu]);
 
   return (
-    <div onContextMenu={onContextMenu} className={styles.container}>
+    <div ref={ref} onContextMenu={onContextMenu} className={styles.container}>
       {children}
       {pos && (
         <Portal>
@@ -101,4 +103,6 @@ export const ContextMenu: FC<ContextMenuProps> = ({
       )}
     </div>
   );
-};
+});
+
+ContextMenu.displayName = "ContextMenu";

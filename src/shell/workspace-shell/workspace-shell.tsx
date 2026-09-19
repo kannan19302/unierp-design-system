@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, type FC, type ReactNode } from "react";
+import { Fragment, forwardRef, type ReactNode } from "react";
 import styles from "./workspace-shell.module.css";
 
 /**
@@ -110,7 +110,11 @@ const SCOPE_CLASS: Record<WorkspaceScope, string | undefined> = {
   manage: styles.scope_manage,
 };
 
-export const WorkspaceShell: FC<WorkspaceShellProps> = ({
+/**
+ * `<WorkspaceShell>` — High-level frame for project workspaces (Apps/Sites) with scoped rail styling and address header.
+ * @maturity stable
+ */
+export const WorkspaceShell = forwardRef<HTMLDivElement, WorkspaceShellProps>(({
   backHref,
   backLabel,
   identity,
@@ -123,9 +127,10 @@ export const WorkspaceShell: FC<WorkspaceShellProps> = ({
   density,
   className = "",
   children,
-}: any) => {
+}, ref) => {
   return (
     <div
+      ref={ref}
       className={[styles.shell, scope ? SCOPE_CLASS[scope as WorkspaceScope] ?? "" : "", className]
         .filter(Boolean)
         .join(" ")}
@@ -224,4 +229,7 @@ export const WorkspaceShell: FC<WorkspaceShellProps> = ({
       </div>
     </div>
   );
-};
+});
+
+WorkspaceShell.displayName = "WorkspaceShell";
+

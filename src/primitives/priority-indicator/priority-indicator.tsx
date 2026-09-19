@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC } from "react";
+import { forwardRef } from "react";
 import { ArrowDown, ArrowRight, ArrowUp, AlertTriangle } from "lucide-react";
 import styles from "./priority-indicator.module.css";
 
@@ -20,17 +18,22 @@ export interface PriorityIndicatorProps {
   className?: string;
 }
 
-export const PriorityIndicator: FC<PriorityIndicatorProps> = ({
+/**
+ * `<PriorityIndicator>` — Semantic ticket and task priority level badge.
+ * @maturity stable
+ */
+export const PriorityIndicator = forwardRef<HTMLSpanElement, PriorityIndicatorProps>(({
   priority,
   showLabel = true,
   variant = "text",
   className = "",
-}) => {
+}, ref) => {
   const meta = PRIORITY_META[priority];
   const { Icon, variant: tone } = meta;
 
   return (
     <span
+      ref={ref}
       aria-label={`Priority: ${meta.label}`}
       className={`${styles.indicator} ${styles[tone]} ${variant === "pill" ? styles.pill : ""} ${className}`.trim()}
     >
@@ -38,4 +41,6 @@ export const PriorityIndicator: FC<PriorityIndicatorProps> = ({
       {showLabel && <span className={styles.label}>{meta.label}</span>}
     </span>
   );
-};
+});
+
+PriorityIndicator.displayName = "PriorityIndicator";

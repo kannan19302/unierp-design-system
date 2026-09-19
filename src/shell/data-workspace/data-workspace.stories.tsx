@@ -28,8 +28,15 @@ const SAMPLE_DATA: InvoiceRow[] = [
 const meta: Meta<typeof DataWorkspace> = {
   title: "Shell/Floorplans/DataWorkspace",
   component: DataWorkspace,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
   argTypes: {
     action: { control: false },
@@ -94,4 +101,48 @@ export const Empty: Story = {
     emptyTitle: "No invoices found",
     emptyDescription: "Create a new receivable invoice to get started.",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Populated Ledger (Default)</h4>
+        <DataWorkspace
+          {...Default.args}
+          columns={SAMPLE_COLUMNS}
+          data={SAMPLE_DATA}
+        />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Loading Skeleton State</h4>
+        <DataWorkspace
+          title="Invoices Ledger"
+          columns={SAMPLE_COLUMNS}
+          data={[]}
+          loading={true}
+        />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Empty State</h4>
+        <DataWorkspace
+          title="Invoices Ledger"
+          columns={SAMPLE_COLUMNS}
+          data={[]}
+          emptyTitle="No invoices found"
+          emptyDescription="Create a new receivable invoice to get started."
+        />
+      </div>
+    </div>
+  ),
 };

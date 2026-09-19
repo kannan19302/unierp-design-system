@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import styles from "./workbench-shell.module.css";
 
 export interface WorkbenchShellProps {
@@ -35,11 +33,9 @@ export interface WorkbenchShellProps {
  * `<WorkbenchShell>` — Three-Pane Workbench layout for DL 2.0.
  *
  * Anatomy: `[Classification Hierarchy] → [Record List] → [Object Details Workspace]`
- *
- * Designed for high-frequency operational domains (e.g. Master Data Management,
- * Inventory Cataloging, Customer Support Queues, Asset Classification).
+ * @maturity stable
  */
-export const WorkbenchShell: FC<WorkbenchShellProps> = ({
+export const WorkbenchShell = forwardRef<HTMLDivElement, WorkbenchShellProps>(({
   topBar,
   classificationTree,
   recordList,
@@ -48,12 +44,12 @@ export const WorkbenchShell: FC<WorkbenchShellProps> = ({
   detailsId,
   nested = false,
   className = "",
-}) => {
+}, ref) => {
   const Tag = detailsAs ?? (nested ? "section" : "main");
   const resolvedId = detailsId !== undefined ? (detailsId ?? undefined) : (nested ? undefined : "unierp-main");
 
   return (
-    <div className={`${styles.root} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.root} ${className}`.trim()}>
       <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%" }}>
         {topBar && <div className={styles.topBar}>{topBar}</div>}
 
@@ -73,4 +69,6 @@ export const WorkbenchShell: FC<WorkbenchShellProps> = ({
       </div>
     </div>
   );
-};
+});
+
+WorkbenchShell.displayName = "WorkbenchShell";

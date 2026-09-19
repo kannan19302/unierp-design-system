@@ -1,4 +1,6 @@
-import { type FC, type ReactNode } from "react";
+"use client";
+
+import { forwardRef, type FC, type ReactNode } from "react";
 import styles from "./editorial-shell.module.css";
 
 /**
@@ -62,14 +64,19 @@ export interface EditorialBandProps {
   children?: ReactNode;
 }
 
-export const EditorialBand: FC<EditorialBandProps> = ({
+/**
+ * `<EditorialBand>` — Horizon band for marketing layouts with alternating grounds and editorial measures.
+ * @maturity stable
+ */
+export const EditorialBand = forwardRef<HTMLElement, EditorialBandProps>(({
   tone = "base",
   layout = "centred",
   id,
   className = "",
   children,
-}) => (
+}, ref) => (
   <section
+    ref={ref}
     id={id}
     className={`${styles.band} ${BAND_CLASS[tone]} ${className}`.trim()}
     data-band-tone={tone}
@@ -78,7 +85,9 @@ export const EditorialBand: FC<EditorialBandProps> = ({
       {children}
     </div>
   </section>
-);
+));
+
+EditorialBand.displayName = "EditorialBand";
 
 export interface EditorialShellProps {
   /** The masthead's left side — wordmark, primary nav. */
@@ -90,17 +99,19 @@ export interface EditorialShellProps {
   children?: ReactNode;
 }
 
-export const EditorialShell: FC<EditorialShellProps> = ({
+/**
+ * `<EditorialShell>` — Marketing and portal editorial shell with independent masthead and content horizons.
+ * @maturity stable
+ */
+export const EditorialShell = forwardRef<HTMLDivElement, EditorialShellProps>(({
   brand,
   actions,
   footer,
   className = "",
   children,
-}) => (
-  <div className={`${styles.root} ${className}`.trim()}>
+}, ref) => (
+  <div ref={ref} className={`${styles.root} ${className}`.trim()}>
     {(brand || actions) && (
-      // A real <header> landmark, not a styled div — a buyer using a screen
-      // reader navigates this page by landmark exactly like any other.
       <header className={styles.masthead}>
         <div>{brand}</div>
         <div>{actions}</div>
@@ -111,7 +122,10 @@ export const EditorialShell: FC<EditorialShellProps> = ({
 
     {footer && <footer className={styles.footer}>{footer}</footer>}
   </div>
-);
+));
+
+EditorialShell.displayName = "EditorialShell";
+
 
 /* ── Type primitives ──
    Exported separately because a marketing page composes them directly rather

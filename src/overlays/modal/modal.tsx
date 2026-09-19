@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useId, type FC, type ReactNode } from "react";
+import { useState, useId, forwardRef, type ReactNode } from "react";
 import { X } from "lucide-react";
 import { Portal } from "../portal";
 import { useEscapeKey, useFocusTrap, useScrollLock } from "../overlay-hooks";
@@ -22,7 +20,11 @@ export interface ModalProps {
   "aria-describedby"?: string;
 }
 
-export const Modal: FC<ModalProps> = ({
+/**
+ * `<Modal>` — WAI-ARIA accessible dialog with focus trap, scroll lock, and portal mounting.
+ * @maturity stable
+ */
+export const Modal = forwardRef<HTMLDivElement, ModalProps>(({
   open,
   onClose,
   title,
@@ -35,7 +37,7 @@ export const Modal: FC<ModalProps> = ({
   "aria-label": ariaLabel,
   "aria-labelledby": customAriaLabelledBy,
   "aria-describedby": customAriaDescribedBy,
-}) => {
+}, ref) => {
   const [dialog, setDialog] = useState<HTMLDivElement | null>(null);
   const autoId = useId();
   const titleId = title ? `modal-title-${autoId}` : undefined;
@@ -62,7 +64,14 @@ export const Modal: FC<ModalProps> = ({
         aria-hidden="true"
       />
       <div
-        ref={setDialog}
+        ref={(node) => {
+          setDialog(node);
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        }}
         role="dialog"
         aria-modal="true"
         aria-labelledby={resolvedLabelledBy}
@@ -100,4 +109,6 @@ export const Modal: FC<ModalProps> = ({
       </div>
     </Portal>
   );
-};
+});
+
+Modal.displayName = "Modal";

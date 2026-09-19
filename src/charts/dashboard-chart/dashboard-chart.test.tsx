@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -37,6 +38,22 @@ describe("DashboardChart Primitive", () => {
     expect(screen.getByText("Monthly P&L")).toBeInTheDocument();
     expect(screen.getByText("Revenue vs Operating Expenses")).toBeInTheDocument();
     expect(screen.getByTestId("responsive-container")).toBeInTheDocument();
+  });
+
+  it("forwards ref to root container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <DashboardChart
+        ref={ref}
+        title="Ref Test"
+        data={MOCK_DATA}
+        config={{
+          xAxisKey: "month",
+          series: [{ dataKey: "revenue", name: "Revenue" }],
+        }}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

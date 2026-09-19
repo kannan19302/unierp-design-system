@@ -1,6 +1,4 @@
-"use client";
-
-import { type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import { cn } from "../../utils/cn";
 import styles from "./live-region.module.css";
 
@@ -17,7 +15,11 @@ export interface LiveRegionProps {
   className?: string;
 }
 
-export function LiveRegion({
+/**
+ * `<LiveRegion>` — ARIA live region for announcing dynamic screen changes to assistive technologies.
+ * @maturity stable
+ */
+export const LiveRegion = forwardRef<HTMLDivElement, LiveRegionProps>(({
   children,
   politeness = "polite",
   role = politeness === "assertive" ? "alert" : "status",
@@ -26,7 +28,7 @@ export function LiveRegion({
   visuallyHidden,
   variant,
   className,
-}: LiveRegionProps) {
+}, ref) => {
   // Resolve active variant
   const effectiveVariant: LiveRegionVariant =
     variant ?? (visuallyHidden === false ? "banner" : "hidden");
@@ -34,6 +36,7 @@ export function LiveRegion({
 
   return (
     <div
+      ref={ref}
       role={role}
       aria-live={politeness}
       aria-atomic={atomic}
@@ -59,5 +62,7 @@ export function LiveRegion({
       <div className={styles.content}>{children}</div>
     </div>
   );
-}
+});
+
+LiveRegion.displayName = "LiveRegion";
 

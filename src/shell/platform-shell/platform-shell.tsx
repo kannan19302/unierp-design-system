@@ -1,9 +1,10 @@
 "use client";
 
 import {
+  forwardRef,
   type CSSProperties,
-  type FC,
   type ReactNode,
+  type FC,
   useEffect,
   useRef,
   useState,
@@ -121,8 +122,9 @@ export interface PlatformShellProps {
 
 /**
  * `<PlatformShell>` — The shared navigation and workspace frame across all UniERP platforms.
+ * @maturity stable
  */
-export const PlatformShell: FC<PlatformShellProps> = ({
+export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
   platformName,
   platformIcon,
   accentColor = "var(--color-primary)",
@@ -147,13 +149,14 @@ export const PlatformShell: FC<PlatformShellProps> = ({
   userMenuActions,
   onSignOut,
   children,
-}) => {
+}, ref) => {
   const [tenantMenuOpen, setTenantMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div
+      ref={ref}
       style={
         {
           display: "flex",
@@ -268,7 +271,7 @@ export const PlatformShell: FC<PlatformShellProps> = ({
                 <TenantMenu
                   tenants={availableTenants}
                   current={tenant.id}
-                  onSelect={(id) => {
+                  onSelect={(id: string) => {
                     setTenantMenuOpen(false);
                     onTenantChange?.(id);
                   }}
@@ -371,7 +374,9 @@ export const PlatformShell: FC<PlatformShellProps> = ({
       </div>
     </div>
   );
-};
+});
+
+PlatformShell.displayName = "PlatformShell";
 
 const iconButtonStyle = {
   display: "flex",
@@ -421,7 +426,7 @@ const TenantMenu: FC<{
   const ref = useCloseOnOutsideInteraction(onClose);
   return (
     <div ref={ref} role="menu" style={menuPanelStyle}>
-      {tenants.map((t) => (
+      {tenants.map((t: ShellTenant) => (
         <button
           key={t.id}
           role="menuitem"

@@ -9,9 +9,18 @@ import {
   RecoveryCodesCard,
 } from "./auth-cards";
 
-const meta: Meta = {
+const meta: Meta<typeof SignInCard> = {
   title: "Shell/AuthCards",
-  parameters: { layout: "centered" },
+  component: SignInCard,
+  parameters: {
+    layout: "centered",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
   tags: ["autodocs"],
 };
 
@@ -92,3 +101,48 @@ export const RecoveryCodes: StoryObj<typeof RecoveryCodesCard> = {
     />
   ),
 };
+
+export const AnatomyAndComposition: StoryObj<typeof SignInCard> = {
+  name: "Anatomy & Composition",
+  render: () => (
+    <SignInCard
+      defaultEmail="admin@acme-corp.com"
+      onForgotPassword={() => {}}
+      onSsoSelect={() => {}}
+    />
+  ),
+};
+
+export const AllStatesGallery: StoryObj<typeof SignInCard> = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)", padding: "var(--space-4)" }}>
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>1. Sign In Card</h4>
+        <SignInCard defaultEmail="admin@acme-corp.com" />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>2. MFA Challenge Card</h4>
+        <MfaChallengeCard email="admin@acme-corp.com" />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>3. SSO Discovery Card</h4>
+        <SsoDiscoveryCard />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>4. Session Lockout Card</h4>
+        <SessionLockoutCard
+          user={{
+            name: "Kannan Rajagopal",
+            email: "kannan@acme-global.com",
+            role: "Financial Controller",
+          }}
+        />
+      </div>
+    </div>
+  ),
+};
+

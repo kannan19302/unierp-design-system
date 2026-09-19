@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import styles from "./breadcrumb.module.css";
 
@@ -17,13 +15,17 @@ export interface BreadcrumbProps {
   className?: string;
 }
 
-export const Breadcrumb: FC<BreadcrumbProps> = ({
+/**
+ * `<Breadcrumb>` — Accessible hierarchical breadcrumb trail with WAI-ARIA nav and current-page semantics.
+ * @maturity stable
+ */
+export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(({
   items,
   separator = <ChevronRight size={12} className={styles.separatorIcon} aria-hidden="true" />,
   className = "",
-}) => {
+}, ref) => {
   return (
-    <nav aria-label="Breadcrumb" className={`${styles.nav} ${className}`.trim()}>
+    <nav ref={ref} aria-label="Breadcrumb" className={`${styles.nav} ${className}`.trim()}>
       <ol className={styles.list}>
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
@@ -61,4 +63,6 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
       </ol>
     </nav>
   );
-};
+});
+
+Breadcrumb.displayName = "Breadcrumb";

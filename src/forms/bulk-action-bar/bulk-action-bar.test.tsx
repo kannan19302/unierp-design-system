@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -36,6 +37,33 @@ describe("BulkActionBar & ContextualSaveBar Primitive", () => {
 
     fireEvent.click(screen.getByText("Discard"));
     expect(onDiscard).toHaveBeenCalledTimes(1);
+  });
+
+  it("forwards ref to BulkActionBar toolbar element", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <BulkActionBar
+        ref={ref}
+        selectedCount={2}
+        actions={<button>Act</button>}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toHaveAttribute("role", "toolbar");
+  });
+
+  it("forwards ref to ContextualSaveBar status element", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <ContextualSaveBar
+        ref={ref}
+        visible={true}
+        onSave={() => {}}
+        onDiscard={() => {}}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toHaveAttribute("role", "status");
   });
 
   it("has zero accessibility violations", async () => {

@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useId, useRef, useEffect, type FC, type ReactNode } from "react";
+import { useState, useId, useRef, useEffect, forwardRef, useImperativeHandle, type ReactNode } from "react";
 import { Portal } from "../portal";
 import styles from "./tooltip.module.css";
 
@@ -12,16 +10,21 @@ export interface TooltipProps {
   className?: string;
 }
 
-export const Tooltip: FC<TooltipProps> = ({
+/**
+ * `<Tooltip>` — Accessible hover and focus contextual label overlay with portal placement.
+ * @maturity stable
+ */
+export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(({
   content,
   children,
   side = "top",
   id: customId,
   className = "",
-}) => {
+}, ref) => {
   const [visible, setVisible] = useState(false);
   const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
   const triggerRef = useRef<HTMLSpanElement>(null);
+  useImperativeHandle(ref, () => triggerRef.current!);
   const generatedId = useId();
   const tooltipId = customId ?? generatedId;
 
@@ -73,4 +76,6 @@ export const Tooltip: FC<TooltipProps> = ({
       )}
     </span>
   );
-};
+});
+
+Tooltip.displayName = "Tooltip";

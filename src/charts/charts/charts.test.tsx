@@ -1,7 +1,9 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
 import {
+  Charts,
   MiniBarChart,
   MiniDonutChart,
   Sparkline,
@@ -22,8 +24,8 @@ describe("Charts Primitive Suite", () => {
         />
         <MiniDonutChart
           segments={[
-            { label: "S1", value: 60, color: "#3b82f6" },
-            { label: "S2", value: 40, color: "#10b981" },
+            { label: "S1", value: 60, color: "var(--color-brand)" },
+            { label: "S2", value: 40, color: "var(--color-success)" },
           ]}
           centerValue="100%"
         />
@@ -43,6 +45,12 @@ describe("Charts Primitive Suite", () => {
     expect(screen.getByText("100%")).toBeInTheDocument();
     expect(screen.getByText("Visits")).toBeInTheDocument();
     expect(screen.getByText("Signups")).toBeInTheDocument();
+  });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<Charts ref={ref}><div>Content</div></Charts>);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations with ChartAccessibleWrapper", async () => {

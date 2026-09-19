@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { useId, useState, forwardRef, type HTMLAttributes } from "react";
 import styles from "./enterprise-checkout-address-validator.module.css";
 
 export interface PostalAddress {
@@ -21,7 +21,8 @@ export interface StandardizedAddressSuggestion extends PostalAddress {
   carrierRoute?: string; // "C004"
 }
 
-export interface EnterpriseCheckoutAddressValidatorProps {
+export interface EnterpriseCheckoutAddressValidatorProps
+  extends HTMLAttributes<HTMLElement> {
   initialAddress?: Partial<PostalAddress>;
   mockSuggestion?: StandardizedAddressSuggestion;
   onConfirmAddress?: (address: PostalAddress) => void;
@@ -46,24 +47,36 @@ const defaultSuggestion: StandardizedAddressSuggestion = {
   carrierRoute: "C004",
 };
 
-export const EnterpriseCheckoutAddressValidator: React.FC<
+/**
+ * `<EnterpriseCheckoutAddressValidator>` validates postal addresses against USPS/DPV carrier datasets,
+ * presenting standardization suggestions and commercial delivery confirmation.
+ *
+ * @maturity stable
+ */
+export const EnterpriseCheckoutAddressValidator = forwardRef<
+  HTMLElement,
   EnterpriseCheckoutAddressValidatorProps
-> = ({
-  initialAddress = {
-    companyName: "UniERP Systems Inc.",
-    attentionName: "Elena Rostova",
-    street1: "500 Howard Street",
-    street2: "Suite 400",
-    city: "San Francisco",
-    state: "CA",
-    postalCode: "94105",
-    country: "United States",
-  },
-  mockSuggestion = defaultSuggestion,
-  onConfirmAddress,
-  density = "compact",
-  className = "",
-}) => {
+>(
+  (
+    {
+      initialAddress = {
+        companyName: "UniERP Systems Inc.",
+        attentionName: "Elena Rostova",
+        street1: "500 Howard Street",
+        street2: "Suite 400",
+        city: "San Francisco",
+        state: "CA",
+        postalCode: "94105",
+        country: "United States",
+      },
+      mockSuggestion = defaultSuggestion,
+      onConfirmAddress,
+      density = "compact",
+      className = "",
+      ...restProps
+    },
+    ref
+  ) => {
   const formId = useId();
   const [address, setAddress] = useState<PostalAddress>({
     companyName: initialAddress.companyName ?? "",
@@ -107,9 +120,11 @@ export const EnterpriseCheckoutAddressValidator: React.FC<
 
   return (
     <section
-      className={`${styles.container} ${className}`}
+      ref={ref}
+      className={`${styles.container} ${className}`.trim()}
       data-density={density}
       aria-label="Enterprise Shipping & Billing Address Validator"
+      {...restProps}
     >
       <header className={styles.header}>
         <div className={styles.titleCol}>
@@ -301,4 +316,6 @@ export const EnterpriseCheckoutAddressValidator: React.FC<
       </form>
     </section>
   );
-};
+});
+
+EnterpriseCheckoutAddressValidator.displayName = "EnterpriseCheckoutAddressValidator";

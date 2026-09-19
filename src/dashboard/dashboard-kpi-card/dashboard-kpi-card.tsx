@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { DrillDownModal, type DrillDownColumn } from "../drill-down-modal";
 import styles from "./dashboard-kpi-card.module.css";
 
-export interface DashboardKPICardProps {
+export interface DashboardKPICardProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   value: string | number;
   change?: number;
@@ -24,7 +25,6 @@ export interface DashboardKPICardProps {
     rows: Record<string, unknown>[];
     loading?: boolean;
   };
-  onClick?: () => void;
 }
 
 const MiniSparkline: React.FC<{ data: number[]; color: string }> = ({
@@ -65,36 +65,75 @@ const MiniSparkline: React.FC<{ data: number[]; color: string }> = ({
   );
 };
 
-export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
-  title,
-  value,
-  change,
-  changeLabel,
-  icon,
-  color = "#4f46e5",
-  loading = false,
-  progress,
-  progressLabel,
-  trend,
-  drillDown,
-  onClick,
-}) => {
+/**
+ * DashboardKPICard
+ *
+ * High-density executive KPI scorecard display with real-time numeric readouts,
+ * period-over-period percentage variance tags, sparklines, and drill-down audit capabilities.
+ *
+ * @maturity stable
+ */
+export const DashboardKPICard = forwardRef<
+  HTMLDivElement,
+  DashboardKPICardProps
+>(function DashboardKPICard(
+  {
+    title,
+    value,
+    change,
+    changeLabel,
+    icon,
+    color = "var(--color-brand)",
+    loading = false,
+    progress,
+    progressLabel,
+    trend,
+    drillDown,
+    onClick,
+    className,
+    ...restProps
+  },
+  ref
+) {
   const [isDrillDownOpen, setIsDrillDownOpen] = useState(false);
   const isClickable = !!drillDown || !!onClick;
 
-  const handleCardClick = () => {
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (onClick) {
-      onClick();
+      onClick(e);
     } else if (drillDown) {
       setIsDrillDownOpen(true);
     }
   };
 
+  const containerClasses = [
+    styles.card,
+    isClickable ? styles.cardClickable : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <>
       <div
+        ref={ref}
         onClick={isClickable ? handleCardClick : undefined}
-        className={`${styles.card} ${isClickable ? styles.cardClickable : ""}`}
+        className={containerClasses}
+        role={isClickable ? "button" : undefined}
+        tabIndex={isClickable ? 0 : undefined}
+        onKeyDown={
+          isClickable
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  if (onClick) (onClick as any)(e);
+                  else if (drillDown) setIsDrillDownOpen(true);
+                }
+              }
+            : undefined
+        }
+        {...restProps}
       >
         {/* Header row */}
         <div className={styles.headerRow}>
@@ -103,8 +142,7 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
             <div
               className={styles.iconContainer}
               style={{
-                background: `linear-gradient(155deg, ${color}22, ${color}0d)`,
-                boxShadow: `inset 0 0 0 1px ${color}26`,
+                background: "var(--color-surface-sunken)",
                 color,
               }}
             >
@@ -120,7 +158,7 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
               height: 32,
               width: 80,
               marginTop: "var(--space-1)",
-              background: "var(--color-bg-sunken)",
+              background: "var(--color-surface-sunken)",
               borderRadius: "var(--radius-sm)",
             }}
           />
@@ -132,7 +170,9 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
         {change !== undefined && (
           <div className={styles.changeBadge}>
             <span
-              className={change >= 0 ? styles.changePositive : styles.changeNegative}
+              className={
+                change >= 0 ? styles.changePositive : styles.changeNegative
+              }
               style={{
                 fontSize: "var(--text-xs)",
                 fontWeight: "var(--weight-semibold, 600)",
@@ -174,7 +214,7 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
                     fontWeight: "var(--weight-semibold, 600)",
                     color:
                       progress >= 100
-                        ? "var(--color-success, #10b981)"
+                        ? "var(--color-success)"
                         : "var(--color-text-primary)",
                   }}
                 >
@@ -185,7 +225,7 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
             <div
               style={{
                 height: 5,
-                background: "var(--color-bg-sunken, #f1f5f9)",
+                background: "var(--color-surface-sunken)",
                 borderRadius: "var(--radius-full)",
                 overflow: "hidden",
               }}
@@ -194,7 +234,8 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
                 style={{
                   width: `${Math.min(progress, 100)}%`,
                   height: "100%",
-                  background: progress >= 100 ? "var(--color-success, #10b981)" : color,
+                  background:
+                    progress >= 100 ? "var(--color-success)" : color,
                   borderRadius: "var(--radius-full)",
                   transition: "width var(--duration-base, 200ms)",
                 }}
@@ -210,9 +251,7 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
 
         {/* Click hint */}
         {isClickable && (
-          <div className={styles.clickHint}>
-            Click to drill down →
-          </div>
+          <div className={styles.clickHint}>Click to drill down →</div>
         )}
       </div>
 
@@ -230,4 +269,6 @@ export const DashboardKPICard: React.FC<DashboardKPICardProps> = ({
       )}
     </>
   );
-};
+});
+
+DashboardKPICard.displayName = "DashboardKPICard";

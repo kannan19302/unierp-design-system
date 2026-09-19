@@ -4,7 +4,7 @@ import {
   useState,
   useEffect,
   useRef,
-  type FC,
+  forwardRef,
   type FormEvent,
   type KeyboardEvent,
 } from "react";
@@ -53,27 +53,31 @@ export interface DualControlModalProps {
 /**
  * `<DualControlModal>` — Four-eyes principle approval dialog.
  * Benchmarked against Mercury Banking OS (#45), Coupa (#34), Goldman Sachs (#21), and UniERP API Security Standards.
+ *
+ * @maturity stable
  */
-export const DualControlModal: FC<DualControlModalProps> = ({
-  open,
-  onClose,
-  onAuthorize,
-  operationTitle,
-  operationType = "CRITICAL_AUTHORIZATION",
-  riskLevel = "critical",
-  targetEntity,
-  initiatorName,
-  initiatorRole = "Finance Operator",
-  sha256Fingerprint = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  complianceStandard = "SOX-404 / SOC2 Dual Authorization Standard",
-  density = "compact",
-  className = "",
-}) => {
+export const DualControlModal = forwardRef<HTMLDivElement, DualControlModalProps>(function DualControlModal(
+  {
+    open,
+    onClose,
+    onAuthorize,
+    operationTitle,
+    operationType = "CRITICAL_AUTHORIZATION",
+    riskLevel = "critical",
+    targetEntity,
+    initiatorName,
+    initiatorRole = "Finance Operator",
+    sha256Fingerprint = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    complianceStandard = "SOX-404 / SOC2 Dual Authorization Standard",
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const [reviewerId, setReviewerId] = useState("");
   const [credential, setCredential] = useState("");
   const [justification, setJustification] = useState("");
   const [copied, setCopied] = useState(false);
-  const modalRef = useRef<HTMLDivElement>(null);
   const firstInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -127,7 +131,7 @@ export const DualControlModal: FC<DualControlModalProps> = ({
       role="presentation"
     >
       <div
-        ref={modalRef}
+        ref={ref}
         className={`${styles.modal} ${className}`.trim()}
         data-density={density}
         data-risk={riskLevel}
@@ -248,4 +252,6 @@ export const DualControlModal: FC<DualControlModalProps> = ({
       </div>
     </div>
   );
-};
+});
+
+DualControlModal.displayName = "DualControlModal";

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   createContext,
   useCallback,
@@ -7,7 +5,7 @@ import {
   useEffect,
   useMemo,
   useState,
-  type FC,
+  forwardRef,
   type ReactNode,
 } from "react";
 import { PanelLeft, PanelRight } from "lucide-react";
@@ -37,6 +35,8 @@ import styles from "./studio-shell.module.css";
  * zone, never HOW the zones are arranged. That is the whole point — a builder
  * that could move its own inspector would reintroduce the divergence this
  * component exists to end.
+ *
+ * @maturity stable
  */
 
 export interface StudioShellContextValue {
@@ -114,16 +114,19 @@ export interface StudioShellProps {
   label: string;
 }
 
-export const StudioShell: FC<StudioShellProps> = ({
-  toolbar,
-  palette,
-  canvas,
-  inspector,
-  console: consoleSlot,
-  defaultPaletteOpen = true,
-  defaultInspectorOpen = true,
-  label,
-}) => {
+export const StudioShell = forwardRef<HTMLElement, StudioShellProps>(function StudioShell(
+  {
+    toolbar,
+    palette,
+    canvas,
+    inspector,
+    console: consoleSlot,
+    defaultPaletteOpen = true,
+    defaultInspectorOpen = true,
+    label,
+  },
+  ref
+) {
   // `null` means "no opinion yet — follow the viewport". Once the user touches
   // a handle their choice wins, at any width. A narrow window sets the DEFAULT;
   // it must not lock the rail shut, or the handle it renders is a control that
@@ -176,7 +179,7 @@ export const StudioShell: FC<StudioShellProps> = ({
 
   return (
     <StudioShellContext.Provider value={ctx}>
-      <main className={styles.shell} style={style} aria-label={label}>
+      <main ref={ref} className={styles.shell} style={style} aria-label={label}>
         {toolbar ? <div className={styles.toolbar}>{toolbar}</div> : null}
 
         {palette ? (
@@ -229,4 +232,6 @@ export const StudioShell: FC<StudioShellProps> = ({
       </main>
     </StudioShellContext.Provider>
   );
-};
+});
+
+StudioShell.displayName = "StudioShell";

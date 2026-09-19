@@ -1,26 +1,30 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
 import { RadarChart } from "./radar-chart";
 
+const SAMPLE_AXES = ["Speed", "Reliability", "Comfort"];
+const SAMPLE_DATASETS = [
+  { label: "Alpha", values: [80, 90, 70] },
+];
+
 describe("RadarChart", () => {
   it("renders without crashing", () => {
-    const axes = ['Speed', 'Reliability', 'Cost', 'Support', 'Features'];
-  const datasets = [
-    { label: 'Product A', values: [80, 90, 60, 70, 85], color: '#2563eb' },
-    { label: 'Product B', values: [65, 75, 90, 80, 60], color: '#10b981' },
-  ];
-    render(<RadarChart axes={axes} datasets={datasets} />);
-    expect(screen.getByRole('img', { name: /radar chart/i })).toBeInTheDocument();
+    render(<RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} />);
+    expect(screen.getByRole("img", { name: /radar chart/i })).toBeInTheDocument();
+  });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<RadarChart ref={ref} axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {
-    const axes = ['Speed', 'Reliability', 'Cost', 'Support', 'Features'];
-  const datasets = [
-    { label: 'Product A', values: [80, 90, 60, 70, 85], color: '#2563eb' },
-    { label: 'Product B', values: [65, 75, 90, 80, 60], color: '#10b981' },
-  ];
-    const { container } = render(<RadarChart axes={axes} datasets={datasets} />);
+    const { container } = render(
+      <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} />
+    );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

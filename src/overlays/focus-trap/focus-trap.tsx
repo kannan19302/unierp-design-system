@@ -1,6 +1,13 @@
 "use client";
 
-import { useRef, useEffect, type ReactNode, type RefObject } from "react";
+import {
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { cn } from "../../utils/cn";
 import styles from "./focus-trap.module.css";
 
@@ -16,16 +23,26 @@ export interface FocusTrapProps {
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export function FocusTrap({
-  children,
-  active = true,
-  initialFocusRef,
-  onEscape,
-  restoreFocus = true,
-  className,
-}: FocusTrapProps) {
+/**
+ * FocusTrap component to constrain keyboard navigation within dialogs and modals.
+ *
+ * @maturity stable
+ */
+export const FocusTrap = forwardRef<HTMLDivElement, FocusTrapProps>(function FocusTrap(
+  {
+    children,
+    active = true,
+    initialFocusRef,
+    onEscape,
+    restoreFocus = true,
+    className,
+  },
+  ref
+) {
   const rootRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
+
+  useImperativeHandle(ref, () => rootRef.current as HTMLDivElement);
 
   useEffect(() => {
     if (!active) return;
@@ -53,7 +70,7 @@ export function FocusTrap({
       if (e.key !== "Tab") return;
 
       const focusable = Array.from(
-        rootRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+        rootRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
       ).filter((el) => el.offsetParent !== null || el === document.activeElement);
 
       if (focusable.length === 0) {
@@ -92,4 +109,6 @@ export function FocusTrap({
       {children}
     </div>
   );
-}
+});
+
+FocusTrap.displayName = "FocusTrap";

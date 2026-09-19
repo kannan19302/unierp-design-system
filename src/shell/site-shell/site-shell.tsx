@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FC, type ReactNode } from "react";
+import { useState, forwardRef, type ReactNode } from "react";
 import styles from "./site-shell.module.css";
 import { Footer, type FooterSection, type FooterLink } from "../../layout/footer";
 
@@ -37,12 +37,10 @@ export interface SiteShellProps {
 }
 
 /**
- * `<SiteShell>` — Full-suite tenant corporate website shell.
- *
- * Provides a responsive marketing masthead with sticky navigation,
- * mobile flyout menu, content container, and integrated multi-column footer.
+ * `<SiteShell>` — Full-suite tenant corporate website shell with sticky masthead, mobile flyout, and integrated footer.
+ * @maturity stable
  */
-export const SiteShell: FC<SiteShellProps> = ({
+export const SiteShell = forwardRef<HTMLDivElement, SiteShellProps>(({
   brandLogo,
   brandName = "UniERP Tenant",
   navItems,
@@ -53,11 +51,11 @@ export const SiteShell: FC<SiteShellProps> = ({
   copyright,
   children,
   className = "",
-}) => {
+}, ref) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className={`${styles.root} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.root} ${className}`.trim()}>
       {/* ── Optional Top Announcement Banner ── */}
       {announcement && (
         <aside className={styles.announcement} aria-label="Announcement">
@@ -177,4 +175,7 @@ export const SiteShell: FC<SiteShellProps> = ({
       />
     </div>
   );
-};
+});
+
+SiteShell.displayName = "SiteShell";
+

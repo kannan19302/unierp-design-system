@@ -11,7 +11,26 @@ const MOCK_NAV: WorkspaceNavItem[] = [
 const meta: Meta<typeof WorkspaceShell> = {
   title: "Shell/WorkspaceShell",
   component: WorkspaceShell,
-  parameters: { layout: "fullscreen" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
+  argTypes: {
+    scope: {
+      control: "select",
+      options: ["app", "site", "library", "manage"],
+    },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+  },
 };
 
 export default meta;
@@ -38,3 +57,54 @@ export const Default: Story = {
     ),
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Application Workspace Scope</h4>
+        <div style={{ height: "380px", border: "1px solid var(--color-border)", position: "relative" }}>
+          <WorkspaceShell
+            backHref="#"
+            backLabel="Back to Platform"
+            identity={{
+              name: "Finance & Accounts",
+              kindLabel: "ERP Core Module",
+            }}
+            nav={MOCK_NAV}
+            scope="app"
+          >
+            <div style={{ padding: "24px" }}>Active application authoring canvas.</div>
+          </WorkspaceShell>
+        </div>
+      </div>
+
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Site Scope (Web Studio)</h4>
+        <div style={{ height: "380px", border: "1px solid var(--color-border)", position: "relative" }}>
+          <WorkspaceShell
+            backHref="#"
+            backLabel="Back to Sites"
+            identity={{
+              name: "Customer Portal",
+              kindLabel: "Web Studio Site",
+            }}
+            nav={MOCK_NAV}
+            scope="site"
+          >
+            <div style={{ padding: "24px" }}>Active website authoring canvas.</div>
+          </WorkspaceShell>
+        </div>
+      </div>
+    </div>
+  ),
+};
+

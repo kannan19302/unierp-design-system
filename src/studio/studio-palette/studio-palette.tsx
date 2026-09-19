@@ -1,13 +1,11 @@
-"use client";
-
 import {
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
+  forwardRef,
   type ComponentType,
-  type FC,
   type KeyboardEvent,
 } from "react";
 import styles from "./studio-palette.module.css";
@@ -33,6 +31,8 @@ import styles from "./studio-palette.module.css";
  *   `ArrowUp`    previous item, wrapping
  *   `Enter`      insert the item under the cursor
  *   `Escape`     clear the search
+ *
+ * @maturity stable
  */
 
 export interface PaletteItem {
@@ -69,12 +69,15 @@ const matches = (item: PaletteItem, query: string): boolean => {
   return (item.keywords || []).some((k) => k.toLowerCase().includes(q));
 };
 
-export const StudioPalette: FC<StudioPaletteProps> = ({
-  groups,
-  onInsert,
-  searchPlaceholder = "Search…",
-  label = "Palette",
-}) => {
+export const StudioPalette = forwardRef<HTMLDivElement, StudioPaletteProps>(function StudioPalette(
+  {
+    groups,
+    onInsert,
+    searchPlaceholder = "Search…",
+    label = "Palette",
+  },
+  ref
+) {
   const [query, setQuery] = useState("");
   const [cursor, setCursor] = useState(0);
   const searchRef = useRef<HTMLInputElement | null>(null);
@@ -144,6 +147,7 @@ export const StudioPalette: FC<StudioPaletteProps> = ({
 
   return (
     <div
+      ref={ref}
       className={styles.palette}
       role="region"
       aria-label={label}
@@ -213,4 +217,6 @@ export const StudioPalette: FC<StudioPaletteProps> = ({
       </p>
     </div>
   );
-};
+});
+
+StudioPalette.displayName = "StudioPalette";

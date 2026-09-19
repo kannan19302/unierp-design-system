@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   OmnichannelContactBar,
-  CallerProfile,
+  type CallerProfile,
 } from "./omnichannel-contact-bar";
 
 const mockCaller: CallerProfile = {
@@ -16,6 +16,11 @@ const meta: Meta<typeof OmnichannelContactBar> = {
   component: OmnichannelContactBar,
   parameters: {
     layout: "fullscreen",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
   tags: ["autodocs"],
 };
@@ -23,7 +28,12 @@ const meta: Meta<typeof OmnichannelContactBar> = {
 export default meta;
 type Story = StoryObj<typeof OmnichannelContactBar>;
 
-export const InCall: Story = {
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ padding: "16px", background: "var(--color-bg-subtle)", minBlockSize: "200px" }}>
+      <OmnichannelContactBar {...args} />
+    </div>
+  ),
   args: {
     initialState: "in_call",
     activeCaller: mockCaller,
@@ -33,24 +43,54 @@ export const InCall: Story = {
   },
 };
 
-export const Floating: Story = {
-  args: {
-    ...InCall.args,
-    variant: "floating",
-  },
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", padding: "16px", background: "var(--color-bg-subtle)" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>In-Call State (Docked)</h4>
+        <OmnichannelContactBar
+          initialState="in_call"
+          activeCaller={mockCaller}
+          callDurationSeconds={312}
+          variant="docked"
+          density="compact"
+        />
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Wrap-Up Stage with Disposition Selector</h4>
+        <OmnichannelContactBar
+          initialState="wrap_up"
+          activeCaller={mockCaller}
+          variant="docked"
+          density="compact"
+        />
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Available / Standby Ready State</h4>
+        <OmnichannelContactBar
+          initialState="available"
+          variant="docked"
+          density="compact"
+        />
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Floating CTI Bar (Ultra-Compact)</h4>
+        <OmnichannelContactBar
+          initialState="in_call"
+          activeCaller={mockCaller}
+          callDurationSeconds={45}
+          variant="floating"
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
-export const WrapUp: Story = {
-  args: {
-    initialState: "wrap_up",
-    activeCaller: mockCaller,
-    variant: "docked",
-  },
+export const Default: Story = {
+  ...AnatomyAndComposition,
 };
 
-export const Available: Story = {
-  args: {
-    initialState: "available",
-    variant: "docked",
-  },
-};

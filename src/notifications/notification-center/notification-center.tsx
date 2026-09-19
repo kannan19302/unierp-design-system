@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useEffect, type FC, type ReactNode } from "react";
+import { useState, useEffect, forwardRef, type ReactNode } from "react";
 import { X, CheckCheck, Bell, AlertCircle, Info, ShieldAlert, CreditCard } from "lucide-react";
 import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
@@ -29,6 +27,7 @@ export interface NotificationCenterProps {
   onMarkAsRead?: (id: string) => void;
   onMarkAllAsRead?: () => void;
   onClearAll?: () => void;
+  className?: string;
 }
 
 const categoryIconMap: Record<NotificationCategory, ReactNode> = {
@@ -55,15 +54,21 @@ const priorityVariantMap: Record<NotificationPriority, "danger" | "warning" | "d
  * - Tabular timestamp formatting
  * - Inline action triggers & batch "Mark all as read"
  * - Escape key dismiss and focus trapping
+ *
+ * @maturity stable
  */
-export const NotificationCenter: FC<NotificationCenterProps> = ({
-  isOpen,
-  onClose,
-  notifications,
-  onMarkAsRead,
-  onMarkAllAsRead,
-  onClearAll,
-}) => {
+export const NotificationCenter = forwardRef<HTMLDivElement, NotificationCenterProps>(function NotificationCenter(
+  {
+    isOpen,
+    onClose,
+    notifications,
+    onMarkAsRead,
+    onMarkAllAsRead,
+    onClearAll,
+    className = "",
+  },
+  ref
+) {
   const [activeTab, setActiveTab] = useState<"all" | "unread" | "approval" | "system">("all");
 
   useEffect(() => {
@@ -87,7 +92,14 @@ export const NotificationCenter: FC<NotificationCenterProps> = ({
   });
 
   return (
-    <div className={styles.backdrop} onClick={onClose} role="dialog" aria-modal="true" aria-label="Notification Center">
+    <div
+      ref={ref}
+      className={`${styles.backdrop} ${className}`.trim()}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Notification Center"
+    >
       <div className={styles.drawer} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
           <div className={styles.title_wrap}>
@@ -195,4 +207,6 @@ export const NotificationCenter: FC<NotificationCenterProps> = ({
       </div>
     </div>
   );
-};
+});
+
+NotificationCenter.displayName = "NotificationCenter";

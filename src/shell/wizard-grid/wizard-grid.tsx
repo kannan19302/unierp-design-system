@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type CSSProperties, type FC, type ReactNode } from "react";
+import { useId, forwardRef, type CSSProperties, type ReactNode } from "react";
 import { ChevronRight, Star } from "lucide-react";
 import { LoadingState, ErrorState, EmptyState, ForbiddenState } from "../../data-display/empty-state";
 
@@ -201,37 +201,45 @@ function TileCard({ tile }: { tile: WizardTile }) {
  * session is entitled to, sourced from `GET /auth/platforms`
  * (idp/src/modules/oidc/controllers/platforms.controller.ts). Never shows
  * tenant applications.
+ * @maturity stable
  */
-export const PlatformWizardGrid: FC<WizardGridBaseProps> = (props) => (
-  <WizardGridBase
-    {...props}
-    // The wizard is the first screen of a session and its tile count is known
-    // in advance, so a skeleton grid reads better than a lone spinner.
-    // AppWizardGrid keeps the spinner — its install count is not predictable.
-    loadingVariant={props.loadingVariant ?? "skeleton"}
-    emptyTitle={props.emptyTitle ?? "No platforms available"}
-    emptyDescription={
-      props.emptyDescription ??
-      "Your account is not currently entitled to any UniERP platform."
-    }
-    renderTile={(tile) => <TileCard tile={tile} />}
-  />
-);
+export const PlatformWizardGrid = forwardRef<HTMLDivElement, WizardGridBaseProps>((props, ref) => (
+  <div ref={ref}>
+    <WizardGridBase
+      {...props}
+      loadingVariant={props.loadingVariant ?? "skeleton"}
+      emptyTitle={props.emptyTitle ?? "No platforms available"}
+      emptyDescription={
+        props.emptyDescription ??
+        "Your account is not currently entitled to any UniERP platform."
+      }
+      renderTile={(tile) => <TileCard tile={tile} />}
+    />
+  </div>
+));
+
+PlatformWizardGrid.displayName = "PlatformWizardGrid";
 
 /**
  * The tenant Application Wizard's grid — one tile per module installed for
  * this tenant AND permitted for this user, sourced from `GET
  * /api/v1/saas/installed-apps`. Lives inside tenant-apps at /apps, never
  * shows other platforms.
+ * @maturity stable
  */
-export const AppWizardGrid: FC<WizardGridBaseProps> = (props) => (
-  <WizardGridBase
-    {...props}
-    emptyTitle={props.emptyTitle ?? "No applications installed"}
-    emptyDescription={
-      props.emptyDescription ??
-      "Install applications from the Marketplace to get started."
-    }
-    renderTile={(tile) => <TileCard tile={tile} />}
-  />
-);
+export const AppWizardGrid = forwardRef<HTMLDivElement, WizardGridBaseProps>((props, ref) => (
+  <div ref={ref}>
+    <WizardGridBase
+      {...props}
+      emptyTitle={props.emptyTitle ?? "No applications installed"}
+      emptyDescription={
+        props.emptyDescription ??
+        "Install applications from the Marketplace to get started."
+      }
+      renderTile={(tile) => <TileCard tile={tile} />}
+    />
+  </div>
+));
+
+AppWizardGrid.displayName = "AppWizardGrid";
+

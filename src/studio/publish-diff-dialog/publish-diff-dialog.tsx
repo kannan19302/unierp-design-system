@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import { Modal } from "../../overlays/modal";
 import { Button } from "../../primitives/button";
 
@@ -27,6 +25,8 @@ import styles from "./publish-diff-dialog.module.css";
  * A publish with an empty diff is refused rather than allowed as a no-op:
  * "publish" that changes nothing but bumps a version number is how audit
  * trails fill with noise.
+ *
+ * @maturity stable
  */
 
 export interface PublishChange {
@@ -61,21 +61,25 @@ const KIND_CLASS: Record<PublishChange["kind"], string | undefined> = {
   changed: styles.kindChanged,
 };
 
-export const PublishDiffDialog: FC<PublishDiffDialogProps> = ({
-  open,
-  onClose,
-  name,
-  environment,
-  rollbackTo,
-  changes,
-  onPublish,
-  publishing = false,
-  children,
-}) => {
+export const PublishDiffDialog = forwardRef<HTMLDivElement, PublishDiffDialogProps>(function PublishDiffDialog(
+  {
+    open,
+    onClose,
+    name,
+    environment,
+    rollbackTo,
+    changes,
+    onPublish,
+    publishing = false,
+    children,
+  },
+  ref
+) {
   const nothingToDo = changes.length === 0;
 
   return (
     <Modal
+      ref={ref}
       open={open}
       onClose={onClose}
       size="lg"
@@ -134,4 +138,6 @@ export const PublishDiffDialog: FC<PublishDiffDialogProps> = ({
       ) : null}
     </Modal>
   );
-};
+});
+
+PublishDiffDialog.displayName = "PublishDiffDialog";

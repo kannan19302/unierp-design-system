@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC } from "react";
+import { forwardRef } from "react";
 import { Heart } from "lucide-react";
 import styles from "./health-score.module.css";
 
@@ -11,16 +9,21 @@ export interface HealthScoreProps {
   className?: string;
 }
 
-export const HealthScore: FC<HealthScoreProps> = ({
+/**
+ * `<HealthScore>` — Semantic health percentage indicator with visual status pills.
+ * @maturity stable
+ */
+export const HealthScore = forwardRef<HTMLDivElement, HealthScoreProps>(({
   score,
   variant = "text",
   className = "",
-}) => {
+}, ref) => {
   const status = score >= 80 ? "good" : score >= 50 ? "fair" : "poor";
   const label = score >= 80 ? "Good" : score >= 50 ? "Fair" : "Poor";
 
   return (
     <div
+      ref={ref}
       aria-label={`Health score: ${score}% (${label})`}
       className={`${styles.container} ${styles[status]} ${variant === "pill" ? styles.pill : ""} ${className}`.trim()}
     >
@@ -31,4 +34,6 @@ export const HealthScore: FC<HealthScoreProps> = ({
       </span>
     </div>
   );
-};
+});
+
+HealthScore.displayName = "HealthScore";

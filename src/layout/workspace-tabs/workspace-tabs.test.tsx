@@ -1,3 +1,4 @@
+import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -49,6 +50,20 @@ describe("WorkspaceTabs", () => {
     expect(closeButtons.length).toBeGreaterThan(0);
     fireEvent.click(closeButtons[0]!);
     expect(onClose).toHaveBeenCalled();
+  });
+
+  it("forwards ref correctly to the container nav element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <WorkspaceTabs
+        ref={ref}
+        tabs={sampleTabs}
+        activeTabId="tab-1"
+        onSelectTab={() => {}}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+    expect(ref.current?.tagName.toLowerCase()).toBe("nav");
   });
 
   it("has zero accessibility violations", async () => {

@@ -36,14 +36,21 @@ const FullFrame = ({ children }: { children: React.ReactNode }) => (
 const meta: Meta<typeof StudioShell> = {
   title: "Studio/StudioShell",
   component: StudioShell,
-  parameters: { layout: "fullscreen" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
   argTypes: {
     toolbar: { control: false },
     palette: { control: false },
     canvas: { control: false },
     inspector: { control: false },
     console: { control: false },
-    children: { control: false },
   },
 };
 export default meta;
@@ -179,3 +186,32 @@ export const RailsCollapsed: Story = {
     </FullFrame>
   ),
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => <Frame inspectorSubject="Billing Step" dirty />,
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div style={{ position: "relative", height: 500, overflow: "hidden", border: "1px solid var(--color-border)" }}>
+        <StudioShell
+          label="All States Studio Preview"
+          toolbar={<StudioToolbar name="Enterprise Studio Engine" kind="App" />}
+          palette={<StudioPalette groups={GROUPS} onInsert={() => {}} />}
+          canvas={
+            <StudioCanvas label="Interactive Canvas Viewport">
+              <div style={{ padding: "var(--space-4)" }}>
+                <h3>Enterprise Workflow Canvas</h3>
+                <p>Interactive nodes, fields, and automation links.</p>
+              </div>
+            </StudioCanvas>
+          }
+          inspector={<StudioInspector subject="App Root" />}
+          console={<StudioConsole defaultOpen={false} />}
+        />
+      </div>
+    </div>
+  ),
+};
+

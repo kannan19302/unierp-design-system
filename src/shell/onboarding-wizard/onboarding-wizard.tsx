@@ -822,7 +822,11 @@ export const DomainCollisionCard: React.FC<DomainCollisionCardProps> = ({
 // Orchestrated Onboarding Wizard
 // ============================================================================
 
-export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
+/**
+ * `<OnboardingWizard>` — Multi-step enterprise tenant registration, OTP verification, sovereign region provisioning, and domain collision resolver.
+ * @maturity stable
+ */
+export const OnboardingWizard = React.forwardRef<HTMLDivElement, OnboardingWizardProps>(({
   currentStep = 1,
   onStepChange,
   registrationProps,
@@ -830,7 +834,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
   provisioningProps,
   collisionProps,
   className,
-}) => {
+}, ref) => {
   const [step, setStep] = useState<1 | 2 | 3 | "collision">(currentStep);
 
   const handleStepAdvance = (next: 1 | 2 | 3 | "collision") => {
@@ -839,7 +843,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
   };
 
   return (
-    <div className={className} data-density="compact">
+    <div ref={ref} className={className} data-density="compact">
       {step === 1 && (
         <RegistrationCard
           {...registrationProps}
@@ -894,4 +898,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
       )}
     </div>
   );
-};
+});
+
+OnboardingWizard.displayName = "OnboardingWizard";
+

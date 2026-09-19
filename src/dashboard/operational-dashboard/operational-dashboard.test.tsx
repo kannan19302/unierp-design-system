@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -27,6 +28,19 @@ describe("OperationalDashboard Primitive", () => {
     expect(screen.getByText("Live Unit Positions")).toBeInTheDocument();
   });
 
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <OperationalDashboard
+        ref={ref}
+        title="Fleet Command"
+        kpis={MOCK_KPIS}
+        mainChart={<div>Chart</div>}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <OperationalDashboard
@@ -39,3 +53,4 @@ describe("OperationalDashboard Primitive", () => {
     expect(results).toHaveNoViolations();
   });
 });
+

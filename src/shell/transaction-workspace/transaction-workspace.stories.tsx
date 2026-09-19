@@ -5,15 +5,25 @@ import { Button } from "../../primitives/button";
 const meta: Meta<typeof TransactionWorkspace> = {
   title: "Shell/Floorplans/TransactionWorkspace",
   component: TransactionWorkspace,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
   argTypes: {
     action: { control: false },
     segments: { control: false },
     state: { control: false },
     headerFields: { control: false },
-    actions: { control: false },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
   },
 };
 
@@ -93,4 +103,72 @@ export const JournalEntry: Story = {
       </>
     ),
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
+  args: {
+    ...JournalEntry.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Draft Voucher (Balanced)</h4>
+        <TransactionWorkspace
+          {...JournalEntry.args}
+          title="Manual Journal Voucher"
+          documentNumber="JE-2026-089"
+          state={{ label: "Draft", tone: "info" }}
+        />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Approved / Posted (Read Only)</h4>
+        <TransactionWorkspace
+          {...JournalEntry.args}
+          title="Posted Invoice Clearing"
+          documentNumber="JE-2026-042"
+          state={{ label: "Posted", tone: "success" }}
+          footerActions={
+            <Button variant="outline">View Audit Trail</Button>
+          }
+        />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Unbalanced Alert State</h4>
+        <TransactionWorkspace
+          {...JournalEntry.args}
+          title="Unbalanced Journal Voucher"
+          documentNumber="JE-2026-090"
+          state={{ label: "Unbalanced", tone: "critical" }}
+          validationAlerts={
+            <div style={{
+              padding: "var(--space-2) var(--space-3)",
+              background: "var(--color-status-danger-subtle, rgba(239, 68, 68, 0.1))",
+              border: "1px solid var(--color-status-danger, #ef4444)",
+              borderRadius: "var(--radius-sm)",
+              color: "var(--color-status-danger, #ef4444)",
+              fontSize: "var(--text-xs)",
+              fontWeight: 600,
+            }}>
+              Out of balance: Debits exceed credits by $1,250.00. Posting disabled.
+            </div>
+          }
+          summaryItems={[
+            { label: "Total Debits", value: "$46,250.00" },
+            { label: "Total Credits", value: "$45,000.00" },
+            { label: "Net Difference", value: "-$1,250.00 (Unbalanced)", highlight: true },
+          ]}
+          footerActions={
+            <Button variant="outline" disabled>Post & Approve</Button>
+          }
+        />
+      </div>
+    </div>
+  ),
 };

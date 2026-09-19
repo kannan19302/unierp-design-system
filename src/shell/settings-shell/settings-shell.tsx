@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FC, type ReactNode } from "react";
+import { useMemo, useState, forwardRef, type ReactNode } from "react";
 import { Search } from "lucide-react";
 import styles from "./settings-shell.module.css";
 
@@ -60,7 +60,11 @@ export interface SettingsShellProps {
   className?: string;
 }
 
-export const SettingsShell: FC<SettingsShellProps> = ({
+/**
+ * `<SettingsShell>` — Tenant Admin Console settings index floorplan with keyword-indexed search and shell-level dirty state guarantee.
+ * @maturity stable
+ */
+export const SettingsShell = forwardRef<HTMLDivElement, SettingsShellProps>(({
   items,
   activeId,
   children,
@@ -73,7 +77,7 @@ export const SettingsShell: FC<SettingsShellProps> = ({
   searchLabel = "Search settings",
   density,
   className = "",
-}) => {
+}, ref) => {
   const [query, setQuery] = useState("");
 
   const groups = useMemo(() => {
@@ -101,6 +105,7 @@ export const SettingsShell: FC<SettingsShellProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className}`.trim()}
       data-floorplan="settings-shell"
       data-density={density}
@@ -186,4 +191,6 @@ export const SettingsShell: FC<SettingsShellProps> = ({
       </div>
     </div>
   );
-};
+});
+
+SettingsShell.displayName = "SettingsShell";

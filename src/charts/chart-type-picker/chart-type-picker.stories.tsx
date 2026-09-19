@@ -1,29 +1,48 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import React, { useState } from "react";
 import { ChartTypePicker, type ChartType } from "./chart-type-picker";
 
-const PickerDemo = () => {
-  const [chartType, setChartType] = useState<ChartType>("donut");
+const meta: Meta<typeof ChartTypePicker> = {
+  title: "Charts/ChartTypePicker",
+  component: ChartTypePicker,
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+    a11y: { test: "todo" },
+  },
+};
 
+export default meta;
+type Story = StoryObj<typeof ChartTypePicker>;
+
+const InteractiveDemo = () => {
+  const [val, setVal] = useState<ChartType>("bar");
   return (
-    <div style={{ padding: "var(--space-6)", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
-      <ChartTypePicker value={chartType} onChange={setChartType} />
-      <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-        Active Chart Mode: <strong>{chartType.toUpperCase()}</strong>
-      </div>
+    <div style={{ inlineSize: "320px", padding: "var(--space-4)" }}>
+      <ChartTypePicker value={val} onChange={setVal} />
     </div>
   );
 };
 
-const meta: Meta<typeof ChartTypePicker> = {
-  title: "Charts/ChartTypePicker",
-  component: PickerDemo,
-  parameters: { layout: "centered" },
+export const Default: Story = {
+  render: () => <InteractiveDemo />,
 };
 
-export default meta;
-type Story = StoryObj;
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ inlineSize: "340px", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <InteractiveDemo />
+    </div>
+  ),
+};
 
-export const Default: Story = {
-  render: () => <PickerDemo />,
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ inlineSize: "340px", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <ChartTypePicker value="bar" onChange={() => {}} />
+      <ChartTypePicker value="line" onChange={() => {}} />
+      <ChartTypePicker value="pie" onChange={() => {}} />
+      <ChartTypePicker value="donut" onChange={() => {}} />
+    </div>
+  ),
 };

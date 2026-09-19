@@ -4,7 +4,15 @@ import { AuthShell } from "./auth-shell";
 const meta: Meta<typeof AuthShell> = {
   title: "Shell/AuthShell",
   component: AuthShell,
-  parameters: { layout: "fullscreen" },
+  parameters: {
+    layout: "fullscreen",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
   tags: ["autodocs"],
   argTypes: {
     variant: {
@@ -128,14 +136,43 @@ export const VerifyOTP: Story = {
   },
 };
 
-export const MobileView: Story = {
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
   args: {
-    variant: "login",
-    tenantName: "Acme Corporation",
-    children: <MockForm />,
-    illustration: <MockIllustration />,
+    ...Login.args,
   },
-  parameters: {
-    viewport: { defaultViewport: "mobile1" },
-  },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Login State</h4>
+        <div style={{ height: "480px", border: "1px solid var(--color-border)", overflow: "hidden", position: "relative" }}>
+          <AuthShell
+            variant="login"
+            tenantName="Acme Corporation"
+            illustration={<MockIllustration />}
+            footer={<span>© 2026 UniERP. All rights reserved.</span>}
+          >
+            <MockForm />
+          </AuthShell>
+        </div>
+      </div>
+
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Verify OTP State</h4>
+        <div style={{ height: "480px", border: "1px solid var(--color-border)", overflow: "hidden", position: "relative" }}>
+          <AuthShell
+            variant="verify-otp"
+            tenantName="Acme Corporation"
+            illustration={<MockIllustration />}
+          >
+            <MockForm />
+          </AuthShell>
+        </div>
+      </div>
+    </div>
+  ),
 };

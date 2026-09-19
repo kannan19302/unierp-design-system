@@ -2,15 +2,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  width: 100%;
+  inline-size: 100%;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  padding-block-end: var(--space-2);
+  border-block-end: 1px solid var(--surface-1-border, var(--color-border));
 }
 
 .title {
@@ -29,7 +29,8 @@
 .item {
   display: flex;
   gap: var(--space-3);
-  padding: var(--density-cell-padding-y, var(--space-3)) var(--density-cell-padding-x, var(--space-3));
+  padding-block: var(--density-cell-padding-y, var(--space-3));
+  padding-inline: var(--density-cell-padding-x, var(--space-3));
   background: var(--surface-0-bg, var(--color-bg));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-md);
@@ -44,8 +45,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--space-8, 32px);
-  height: var(--space-8, 32px);
+  inline-size: var(--space-8, 32px);
+  block-size: var(--space-8, 32px);
   border-radius: var(--radius-full);
   background: var(--surface-2-bg, var(--color-bg-elevated));
   color: var(--color-text-secondary);
@@ -59,7 +60,7 @@
   flex-direction: column;
   gap: var(--space-1);
   flex: 1;
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 .meta_row {
@@ -95,7 +96,7 @@
   font-size: var(--type-micro, 11px);
   cursor: pointer;
   padding: 0;
-  margin-top: var(--space-1);
+  margin-block-start: var(--space-1);
   align-self: flex-start;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -105,8 +106,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  margin-top: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  margin-block-start: var(--space-2);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border-radius: var(--radius-sm);
   font-size: var(--type-micro, 11px);
@@ -125,10 +127,10 @@
 }
 
 .diff_old {
-  color: var(--color-danger, #ef4444);
+  color: var(--color-danger, var(--color-error));
   text-decoration: line-through;
 }
 
 .diff_new {
-  color: var(--color-success, #10b981);
+  color: var(--color-success);
 }

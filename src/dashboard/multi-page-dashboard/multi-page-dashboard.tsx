@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useCallback, useState, type FC, type ReactNode } from "react";
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  forwardRef,
+  type ReactNode,
+} from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./multi-page-dashboard.module.css";
@@ -13,7 +19,8 @@ export interface DashboardPage {
   actions?: ReactNode;
 }
 
-export interface MultiPageDashboardProps {
+export interface MultiPageDashboardProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   pages: DashboardPage[];
   navActions?: ReactNode;
   defaultPageId?: string;
@@ -49,20 +56,32 @@ function useSafeDashboardNav(defaultId?: string) {
       }
       setLocalPage(id);
     },
-    [pathname, router, searchParams],
+    [pathname, router, searchParams]
   );
 
   return { currentId, goToPage };
 }
 
-export const MultiPageDashboard: FC<MultiPageDashboardProps> = ({
-  pages,
-  navActions,
-  defaultPageId,
-}: any) => {
-  const { currentId, goToPage } = useSafeDashboardNav(defaultPageId || pages[0]?.id);
+/**
+ * MultiPageDashboard
+ *
+ * Carousel / multi-tab executive briefing dashboard container supporting keyboard navigation,
+ * deep-linked page query params, and structured KPI canvases.
+ *
+ * @maturity stable
+ */
+export const MultiPageDashboard = forwardRef<
+  HTMLDivElement,
+  MultiPageDashboardProps
+>(function MultiPageDashboard(
+  { pages, navActions, defaultPageId, className, ...restProps },
+  ref
+) {
+  const { currentId, goToPage } = useSafeDashboardNav(
+    defaultPageId || pages[0]?.id
+  );
 
-  const currentIndex = pages.findIndex((p: any) => p.id === currentId);
+  const currentIndex = pages.findIndex((p) => p.id === currentId);
   const safeIndex = currentIndex >= 0 ? currentIndex : 0;
   const currentPage = pages[safeIndex];
 
@@ -87,9 +106,20 @@ export const MultiPageDashboard: FC<MultiPageDashboardProps> = ({
 
   if (!currentPage) return null;
 
+  const containerClasses = [styles["mpd-root"], className]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className={styles["mpd-root"]}>
+    <div
+      ref={ref}
+      className={containerClasses}
+      role="region"
+      aria-label="Multi-page dashboard"
+      {...restProps}
+    >
       <button
+        type="button"
         className={`${styles["mpd-side-arrow"]} ${styles["mpd-side-arrow-left"]}`}
         onClick={goPrev}
         disabled={safeIndex === 0}
@@ -100,6 +130,7 @@ export const MultiPageDashboard: FC<MultiPageDashboardProps> = ({
       </button>
 
       <button
+        type="button"
         className={`${styles["mpd-side-arrow"]} ${styles["mpd-side-arrow-right"]}`}
         onClick={goNext}
         disabled={safeIndex === pages.length - 1}
@@ -111,10 +142,13 @@ export const MultiPageDashboard: FC<MultiPageDashboardProps> = ({
 
       <div className={styles["mpd-top-bar"]}>
         <div className={styles["mpd-top-tabs"]}>
-          {pages.map((page: any, i: any) => (
+          {pages.map((page, i) => (
             <button
               key={page.id}
-              className={`${styles["mpd-tab-btn"]} ${i === safeIndex ? styles.active : ""}`}
+              type="button"
+              className={`${styles["mpd-tab-btn"]} ${
+                i === safeIndex ? styles.active : ""
+              }`}
               onClick={() => goToPage(page.id)}
             >
               <span className={styles["mpd-tab-num"]}>{i + 1}</span>
@@ -151,4 +185,6 @@ export const MultiPageDashboard: FC<MultiPageDashboardProps> = ({
       </div>
     </div>
   );
-};
+});
+
+MultiPageDashboard.displayName = "MultiPageDashboard";

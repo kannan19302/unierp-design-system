@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   useState,
+  forwardRef,
   type FC,
   type ReactNode,
 } from "react";
@@ -31,7 +32,7 @@ interface ToastItem extends Required<Pick<ToastOptions, "variant">> {
   leaving?: boolean;
 }
 
-interface ToastApi {
+export interface ToastApi {
   toast: (opts: ToastOptions) => string;
   success: (title: string, description?: string) => string;
   error: (title: string, description?: string) => string;
@@ -147,7 +148,7 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
               role="status"
               aria-live="polite"
               className={`${styles.toastItem} ${t.leaving ? styles.toastItemLeaving : ""}`}
-              style={{ borderLeft: `var(--scope-edge-width, 3px) solid ${meta.color}` }}
+              style={{ borderInlineStart: `var(--scope-edge-width, 3px) solid ${meta.color}` }}
             >
               <Icon
                 size={18}
@@ -188,3 +189,58 @@ export function useToast(): ToastApi {
   const ctx = useContext(ToastContext);
   return ctx || NOOP_TOAST;
 }
+
+export interface ToastProps {
+  title?: string;
+  description?: string;
+  variant?: ToastVariant;
+  onDismiss?: () => void;
+  className?: string;
+}
+
+/**
+ * `<Toast>` — Individual notification alert pill with status icon and dismiss control.
+ *
+ * @maturity stable
+ */
+export const Toast = forwardRef<HTMLDivElement, ToastProps>(function Toast(
+  {
+    title,
+    description,
+    variant = "info",
+    onDismiss,
+    className = "",
+  },
+  ref
+) {
+  const meta = VARIANT_META[variant];
+  const { Icon } = meta;
+
+  return (
+    <div
+      ref={ref}
+      role="status"
+      aria-live="polite"
+      className={`${styles.toastItem} ${className}`.trim()}
+      style={{ borderInlineStart: `var(--scope-edge-width, 3px) solid ${meta.color}` }}
+    >
+      <Icon size={18} style={{ color: meta.color, flexShrink: 0, marginTop: 1 }} />
+      <div className={styles.toastContent}>
+        {title && <div className={styles.toastTitle}>{title}</div>}
+        {description && <div className={styles.toastDescription}>{description}</div>}
+      </div>
+      {onDismiss && (
+        <button
+          type="button"
+          onClick={onDismiss}
+          aria-label="Dismiss notification"
+          className={styles.dismissBtn}
+        >
+          <X size={15} />
+        </button>
+      )}
+    </div>
+  );
+});
+
+Toast.displayName = "Toast";

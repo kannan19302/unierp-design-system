@@ -11,13 +11,17 @@ const MOCK_SALES_DATA = [
 const meta: Meta<typeof DashboardChart> = {
   title: "Charts/DashboardChart",
   component: DashboardChart,
-  parameters: { layout: "padded" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "padded",
+    a11y: { test: "todo" },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof DashboardChart>;
 
-export const RegionalPerformance: Story = {
+export const Default: Story = {
   args: {
     title: "Regional Sales Performance",
     subtitle: "Actual sales revenue compared to annual quota targets",
@@ -25,11 +29,61 @@ export const RegionalPerformance: Story = {
     config: {
       xAxisKey: "region",
       series: [
-        { dataKey: "sales", name: "Actual Sales", color: "#3b82f6" },
-        { dataKey: "target", name: "Target Quota", color: "#94a3b8" },
+        { dataKey: "sales", name: "Actual Sales", color: "var(--color-brand)" },
+        { dataKey: "target", name: "Target Quota", color: "var(--color-text-tertiary)" },
       ],
     },
     defaultChartType: "bar",
     allowedChartTypes: ["bar", "stacked-bar", "line", "area", "composed"],
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ inlineSize: "680px", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <DashboardChart
+        title="Regional Sales Performance"
+        subtitle="Actual sales revenue compared to annual quota targets"
+        data={MOCK_SALES_DATA}
+        config={{
+          xAxisKey: "region",
+          series: [
+            { dataKey: "sales", name: "Actual Sales", color: "var(--color-brand)" },
+            { dataKey: "target", name: "Target Quota", color: "var(--color-text-tertiary)" },
+          ],
+        }}
+        defaultChartType="bar"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ inlineSize: "680px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <DashboardChart
+        title="Loading State"
+        data={[]}
+        config={{ series: [] }}
+        loading={true}
+      />
+      <DashboardChart
+        title="Empty Dataset State"
+        data={[]}
+        config={{ series: [] }}
+      />
+      <DashboardChart
+        title="Composed Line & Bar View"
+        data={MOCK_SALES_DATA}
+        config={{
+          xAxisKey: "region",
+          series: [
+            { dataKey: "sales", name: "Actual Sales", type: "bar", color: "var(--color-brand)" },
+            { dataKey: "target", name: "Target Quota", type: "line", color: "var(--color-warning)" },
+          ],
+        }}
+        defaultChartType="composed"
+      />
+    </div>
+  ),
 };

@@ -1,6 +1,4 @@
-"use client";
-
-import { useMemo, useState, type FC, type ReactNode } from "react";
+import { useMemo, useState, forwardRef, type ReactNode } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import styles from "./studio-console.module.css";
 
@@ -21,6 +19,8 @@ import styles from "./studio-console.module.css";
  * Collapsed by default — UI_UX_BRIEF's fourth design law is "calm by default",
  * and a screen with nothing wrong should be quiet. The count badge is what
  * makes collapsing safe: an unread error still shows on the bar.
+ *
+ * @maturity stable
  */
 
 export type ProblemSeverity = "error" | "warning" | "info";
@@ -58,13 +58,16 @@ const SEVERITY_CLASS: Record<ProblemSeverity, string | undefined> = {
   info: styles.severityInfo,
 };
 
-export const StudioConsole: FC<StudioConsoleProps> = ({
-  problems = [],
-  output,
-  logs,
-  onLocate,
-  defaultOpen = false,
-}) => {
+export const StudioConsole = forwardRef<HTMLElement, StudioConsoleProps>(function StudioConsole(
+  {
+    problems = [],
+    output,
+    logs,
+    onLocate,
+    defaultOpen = false,
+  },
+  ref
+) {
   const [open, setOpen] = useState(defaultOpen);
   const [tab, setTab] = useState<ConsoleTab>("problems");
 
@@ -84,6 +87,7 @@ export const StudioConsole: FC<StudioConsoleProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.console} ${open ? styles.expanded : styles.collapsed}`}
       aria-label="Console"
     >
@@ -179,4 +183,6 @@ export const StudioConsole: FC<StudioConsoleProps> = ({
       ) : null}
     </section>
   );
-};
+});
+
+StudioConsole.displayName = "StudioConsole";

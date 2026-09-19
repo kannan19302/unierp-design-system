@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -60,7 +60,7 @@ export interface DashboardChartConfig {
   nameKey?: string;
 }
 
-export interface DashboardChartProps {
+export interface DashboardChartProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   subtitle?: string;
   data: Record<string, unknown>[];
@@ -101,7 +101,7 @@ const NoDataPlaceholder: React.FC<{ height: number }> = ({ height }) => (
       gap: "var(--space-2)",
       color: "var(--color-text-tertiary)",
       background: "var(--color-bg-sunken)",
-      border: "1px dashed var(--color-border-strong, #cbd5e1)",
+      border: "1px dashed var(--color-border-strong)",
       borderRadius: "var(--radius-md)",
     }}
   >
@@ -136,8 +136,8 @@ const CustomTooltip: React.FC<{
   return (
     <div
       style={{
-        background: "var(--color-surface-elevated, #ffffff)",
-        border: "1px solid var(--color-border-default, #e2e8f0)",
+        background: "var(--color-surface-elevated)",
+        border: "1px solid var(--color-border-default)",
         borderRadius: "var(--radius-md)",
         padding: "var(--space-2) var(--space-3)",
         boxShadow: "var(--shadow-md)",
@@ -193,24 +193,36 @@ const CustomTooltip: React.FC<{
   );
 };
 
-export const DashboardChart: React.FC<DashboardChartProps> = ({
-  title,
-  subtitle,
-  data,
-  config,
-  defaultChartType = "bar",
-  allowedChartTypes,
-  height = 300,
-  loading = false,
-  actions,
-}) => {
-  const [chartType, setChartType] = useState<ChartType>(defaultChartType);
-  const {
-    xAxisKey = "name",
-    series,
-    valueKey = "value",
-    nameKey = "name",
-  } = config;
+/**
+ * DashboardChart provides a multi-view visual container supporting interchangeable
+ * visualization types (bar, line, area, pie, radar, funnel, composed) with built-in accessibility.
+ *
+ * @maturity stable
+ */
+export const DashboardChart = forwardRef<HTMLDivElement, DashboardChartProps>(
+  (
+    {
+      title,
+      subtitle,
+      data,
+      config,
+      defaultChartType = "bar",
+      allowedChartTypes,
+      height = 300,
+      loading = false,
+      actions,
+      className = "",
+      ...rest
+    },
+    ref
+  ) => {
+    const [chartType, setChartType] = useState<ChartType>(defaultChartType);
+    const {
+      xAxisKey = "name",
+      series,
+      valueKey = "value",
+      nameKey = "name",
+    } = config;
 
   const renderChart = () => {
     if (loading) return <LoadingSkeleton height={height} />;
@@ -234,7 +246,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             >
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="var(--color-border-default, #e2e8f0)"
+                stroke="var(--color-border-default)"
                 vertical={false}
               />
               <XAxis dataKey={xAxisKey} {...commonAxisProps} />
@@ -263,7 +275,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             >
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="var(--color-border-default, #e2e8f0)"
+                stroke="var(--color-border-default)"
                 vertical={false}
               />
               <XAxis dataKey={xAxisKey} {...commonAxisProps} />
@@ -293,7 +305,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             >
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="var(--color-border-default, #e2e8f0)"
+                stroke="var(--color-border-default)"
                 vertical={false}
               />
               <XAxis dataKey={xAxisKey} {...commonAxisProps} />
@@ -331,7 +343,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             >
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="var(--color-border-default, #e2e8f0)"
+                stroke="var(--color-border-default)"
                 vertical={false}
               />
               <XAxis dataKey={xAxisKey} {...commonAxisProps} />
@@ -402,7 +414,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
               cy="50%"
               outerRadius={height * 0.3}
             >
-              <PolarGrid stroke="var(--color-border-default, #e2e8f0)" />
+              <PolarGrid stroke="var(--color-border-default)" />
               <PolarAngleAxis dataKey={nameKey || xAxisKey} fontSize={11} />
               <PolarRadiusAxis fontSize={10} />
               {series.map((s, i) => (
@@ -443,7 +455,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
                 ))}
                 <LabelList
                   position="center"
-                  fill="#ffffff"
+                  fill="var(--color-text-inverse)"
                   fontSize={12}
                   fontWeight={600}
                 />
@@ -461,7 +473,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             >
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="var(--color-border-default, #e2e8f0)"
+                stroke="var(--color-border-default)"
                 vertical={false}
               />
               <XAxis dataKey={xAxisKey} {...commonAxisProps} />
@@ -516,7 +528,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
   };
 
   return (
-    <div className={styles.card}>
+    <div ref={ref} className={`${styles.card} ${className}`.trim()} {...rest}>
       {/* Card Header */}
       <div className={styles.header}>
         <div>
@@ -561,4 +573,6 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
       {renderChart()}
     </div>
   );
-};
+});
+
+DashboardChart.displayName = "DashboardChart";

@@ -1,36 +1,10 @@
-"use client";
-
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import styles from "./record-shell.module.css";
 
 /**
- * `<RecordShell>` — anatomy 3 of the eleven in UI_UX_BRIEF §11.
- * Tenant Applications: the ERP itself, the surface a clerk is inside for eight
- * hours a day.
- *
- * ── The flexible column layout ──
- * list → detail → inspector, sliding, never losing context. Taken from Fiori
- * (§13.3), which is still the best answer in enterprise software to "show me
- * this thing without throwing away where I was". The alternative every ERP
- * eventually regrets is a full-page navigation per record, which makes
- * comparing two invoices a back-button exercise.
- *
- * Three details that are load-bearing rather than cosmetic:
- *
- * 1. **Each column scrolls independently.** One page scrollbar for three
- *    columns means scrolling a long record also scrolls the list you chose it
- *    from — the exact lost context this layout exists to prevent.
- *
- * 2. **Three columns are not split into thirds.** The naive split makes the
- *    record — the thing being worked on — the narrowest of the three. The list
- *    compresses instead and the detail holds its measure.
- *
- * 3. **The rail collapses to an icon rail, never to zero.** A rail that
- *    collapses to nothing takes the module switcher with it. That is the shape
- *    the provider console had (`width: sidebarOpen ? 264 : 0`) and it is why
- *    the only way back was the browser's back button.
+ * `<RecordShell>` — Three-column flexible layout (List → Detail → Inspector) with independent scrolling columns.
+ * @maturity stable
  */
-
 export interface RecordShellProps {
   /** The module rail — nav for the 45 modules. Rendered by the app. */
   rail?: ReactNode;
@@ -53,7 +27,7 @@ export interface RecordShellProps {
   children?: ReactNode;
 }
 
-export const RecordShell: FC<RecordShellProps> = ({
+export const RecordShell = forwardRef<HTMLDivElement, RecordShellProps>(({
   rail,
   railCollapsed = false,
   bar,
@@ -63,7 +37,7 @@ export const RecordShell: FC<RecordShellProps> = ({
   density,
   className = "",
   children,
-}) => {
+}, ref) => {
   // The column count is DERIVED from what was passed, not configured. A
   // `columns={3}` prop with only two slots filled renders an empty column, and
   // an empty column looks like a loading failure.
@@ -73,6 +47,7 @@ export const RecordShell: FC<RecordShellProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className}`.trim()}
       data-floorplan="record-shell"
       data-density={density}
@@ -105,7 +80,9 @@ export const RecordShell: FC<RecordShellProps> = ({
       </div>
     </div>
   );
-};
+});
+
+RecordShell.displayName = "RecordShell";
 
 /* ── Object page ──────────────────────────────────────────────────────────── */
 
@@ -123,19 +100,15 @@ export interface ObjectPageProps {
 }
 
 /**
- * The record surface: anchor nav beside stacked sections.
- *
- * The anchors are real in-page links, not buttons with scroll handlers, so they
- * work with the keyboard, with middle-click, and with JavaScript disabled — and
- * so the section a user is reading is in the URL and therefore shareable. A
- * scroll handler on a `<button>` gives up all four for nothing.
+ * `<ObjectPage>` — Anchored multi-section detail page with accessible in-page navigation.
+ * @maturity stable
  */
-export const ObjectPage: FC<ObjectPageProps> = ({
+export const ObjectPage = forwardRef<HTMLDivElement, ObjectPageProps>(({
   sections,
   activeId,
   className = "",
-}) => (
-  <div className={`${styles.object} ${styles.object_anchored} ${className}`.trim()}>
+}, ref) => (
+  <div ref={ref} className={`${styles.object} ${styles.object_anchored} ${className}`.trim()}>
     <nav aria-label="Sections">
       <ul className={styles.anchors}>
         {sections.map((s) => (
@@ -163,4 +136,6 @@ export const ObjectPage: FC<ObjectPageProps> = ({
       ))}
     </div>
   </div>
-);
+));
+
+ObjectPage.displayName = "ObjectPage";

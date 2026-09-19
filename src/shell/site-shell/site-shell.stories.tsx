@@ -30,8 +30,16 @@ const sampleFooterSections = [
 const meta: Meta<typeof SiteShell> = {
   title: "Shell/SiteShell",
   component: SiteShell,
-  parameters: { layout: "fullscreen" },
   tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
 };
 
 export default meta;
@@ -57,3 +65,49 @@ export const Default: Story = {
     ),
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>With Top Announcement Banner</h4>
+        <div style={{ height: "420px", border: "1px solid var(--color-border)", position: "relative" }}>
+          <SiteShell
+            brandName="Acme Corp"
+            navItems={sampleNav}
+            announcement="📢 Scheduled maintenance notice: Oct 1, 02:00 UTC."
+            ctaButton={{ label: "Client Portal", href: "#" }}
+          >
+            <div style={{ padding: "var(--space-8)", textAlign: "center" }}>
+              <h2>Enterprise Cloud Portal</h2>
+            </div>
+          </SiteShell>
+        </div>
+      </div>
+
+      <div>
+        <h4 style={{ margin: "var(--space-2) var(--space-4)", color: "var(--color-text-secondary)" }}>Standard Masthead (No Announcement)</h4>
+        <div style={{ height: "350px", border: "1px solid var(--color-border)", position: "relative" }}>
+          <SiteShell
+            brandName="Acme Corp"
+            navItems={sampleNav}
+            ctaButton={{ label: "Get Started", href: "#" }}
+          >
+            <div style={{ padding: "var(--space-8)", textAlign: "center" }}>
+              <h2>Autonomous Operations</h2>
+            </div>
+          </SiteShell>
+        </div>
+      </div>
+    </div>
+  ),
+};
+

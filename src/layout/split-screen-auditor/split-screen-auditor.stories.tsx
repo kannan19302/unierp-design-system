@@ -9,15 +9,20 @@ const meta: Meta<typeof SplitScreenAuditor> = {
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof SplitScreenAuditor>;
 
-export const InvoiceAPReconciliation: Story = {
+export const AnatomyAndComposition: Story = {
   render: (args) => (
-    <div style={{ height: "600px", width: "100%" }}>
+    <div style={{ blockSize: "600px", inlineSize: "100%" }}>
       <SplitScreenAuditor
         {...args}
         documentTitle="Scanned Supplier Invoice (PDF)"
@@ -30,17 +35,17 @@ export const InvoiceAPReconciliation: Story = {
         }
         formActions={
           <div style={{ display: "flex", gap: "var(--space-2)" }}>
-            <Button variant="secondary">Flag Discrepancy</Button>
-            <Button variant="primary">Approve Voucher</Button>
+            <Button variant="outline" size="sm">Flag Discrepancy</Button>
+            <Button size="sm">Approve Voucher</Button>
           </div>
         }
         documentViewer={
           <div
             style={{
-              height: "100%",
-              minHeight: "350px",
+              blockSize: "100%",
+              minBlockSize: "350px",
               backgroundColor: "var(--color-bg-subtle)",
-              border: "1px dashed var(--color-border)",
+              border: "1px dashed var(--color-border-default)",
               borderRadius: "var(--radius-sm)",
               display: "flex",
               flexDirection: "column",
@@ -77,7 +82,7 @@ export const InvoiceAPReconciliation: Story = {
                 <label style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
                   Subtotal (Excl. Tax)
                 </label>
-                <div style={{ fontWeight: "var(--weight-mono)", fontFamily: "var(--font-mono)" }}>
+                <div style={{ fontFamily: "var(--font-mono)" }}>
                   $42,000.00
                 </div>
               </div>
@@ -85,14 +90,14 @@ export const InvoiceAPReconciliation: Story = {
                 <label style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
                   Tax Amount (GST 8%)
                 </label>
-                <div style={{ fontWeight: "var(--weight-mono)", fontFamily: "var(--font-mono)" }}>
+                <div style={{ fontFamily: "var(--font-mono)" }}>
                   $3,360.00
                 </div>
               </div>
             </div>
 
-            <div style={{ borderTop: "1px solid var(--color-border)", paddingTop: "var(--space-3)" }}>
-              <div style={{ fontSize: "var(--text-xs)", fontWeight: "var(--weight-bold)", marginBottom: "var(--space-1)" }}>
+            <div style={{ borderBlockStart: "1px solid var(--color-border-default)", paddingBlockStart: "var(--space-3)" }}>
+              <div style={{ fontSize: "var(--text-xs)", fontWeight: "var(--weight-bold)", marginBlockEnd: "var(--space-1)" }}>
                 General Ledger Line Distribution
               </div>
               <p style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
@@ -110,18 +115,40 @@ export const InvoiceAPReconciliation: Story = {
   },
 };
 
-export const UltraCompactDensity: Story = {
-  render: (args) => (
-    <div style={{ height: "450px", width: "100%" }}>
-      <SplitScreenAuditor
-        {...args}
-        documentViewer={<div style={{ padding: "var(--space-2)" }}>Document Raster</div>}
-        auditForm={<div style={{ padding: "var(--space-2)" }}>Audit Form Fields</div>}
-      />
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Balanced 50/50 Split (Standard)</h4>
+        <div style={{ blockSize: "400px", inlineSize: "100%" }}>
+          <SplitScreenAuditor
+            documentTitle="Source Evidence"
+            formTitle="Audit Checklist"
+            defaultSplitRatio={50}
+            documentViewer={<div style={{ padding: "16px" }}>PDF Evidence Stream</div>}
+            auditForm={<div style={{ padding: "16px" }}>Checklist Form Verification</div>}
+          />
+        </div>
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Ultra-Compact Density (40/60 Split)</h4>
+        <div style={{ blockSize: "300px", inlineSize: "100%" }}>
+          <SplitScreenAuditor
+            documentTitle="Doc"
+            formTitle="Ledger"
+            defaultSplitRatio={40}
+            density="ultra-compact"
+            documentViewer={<div style={{ padding: "8px" }}>Compact Preview</div>}
+            auditForm={<div style={{ padding: "8px" }}>Compact Ledger Table</div>}
+          />
+        </div>
+      </div>
     </div>
   ),
-  args: {
-    defaultSplitRatio: 40,
-    density: "ultra-compact",
-  },
 };
+
+export const InvoiceAPReconciliation: Story = {
+  ...AnatomyAndComposition,
+};
+

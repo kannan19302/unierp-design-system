@@ -4,8 +4,14 @@ import { DualControlModal } from "./dual-control-modal";
 const meta: Meta<typeof DualControlModal> = {
   title: "Overlays/DualControlModal",
   component: DualControlModal,
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
   argTypes: {
     riskLevel: {
@@ -71,4 +77,49 @@ export const KeyringRotationOverride: Story = {
     onClose: () => {},
     onAuthorize: () => {},
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ position: "relative", minHeight: "500px", width: "100%" }}>
+      <DualControlModal
+        open={true}
+        operationTitle="Reconcile Sovereign Bond Liquidity Pool"
+        operationType="SOVEREIGN_TREASURY_SETTLEMENT"
+        riskLevel="critical"
+        targetEntity="Federal Reserve Account #4029-NY"
+        initiatorName="Elena Rostova"
+        initiatorRole="Chief Investment Officer"
+        sha256Fingerprint="3b9a1c8f2e4d5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b"
+        complianceStandard="Basel III Liquidity Framework"
+        density="compact"
+        onClose={() => {}}
+        onAuthorize={() => {}}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div style={{ position: "relative", minHeight: "450px" }}>
+        <h4 style={{ color: "var(--color-text-secondary)", fontFamily: "var(--font-sans)", margin: "0 0 var(--space-2) 0" }}>
+          Critical Tier (Wire Transfer)
+        </h4>
+        <DualControlModal
+          open={true}
+          operationTitle="Transfer $10,000,000 to Apex Clearing"
+          operationType="HIGH_VALUE_WIRE"
+          riskLevel="critical"
+          targetEntity="Apex Escrow Tier-1"
+          initiatorName="David Kim"
+          initiatorRole="Treasury Director"
+          density="compact"
+          onClose={() => {}}
+          onAuthorize={() => {}}
+        />
+      </div>
+    </div>
+  ),
 };

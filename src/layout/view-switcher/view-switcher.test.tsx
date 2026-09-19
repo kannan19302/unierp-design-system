@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -21,6 +22,20 @@ describe("ViewSwitcher Primitive", () => {
 
     fireEvent.click(screen.getByText("Kanban"));
     expect(onViewChange).toHaveBeenCalledWith("kanban");
+  });
+
+  it("forwards ref correctly to the container", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <ViewSwitcher
+        ref={ref}
+        activeView="list"
+        onViewChange={() => {}}
+        availableViews={["list", "chart"]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toHaveAttribute("role", "group");
   });
 
   it("has zero accessibility violations", async () => {

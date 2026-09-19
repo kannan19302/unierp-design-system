@@ -1,7 +1,9 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { ActivityFeed, type ActivityItem } from "../activity-feed";
+import { axe } from "vitest-axe";
+import { ActivityFeed, type ActivityItem } from "./activity-feed";
 
 const testItems: ActivityItem[] = [
   {
@@ -36,6 +38,12 @@ describe("ActivityFeed", () => {
     expect(screen.getByText("APPROVE")).toBeInTheDocument();
   });
 
+  it("forwards ref correctly to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<ActivityFeed ref={ref} items={testItems} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("toggles field diff comparison panel", async () => {
     render(<ActivityFeed items={testItems} />);
 
@@ -46,5 +54,11 @@ describe("ActivityFeed", () => {
     expect(screen.getByText("Tax Rate:")).toBeInTheDocument();
     expect(screen.getByText("5%")).toBeInTheDocument();
     expect(screen.getByText("8%")).toBeInTheDocument();
+  });
+
+  it("passes accessibility axe audit", async () => {
+    const { container } = render(<ActivityFeed items={testItems} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

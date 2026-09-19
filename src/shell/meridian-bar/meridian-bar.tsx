@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, type FC, type ReactNode } from "react";
+import { useCallback, useState, forwardRef, type ReactNode } from "react";
 import { Check, Copy } from "lucide-react";
 import styles from "./meridian-bar.module.css";
 
@@ -157,7 +157,11 @@ export function formatSegments(segments: MeridianSegment[]): string {
   return segments.map((s) => s.label).join("/");
 }
 
-export const MeridianBar: FC<MeridianBarProps> = ({
+/**
+ * `<MeridianBar>` — The signature anchor of the UniERP design language across all platforms.
+ * @maturity stable
+ */
+export const MeridianBar = forwardRef<HTMLDivElement, MeridianBarProps>(({
   address,
   segments,
   copyable = false,
@@ -166,7 +170,7 @@ export const MeridianBar: FC<MeridianBarProps> = ({
   scope,
   className = "",
   children,
-}) => {
+}, ref) => {
   const [copied, setCopied] = useState(false);
   const plain = segments ? formatSegments(segments) : "";
 
@@ -188,6 +192,7 @@ export const MeridianBar: FC<MeridianBarProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${scope ? styles.scoped : ""} ${className}`.trim()}
       style={rootStyle}
       data-meridian-bar=""
@@ -294,4 +299,6 @@ export const MeridianBar: FC<MeridianBarProps> = ({
       </div>
     </div>
   );
-};
+});
+
+MeridianBar.displayName = "MeridianBar";

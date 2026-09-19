@@ -1,6 +1,4 @@
-"use client";
-
-import type { FC, ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import styles from "./split-view-shell.module.css";
 
 export interface SplitViewShellProps {
@@ -13,20 +11,25 @@ export interface SplitViewShellProps {
   className?: string;
 }
 
-export const SplitViewShell: FC<SplitViewShellProps> = ({
+/**
+ * `<SplitViewShell>` — Master-detail split floorplan for high-volume triage queues, ledger reviews, and record inspection.
+ * @maturity stable
+ */
+export const SplitViewShell = forwardRef<HTMLDivElement, SplitViewShellProps>(({
   masterHeader,
   masterContent,
   detailContent,
   masterWidth,
   density,
   className,
-}) => {
+}, ref) => {
   const style = masterWidth
     ? ({ "--split-master-width": typeof masterWidth === "number" ? `${masterWidth}px` : masterWidth } as Record<string, string>)
     : undefined;
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className ?? ""}`}
       style={style}
       data-floorplan="split-view-shell"
@@ -42,4 +45,6 @@ export const SplitViewShell: FC<SplitViewShellProps> = ({
       </main>
     </div>
   );
-};
+});
+
+SplitViewShell.displayName = "SplitViewShell";

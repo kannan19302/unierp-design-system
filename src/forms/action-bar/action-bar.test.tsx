@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -24,6 +25,13 @@ describe("ActionBar Primitive", () => {
     render(<ActionBar selectedCount={5} bulkActions={<button>Batch</button>} />);
     expect(screen.getByText("5 selected")).toBeInTheDocument();
     expect(screen.getByText("Batch")).toBeInTheDocument();
+  });
+
+  it("forwards ref correctly to the toolbar container", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<ActionBar ref={ref} primaryAction={{ key: "1", label: "Submit" }} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toHaveAttribute("role", "toolbar");
   });
 
   it("has zero accessibility violations", async () => {

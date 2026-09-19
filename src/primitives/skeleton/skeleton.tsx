@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type CSSProperties } from "react";
+import { forwardRef, type CSSProperties, type FC } from "react";
 import styles from "./skeleton.module.css";
 
 export interface SkeletonProps {
@@ -12,14 +10,18 @@ export interface SkeletonProps {
   style?: CSSProperties;
 }
 
-export const Skeleton: FC<SkeletonProps> = ({
+/**
+ * `<Skeleton>` — Animated placeholder element simulating content loading geometry.
+ * @maturity stable
+ */
+export const Skeleton = forwardRef<HTMLSpanElement, SkeletonProps>(({
   width = "100%",
   height = 16,
   radius,
   circle = false,
   className = "",
   style,
-}) => {
+}, ref) => {
   const w = typeof width === "number" ? `${width}px` : width;
   const h = typeof height === "number" ? `${height}px` : height;
 
@@ -33,6 +35,7 @@ export const Skeleton: FC<SkeletonProps> = ({
 
   return (
     <span
+      ref={ref}
       aria-hidden="true"
       className={skeletonClass}
       style={
@@ -45,7 +48,9 @@ export const Skeleton: FC<SkeletonProps> = ({
       }
     />
   );
-};
+});
+
+Skeleton.displayName = "Skeleton";
 
 export interface SkeletonTextProps {
   lines?: number;

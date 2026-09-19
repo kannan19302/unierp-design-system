@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import { Spinner } from "../../primitives/spinner";
 import styles from "./loading-overlay.module.css";
 
@@ -11,16 +11,25 @@ export interface LoadingOverlayProps {
   className?: string;
 }
 
-export const LoadingOverlay: FC<LoadingOverlayProps> = ({
-  visible,
-  message = "Processing...",
-  blur = true,
-  className = "",
-}) => {
+/**
+ * LoadingOverlay component to block interaction and indicate ongoing operations.
+ *
+ * @maturity stable
+ */
+export const LoadingOverlay = forwardRef<HTMLDivElement, LoadingOverlayProps>(function LoadingOverlay(
+  {
+    visible,
+    message = "Processing...",
+    blur = true,
+    className = "",
+  },
+  ref
+) {
   if (!visible) return null;
 
   return (
     <div
+      ref={ref}
       role="status"
       aria-live="polite"
       className={`${styles.overlay} ${blur ? styles.blur : ""} ${className}`.trim()}
@@ -31,4 +40,6 @@ export const LoadingOverlay: FC<LoadingOverlayProps> = ({
       </div>
     </div>
   );
-};
+});
+
+LoadingOverlay.displayName = "LoadingOverlay";

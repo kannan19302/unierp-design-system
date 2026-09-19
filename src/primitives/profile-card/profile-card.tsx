@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type ReactNode, useMemo } from "react";
+import { forwardRef, type ReactNode, useMemo } from "react";
 import { Building2 } from "lucide-react";
 import styles from "./profile-card.module.css";
 
@@ -27,12 +25,10 @@ export interface ProfileCardProps {
 }
 
 /**
- * `<ProfileCard>` — Reusable user identity card.
- *
- * Used across headers (compact variant in user dropdown),
- * account centers (full variant), and hover cards.
+ * `<ProfileCard>` — Reusable user identity card supporting compact header dropdown and full account center variants.
+ * @maturity stable
  */
-export const ProfileCard: FC<ProfileCardProps> = ({
+export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(({
   name,
   email,
   role,
@@ -42,7 +38,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({
   variant = "compact",
   actions,
   className = "",
-}) => {
+}, ref) => {
   const initials = useMemo(() => {
     const parts = name.trim().split(/\s+/);
     return parts.length >= 2
@@ -75,6 +71,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({
   if (variant === "compact") {
     return (
       <div
+        ref={ref}
         className={`${styles.root} ${styles.compact} ${className}`.trim()}
         data-variant="compact"
       >
@@ -93,6 +90,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${styles.full} ${className}`.trim()}
       data-variant="full"
     >
@@ -120,4 +118,6 @@ export const ProfileCard: FC<ProfileCardProps> = ({
       </div>
     </div>
   );
-};
+});
+
+ProfileCard.displayName = "ProfileCard";

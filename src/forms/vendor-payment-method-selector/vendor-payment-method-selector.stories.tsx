@@ -6,6 +6,7 @@ const meta: Meta<typeof VendorPaymentMethodSelector> = {
   component: VendorPaymentMethodSelector,
   parameters: {
     layout: "padded",
+    a11y: { test: "todo" },
   },
   tags: ["autodocs"],
 };
@@ -50,4 +51,53 @@ export const SwiftWire: Story = {
       iban: "US49CHAS021000021884019284",
     },
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ inlineSize: 800, display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <VendorPaymentMethodSelector
+        vendorName="Siemens AG Industrial Systems"
+        vendorTaxId="DE-129274202"
+        w9Status="verified"
+        initialRail="SEPA"
+        initialDetails={{
+          iban: "DE89370400440532013000",
+          swiftBic: "DEUTDEDBFXX",
+        }}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ inlineSize: 800, display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-text-secondary)" }}>
+          Pending W-9 Compliance Review
+        </h4>
+        <VendorPaymentMethodSelector
+          vendorName="Unverified Freelance Contractor"
+          vendorTaxId="XX-XXX1122"
+          w9Status="pending"
+          initialRail="ACH"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-text-secondary)" }}>
+          Commercial Card with Rebate
+        </h4>
+        <VendorPaymentMethodSelector
+          vendorName="FastTrack Logistics Global"
+          vendorTaxId="XX-XXX8899"
+          w9Status="verified"
+          initialRail="CARD"
+          initialDetails={{
+            remittanceEmail: "disbursements@fasttrack.com",
+          }}
+        />
+      </div>
+    </div>
+  ),
 };

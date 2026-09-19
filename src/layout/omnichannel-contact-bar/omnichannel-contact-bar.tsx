@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { useId, useState, forwardRef, type HTMLAttributes } from "react";
 import styles from "./omnichannel-contact-bar.module.css";
 
 export type AgentTelephonyState = "available" | "in_call" | "wrap_up" | "paused";
@@ -10,7 +10,7 @@ export interface CallerProfile {
   serviceTier: string; // e.g. "Diamond SLA 24/7"
 }
 
-export interface OmnichannelContactBarProps {
+export interface OmnichannelContactBarProps extends HTMLAttributes<HTMLElement> {
   initialState?: AgentTelephonyState;
   activeCaller?: CallerProfile;
   callDurationSeconds?: number;
@@ -24,30 +24,41 @@ export interface OmnichannelContactBarProps {
   className?: string;
 }
 
-export const OmnichannelContactBar: React.FC<OmnichannelContactBarProps> = ({
-  initialState = "in_call",
-  activeCaller = {
-    callerNumber: "+1 (415) 890-2134",
-    customerName: "AeroDynamics Propulsion Corp",
-    accountReference: "ACC-88201",
-    serviceTier: "Mission-Critical 24/7",
-  },
-  callDurationSeconds = 258, // 4m 18s
-  dispositionOptions = [
-    "Resolved - First Contact Resolution",
-    "Escalated - Tier 2 Engineering Required",
-    "Billing & Invoice Inquiry",
-    "Hardware RMA Initiated",
-    "Follow-up Callback Scheduled",
-  ],
-  onStateChange,
-  onEndCall,
-  onTransferCall,
-  onSubmitDisposition,
-  variant = "docked",
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * `<OmnichannelContactBar>` — CTI telephony contact dock for call handling,
+ * caller verification, audio hold/mute controls, and call disposition notes.
+ *
+ * @maturity stable
+ */
+export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactBarProps>(
+  (
+    {
+      initialState = "in_call",
+      activeCaller = {
+        callerNumber: "+1 (415) 890-2134",
+        customerName: "AeroDynamics Propulsion Corp",
+        accountReference: "ACC-88201",
+        serviceTier: "Mission-Critical 24/7",
+      },
+      callDurationSeconds = 258, // 4m 18s
+      dispositionOptions = [
+        "Resolved - First Contact Resolution",
+        "Escalated - Tier 2 Engineering Required",
+        "Billing & Invoice Inquiry",
+        "Hardware RMA Initiated",
+        "Follow-up Callback Scheduled",
+      ],
+      onStateChange,
+      onEndCall,
+      onTransferCall,
+      onSubmitDisposition,
+      variant = "docked",
+      density = "compact",
+      className = "",
+      ...props
+    },
+    ref
+  ) => {
   const headingId = useId();
   const [agentState, setAgentState] = useState<AgentTelephonyState>(initialState);
   const [isMuted, setIsMuted] = useState<boolean>(false);
@@ -79,9 +90,11 @@ export const OmnichannelContactBar: React.FC<OmnichannelContactBarProps> = ({
 
   return (
     <aside
-      className={`${styles.container} ${styles[variant]} ${styles[density]} ${className}`}
+      ref={ref}
+      className={`${styles.container} ${styles[variant]} ${styles[density]} ${className}`.trim()}
       aria-labelledby={headingId}
       data-density={density}
+      {...props}
     >
       <div className={styles.barContent}>
         {/* Agent State & Status Indicator */}
@@ -244,4 +257,7 @@ export const OmnichannelContactBar: React.FC<OmnichannelContactBarProps> = ({
       )}
     </aside>
   );
-};
+});
+
+OmnichannelContactBar.displayName = "OmnichannelContactBar";
+

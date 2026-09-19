@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode, type ChangeEvent, type KeyboardEvent } from "react";
+import { useState, forwardRef, type ForwardedRef, type ReactNode, type ChangeEvent, type KeyboardEvent } from "react";
 import { Search } from "lucide-react";
 import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianState } from "../meridian-bar";
 import { StrataBar } from "../strata-bar";
@@ -72,36 +72,39 @@ export interface DataWorkspaceProps<T = Record<string, unknown>> {
   className?: string;
 }
 
-export function DataWorkspace<T = Record<string, unknown>>({
-  segments,
-  state,
-  action,
-  title,
-  subtitle,
-  actions,
-  columns,
-  data,
-  loading = false,
-  searchable = true,
-  searchPlaceholder = "Search records…",
-  searchableFields,
-  searchQuery: controlledSearch,
-  onSearchChange,
-  mode = "client",
-  filters,
-  activeFilters: controlledFilters,
-  onFilterChange,
-  pagination,
-  onRowClick,
-  getRowId,
-  emptyTitle = "No records found",
-  emptyDescription = "Try adjusting your search criteria or active filters.",
-  error,
-  bulkActions,
-  selectedCount = 0,
-  above,
-  className = "",
-}: DataWorkspaceProps<T>) {
+function DataWorkspaceInner<T = Record<string, unknown>>(
+  {
+    segments,
+    state,
+    action,
+    title,
+    subtitle,
+    actions,
+    columns,
+    data,
+    loading = false,
+    searchable = true,
+    searchPlaceholder = "Search records…",
+    searchableFields,
+    searchQuery: controlledSearch,
+    onSearchChange,
+    mode = "client",
+    filters,
+    activeFilters: controlledFilters,
+    onFilterChange,
+    pagination,
+    onRowClick,
+    getRowId,
+    emptyTitle = "No records found",
+    emptyDescription = "Try adjusting your search criteria or active filters.",
+    error,
+    bulkActions,
+    selectedCount = 0,
+    above,
+    className = "",
+  }: DataWorkspaceProps<T>,
+  ref: ForwardedRef<HTMLDivElement>,
+) {
   const [internalSearch, setInternalSearch] = useState("");
   const [internalFilters, setInternalFilters] = useState<Record<string, string>>({});
 
@@ -168,7 +171,7 @@ export function DataWorkspace<T = Record<string, unknown>>({
   };
 
   return (
-    <div className={`${styles.root} ${className}`.trim()} data-floorplan="data-workspace">
+    <div ref={ref} className={`${styles.root} ${className}`.trim()} data-floorplan="data-workspace">
       {/* Context Boundary */}
       {segments && segments.length > 0 && (
         typeof segments[0] === "string" ? (
@@ -364,3 +367,14 @@ export function DataWorkspace<T = Record<string, unknown>>({
     </div>
   );
 }
+
+/**
+ * `<DataWorkspace>` — High-density data grid workbench floorplan with context bar, search/filtering, pagination, and empty/error states.
+ * @maturity stable
+ */
+export const DataWorkspace = forwardRef(DataWorkspaceInner) as <T = Record<string, unknown>>(
+  props: DataWorkspaceProps<T> & { ref?: React.Ref<HTMLDivElement> }
+) => React.ReactElement;
+
+(DataWorkspace as any).displayName = "DataWorkspace";
+

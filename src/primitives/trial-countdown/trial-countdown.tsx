@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, useEffect, useMemo, useState } from "react";
+import { forwardRef, useEffect, useMemo, useState } from "react";
 import styles from "./trial-countdown.module.css";
 
 export interface TrialCountdownProps {
@@ -20,12 +18,15 @@ function remainingParts(endsAt: Date, now: number) {
   };
 }
 
-/** A second-accurate trial status with a stable, screen-reader-safe label. */
-export const TrialCountdown: FC<TrialCountdownProps> = ({
+/**
+ * `<TrialCountdown>` — Second-accurate trial timer with accessible live screen-reader announcements.
+ * @maturity stable
+ */
+export const TrialCountdown = forwardRef<HTMLSpanElement, TrialCountdownProps>(({
   endsAt,
   className = "",
   onExpired,
-}) => {
+}, ref) => {
   const deadline = useMemo(() => new Date(endsAt), [endsAt]);
   const [now, setNow] = useState(() => Date.now());
 
@@ -53,7 +54,7 @@ export const TrialCountdown: FC<TrialCountdownProps> = ({
         : "";
 
   return (
-    <span className={`${styles.container} ${urgencyClass} ${className}`.trim()}>
+    <span ref={ref} className={`${styles.container} ${urgencyClass} ${className}`.trim()}>
       <span className="sr-only">Your Free Trial is active.</span>
       <span aria-hidden="true">Your Free Trial is active. You have </span>
       <time className={styles.time} dateTime={deadline.toISOString()} aria-label={`${remaining.days} days remaining`}>
@@ -62,4 +63,6 @@ export const TrialCountdown: FC<TrialCountdownProps> = ({
       <span aria-hidden="true"> left.</span>
     </span>
   );
-};
+});
+
+TrialCountdown.displayName = "TrialCountdown";

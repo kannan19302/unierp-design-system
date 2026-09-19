@@ -1,11 +1,9 @@
-"use client";
-
 import {
   useState,
   useEffect,
   useRef,
   useMemo,
-  type FC,
+  forwardRef,
   type ChangeEvent,
 } from "react";
 import {
@@ -64,16 +62,21 @@ export interface BillableTimerDockProps {
 /**
  * `<BillableTimerDock>` — Floating persistent time-tracking stopwatch dock.
  * Benchmarked against Clio Legal (#113), Linear (#66), and Asana (#71).
+ *
+ * @maturity stable
  */
-export const BillableTimerDock: FC<BillableTimerDockProps> = ({
-  projects,
-  defaultProjectId,
-  onLogTime,
-  initialMinimized = false,
-  currency = "$",
-  density = "compact",
-  className = "",
-}) => {
+export const BillableTimerDock = forwardRef<HTMLDivElement, BillableTimerDockProps>(function BillableTimerDock(
+  {
+    projects,
+    defaultProjectId,
+    onLogTime,
+    initialMinimized = false,
+    currency = "$",
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const [isMinimized, setIsMinimized] = useState(initialMinimized);
   const [isRunning, setIsRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -155,6 +158,7 @@ export const BillableTimerDock: FC<BillableTimerDockProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.dock} ${isMinimized ? styles.dockMinimized : ""} ${className}`.trim()}
       data-density={density}
       role="region"
@@ -290,4 +294,6 @@ export const BillableTimerDock: FC<BillableTimerDockProps> = ({
       )}
     </div>
   );
-};
+});
+
+BillableTimerDock.displayName = "BillableTimerDock";

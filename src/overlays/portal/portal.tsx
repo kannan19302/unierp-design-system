@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type FC, type ReactNode } from "react";
+import { useState, useEffect, forwardRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import styles from "./portal.module.css";
 
@@ -10,12 +10,29 @@ export interface PortalProps {
   container?: Element | DocumentFragment | null;
 }
 
-export const Portal: FC<PortalProps> = ({ children, container }) => {
+/**
+ * Portal component to render children into an alternate DOM node.
+ *
+ * @maturity stable
+ */
+export const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(
+  { children, container },
+  ref
+) {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!mounted || typeof document === "undefined") return null;
+
   return createPortal(
-    <div className={styles.portalHost}>{children}</div>,
+    <div ref={ref} className={styles.portalHost}>
+      {children}
+    </div>,
     container || document.body
   );
-};
+});
+
+Portal.displayName = "Portal";

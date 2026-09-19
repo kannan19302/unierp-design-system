@@ -3,12 +3,17 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { NotificationCenter, type NotificationItem } from "./notification-center";
 import { Button } from "../../primitives/button";
 
-
 const meta: Meta<typeof NotificationCenter> = {
   title: "Notifications/NotificationCenter",
   component: NotificationCenter,
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
 };
 
@@ -74,4 +79,30 @@ export const InteractiveDrawer: Story = {
       </div>
     );
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ position: "relative", minHeight: "500px", width: "100%" }}>
+      <NotificationCenter
+        isOpen={true}
+        onClose={() => {}}
+        notifications={sampleNotifications}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div style={{ position: "relative", minHeight: "450px" }}>
+        <NotificationCenter
+          isOpen={true}
+          onClose={() => {}}
+          notifications={sampleNotifications.filter((n) => n.unread)}
+        />
+      </div>
+    </div>
+  ),
 };

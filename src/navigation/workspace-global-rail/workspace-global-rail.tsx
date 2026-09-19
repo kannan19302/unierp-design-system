@@ -1,4 +1,4 @@
-import React, { useId } from "react";
+import { forwardRef, useId } from "react";
 import styles from "./workspace-global-rail.module.css";
 
 export interface SuiteItem {
@@ -33,7 +33,11 @@ export interface WorkspaceGlobalRailProps {
   className?: string;
 }
 
-export const WorkspaceGlobalRail: React.FC<WorkspaceGlobalRailProps> = ({
+/**
+ * `<WorkspaceGlobalRail>` — Primary 48px global application rail providing organization switcher, suite links, notifications, and profile.
+ * @maturity stable
+ */
+export const WorkspaceGlobalRail = forwardRef<HTMLElement, WorkspaceGlobalRailProps>(({
   currentOrgName = "Apex Global Holdings",
   currentOrgAbbr = "AG",
   activeSuiteId = "suite_erp",
@@ -46,11 +50,12 @@ export const WorkspaceGlobalRail: React.FC<WorkspaceGlobalRailProps> = ({
   onOpenProfile,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const navId = useId();
 
   return (
     <nav
+      ref={ref}
       id={navId}
       aria-label="Global Workspace Navigation Rail"
       className={`${styles.container} ${className}`}
@@ -119,4 +124,6 @@ export const WorkspaceGlobalRail: React.FC<WorkspaceGlobalRailProps> = ({
       </div>
     </nav>
   );
-};
+});
+
+WorkspaceGlobalRail.displayName = "WorkspaceGlobalRail";

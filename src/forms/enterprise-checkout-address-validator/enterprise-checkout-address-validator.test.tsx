@@ -34,6 +34,13 @@ describe("EnterpriseCheckoutAddressValidator", () => {
     expect(screen.getByText("Address Verified & Confirmed")).toBeDefined();
   });
 
+  it("forwards ref correctly to the section element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<EnterpriseCheckoutAddressValidator ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+    expect(ref.current?.tagName.toLowerCase()).toBe("section");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<EnterpriseCheckoutAddressValidator />);
 

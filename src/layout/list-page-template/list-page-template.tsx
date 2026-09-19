@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, type ReactNode, type ChangeEvent } from "react";
+import React, { useState, forwardRef, type ReactNode, type ChangeEvent, type HTMLAttributes } from "react";
 import { Search } from "lucide-react";
 import { PageHeader } from "../page-header";
 import styles from "./list-page-template.module.css";
@@ -26,7 +26,8 @@ export interface ListPaginationProps {
   onPageSizeChange?: (size: number) => void;
 }
 
-export interface ListPageTemplateProps<T = Record<string, unknown>> {
+export interface ListPageTemplateProps<T = Record<string, unknown>>
+  extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   subtitle?: string;
   actions?: ReactNode;
@@ -62,29 +63,39 @@ const SkeletonRow: React.FC<{ cols: number }> = ({ cols }) => (
       <Td key={i}>
         <div
           className={styles.skeletonBar}
-          style={{ width: i === 0 ? "60%" : "80%" }}
+          style={{ inlineSize: i === 0 ? "60%" : "80%" }}
         />
       </Td>
     ))}
   </tr>
 );
 
-export function ListPageTemplate<T = Record<string, unknown>>({
-  title,
-  subtitle,
-  actions,
-  columns,
-  data,
-  loading = false,
-  searchable = true,
-  searchPlaceholder = "Search…",
-  filters,
-  pagination,
-  onRowClick,
-  emptyTitle = "No results",
-  emptyDescription = "Try adjusting your search or filters.",
-  above,
-}: ListPageTemplateProps<T>) {
+/**
+ * `<ListPageTemplate>` — High-density, filterable tabular entity list template.
+ *
+ * @maturity stable
+ */
+function ListPageTemplateInner<T = Record<string, unknown>>(
+  {
+    title,
+    subtitle,
+    actions,
+    columns,
+    data,
+    loading = false,
+    searchable = true,
+    searchPlaceholder = "Search…",
+    filters,
+    pagination,
+    onRowClick,
+    emptyTitle = "No results",
+    emptyDescription = "Try adjusting your search or filters.",
+    above,
+    className = "",
+    ...props
+  }: ListPageTemplateProps<T>,
+  ref: React.Ref<HTMLDivElement>
+) {
   const [search, setSearch] = useState("");
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
 
@@ -107,7 +118,11 @@ export function ListPageTemplate<T = Record<string, unknown>>({
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      ref={ref}
+      className={`${styles.container} ${className}`.trim()}
+      {...props}
+    >
       {title && (
         <PageHeader title={title} description={subtitle} actions={actions} />
       )}
@@ -238,3 +253,12 @@ export function ListPageTemplate<T = Record<string, unknown>>({
     </div>
   );
 }
+
+export const ListPageTemplate = forwardRef(ListPageTemplateInner) as <
+  T = Record<string, unknown>,
+>(
+  props: ListPageTemplateProps<T> & { ref?: React.Ref<HTMLDivElement> }
+) => React.ReactElement;
+
+(ListPageTemplate as { displayName?: string }).displayName = "ListPageTemplate";
+

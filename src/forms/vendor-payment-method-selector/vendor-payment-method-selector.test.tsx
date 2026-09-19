@@ -1,7 +1,7 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import { VendorPaymentMethodSelector } from "./vendor-payment-method-selector";
 
 describe("VendorPaymentMethodSelector", () => {
@@ -24,6 +24,12 @@ describe("VendorPaymentMethodSelector", () => {
     expect(screen.getByText("Tax ID: XX-XXX4910")).toBeDefined();
     expect(screen.getByText("Direct Deposit (ACH)")).toBeDefined();
     expect(screen.getByText("Virtual Commercial Card")).toBeDefined();
+  });
+
+  it("forwards ref correctly to the root section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<VendorPaymentMethodSelector ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("switches rail to Virtual Commercial Card on click", () => {

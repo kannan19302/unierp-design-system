@@ -10,7 +10,15 @@ import { PublishDiffDialog } from "./publish-diff-dialog";
 const meta: Meta<typeof PublishDiffDialog> = {
   title: "Studio/PublishDiffDialog",
   component: PublishDiffDialog,
-  parameters: { layout: "centered" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof PublishDiffDialog>;
@@ -50,4 +58,45 @@ export const Publishing: Story = {
     ...Default.args,
     publishing: true,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ position: "relative", minHeight: "500px", width: "100%" }}>
+      <PublishDiffDialog
+        open={true}
+        name="Billing Workflow Schema"
+        environment="staging-eu-west-1"
+        rollbackTo="v2.4.1"
+        onClose={() => {}}
+        onPublish={() => {}}
+        changes={[
+          { id: "c1", kind: "added", what: "SEPA Direct Debit Gateway Handler", detail: "Added automated mandate verification" },
+          { id: "c2", kind: "changed", what: "Currency Precision", detail: "Default: 2 decimals → 4 decimals for FX trades" },
+          { id: "c3", kind: "removed", what: "Legacy Wire Protocol v1" },
+        ]}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div style={{ position: "relative", minHeight: "450px" }}>
+        <PublishDiffDialog
+          open={true}
+          name="Payment Model"
+          environment="production"
+          rollbackTo="v4.0"
+          onClose={() => {}}
+          onPublish={() => {}}
+          changes={[
+            { id: "1", kind: "added", what: "Tax Identifier Validation" },
+            { id: "2", kind: "changed", what: "Stripe API Webhook Signature" },
+          ]}
+        />
+      </div>
+    </div>
+  ),
 };

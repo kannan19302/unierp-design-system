@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, type FC, type FormEvent } from "react";
+import React, { useState, forwardRef, type FormEvent, type FC } from "react";
 import {
   Eye,
   EyeOff,
@@ -32,7 +32,11 @@ export interface SignInCardProps {
   className?: string;
 }
 
-export const SignInCard: FC<SignInCardProps> = ({
+/**
+ * `<SignInCard>` — Enterprise IAM sign-in form card supporting credentials, SSO providers, and remember-me.
+ * @maturity stable
+ */
+export const SignInCard = forwardRef<HTMLDivElement, SignInCardProps>(({
   title = "Enterprise Sign In",
   subtitle = "Sign in with your corporate identity credentials",
   defaultEmail = "",
@@ -43,7 +47,7 @@ export const SignInCard: FC<SignInCardProps> = ({
   isLoading = false,
   errorMessage,
   className = "",
-}) => {
+}, ref) => {
   const [email, setEmail] = useState(defaultEmail);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -55,7 +59,7 @@ export const SignInCard: FC<SignInCardProps> = ({
   };
 
   return (
-    <div className={`${styles.card} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.card} ${className}`.trim()}>
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.subtitle}>{subtitle}</p>
@@ -181,7 +185,10 @@ export const SignInCard: FC<SignInCardProps> = ({
       )}
     </div>
   );
-};
+});
+
+SignInCard.displayName = "SignInCard";
+
 
 /* ─────────────────────────────────────────────────
    2. MfaChallengeCard (IAM-002)
@@ -586,7 +593,7 @@ export const SessionLockoutCard: FC<SessionLockoutCardProps> = ({
 
   const initials = user.name
     .split(/\s+/)
-    .map((n) => n[0])
+    .map((n: string) => n[0])
     .join("")
     .slice(0, 2)
     .toUpperCase();
@@ -698,7 +705,7 @@ export const RecoveryCodesCard: FC<RecoveryCodesCardProps> = ({
       </div>
 
       <div className={styles.codesGrid} role="list" aria-label="Backup recovery codes">
-        {codes.map((code, idx) => (
+        {codes.map((code: string, idx: number) => (
           <div key={idx} className={styles.codeItem} role="listitem">
             {code}
           </div>

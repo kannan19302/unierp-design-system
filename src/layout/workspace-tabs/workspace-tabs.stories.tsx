@@ -6,8 +6,39 @@ import { WorkspaceTabs, type WorkspaceTabItem } from "./workspace-tabs";
 const meta: Meta<typeof WorkspaceTabs> = {
   title: "Layout/WorkspaceTabs",
   component: WorkspaceTabs,
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    a11y: {
+      config: {
+        rules: [{ id: "tabindex", enabled: true }],
+      },
+    },
+  },
+  argTypes: {
+    tabs: {
+      description: "List of open workspace tabs",
+    },
+    activeTabId: {
+      control: "text",
+      description: "Identifier of active workspace tab",
+    },
+    onSelectTab: {
+      action: "tabSelected",
+      description: "Callback invoked when a tab is selected",
+    },
+    onCloseTab: {
+      action: "tabClosed",
+      description: "Callback invoked to close a tab",
+    },
+    onNewTab: {
+      action: "newTabRequested",
+      description: "Callback invoked to create a new tab",
+    },
+    showNewTabButton: {
+      control: "boolean",
+      description: "Whether to show the plus new tab button",
+    },
   },
 };
 
@@ -71,7 +102,7 @@ export const Default: Story = {
     };
 
     return (
-      <div style={{ padding: "1.5rem", background: "var(--color-surface-sunken)" }}>
+      <div style={{ padding: "var(--space-6)", background: "var(--color-surface-sunken)" }}>
         <WorkspaceTabs
           tabs={tabs}
           activeTabId={activeId}
@@ -81,17 +112,86 @@ export const Default: Story = {
         />
         <div
           style={{
-            padding: "2rem",
+            padding: "var(--space-6)",
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
-            borderTop: "none",
-            minHeight: "15rem",
+            borderBlockStart: "none",
+            minBlockSize: "15rem",
           }}
         >
           <h3>Active Workspace Session: {tabs.find((t) => t.id === activeId)?.title}</h3>
           <p style={{ color: "var(--color-text-secondary)" }}>
             Document ID: <code>{activeId}</code>
           </p>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => {
+    return (
+      <div style={{ padding: "var(--space-6)", background: "var(--color-surface-sunken)", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+        <h4>Anatomy and Composition</h4>
+        <p style={{ color: "var(--color-text-secondary)", fontSize: "var(--text-sm)" }}>
+          WorkspaceTabs facilitates multi-document architecture with pinned sessions, dirty indicators,
+          overflow scroll navigation, and tab-level actions.
+        </p>
+        <WorkspaceTabs
+          tabs={initialTabs}
+          activeTabId="inv-1024"
+          onSelectTab={() => {}}
+          onCloseTab={() => {}}
+          onNewTab={() => {}}
+        />
+      </div>
+    );
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => {
+    const pinnedOnly: WorkspaceTabItem[] = [
+      { id: "dash", title: "Dashboard", pinned: true, closable: false },
+      { id: "reports", title: "GL Reports", pinned: true, closable: false },
+    ];
+
+    const dirtyTabs: WorkspaceTabItem[] = [
+      { id: "edit-1", title: "Journal Entry #991", dirty: true, badge: "Draft" },
+      { id: "edit-2", title: "Payroll Batch May", dirty: true },
+    ];
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-6)", background: "var(--color-surface-sunken)" }}>
+        <div>
+          <h5 style={{ marginBlockEnd: "var(--space-2)" }}>Pinned Tabs Only</h5>
+          <WorkspaceTabs
+            tabs={pinnedOnly}
+            activeTabId="dash"
+            onSelectTab={() => {}}
+            showNewTabButton={false}
+          />
+        </div>
+        <div>
+          <h5 style={{ marginBlockEnd: "var(--space-2)" }}>Dirty / Unsaved States with Badges</h5>
+          <WorkspaceTabs
+            tabs={dirtyTabs}
+            activeTabId="edit-1"
+            onSelectTab={() => {}}
+            onCloseTab={() => {}}
+            onNewTab={() => {}}
+          />
+        </div>
+        <div>
+          <h5 style={{ marginBlockEnd: "var(--space-2)" }}>Standard Mixed Session (Active, Inactive, Closable)</h5>
+          <WorkspaceTabs
+            tabs={initialTabs}
+            activeTabId="po-889"
+            onSelectTab={() => {}}
+            onCloseTab={() => {}}
+            onNewTab={() => {}}
+          />
         </div>
       </div>
     );

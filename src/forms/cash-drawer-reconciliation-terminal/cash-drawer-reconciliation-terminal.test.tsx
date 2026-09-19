@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -66,5 +67,17 @@ describe("CashDrawerReconciliationTerminal", () => {
     });
 
     expect(screen.getByText("SHIFT CLOSED (Z-REPORT DISPATCHED)")).toBeInTheDocument();
+  });
+
+  it("forwards ref to the root section element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <CashDrawerReconciliationTerminal
+        ref={ref}
+        shiftContext={mockShift}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+    expect(ref.current?.tagName.toLowerCase()).toBe("section");
   });
 });

@@ -4,7 +4,8 @@
   flex-direction: column;
   gap: var(--space-3);
   min-height: 0;
-  padding: 0 var(--space-6);
+  padding-block: 0;
+  padding-inline: var(--space-6);
 }
 
 /* ─── Top Tabs / Page Switcher ────────────────────────────────────── */
@@ -12,12 +13,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-2) var(--space-3);
-  background: var(--color-bg-elevated);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  background: var(--color-surface-elevated, var(--color-bg-elevated));
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   gap: var(--space-3);
-  margin-bottom: var(--space-1);
+  margin-block-end: var(--space-1);
 }
 
 .mpd-top-tabs {
@@ -31,7 +33,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-1) var(--space-3);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   background: transparent;
@@ -44,7 +47,7 @@
 
 .mpd-tab-btn:hover {
   color: var(--color-text);
-  background: var(--color-bg-sunken);
+  background: var(--color-surface-sunken, var(--color-bg-sunken));
 }
 
 .mpd-tab-btn.active {
@@ -60,7 +63,8 @@
 .mpd-tab-num {
   font-size: var(--type-micro, 10px);
   font-weight: var(--weight-bold);
-  padding: 1px var(--space-1-5, 5px);
+  padding-block: 1px;
+  padding-inline: var(--space-1-5, 5px);
   border-radius: var(--radius-full, 999px);
   background: var(--color-border);
   color: var(--color-text-secondary);
@@ -68,7 +72,7 @@
 
 .mpd-tab-btn.active .mpd-tab-num {
   background: var(--color-primary);
-  color: var(--color-text-inverse, #fff);
+  color: var(--color-text-inverse);
 }
 
 .mpd-counter-badge {
@@ -102,12 +106,12 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
-  width: var(--side-arrow-width, 36px);
-  height: var(--side-arrow-height, 48px);
+  inline-size: var(--side-arrow-width, 36px);
+  block-size: var(--side-arrow-height, 48px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-elevated);
+  background: var(--color-surface-elevated, var(--color-bg-elevated));
   color: var(--color-primary);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-md);
@@ -117,21 +121,21 @@
 
 .mpd-side-arrow-left {
   left: 0;
-  border-top-right-radius: var(--radius-lg);
-  border-bottom-right-radius: var(--radius-lg);
-  border-left: none;
+  border-start-end-radius: var(--radius-lg);
+  border-end-end-radius: var(--radius-lg);
+  border-inline-start: none;
 }
 
 .mpd-side-arrow-right {
   right: 0;
-  border-top-left-radius: var(--radius-lg);
-  border-bottom-left-radius: var(--radius-lg);
-  border-right: none;
+  border-start-start-radius: var(--radius-lg);
+  border-end-start-radius: var(--radius-lg);
+  border-inline-end: none;
 }
 
 .mpd-side-arrow:hover:not(:disabled) {
   background: var(--color-primary);
-  color: var(--color-text-inverse, #ffffff);
+  color: var(--color-text-inverse);
   border-color: var(--color-primary);
   box-shadow: 0 var(--space-1, 4px) var(--space-3-5, 14px)
     color-mix(in srgb, var(--color-primary) 35%, transparent);
@@ -146,7 +150,7 @@
   opacity: 0.25;
   cursor: not-allowed;
   box-shadow: none;
-  background: var(--color-bg-sunken);
+  background: var(--color-surface-sunken, var(--color-bg-sunken));
   color: var(--color-text-tertiary);
   border-color: var(--color-border);
 }
@@ -157,13 +161,15 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding-bottom: var(--space-2);
-  margin-bottom: var(--space-2);
-  border-bottom: 1px dashed var(--color-border);
+  padding-block-end: var(--space-2);
+  margin-block-end: var(--space-2);
+  border-block-end: 1px dashed var(--color-border);
 }
 
 .mpd-page-subtitle {
   font-size: var(--text-xs);
   color: var(--color-text-tertiary);
-  margin: 2px 0 0;
+  margin-block-start: 2px;
+  margin-block-end: 0;
+  margin-inline: 0;
 }

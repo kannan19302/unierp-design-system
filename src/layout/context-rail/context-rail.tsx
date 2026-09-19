@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, type FC, type ReactNode } from "react";
+import { useState, forwardRef, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import styles from "./context-rail.module.css";
 
@@ -30,21 +28,26 @@ export interface ContextRailProps {
  *
  * Hosts context-specific features (Activity, Comments, Attachments, AI Assistant,
  * Approval Workflows, Audit Logs) without taking users away from their main working surface.
+ *
+ * @maturity stable
  */
-export const ContextRail: FC<ContextRailProps> = ({
-  title = "Context",
-  tabs,
-  activeTabId,
-  onTabChange,
-  collapsed = false,
-  onToggleCollapse,
-  onClose,
-  actions,
-  children,
-  className = "",
-}) => {
+export const ContextRail = forwardRef<HTMLElement, ContextRailProps>(function ContextRail(
+  {
+    title = "Context",
+    tabs,
+    activeTabId,
+    onTabChange,
+    collapsed = false,
+    onToggleCollapse,
+    onClose,
+    actions,
+    children,
+    className = "",
+  },
+  ref
+) {
   const [internalTabId, setInternalTabId] = useState<string>(
-    activeTabId ?? (tabs?.[0]?.id || ""),
+    activeTabId ?? (tabs?.[0]?.id || "")
   );
 
   const currentTabId = activeTabId ?? internalTabId;
@@ -60,6 +63,7 @@ export const ContextRail: FC<ContextRailProps> = ({
 
   return (
     <aside
+      ref={ref}
       className={`${styles.rail} ${collapsed ? styles.railCollapsed : ""} ${className}`.trim()}
       aria-label="Context Rail"
     >
@@ -126,4 +130,6 @@ export const ContextRail: FC<ContextRailProps> = ({
       )}
     </aside>
   );
-};
+});
+
+ContextRail.displayName = "ContextRail";

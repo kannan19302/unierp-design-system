@@ -2,6 +2,7 @@
 
 import {
   useState,
+  forwardRef,
   type FC,
   type ReactNode,
   type HTMLAttributes,
@@ -167,62 +168,76 @@ export const FactBoxTile: FC<FactBoxTileProps> = ({
 /**
  * `<FactBox>` — Inspired by Microsoft Dynamics 365 Business Central (§31) and SAP Fiori (§5).
  * Collapsible right-hand telemetry side-rail displaying real-time customer, vendor, or transaction intelligence.
+ *
+ * @maturity stable
  */
-export const FactBox: FC<FactBoxProps> = ({
-  title = "FactBox Details",
-  collapsible = true,
-  defaultCollapsed = false,
-  onCollapsedChange,
-  density = "compact",
-  width,
-  headerActions,
-  children,
-  className = "",
-  style,
-  ...props
-}) => {
-  const [collapsed, setCollapsed] = useState(defaultCollapsed);
+export const FactBox = forwardRef<HTMLElement, FactBoxProps>(
+  (
+    {
+      title = "FactBox Details",
+      collapsible = true,
+      defaultCollapsed = false,
+      onCollapsedChange,
+      density = "compact",
+      width,
+      headerActions,
+      children,
+      className = "",
+      style,
+      ...props
+    },
+    ref
+  ) => {
+    const [collapsed, setCollapsed] = useState(defaultCollapsed);
 
-  const handleToggle = () => {
-    const next = !collapsed;
-    setCollapsed(next);
-    onCollapsedChange?.(next);
-  };
+    const handleToggle = () => {
+      const next = !collapsed;
+      setCollapsed(next);
+      onCollapsedChange?.(next);
+    };
 
-  return (
-    <aside
-      className={`${styles.root} ${collapsed ? styles.collapsed : ""} ${className}`.trim()}
-      data-density={density}
-      aria-label={title}
-      style={{
-        ...style,
-        ...(width && !collapsed ? { width } : {}),
-      }}
-      {...props}
-    >
-      <div className={styles.topBar}>
-        {!collapsed && <h3 className={styles.barTitle}>{title}</h3>}
-        <div className={styles.barActions}>
-          {!collapsed && headerActions}
-          {collapsible && (
-            <button
-              type="button"
-              className={styles.collapseToggle}
-              onClick={handleToggle}
-              aria-label={collapsed ? "Expand FactBox" : "Collapse FactBox"}
-              title={collapsed ? "Expand FactBox" : "Collapse FactBox"}
-            >
-              {collapsed ? (
-                <PanelRightOpen size={16} aria-hidden="true" />
-              ) : (
-                <PanelRightClose size={16} aria-hidden="true" />
-              )}
-            </button>
-          )}
+    return (
+      <aside
+        ref={ref}
+        className={`${styles.root} ${collapsed ? styles.collapsed : ""} ${className}`.trim()}
+        data-density={density}
+        aria-label={title}
+        style={{
+          ...style,
+          ...(width && !collapsed ? { inlineSize: width, minInlineSize: width } : {}),
+        }}
+        {...props}
+      >
+        <div className={styles.topBar}>
+          {!collapsed && <h3 className={styles.barTitle}>{title}</h3>}
+          <div className={styles.barActions}>
+            {!collapsed && headerActions}
+            {collapsible && (
+              <button
+                type="button"
+                className={styles.collapseToggle}
+                onClick={handleToggle}
+                aria-label={collapsed ? "Expand FactBox" : "Collapse FactBox"}
+                title={collapsed ? "Expand FactBox" : "Collapse FactBox"}
+              >
+                {collapsed ? (
+                  <PanelRightOpen size={16} aria-hidden="true" />
+                ) : (
+                  <PanelRightClose size={16} aria-hidden="true" />
+                )}
+              </button>
+            )}
+          </div>
         </div>
-      </div>
 
-      {!collapsed && <div className={styles.tilesContainer}>{children}</div>}
-    </aside>
-  );
-};
+        {!collapsed && <div className={styles.tilesContainer}>{children}</div>}
+      </aside>
+    );
+  }
+);
+
+FactBox.displayName = "FactBox";
+FactBoxTile.displayName = "FactBoxTile";
+FactBoxField.displayName = "FactBoxField";
+FactBoxMetric.displayName = "FactBoxMetric";
+

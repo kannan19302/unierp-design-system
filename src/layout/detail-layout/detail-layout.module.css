@@ -6,25 +6,25 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  width: 100%;
+  inline-size: 100%;
   font-family: var(--font-sans);
   box-sizing: border-box;
 }
 
 .header {
-  width: 100%;
+  inline-size: 100%;
 }
 
 .body {
   display: flex;
   align-items: flex-start;
   gap: var(--space-4);
-  width: 100%;
+  inline-size: 100%;
 }
 
 .main {
   flex: 1;
-  min-width: 0;
+  min-inline-size: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -32,5 +32,5 @@
 
 .sidebar {
   flex-shrink: 0;
-  width: var(--detail-sidebar-width, 300px);
+  inline-size: var(--detail-sidebar-width, 300px);
 }

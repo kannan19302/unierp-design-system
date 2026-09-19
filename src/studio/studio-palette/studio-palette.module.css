@@ -6,7 +6,8 @@
 }
 
 .search {
-  padding: var(--space-2, 0.5rem);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
   border-block-end: 1px solid var(--studio-chrome-border, #e2e8f0);
   flex: 0 0 auto;
 }
@@ -14,7 +15,8 @@
 .searchInput {
   inline-size: 100%;
   box-sizing: border-box;
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   font-size: var(--font-sm, 0.8125rem);
   font-family: inherit;
   color: var(--studio-chrome-text, #1e293b);
@@ -38,7 +40,8 @@
 .groupLabel {
   position: sticky;
   inset-block-start: 0;
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem) var(--space-1, 0.25rem);
+  padding-block: var(--space-2) var(--space-1);
+  padding-inline: var(--space-3);
   font-size: var(--font-xs, 0.75rem);
   font-weight: 600;
   letter-spacing: 0.04em;

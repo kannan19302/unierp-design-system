@@ -1,32 +1,7 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type FC, type ReactNode } from "react";
 import styles from "./catalog-shell.module.css";
-
-/**
- * `<CatalogShell>` / `<CatalogListing>` — anatomy 7 of the eleven in §11.
- * Marketplace: browsing, comparing, installing.
- *
- * ── Why a storefront and not a list page ──
- * Every other in-product list exists to let someone *find a record they already
- * know about*. A catalogue exists to let someone *decide about something they
- * have never seen*. Those need opposite densities: the ledger wants forty rows
- * on screen, the catalogue wants enough room for a name, a publisher, a
- * sentence and a picture — because a buyer picks software partly on how it
- * looks, and a dense table of software is a table nobody browses.
- *
- * So this anatomy has the widest gutters and the largest imagery in the
- * product, and its detail view is built like a product page rather than a
- * record page.
- *
- * ── The permissions manifest ──
- * `CatalogListing` takes permissions as {scope, description} pairs and shows
- * the DESCRIPTION first. `connectors.write` tells an admin nothing about what
- * an app will do to their data; "Create and update connector credentials"
- * does. An install prompt that shows only scope strings is asking for consent
- * without giving information, which is the pattern this platform's own
- * OAuth surfaces are held to (§8, and APP_FLOW's consent rules).
- */
 
 export interface CatalogFacetOption {
   id: string;
@@ -51,19 +26,21 @@ export interface CatalogShellProps {
   children?: ReactNode;
 }
 
-export const CatalogShell: FC<CatalogShellProps> = ({
+/**
+ * `<CatalogShell>` — Marketplace storefront floorplan for browsing, comparing, and installing applications.
+ * @maturity stable
+ */
+export const CatalogShell = forwardRef<HTMLDivElement, CatalogShellProps>(({
   facets,
   resultSummary,
   toolbar,
   className = "",
   children,
-}) => (
-  <div className={`${styles.root} ${className}`.trim()}>
+}, ref) => (
+  <div ref={ref} className={`${styles.root} ${className}`.trim()}>
     {facets && facets.length > 0 && (
       <form className={styles.facets} aria-label="Filters">
         {facets.map((facet) => (
-          // A real <fieldset>/<legend>: a group of checkboxes without one is a
-          // pile of unrelated controls to a screen reader.
           <fieldset key={facet.id} className={styles.facet_group}>
             <legend className={styles.facet_legend}>{facet.legend}</legend>
             {facet.options.map((opt) => (
@@ -96,7 +73,10 @@ export const CatalogShell: FC<CatalogShellProps> = ({
       {children}
     </div>
   </div>
-);
+));
+
+CatalogShell.displayName = "CatalogShell";
+
 
 export interface CatalogTile {
   id: string;

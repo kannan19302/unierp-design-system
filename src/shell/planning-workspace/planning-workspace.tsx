@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FC, type ReactNode } from "react";
+import { useState, forwardRef, type ReactNode } from "react";
 import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianState } from "../meridian-bar";
 import { PageHeader } from "../../layout/page-header";
 import styles from "./planning-workspace.module.css";
@@ -41,7 +41,11 @@ export interface PlanningWorkspaceProps {
   className?: string;
 }
 
-export const PlanningWorkspace: FC<PlanningWorkspaceProps> = ({
+/**
+ * `<PlanningWorkspace>` — Financial forecasting, resource allocation, and project Gantt timeline floorplan with period switching.
+ * @maturity stable
+ */
+export const PlanningWorkspace = forwardRef<HTMLDivElement, PlanningWorkspaceProps>(({
   segments,
   state,
   action,
@@ -60,7 +64,7 @@ export const PlanningWorkspace: FC<PlanningWorkspaceProps> = ({
   children,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const [currentTimeframe, setCurrentTimeframe] = useState<PlanningTimeframe>(selectedTimeframe);
 
   const handleTimeframe = (tf: PlanningTimeframe) => {
@@ -70,6 +74,7 @@ export const PlanningWorkspace: FC<PlanningWorkspaceProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className}`.trim()}
       data-floorplan="planning-workspace"
       data-density={density}
@@ -151,4 +156,7 @@ export const PlanningWorkspace: FC<PlanningWorkspaceProps> = ({
       </div>
     </div>
   );
-};
+});
+
+PlanningWorkspace.displayName = "PlanningWorkspace";
+

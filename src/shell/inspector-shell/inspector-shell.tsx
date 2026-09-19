@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import styles from "./inspector-shell.module.css";
 
 export interface InspectorShellProps {
@@ -32,8 +30,9 @@ export interface InspectorShellProps {
  *
  * Keeps users centered on their working list while inspecting item details,
  * comments, activity, attachments, or quick edit fields without navigating away.
+ * @maturity stable
  */
-export const InspectorShell: FC<InspectorShellProps> = ({
+export const InspectorShell = forwardRef<HTMLDivElement, InspectorShellProps>(({
   navigation,
   navigationCollapsed = false,
   topBar,
@@ -42,9 +41,10 @@ export const InspectorShell: FC<InspectorShellProps> = ({
   inspectorOpen = true,
   density,
   className = "",
-}) => {
+}, ref) => {
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className}`.trim()}
       data-floorplan="inspector-shell"
       data-density={density}
@@ -83,4 +83,6 @@ export const InspectorShell: FC<InspectorShellProps> = ({
       </div>
     </div>
   );
-};
+});
+
+InspectorShell.displayName = "InspectorShell";

@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode, createContext, useContext } from "react";
+import { type FC, type ReactNode, createContext, useContext, forwardRef } from "react";
 import { ShieldAlert, Lock } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./protected-component.module.css";
@@ -52,51 +52,61 @@ export interface AccessDeniedCardProps {
   className?: string;
 }
 
-export const AccessDeniedCard: FC<AccessDeniedCardProps> = ({
-  permission,
-  title = "Access Restricted",
-  description = "Your active role lacks the required scope to interact with this protected enterprise module.",
-  onRequestAccess,
-  className = "",
-}) => (
-  <div
-    role="alert"
-    className={cn(styles.accessDeniedCard, className)}
-  >
-    <div className={styles.accessDeniedHeader}>
-      <div className={styles.lockIconContainer} aria-hidden="true">
-        <ShieldAlert size={18} />
-      </div>
-      <div className={styles.accessDeniedInfo}>
-        <div className={styles.accessDeniedTitleRow}>
-          <h4 className={styles.accessDeniedTitle}>{title}</h4>
-          <span className={styles.scopeBadge}>Scope: {permission}</span>
-        </div>
-        <p className={styles.accessDeniedDescription}>{description}</p>
-        {onRequestAccess && (
-          <div className={styles.accessDeniedFooter}>
-            <button
-              type="button"
-              onClick={onRequestAccess}
-              style={{
-                fontSize: "var(--text-xs)",
-                padding: "var(--space-1) var(--space-2-5)",
-                borderRadius: "var(--radius-xs)",
-                border: "1px solid var(--color-border)",
-                background: "var(--color-bg-surface)",
-                color: "var(--color-text)",
-                cursor: "pointer",
-                fontWeight: "var(--weight-medium)",
-              }}
-            >
-              Request Permission Scope
-            </button>
+export const AccessDeniedCard = forwardRef<HTMLDivElement, AccessDeniedCardProps>(
+  function AccessDeniedCard(
+    {
+      permission,
+      title = "Access Restricted",
+      description = "Your active role lacks the required scope to interact with this protected enterprise module.",
+      onRequestAccess,
+      className = "",
+    },
+    ref
+  ) {
+    return (
+      <div
+        ref={ref}
+        role="alert"
+        className={cn(styles.accessDeniedCard, className)}
+      >
+        <div className={styles.accessDeniedHeader}>
+          <div className={styles.lockIconContainer} aria-hidden="true">
+            <ShieldAlert size={18} />
           </div>
-        )}
+          <div className={styles.accessDeniedInfo}>
+            <div className={styles.accessDeniedTitleRow}>
+              <h4 className={styles.accessDeniedTitle}>{title}</h4>
+              <span className={styles.scopeBadge}>Scope: {permission}</span>
+            </div>
+            <p className={styles.accessDeniedDescription}>{description}</p>
+            {onRequestAccess && (
+              <div className={styles.accessDeniedFooter}>
+                <button
+                  type="button"
+                  onClick={onRequestAccess}
+                  style={{
+                    fontSize: "var(--text-xs)",
+                    padding: "var(--space-1) var(--space-2-5)",
+                    borderRadius: "var(--radius-xs)",
+                    border: "1px solid var(--color-border)",
+                    background: "var(--color-bg-surface)",
+                    color: "var(--color-text)",
+                    cursor: "pointer",
+                    fontWeight: "var(--weight-medium)",
+                  }}
+                >
+                  Request Permission Scope
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    );
+  }
 );
+
+AccessDeniedCard.displayName = "AccessDeniedCard";
 
 export interface ProtectedComponentProps {
   permission: string;
@@ -106,6 +116,10 @@ export interface ProtectedComponentProps {
   children: ReactNode;
 }
 
+/**
+ * `<ProtectedComponent>` — Role-based access boundary conditionally displaying elements or access-denied cards.
+ * @maturity stable
+ */
 export const ProtectedComponent: FC<ProtectedComponentProps> = ({
   permission,
   fallback = null,
@@ -141,16 +155,16 @@ export interface ProtectedFieldProps {
   children: ReactNode;
 }
 
-export const ProtectedField: FC<ProtectedFieldProps> = ({
+export const ProtectedField = forwardRef<HTMLDivElement, ProtectedFieldProps>(({
   entity,
   field,
   showLockIndicator = true,
   children,
-}) => {
+}, ref) => {
   const access = useFieldAccess(entity, field);
   if (access === "hidden") {
     return (
-      <div className={styles.redactedMask} aria-label="Field value hidden by security policy">
+      <div ref={ref} className={styles.redactedMask} aria-label="Field value hidden by security policy">
         <Lock size={12} aria-hidden="true" />
         <span>REDACTED BY POLICY</span>
       </div>
@@ -159,7 +173,7 @@ export const ProtectedField: FC<ProtectedFieldProps> = ({
 
   if (access === "readonly") {
     return (
-      <div className={styles.fieldLockWrapper}>
+      <div ref={ref} className={styles.fieldLockWrapper}>
         {showLockIndicator && (
           <span className={styles.flsBadge}>
             <Lock size={10} aria-hidden="true" />
@@ -171,5 +185,7 @@ export const ProtectedField: FC<ProtectedFieldProps> = ({
     );
   }
 
-  return <>{children}</>;
-};
+  return <div ref={ref}>{children}</div>;
+});
+
+ProtectedField.displayName = "ProtectedField";

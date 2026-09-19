@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { useId, useState, forwardRef, type HTMLAttributes } from "react";
 import styles from "./cash-drawer-reconciliation-terminal.module.css";
 
 export interface CashRegisterShiftContext {
@@ -23,7 +23,8 @@ export interface CashDenominationCounts {
   pennies: number;
 }
 
-export interface CashDrawerReconciliationTerminalProps {
+export interface CashDrawerReconciliationTerminalProps
+  extends HTMLAttributes<HTMLElement> {
   shiftContext: CashRegisterShiftContext;
   onCommitCloseout?: (result: {
     shiftId: string;
@@ -37,12 +38,26 @@ export interface CashDrawerReconciliationTerminalProps {
   className?: string;
 }
 
-export const CashDrawerReconciliationTerminal: React.FC<CashDrawerReconciliationTerminalProps> = ({
-  shiftContext,
-  onCommitCloseout,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * `<CashDrawerReconciliationTerminal>` delivers cashier till balancing,
+ * denomination counts, variance calculation, and Z-report shift finalization.
+ *
+ * @maturity stable
+ */
+export const CashDrawerReconciliationTerminal = forwardRef<
+  HTMLElement,
+  CashDrawerReconciliationTerminalProps
+>(
+  (
+    {
+      shiftContext,
+      onCommitCloseout,
+      density = "compact",
+      className = "",
+      ...restProps
+    },
+    ref
+  ) => {
   const headingId = useId();
   const reasonSelectId = useId();
   const notesInputId = useId();
@@ -111,9 +126,11 @@ export const CashDrawerReconciliationTerminal: React.FC<CashDrawerReconciliation
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
-      className={`${styles.container} ${className}`}
+      className={`${styles.container} ${className}`.trim()}
       data-density={density}
+      {...restProps}
     >
       <header className={styles.header}>
         <div className={styles.badgeRow}>
@@ -326,4 +343,6 @@ export const CashDrawerReconciliationTerminal: React.FC<CashDrawerReconciliation
       </form>
     </section>
   );
-};
+});
+
+CashDrawerReconciliationTerminal.displayName = "CashDrawerReconciliationTerminal";

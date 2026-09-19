@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FC, type ReactNode } from "react";
+import { useMemo, useState, forwardRef, type ReactNode } from "react";
 import styles from "./launch-shell.module.css";
 
 /**
@@ -58,7 +58,11 @@ export interface LaunchShellProps {
   className?: string;
 }
 
-export const LaunchShell: FC<LaunchShellProps> = ({
+/**
+ * `<LaunchShell>` — Platform and application launcher wizard floorplan with type-to-filter plate grid.
+ * @maturity stable
+ */
+export const LaunchShell = forwardRef<HTMLDivElement, LaunchShellProps>(({
   variant = "hero",
   title,
   lede,
@@ -68,7 +72,7 @@ export const LaunchShell: FC<LaunchShellProps> = ({
   footer,
   emptyMessage = "Nothing here yet.",
   className = "",
-}) => {
+}, ref) => {
   const [query, setQuery] = useState("");
   const showFilter = filterable ?? variant === "hero";
 
@@ -85,6 +89,7 @@ export const LaunchShell: FC<LaunchShellProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${variant === "shelf" ? styles.root_shelf : ""} ${className}`.trim()}
       data-launch-variant={variant}
     >
@@ -157,4 +162,7 @@ export const LaunchShell: FC<LaunchShellProps> = ({
       {footer && <div className={styles.foot}>{footer}</div>}
     </div>
   );
-};
+});
+
+LaunchShell.displayName = "LaunchShell";
+

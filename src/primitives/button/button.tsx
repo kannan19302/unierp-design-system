@@ -23,7 +23,10 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Icon to show after the label */
   rightIcon?: ReactNode;
 }
-
+/**
+ * `<Button>` — Primary enterprise action element supporting multiple variants, loading states, and icons.
+ * @maturity stable
+ */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {

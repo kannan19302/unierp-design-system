@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -23,6 +24,18 @@ describe("MultiPageDashboard Primitive", () => {
     expect(screen.getByText("Operations")).toBeInTheDocument();
     expect(screen.getByText("Exec Metrics")).toBeInTheDocument();
     expect(screen.getByText("Page 1 of 2")).toBeInTheDocument();
+  });
+
+  it("forwards ref correctly to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <MultiPageDashboard
+        ref={ref}
+        pages={MOCK_PAGES}
+        defaultPageId="exec"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

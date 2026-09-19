@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -23,6 +24,18 @@ describe("DashboardKPICard Primitive", () => {
 
     fireEvent.click(screen.getByText("Total Revenue"));
     expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("forwards ref correctly to card container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <DashboardKPICard
+        ref={ref}
+        title="Active Users"
+        value="1,200"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

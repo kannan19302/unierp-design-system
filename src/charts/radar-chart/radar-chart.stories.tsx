@@ -1,26 +1,56 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { RadarChart } from "./radar-chart";
 
+const SAMPLE_AXES = ["Speed", "Reliability", "Comfort", "Safety", "Efficiency"];
+const SAMPLE_DATASETS = [
+  { label: "Model Alpha", values: [80, 90, 70, 85, 75], color: "var(--color-brand)" },
+  { label: "Model Beta", values: [65, 75, 85, 90, 80], color: "var(--color-success)" },
+];
+
 const meta: Meta<typeof RadarChart> = {
   title: "Charts/RadarChart",
   component: RadarChart,
-  parameters: { layout: "centered" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+    a11y: { test: "todo" },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof RadarChart>;
 
 export const Default: Story = {
-  render: () => {
-    const axes = ['Speed', 'Reliability', 'Cost', 'Support', 'Features'];
-  const datasets = [
-    { label: 'Product A', values: [80, 90, 60, 70, 85], color: '#2563eb' },
-    { label: 'Product B', values: [65, 75, 90, 80, 60], color: '#10b981' },
-  ];
-    return (
-      <div style={{ width: 500, padding: "var(--space-4)" }}>
-        <RadarChart axes={axes} datasets={datasets} />
+  render: () => (
+    <div style={{ inlineSize: "360px", padding: "var(--space-4)" }}>
+      <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} />
+    </div>
+  ),
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ inlineSize: "380px", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} size={300} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ inlineSize: "380px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Dual Model Comparison
+        </h4>
+        <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} />
       </div>
-    );
-  },
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Single Dataset Focus
+        </h4>
+        <RadarChart axes={SAMPLE_AXES} datasets={[SAMPLE_DATASETS[0]]} />
+      </div>
+    </div>
+  ),
 };

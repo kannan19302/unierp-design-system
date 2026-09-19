@@ -1,17 +1,54 @@
 "use client";
 
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./dashboard-grid-layout.module.css";
 
-export interface DashboardGridLayoutProps { children: React.ReactNode; columns?: number; gap?: number; }
+export interface DashboardGridLayoutProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
+  columns?: number;
+  gap?: number | string;
+}
 
-export const DashboardGridLayout: React.FC<DashboardGridLayoutProps> = (props) => {
-  const { children, columns = 3, gap = 16 } = props;
+/**
+ * DashboardGridLayout
+ *
+ * Responsive multi-column layout grid for analytical dashboard cards,
+ * widgets, charts, and operational telemetry blocks.
+ *
+ * @maturity stable
+ */
+export const DashboardGridLayout = forwardRef<
+  HTMLDivElement,
+  DashboardGridLayoutProps
+>(function DashboardGridLayout(
+  { children, columns = 3, gap = 16, className, style, ...restProps },
+  ref
+) {
+  const containerClasses = [styles.container, className]
+    .filter(Boolean)
+    .join(" ");
+
+  const gridStyle: React.CSSProperties = {
+    display: "grid",
+    gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+    gap: typeof gap === "number" ? `${gap}px` : gap,
+  };
+
   return (
-    <div className={styles.container} role="region" aria-label="Dashboard grid" style={{ padding: 0 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gap, padding: 'var(--space-4)' }}>
+    <div
+      ref={ref}
+      className={containerClasses}
+      role="region"
+      aria-label="Dashboard grid"
+      style={style}
+      {...restProps}
+    >
+      <div className={styles.grid} style={gridStyle}>
         {children}
       </div>
     </div>
   );
-};
+});
+
+DashboardGridLayout.displayName = "DashboardGridLayout";

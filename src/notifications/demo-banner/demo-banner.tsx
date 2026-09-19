@@ -1,19 +1,29 @@
 "use client";
 
-import { type FC, useState } from "react";
+import { useState, forwardRef } from "react";
 import styles from "./demo-banner.module.css";
 
 export interface DemoBannerProps {
   currentModule?: string;
   apiBase?: string;
   onRemoved?: () => void;
+  className?: string;
 }
 
-export const DemoBanner: FC<DemoBannerProps> = ({
-  currentModule,
-  apiBase = "/api/v1",
-  onRemoved,
-}) => {
+/**
+ * DemoBanner component warning users of mock or seeded tenant demonstration data.
+ *
+ * @maturity stable
+ */
+export const DemoBanner = forwardRef<HTMLElement, DemoBannerProps>(function DemoBanner(
+  {
+    currentModule,
+    apiBase = "/api/v1",
+    onRemoved,
+    className = "",
+  },
+  ref
+) {
   const [removing, setRemoving] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
@@ -25,33 +35,37 @@ export const DemoBanner: FC<DemoBannerProps> = ({
       !window.confirm(
         module
           ? `Remove demo data from ${module}? This cannot be undone.`
-          : "Remove ALL demo data from the entire ERP? This cannot be undone.",
+          : "Remove ALL demo data from the entire ERP? This cannot be undone."
       )
     )
       return;
 
-    setRemoving(true);
-    try {
-      const url = module
-        ? `${apiBase}/admin/demo/remove/${module}`
-        : `${apiBase}/admin/demo/remove`;
-      const res = await fetch(url, {
-        method: "DELETE",
-        credentials: "include",
-      });
-      if (res.ok) {
-        setDismissed(true);
-        onRemoved?.();
-      }
-    } catch {
-      // silently fail
-    } finally {
-      setRemoving(false);
+  setRemoving(true);
+  try {
+    const url = module
+      ? `${apiBase}/admin/demo/remove/${module}`
+      : `${apiBase}/admin/demo/remove`;
+    const res = await fetch(url, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (res.ok) {
+      setDismissed(true);
+      onRemoved?.();
     }
-  };
+  } catch {
+    // silently fail
+  } finally {
+    setRemoving(false);
+  }
+};
 
   return (
-    <aside aria-label="Demo Data Notice" className={styles.banner}>
+    <aside
+      ref={ref}
+      aria-label="Demo Data Notice"
+      className={`${styles.banner} ${className}`.trim()}
+    >
       <span className={styles.label}>Using demo data</span>
 
       <div className={styles.actions}>
@@ -77,4 +91,6 @@ export const DemoBanner: FC<DemoBannerProps> = ({
       </div>
     </aside>
   );
-};
+});
+
+DemoBanner.displayName = "DemoBanner";

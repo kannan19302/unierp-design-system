@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type CSSProperties } from "react";
+import { forwardRef, type CSSProperties } from "react";
 import { Wifi, WifiOff, Clock, MinusCircle } from "lucide-react";
 import styles from "./presence.module.css";
 
@@ -25,7 +23,11 @@ const PRESENCE_META = {
   away: { label: "Away", Icon: Clock, statusClass: "away" },
 };
 
-export const Presence: FC<PresenceProps> = ({
+/**
+ * `<Presence>` — Visual user or agent availability status indicator.
+ * @maturity stable
+ */
+export const Presence = forwardRef<HTMLSpanElement, PresenceProps>(({
   status,
   variant = "icon",
   size = "md",
@@ -33,7 +35,7 @@ export const Presence: FC<PresenceProps> = ({
   pulse = false,
   className = "",
   style,
-}) => {
+}, ref) => {
   const meta = PRESENCE_META[status];
   const { Icon, statusClass } = meta;
   const isPill = variant === "pill" || variant === "badge";
@@ -43,6 +45,7 @@ export const Presence: FC<PresenceProps> = ({
 
   return (
     <span
+      ref={ref}
       role="status"
       aria-label={meta.label}
       title={meta.label}
@@ -60,5 +63,7 @@ export const Presence: FC<PresenceProps> = ({
       {shouldShowLabel && <span className={styles.label}>{meta.label}</span>}
     </span>
   );
-};
+});
+
+Presence.displayName = "Presence";
 

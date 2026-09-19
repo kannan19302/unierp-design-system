@@ -1,5 +1,3 @@
-"use client";
-
 import {
   createContext,
   useCallback,
@@ -8,6 +6,7 @@ import {
   useMemo,
   useRef,
   useState,
+  forwardRef,
   type FC,
   type ReactNode,
 } from "react";
@@ -162,3 +161,51 @@ export function useToast(): ToastApi {
   const ctx = useContext(ToastContext);
   return ctx || NOOP_TOAST;
 }
+
+export interface ToastProps {
+  title?: string;
+  description?: string;
+  variant?: ToastVariant;
+  onDismiss?: () => void;
+  className?: string;
+}
+
+/**
+ * `<Toast>` — Individual notification alert pill with status icon and dismiss control.
+ * @maturity stable
+ */
+export const Toast = forwardRef<HTMLDivElement, ToastProps>(({
+  title,
+  description,
+  variant = "info",
+  onDismiss,
+  className = "",
+}, ref) => {
+  const Icon = VARIANT_ICONS[variant];
+  return (
+    <div
+      ref={ref}
+      role="status"
+      aria-live="polite"
+      className={`${styles.item} ${styles[variant]} ${className}`.trim()}
+    >
+      <Icon size={16} className={styles.icon} aria-hidden="true" />
+      <div className={styles.content}>
+        {title && <div className={styles.title}>{title}</div>}
+        {description && <div className={styles.description}>{description}</div>}
+      </div>
+      {onDismiss && (
+        <button
+          type="button"
+          onClick={onDismiss}
+          aria-label="Dismiss notification"
+          className={styles.dismissBtn}
+        >
+          <X size={12} aria-hidden="true" />
+        </button>
+      )}
+    </div>
+  );
+});
+
+Toast.displayName = "Toast";

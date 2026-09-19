@@ -7,8 +7,14 @@ import type { ShortcutDefinition } from "../../hooks/use-keyboard-shortcuts";
 const meta: Meta<typeof ShortcutCheatSheet> = {
   title: "Overlays/ShortcutCheatSheet",
   component: ShortcutCheatSheet,
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
 };
 
@@ -98,4 +104,33 @@ export const Default: Story = {
       </div>
     );
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ position: "relative", minHeight: "500px", width: "100%" }}>
+      <ShortcutCheatSheet
+        open={true}
+        onClose={() => {}}
+        shortcuts={sampleShortcuts.slice(0, 5)}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div style={{ position: "relative", minHeight: "450px" }}>
+        <h4 style={{ color: "var(--color-text-secondary)", fontFamily: "var(--font-sans)", margin: "0 0 var(--space-2) 0" }}>
+          Full Navigation & Grid Cheat Sheet
+        </h4>
+        <ShortcutCheatSheet
+          open={true}
+          onClose={() => {}}
+          shortcuts={sampleShortcuts}
+        />
+      </div>
+    </div>
+  ),
 };

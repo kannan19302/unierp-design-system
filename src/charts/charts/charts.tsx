@@ -1,6 +1,30 @@
 "use client";
 
-import React, { type FC, useState as _useChartState } from "react";
+import React, { forwardRef, type FC, useState as _useChartState } from "react";
+import styles from "./charts.module.css";
+
+export interface ChartsProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
+}
+
+/**
+ * Charts — Unified charts primitive gallery and canvas orchestrator.
+ *
+ * @maturity stable
+ */
+export const Charts = forwardRef<HTMLDivElement, ChartsProps>(
+  ({ className = "", children, ...rest }, ref) => (
+    <div
+      ref={ref}
+      className={`${styles.chartContainer} ${className}`.trim()}
+      {...rest}
+    >
+      {children}
+    </div>
+  )
+);
+
+Charts.displayName = "Charts";
 
 // ── Chart colour palette — uses CSS token vars from tokens/charts.css ────────
 // B10: No chart hardcodes a colour. All series reference the --chart-N scale.

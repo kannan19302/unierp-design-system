@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, type FC, type ReactNode, type CSSProperties } from "react";
+import { useState, forwardRef, type FC, type ReactNode, type CSSProperties } from "react";
 import { X } from "lucide-react";
 import { Portal } from "../portal";
 import { useEscapeKey, useFocusTrap, useScrollLock } from "../overlay-hooks";
@@ -25,7 +23,11 @@ const DRAWER_WIDTH: Record<NonNullable<DrawerProps["size"]>, number> = {
   lg: 640,
 };
 
-export const Drawer: FC<DrawerProps> = ({
+/**
+ * `<Drawer>` — Sliding sheet overlay for side-panel forms, filters, query builders, and inspectors.
+ * @maturity stable
+ */
+export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(({
   open,
   onClose,
   title,
@@ -36,7 +38,7 @@ export const Drawer: FC<DrawerProps> = ({
   children,
   "aria-label": ariaLabel,
   className = "",
-}) => {
+}, ref) => {
   const [panel, setPanel] = useState<HTMLDivElement | null>(null);
   useEscapeKey(onClose, open);
   useFocusTrap(panel, open);
@@ -60,7 +62,14 @@ export const Drawer: FC<DrawerProps> = ({
     <Portal>
       <div className={styles.backdrop} onClick={onClose} aria-hidden="true" />
       <div
-        ref={setPanel}
+        ref={(node) => {
+          setPanel(node);
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        }}
         role="dialog"
         aria-modal="true"
         aria-label={ariaLabel ?? (typeof title === "string" ? title : undefined)}
@@ -84,7 +93,9 @@ export const Drawer: FC<DrawerProps> = ({
       </div>
     </Portal>
   );
-};
+});
+
+Drawer.displayName = "Drawer";
 
 export interface SheetProps {
   open: boolean;

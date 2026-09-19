@@ -26,6 +26,10 @@ interface State {
   isRetrying: boolean;
 }
 
+/**
+ * `<ErrorBoundary>` — Fault-isolation boundary capturing render errors with incident ID reporting.
+ * @maturity stable
+ */
 export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
   public override state: State = {
     hasError: false,

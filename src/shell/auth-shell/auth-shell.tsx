@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import styles from "./auth-shell.module.css";
 
 export type AuthVariant =
@@ -57,8 +55,9 @@ const VARIANT_HEADINGS: Record<AuthVariant, { title: string; subtitle: string }>
  * The left panel centers the auth form on a white surface; the right
  * panel renders a brand illustration on the Strata canvas. The right
  * panel collapses below 768px for mobile-first responsiveness.
+ * @maturity stable
  */
-export const AuthShell: FC<AuthShellProps> = ({
+export const AuthShell = forwardRef<HTMLDivElement, AuthShellProps>(({
   variant,
   brandLogo,
   tenantName,
@@ -66,11 +65,11 @@ export const AuthShell: FC<AuthShellProps> = ({
   children,
   footer,
   className = "",
-}) => {
+}, ref) => {
   const { title, subtitle } = VARIANT_HEADINGS[variant];
 
   return (
-    <div className={`${styles.root} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.root} ${className}`.trim()}>
       {/* ── Form Panel ── */}
       <main className={styles.formPanel} id="unierp-main" aria-label="Authentication">
         <div className={styles.formContainer}>
@@ -94,4 +93,7 @@ export const AuthShell: FC<AuthShellProps> = ({
       )}
     </div>
   );
-};
+});
+
+AuthShell.displayName = "AuthShell";
+

@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useMemo, type FC } from "react";
+import { useState, useMemo, forwardRef } from "react";
 import { X, Search, Keyboard } from "lucide-react";
 import { Portal } from "../portal";
 import { useEscapeKey, useScrollLock } from "../overlay-hooks";
@@ -17,12 +15,20 @@ export interface ShortcutCheatSheetProps {
   className?: string;
 }
 
-export const ShortcutCheatSheet: FC<ShortcutCheatSheetProps> = ({
-  open,
-  onClose,
-  shortcuts,
-  className = "",
-}) => {
+/**
+ * ShortcutCheatSheet component displaying keyboard shortcuts overlay modal.
+ *
+ * @maturity stable
+ */
+export const ShortcutCheatSheet = forwardRef<HTMLDivElement, ShortcutCheatSheetProps>(function ShortcutCheatSheet(
+  {
+    open,
+    onClose,
+    shortcuts,
+    className = "",
+  },
+  ref
+) {
   const [filterQuery, setFilterQuery] = useState("");
 
   useEscapeKey(onClose, open);
@@ -86,6 +92,7 @@ export const ShortcutCheatSheet: FC<ShortcutCheatSheetProps> = ({
       <div className={styles.backdrop} onClick={onClose} aria-hidden="true" />
       <div className={styles.wrapper}>
         <div
+          ref={ref}
           role="dialog"
           aria-modal="true"
           aria-label="Keyboard Shortcuts"
@@ -146,4 +153,6 @@ export const ShortcutCheatSheet: FC<ShortcutCheatSheetProps> = ({
       </div>
     </Portal>
   );
-};
+});
+
+ShortcutCheatSheet.displayName = "ShortcutCheatSheet";

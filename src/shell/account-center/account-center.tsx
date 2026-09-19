@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import styles from "./account-center.module.css";
 
 export interface AccountSection {
@@ -28,12 +26,10 @@ export interface AccountCenterShellProps {
 }
 
 /**
- * `<AccountCenterShell>` — Unified Account Center layout.
- *
- * Provides a dedicated self-service workspace for user identity,
- * credentials, active sessions, density preferences, and accessibility settings.
+ * `<AccountCenterShell>` — Unified self-service identity workspace for user credentials, sessions, and preferences.
+ * @maturity stable
  */
-export const AccountCenterShell: FC<AccountCenterShellProps> = ({
+export const AccountCenterShell = forwardRef<HTMLDivElement, AccountCenterShellProps>(({
   user,
   sections,
   activeSection,
@@ -41,7 +37,7 @@ export const AccountCenterShell: FC<AccountCenterShellProps> = ({
   children,
   headerActions,
   className = "",
-}) => {
+}, ref) => {
   const initials = user.name
     .trim()
     .split(/\s+/)
@@ -52,7 +48,7 @@ export const AccountCenterShell: FC<AccountCenterShellProps> = ({
     .toUpperCase() || "U";
 
   return (
-    <div className={`${styles.root} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.root} ${className}`.trim()}>
       {/* ── User Header Banner ── */}
       <header className={styles.header}>
         <div className={styles.headerIdentity}>
@@ -130,4 +126,6 @@ export const AccountCenterShell: FC<AccountCenterShellProps> = ({
       </div>
     </div>
   );
-};
+});
+
+AccountCenterShell.displayName = "AccountCenterShell";

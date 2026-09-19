@@ -5,7 +5,7 @@ import {
   useRef,
   useCallback,
   useEffect,
-  type FC,
+  forwardRef,
   type ReactNode,
 } from "react";
 import { Portal } from "../portal";
@@ -21,14 +21,18 @@ export interface PopoverProps {
   className?: string;
 }
 
-export const Popover: FC<PopoverProps> = ({
+/**
+ * `<Popover>` — Floating non-modal content container anchored to an interactive trigger element.
+ * @maturity stable
+ */
+export const Popover = forwardRef<HTMLDivElement, PopoverProps>(({
   trigger,
   children,
   open: controlledOpen,
   onOpenChange,
   align = "left",
   className = "",
-}) => {
+}, ref) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -76,8 +80,14 @@ export const Popover: FC<PopoverProps> = ({
     }
   }, [open, align]);
 
+  const combinedRef = (node: HTMLDivElement | null) => {
+    (triggerRef as any).current = node;
+    if (typeof ref === "function") ref(node);
+    else if (ref) (ref as any).current = node;
+  };
+
   return (
-    <div ref={triggerRef} className={styles.container}>
+    <div ref={combinedRef} className={styles.container}>
       <div
         onClick={toggle}
         className={styles.triggerWrap}
@@ -102,4 +112,7 @@ export const Popover: FC<PopoverProps> = ({
       )}
     </div>
   );
-};
+});
+
+Popover.displayName = "Popover";
+

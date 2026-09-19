@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./view-switcher.module.css";
 
 export type ViewMode = "list" | "chart" | "kanban" | "grid";
@@ -11,10 +11,11 @@ export interface ViewOption {
   icon: React.ReactNode;
 }
 
-export interface ViewSwitcherProps {
+export interface ViewSwitcherProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   activeView: ViewMode;
   onViewChange: (view: ViewMode) => void;
   availableViews?: ViewMode[];
+  className?: string;
 }
 
 const iconStyle: React.CSSProperties = {
@@ -33,6 +34,7 @@ const ListIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     style={iconStyle}
+    aria-hidden="true"
   >
     <line x1="8" y1="6" x2="21" y2="6" />
     <line x1="8" y1="12" x2="21" y2="12" />
@@ -54,6 +56,7 @@ const BarChartIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     style={iconStyle}
+    aria-hidden="true"
   >
     <line x1="12" y1="20" x2="12" y2="10" />
     <line x1="18" y1="20" x2="18" y2="4" />
@@ -72,6 +75,7 @@ const KanbanIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     style={iconStyle}
+    aria-hidden="true"
   >
     <rect x="3" y="3" width="5" height="18" rx="1" />
     <rect x="10" y="3" width="5" height="12" rx="1" />
@@ -90,6 +94,7 @@ const GridIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     style={iconStyle}
+    aria-hidden="true"
   >
     <rect x="3" y="3" width="7" height="7" />
     <rect x="14" y="3" width="7" height="7" />
@@ -112,27 +117,50 @@ const VIEW_LABELS: Record<ViewMode, string> = {
   grid: "Grid",
 };
 
-export const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
-  activeView,
-  onViewChange,
-  availableViews = ["list", "chart"],
-}) => (
-  <div role="group" aria-label="View Switcher" className={styles.container}>
-    {availableViews.map((mode) => {
-      const isActive = mode === activeView;
-      return (
-        <button
-          key={mode}
-          type="button"
-          onClick={() => onViewChange(mode)}
-          title={VIEW_LABELS[mode]}
-          aria-pressed={isActive}
-          className={`${styles.viewBtn} ${isActive ? styles.viewBtnActive : ""}`}
-        >
-          {VIEW_ICONS[mode]}
-          <span>{VIEW_LABELS[mode]}</span>
-        </button>
-      );
-    })}
-  </div>
+/**
+ * ViewSwitcher component allows enterprise operators to switch between
+ * list, chart, kanban, and grid operational visualizations.
+ *
+ * @maturity stable
+ */
+export const ViewSwitcher = forwardRef<HTMLDivElement, ViewSwitcherProps>(
+  (
+    {
+      activeView,
+      onViewChange,
+      availableViews = ["list", "chart"],
+      className = "",
+      ...restProps
+    },
+    ref
+  ) => {
+    return (
+      <div
+        ref={ref}
+        role="group"
+        aria-label="View Switcher"
+        className={`${styles.container} ${className}`.trim()}
+        {...restProps}
+      >
+        {availableViews.map((mode) => {
+          const isActive = mode === activeView;
+          return (
+            <button
+              key={mode}
+              type="button"
+              onClick={() => onViewChange(mode)}
+              title={VIEW_LABELS[mode]}
+              aria-pressed={isActive}
+              className={`${styles.viewBtn} ${isActive ? styles.viewBtnActive : ""}`}
+            >
+              {VIEW_ICONS[mode]}
+              <span>{VIEW_LABELS[mode]}</span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
 );
+
+ViewSwitcher.displayName = "ViewSwitcher";

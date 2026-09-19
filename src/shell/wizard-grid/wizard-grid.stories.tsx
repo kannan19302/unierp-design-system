@@ -35,7 +35,23 @@ const MOCK_TILES: WizardTile[] = [
 const meta: Meta<typeof PlatformWizardGrid> = {
   title: "Shell/PlatformWizardGrid",
   component: PlatformWizardGrid,
-  parameters: { layout: "padded" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "padded",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
+  },
+  argTypes: {
+    loading: { control: "boolean" },
+    loadingVariant: {
+      control: "select",
+      options: ["spinner", "skeleton"],
+    },
+  },
 };
 
 export default meta;
@@ -46,3 +62,37 @@ export const Default: Story = {
     tiles: MOCK_TILES,
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Populated Platform Grid</h4>
+        <PlatformWizardGrid tiles={MOCK_TILES} />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Skeleton Loading State</h4>
+        <PlatformWizardGrid tiles={[]} loading={true} loadingVariant="skeleton" />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Empty State</h4>
+        <PlatformWizardGrid
+          tiles={[]}
+          emptyTitle="No platforms available"
+          emptyDescription="Your account is not entitled to any active platforms."
+        />
+      </div>
+    </div>
+  ),
+};
+

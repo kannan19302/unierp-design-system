@@ -3,17 +3,19 @@
 import {
   useState,
   useRef,
-  type FC,
+  forwardRef,
+  useImperativeHandle,
   type ReactNode,
   type MouseEvent as ReactMouseEvent,
   type KeyboardEvent,
+  type HTMLAttributes,
 } from "react";
 import { FileText, CheckCircle2, GripVertical } from "lucide-react";
 import styles from "./split-screen-auditor.module.css";
 
 export type AuditorDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
 
-export interface SplitScreenAuditorProps {
+export interface SplitScreenAuditorProps extends HTMLAttributes<HTMLDivElement> {
   /** Left pane content: Document canvas, invoice PDF, medical chart, or drawing sheet */
   documentViewer: ReactNode;
   /** Right pane content: Extracted fields, ledger distribution, or audit checklist form */
@@ -42,21 +44,28 @@ export interface SplitScreenAuditorProps {
 /**
  * `<SplitScreenAuditor>` — Anatomy inspired by Bill.com (#41), Canvas SpeedGrader (#103), and Cerner eMAR (#102).
  * Dual-pane split-screen workspace pairing document/PDF source preview on the left with OCR extraction / audit form on the right.
+ *
+ * @maturity stable
  */
-export const SplitScreenAuditor: FC<SplitScreenAuditorProps> = ({
-  documentViewer,
-  auditForm,
-  documentTitle = "Source Document Evidence",
-  formTitle = "Audit & Ledger Distribution",
-  documentControls,
-  formActions,
-  defaultSplitRatio = 50,
-  minRatio = 25,
-  maxRatio = 75,
-  onSplitChange,
-  density = "compact",
-  className = "",
-}) => {
+export const SplitScreenAuditor = forwardRef<HTMLDivElement, SplitScreenAuditorProps>(
+  (
+    {
+      documentViewer,
+      auditForm,
+      documentTitle = "Source Document Evidence",
+      formTitle = "Audit & Ledger Distribution",
+      documentControls,
+      formActions,
+      defaultSplitRatio = 50,
+      minRatio = 25,
+      maxRatio = 75,
+      onSplitChange,
+      density = "compact",
+      className = "",
+      ...props
+    },
+    ref
+  ) => {
   const [splitRatio, setSplitRatio] = useState(defaultSplitRatio);
   const isDraggingRef = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -103,12 +112,15 @@ export const SplitScreenAuditor: FC<SplitScreenAuditorProps> = ({
     onSplitChange?.(nextRatio);
   };
 
+  useImperativeHandle(ref, () => containerRef.current!);
+
   return (
     <div
       ref={containerRef}
       className={`${styles.root} ${className}`.trim()}
       data-density={density}
       data-floorplan="split-screen-auditor"
+      {...props}
     >
       {/* ── Left Pane: Document Viewer ── */}
       <section
@@ -161,4 +173,7 @@ export const SplitScreenAuditor: FC<SplitScreenAuditorProps> = ({
       </section>
     </div>
   );
-};
+});
+
+SplitScreenAuditor.displayName = "SplitScreenAuditor";
+

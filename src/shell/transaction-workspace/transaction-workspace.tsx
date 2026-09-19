@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianState } from "../meridian-bar";
 import { StrataBar } from "../strata-bar";
 import { PageHeader } from "../../layout/page-header";
@@ -41,7 +41,11 @@ export interface TransactionWorkspaceProps {
   className?: string;
 }
 
-export const TransactionWorkspace: FC<TransactionWorkspaceProps> = ({
+/**
+ * `<TransactionWorkspace>` — High-density financial transaction voucher floorplan with context bar, document header, line items, and balancing footer.
+ * @maturity stable
+ */
+export const TransactionWorkspace = forwardRef<HTMLDivElement, TransactionWorkspaceProps>(({
   segments,
   state,
   action,
@@ -55,9 +59,10 @@ export const TransactionWorkspace: FC<TransactionWorkspaceProps> = ({
   footerActions,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className}`.trim()}
       data-floorplan="transaction-workspace"
       data-density={density}
@@ -136,4 +141,6 @@ export const TransactionWorkspace: FC<TransactionWorkspaceProps> = ({
       </div>
     </div>
   );
-};
+});
+
+TransactionWorkspace.displayName = "TransactionWorkspace";

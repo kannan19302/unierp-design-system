@@ -29,8 +29,14 @@ const mockProjects: MatterOrProject[] = [
 const meta: Meta<typeof BillableTimerDock> = {
   title: "Layout/BillableTimerDock",
   component: BillableTimerDock,
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
   argTypes: {
     density: {
@@ -61,11 +67,33 @@ export const MinimizedFloatingState: Story = {
   },
 };
 
-export const UltraCompactDensity: Story = {
-  args: {
-    projects: mockProjects,
-    initialMinimized: false,
-    currency: "$",
-    density: "ultra-compact",
-  },
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ position: "relative", height: 400, width: "100%", padding: "var(--space-4)", fontFamily: "var(--font-sans)" }}>
+      <h3>Case Matter Workspace</h3>
+      <p style={{ color: "var(--color-text-secondary)" }}>
+        Persistent bottom-right floating stopwatch dock tracks billable hours and rates across enterprise matters.
+      </p>
+      <BillableTimerDock
+        projects={mockProjects}
+        initialMinimized={false}
+        currency="$"
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div style={{ position: "relative", height: 350 }}>
+        <BillableTimerDock
+          projects={mockProjects}
+          initialMinimized={false}
+          density="standard"
+        />
+      </div>
+    </div>
+  ),
 };

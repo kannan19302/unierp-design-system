@@ -7,7 +7,7 @@ import {
   useId,
   useEffect,
   isValidElement,
-  type FC,
+  forwardRef,
   type ReactNode,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
@@ -25,12 +25,16 @@ export interface DropdownMenuProps {
   className?: string;
 }
 
-export const DropdownMenu: FC<DropdownMenuProps> = ({
+/**
+ * `<DropdownMenu>` — Accessible action dropdown menu anchored to trigger with full WAI-ARIA keyboard navigation.
+ * @maturity stable
+ */
+export const DropdownMenu = forwardRef<HTMLDivElement, DropdownMenuProps>(({
   trigger,
   items,
   id,
   className = "",
-}) => {
+}, ref) => {
   const [open, setOpen] = useState(false);
   const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -92,7 +96,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   const TriggerTag = isValidElement(trigger) ? Slot : "button";
 
   return (
-    <div className={styles.container}>
+    <div ref={ref} className={styles.container}>
       <TriggerTag
         ref={triggerRef as never}
         {...(TriggerTag === "button" ? { type: "button" as const } : {})}
@@ -151,4 +155,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
       )}
     </div>
   );
-};
+});
+
+DropdownMenu.displayName = "DropdownMenu";
+

@@ -1,6 +1,4 @@
-"use client";
-
-import { type FC } from "react";
+import { forwardRef } from "react";
 import styles from "./progress.module.css";
 
 export type ProgressVariant = "primary" | "success" | "warning" | "danger" | "neutral";
@@ -16,7 +14,11 @@ export interface ProgressProps {
   className?: string;
 }
 
-export const Progress: FC<ProgressProps> = ({
+/**
+ * `<Progress>` — Accessible progress bar element with determinate and indeterminate loading modes.
+ * @maturity stable
+ */
+export const Progress = forwardRef<HTMLDivElement, ProgressProps>(({
   value,
   max = 100,
   variant = "primary",
@@ -24,14 +26,14 @@ export const Progress: FC<ProgressProps> = ({
   label = "Progress",
   showValue = false,
   className = "",
-}) => {
+}, ref) => {
   const isIndeterminate = value === undefined;
   const percentage = !isIndeterminate
     ? Math.min(100, Math.max(0, (value / max) * 100))
     : undefined;
 
   return (
-    <div className={`${styles.wrapper} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.wrapper} ${className}`.trim()}>
       {(label || showValue) && (
         <div className={styles.header}>
           {label && <span className={styles.label}>{label}</span>}
@@ -55,4 +57,6 @@ export const Progress: FC<ProgressProps> = ({
       </div>
     </div>
   );
-};
+});
+
+Progress.displayName = "Progress";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FC, type ReactNode } from "react";
+import { useState, forwardRef, type ReactNode } from "react";
 import styles from "./ops-shell.module.css";
 
 /**
@@ -72,7 +72,11 @@ const HEALTH_CLASS: Record<OpsHealth, string | undefined> = {
   down: styles.strip_down,
 };
 
-export const OpsShell: FC<OpsShellProps> = ({
+/**
+ * `<OpsShell>` — Provider Admin OS control-plane floorplan with persistent live health strip, fixed icon rail, and failure-aware console drawer.
+ * @maturity stable
+ */
+export const OpsShell = forwardRef<HTMLDivElement, OpsShellProps>(({
   rail,
   activeRailId,
   metrics,
@@ -86,11 +90,12 @@ export const OpsShell: FC<OpsShellProps> = ({
   density,
   className = "",
   children,
-}) => {
+}, ref) => {
   const [open, setOpen] = useState(false);
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className}`.trim()}
       data-floorplan="ops-shell"
       data-density={density}
@@ -181,4 +186,6 @@ export const OpsShell: FC<OpsShellProps> = ({
       </div>
     </div>
   );
-};
+});
+
+OpsShell.displayName = "OpsShell";

@@ -1,26 +1,106 @@
 "use client";
 
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./dashboard-widget-toolbar.module.css";
 
-export interface DashboardWidgetToolbarProps { title: string; onRefresh?: () => void; onExpand?: () => void; onExport?: () => void; onEdit?: () => void; lastUpdated?: string; }
+export interface DashboardWidgetToolbarProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  title: string;
+  onRefresh?: () => void;
+  onExpand?: () => void;
+  onExport?: () => void;
+  onEdit?: () => void;
+  lastUpdated?: string;
+}
 
-export const DashboardWidgetToolbar: React.FC<DashboardWidgetToolbarProps> = (props) => {
-  const { title, onRefresh, onExpand, onExport, onEdit, lastUpdated } = props;
+/**
+ * DashboardWidgetToolbar
+ *
+ * Micro-action header bar for individual dashboard widgets and analytical cards,
+ * providing refresh triggers, fullscreen expand, CSV/PDF export, and configuration toggles.
+ *
+ * @maturity stable
+ */
+export const DashboardWidgetToolbar = forwardRef<
+  HTMLDivElement,
+  DashboardWidgetToolbarProps
+>(function DashboardWidgetToolbar(
+  {
+    title,
+    onRefresh,
+    onExpand,
+    onExport,
+    onEdit,
+    lastUpdated,
+    className,
+    ...restProps
+  },
+  ref
+) {
+  const containerClasses = [styles.container, className]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className={styles.container} style={{ padding: 'var(--space-2) var(--space-3)' }} role="toolbar" aria-label={title + ' toolbar'}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-          <span style={{ fontWeight: 'var(--weight-semibold, 600)', fontSize: 'var(--text-sm)' }}>{title}</span>
-          {lastUpdated && <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-tertiary)' }}>Updated {lastUpdated}</span>}
+    <div
+      ref={ref}
+      className={containerClasses}
+      role="toolbar"
+      aria-label={`${title} toolbar`}
+      {...restProps}
+    >
+      <div className={styles.inner}>
+        <div className={styles.titleArea}>
+          <span className={styles.title}>{title}</span>
+          {lastUpdated && (
+            <span className={styles.updated}>Updated {lastUpdated}</span>
+          )}
         </div>
-        <div style={{ display: 'flex', gap: 'var(--space-1)' }}>
-          {onRefresh && <button className={styles.btn} onClick={onRefresh} aria-label="Refresh" style={{ padding: 'var(--space-1)' }}>⟳</button>}
-          {onExpand && <button className={styles.btn} onClick={onExpand} aria-label="Expand" style={{ padding: 'var(--space-1)' }}>⤢</button>}
-          {onExport && <button className={styles.btn} onClick={onExport} aria-label="Export" style={{ padding: 'var(--space-1)' }}>↗</button>}
-          {onEdit && <button className={styles.btn} onClick={onEdit} aria-label="Edit" style={{ padding: 'var(--space-1)' }}>✎</button>}
+        <div className={styles.actions}>
+          {onRefresh && (
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={onRefresh}
+              aria-label="Refresh widget data"
+            >
+              ⟳
+            </button>
+          )}
+          {onExpand && (
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={onExpand}
+              aria-label="Expand widget fullscreen"
+            >
+              ⤢
+            </button>
+          )}
+          {onExport && (
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={onExport}
+              aria-label="Export widget dataset"
+            >
+              ↗
+            </button>
+          )}
+          {onEdit && (
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={onEdit}
+              aria-label="Edit widget configuration"
+            >
+              ✎
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
-};
+});
+
+DashboardWidgetToolbar.displayName = "DashboardWidgetToolbar";

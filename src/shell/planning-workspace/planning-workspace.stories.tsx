@@ -5,8 +5,15 @@ import { Button } from "../../primitives/button";
 const meta: Meta<typeof PlanningWorkspace> = {
   title: "Shell/Floorplans/PlanningWorkspace",
   component: PlanningWorkspace,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: {
+      element: "#storybook-root",
+      config: {
+        rules: [{ id: "color-contrast", enabled: true }],
+      },
+    },
   },
   argTypes: {
     action: { control: false },
@@ -15,6 +22,10 @@ const meta: Meta<typeof PlanningWorkspace> = {
     legend: { control: false },
     actions: { control: false },
     children: { control: false },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
   },
 };
 
@@ -52,3 +63,41 @@ export const ProjectRoadmap: Story = {
     actions: <Button variant="primary">Export Plan</Button>,
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  name: "Anatomy & Composition",
+  args: {
+    ...ProjectRoadmap.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All States Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>On-Track Plan</h4>
+        <PlanningWorkspace
+          {...ProjectRoadmap.args}
+          title="Q3 Strategic Plan"
+          state={{ label: "On Track", tone: "success" }}
+        />
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Critical Path Alert State</h4>
+        <PlanningWorkspace
+          {...ProjectRoadmap.args}
+          title="Capacity Over-Allocation Plan"
+          state={{ label: "Capacity Exceeded", tone: "danger" }}
+          legend={
+            <div style={{ color: "var(--color-status-danger)", fontSize: "var(--text-xs)", fontWeight: 600 }}>
+              ⚠️ Team allocation exceeded by 40 hours in Week 38.
+            </div>
+          }
+        />
+      </div>
+    </div>
+  ),
+};
+

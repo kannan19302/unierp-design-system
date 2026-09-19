@@ -1,16 +1,17 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — FilterBar Styles
+   UniERP Design Language 2.0 — FilterBar Styles
    ══════════════════════════════════════════════════════════════ */
 
 .filterBar {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-1-5) var(--space-3);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
-  font-family: var(--font-sans);
+  font-family: var(--font-sans, "Inter", sans-serif);
   box-sizing: border-box;
   flex-wrap: wrap;
 }
@@ -42,9 +43,10 @@
   background: none;
   border: none;
   padding: 0;
+  font-family: inherit;
   font-size: var(--type-micro, 11px);
   font-weight: var(--weight-medium);
-  color: var(--color-danger, #ef4444);
+  color: var(--color-danger);
   cursor: pointer;
   outline: none;
 }
@@ -53,12 +55,18 @@
   text-decoration: underline;
 }
 
+.clearBtn:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
+}
+
 /* ── FilterTag ── */
 .tag {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  padding: 1px var(--space-2);
+  padding-block: 1px;
+  padding-inline: var(--space-2);
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-xs, 2px);
@@ -83,8 +91,14 @@
   padding: 0;
   cursor: pointer;
   color: var(--surface-text-secondary, var(--color-text-muted));
+  border-radius: var(--radius-xs);
 }
 
 .tagRemoveBtn:hover {
-  color: var(--color-danger, #ef4444);
+  color: var(--color-danger);
+}
+
+.tagRemoveBtn:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
 }

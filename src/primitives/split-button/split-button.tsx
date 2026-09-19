@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState, useRef, useEffect, type ReactNode } from "react";
+import React, { forwardRef, useState, useRef, useEffect, useImperativeHandle, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./split-button.module.css";
@@ -26,7 +24,11 @@ export interface SplitButtonProps {
   "aria-label"?: string;
 }
 
-export function SplitButton({
+/**
+ * `<SplitButton>` — Dual-action element combining primary action with contextual menu trigger.
+ * @maturity stable
+ */
+export const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(({
   label,
   onClick,
   items,
@@ -36,9 +38,10 @@ export function SplitButton({
   disabled = false,
   className,
   "aria-label": ariaLabel,
-}: SplitButtonProps) {
+}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  useImperativeHandle(ref, () => containerRef.current!);
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -122,4 +125,6 @@ export function SplitButton({
       )}
     </div>
   );
-}
+});
+
+SplitButton.displayName = "SplitButton";

@@ -1,6 +1,4 @@
-"use client";
-
-import type { FC } from "react";
+import { forwardRef } from "react";
 import styles from "./brand-mark.module.css";
 
 export interface BrandMarkProps {
@@ -9,16 +7,20 @@ export interface BrandMarkProps {
   className?: string;
 }
 
-/** Canonical UniERP product mark used by every web surface. */
-export const BrandMark: FC<BrandMarkProps> = ({
+/**
+ * `<BrandMark>` — Canonical UniERP product mark used across all web surfaces.
+ * @maturity stable
+ */
+export const BrandMark = forwardRef<HTMLSpanElement, BrandMarkProps>(({
   compact = false,
   size = "md",
   className = "",
-}) => {
+}, ref) => {
   const pixels = size === "sm" ? 24 : size === "lg" ? 40 : 30;
 
   return (
     <span
+      ref={ref}
       className={`${styles.container} ${styles[size]} ${className}`.trim()}
       aria-label="UniERP"
       role="img"
@@ -58,4 +60,6 @@ export const BrandMark: FC<BrandMarkProps> = ({
       )}
     </span>
   );
-};
+});
+
+BrandMark.displayName = "BrandMark";

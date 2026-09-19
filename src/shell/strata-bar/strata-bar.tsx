@@ -1,6 +1,4 @@
-"use client";
-
-import { useCallback, useState, type FC, type ReactNode } from "react";
+import { forwardRef, useCallback, useState, type ReactNode } from "react";
 import { Check, Copy } from "lucide-react";
 import styles from "./strata-bar.module.css";
 
@@ -84,7 +82,11 @@ export interface StrataBarProps {
   className?: string;
 }
 
-export const StrataBar: FC<StrataBarProps> = ({
+/**
+ * `<StrataBar>` — Operational scope context bar rendering resource breadcrumbs, state pills, lifecycle chevrons, and actions.
+ * @maturity stable
+ */
+export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
   segments,
   address,
   scope,
@@ -93,7 +95,7 @@ export const StrataBar: FC<StrataBarProps> = ({
   activeUsers,
   action,
   className,
-}) => {
+}, ref) => {
   const [copied, setCopied] = useState(false);
 
   const copyText = segments ? segments.join(" / ") : undefined;
@@ -115,6 +117,7 @@ export const StrataBar: FC<StrataBarProps> = ({
 
   return (
     <header
+      ref={ref}
       aria-label="Operational Context Bar"
       className={`${styles.root} ${scope ? styles.scoped : ""} ${className ?? ""}`}
       style={scopeStyle}
@@ -196,4 +199,6 @@ export const StrataBar: FC<StrataBarProps> = ({
       </div>
     </header>
   );
-};
+});
+
+StrataBar.displayName = "StrataBar";

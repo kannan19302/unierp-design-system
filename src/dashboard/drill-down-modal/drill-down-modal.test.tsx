@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -36,6 +37,21 @@ describe("DrillDownModal Primitive", () => {
 
     expect(screen.queryByText("Acme Corp")).not.toBeInTheDocument();
     expect(screen.getByText("Globex Inc")).toBeInTheDocument();
+  });
+
+  it("forwards ref correctly to backdrop element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <DrillDownModal
+        ref={ref}
+        isOpen={true}
+        onClose={() => {}}
+        title="Source Records"
+        columns={MOCK_COLUMNS}
+        rows={MOCK_ROWS}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

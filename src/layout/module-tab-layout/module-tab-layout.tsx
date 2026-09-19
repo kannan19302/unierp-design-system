@@ -4,11 +4,12 @@ import {
   useState,
   useEffect,
   useRef,
-  type FC,
+  forwardRef,
   type ReactNode,
   type ComponentType,
   type DragEvent,
   type KeyboardEvent,
+  type HTMLAttributes,
 } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -43,7 +44,7 @@ export interface ModuleTab {
   closable?: boolean;
 }
 
-export interface ModuleTabLayoutProps {
+export interface ModuleTabLayoutProps extends HTMLAttributes<HTMLDivElement> {
   tabs: ModuleTab[];
   moduleId: string;
   moduleLabel: string;
@@ -71,17 +72,29 @@ function isTabActive(
   return tab.id === "overview" && !tabParam;
 }
 
-export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
-  tabs,
-  moduleId,
-  moduleLabel,
-  moduleIcon: ModuleIcon,
-  moduleDescription,
-  headerActions,
-  variant = "default",
-  onCloseTab,
-  children,
-}) => {
+/**
+ * `<ModuleTabLayout>` — Orchestrates top-level application module shells,
+ * persistent pinned tabs, recently visited routes, and customizable layout order.
+ *
+ * @maturity stable
+ */
+export const ModuleTabLayout = forwardRef<HTMLDivElement, ModuleTabLayoutProps>(
+  (
+    {
+      tabs,
+      moduleId,
+      moduleLabel,
+      moduleIcon: ModuleIcon,
+      moduleDescription,
+      headerActions,
+      variant = "default",
+      onCloseTab,
+      children,
+      className = "",
+      ...props
+    },
+    ref
+  ) => {
   let pathname = "";
   let searchParams: any = new URLSearchParams();
   try {
@@ -381,7 +394,11 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
   );
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      ref={ref}
+      className={`${styles.wrapper} ${className}`.trim()}
+      {...props}
+    >
       {/* Module Header */}
       <div className={styles.header}>
         <div className={styles.headerLeft}>
@@ -452,4 +469,7 @@ export const ModuleTabLayout: FC<ModuleTabLayoutProps> = ({
       )}
     </div>
   );
-};
+});
+
+ModuleTabLayout.displayName = "ModuleTabLayout";
+

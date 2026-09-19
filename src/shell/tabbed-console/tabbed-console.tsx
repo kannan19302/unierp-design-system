@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, type FC, type ReactNode } from "react";
+import { useState, useRef, useEffect, forwardRef, type ReactNode } from "react";
 import { X, Plus, ChevronDown, Search, AlertTriangle, FileText } from "lucide-react";
 import styles from "./tabbed-console.module.css";
 
@@ -30,7 +30,11 @@ export interface TabbedConsoleProps {
   children?: ReactNode;
 }
 
-export const TabbedConsole: FC<TabbedConsoleProps> = ({
+/**
+ * `<TabbedConsole>` — Multi-document tabbed workspace console with dirty state protection, overflow search, and density support.
+ * @maturity stable
+ */
+export const TabbedConsole = forwardRef<HTMLDivElement, TabbedConsoleProps>(({
   tabs,
   activeTabId,
   onTabChange,
@@ -41,7 +45,7 @@ export const TabbedConsole: FC<TabbedConsoleProps> = ({
   density,
   className,
   children,
-}) => {
+}, ref) => {
   const [internalActiveId, setInternalActiveId] = useState<string>(
     activeTabId ?? (tabs[0]?.id ?? ""),
   );
@@ -104,6 +108,7 @@ export const TabbedConsole: FC<TabbedConsoleProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className ?? ""}`}
       data-floorplan="tabbed-console"
       data-density={density}
@@ -305,4 +310,7 @@ export const TabbedConsole: FC<TabbedConsoleProps> = ({
       </div>
     </div>
   );
-};
+});
+
+TabbedConsole.displayName = "TabbedConsole";
+
