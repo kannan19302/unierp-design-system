@@ -6,8 +6,8 @@
 .root {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-surface, var(--color-bg-elevated));
@@ -17,10 +17,12 @@
 
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  inline-size: 1px;
+  block-size: 1px;
+  padding-block: 0;
+  padding-inline: 0;
+  margin-block: -1px;
+  margin-inline: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -32,10 +34,11 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-1) var(--space-2);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   background-color: var(--color-bg-subtle, var(--color-bg));
-  border-bottom: 1px solid var(--color-border);
-  min-height: var(--density-row-height, 32px);
+  border-block-end: 1px solid var(--color-border);
+  min-block-size: var(--density-row-height, 32px);
   flex-shrink: 0;
 }
 
@@ -43,9 +46,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 var(--space-2);
-  height: var(--space-6, 24px);
-  min-width: var(--space-12, 48px);
+  padding-block: 0;
+  padding-inline: var(--space-2);
+  block-size: var(--space-6, 24px);
+  min-inline-size: var(--space-12, 48px);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -67,8 +71,9 @@
 
 .formulaInput {
   flex: 1;
-  height: var(--space-6, 24px);
-  padding: 0 var(--space-2);
+  block-size: var(--space-6, 24px);
+  padding-block: 0;
+  padding-inline: var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background-color: var(--color-surface);
@@ -91,8 +96,8 @@
 
 .table {
   border-collapse: collapse;
-  width: max-content;
-  min-width: 100%;
+  inline-size: max-content;
+  min-inline-size: 100%;
   user-select: none;
   font-size: var(--text-xs);
 }
@@ -102,44 +107,46 @@
 }
 
 .cornerHeader {
-  width: var(--space-10, 40px);
+  inline-size: var(--space-10, 40px);
   background-color: var(--color-bg-subtle, var(--color-bg));
-  border-bottom: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
+  border-inline-end: 1px solid var(--color-border);
   position: sticky;
-  top: 0;
-  left: 0;
+  inset-block-start: 0;
+  inset-inline-start: 0;
   z-index: 3;
 }
 
 .colHeader {
-  min-width: var(--space-20, 80px);
-  padding: var(--space-1) var(--space-2);
+  min-inline-size: var(--space-20, 80px);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   background-color: var(--color-bg-subtle, var(--color-bg));
-  border-bottom: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
+  border-inline-end: 1px solid var(--color-border);
   color: var(--color-text-muted);
   font-size: var(--text-2xs, 10px);
   font-weight: var(--weight-bold);
   text-align: center;
   position: sticky;
-  top: 0;
+  inset-block-start: 0;
   z-index: 2;
 }
 
 .rowHeader {
-  width: var(--space-10, 40px);
-  padding: var(--space-1);
+  inline-size: var(--space-10, 40px);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1);
   background-color: var(--color-bg-subtle, var(--color-bg));
-  border-bottom: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
+  border-inline-end: 1px solid var(--color-border);
   color: var(--color-text-muted);
   font-family: var(--font-mono);
   font-size: var(--text-2xs, 10px);
   font-weight: var(--weight-medium);
   text-align: center;
   position: sticky;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
 }
 
@@ -149,11 +156,12 @@
 }
 
 .cell {
-  min-width: var(--space-20, 80px);
-  height: var(--density-row-height, 28px);
-  padding: 0 var(--space-2);
-  border-bottom: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
+  min-inline-size: var(--space-20, 80px);
+  block-size: var(--density-row-height, 28px);
+  padding-block: 0;
+  padding-inline: var(--space-2);
+  border-block-end: 1px solid var(--color-border);
+  border-inline-end: 1px solid var(--color-border);
   color: var(--color-text-primary, var(--color-text));
   position: relative;
   cursor: cell;
@@ -161,7 +169,7 @@
 
 .cellContent {
   display: block;
-  width: 100%;
+  inline-size: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -179,10 +187,11 @@
 .cellInput {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   border: 2px solid var(--color-primary);
-  padding: 0 var(--space-2);
+  padding-block: 0;
+  padding-inline: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   background-color: var(--color-surface);
@@ -197,24 +206,26 @@
 
 /* ── 4-Tier Density ── */
 .root[data-density="ultra-compact"] .formulaBar {
-  min-height: var(--density-row-height);
-  padding: var(--space-0-5, 2px) var(--space-1);
+  min-block-size: var(--density-row-height);
+  padding-block: var(--space-0-5, 2px);
+  padding-inline: var(--space-1);
 }
 
 .root[data-density="ultra-compact"] .cell {
-  height: var(--density-row-height);
+  block-size: var(--density-row-height);
   font-size: var(--text-2xs, 10px);
 }
 
 .root[data-density="compact"] .cell {
-  height: var(--density-row-height);
+  block-size: var(--density-row-height);
 }
 
 .root[data-density="standard"] .cell {
-  height: var(--density-row-height);
+  block-size: var(--density-row-height);
 }
 
 .root[data-density="comfortable"] .cell {
-  height: var(--density-row-height);
-  padding: 0 var(--space-3);
+  block-size: var(--density-row-height);
+  padding-block: 0;
+  padding-inline: var(--space-3);
 }

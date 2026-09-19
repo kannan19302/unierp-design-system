@@ -13,7 +13,7 @@ const mockBudgetData = [
 ];
 
 const meta: Meta<typeof SpreadsheetGrid> = {
-  title: "DataGrid/SpreadsheetGrid",
+  title: "Data Grid/SpreadsheetGrid",
   component: SpreadsheetGrid,
   tags: ["autodocs"],
   parameters: {
@@ -30,6 +30,38 @@ export const BudgetForecasting: Story = {
     initialData: mockBudgetData,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...BudgetForecasting.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Budget Forecasting (Compact)</h4>
+        <SpreadsheetGrid
+          columns={mockBudgetColumns}
+          initialData={mockBudgetData}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact Density</h4>
+        <SpreadsheetGrid
+          columns={["Code", "Name", "Jan", "Feb", "Mar", "Apr", "May", "Jun"]}
+          initialData={[
+            ["A1", "Item One", "10", "20", "30", "40", "50", "60"],
+            ["A2", "Item Two", "15", "25", "35", "45", "55", "65"],
+          ]}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const GLDistributionMatrix: Story = {

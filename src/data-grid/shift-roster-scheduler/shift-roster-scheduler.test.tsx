@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import {
   ShiftRosterScheduler,
   EmployeeRosterEntry,
@@ -64,6 +64,17 @@ describe("ShiftRosterScheduler", () => {
     const addBtns = screen.getAllByRole("button", { name: /Assign shift to Marco Rossi/i });
     fireEvent.click(addBtns[0]);
     expect(onAssign).toHaveBeenCalledWith("emp-101", expect.any(Number));
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <ShiftRosterScheduler
+        ref={ref}
+        employees={mockEmployees}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("passes automated accessibility (axe) checks", async () => {

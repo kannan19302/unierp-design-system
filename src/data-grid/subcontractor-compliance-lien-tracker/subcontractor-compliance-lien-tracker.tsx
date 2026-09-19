@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./subcontractor-compliance-lien-tracker.module.css";
 
 export type LienWaiverStatus =
@@ -31,13 +31,18 @@ export interface SubcontractorComplianceLienTrackerProps {
   className?: string;
 }
 
-export const SubcontractorComplianceLienTracker: React.FC<SubcontractorComplianceLienTrackerProps> = ({
+/**
+ * SubcontractorComplianceLienTracker tracks trade contractor statutory lien waivers, insurance certificates, and disbursement holds.
+ *
+ * @maturity stable
+ */
+export const SubcontractorComplianceLienTracker = forwardRef<HTMLElement, SubcontractorComplianceLienTrackerProps>(({
   records,
   onAuthorizePayment,
   onRequestLienWaiver,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const filterId = useId();
   const [tradeFilter, setTradeFilter] = useState<string>("ALL");
@@ -94,6 +99,7 @@ export const SubcontractorComplianceLienTracker: React.FC<SubcontractorComplianc
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -222,4 +228,7 @@ export const SubcontractorComplianceLienTracker: React.FC<SubcontractorComplianc
       </div>
     </section>
   );
-};
+});
+
+SubcontractorComplianceLienTracker.displayName = "SubcontractorComplianceLienTracker";
+

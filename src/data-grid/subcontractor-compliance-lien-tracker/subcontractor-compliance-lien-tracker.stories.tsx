@@ -1,18 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { SubcontractorComplianceLienTracker } from "./subcontractor-compliance-lien-tracker";
 
-const meta: Meta<typeof SubcontractorComplianceLienTracker> = {
-  title: "DataGrid/SubcontractorComplianceLienTracker",
-  component: SubcontractorComplianceLienTracker,
-  parameters: {
-    layout: "centered",
-  },
-  tags: ["autodocs"],
-};
-
-export default meta;
-type Story = StoryObj<typeof SubcontractorComplianceLienTracker>;
-
 const mockRecords = [
   {
     id: "sub-1",
@@ -52,11 +40,50 @@ const mockRecords = [
   },
 ];
 
+const meta: Meta<typeof SubcontractorComplianceLienTracker> = {
+  title: "Data Grid/SubcontractorComplianceLienTracker",
+  component: SubcontractorComplianceLienTracker,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+};
+
+export default meta;
+type Story = StoryObj<typeof SubcontractorComplianceLienTracker>;
+
 export const Default: Story = {
   args: {
     records: mockRecords,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default View</h4>
+        <SubcontractorComplianceLienTracker
+          records={mockRecords}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <SubcontractorComplianceLienTracker
+          records={mockRecords}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {

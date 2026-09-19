@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -85,5 +86,11 @@ describe("SubcontractorComplianceLienTracker", () => {
     const requestBtn = screen.getByLabelText("Request updated lien waiver from Delta Mechanical");
     fireEvent.click(requestBtn);
     expect(handleRequest).toHaveBeenCalledWith("sub-2");
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<SubcontractorComplianceLienTracker ref={ref} records={mockRecords} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 });

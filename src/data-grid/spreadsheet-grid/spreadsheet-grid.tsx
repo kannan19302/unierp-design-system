@@ -1,9 +1,7 @@
-"use client";
-
 import {
+  forwardRef,
   useState,
   useRef,
-  type FC,
   type KeyboardEvent,
   type ChangeEvent,
 } from "react";
@@ -47,8 +45,10 @@ function getColumnLetter(colIndex: number): string {
 /**
  * `<SpreadsheetGrid>` — Inspired by Handsontable (#47), AG Grid Enterprise (#46), and Palantir Blueprint (#16).
  * High-density keyboard-driven matrix grid with coordinate headers (A..Z, 1..N), formula bar, and cell editing.
+ *
+ * @maturity stable
  */
-export const SpreadsheetGrid: FC<SpreadsheetGridProps> = ({
+export const SpreadsheetGrid = forwardRef<HTMLDivElement, SpreadsheetGridProps>(({
   columns,
   initialData,
   onChange,
@@ -57,7 +57,7 @@ export const SpreadsheetGrid: FC<SpreadsheetGridProps> = ({
   density = "compact",
   ariaLabel = "Financial Ledger Spreadsheet Grid",
   className = "",
-}) => {
+}, ref) => {
   const actualCols = columns ?? Array.from({ length: colCount }, (_, i) => getColumnLetter(i));
   const numCols = actualCols.length;
   const numRows = initialData ? initialData.length : rowCount;
@@ -176,6 +176,7 @@ export const SpreadsheetGrid: FC<SpreadsheetGridProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.root} ${className}`.trim()}
       data-density={density}
       data-floorplan="spreadsheet-grid"
@@ -286,4 +287,7 @@ export const SpreadsheetGrid: FC<SpreadsheetGridProps> = ({
       </div>
     </div>
   );
-};
+});
+
+SpreadsheetGrid.displayName = "SpreadsheetGrid";
+

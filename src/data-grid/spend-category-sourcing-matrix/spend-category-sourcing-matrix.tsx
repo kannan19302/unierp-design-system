@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./spend-category-sourcing-matrix.module.css";
 
 export type KraljicQuadrant = "STRATEGIC" | "BOTTLENECK" | "LEVERAGE" | "NON_CRITICAL";
@@ -27,13 +27,18 @@ export interface SpendCategorySourcingMatrixProps {
   className?: string;
 }
 
-export const SpendCategorySourcingMatrix: React.FC<SpendCategorySourcingMatrixProps> = ({
+/**
+ * SpendCategorySourcingMatrix evaluates procurement spend classification across Kraljic quadrants and contract expiration horizons.
+ *
+ * @maturity stable
+ */
+export const SpendCategorySourcingMatrix = forwardRef<HTMLElement, SpendCategorySourcingMatrixProps>(({
   fiscalYear = 2026,
   categories: initialCategories,
   onLaunchRfp,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [categories, setCategories] = useState<SpendCategoryItem[]>(initialCategories);
   const [quadrantFilter, setQuadrantFilter] = useState<string>("ALL");
@@ -66,6 +71,7 @@ export const SpendCategorySourcingMatrix: React.FC<SpendCategorySourcingMatrixPr
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -205,4 +211,7 @@ export const SpendCategorySourcingMatrix: React.FC<SpendCategorySourcingMatrixPr
       </footer>
     </section>
   );
-};
+});
+
+SpendCategorySourcingMatrix.displayName = "SpendCategorySourcingMatrix";
+

@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -57,6 +58,12 @@ describe("SpreadsheetGrid Component", () => {
       ["999", "200", "300"],
       ["400", "500", "600"],
     ]);
+  });
+
+  it("forwards ref to root container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<SpreadsheetGrid ref={ref} columns={mockColumns} initialData={mockData} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

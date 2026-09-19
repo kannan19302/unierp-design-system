@@ -12,51 +12,59 @@
 
 /* Densities */
 .ultra-compact {
-  padding: var(--space-2, 0.5rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-2, 0.5rem);
   gap: var(--space-2, 0.5rem);
 }
 
 .ultra-compact .table th,
 .ultra-compact .table td {
-  padding: var(--space-1, 0.125rem) var(--space-1, 0.25rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-1, 0.25rem);
 }
 
 .compact {
-  padding: var(--space-3, 0.75rem);
+  padding-block: var(--space-3, 0.75rem);
+  padding-inline: var(--space-3, 0.75rem);
   gap: var(--space-3, 0.75rem);
 }
 
 .compact .table th,
 .compact .table td {
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.375rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.375rem);
 }
 
 .standard {
-  padding: var(--space-4, 1rem);
+  padding-block: var(--space-4, 1rem);
+  padding-inline: var(--space-4, 1rem);
   gap: var(--space-4, 1rem);
 }
 
 .standard .table th,
 .standard .table td {
-  padding: var(--space-2, 0.375rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-2, 0.375rem);
+  padding-inline: var(--space-2, 0.5rem);
 }
 
 .comfortable {
-  padding: var(--space-6, 1.5rem);
+  padding-block: var(--space-6, 1.5rem);
+  padding-inline: var(--space-6, 1.5rem);
   gap: var(--space-6, 1.5rem);
 }
 
 .comfortable .table th,
 .comfortable .table td {
-  padding: var(--space-3, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-3, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
-  padding-bottom: var(--space-3, 0.75rem);
+  border-block-end: 1px solid var(--color-border-subtle, #e2e8f0);
+  padding-block-end: var(--space-3, 0.75rem);
   flex-wrap: wrap;
   gap: var(--space-3, 0.75rem);
 }
@@ -75,14 +83,15 @@
   display: flex;
   gap: var(--space-2, 0.5rem);
   align-items: center;
-  margin-bottom: var(--space-1, 0.25rem);
+  margin-block-end: var(--space-1, 0.25rem);
 }
 
 .weekBadge,
 .deptBadge {
   background-color: var(--color-surface-muted, #f1f5f9);
   color: var(--color-text-secondary, #475569);
-  padding: var(--space-1, 0.125rem) var(--space-2, 0.375rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-2, 0.375rem);
   border-radius: var(--radius-sm, 0.25rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-medium, 500);
@@ -95,7 +104,8 @@
 }
 
 .title {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--text-lg, 1.125rem);
   font-weight: var(--weight-bold, 700);
   color: var(--color-text-primary, #0f172a);
@@ -105,7 +115,8 @@
   background-color: var(--color-brand, #2563eb);
   color: var(--color-white, #ffffff);
   border: 1px solid transparent;
-  padding: var(--space-2, 0.375rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.375rem);
+  padding-inline: var(--space-3, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-semibold, 600);
@@ -122,7 +133,8 @@
   gap: var(--space-3, 0.75rem);
   background-color: var(--color-surface-subtle, #f8fafc);
   border: 1px solid var(--color-border-subtle, #e2e8f0);
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -157,9 +169,9 @@
 }
 
 .table {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: start;
   font-size: var(--text-xs, 0.75rem);
 }
 
@@ -167,25 +179,25 @@
   background-color: var(--color-surface-muted, #f8fafc);
   color: var(--color-text-secondary, #475569);
   font-weight: var(--weight-semibold, 600);
-  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-block-end: 1px solid var(--color-border-subtle, #e2e8f0);
 }
 
 .thStaff {
-  min-width: 10rem;
+  min-inline-size: 10rem;
 }
 
 .thDay {
-  min-width: 6.5rem;
+  min-inline-size: 6.5rem;
   text-align: center;
 }
 
 .thSummary {
-  min-width: 5rem;
-  text-align: right;
+  min-inline-size: 5rem;
+  text-align: end;
 }
 
 .tableRow {
-  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  border-block-end: 1px solid var(--color-border-subtle, #e2e8f0);
 }
 
 .staffCell {
@@ -204,15 +216,16 @@
 
 .dayCell {
   vertical-align: top;
-  border-left: 1px solid var(--color-border-subtle, #f1f5f9);
+  border-inline-start: 1px solid var(--color-border-subtle, #f1f5f9);
 }
 
 .shiftCard {
   background-color: var(--color-brand-subtle, #eff6ff);
   border: 1px solid var(--color-brand-subtle, #bfdbfe);
-  border-left: 2px solid var(--color-brand, #2563eb);
+  border-inline-start: 2px solid var(--color-brand, #2563eb);
   border-radius: var(--radius-sm, 0.25rem);
-  padding: var(--space-1, 0.125rem) var(--space-1, 0.25rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-1, 0.25rem);
   display: flex;
   flex-direction: column;
   gap: var(--space-1, 0.125rem);
@@ -241,7 +254,8 @@
   color: var(--color-text-secondary, #94a3b8);
   font-size: var(--text-xs, 0.75rem);
   cursor: pointer;
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
 }
 
 .removeShiftBtn:hover {
@@ -252,7 +266,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 2rem;
+  min-block-size: 2rem;
 }
 
 .addShiftBtn {
@@ -261,7 +275,8 @@
   color: var(--color-text-secondary, #94a3b8);
   font-size: var(--text-xs, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
-  padding: var(--space-1, 0.125rem) var(--space-1, 0.25rem);
+  padding-block: var(--space-1, 0.125rem);
+  padding-inline: var(--space-1, 0.25rem);
   cursor: pointer;
 }
 
@@ -271,7 +286,7 @@
 }
 
 .summaryCell {
-  text-align: right;
+  text-align: end;
   vertical-align: middle;
 }
 
@@ -283,7 +298,7 @@
 }
 
 .costCell {
-  text-align: right;
+  text-align: end;
   vertical-align: middle;
   font-family: var(--font-family-mono, monospace);
   font-weight: var(--weight-semibold, 600);
@@ -291,10 +306,12 @@
 
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  inline-size: 1px;
+  block-size: 1px;
+  padding-block: 0;
+  padding-inline: 0;
+  margin-block: -1px;
+  margin-inline: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;

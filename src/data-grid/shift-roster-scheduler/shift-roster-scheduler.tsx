@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./shift-roster-scheduler.module.css";
 
 export interface ScheduledShift {
@@ -34,7 +34,12 @@ export interface ShiftRosterSchedulerProps {
 
 const DAYS_OF_WEEK = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-export const ShiftRosterScheduler: React.FC<ShiftRosterSchedulerProps> = ({
+/**
+ * ShiftRosterScheduler renders weekly employee workforce schedules with labor budget variance and overtime tracking.
+ *
+ * @maturity stable
+ */
+export const ShiftRosterScheduler = forwardRef<HTMLElement, ShiftRosterSchedulerProps>(({
   rosterWeekLabel = "Sep 07 - Sep 13, 2026",
   departmentName = "Culinary & Kitchen Operations",
   laborBudget = 14500,
@@ -44,7 +49,7 @@ export const ShiftRosterScheduler: React.FC<ShiftRosterSchedulerProps> = ({
   onPublishRoster,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [published, setPublished] = useState<boolean>(false);
 
@@ -83,6 +88,7 @@ export const ShiftRosterScheduler: React.FC<ShiftRosterSchedulerProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -247,4 +253,7 @@ export const ShiftRosterScheduler: React.FC<ShiftRosterSchedulerProps> = ({
       </div>
     </section>
   );
-};
+});
+
+ShiftRosterScheduler.displayName = "ShiftRosterScheduler";
+

@@ -65,6 +65,39 @@ export const Default: Story = {
   },
 };
 
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default View</h4>
+        <ShiftRosterScheduler
+          employees={mockEmployees}
+          rosterWeekLabel="Sep 07 - Sep 13, 2026"
+          departmentName="Meridian Bistro & Kitchen"
+          laborBudget={5000}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <ShiftRosterScheduler
+          employees={mockEmployees}
+          rosterWeekLabel="Sep 07 - Sep 13, 2026"
+          departmentName="Meridian Bistro & Kitchen"
+          laborBudget={5000}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
 export const UltraCompactDensity: Story = {
   args: {
     employees: mockEmployees,

@@ -1,4 +1,4 @@
-import React from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -61,6 +61,12 @@ describe("SpendCategorySourcingMatrix", () => {
     fireEvent.click(rfpBtn);
     expect(handleLaunch).toHaveBeenCalledWith("spend_cat_01");
     expect(screen.getByText("RFP Dispatched")).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<SpendCategorySourcingMatrix ref={ref} categories={sampleCategories} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {
