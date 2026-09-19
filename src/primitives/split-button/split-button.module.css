@@ -17,7 +17,14 @@
   font-weight: var(--weight-medium);
   cursor: pointer;
   outline: none;
-  transition: var(--transition-color, background-color var(--duration-fast));
+  transition: background-color var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default),
+              transform var(--duration-fast) var(--ease-default);
+}
+
+.mainButton:active:not(:disabled),
+.toggleButton:active:not(:disabled) {
+  transform: scale(0.985);
 }
 
 .mainButton {

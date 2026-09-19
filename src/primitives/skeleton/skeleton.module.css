@@ -6,7 +6,7 @@
   display: block;
   width: var(--skeleton-w, 100%);
   height: var(--skeleton-h, 16px);
-  border-radius: var(--skeleton-r, var(--radius-sm, 2px));
+  border-radius: var(--skeleton-r, var(--radius-md, 6px));
   background: linear-gradient(
     90deg,
     var(--surface-sunken-bg, var(--color-bg-sunken)) 25%,

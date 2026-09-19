@@ -60,3 +60,36 @@ export const Disabled: Story = {
     items: [{ id: "1", label: "Item 1", onClick: () => {} }],
   },
 };
+
+export const VariantsMatrix = () => (
+  <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center" }}>
+    <SplitButton
+      label="Publish Invoice"
+      variant="primary"
+      onClick={() => alert("Published")}
+      items={[
+        { id: "1", label: "Schedule Release", onClick: () => {} },
+        { id: "2", label: "Export PDF", onClick: () => {} },
+      ]}
+    />
+    <SplitButton
+      label="Generate Report"
+      variant="secondary"
+      onClick={() => alert("Generated")}
+      items={[
+        { id: "1", label: "Export Excel", onClick: () => {} },
+        { id: "2", label: "Email to Board", onClick: () => {} },
+      ]}
+    />
+    <SplitButton
+      label="Delete Batch"
+      variant="danger"
+      onClick={() => alert("Deleted")}
+      items={[
+        { id: "1", label: "Archive Batch", onClick: () => {} },
+        { id: "2", label: "Purge Audit Log", danger: true, onClick: () => {} },
+      ]}
+    />
+  </div>
+);
+

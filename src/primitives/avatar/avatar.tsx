@@ -50,7 +50,10 @@ export const Avatar: FC<AvatarProps> = ({
         style={
           src && !imgError
             ? undefined
-            : { backgroundColor: getBackgroundColor(name || initials) }
+            : {
+                backgroundColor: getAvatarPalette(name || initials).bg,
+                color: getAvatarPalette(name || initials).fg,
+              }
         }
         role="img"
         aria-label={avatarLabel}
@@ -75,21 +78,26 @@ export const Avatar: FC<AvatarProps> = ({
   );
 };
 
-// Stable color hash for background
-const getBackgroundColor = (str?: string): string => {
-  if (!str) return "var(--surface-3-bg, var(--color-bg-muted))";
-  const colors = [
-    "var(--color-primary-light)",
-    "var(--color-info-light)",
-    "var(--color-success-light)",
-    "var(--color-warning-light)",
+// Stable color and contrast pairing for initials background and foreground
+const getAvatarPalette = (str?: string): { bg: string; fg: string } => {
+  if (!str) {
+    return {
+      bg: "var(--surface-3-bg, var(--color-bg-muted))",
+      fg: "var(--color-text-secondary)",
+    };
+  }
+  const palettes = [
+    { bg: "var(--color-primary-light)", fg: "var(--color-primary)" },
+    { bg: "var(--color-info-light)", fg: "var(--color-info)" },
+    { bg: "var(--color-success-light)", fg: "var(--color-success)" },
+    { bg: "var(--color-warning-light)", fg: "var(--color-warning)" },
   ];
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
-  const index = Math.abs(hash) % colors.length;
-  return colors[index] || colors[0]!;
+  const index = Math.abs(hash) % palettes.length;
+  return palettes[index] || palettes[0]!;
 };
 
 export interface AvatarGroupProps {
@@ -99,6 +107,8 @@ export interface AvatarGroupProps {
   children: ReactNode;
 }
 
+import React from "react";
+
 export const AvatarGroup: FC<AvatarGroupProps> = ({
   max = 4,
   size = "md",
@@ -106,7 +116,14 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({
   children,
 }) => {
   const childArray = Children.toArray(children);
-  const visibleChildren = childArray.slice(0, max);
+  const visibleChildren = childArray.slice(0, max).map((child) => {
+    if (React.isValidElement<AvatarProps>(child)) {
+      return React.cloneElement(child, {
+        size: child.props.size ?? size,
+      });
+    }
+    return child;
+  });
   const excess = childArray.length - max;
 
   return (

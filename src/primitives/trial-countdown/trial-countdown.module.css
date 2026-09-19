@@ -1,7 +1,11 @@
 .container {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-1-5, 6px);
+  padding: 2px var(--space-2-5, 10px);
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-bg-sunken);
+  border: 1px solid var(--color-border-subtle);
   font-size: var(--type-body-sm);
   font-variant-numeric: tabular-nums;
   color: var(--color-text-secondary);
@@ -13,8 +17,18 @@
   color: var(--color-text);
 }
 
+.warning {
+  background: var(--color-warning-light);
+  border-color: var(--color-warning);
+}
+
 .warning .time {
   color: var(--color-warning);
+}
+
+.critical {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
 }
 
 .critical .time {
@@ -22,7 +36,14 @@
 }
 
 .expired {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2-5, 10px);
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-danger-light);
+  border: 1px solid var(--color-danger);
   color: var(--color-danger);
   font-weight: var(--font-weight-medium, 500);
+  font-size: var(--type-body-sm);
 }
 

@@ -25,7 +25,7 @@
 
 .white {
   border-color: var(--color-border-subtle);
-  border-top-color: var(--color-text-inverse, #ffffff);
+  border-top-color: var(--color-text-inverse);
 }
 
 @media (prefers-reduced-motion: reduce) {

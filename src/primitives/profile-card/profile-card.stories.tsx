@@ -39,3 +39,89 @@ export const WithAvatar: Story = {
     variant: "full",
   },
 };
+
+export const FullWithActions: Story = {
+  render: () => (
+    <div style={{ width: 360 }}>
+      <ProfileCard
+        name="Sarah Connor"
+        email="sarah.connor@acme.corp"
+        role="Platform Architect"
+        tenantName="Acme Industrial Global"
+        variant="full"
+        actions={
+          <div style={{ display: "flex", gap: "var(--space-2)", width: "100%" }}>
+            <button
+              type="button"
+              style={{
+                flex: 1,
+                padding: "var(--space-1-5) var(--space-3)",
+                borderRadius: "var(--radius-sm)",
+                border: "1px solid var(--color-border)",
+                background: "var(--color-bg-surface)",
+                color: "var(--color-text)",
+                fontSize: "var(--text-xs)",
+                fontWeight: "var(--weight-medium)",
+                cursor: "pointer",
+              }}
+            >
+              Manage Account
+            </button>
+            <button
+              type="button"
+              style={{
+                padding: "var(--space-1-5) var(--space-3)",
+                borderRadius: "var(--radius-sm)",
+                border: "1px solid var(--color-border)",
+                background: "transparent",
+                color: "var(--color-danger)",
+                fontSize: "var(--text-xs)",
+                fontWeight: "var(--weight-medium)",
+                cursor: "pointer",
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
+        }
+      />
+    </div>
+  ),
+};
+
+export const DropdownHeaderDemo = () => (
+  <div
+    style={{
+      width: 280,
+      border: "1px solid var(--color-border)",
+      borderRadius: "var(--radius-md)",
+      background: "var(--color-bg-elevated)",
+      boxShadow: "var(--shadow-md)",
+      padding: "var(--space-1)",
+    }}
+  >
+    <ProfileCard
+      name="Kannan Admin"
+      email="test.agent@unierp.com"
+      variant="compact"
+    />
+    <div
+      style={{
+        height: 1,
+        background: "var(--color-border)",
+        margin: "var(--space-1) 0",
+      }}
+    />
+    <div
+      style={{
+        padding: "var(--space-1-5) var(--space-2)",
+        fontSize: "var(--text-xs)",
+        color: "var(--color-text-secondary)",
+        cursor: "pointer",
+        borderRadius: "var(--radius-sm)",
+      }}
+    >
+      Tenant: Acme Corp (Super Admin)
+    </div>
+  </div>
+);

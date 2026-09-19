@@ -80,3 +80,22 @@ export const Loading: Story = {
     isLoading: true,
   },
 };
+
+export const HierarchyMatrix = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+    <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="danger">Danger</Button>
+      <Button variant="link">Link</Button>
+    </div>
+    <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+      <Button variant="primary" size="sm">Small (28px)</Button>
+      <Button variant="primary" size="md">Medium (32px)</Button>
+      <Button variant="primary" size="lg">Large (40px)</Button>
+    </div>
+  </div>
+);
+

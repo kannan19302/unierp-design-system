@@ -45,3 +45,72 @@ export const CustomFallback: Story = {
     </ErrorBoundary>
   ),
 };
+
+export const InteractiveCrashAndReset = () => {
+  const [shouldCrash, setShouldCrash] = useState(false);
+  const [resetKey, setResetKey] = useState(0);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", width: 480 }}>
+      <div style={{ display: "flex", gap: "var(--space-2)" }}>
+        <button
+          type="button"
+          onClick={() => setShouldCrash(true)}
+          style={{
+            padding: "var(--space-1-5) var(--space-3)",
+            borderRadius: "var(--radius-sm)",
+            border: "1px solid var(--color-danger)",
+            background: "var(--color-danger-light)",
+            color: "var(--color-danger)",
+            fontSize: "var(--text-xs)",
+            fontWeight: "var(--weight-medium)",
+            cursor: "pointer",
+          }}
+        >
+          Simulate Runtime Exception
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setShouldCrash(false);
+            setResetKey((k) => k + 1);
+          }}
+          style={{
+            padding: "var(--space-1-5) var(--space-3)",
+            borderRadius: "var(--radius-sm)",
+            border: "1px solid var(--color-border)",
+            background: "var(--color-bg-surface)",
+            color: "var(--color-text)",
+            fontSize: "var(--text-xs)",
+            fontWeight: "var(--weight-medium)",
+            cursor: "pointer",
+          }}
+        >
+          Reset Simulation
+        </button>
+      </div>
+
+      <ErrorBoundary
+        key={resetKey}
+        showDetails
+        title="Ledger Reconciliation Exception"
+        description="A simulated unhandled error was intercepted by the UniERP ErrorBoundary primitive."
+        onReset={() => {
+          setShouldCrash(false);
+          setResetKey((k) => k + 1);
+        }}
+      >
+        <div
+          style={{
+            padding: "var(--space-4)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-md)",
+            background: "var(--color-bg-surface)",
+          }}
+        >
+          <CrashingChild shouldCrash={shouldCrash} />
+        </div>
+      </ErrorBoundary>
+    </div>
+  );
+};

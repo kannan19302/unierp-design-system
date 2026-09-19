@@ -19,7 +19,7 @@ export const BrandMark: FC<BrandMarkProps> = ({
 
   return (
     <span
-      className={`${styles.container} ${className}`.trim()}
+      className={`${styles.container} ${styles[size]} ${className}`.trim()}
       aria-label="UniERP"
       role="img"
     >
@@ -39,7 +39,7 @@ export const BrandMark: FC<BrandMarkProps> = ({
         />
         <path
           d="M36 32V58C36 66.284 42.716 73 51 73C59.284 73 66 66.284 66 58V50"
-          stroke="var(--color-text-inverse, #ffffff)"
+          stroke="var(--color-text-inverse)"
           strokeWidth="15"
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -68,3 +68,26 @@ export const StatusMatrix = () => (
     <StatusBadge status="DRAFT" />
   </div>
 );
+
+export const PulsingLiveBadges = () => (
+  <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center" }}>
+    <Badge variant="success" dot pulse>Live Production</Badge>
+    <Badge variant="warning" dot pulse>Syncing (42%)</Badge>
+    <Badge variant="danger" dot pulse>Degraded API</Badge>
+    <Badge variant="info" dot pulse>Deploying v2.4</Badge>
+  </div>
+);
+
+export const Sizes = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+    <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+      <Badge variant="primary" size="sm" dot>Small (20px)</Badge>
+      <Badge variant="success" size="sm" dot>Approved</Badge>
+    </div>
+    <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+      <Badge variant="primary" size="md" dot>Medium (24px)</Badge>
+      <Badge variant="success" size="md" dot>Approved</Badge>
+    </div>
+  </div>
+);
+

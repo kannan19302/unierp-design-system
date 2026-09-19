@@ -23,6 +23,18 @@
   line-height: 1;
 }
 
+.sm .brandText {
+  font-size: var(--text-sm, 14px);
+}
+
+.md .brandText {
+  font-size: var(--type-workspace, 18px);
+}
+
+.lg .brandText {
+  font-size: var(--text-xl, 24px);
+}
+
 .erpAccent {
   color: var(--color-primary);
 }
