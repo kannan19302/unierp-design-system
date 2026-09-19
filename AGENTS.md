@@ -158,3 +158,91 @@ Before declaring `VERIFIED COMPLETE`, every agent MUST verify:
 4. `pnpm test` — 100% Vitest test pass rate across all test suites.
 5. `pnpm build` — Clean production bundle (contrast, platform accent, density, token zero-debt).
 6. `pnpm build-storybook` (in `storybook`) — Storybook builds cleanly with zero errors.
+
+---
+
+## 5. Enterprise SaaS UI Excellence, Global Benchmarking & Component Audit Rules
+
+To ensure `@kannan19302/ui` represents the absolute global benchmark in mission-critical enterprise software, all agents MUST adhere to these mandatory research, benchmarking, and audit rules.
+
+### 1. Mandatory Global Research & Reference Universe
+Whenever auditing, polishing, or refining any component, shell, layout, or screen, agents MUST benchmark against global best-in-class enterprise platforms and reference design ecosystems:
+
+#### Premier Enterprise SaaS & Operating Systems:
+- **Palantir Foundry / Blueprint 5** (`blueprintjs.com`) — Extreme data density, zero cognitive fatigue, tabular precision.
+- **Salesforce Lightning Design System (SLDS)** (`lightningdesignsystem.com`) — High-velocity enterprise workflows, split triage, console navigation.
+- **SAP Fiori Horizon** (`experience.sap.com/fiori-design-web`) — Object pages, flexible multi-column triage, resilient ERP data grids.
+- **Linear & Stripe Design Engineering** — Hairline borders, micro-interactions, dark mode tactile precision, command palettes.
+- **IBM Carbon Design System** (`carbondesignsystem.com`) — Systematic carbon spacing, data table batches, enterprise accessibility.
+- **Microsoft Fluent 2** (`fluent2.microsoft.design`) — Cohesive cross-platform surfaces, soft elevation, depth tokens.
+- **Atlassian Design System** (`atlassian.design`) — Issue triaging, inline editing, badge semantics, navigation hierarchy.
+- **Shopify Polaris** (`polaris.shopify.com`) — Merchant operations, structured index tables, bulk action floating bars.
+- **GitHub Primer** (`primer.style`) — Code diffs, timeline items, markdown presentation, subnav pills.
+- **Google Material 3 (M3)** (`m3.material.io`) — Dynamic elevation, state layers, responsive layout grids.
+- **Adobe Spectrum** (`spectrum.adobe.com`) — Precision tools, multi-level menus, high-contrast density controls.
+
+#### Modern UI Innovation & Animation Component Ecosystems:
+- **21st.dev** (`https://21st.dev`) — Modern crafted UI components and layouts.
+- **shadcn/ui** (`https://ui.shadcn.com`) — Accessible headless component foundations and modern typography.
+- **Magic UI** (`https://magicui.design`) — Micro-interactions, background visual effects, and animated state surfaces.
+- **Hover.dev** (`https://www.hover.dev`) — Tactile button feedback, card glows, and fluid interaction states.
+- **Origin UI** (`https://originui.com`) — Extended form controls, inputs, selects, and status indicators.
+- **Kibo UI** (`https://www.kibo-ui.com`) — High-density developer dashboard and enterprise primitives.
+- **Aceternity UI** (`https://ui.aceternity.com`) — Smooth modern visuals, sticky navigation, and layout animations.
+- **HyperUI** (`https://www.hyperui.dev`) — Tailored application and marketing grid components.
+- **Preline UI** (`https://preline.co`) — Multi-variant enterprise forms, tables, and modal dialogues.
+- **Flowbite** (`https://flowbite.com`) — Accessible data tables, drawers, and feedback banners.
+- **DaisyUI** (`https://daisyui.com`) — Semantic component tokens and responsive utility patterns.
+- **Radix UI** (`https://www.radix-ui.com`) — Unstyled accessible primitives (dialogs, popovers, dropdowns, tooltips).
+- **Ark UI** (`https://ark-ui.com`) — State-machine-driven headless primitives across frameworks.
+- **Headless UI** (`https://headlessui.com`) — Completely unstyled, fully accessible UI components.
+- **Base UI** (`https://base-ui.com`) — Next-generation accessible unstyled UI primitives.
+- **Mantine & Mantine UI** (`https://mantine.dev`, `https://ui.mantine.dev`) — Rich interactive form controls, date pickers, notifications.
+- **Chakra UI** (`https://chakra-ui.com`) — Accessible color mode surfaces and component theme recipes.
+- **NextUI** (`https://nextui.org`) — Beautiful modern transitions, smooth backdrop filters, and badge pills.
+- **PrimeReact** (`https://primereact.org`) — Complex enterprise data tables, tree tables, multi-selects, and schedulers.
+- **Tremor** (`https://www.tremor.so`) — Metric dashboards, KPI cards, charts, and financial analytics layouts.
+- **Float UI** (`https://floatui.com`) — Modern responsive marketing and application sections.
+- **Tailwind UI & Tailwind CSS** (`https://tailwindui.com`, `https://tailwindcss.com`) — Production-tested application shells and layouts.
+- **Motion (Framer Motion)** (`https://www.framer.com/motion/`, `https://motion.dev`) — Production physics, smooth layout springs, and micro-animations.
+- **Global Industry Standards**: Research is not limited to the above; agents are mandated to continuously incorporate global best-in-class enterprise UI/UX patterns as industry standards evolve.
+
+### 2. Inviolable Strata Design Language Preservation
+- **No Clone Anti-Pattern**: Do NOT turn the platform into a generic shadcn or 21st.dev clone. Reference ecosystems provide inspiration only.
+- **Preserve Strata Foundations**: Always preserve our proprietary Strata Design Language (DL 2.0), token architecture, 4-tier density matrix (`ultra-compact`, `compact`, `standard`, `comfortable`), component APIs, and business rules.
+- **Zero Raw Hex & Pixel Literals**: All styling must use Strata tokens (`var(--color-*)`, `var(--space-*)`, `var(--radius-*)`, `var(--density-*)`).
+- **Systematic Architecture Over One-Off Patches**: Prefer systematic design token or component anatomy improvements over ad-hoc inline styles.
+
+### 3. Mandatory 6-Part Pre-Implementation Audit
+Before modifying any component or code in the design system or presentation layer, agents MUST produce an audit artifact structured as follows:
+```text
+============================================================
+COMPONENT AUDIT & ELEVATION SPECIFICATION
+============================================================
+1. Current Problem:         <Specific visual, accessibility, density, or interaction flaw>
+2. Reference Pattern:       <Pattern observed from benchmark(s), e.g. SLDS, Blueprint 5, Origin UI>
+3. Proposed Improvement:    <Concrete design, token, micro-interaction, or CSS module enhancement>
+4. Shared Component(s):     <Target component(s) under src/<category>/<name>>
+5. Dependent Screens/Repos: <Downstream presentation apps impacted: business-suite, tenant-admin, etc.>
+6. Implementation Plan:     <Step-by-step token and file mutation plan>
+============================================================
+```
+
+### 4. Strict 6-Phase Dependency-Order Execution Pipeline
+Changes must flow strictly downward in this exact sequence:
+1. **Design Tokens**: Colors, hairline borders, shadows, radii, spacing, typography, density matrix in `src/tokens/`.
+2. **Primitives**: Base elements (`Button`, `Badge`, `Tag`, `Alert`, `Avatar`, `Skeleton`, `Spinner`) in `src/primitives/`.
+3. **Inputs & Form Controls**: (`Input`, `Select`, `Combobox`, `DatePicker`, `Checkbox`, `Switch`, `Slider`) in `src/inputs/`.
+4. **Shared / Composite Components**: (`Card`, `Table`, `DataGrid`, `Dialog`, `Drawer`, `Dropdown`, `Tooltip`, `Tabs`, `Breadcrumb`, `Pagination`) in `src/data-display/`, `src/navigation/`, `src/overlays/`.
+5. **Layouts & Shell Floorplans**: (`PageHeader`, `ListPageTemplate`, `DataWorkspace`, `RecordShell`, `TransactionWorkspace`, `TabbedConsole`, `SplitViewShell`) in `src/layout/` and `src/shell/`.
+6. **Application Screens**: Propagate through consuming polyrepo apps (`business-suite`, `tenant-admin`, `provider-admin`, `developer-platform`, `marketing-site`).
+
+### 5. Evidence-Based Iteration Reporting
+Every iteration must conclude with an Iteration Evidence Report stating:
+- **STATUS**: `DONE` | `PARTIAL` | `BLOCKED` | `FAILED`
+- **CHANGED FILES**: Exact file paths modified.
+- **VALIDATION PERFORMED**: Commands executed (lint, tokens, density, contrast, typecheck, vitest, storybook build).
+- **FAILURES REMAINING**: 0 or concrete blocker description.
+- **VISUAL EVIDENCE**: Storybook URL and visual verification proof.
+- **NEXT ACTION**: Exact next executable step.
+
