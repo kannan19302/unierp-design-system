@@ -41,7 +41,7 @@ const SAMPLE_UNITS: LeaseUnitRow[] = [
     monthlyRent: 43500,
     camCharges: 4350,
     depositHeld: 87000,
-    arrearsAmount: 87000, // 2 months delinquent
+    arrearsAmount: 87000,
     status: "delinquent",
   },
   {
@@ -61,7 +61,7 @@ const SAMPLE_UNITS: LeaseUnitRow[] = [
 ];
 
 const meta: Meta<typeof RentRollFinancialSchedule> = {
-  title: "DataGrid/RentRollFinancialSchedule",
+  title: "Data Grid/RentRollFinancialSchedule",
   component: RentRollFinancialSchedule,
   parameters: {
     layout: "padded",
@@ -77,6 +77,35 @@ export const Default: Story = {
     propertyName: "One Embarcadero Center — San Francisco, CA",
     units: SAMPLE_UNITS,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Compact View</h4>
+        <RentRollFinancialSchedule
+          propertyName="One Embarcadero Center — San Francisco, CA"
+          units={SAMPLE_UNITS}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Comfortable View</h4>
+        <RentRollFinancialSchedule
+          propertyName="One Embarcadero Center — San Francisco, CA"
+          units={SAMPLE_UNITS}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const FilteredDelinquent: Story = {

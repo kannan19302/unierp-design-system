@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode, type FC } from "react";
+import { forwardRef, useState, type ReactNode } from "react";
 import { Plus, Trash2, Filter, Layers } from "lucide-react";
 import styles from "./query-builder.module.css";
 
@@ -55,13 +55,18 @@ const DEFAULT_OPERATORS: Record<FieldType, QueryOperator[]> = {
   select: ["equals", "not_equals"],
 };
 
-export const QueryBuilder: FC<QueryBuilderProps> = ({
+/**
+ * QueryBuilder renders an advanced recursive boolean filter rule builder for SQL and query construction.
+ *
+ * @maturity stable
+ */
+export const QueryBuilder = forwardRef<HTMLDivElement, QueryBuilderProps>(({
   fields,
   initialQuery,
   onChange,
   showPreview = true,
   className = "",
-}) => {
+}, ref) => {
   const [rootGroup, setRootGroup] = useState<QueryGroup>(
     initialQuery ?? {
       id: "root",
@@ -317,9 +322,9 @@ export const QueryBuilder: FC<QueryBuilderProps> = ({
   };
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div ref={ref} className={`${styles.container} ${className}`}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <h4 style={{ margin: 0, fontSize: "var(--text-sm)", fontWeight: 600 }}>Advanced Filter Rules</h4>
+        <h4 style={{ marginBlock: 0, marginInline: 0, fontSize: "var(--text-sm)", fontWeight: 600 }}>Advanced Filter Rules</h4>
       </div>
 
       {renderGroup(rootGroup, true)}
@@ -332,7 +337,10 @@ export const QueryBuilder: FC<QueryBuilderProps> = ({
       )}
     </div>
   );
-};
+});
+
+QueryBuilder.displayName = "QueryBuilder";
+
 
 function serializeToSQL(group: QueryGroup): string {
   if (!group.rules || group.rules.length === 0) return "1 = 1";

@@ -1,4 +1,4 @@
-import React, { useState, useId, useMemo } from "react";
+import { forwardRef, useState, useId, useMemo } from "react";
 import styles from "./rent-roll-financial-schedule.module.css";
 
 export type LeaseStatus = "active" | "expiring_soon" | "delinquent" | "vacant";
@@ -35,7 +35,12 @@ export interface RentRollFinancialScheduleProps {
   className?: string;
 }
 
-export const RentRollFinancialSchedule: React.FC<RentRollFinancialScheduleProps> = ({
+/**
+ * RentRollFinancialSchedule renders institutional real estate rent roll tables with GLA, lease dates, and arrears tracking.
+ *
+ * @maturity stable
+ */
+export const RentRollFinancialSchedule = forwardRef<HTMLDivElement, RentRollFinancialScheduleProps>(({
   propertyName,
   totalPropertySqFt,
   currency = "USD",
@@ -43,7 +48,7 @@ export const RentRollFinancialSchedule: React.FC<RentRollFinancialScheduleProps>
   onRowClick,
   density = "compact",
   className,
-}) => {
+}, ref) => {
   const scheduleId = useId();
   const [filter, setFilter] = useState<"all" | LeaseStatus>("all");
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null);
@@ -97,6 +102,7 @@ export const RentRollFinancialSchedule: React.FC<RentRollFinancialScheduleProps>
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
       aria-labelledby={`${scheduleId}-title`}
@@ -302,4 +308,7 @@ export const RentRollFinancialSchedule: React.FC<RentRollFinancialScheduleProps>
       </div>
     </div>
   );
-};
+});
+
+RentRollFinancialSchedule.displayName = "RentRollFinancialSchedule";
+

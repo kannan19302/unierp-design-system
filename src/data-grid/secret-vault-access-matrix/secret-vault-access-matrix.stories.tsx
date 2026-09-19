@@ -5,7 +5,7 @@ import {
 } from "./secret-vault-access-matrix";
 
 const meta: Meta<typeof SecretVaultAccessMatrix> = {
-  title: "DataGrid/SecretVaultAccessMatrix",
+  title: "Data Grid/SecretVaultAccessMatrix",
   component: SecretVaultAccessMatrix,
   parameters: {
     layout: "centered",
@@ -16,7 +16,7 @@ const meta: Meta<typeof SecretVaultAccessMatrix> = {
 export default meta;
 type Story = StoryObj<typeof SecretVaultAccessMatrix>;
 
-const mockSecrets = [
+const mockSecrets: VaultSecretRecord[] = [
   {
     id: "sec_1",
     keyName: "DATABASE_CONNECTION_URL",
@@ -28,7 +28,7 @@ const mockSecrets = [
     },
     rotationAgeDays: 45,
     lastRotatedBy: "secops.lead@unierp.com",
-    securityTier: "RESTRICTED" as const,
+    securityTier: "RESTRICTED",
   },
   {
     id: "sec_2",
@@ -41,7 +41,7 @@ const mockSecrets = [
     },
     rotationAgeDays: 114, // >90d Overdue alert
     lastRotatedBy: "finance.automation@unierp.com",
-    securityTier: "RESTRICTED" as const,
+    securityTier: "RESTRICTED",
   },
   {
     id: "sec_3",
@@ -54,7 +54,7 @@ const mockSecrets = [
     },
     rotationAgeDays: 18,
     lastRotatedBy: "cloud.infra@unierp.com",
-    securityTier: "INTERNAL" as const,
+    securityTier: "INTERNAL",
   },
 ];
 
@@ -63,6 +63,33 @@ export const Default: Story = {
     secrets: mockSecrets,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Compact View</h4>
+        <SecretVaultAccessMatrix
+          secrets={mockSecrets}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <SecretVaultAccessMatrix
+          secrets={mockSecrets}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {

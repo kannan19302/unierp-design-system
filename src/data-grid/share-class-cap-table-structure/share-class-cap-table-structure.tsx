@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./share-class-cap-table-structure.module.css";
 
 export type LiquidationPreferenceType =
@@ -27,14 +27,19 @@ export interface ShareClassCapTableStructureProps {
   className?: string;
 }
 
-export const ShareClassCapTableStructure: React.FC<ShareClassCapTableStructureProps> = ({
+/**
+ * ShareClassCapTableStructure models company equity capital structure, fully diluted share counts, and liquidation preferences.
+ *
+ * @maturity stable
+ */
+export const ShareClassCapTableStructure = forwardRef<HTMLElement, ShareClassCapTableStructureProps>(({
   companyName = "Acme Global Technologies Inc.",
   shareClasses,
   postMoneyValuationUsd = 120000000,
   onModelNewRound,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
 
@@ -55,6 +60,7 @@ export const ShareClassCapTableStructure: React.FC<ShareClassCapTableStructurePr
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -175,4 +181,7 @@ export const ShareClassCapTableStructure: React.FC<ShareClassCapTableStructurePr
       </footer>
     </section>
   );
-};
+});
+
+ShareClassCapTableStructure.displayName = "ShareClassCapTableStructure";
+

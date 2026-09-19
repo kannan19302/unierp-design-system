@@ -1,5 +1,5 @@
+import { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { RentRollFinancialSchedule, LeaseUnitRow } from "./rent-roll-financial-schedule";
@@ -99,5 +99,17 @@ describe("RentRollFinancialSchedule", () => {
 
     expect(screen.getByText("Beta Corp")).toBeInTheDocument();
     expect(screen.queryByText("Acme Cafe")).not.toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <RentRollFinancialSchedule
+        ref={ref}
+        propertyName="Metropolitan Tower"
+        units={TEST_UNITS}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 });

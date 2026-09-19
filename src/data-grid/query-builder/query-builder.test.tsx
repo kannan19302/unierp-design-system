@@ -1,14 +1,15 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { QueryBuilder, type QueryField } from "../query-builder";
+import { QueryBuilder, type QueryField } from "./query-builder";
 
 const mockFields: QueryField[] = [
   { name: "status", label: "Status", type: "string" },
   { name: "amount", label: "Amount", type: "number" },
 ];
 
-describe("QueryBuilder Primitive", () => {
+describe("QueryBuilder", () => {
   it("renders rule fields and allows adding rules", () => {
     const onChange = vi.fn();
     render(<QueryBuilder fields={mockFields} onChange={onChange} />);
@@ -32,6 +33,12 @@ describe("QueryBuilder Primitive", () => {
     expect(onChange).toHaveBeenCalledWith(
       expect.objectContaining({ combinator: "OR" })
     );
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<QueryBuilder ref={ref} fields={mockFields} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

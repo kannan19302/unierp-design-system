@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -70,5 +71,17 @@ describe("ShareClassCapTableStructure", () => {
     expect(handleModel).toHaveBeenCalledTimes(1);
     expect(screen.getByText("PRO-FORMA ROUND SIMULATION")).toBeInTheDocument();
     expect(screen.getByText("Exit Model Mode")).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <ShareClassCapTableStructure
+        ref={ref}
+        companyName="Test Corp"
+        shareClasses={mockShareClasses}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 });

@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -65,5 +66,11 @@ describe("SecretVaultAccessMatrix", () => {
     fireEvent.click(rotateBtn);
 
     expect(handleRotate).toHaveBeenCalledWith("sec_1", "PRODUCTION");
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<SecretVaultAccessMatrix ref={ref} secrets={mockSecrets} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 });

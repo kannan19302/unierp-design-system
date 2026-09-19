@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./secret-vault-access-matrix.module.css";
 
 export type SecretEnvironment = "PRODUCTION" | "STAGING" | "DEVELOPMENT";
@@ -20,12 +20,17 @@ export interface SecretVaultAccessMatrixProps {
   className?: string;
 }
 
-export const SecretVaultAccessMatrix: React.FC<SecretVaultAccessMatrixProps> = ({
+/**
+ * SecretVaultAccessMatrix provides a multi-environment credential and secret management grid with rotation age auditing.
+ *
+ * @maturity stable
+ */
+export const SecretVaultAccessMatrix = forwardRef<HTMLElement, SecretVaultAccessMatrixProps>(({
   secrets,
   onRotateSecret,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const searchInputId = useId();
 
@@ -55,6 +60,7 @@ export const SecretVaultAccessMatrix: React.FC<SecretVaultAccessMatrixProps> = (
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -193,4 +199,7 @@ export const SecretVaultAccessMatrix: React.FC<SecretVaultAccessMatrixProps> = (
       </footer>
     </section>
   );
-};
+});
+
+SecretVaultAccessMatrix.displayName = "SecretVaultAccessMatrix";
+

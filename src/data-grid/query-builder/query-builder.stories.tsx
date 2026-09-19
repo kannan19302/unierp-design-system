@@ -20,11 +20,12 @@ const sampleFields: QueryField[] = [
 ];
 
 const meta: Meta<typeof QueryBuilder> = {
-  title: "DataGrid/QueryBuilder",
+  title: "Data Grid/QueryBuilder",
   component: QueryBuilder,
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -35,4 +36,25 @@ export const Default: Story = {
     fields: sampleFields,
     showPreview: true,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Query Builder with SQL Preview</h4>
+        <QueryBuilder fields={sampleFields} showPreview={true} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Query Builder without SQL Preview</h4>
+        <QueryBuilder fields={sampleFields} showPreview={false} />
+      </div>
+    </div>
+  ),
 };
