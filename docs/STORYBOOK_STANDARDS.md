@@ -37,3 +37,14 @@ This guide documents the enterprise Storybook standards required for all compone
 
 5. **Accessibility Verification**:
    - Zero axe-core accessibility violations in the Storybook A11y panel.
+
+6. **Mandatory Compilation & Error-Free Verification Before Handoff**:
+   - Every story file MUST compile cleanly through TypeScript AST and JSX transforms with zero syntax, parse, or escaping errors.
+   - Raw `>` or `<` inside JSX text nodes is strictly prohibited; use `&gt;`, `&lt;`, or string literals `{"..."}`.
+   - Agents MUST execute `node scripts/check-storybook-standards.mjs` (which runs Phase 1 compilation check across all 374 story files) and verify zero errors before claiming completion.
+
+7. **Universal Strata Typography Standards**:
+   - All components, stories, and sub-elements must use the authoritative Strata font family:
+     `var(--font-sans, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif)`.
+   - Never rely on default unstyled browser serif fonts; all interactive controls and containers must inherit `--font-sans`.
+   - Google Fonts Inter (100-900) and IBM Plex Mono are preloaded globally in `preview-head.html` and `fonts.css`.

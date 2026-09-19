@@ -1,6 +1,126 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — ProtectedComponent Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.accessDeniedCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-left: var(--space-1) solid var(--color-warning);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-xs);
+  font-family: var(--font-sans);
+  color: var(--color-text);
+}
+
+.accessDeniedHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.lockIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-8, 32px);
+  height: var(--space-8, 32px);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px var(--color-warning);
+}
+
+.accessDeniedInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.accessDeniedTitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.accessDeniedTitle {
+  margin: 0;
+  font-size: var(--type-section, 1rem);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.scopeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-sunken);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--type-micro, 11px);
+  border: 1px solid var(--color-border);
+}
+
+.accessDeniedDescription {
+  margin: 0;
+  font-size: var(--type-body, 13px);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.accessDeniedFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+/* ── Field-Level Security (FLS) Styles ── */
+.fieldLockWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.flsBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 1px var(--space-1-5, 6px);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-sunken);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--type-micro, 11px);
+  width: fit-content;
+  border: 1px solid var(--color-border);
+}
+
 .readonly {
-  pointer-events: none;
-  opacity: 0.65;
+  opacity: 0.8;
   cursor: not-allowed;
-  user-select: none;
+  user-select: text;
+}
+
+.redactedMask {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1-5) var(--space-2-5);
+  background: var(--color-bg-sunken);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--type-micro, 11px);
+  letter-spacing: 0.1em;
 }

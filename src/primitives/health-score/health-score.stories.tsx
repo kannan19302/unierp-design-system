@@ -83,7 +83,7 @@ export const AllStatesGallery = () => (
     {/* Row 1: Pill Capsule Variants */}
     <div>
       <div style={{ fontSize: "var(--text-xs)", fontWeight: "var(--weight-semibold)", color: "var(--color-text)", marginBottom: "var(--space-2)" }}>
-        Capsule Pill Tier (Good >= 80%, Fair 50-79%, Poor &lt; 50%)
+        Capsule Pill Tier (Good &gt;= 80%, Fair 50-79%, Poor &lt; 50%)
       </div>
       <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center" }}>
         <HealthScore score={96} variant="pill" />

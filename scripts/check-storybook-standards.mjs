@@ -13,9 +13,23 @@
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC_DIR = join(ROOT, "src");
+
+// 1. Mandatory Compilation & JSX Syntax Verification Gate
+console.log("Phase 1: Validating Storybook compilation & AST integrity...");
+try {
+  execSync("node scripts/check-stories-compilation.mjs", {
+    cwd: ROOT,
+    stdio: "inherit",
+  });
+} catch (err) {
+  console.error("✖ Story compilation gate failed. Fix syntax/transform errors before proceeding.");
+  process.exit(1);
+}
+console.log("Phase 2: Checking Enterprise Storybook Standards...");
 
 const VALID_CATEGORIES = [
   "primitives",

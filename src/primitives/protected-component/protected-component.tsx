@@ -1,6 +1,8 @@
 "use client";
 
 import { type FC, type ReactNode, createContext, useContext } from "react";
+import { ShieldAlert, Lock } from "lucide-react";
+import { cn } from "../../utils/cn";
 import styles from "./protected-component.module.css";
 
 export type FieldAccessLevel = "hidden" | "readonly" | "editable";
@@ -42,36 +44,132 @@ export const useFieldAccess = (
   return resolvedAccess.fields?.[entity]?.[field] || "editable";
 };
 
+export interface AccessDeniedCardProps {
+  permission: string;
+  title?: string;
+  description?: string;
+  onRequestAccess?: () => void;
+  className?: string;
+}
+
+export const AccessDeniedCard: FC<AccessDeniedCardProps> = ({
+  permission,
+  title = "Access Restricted",
+  description = "Your active role lacks the required scope to interact with this protected enterprise module.",
+  onRequestAccess,
+  className = "",
+}) => (
+  <div
+    role="alert"
+    className={cn(styles.accessDeniedCard, className)}
+  >
+    <div className={styles.accessDeniedHeader}>
+      <div className={styles.lockIconContainer} aria-hidden="true">
+        <ShieldAlert size={18} />
+      </div>
+      <div className={styles.accessDeniedInfo}>
+        <div className={styles.accessDeniedTitleRow}>
+          <h4 className={styles.accessDeniedTitle}>{title}</h4>
+          <span className={styles.scopeBadge}>Scope: {permission}</span>
+        </div>
+        <p className={styles.accessDeniedDescription}>{description}</p>
+        {onRequestAccess && (
+          <div className={styles.accessDeniedFooter}>
+            <button
+              type="button"
+              onClick={onRequestAccess}
+              style={{
+                fontSize: "var(--text-xs)",
+                padding: "var(--space-1) var(--space-2-5)",
+                borderRadius: "var(--radius-xs)",
+                border: "1px solid var(--color-border)",
+                background: "var(--color-bg-surface)",
+                color: "var(--color-text)",
+                cursor: "pointer",
+                fontWeight: "var(--weight-medium)",
+              }}
+            >
+              Request Permission Scope
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
 export interface ProtectedComponentProps {
   permission: string;
   fallback?: ReactNode;
+  showAccessDenied?: boolean;
+  onRequestAccess?: () => void;
   children: ReactNode;
 }
 
 export const ProtectedComponent: FC<ProtectedComponentProps> = ({
   permission,
   fallback = null,
+  showAccessDenied = false,
+  onRequestAccess,
   children,
 }) => {
   const hasAccess = usePermission(permission);
-  return hasAccess ? <>{children}</> : <>{fallback}</>;
+  if (hasAccess) {
+    return <>{children}</>;
+  }
+
+  if (fallback !== null && fallback !== undefined) {
+    return <>{fallback}</>;
+  }
+
+  if (showAccessDenied) {
+    return (
+      <AccessDeniedCard
+        permission={permission}
+        onRequestAccess={onRequestAccess}
+      />
+    );
+  }
+
+  return null;
 };
 
 export interface ProtectedFieldProps {
   entity: string;
   field: string;
+  showLockIndicator?: boolean;
   children: ReactNode;
 }
 
 export const ProtectedField: FC<ProtectedFieldProps> = ({
   entity,
   field,
+  showLockIndicator = true,
   children,
 }) => {
   const access = useFieldAccess(entity, field);
-  if (access === "hidden") return null;
-  if (access === "readonly") {
-    return <div className={styles.readonly}>{children}</div>;
+  if (access === "hidden") {
+    return (
+      <div className={styles.redactedMask} aria-label="Field value hidden by security policy">
+        <Lock size={12} aria-hidden="true" />
+        <span>REDACTED BY POLICY</span>
+      </div>
+    );
   }
+
+  if (access === "readonly") {
+    return (
+      <div className={styles.fieldLockWrapper}>
+        {showLockIndicator && (
+          <span className={styles.flsBadge}>
+            <Lock size={10} aria-hidden="true" />
+            <span>FLS: READ-ONLY</span>
+          </span>
+        )}
+        <div className={styles.readonly}>{children}</div>
+      </div>
+    );
+  }
+
   return <>{children}</>;
 };
