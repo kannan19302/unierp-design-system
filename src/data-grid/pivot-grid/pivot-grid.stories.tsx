@@ -22,27 +22,53 @@ const sampleData: SalesDatum[] = [
   { region: "Asia Pacific", quarter: "Q4", revenue: 195000 },
 ];
 
+const defaultArgs = {
+  data: sampleData,
+  rowDimension: "region" as const,
+  columnDimension: "quarter" as const,
+  metric: "revenue" as const,
+  aggregation: "sum" as const,
+  rowLabel: "Sales Region",
+  columnLabel: "Fiscal Quarter",
+  metricLabel: "Gross Revenue ($)",
+  formatValue: (val: number) => `$${val.toLocaleString()}`,
+};
+
 const meta: Meta<typeof PivotGrid> = {
-  title: "DataGrid/PivotGrid",
+  title: "Data Grid/PivotGrid",
   component: PivotGrid,
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
 type Story = StoryObj<typeof PivotGrid<SalesDatum>>;
 
+export const Default: Story = {
+  args: defaultArgs,
+};
+
 export const RegionalRevenuePivot: Story = {
-  args: {
-    data: sampleData,
-    rowDimension: "region",
-    columnDimension: "quarter",
-    metric: "revenue",
-    aggregation: "sum",
-    rowLabel: "Sales Region",
-    columnLabel: "Fiscal Quarter",
-    metricLabel: "Gross Revenue ($)",
-    formatValue: (val) => `$${val.toLocaleString()}`,
-  },
+  args: defaultArgs,
+};
+
+export const AnatomyAndComposition: Story = {
+  args: defaultArgs,
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Sum Aggregation</h4>
+        <PivotGrid {...defaultArgs} aggregation="sum" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Average Aggregation</h4>
+        <PivotGrid {...defaultArgs} aggregation="avg" />
+      </div>
+    </div>
+  ),
 };

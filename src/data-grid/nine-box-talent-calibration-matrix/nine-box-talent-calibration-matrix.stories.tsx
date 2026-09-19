@@ -78,6 +78,7 @@ const meta: Meta<typeof NineBoxTalentCalibrationMatrix> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: { type: "select" },
@@ -95,6 +96,35 @@ export const Default: Story = {
     employees: sampleEmployees,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Calibration Matrix (Compact)</h4>
+        <NineBoxTalentCalibrationMatrix
+          cycleName="2026 Executive Leadership Talent Calibration"
+          employees={sampleEmployees}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <NineBoxTalentCalibrationMatrix
+          cycleName="2026 Executive Leadership Talent Calibration"
+          employees={sampleEmployees}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {

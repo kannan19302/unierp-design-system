@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./multi-unit-leasing-matrix.module.css";
 
 export type LeaseStatus = "available" | "leased" | "under_loi" | "renewal_pending" | "holdover";
@@ -29,7 +29,12 @@ export interface MultiUnitLeasingMatrixProps {
   className?: string;
 }
 
-export const MultiUnitLeasingMatrix: React.FC<MultiUnitLeasingMatrixProps> = ({
+/**
+ * MultiUnitLeasingMatrix displays commercial real estate floor-by-floor suite inventories, occupancy rollups, and leasing pipelines.
+ *
+ * @maturity stable
+ */
+export const MultiUnitLeasingMatrix = forwardRef<HTMLElement, MultiUnitLeasingMatrixProps>(({
   propertyName,
   propertyAddress = "Financial District Metro Campus",
   units,
@@ -38,7 +43,7 @@ export const MultiUnitLeasingMatrix: React.FC<MultiUnitLeasingMatrixProps> = ({
   onActionClick,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [floorFilter, setFloorFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -103,6 +108,7 @@ export const MultiUnitLeasingMatrix: React.FC<MultiUnitLeasingMatrixProps> = ({
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -282,4 +288,7 @@ export const MultiUnitLeasingMatrix: React.FC<MultiUnitLeasingMatrixProps> = ({
       </div>
     </section>
   );
-};
+});
+
+MultiUnitLeasingMatrix.displayName = "MultiUnitLeasingMatrix";
+

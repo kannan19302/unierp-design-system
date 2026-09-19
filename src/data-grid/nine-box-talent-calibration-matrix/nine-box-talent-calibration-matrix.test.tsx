@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import {
   NineBoxTalentCalibrationMatrix,
   CalibratedEmployee,
@@ -63,6 +63,18 @@ describe("NineBoxTalentCalibrationMatrix", () => {
 
     expect(handleSelect).toHaveBeenCalledWith(sampleEmployees[1]);
     expect(screen.getByText("VP Cloud Systems")).toBeDefined();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <NineBoxTalentCalibrationMatrix
+        ref={ref}
+        cycleName="2026 Leadership Calibration"
+        employees={sampleEmployees}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

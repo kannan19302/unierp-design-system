@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./nine-box-talent-calibration-matrix.module.css";
 
 export type PerformanceTier = 1 | 2 | 3; // 1: Low, 2: Medium, 3: High
@@ -55,15 +55,19 @@ const NINE_BOX_CELLS: NineBoxCellConfig[] = [
   { perf: 3, pot: 1, label: "Trusted Veteran", description: "High performer at current ceiling, anchor player", colorClass: styles.cellVeteran ?? "" },
 ];
 
-
-export const NineBoxTalentCalibrationMatrix: React.FC<NineBoxTalentCalibrationMatrixProps> = ({
+/**
+ * NineBoxTalentCalibrationMatrix provides an HCM 9-box performance vs potential grid for succession planning and talent calibration.
+ *
+ * @maturity stable
+ */
+export const NineBoxTalentCalibrationMatrix = forwardRef<HTMLElement, NineBoxTalentCalibrationMatrixProps>(({
   cycleName = "2026 Global Leadership & Engineering Calibration",
   departmentFilterDefault = "all",
   employees,
   onSelectEmployee,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [deptFilter, setDeptFilter] = useState(departmentFilterDefault);
   const [selectedEmpId, setSelectedEmpId] = useState<string>(
@@ -94,6 +98,7 @@ export const NineBoxTalentCalibrationMatrix: React.FC<NineBoxTalentCalibrationMa
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -219,4 +224,7 @@ export const NineBoxTalentCalibrationMatrix: React.FC<NineBoxTalentCalibrationMa
       </div>
     </section>
   );
-};
+});
+
+NineBoxTalentCalibrationMatrix.displayName = "NineBoxTalentCalibrationMatrix";
+

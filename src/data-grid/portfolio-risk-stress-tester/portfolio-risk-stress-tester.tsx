@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState, type ChangeEvent } from "react";
 import styles from "./portfolio-risk-stress-tester.module.css";
 
 export interface AssetClassImpact {
@@ -141,7 +141,12 @@ export interface PortfolioRiskStressTesterProps {
   className?: string;
 }
 
-export const PortfolioRiskStressTester: React.FC<PortfolioRiskStressTesterProps> = ({
+/**
+ * PortfolioRiskStressTester models multi-asset portfolio drawdowns and Value-at-Risk under historical macroeconomic shocks.
+ *
+ * @maturity stable
+ */
+export const PortfolioRiskStressTester = forwardRef<HTMLElement, PortfolioRiskStressTesterProps>(({
   portfolioName = "Global Multi-Asset Institutional Flagship",
   totalAum = 1000000000,
   initialScenarioId = "gfc_2008",
@@ -149,7 +154,7 @@ export const PortfolioRiskStressTester: React.FC<PortfolioRiskStressTesterProps>
   onSelectScenario,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const selectId = useId();
   const [selectedScenarioId, setSelectedScenarioId] = useState<string>(initialScenarioId);
@@ -157,7 +162,7 @@ export const PortfolioRiskStressTester: React.FC<PortfolioRiskStressTesterProps>
   const activeScenario: VaRStressScenario =
     scenarios.find((s) => s.id === selectedScenarioId) || scenarios[0] || defaultStressScenarios[0]!;
 
-  const handleScenarioChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleScenarioChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedScenarioId(e.target.value);
     onSelectScenario?.(e.target.value);
   };
@@ -172,6 +177,7 @@ export const PortfolioRiskStressTester: React.FC<PortfolioRiskStressTesterProps>
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -300,4 +306,7 @@ export const PortfolioRiskStressTester: React.FC<PortfolioRiskStressTesterProps>
       </footer>
     </section>
   );
-};
+});
+
+PortfolioRiskStressTester.displayName = "PortfolioRiskStressTester";
+

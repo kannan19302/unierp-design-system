@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import { MultiUnitLeasingMatrix, CommercialLeaseUnit } from "./multi-unit-leasing-matrix";
 
 const sampleUnits: CommercialLeaseUnit[] = [
@@ -77,6 +77,18 @@ describe("MultiUnitLeasingMatrix", () => {
     fireEvent.click(manageButtons[0]);
 
     expect(handleAction).toHaveBeenCalledWith("edit_lease", sampleUnits[0]);
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <MultiUnitLeasingMatrix
+        ref={ref}
+        propertyName="One Embarcadero Center"
+        units={sampleUnits}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

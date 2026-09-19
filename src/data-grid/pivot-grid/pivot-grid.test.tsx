@@ -1,7 +1,8 @@
+import { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
-import { PivotGrid } from "../pivot-grid";
+import { PivotGrid } from "./pivot-grid";
 
 const mockSales = [
   { region: "East", quarter: "Q1", revenue: 100 },
@@ -10,7 +11,7 @@ const mockSales = [
   { region: "West", quarter: "Q2", revenue: 300 },
 ];
 
-describe("PivotGrid Primitive", () => {
+describe("PivotGrid", () => {
   it("renders dimension headers and calculated totals", () => {
     render(
       <PivotGrid
@@ -27,6 +28,21 @@ describe("PivotGrid Primitive", () => {
     expect(screen.getByText("Q1")).toBeInTheDocument();
     expect(screen.getByText("Q2")).toBeInTheDocument();
     expect(screen.getByText("Grand Total")).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <PivotGrid
+        ref={ref}
+        data={mockSales}
+        rowDimension="region"
+        columnDimension="quarter"
+        metric="revenue"
+        aggregation="sum"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

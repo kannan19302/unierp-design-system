@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, type ReactNode } from "react";
+import { forwardRef, useMemo, type ForwardedRef, type ReactNode } from "react";
 import styles from "./pivot-grid.module.css";
 
 export type PivotAggregation = "sum" | "avg" | "count" | "min" | "max";
@@ -18,18 +18,26 @@ export interface PivotGridProps<T> {
   className?: string;
 }
 
-export function PivotGrid<T extends Record<string, any>>({
-  data,
-  rowDimension,
-  columnDimension,
-  metric,
-  aggregation = "sum",
-  rowLabel,
-  columnLabel,
-  metricLabel,
-  formatValue = (val) => val.toLocaleString(undefined, { maximumFractionDigits: 2 }),
-  className = "",
-}: PivotGridProps<T>): ReactNode {
+/**
+ * PivotGrid renders multidimensional cross-tabulated data summaries with customizable aggregations.
+ *
+ * @maturity stable
+ */
+function PivotGridInner<T extends Record<string, any>>(
+  {
+    data,
+    rowDimension,
+    columnDimension,
+    metric,
+    aggregation = "sum",
+    rowLabel,
+    columnLabel,
+    metricLabel,
+    formatValue = (val) => val.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+    className = "",
+  }: PivotGridProps<T>,
+  ref: ForwardedRef<HTMLDivElement>
+): ReactNode {
   const { rowKeys, colKeys, matrix, rowTotals, colTotals, grandTotal } = useMemo(() => {
     const rSet = new Set<string>();
     const cSet = new Set<string>();
@@ -80,7 +88,6 @@ export function PivotGrid<T extends Record<string, any>>({
       rTot[r] = calcAgg(rowAllVals);
     });
 
-
     cols.forEach((c) => {
       const colAllVals: number[] = [];
       rows.forEach((r) => {
@@ -102,7 +109,7 @@ export function PivotGrid<T extends Record<string, any>>({
   }, [data, rowDimension, columnDimension, metric, aggregation]);
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div ref={ref} className={`${styles.container} ${className}`}>
       <div className={styles.toolbar}>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
           <span style={{ fontWeight: 600 }}>Pivot Matrix:</span>
@@ -119,15 +126,15 @@ export function PivotGrid<T extends Record<string, any>>({
         <table className={styles.table}>
           <thead>
             <tr>
-              <th className={styles.th} style={{ minWidth: 160 }}>
+              <th className={styles.th} style={{ minInlineSize: 160 }}>
                 {rowLabel || String(rowDimension)} \ {columnLabel || String(columnDimension)}
               </th>
               {colKeys.map((col) => (
-                <th key={col} className={`${styles.th} ${styles.tdNumber}`} style={{ minWidth: 120 }}>
+                <th key={col} className={`${styles.th} ${styles.tdNumber}`} style={{ minInlineSize: 120 }}>
                   {col}
                 </th>
               ))}
-              <th className={`${styles.th} ${styles.tdNumber}`} style={{ minWidth: 130, background: "var(--color-surface-hover)" }}>
+              <th className={`${styles.th} ${styles.tdNumber}`} style={{ minInlineSize: 130, background: "var(--color-surface-hover)" }}>
                 Total ({aggregation})
               </th>
             </tr>
@@ -167,3 +174,9 @@ export function PivotGrid<T extends Record<string, any>>({
     </div>
   );
 }
+
+export const PivotGrid = forwardRef(PivotGridInner) as (<T extends Record<string, any>>(
+  props: PivotGridProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
+) => ReactNode) & { displayName?: string };
+
+(PivotGrid as any).displayName = "PivotGrid";

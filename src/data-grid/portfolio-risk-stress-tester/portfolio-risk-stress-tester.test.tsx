@@ -1,4 +1,4 @@
-import React from "react";
+import { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -30,5 +30,11 @@ describe("PortfolioRiskStressTester", () => {
     expect(
       screen.getByText(/Aggressive monetary tightening with parallel 300bps/i)
     ).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<PortfolioRiskStressTester ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 });
