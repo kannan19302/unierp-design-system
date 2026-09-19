@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -20,6 +21,17 @@ describe("SubTabBar Primitive", () => {
     );
     expect(screen.getByRole("tablist", { name: "Sub-sections" })).toBeInTheDocument();
     expect(screen.getByText("Lines")).toBeInTheDocument();
+  });
+
+  it("forwards ref to the div element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <SubTabBar
+        ref={ref}
+        tabs={[{ id: "1", label: "General", href: "/general" }]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

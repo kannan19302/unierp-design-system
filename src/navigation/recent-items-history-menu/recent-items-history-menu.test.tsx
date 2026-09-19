@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -40,6 +40,18 @@ describe("RecentItemsHistoryMenu", () => {
 
     expect(screen.getByText("INV-2026-0089")).toBeInTheDocument();
     expect(screen.queryByText("SO-9921")).not.toBeInTheDocument();
+  });
+
+  it("forwards ref to the container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <RecentItemsHistoryMenu
+        ref={ref}
+        items={sampleItems}
+        title="Recent Items"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("handles item click and pin toggling", () => {

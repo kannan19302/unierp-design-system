@@ -5,8 +5,10 @@ import { OmniJumpNavigator } from "./omni-jump-navigator";
 const meta: Meta<typeof OmniJumpNavigator> = {
   title: "Navigation/OmniJumpNavigator",
   component: OmniJumpNavigator,
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    a11y: { test: "todo" },
   },
 };
 
@@ -29,7 +31,7 @@ export const Default: Story = {
     items: sampleItems,
     isOpen: true,
     density: "standard",
-    onSelect: (item) => alert(`Jumped to: ${item.title}`),
+    onSelect: (item) => console.log(`Jumped to: ${item.title}`),
   },
 };
 
@@ -39,4 +41,29 @@ export const Compact: Story = {
     isOpen: true,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div>
+      <OmniJumpNavigator
+        items={sampleItems}
+        isOpen={true}
+        density="standard"
+        onClose={() => {}}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div>
+      <OmniJumpNavigator
+        items={sampleItems.slice(0, 4)}
+        isOpen={true}
+        density="compact"
+      />
+    </div>
+  ),
 };

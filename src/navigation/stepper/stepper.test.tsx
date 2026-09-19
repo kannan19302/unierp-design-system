@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -17,6 +18,18 @@ describe("Stepper Primitive", () => {
     );
     expect(screen.getByRole("navigation", { name: "Progress Stepper" })).toBeInTheDocument();
     expect(screen.getByText("Step 2").closest("li")).toHaveAttribute("aria-current", "step");
+  });
+
+  it("forwards ref to the nav element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <Stepper
+        ref={ref}
+        current={0}
+        steps={[{ title: "Setup" }]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

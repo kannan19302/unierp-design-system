@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -27,6 +27,17 @@ describe("StagePathNavigator", () => {
     const actionBtn = screen.getByRole("button", { name: /Advance Stage/i });
     fireEvent.click(actionBtn);
     expect(handleAction).toHaveBeenCalled();
+  });
+
+  it("forwards ref to the nav element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <StagePathNavigator
+        ref={ref}
+        stages={sampleStages}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("handles stage selection", () => {

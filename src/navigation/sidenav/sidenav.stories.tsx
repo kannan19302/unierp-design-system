@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { SideNav } from "./sidenav";
 import { LayoutDashboard, FileSpreadsheet, Users, Settings } from "lucide-react";
@@ -7,20 +8,25 @@ const meta: Meta<typeof SideNav> = {
   title: "Navigation/SideNav",
   component: SideNav,
   tags: ["autodocs"],
+  parameters: {
+    a11y: { test: "todo" },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof SideNav>;
 
+const sampleItems = [
+  { key: "dash", label: "Executive Dashboard", icon: <LayoutDashboard size={16} />, active: true },
+  { key: "gl", label: "General Ledger", icon: <FileSpreadsheet size={16} />, badge: "8" },
+  { key: "rbac", label: "Tenant Users", icon: <Users size={16} /> },
+  { key: "settings", label: "System Config", icon: <Settings size={16} /> },
+];
+
 export const Default: Story = {
   args: {
     header: <BrandMark />,
-    items: [
-      { key: "dash", label: "Executive Dashboard", icon: <LayoutDashboard size={16} />, active: true },
-      { key: "gl", label: "General Ledger", icon: <FileSpreadsheet size={16} />, badge: "8" },
-      { key: "rbac", label: "Tenant Users", icon: <Users size={16} /> },
-      { key: "settings", label: "System Config", icon: <Settings size={16} /> },
-    ],
+    items: sampleItems,
   },
 };
 
@@ -134,3 +140,29 @@ export const MiniRailCollapsed: Story = {
   },
 };
 
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--space-6)", height: "480px" }}>
+      <SideNav
+        header={<BrandMark />}
+        items={sampleItems}
+        onToggleCollapse={() => {}}
+      />
+      <SideNav
+        collapsed
+        items={sampleItems}
+        onToggleCollapse={() => {}}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--space-4)", height: "400px" }}>
+      <SideNav items={sampleItems} />
+      <SideNav items={sampleItems} collapsed />
+      <SideNav items={sampleItems} searchable />
+    </div>
+  ),
+};

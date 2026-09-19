@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -9,6 +9,12 @@ describe("EnterpriseCommandRibbon", () => {
     const { container } = render(<EnterpriseCommandRibbon />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to the navigation container", () => {
+    const ref = createRef<HTMLElement>();
+    render(<EnterpriseCommandRibbon ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("renders command tabs and primary action button", () => {

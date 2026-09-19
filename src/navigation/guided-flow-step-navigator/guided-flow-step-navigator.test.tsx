@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -44,6 +44,18 @@ describe("GuidedFlowStepNavigator", () => {
     expect(lockedBtn).toBeDisabled();
     fireEvent.click(lockedBtn);
     expect(handleStepClick).not.toHaveBeenCalledWith("step3");
+  });
+
+  it("forwards ref to the navigation container", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <GuidedFlowStepNavigator
+        ref={ref}
+        steps={sampleSteps}
+        activeStepId="step2"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("passes axe accessibility checks", async () => {

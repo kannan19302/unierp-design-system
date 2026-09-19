@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, forwardRef } from "react";
 import styles from "./contextual-action-floating-dock.module.css";
 
 export interface ContextualDockAction {
@@ -11,7 +11,7 @@ export interface ContextualDockAction {
   onClick: () => void;
 }
 
-export interface ContextualActionFloatingDockProps {
+export interface ContextualActionFloatingDockProps extends React.HTMLAttributes<HTMLDivElement> {
   selectedCount: number;
   actions: ContextualDockAction[];
   onDismiss?: () => void;
@@ -21,69 +21,85 @@ export interface ContextualActionFloatingDockProps {
   testId?: string;
 }
 
-export const ContextualActionFloatingDock: React.FC<ContextualActionFloatingDockProps> = ({
-  selectedCount,
-  actions,
-  onDismiss,
-  isOpen = true,
-  density = "standard",
-  className = "",
-  testId = "contextual-action-floating-dock",
-}) => {
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen && onDismiss) {
-        onDismiss();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onDismiss]);
+/**
+ * ContextualActionFloatingDock provides a floating action bar when one or more
+ * items are selected in data tables, grids, or kanban boards.
+ *
+ * @maturity stable
+ */
+export const ContextualActionFloatingDock = forwardRef<HTMLDivElement, ContextualActionFloatingDockProps>(
+  (
+    {
+      selectedCount,
+      actions,
+      onDismiss,
+      isOpen = true,
+      density = "standard",
+      className = "",
+      testId = "contextual-action-floating-dock",
+      ...rest
+    },
+    ref
+  ) => {
+    useEffect(() => {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape" && isOpen && onDismiss) {
+          onDismiss();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isOpen, onDismiss]);
 
-  if (!isOpen || selectedCount === 0) return null;
+    if (!isOpen || selectedCount === 0) return null;
 
-  return (
-    <div
-      className={`${styles.floatingDock ?? ""} ${className}`}
-      data-density={density}
-      data-testid={testId}
-      role="toolbar"
-      aria-label="Contextual Actions"
-    >
-      <span className={styles.countBadge ?? ""}>
-        {selectedCount} selected
-      </span>
+    return (
+      <div
+        ref={ref}
+        className={`${styles.floatingDock ?? ""} ${className}`}
+        data-density={density}
+        data-testid={testId}
+        role="toolbar"
+        aria-label="Contextual Actions"
+        {...rest}
+      >
+        <span className={styles.countBadge ?? ""}>
+          {selectedCount} selected
+        </span>
 
-      <ul className={styles.actionsList ?? ""} role="list">
-        {actions.map((act) => (
-          <li key={act.id}>
-            <button
-              type="button"
-              className={`${styles.actionBtn ?? ""} ${act.isDanger ? (styles.actionDanger ?? "") : ""}`}
-              onClick={act.onClick}
-              disabled={act.disabled}
-              aria-label={act.label}
-            >
-              {act.icon && <span aria-hidden="true">{act.icon}</span>}
-              <span>{act.label}</span>
-              {act.shortcut && (
-                <kbd className={styles.kbd ?? ""}>{act.shortcut}</kbd>
-              )}
-            </button>
-          </li>
-        ))}
-      </ul>
+        <ul className={styles.actionsList ?? ""} role="list">
+          {actions.map((act) => (
+            <li key={act.id}>
+              <button
+                type="button"
+                className={`${styles.actionBtn ?? ""} ${act.isDanger ? (styles.actionDanger ?? "") : ""}`}
+                onClick={act.onClick}
+                disabled={act.disabled}
+                aria-label={act.label}
+              >
+                {act.icon && <span aria-hidden="true">{act.icon}</span>}
+                <span>{act.label}</span>
+                {act.shortcut && (
+                  <kbd className={styles.kbd ?? ""}>{act.shortcut}</kbd>
+                )}
+              </button>
+            </li>
+          ))}
+        </ul>
 
-      {onDismiss && (
-        <button
-          type="button"
-          className={styles.dismissBtn ?? ""}
-          onClick={onDismiss}
-          aria-label="Clear selection and dismiss dock (Esc)"
-        >
-          ✕
-        </button>
-      )}
-    </div>
-  );
-};
+        {onDismiss && (
+          <button
+            type="button"
+            className={styles.dismissBtn ?? ""}
+            onClick={onDismiss}
+            aria-label="Clear selection and dismiss dock (Esc)"
+          >
+            ✕
+          </button>
+        )}
+      </div>
+    );
+  }
+);
+
+ContextualActionFloatingDock.displayName = "ContextualActionFloatingDock";

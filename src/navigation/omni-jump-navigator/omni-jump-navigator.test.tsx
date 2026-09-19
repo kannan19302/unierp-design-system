@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -26,6 +26,18 @@ describe("OmniJumpNavigator", () => {
 
     expect(screen.getByText("Elena Rostova")).toBeInTheDocument();
     expect(screen.queryByText("INV-2026-8891")).not.toBeInTheDocument();
+  });
+
+  it("forwards ref to the modal element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <OmniJumpNavigator
+        ref={ref}
+        items={sampleItems}
+        isOpen={true}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("handles selection and escape dismissal", () => {

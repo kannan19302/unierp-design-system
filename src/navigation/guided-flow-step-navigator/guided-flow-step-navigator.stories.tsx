@@ -5,8 +5,10 @@ import { GuidedFlowStepNavigator } from "./guided-flow-step-navigator";
 const meta: Meta<typeof GuidedFlowStepNavigator> = {
   title: "Navigation/GuidedFlowStepNavigator",
   component: GuidedFlowStepNavigator,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: { test: "todo" },
   },
 };
 
@@ -51,7 +53,7 @@ export const Default: Story = {
     activeStepId: "step2",
     title: "Subsidiary Onboarding Flow",
     density: "standard",
-    onStepClick: (id) => alert(`Step clicked: ${id}`),
+    onStepClick: (id) => console.log(`Step clicked: ${id}`),
   },
 };
 
@@ -62,4 +64,54 @@ export const Compact: Story = {
     title: "VAT Setup",
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Standard 4-Step Onboarding Flow</p>
+        <GuidedFlowStepNavigator
+          steps={sampleSteps}
+          activeStepId="step2"
+          density="standard"
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>All Completed Flow</p>
+        <GuidedFlowStepNavigator
+          steps={sampleSteps.map((s) => ({ ...s, status: "completed" as const }))}
+          activeStepId="step4"
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <GuidedFlowStepNavigator
+        steps={sampleSteps}
+        activeStepId="step1"
+        density="ultra-compact"
+      />
+      <GuidedFlowStepNavigator
+        steps={sampleSteps}
+        activeStepId="step2"
+        density="compact"
+      />
+      <GuidedFlowStepNavigator
+        steps={sampleSteps}
+        activeStepId="step3"
+        density="standard"
+      />
+      <GuidedFlowStepNavigator
+        steps={sampleSteps}
+        activeStepId="step4"
+        density="comfortable"
+      />
+    </div>
+  ),
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -9,6 +9,12 @@ describe("BladeNavigationStack", () => {
     const { container } = render(<BladeNavigationStack />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to root section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<BladeNavigationStack ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("renders blade stack with cascading drill-down columns", () => {
@@ -28,7 +34,7 @@ describe("BladeNavigationStack", () => {
     fireEvent.click(itemBtn);
     expect(onOpen).toHaveBeenCalledWith(1, expect.objectContaining({ id: "rg_us_east" }));
 
-    const closeButtons = screen.getAllByRole("button", { name: /Close blade:/i });
+    const closeButtons = screen.getAllByRole("button", { name: /Close blade/i });
     fireEvent.click(closeButtons[closeButtons.length - 1]);
     expect(onClose).toHaveBeenCalled();
   });

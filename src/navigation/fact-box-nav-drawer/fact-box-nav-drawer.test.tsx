@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -26,6 +26,12 @@ describe("FactBoxNavDrawer", () => {
     const drilldownBtn = screen.getByRole("button", { name: /Drilldown to Customer Statistics/i });
     fireEvent.click(drilldownBtn);
     expect(sampleCards[0].onDrilldown).toHaveBeenCalled();
+  });
+
+  it("forwards ref to the aside container", () => {
+    const ref = createRef<HTMLElement>();
+    render(<FactBoxNavDrawer ref={ref} cards={sampleCards} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("handles collapse toggle", () => {

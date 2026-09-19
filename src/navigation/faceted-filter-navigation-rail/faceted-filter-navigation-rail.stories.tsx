@@ -5,8 +5,10 @@ import { FacetedFilterNavigationRail } from "./faceted-filter-navigation-rail";
 const meta: Meta<typeof FacetedFilterNavigationRail> = {
   title: "Navigation/FacetedFilterNavigationRail",
   component: FacetedFilterNavigationRail,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: { test: "todo" },
   },
 };
 
@@ -48,8 +50,8 @@ export const Default: Story = {
     groups: sampleGroups,
     selectedOptionIds: ["opt-pending", "curr-usd"],
     density: "standard",
-    onToggleOption: (grp, opt) => alert(`Toggle option: ${grp} -> ${opt}`),
-    onClearAll: () => alert("Clear all filters"),
+    onToggleOption: (grp, opt) => console.log(`Toggle: ${grp} -> ${opt}`),
+    onClearAll: () => console.log("Clear all"),
   },
 };
 
@@ -59,4 +61,59 @@ export const Compact: Story = {
     selectedOptionIds: [],
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Active Filters Applied</p>
+        <FacetedFilterNavigationRail
+          groups={sampleGroups}
+          selectedOptionIds={["opt-pending", "curr-usd"]}
+          onToggleOption={() => {}}
+          onClearAll={() => {}}
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Clean State</p>
+        <FacetedFilterNavigationRail
+          groups={sampleGroups}
+          selectedOptionIds={[]}
+          onToggleOption={() => {}}
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)" }}>
+      <FacetedFilterNavigationRail
+        groups={sampleGroups}
+        selectedOptionIds={["opt-pending"]}
+        onToggleOption={() => {}}
+        density="ultra-compact"
+      />
+      <FacetedFilterNavigationRail
+        groups={sampleGroups}
+        selectedOptionIds={["opt-approved"]}
+        onToggleOption={() => {}}
+        density="compact"
+      />
+      <FacetedFilterNavigationRail
+        groups={sampleGroups}
+        selectedOptionIds={["curr-eur"]}
+        onToggleOption={() => {}}
+        density="standard"
+      />
+      <FacetedFilterNavigationRail
+        groups={sampleGroups}
+        selectedOptionIds={["reg-na"]}
+        onToggleOption={() => {}}
+        density="comfortable"
+      />
+    </div>
+  ),
 };

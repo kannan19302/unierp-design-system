@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -33,6 +33,18 @@ describe("CanvasMinimapNavigator", () => {
     const fitBtn = screen.getByRole("button", { name: /Zoom to fit canvas/i });
     fireEvent.click(fitBtn);
     expect(handleZoomToFit).toHaveBeenCalled();
+  });
+
+  it("forwards ref to the root container", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <CanvasMinimapNavigator
+        ref={ref}
+        zoomPercent={100}
+        viewfinder={{ x: 10, y: 10, width: 40, height: 40 }}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("passes axe accessibility checks", async () => {

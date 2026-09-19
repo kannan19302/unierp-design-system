@@ -1,10 +1,10 @@
 "use client";
 
-import {
+import React, {
   useState,
   useRef,
   useEffect,
-  type FC,
+  forwardRef,
   type ReactNode,
   type ChangeEvent,
   type MouseEvent,
@@ -63,7 +63,7 @@ export interface SideNavSearchResult {
   onClick?: () => void;
 }
 
-export interface SideNavProps {
+export interface SideNavProps extends React.HTMLAttributes<HTMLElement> {
   items?: SideNavItem[];
   sections?: SideNavSection[];
   header?: ReactNode;
@@ -80,26 +80,39 @@ export interface SideNavProps {
   globalResults?: SideNavSearchResult[];
   onSelectResult?: (result: SideNavSearchResult) => void;
   className?: string;
+  testId?: string;
 }
 
-export const SideNav: FC<SideNavProps> = ({
-  items,
-  sections: propSections,
-  header,
-  footer,
-  collapsed = false,
-  onToggleCollapse,
-  allowFavorites = false,
-  favorites = [],
-  onToggleFavorite,
-  searchable = false,
-  searchPlaceholder = "Search navigation… (/)",
-  searchQuery: controlledQuery,
-  onSearchChange,
-  globalResults,
-  onSelectResult,
-  className = "",
-}) => {
+/**
+ * SideNav provides enterprise-grade multi-level hierarchy, collapsible sections,
+ * favorite pinning, and cross-application quick search.
+ *
+ * @maturity stable
+ */
+export const SideNav = forwardRef<HTMLElement, SideNavProps>(
+  (
+    {
+      items,
+      sections: propSections,
+      header,
+      footer,
+      collapsed = false,
+      onToggleCollapse,
+      allowFavorites = false,
+      favorites = [],
+      onToggleFavorite,
+      searchable = false,
+      searchPlaceholder = "Search navigation… (/)",
+      searchQuery: controlledQuery,
+      onSearchChange,
+      globalResults,
+      onSelectResult,
+      className = "",
+      testId = "side-nav",
+      ...rest
+    },
+    ref
+  ) => {
   const [internalQuery, setInternalQuery] = useState("");
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
@@ -240,7 +253,7 @@ export const SideNav: FC<SideNavProps> = ({
           className={`${styles.itemRow} ${item.active ? styles.active : ""} ${
             depth > 0 ? styles.nestedItem : ""
           }`}
-          style={depth > 0 && !collapsed ? { paddingLeft: `calc(var(--space-3) + (${depth} * var(--space-3)))` } : undefined}
+          style={depth > 0 && !collapsed ? { paddingInlineStart: `calc(var(--space-3) + (${depth} * var(--space-3)))` } : undefined}
         >
           <button
             type="button"
@@ -252,46 +265,48 @@ export const SideNav: FC<SideNavProps> = ({
           >
             {item.icon && <span className={styles.icon}>{item.icon}</span>}
             {!collapsed && <span className={styles.label}>{item.label}</span>}
+            {!collapsed && item.badge && <span className={styles.badge}>{item.badge}</span>}
           </button>
 
-          {!collapsed && (
-            <div className={styles.itemTrailing}>
-              {item.badge && <span className={styles.badge}>{item.badge}</span>}
+          {/* Quick Action Button */}
+          {!collapsed && item.quickAction && (
+            <button
+              type="button"
+              className={styles.quickActionBtn}
+              onClick={(e) => {
+                e.stopPropagation();
+                item.quickAction!.onClick(e);
+              }}
+              title={item.quickAction.label}
+              aria-label={item.quickAction.label}
+            >
+              {item.quickAction.icon}
+            </button>
+          )}
 
-              {item.quickAction && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    item.quickAction?.onClick(e);
-                  }}
-                  className={styles.quickActionBtn}
-                  aria-label={item.quickAction.label}
-                  title={item.quickAction.label}
-                >
-                  {item.quickAction.icon}
-                </button>
-              )}
-
-              {allowFavorites && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleFavorite?.(item.key);
-                  }}
-                  className={`${styles.starBtn} ${isStarred ? styles.starActive : ""}`}
-                  aria-label={isStarred ? `Remove ${itemTitle ?? "item"} from favorites` : `Add ${itemTitle ?? "item"} to favorites`}
-                  title={isStarred ? "Starred" : "Star page"}
-                >
-                  <Star size={12} className={isStarred ? styles.starFilled : ""} />
-                </button>
-              )}
-            </div>
+          {/* Favorite Toggle */}
+          {!collapsed && allowFavorites && (
+            <button
+              type="button"
+              className={`${styles.starBtn} ${isStarred ? styles.starred : ""}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleFavorite?.(item.key);
+              }}
+              aria-label={
+                isStarred
+                  ? `Remove ${typeof item.label === "string" ? item.label : "item"} from favorites`
+                  : `Add ${typeof item.label === "string" ? item.label : "item"} to favorites`
+              }
+              title={isStarred ? "Starred item" : "Star item"}
+            >
+              <Star size={13} fill={isStarred ? "currentColor" : "none"} />
+            </button>
           )}
         </div>
 
-        {hasChildren && !collapsed && (
+        {/* Child Sub-items (Tree expansion) */}
+        {!collapsed && hasChildren && (
           <div className={styles.nestedContainer}>
             <div className={styles.treeRail} aria-hidden="true" />
             <div className={styles.nestedList}>
@@ -305,9 +320,12 @@ export const SideNav: FC<SideNavProps> = ({
 
   return (
     <aside
+      ref={ref}
       aria-label="Side Navigation"
       data-collapsed={collapsed ? "true" : "false"}
+      data-testid={testId}
       className={`${styles.container} ${collapsed ? styles.collapsed : ""} ${className}`.trim()}
+      {...rest}
     >
       {/* Header Area */}
       <div className={styles.headerRow}>
@@ -472,4 +490,7 @@ export const SideNav: FC<SideNavProps> = ({
       {footer && <div className={styles.footer}>{footer}</div>}
     </aside>
   );
-};
+}
+);
+
+SideNav.displayName = "SideNav";

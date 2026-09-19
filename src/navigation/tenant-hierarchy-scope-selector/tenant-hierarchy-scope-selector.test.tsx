@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -9,6 +9,12 @@ describe("TenantHierarchyScopeSelector", () => {
     const { container } = render(<TenantHierarchyScopeSelector isOpenByDefault={true} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to the wrapper div", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<TenantHierarchyScopeSelector ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("renders active scope button and opens hierarchy selector", () => {

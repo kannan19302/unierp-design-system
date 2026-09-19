@@ -5,8 +5,10 @@ import { KeyboardShortcutLegend } from "./keyboard-shortcut-legend";
 const meta: Meta<typeof KeyboardShortcutLegend> = {
   title: "Navigation/KeyboardShortcutLegend",
   component: KeyboardShortcutLegend,
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    a11y: { test: "todo" },
   },
 };
 
@@ -29,7 +31,7 @@ export const Default: Story = {
     isOpen: true,
     title: "System Keyboard Shortcuts",
     density: "standard",
-    onClose: () => alert("Close shortcut legend"),
+    onClose: () => console.log("Close shortcut legend"),
   },
 };
 
@@ -40,4 +42,30 @@ export const Compact: Story = {
     title: "Keyboard Shortcuts",
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div>
+      <KeyboardShortcutLegend
+        shortcuts={sampleShortcuts}
+        isOpen={true}
+        title="UniERP Accelerator Legend"
+        density="standard"
+        onClose={() => {}}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div>
+      <KeyboardShortcutLegend
+        shortcuts={sampleShortcuts.slice(0, 4)}
+        isOpen={true}
+        density="compact"
+      />
+    </div>
+  ),
 };

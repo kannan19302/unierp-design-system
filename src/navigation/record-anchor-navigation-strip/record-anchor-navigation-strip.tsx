@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./record-anchor-navigation-strip.module.css";
 
 export type RecordAnchorStatus = "completed" | "error" | "warning" | "pending";
@@ -11,7 +11,7 @@ export interface RecordAnchorItem {
   count?: number;
 }
 
-export interface RecordAnchorNavigationStripProps {
+export interface RecordAnchorNavigationStripProps extends Omit<React.HTMLAttributes<HTMLElement>, "onSelect"> {
   items: RecordAnchorItem[];
   activeId?: string;
   onSelect?: (id: string) => void;
@@ -22,71 +22,87 @@ export interface RecordAnchorNavigationStripProps {
   testId?: string;
 }
 
-export const RecordAnchorNavigationStrip: React.FC<RecordAnchorNavigationStripProps> = ({
-  items,
-  activeId,
-  onSelect,
-  title = "Record Sections",
-  orientation = "vertical",
-  density = "standard",
-  className = "",
-  testId = "record-anchor-navigation-strip",
-}) => {
-  const renderStatusIcon = (status?: RecordAnchorStatus) => {
-    switch (status) {
-      case "completed":
-        return <span className={`${styles.statusIcon} ${styles.statusCompleted}`} aria-label="Section complete">✓</span>;
-      case "error":
-        return <span className={`${styles.statusIcon} ${styles.statusError}`} aria-label="Section has errors">!</span>;
-      case "warning":
-        return <span className={`${styles.statusIcon} ${styles.statusWarning}`} aria-label="Section has warnings">⚠</span>;
-      case "pending":
-        return <span className={`${styles.statusIcon} ${styles.statusPending}`} aria-label="Section pending">○</span>;
-      default:
-        return null;
-    }
-  };
+/**
+ * RecordAnchorNavigationStrip provides a fast jump-to-section anchor rail
+ * with validation error badges and completion telemetry for dense transactional forms.
+ *
+ * @maturity stable
+ */
+export const RecordAnchorNavigationStrip = forwardRef<HTMLElement, RecordAnchorNavigationStripProps>(
+  (
+    {
+      items,
+      activeId,
+      onSelect,
+      title = "Record Sections",
+      orientation = "vertical",
+      density = "standard",
+      className = "",
+      testId = "record-anchor-navigation-strip",
+      ...rest
+    },
+    ref
+  ) => {
+    const renderStatusIcon = (status?: RecordAnchorStatus) => {
+      switch (status) {
+        case "completed":
+          return <span className={`${styles.statusIcon} ${styles.statusCompleted}`} aria-label="Section complete">✓</span>;
+        case "error":
+          return <span className={`${styles.statusIcon} ${styles.statusError}`} aria-label="Section has errors">!</span>;
+        case "warning":
+          return <span className={`${styles.statusIcon} ${styles.statusWarning}`} aria-label="Section has warnings">⚠</span>;
+        case "pending":
+          return <span className={`${styles.statusIcon} ${styles.statusPending}`} aria-label="Section pending">○</span>;
+        default:
+          return null;
+      }
+    };
 
-  return (
-    <nav
-      className={`${styles.navStrip} ${orientation === "horizontal" ? styles.horizontal : ""} ${className}`}
-      data-density={density}
-      data-testid={testId}
-      aria-label={title}
-    >
-      {title && (
-        <div className={styles.header}>
-          <h4 className={styles.title}>{title}</h4>
-        </div>
-      )}
+    return (
+      <nav
+        ref={ref}
+        className={`${styles.navStrip} ${orientation === "horizontal" ? styles.horizontal : ""} ${className}`}
+        data-density={density}
+        data-testid={testId}
+        aria-label={title}
+        {...rest}
+      >
+        {title && (
+          <div className={styles.header}>
+            <h4 className={styles.title}>{title}</h4>
+          </div>
+        )}
 
-      <ul className={styles.itemList} role="list">
-        {items.map((item) => {
-          const isActive = activeId === item.id;
-          return (
-            <li key={item.id}>
-              <button
-                type="button"
-                className={`${styles.itemButton} ${isActive ? styles.itemButtonActive : ""}`}
-                onClick={() => onSelect?.(item.id)}
-                aria-current={isActive ? "true" : undefined}
-                aria-label={`${item.label}${item.status ? ` - ${item.status}` : ""}`}
-              >
-                <div className={styles.itemLeft}>
-                  {item.icon && <span aria-hidden="true">{item.icon}</span>}
-                  <span className={styles.itemLabel}>{item.label}</span>
-                </div>
-                <div className={styles.itemRight}>
-                  {typeof item.count === "number" && (
-                    <span className={styles.badge}>{item.count}</span>
-                  )}
-                  {renderStatusIcon(item.status)}
-                </div>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  );
-};
+        <ul className={styles.itemList} role="list">
+          {items.map((item) => {
+            const isActive = activeId === item.id;
+            return (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  className={`${styles.itemButton} ${isActive ? styles.itemButtonActive : ""}`}
+                  onClick={() => onSelect?.(item.id)}
+                  aria-current={isActive ? "true" : undefined}
+                  aria-label={`${item.label}${item.status ? ` - ${item.status}` : ""}`}
+                >
+                  <div className={styles.itemLeft}>
+                    {item.icon && <span aria-hidden="true">{item.icon}</span>}
+                    <span className={styles.itemLabel}>{item.label}</span>
+                  </div>
+                  <div className={styles.itemRight}>
+                    {typeof item.count === "number" && (
+                      <span className={styles.badge}>{item.count}</span>
+                    )}
+                    {renderStatusIcon(item.status)}
+                  </div>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    );
+  }
+);
+
+RecordAnchorNavigationStrip.displayName = "RecordAnchorNavigationStrip";

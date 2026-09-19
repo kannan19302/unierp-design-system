@@ -1,10 +1,10 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import React, { forwardRef, type FC, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./pagination.module.css";
 
-export interface PaginationProps {
+export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>, "onChange"> {
   page: number;
   pageCount: number;
   onChange: (page: number) => void;
@@ -40,61 +40,77 @@ const PageBtn: FC<{
   );
 };
 
-export const Pagination: FC<PaginationProps> = ({
-  page,
-  pageCount,
-  onChange,
-  className = "",
-}) => {
-  if (pageCount <= 1) return null;
+/**
+ * Pagination provides accessible page-by-page stepping controls
+ * with ellipsis aggregation and keyboard focus handling.
+ *
+ * @maturity stable
+ */
+export const Pagination = forwardRef<HTMLElement, PaginationProps>(
+  (
+    {
+      page,
+      pageCount,
+      onChange,
+      className = "",
+      ...rest
+    },
+    ref
+  ) => {
+    if (pageCount <= 1) return null;
 
-  const pages: number[] = [];
-  const from = Math.max(1, page - 2);
-  const to = Math.min(pageCount, page + 2);
-  for (let p = from; p <= to; p++) pages.push(p);
+    const pages: number[] = [];
+    const from = Math.max(1, page - 2);
+    const to = Math.min(pageCount, page + 2);
+    for (let p = from; p <= to; p++) pages.push(p);
 
-  return (
-    <nav
-      aria-label="Pagination"
-      className={`${styles.container} ${className}`.trim()}
-    >
-      <PageBtn
-        label={<ChevronLeft size={14} aria-hidden="true" />}
-        target={page - 1}
-        disabled={page <= 1}
-        onClick={onChange}
-        ariaLabel="Previous page"
-      />
-      {from > 1 && (
-        <PageBtn label={1} target={1} disabled={false} onClick={onChange} />
-      )}
-      {from > 2 && <span className={styles.ellipsis}>…</span>}
-      {pages.map((p) => (
+    return (
+      <nav
+        ref={ref}
+        aria-label="Pagination"
+        className={`${styles.container} ${className}`.trim()}
+        {...rest}
+      >
         <PageBtn
-          key={p}
-          label={p}
-          target={p}
-          disabled={false}
-          active={p === page}
+          label={<ChevronLeft size={14} aria-hidden="true" />}
+          target={page - 1}
+          disabled={page <= 1}
           onClick={onChange}
+          ariaLabel="Previous page"
         />
-      ))}
-      {to < pageCount - 1 && <span className={styles.ellipsis}>…</span>}
-      {to < pageCount && (
+        {from > 1 && (
+          <PageBtn label={1} target={1} disabled={false} onClick={onChange} />
+        )}
+        {from > 2 && <span className={styles.ellipsis}>…</span>}
+        {pages.map((p) => (
+          <PageBtn
+            key={p}
+            label={p}
+            target={p}
+            disabled={false}
+            active={p === page}
+            onClick={onChange}
+          />
+        ))}
+        {to < pageCount - 1 && <span className={styles.ellipsis}>…</span>}
+        {to < pageCount && (
+          <PageBtn
+            label={pageCount}
+            target={pageCount}
+            disabled={false}
+            onClick={onChange}
+          />
+        )}
         <PageBtn
-          label={pageCount}
-          target={pageCount}
-          disabled={false}
+          label={<ChevronRight size={14} aria-hidden="true" />}
+          target={page + 1}
+          disabled={page >= pageCount}
           onClick={onChange}
+          ariaLabel="Next page"
         />
-      )}
-      <PageBtn
-        label={<ChevronRight size={14} aria-hidden="true" />}
-        target={page + 1}
-        disabled={page >= pageCount}
-        onClick={onChange}
-        ariaLabel="Next page"
-      />
-    </nav>
-  );
-};
+      </nav>
+    );
+  }
+);
+
+Pagination.displayName = "Pagination";

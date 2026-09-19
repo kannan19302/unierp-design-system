@@ -5,8 +5,10 @@ import { FactBoxNavDrawer } from "./fact-box-nav-drawer";
 const meta: Meta<typeof FactBoxNavDrawer> = {
   title: "Navigation/FactBoxNavDrawer",
   component: FactBoxNavDrawer,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: { test: "todo" },
   },
 };
 
@@ -24,7 +26,7 @@ const sampleCards = [
       { label: "Past Due 30+", value: "$0" },
     ],
     drilldownLabel: "View Ledger",
-    onDrilldown: () => alert("Drilldown to Ledger"),
+    onDrilldown: () => console.log("Drilldown to Ledger"),
   },
   {
     id: "open-orders",
@@ -35,7 +37,7 @@ const sampleCards = [
       { label: "SO-8890", value: "$8,500" },
     ],
     drilldownLabel: "View All Orders",
-    onDrilldown: () => alert("Drilldown to Orders"),
+    onDrilldown: () => console.log("Drilldown to Orders"),
   },
 ];
 
@@ -44,7 +46,7 @@ export const Default: Story = {
     cards: sampleCards,
     isCollapsed: false,
     density: "standard",
-    onToggleCollapse: () => alert("Toggle collapse"),
+    onToggleCollapse: () => console.log("Toggle collapse"),
   },
 };
 
@@ -53,4 +55,30 @@ export const Collapsed: Story = {
     cards: sampleCards,
     isCollapsed: true,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Expanded FactBox</p>
+        <FactBoxNavDrawer cards={sampleCards} isCollapsed={false} onToggleCollapse={() => {}} />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Collapsed FactBox</p>
+        <FactBoxNavDrawer cards={sampleCards} isCollapsed={true} onToggleCollapse={() => {}} />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)" }}>
+      <FactBoxNavDrawer cards={sampleCards} density="ultra-compact" />
+      <FactBoxNavDrawer cards={sampleCards} density="compact" />
+      <FactBoxNavDrawer cards={sampleCards} density="standard" />
+      <FactBoxNavDrawer cards={sampleCards} density="comfortable" />
+    </div>
+  ),
 };

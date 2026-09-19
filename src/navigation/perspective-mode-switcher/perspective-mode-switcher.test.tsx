@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -26,6 +26,19 @@ describe("PerspectiveModeSwitcher", () => {
     const boardTab = screen.getByRole("tab", { name: /Board/i });
     fireEvent.click(boardTab);
     expect(handleModeChange).toHaveBeenCalledWith("kanban");
+  });
+
+  it("forwards ref to the container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <PerspectiveModeSwitcher
+        ref={ref}
+        modes={sampleModes}
+        activeModeId="list"
+        onModeChange={() => {}}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("handles customize and save view actions", () => {

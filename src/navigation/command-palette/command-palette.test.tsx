@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -25,6 +26,19 @@ describe("CommandPalette Primitive", () => {
 
     fireEvent.click(screen.getByText("Create Invoice"));
     expect(onSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it("forwards ref to the dialog element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <CommandPalette
+        ref={ref}
+        open={true}
+        onClose={() => {}}
+        items={[{ id: "1", category: "General", title: "Help", onSelect: () => {} }]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

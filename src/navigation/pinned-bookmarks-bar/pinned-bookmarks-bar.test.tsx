@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -25,6 +25,17 @@ describe("PinnedBookmarksBar", () => {
     const itemBtn = screen.getByRole("button", { name: "Pending Wire Approvals" });
     fireEvent.click(itemBtn);
     expect(handleSelect).toHaveBeenCalledWith(sampleBookmarks[1]);
+  });
+
+  it("forwards ref to the navigation element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <PinnedBookmarksBar
+        ref={ref}
+        bookmarks={sampleBookmarks}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("handles remove bookmark and add pin current", () => {

@@ -5,8 +5,10 @@ import { RecordAnchorNavigationStrip } from "./record-anchor-navigation-strip";
 const meta: Meta<typeof RecordAnchorNavigationStrip> = {
   title: "Navigation/RecordAnchorNavigationStrip",
   component: RecordAnchorNavigationStrip,
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    a11y: { test: "todo" },
   },
 };
 
@@ -40,4 +42,40 @@ export const Horizontal: Story = {
     orientation: "horizontal",
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Vertical Section Strip</p>
+        <RecordAnchorNavigationStrip
+          items={sampleSections}
+          activeId="lines"
+          title="Invoice Sections"
+          orientation="vertical"
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Horizontal Section Strip</p>
+        <RecordAnchorNavigationStrip
+          items={sampleSections.slice(0, 4)}
+          activeId="tax"
+          orientation="horizontal"
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <RecordAnchorNavigationStrip items={sampleSections} activeId="general" density="ultra-compact" />
+      <RecordAnchorNavigationStrip items={sampleSections} activeId="lines" density="compact" />
+      <RecordAnchorNavigationStrip items={sampleSections} activeId="tax" density="standard" />
+      <RecordAnchorNavigationStrip items={sampleSections} activeId="compliance" density="comfortable" />
+    </div>
+  ),
 };

@@ -14,14 +14,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: var(--density-control-height-sm, 28px);
-  height: var(--density-control-height-sm, 28px);
-  padding: 0 var(--space-2);
+  min-inline-size: var(--density-control-height-sm, 1.75rem);
+  block-size: var(--density-control-height-sm, 1.75rem);
+  padding-block: 0;
+  padding-inline: var(--space-2);
   border: 1px solid var(--surface-1-border, var(--color-border));
   background: var(--surface-1-bg, var(--color-bg-elevated));
   color: var(--surface-text-primary, var(--color-text));
-  border-radius: var(--radius-sm, 2px);
-  font-size: var(--type-micro, 11px);
+  border-radius: var(--radius-sm);
+  font-size: var(--type-micro, var(--text-2xs));
   font-variant-numeric: tabular-nums lining-nums;
   cursor: pointer;
   outline: none;
@@ -36,7 +37,7 @@
 }
 
 .pageBtn:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1) var(--color-focus-ring);
 }
 
 .pageBtn:disabled {
@@ -47,12 +48,13 @@
 .active {
   background: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
-  color: var(--color-text-inverse, #ffffff) !important;
+  color: var(--color-text-inverse) !important;
   font-weight: var(--weight-bold);
 }
 
 .ellipsis {
-  padding: 0 var(--space-1);
+  padding-block: 0;
+  padding-inline: var(--space-1);
   color: var(--surface-text-secondary, var(--color-text-muted));
-  font-size: var(--type-micro, 11px);
+  font-size: var(--type-micro, var(--text-2xs));
 }

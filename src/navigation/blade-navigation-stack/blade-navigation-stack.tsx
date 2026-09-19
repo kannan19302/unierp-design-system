@@ -1,4 +1,6 @@
-import React, { useId, useState } from "react";
+"use client";
+
+import React, { forwardRef, useId, useState } from "react";
 import styles from "./blade-navigation-stack.module.css";
 
 export interface BladeItem {
@@ -46,168 +48,211 @@ export const defaultBladesDemo: NavigationBlade[] = [
   },
 ];
 
-export interface BladeNavigationStackProps {
+export interface BladeNavigationStackProps
+  extends React.HTMLAttributes<HTMLElement> {
   blades?: NavigationBlade[];
   onOpenItem?: (bladeIndex: number, item: BladeItem) => void;
   onCloseBlade?: (bladeIndex: number) => void;
   density?: "ultra-compact" | "compact" | "standard" | "comfortable";
-  className?: string;
 }
 
-export const BladeNavigationStack: React.FC<BladeNavigationStackProps> = ({
-  blades: propBlades,
-  onOpenItem,
-  onCloseBlade,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
-  const [blades, setBlades] = useState<NavigationBlade[]>(propBlades || defaultBladesDemo);
-  const [maximizedBladeId, setMaximizedBladeId] = useState<string | null>(null);
+/**
+ * BladeNavigationStack renders an enterprise horizontal drill-down portal
+ * with cascading blade panels, individual maximizing, and breadcrumb path backtracking.
+ *
+ * @maturity stable
+ */
+export const BladeNavigationStack = forwardRef<
+  HTMLElement,
+  BladeNavigationStackProps
+>(
+  (
+    {
+      blades: propBlades,
+      onOpenItem,
+      onCloseBlade,
+      density = "compact",
+      className = "",
+      ...rest
+    },
+    ref
+  ) => {
+    const headingId = useId();
+    const [blades, setBlades] = useState<NavigationBlade[]>(
+      propBlades || defaultBladesDemo
+    );
+    const [maximizedBladeId, setMaximizedBladeId] = useState<string | null>(null);
 
-  const handleItemClick = (bladeIndex: number, item: BladeItem) => {
-    setBlades((prev) => {
-      const updated = prev.slice(0, bladeIndex + 1);
-      const currentBlade = updated[bladeIndex];
-      if (currentBlade) {
-        currentBlade.selectedItemId = item.id;
-      }
-      return updated;
-    });
-    onOpenItem?.(bladeIndex, item);
-  };
+    const handleItemClick = (bladeIndex: number, item: BladeItem) => {
+      setBlades((prev) => {
+        const updated = prev.slice(0, bladeIndex + 1);
+        const currentBlade = updated[bladeIndex];
+        if (currentBlade) {
+          currentBlade.selectedItemId = item.id;
+        }
+        return updated;
+      });
+      onOpenItem?.(bladeIndex, item);
+    };
 
-  const handleClose = (bladeIndex: number) => {
-    if (bladeIndex === 0) return; // Keep at least root blade
-    setBlades((prev) => prev.slice(0, bladeIndex));
-    onCloseBlade?.(bladeIndex);
-  };
+    const handleClose = (bladeIndex: number) => {
+      if (bladeIndex === 0) return;
+      setBlades((prev) => prev.slice(0, bladeIndex));
+      onCloseBlade?.(bladeIndex);
+    };
 
-  const handleToggleMaximize = (bladeId: string) => {
-    setMaximizedBladeId((prev) => (prev === bladeId ? null : bladeId));
-  };
+    const handleToggleMaximize = (bladeId: string) => {
+      setMaximizedBladeId((prev) => (prev === bladeId ? null : bladeId));
+    };
 
-  const handleReset = () => {
-    setBlades([blades[0] || defaultBladesDemo[0]!]);
-  };
+    const handleReset = () => {
+      setBlades([blades[0] || defaultBladesDemo[0]!]);
+    };
 
-  return (
-    <section
-      aria-labelledby={headingId}
-      className={`${styles.container} ${className}`}
-      data-density={density}
-    >
-      <header className={styles.topBar}>
-        <div className={styles.breadcrumbs} aria-label="Blade Drill-Down Breadcrumb Trail">
-          {blades.map((b, idx) => (
-            <React.Fragment key={b.id}>
-              {idx > 0 && <span className={styles.separator}>/</span>}
+    return (
+      <section
+        ref={ref}
+        aria-labelledby={headingId}
+        className={`${styles.container} ${className}`.trim()}
+        data-density={density}
+        {...rest}
+      >
+        <header className={styles.topBar}>
+          <div
+            className={styles.breadcrumbs}
+            aria-label="Blade Drill-Down Breadcrumb Trail"
+          >
+            {blades.map((b, idx) => (
+              <React.Fragment key={b.id}>
+                {idx > 0 && <span className={styles.separator}>/</span>}
+                <button
+                  type="button"
+                  className={`${styles.crumbItem} ${
+                    idx === blades.length - 1 ? styles.crumbActive : ""
+                  }`}
+                  onClick={() => setBlades((prev) => prev.slice(0, idx + 1))}
+                >
+                  {b.title}
+                </button>
+              </React.Fragment>
+            ))}
+          </div>
+
+          <div className={styles.stackActions}>
+            <h2
+              id={headingId}
+              className={styles.bladeTitle}
+              style={{ marginInlineEnd: "var(--space-2)" }}
+            >
+              Azure-Grade Blade Navigator
+            </h2>
+            {blades.length > 1 && (
               <button
                 type="button"
-                className={`${styles.crumbItem} ${idx === blades.length - 1 ? styles.crumbActive : ""}`}
-                onClick={() => setBlades((prev) => prev.slice(0, idx + 1))}
+                className={styles.resetBtn}
+                onClick={handleReset}
+                aria-label="Reset drilldown to root blade"
               >
-                {b.title}
+                Reset to Root
               </button>
-            </React.Fragment>
-          ))}
-        </div>
+            )}
+          </div>
+        </header>
 
-        <div className={styles.stackActions}>
-          <h2 id={headingId} className={styles.bladeTitle} style={{ marginRight: "0.5rem" }}>
-            Azure-Grade Blade Navigator
-          </h2>
-          {blades.length > 1 && (
-            <button
-              type="button"
-              className={styles.resetBtn}
-              onClick={handleReset}
-              aria-label="Reset drilldown to root blade"
-            >
-              Reset to Root
-            </button>
-          )}
-        </div>
-      </header>
+        <div
+          className={styles.bladeScroller}
+          role="region"
+          aria-label="Cascading Navigation Blade Stack"
+        >
+          {blades.map((blade, idx) => {
+            const isMax = maximizedBladeId === blade.id;
+            return (
+              <article
+                key={blade.id}
+                className={`${styles.blade} ${
+                  isMax ? styles.bladeMaximized : ""
+                }`}
+                aria-label={`Blade ${idx + 1}: ${blade.title}`}
+              >
+                <header className={styles.bladeHeader}>
+                  <div className={styles.bladeTitleGroup}>
+                    <span className={styles.bladeIndex}>{idx + 1}</span>
+                    <h3 className={styles.bladeTitle}>{blade.title}</h3>
+                  </div>
 
-      <div
-        className={styles.bladeScroller}
-        role="region"
-        aria-label="Cascading Navigation Blade Stack"
-      >
-        {blades.map((blade, idx) => {
-          const isMax = maximizedBladeId === blade.id;
-          return (
-            <article
-              key={blade.id}
-              className={`${styles.blade} ${isMax ? styles.bladeMaximized : ""}`}
-              aria-label={`Blade ${idx + 1}: ${blade.title}`}
-            >
-              <header className={styles.bladeHeader}>
-                <div className={styles.bladeTitleGroup}>
-                  <span className={styles.bladeIndex}>{idx + 1}</span>
-                  <h3 className={styles.bladeTitle}>{blade.title}</h3>
-                </div>
-
-                <div className={styles.bladeTools}>
-                  <button
-                    type="button"
-                    className={styles.toolBtn}
-                    onClick={() => handleToggleMaximize(blade.id)}
-                    aria-label={isMax ? `Restore width for ${blade.title}` : `Maximize ${blade.title}`}
-                    title={isMax ? "Restore" : "Maximize"}
-                  >
-                    {isMax ? "❐" : "⛶"}
-                  </button>
-                  {idx > 0 && (
+                  <div className={styles.bladeTools}>
                     <button
                       type="button"
                       className={styles.toolBtn}
-                      onClick={() => handleClose(idx)}
-                      aria-label={`Close blade: ${blade.title}`}
-                      title="Close"
+                      onClick={() => handleToggleMaximize(blade.id)}
+                      aria-label={
+                        isMax
+                          ? `Restore Blade ${blade.title}`
+                          : `Maximize Blade ${blade.title}`
+                      }
+                      title={isMax ? "Restore" : "Maximize"}
                     >
-                      ✕
+                      {isMax ? "❐" : "□"}
                     </button>
-                  )}
-                </div>
-              </header>
+                    {idx > 0 && (
+                      <button
+                        type="button"
+                        className={styles.toolBtn}
+                        onClick={() => handleClose(idx)}
+                        aria-label={`Close Blade ${blade.title}`}
+                        title="Close Blade"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                </header>
 
-              <div className={styles.bladeBody}>
-                <ul className={styles.itemList} role="list">
-                  {blade.items.map((item) => {
-                    const isSelected = item.id === blade.selectedItemId;
-                    return (
-                      <li key={item.id}>
-                        <button
-                          type="button"
-                          className={`${styles.itemButton} ${isSelected ? styles.itemButtonSelected : ""}`}
-                          onClick={() => handleItemClick(idx, item)}
-                          aria-current={isSelected ? "page" : undefined}
-                        >
-                          <div>
-                            <div>{item.title}</div>
-                            {item.subtitle && (
-                              <div style={{ fontSize: "0.6875rem", color: "var(--color-text-secondary, #64748b)" }}>
-                                {item.subtitle}
-                              </div>
+                <div className={styles.bladeBody}>
+                  <ul className={styles.itemList}>
+                    {blade.items.map((item) => {
+                      const isSelected = blade.selectedItemId === item.id;
+                      return (
+                        <li key={item.id}>
+                          <button
+                            type="button"
+                            className={`${styles.itemButton} ${
+                              isSelected ? styles.itemButtonSelected : ""
+                            }`}
+                            onClick={() => handleItemClick(idx, item)}
+                            aria-current={isSelected ? "true" : undefined}
+                          >
+                            <div>
+                              <div>{item.title}</div>
+                              {item.subtitle && (
+                                <div
+                                  style={{
+                                    fontSize: "var(--text-2xs)",
+                                    color: "var(--color-text-secondary)",
+                                  }}
+                                >
+                                  {item.subtitle}
+                                </div>
+                              )}
+                            </div>
+                            {item.hasChildren && (
+                              <span className={styles.itemArrow} aria-hidden="true">
+                                ›
+                              </span>
                             )}
-                          </div>
-                          {item.hasChildren && (
-                            <span className={styles.itemArrow} aria-hidden="true">
-                              ›
-                            </span>
-                          )}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </section>
-  );
-};
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    );
+  }
+);
+
+BladeNavigationStack.displayName = "BladeNavigationStack";

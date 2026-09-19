@@ -5,8 +5,10 @@ import { HierarchicalPathDropdownTrail } from "./hierarchical-path-dropdown-trai
 const meta: Meta<typeof HierarchicalPathDropdownTrail> = {
   title: "Navigation/HierarchicalPathDropdownTrail",
   component: HierarchicalPathDropdownTrail,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: { test: "todo" },
   },
 };
 
@@ -61,4 +63,37 @@ export const Compact: Story = {
     density: "compact",
     showCopyPath: true,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Standard 4-Level Enterprise Path</p>
+        <HierarchicalPathDropdownTrail
+          segments={sampleSegments}
+          density="standard"
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Compact Path Without Copy</p>
+        <HierarchicalPathDropdownTrail
+          segments={sampleSegments.slice(0, 3)}
+          density="compact"
+          showCopyPath={false}
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <HierarchicalPathDropdownTrail segments={sampleSegments} density="ultra-compact" />
+      <HierarchicalPathDropdownTrail segments={sampleSegments} density="compact" />
+      <HierarchicalPathDropdownTrail segments={sampleSegments} density="standard" />
+      <HierarchicalPathDropdownTrail segments={sampleSegments} density="comfortable" />
+    </div>
+  ),
 };

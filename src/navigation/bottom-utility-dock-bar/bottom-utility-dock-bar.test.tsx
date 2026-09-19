@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -30,6 +30,18 @@ describe("BottomUtilityDockBar", () => {
     expect(screen.getByRole("button", { name: /Recent Records/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Scratchpad/i })).toBeInTheDocument();
     expect(screen.getByText("Ready")).toBeInTheDocument();
+  });
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <BottomUtilityDockBar
+        ref={ref}
+        tools={sampleTools}
+        statusText="Ready"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("toggles drawer panel when clicked", () => {

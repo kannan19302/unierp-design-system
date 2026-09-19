@@ -5,8 +5,10 @@ import { BottomUtilityDockBar } from "./bottom-utility-dock-bar";
 const meta: Meta<typeof BottomUtilityDockBar> = {
   title: "Navigation/BottomUtilityDockBar",
   component: BottomUtilityDockBar,
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    a11y: { test: "todo" },
   },
 };
 
@@ -37,7 +39,7 @@ const sampleTools = [
     renderPanel: () => (
       <div>
         <p>Quick scratchpad notes...</p>
-        <textarea rows={4} style={{ width: "100%" }} defaultValue="Follow up on Q3 revenue quota." />
+        <textarea rows={4} style={{ inlineSize: "100%" }} defaultValue="Follow up on Q3 revenue quota." />
       </div>
     ),
   },
@@ -65,4 +67,60 @@ export const Compact: Story = {
     liveStatus: "syncing",
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Standard Dock with Panel Open</p>
+        <BottomUtilityDockBar
+          tools={sampleTools}
+          activeToolId="history"
+          statusText="Live Sync Active"
+          liveStatus="online"
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Dock with Warning/Sync Status</p>
+        <BottomUtilityDockBar
+          tools={sampleTools}
+          statusText="Reconnecting in 5s..."
+          liveStatus="syncing"
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <BottomUtilityDockBar
+        tools={sampleTools}
+        density="ultra-compact"
+        statusText="Ultra Compact"
+        liveStatus="online"
+      />
+      <BottomUtilityDockBar
+        tools={sampleTools}
+        density="compact"
+        statusText="Compact"
+        liveStatus="syncing"
+      />
+      <BottomUtilityDockBar
+        tools={sampleTools}
+        density="standard"
+        statusText="Standard"
+        liveStatus="online"
+      />
+      <BottomUtilityDockBar
+        tools={sampleTools}
+        density="comfortable"
+        statusText="Comfortable Offline"
+        liveStatus="offline"
+      />
+    </div>
+  ),
 };

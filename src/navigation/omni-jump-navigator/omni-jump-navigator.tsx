@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, forwardRef } from "react";
 import styles from "./omni-jump-navigator.module.css";
 
 export type OmniJumpPrefix = "@" | "#" | "!" | ">" | "";
@@ -13,11 +13,12 @@ export interface OmniJumpItem {
   shortcut?: string;
 }
 
-export interface OmniJumpNavigatorProps {
+export interface OmniJumpNavigatorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onSelect"> {
   items: OmniJumpItem[];
   isOpen?: boolean;
   onClose?: () => void;
   onSelect?: (item: OmniJumpItem) => void;
+  recentQueries?: string[];
   placeholder?: string;
   density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
@@ -32,179 +33,195 @@ const PREFIX_CONFIG: { prefix: OmniJumpPrefix; label: string; description: strin
   { prefix: ">", label: "> Views", description: "Dashboards & Ledgers" },
 ];
 
-export const OmniJumpNavigator: React.FC<OmniJumpNavigatorProps> = ({
-  items,
-  isOpen = true,
-  onClose,
-  onSelect,
-  placeholder = "Jump to anything... (@ people, # workspaces, ! records, > views)",
-  density = "standard",
-  className = "",
-  testId = "omni-jump-navigator",
-}) => {
-  const [query, setQuery] = useState("");
-  const [activePrefix, setActivePrefix] = useState<OmniJumpPrefix>("");
-  const [selectedIndex, setSelectedIndex] = useState(0);
+/**
+ * OmniJumpNavigator provides a global search launcher with prefix filtering
+ * for instant fuzzy navigation to people, workspaces, records, and system views.
+ *
+ * @maturity stable
+ */
+export const OmniJumpNavigator = forwardRef<HTMLDivElement, OmniJumpNavigatorProps>(
+  (
+    {
+      items,
+      isOpen = true,
+      onClose,
+      onSelect,
+      placeholder = "Jump to anything... (@ people, # workspaces, ! records, > views)",
+      density = "standard",
+      className = "",
+      testId = "omni-jump-navigator",
+      ...rest
+    },
+    ref
+  ) => {
+    const [query, setQuery] = useState("");
+    const [activePrefix, setActivePrefix] = useState<OmniJumpPrefix>("");
+    const [selectedIndex, setSelectedIndex] = useState(0);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen && onClose) {
-        onClose();
+    useEffect(() => {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape" && isOpen && onClose) {
+          onClose();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isOpen, onClose]);
+
+    // Extract prefix if user types it directly as the first character
+    const effectivePrefix: OmniJumpPrefix = useMemo(() => {
+      const trimmed = query.trim();
+      if (trimmed.startsWith("@")) return "@";
+      if (trimmed.startsWith("#")) return "#";
+      if (trimmed.startsWith("!")) return "!";
+      if (trimmed.startsWith(">")) return ">";
+      return activePrefix;
+    }, [query, activePrefix]);
+
+    const cleanQuery = useMemo(() => {
+      const trimmed = query.trim();
+      if (trimmed.startsWith("@") || trimmed.startsWith("#") || trimmed.startsWith("!") || trimmed.startsWith(">")) {
+        return trimmed.slice(1).trim().toLowerCase();
+      }
+      return trimmed.toLowerCase();
+    }, [query]);
+
+    const filteredItems = useMemo(() => {
+      return items.filter((item) => {
+        if (effectivePrefix && item.prefix !== effectivePrefix) {
+          return false;
+        }
+        if (!cleanQuery) return true;
+        return (
+          item.title.toLowerCase().includes(cleanQuery) ||
+          (item.subtitle && item.subtitle.toLowerCase().includes(cleanQuery)) ||
+          item.category.toLowerCase().includes(cleanQuery)
+        );
+      });
+    }, [items, effectivePrefix, cleanQuery]);
+
+    const handleKeyDownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setSelectedIndex((prev) => (filteredItems.length > 0 ? (prev + 1) % filteredItems.length : 0));
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setSelectedIndex((prev) => (filteredItems.length > 0 ? (prev - 1 + filteredItems.length) % filteredItems.length : 0));
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (filteredItems[selectedIndex]) {
+          onSelect?.(filteredItems[selectedIndex]);
+        }
       }
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
 
-  // Extract prefix if user types it directly as the first character
-  const effectivePrefix: OmniJumpPrefix = useMemo(() => {
-    const trimmed = query.trim();
-    if (trimmed.startsWith("@")) return "@";
-    if (trimmed.startsWith("#")) return "#";
-    if (trimmed.startsWith("!")) return "!";
-    if (trimmed.startsWith(">")) return ">";
-    return activePrefix;
-  }, [query, activePrefix]);
+    if (!isOpen) return null;
 
-  const cleanQuery = useMemo(() => {
-    const trimmed = query.trim();
-    if (trimmed.startsWith("@") || trimmed.startsWith("#") || trimmed.startsWith("!") || trimmed.startsWith(">")) {
-      return trimmed.slice(1).trim().toLowerCase();
-    }
-    return trimmed.toLowerCase();
-  }, [query]);
-
-  const filteredItems = useMemo(() => {
-    return items.filter((item) => {
-      if (effectivePrefix && item.prefix !== effectivePrefix) {
-        return false;
-      }
-      if (!cleanQuery) return true;
-      return (
-        item.title.toLowerCase().includes(cleanQuery) ||
-        (item.subtitle && item.subtitle.toLowerCase().includes(cleanQuery)) ||
-        item.category.toLowerCase().includes(cleanQuery)
-      );
-    });
-  }, [items, effectivePrefix, cleanQuery]);
-
-  const handleKeyDownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setSelectedIndex((prev) => (filteredItems.length > 0 ? (prev + 1) % filteredItems.length : 0));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setSelectedIndex((prev) => (filteredItems.length > 0 ? (prev - 1 + filteredItems.length) % filteredItems.length : 0));
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      if (filteredItems[selectedIndex]) {
-        onSelect?.(filteredItems[selectedIndex]);
-      }
-    }
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div
-      className={styles.overlay ?? ""}
-      onClick={onClose}
-      data-testid={`${testId}-overlay`}
-    >
+    return (
       <div
-        className={`${styles.modal ?? ""} ${className}`}
-        data-density={density}
-        data-testid={testId}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Omni Jump Navigator"
-        onClick={(e) => e.stopPropagation()}
+        className={styles.overlay ?? ""}
+        onClick={onClose}
+        data-testid={`${testId}-overlay`}
       >
-        <div className={styles.inputSection ?? ""}>
-          <span className={styles.prefixIcon ?? ""} aria-hidden="true">
-            {effectivePrefix || "⌕"}
-          </span>
-          <input
-            type="text"
-            className={styles.input ?? ""}
-            placeholder={placeholder}
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setSelectedIndex(0);
-            }}
-            onKeyDown={handleKeyDownInput}
-            aria-label="Search destination"
-            autoFocus
-          />
-        </div>
+        <div
+          ref={ref}
+          className={`${styles.modal ?? ""} ${className}`}
+          data-density={density}
+          data-testid={testId}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Omni Jump Navigator"
+          onClick={(e) => e.stopPropagation()}
+          {...rest}
+        >
+          <div className={styles.inputSection ?? ""}>
+            <span className={styles.prefixIcon ?? ""} aria-hidden="true">
+              {effectivePrefix || "⌕"}
+            </span>
+            <input
+              type="text"
+              className={styles.input ?? ""}
+              placeholder={placeholder}
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setSelectedIndex(0);
+              }}
+              onKeyDown={handleKeyDownInput}
+              aria-label="Search destination"
+              autoFocus
+            />
+          </div>
 
-        <div className={styles.prefixChips ?? ""} role="tablist" aria-label="Prefix categories">
-          {PREFIX_CONFIG.map((cfg) => {
-            const isActive = effectivePrefix === cfg.prefix;
-            return (
-              <button
-                key={cfg.prefix || "all"}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                className={`${styles.chip ?? ""} ${isActive ? (styles.chipActive ?? "") : ""}`}
-                onClick={() => {
-                  setActivePrefix(cfg.prefix);
-                  setQuery("");
-                  setSelectedIndex(0);
-                }}
-              >
-                {cfg.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <ul className={styles.resultsList ?? ""} role="list" aria-label="Search results">
-          {filteredItems.length === 0 ? (
-            <li style={{ padding: "var(--space-4, 1rem)", textAlign: "center", color: "var(--color-text-secondary, #64748b)" }}>
-              No matches found for &quot;{query}&quot;
-            </li>
-          ) : (
-            filteredItems.map((item, idx) => {
-              const isSelected = idx === selectedIndex;
+          <div className={styles.prefixChips ?? ""} role="tablist" aria-label="Prefix categories">
+            {PREFIX_CONFIG.map((cfg) => {
+              const isActive = effectivePrefix === cfg.prefix;
               return (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    className={`${styles.resultItem ?? ""} ${isSelected ? (styles.resultItemActive ?? "") : ""}`}
-                    onClick={() => onSelect?.(item)}
-                    data-selected={isSelected}
-                  >
-                    <div className={styles.itemLeft ?? ""}>
-                      {item.icon && <span className={styles.itemIcon ?? ""} aria-hidden="true">{item.icon}</span>}
-                      <div className={styles.itemText ?? ""}>
-                        <span className={styles.itemTitle ?? ""}>{item.title}</span>
-                        {item.subtitle && <span className={styles.itemSubtitle ?? ""}>{item.subtitle}</span>}
-                      </div>
-                    </div>
-                    <span className={styles.itemCategory ?? ""}>{item.category}</span>
-                  </button>
-                </li>
+                <button
+                  key={cfg.prefix || "all"}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`${styles.chip ?? ""} ${isActive ? (styles.chipActive ?? "") : ""}`}
+                  onClick={() => {
+                    setActivePrefix(cfg.prefix);
+                    setQuery("");
+                    setSelectedIndex(0);
+                  }}
+                >
+                  {cfg.label}
+                </button>
               );
-            })
-          )}
-        </ul>
+            })}
+          </div>
 
-        <div className={styles.footer ?? ""}>
-          <span className={styles.shortcutHint ?? ""}>
-            <kbd className={styles.kbd ?? ""}>↑</kbd>
-            <kbd className={styles.kbd ?? ""}>↓</kbd> to navigate
-          </span>
-          <span className={styles.shortcutHint ?? ""}>
-            <kbd className={styles.kbd ?? ""}>↵</kbd> to jump
-          </span>
-          <span className={styles.shortcutHint ?? ""}>
-            <kbd className={styles.kbd ?? ""}>Esc</kbd> to close
-          </span>
+          <ul className={styles.resultsList ?? ""} role="list" aria-label="Search results">
+            {filteredItems.length === 0 ? (
+              <li className={styles.noResults}>
+                No matches found for &quot;{query}&quot;
+              </li>
+            ) : (
+              filteredItems.map((item, idx) => {
+                const isSelected = idx === selectedIndex;
+                return (
+                  <li key={item.id}>
+                    <button
+                      type="button"
+                      className={`${styles.resultItem ?? ""} ${isSelected ? (styles.resultItemActive ?? "") : ""}`}
+                      onClick={() => onSelect?.(item)}
+                      data-selected={isSelected}
+                    >
+                      <div className={styles.itemLeft ?? ""}>
+                        {item.icon && <span className={styles.itemIcon ?? ""} aria-hidden="true">{item.icon}</span>}
+                        <div className={styles.itemText ?? ""}>
+                          <span className={styles.itemTitle ?? ""}>{item.title}</span>
+                          {item.subtitle && <span className={styles.itemSubtitle ?? ""}>{item.subtitle}</span>}
+                        </div>
+                      </div>
+                      <span className={styles.itemCategory ?? ""}>{item.category}</span>
+                    </button>
+                  </li>
+                );
+              })
+            )}
+          </ul>
+
+          <div className={styles.footer ?? ""}>
+            <span className={styles.shortcutHint ?? ""}>
+              <kbd className={styles.kbd ?? ""}>↑</kbd>
+              <kbd className={styles.kbd ?? ""}>↓</kbd> to navigate
+            </span>
+            <span className={styles.shortcutHint ?? ""}>
+              <kbd className={styles.kbd ?? ""}>↵</kbd> to jump
+            </span>
+            <span className={styles.shortcutHint ?? ""}>
+              <kbd className={styles.kbd ?? ""}>Esc</kbd> to close
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
+
+OmniJumpNavigator.displayName = "OmniJumpNavigator";

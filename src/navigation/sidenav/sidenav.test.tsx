@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -168,6 +169,17 @@ describe("SideNav Primitive", () => {
     expect(expandBtn).toBeInTheDocument();
     fireEvent.click(expandBtn);
     expect(onToggle).toHaveBeenCalledWith(false);
+  });
+
+  it("forwards ref to the aside element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <SideNav
+        ref={ref}
+        items={[{ key: "1", label: "Dashboard" }]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

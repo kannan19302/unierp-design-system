@@ -2,40 +2,42 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
-  border-radius: var(--radius-md, 6px);
-  padding: var(--space-1-5, 0.375rem) var(--space-3, 0.75rem);
+  inline-size: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
   box-sizing: border-box;
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-  color: var(--color-text-primary, #0f172a);
-  gap: var(--space-3, 0.75rem);
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  gap: var(--space-3);
 }
 
 .leftGroup {
   display: flex;
   align-items: center;
-  gap: var(--space-2, 0.5rem);
+  gap: var(--space-2);
 }
 
 .navBtn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1, 0.25rem);
-  padding: var(--space-1, 0.25rem) var(--space-2-5, 0.625rem);
-  border-radius: var(--radius-sm, 4px);
-  border: 1px solid var(--color-border, #cbd5e1);
-  background-color: var(--color-surface, #ffffff);
-  color: var(--color-text-primary, #0f172a);
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: 600;
+  gap: var(--space-1);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold, 600);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--duration-fast, 150ms) ease;
 }
 
 .navBtn:hover:not(:disabled) {
-  background-color: var(--color-surface-hover, #f1f5f9);
+  background-color: var(--color-surface-hover);
 }
 
 .navBtn:disabled {
@@ -46,100 +48,113 @@
 .recordIndicator {
   display: flex;
   align-items: center;
-  gap: var(--space-1-5, 0.375rem);
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: 500;
-  color: var(--color-text-secondary, #475569);
+  gap: var(--space-1-5);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-secondary);
 }
 
 .indexInput {
-  width: 3rem;
-  padding: 0.125rem var(--space-1, 0.25rem);
-  font-family: var(--font-mono, monospace);
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: 700;
+  inline-size: 3rem;
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold, 700);
   text-align: center;
-  border: 1px solid var(--color-border, #cbd5e1);
-  border-radius: var(--radius-xs, 2px);
-  background-color: var(--color-surface, #ffffff);
-  color: var(--color-text-primary, #0f172a);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
 }
 
 .progressBar {
-  width: 5rem;
-  height: 0.375rem;
-  background-color: var(--color-surface-subtle, #e2e8f0);
-  border-radius: var(--radius-full, 9999px);
+  inline-size: 5rem;
+  block-size: var(--space-1-5);
+  background-color: var(--color-surface-subtle);
+  border-radius: var(--radius-full);
   overflow: hidden;
 }
 
 .progressFill {
-  height: 100%;
-  background-color: var(--color-primary, #2563eb);
-  border-radius: var(--radius-full, 9999px);
-  transition: width 0.2s ease;
+  block-size: 100%;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: inline-size var(--duration-normal, 200ms) ease;
+}
+
+.statusLabel {
+  font-size: var(--text-2xs);
+  color: var(--color-text-secondary);
 }
 
 .rightGroup {
   display: flex;
   align-items: center;
-  gap: var(--space-2, 0.5rem);
+  gap: var(--space-2);
 }
 
 .ratioGroup {
   display: flex;
   align-items: center;
-  background-color: var(--color-surface-subtle, #f8fafc);
-  border: 1px solid var(--color-border, #cbd5e1);
-  border-radius: var(--radius-sm, 4px);
-  padding: 0.125rem;
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-0-5);
 }
 
 .ratioBtn {
   background: none;
   border: none;
-  border-radius: var(--radius-xs, 2px);
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
-  font-size: var(--text-2xs, 0.6875rem);
-  font-weight: 600;
-  color: var(--color-text-secondary, #64748b);
+  border-radius: var(--radius-xs);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
+  font-size: var(--text-2xs);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--duration-fast, 150ms) ease;
 }
 
 .ratioBtn:hover {
-  color: var(--color-text-primary, #0f172a);
+  color: var(--color-text-primary);
 }
 
 .ratioActive {
-  background-color: var(--color-surface, #ffffff);
-  color: var(--color-primary, #2563eb);
-  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .kbd {
-  font-family: var(--font-mono, monospace);
-  font-size: var(--text-2xs, 0.6875rem);
-  padding: 0 0.25rem;
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border-subtle, #cbd5e1);
-  border-radius: var(--radius-xs, 2px);
-  color: var(--color-text-tertiary, #94a3b8);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  padding-block: 0;
+  padding-inline: var(--space-1);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xs);
+  color: var(--color-text-tertiary);
 }
 
 /* Density overrides */
 .navigatorBar[data-density="ultra-compact"] {
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
 }
 
 .navigatorBar[data-density="compact"] {
-  padding: var(--space-1, 0.25rem) var(--space-2-5, 0.625rem);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
 }
 
 .navigatorBar[data-density="standard"] {
-  padding: var(--space-1-5, 0.375rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
 }
 
 .navigatorBar[data-density="comfortable"] {
-  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
 }

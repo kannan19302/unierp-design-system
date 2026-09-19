@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { forwardRef, useId, useState } from "react";
 import styles from "./tenant-hierarchy-scope-selector.module.css";
 
 export type TenantEnvironment = "PROD" | "STAGING" | "DEV";
@@ -55,61 +55,80 @@ export const defaultTenantScopes: TenantScopeNode[] = [
   },
 ];
 
-export interface TenantHierarchyScopeSelectorProps {
+export interface TenantHierarchyScopeSelectorProps extends React.HTMLAttributes<HTMLDivElement> {
   isOpenByDefault?: boolean;
   initialScopeId?: string;
   scopes?: TenantScopeNode[];
   onSelectScope?: (scopeId: string) => void;
   density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
+  testId?: string;
 }
 
-export const TenantHierarchyScopeSelector: React.FC<TenantHierarchyScopeSelectorProps> = ({
-  isOpenByDefault = false,
-  initialScopeId = "scope_apex_aero_tx_prod",
-  scopes = defaultTenantScopes,
-  onSelectScope,
-  density = "compact",
-  className = "",
-}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(isOpenByDefault);
-  const [selectedId, setSelectedId] = useState<string>(initialScopeId);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const searchInputId = useId();
+/**
+ * TenantHierarchyScopeSelector provides enterprise corporate scope context
+ * across multi-entity holding structures, operating subsidiaries, and regional facilities.
+ *
+ * @maturity stable
+ */
+export const TenantHierarchyScopeSelector = forwardRef<HTMLDivElement, TenantHierarchyScopeSelectorProps>(
+  (
+    {
+      isOpenByDefault = false,
+      initialScopeId = "scope_apex_aero_tx_prod",
+      scopes = defaultTenantScopes,
+      onSelectScope,
+      density = "compact",
+      className = "",
+      testId = "tenant-hierarchy-scope-selector",
+      ...rest
+    },
+    ref
+  ) => {
+    const [isOpen, setIsOpen] = useState<boolean>(isOpenByDefault);
+    const [selectedId, setSelectedId] = useState<string>(initialScopeId);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const searchInputId = useId();
 
-  const activeScope = scopes.find((s) => s.id === selectedId) || scopes[0] || defaultTenantScopes[0]!;
+    const activeScope = scopes.find((s) => s.id === selectedId) || scopes[0] || defaultTenantScopes[0]!;
 
-  const filteredScopes = scopes.filter((scope) => {
-    if (!searchQuery.trim()) return true;
-    const q = searchQuery.toLowerCase();
+    const filteredScopes = scopes.filter((scope) => {
+      if (!searchQuery.trim()) return true;
+      const q = searchQuery.toLowerCase();
+      return (
+        scope.holdingCompany.toLowerCase().includes(q) ||
+        scope.operatingSubsidiary.toLowerCase().includes(q) ||
+        scope.legalEntity.toLowerCase().includes(q) ||
+        scope.facilityOrRegion.toLowerCase().includes(q) ||
+        scope.environment.toLowerCase().includes(q)
+      );
+    });
+
+    const handleSelect = (scopeId: string) => {
+      setSelectedId(scopeId);
+      onSelectScope?.(scopeId);
+      setIsOpen(false);
+    };
+
+    const getEnvClass = (env: TenantEnvironment) => {
+      switch (env) {
+        case "PROD":
+          return styles.envProd;
+        case "STAGING":
+          return styles.envStaging;
+        case "DEV":
+          return styles.envDev;
+      }
+    };
+
     return (
-      scope.holdingCompany.toLowerCase().includes(q) ||
-      scope.operatingSubsidiary.toLowerCase().includes(q) ||
-      scope.legalEntity.toLowerCase().includes(q) ||
-      scope.facilityOrRegion.toLowerCase().includes(q) ||
-      scope.environment.toLowerCase().includes(q)
-    );
-  });
-
-  const handleSelect = (scopeId: string) => {
-    setSelectedId(scopeId);
-    onSelectScope?.(scopeId);
-    setIsOpen(false);
-  };
-
-  const getEnvClass = (env: TenantEnvironment) => {
-    switch (env) {
-      case "PROD":
-        return styles.envProd;
-      case "STAGING":
-        return styles.envStaging;
-      case "DEV":
-        return styles.envDev;
-    }
-  };
-
-  return (
-    <div className={`${styles.wrapper} ${className}`} data-density={density}>
+      <div
+        ref={ref}
+        className={`${styles.wrapper} ${className}`}
+        data-density={density}
+        data-testid={testId}
+        {...rest}
+      >
       <button
         type="button"
         className={styles.scopeButton}
@@ -193,7 +212,7 @@ export const TenantHierarchyScopeSelector: React.FC<TenantHierarchyScopeSelector
             })}
 
             {filteredScopes.length === 0 && (
-              <p style={{ textAlign: "center", color: "var(--color-text-secondary, #64748b)", fontSize: "0.75rem", padding: "1rem" }}>
+              <p style={{ textAlign: "center", color: "var(--color-text-secondary)", fontSize: "var(--text-xs)", paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)" }}>
                 No corporate entities match &quot;{searchQuery}&quot;
               </p>
             )}
@@ -207,4 +226,7 @@ export const TenantHierarchyScopeSelector: React.FC<TenantHierarchyScopeSelector
       )}
     </div>
   );
-};
+}
+);
+
+TenantHierarchyScopeSelector.displayName = "TenantHierarchyScopeSelector";

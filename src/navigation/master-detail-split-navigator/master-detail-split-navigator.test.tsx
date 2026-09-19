@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -24,6 +24,19 @@ describe("MasterDetailSplitNavigator", () => {
     const nextBtn = screen.getByRole("button", { name: /Next record/i });
     fireEvent.click(nextBtn);
     expect(handleNavigate).toHaveBeenCalledWith(6);
+  });
+
+  it("forwards ref to the navigation bar", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <MasterDetailSplitNavigator
+        ref={ref}
+        currentIndex={5}
+        totalCount={20}
+        onNavigate={() => {}}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("handles split ratio change", () => {

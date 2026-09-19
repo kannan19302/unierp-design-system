@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useState, type FC, type ReactNode } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useState,
+  type FC,
+  type ReactNode,
+} from "react";
 import styles from "./artifact-address.module.css";
 
 export type AddressScope = "app" | "site" | "library" | "manage";
@@ -24,7 +30,8 @@ const NO_OWNER_REASON: Partial<Record<AddressScope, string>> = {
   manage: "Tenant-wide — not owned by any one project.",
 };
 
-export interface ArtifactAddressProps {
+export interface ArtifactAddressProps
+  extends React.HTMLAttributes<HTMLSpanElement> {
   tenant?: string;
   scope: AddressScope;
   project: string | null;
@@ -34,7 +41,6 @@ export interface ArtifactAddressProps {
   href?: string;
   copyable?: boolean;
   size?: "sm" | "md" | "lg";
-  className?: string;
   trailing?: ReactNode;
 }
 
@@ -65,135 +71,171 @@ const Sep: FC<{ children?: ReactNode }> = ({ children = "/" }) => (
   </span>
 );
 
-export const ArtifactAddress: FC<ArtifactAddressProps> = ({
-  tenant,
-  scope,
-  project,
-  builder,
-  artifact,
-  version,
-  href,
-  copyable = false,
-  size = "md",
-  className = "",
-  trailing,
-}) => {
-  const scopeKey: AddressScope = scope;
-  const [copied, setCopied] = useState(false);
-  const plain = formatAddress({
-    tenant,
-    scope,
-    project,
-    builder,
-    artifact,
-    version,
-  });
-
-  const copy = useCallback(() => {
-    if (typeof navigator === "undefined" || !navigator.clipboard) return;
-    void navigator.clipboard.writeText(plain).then(() => {
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
+/**
+ * ArtifactAddress renders a structured hierarchical artifact path locator
+ * supporting tenant, scope, builder, artifact version segments, and one-click copy.
+ *
+ * @maturity stable
+ */
+export const ArtifactAddress = forwardRef<HTMLSpanElement, ArtifactAddressProps>(
+  (
+    {
+      tenant,
+      scope,
+      project,
+      builder,
+      artifact,
+      version,
+      href,
+      copyable = false,
+      size = "md",
+      className = "",
+      trailing,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
+    const scopeKey: AddressScope = scope;
+    const [copied, setCopied] = useState(false);
+    const plain = formatAddress({
+      tenant,
+      scope,
+      project,
+      builder,
+      artifact,
+      version,
     });
-  }, [plain]);
 
-  const leaf = artifact ?? builder ?? project ?? undefined;
+    const copy = useCallback(() => {
+      if (typeof navigator === "undefined" || !navigator.clipboard) return;
+      void navigator.clipboard.writeText(plain).then(() => {
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 1600);
+      });
+    }, [plain]);
 
-  const segments = (
-    <>
-      {tenant && (
-        <>
-          <span className={styles.seg}>{tenant}</span>
-          <Sep />
-        </>
-      )}
-      <span className={styles.segScope}>{SCOPE_SEGMENT[scopeKey]}</span>
-      <Sep />
-      {project === null ? (
-        <span className={styles.segEmpty} title={NO_OWNER_REASON[scopeKey]}>
-          {"—"}
-        </span>
-      ) : (
-        <span className={leaf === project ? styles.segLeaf : styles.seg}>
-          {project}
-        </span>
-      )}
-      {builder && (
-        <>
-          <Sep />
-          <span className={leaf === builder ? styles.segLeaf : styles.seg}>
-            {builder}
+    const leaf = artifact ?? builder ?? project ?? undefined;
+
+    const segments = (
+      <>
+        {tenant && (
+          <>
+            <span className={styles.seg}>{tenant}</span>
+            <Sep />
+          </>
+        )}
+        <span className={styles.segScope}>{SCOPE_SEGMENT[scopeKey]}</span>
+        <Sep />
+        {project === null ? (
+          <span className={styles.segEmpty} title={NO_OWNER_REASON[scopeKey]}>
+            {"—"}
           </span>
-        </>
-      )}
-      {artifact && (
-        <>
-          <Sep />
-          <span className={styles.segLeaf}>{artifact}</span>
-        </>
-      )}
-      {version && (
-        <>
-          <Sep>@</Sep>
-          <span className={styles.segVersion}>{version}</span>
-        </>
-      )}
-    </>
-  );
+        ) : (
+          <span className={leaf === project ? styles.segLeaf : styles.seg}>
+            {project}
+          </span>
+        )}
+        {builder && (
+          <>
+            <Sep />
+            <span className={leaf === builder ? styles.segLeaf : styles.seg}>
+              {builder}
+            </span>
+          </>
+        )}
+        {artifact && (
+          <>
+            <Sep />
+            <span className={styles.segLeaf}>{artifact}</span>
+          </>
+        )}
+        {version && (
+          <>
+            <Sep>@</Sep>
+            <span className={styles.segVersion}>{version}</span>
+          </>
+        )}
+      </>
+    );
 
-  return (
-    <span
-      className={[styles.address, styles[size], className].filter(Boolean).join(" ")}
-      style={{ ["--scope-hue" as string]: SCOPE_TOKEN[scopeKey] }}
-    >
-      {href ? (
-        <a className={styles.link} href={href} title={plain}>
-          {segments}
-        </a>
-      ) : (
-        segments
-      )}
+    return (
+      <span
+        ref={ref}
+        className={[styles.address, styles[size], className]
+          .filter(Boolean)
+          .join(" ")}
+        style={{
+          ["--scope-hue" as string]: SCOPE_TOKEN[scopeKey],
+          ...style,
+        }}
+        {...rest}
+      >
+        {href ? (
+          <a className={styles.link} href={href} title={plain}>
+            {segments}
+          </a>
+        ) : (
+          segments
+        )}
 
-      {trailing}
+        {trailing}
 
-      {copyable && (
-        <button
-          type="button"
-          className={[styles.copy, copied ? styles.copyDone : ""].filter(Boolean).join(" ")}
-          onClick={copy}
-          aria-label={copied ? `Copied ${plain}` : `Copy address ${plain}`}
-        >
-          {copied ? (
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M20 6 9 17l-5-5"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          ) : (
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect
-                x="9"
-                y="9"
-                width="11"
-                height="11"
-                rx="2"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <path
-                d="M5 15V5a2 2 0 0 1 2-2h10"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          )}
-        </button>
-      )}
-    </span>
-  );
-};
+        {copyable && (
+          <button
+            type="button"
+            className={[styles.copy, copied ? styles.copyDone : ""]
+              .filter(Boolean)
+              .join(" ")}
+            onClick={copy}
+            aria-label={copied ? `Copied ${plain}` : `Copy address ${plain}`}
+          >
+            {copied ? (
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20 6 9 17l-5-5"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ) : (
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <rect
+                  x="9"
+                  y="9"
+                  width="11"
+                  height="11"
+                  rx="2"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M5 15V5a2 2 0 0 1 2-2h10"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            )}
+          </button>
+        )}
+      </span>
+    );
+  }
+);
+
+ArtifactAddress.displayName = "ArtifactAddress";

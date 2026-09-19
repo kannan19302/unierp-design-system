@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -9,6 +9,12 @@ describe("CatalogSchemaExplorerTree", () => {
     const { container } = render(<CatalogSchemaExplorerTree />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to the container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<CatalogSchemaExplorerTree ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("renders database schemas and tables", () => {

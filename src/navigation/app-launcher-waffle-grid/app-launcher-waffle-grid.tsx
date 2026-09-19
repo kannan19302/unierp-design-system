@@ -1,4 +1,6 @@
-import React, { useId, useState } from "react";
+"use client";
+
+import React, { forwardRef, useId, useState } from "react";
 import styles from "./app-launcher-waffle-grid.module.css";
 
 export interface AppLauncherItem {
@@ -65,153 +67,186 @@ export const defaultAppList: AppLauncherItem[] = [
   },
 ];
 
-export interface AppLauncherWaffleGridProps {
+export interface AppLauncherWaffleGridProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   isOpenByDefault?: boolean;
   apps?: AppLauncherItem[];
   onLaunchApp?: (appId: string) => void;
   onViewAllApps?: () => void;
   density?: "ultra-compact" | "compact" | "standard" | "comfortable";
-  className?: string;
 }
 
-export const AppLauncherWaffleGrid: React.FC<AppLauncherWaffleGridProps> = ({
-  isOpenByDefault = false,
-  apps = defaultAppList,
-  onLaunchApp,
-  onViewAllApps,
-  density = "compact",
-  className = "",
-}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(isOpenByDefault);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const searchInputId = useId();
+/**
+ * AppLauncherWaffleGrid renders a suite application launcher popover matrix
+ * for switching between enterprise modules and domain applications.
+ *
+ * @maturity stable
+ */
+export const AppLauncherWaffleGrid = forwardRef<
+  HTMLDivElement,
+  AppLauncherWaffleGridProps
+>(
+  (
+    {
+      isOpenByDefault = false,
+      apps = defaultAppList,
+      onLaunchApp,
+      onViewAllApps,
+      density = "compact",
+      className = "",
+      ...rest
+    },
+    ref
+  ) => {
+    const [isOpen, setIsOpen] = useState<boolean>(isOpenByDefault);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const searchInputId = useId();
 
-  const filteredApps = apps.filter((app) => {
-    if (!searchQuery.trim()) return true;
-    const q = searchQuery.toLowerCase();
+    const filteredApps = apps.filter((app) => {
+      if (!searchQuery.trim()) return true;
+      const q = searchQuery.toLowerCase();
+      return (
+        app.name.toLowerCase().includes(q) ||
+        app.description.toLowerCase().includes(q) ||
+        app.category.toLowerCase().includes(q)
+      );
+    });
+
+    const categories = Array.from(new Set(filteredApps.map((a) => a.category)));
+
+    const handleLaunch = (appId: string) => {
+      onLaunchApp?.(appId);
+      setIsOpen(false);
+    };
+
     return (
-      app.name.toLowerCase().includes(q) ||
-      app.description.toLowerCase().includes(q) ||
-      app.category.toLowerCase().includes(q)
-    );
-  });
-
-  // Group by category
-  const categories = Array.from(new Set(filteredApps.map((a) => a.category)));
-
-  const handleLaunch = (appId: string) => {
-    onLaunchApp?.(appId);
-    setIsOpen(false);
-  };
-
-  return (
-    <div
-      className={`${styles.wrapper} ${className}`}
-      data-density={density}
-    >
-      <button
-        type="button"
-        className={styles.waffleButton}
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-expanded={isOpen}
-        aria-haspopup="dialog"
-        aria-label="App Launcher: Open Suite Applications Grid"
-        title="App Launcher"
+      <div
+        ref={ref}
+        className={`${styles.wrapper} ${className}`.trim()}
+        data-density={density}
+        {...rest}
       >
-        <div className={styles.waffleDots} aria-hidden="true">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div key={i} className={styles.waffleDot} />
-          ))}
-        </div>
-      </button>
-
-      {isOpen && (
-        <div
-          role="dialog"
-          aria-label="Enterprise Application Launcher"
-          className={styles.flyout}
+        <button
+          type="button"
+          className={styles.waffleButton}
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-expanded={isOpen}
+          aria-haspopup="dialog"
+          aria-label="App Launcher: Open Suite Applications Grid"
+          title="App Launcher"
         >
-          <header className={styles.flyoutHeader}>
-            <div className={styles.titleRow}>
-              <h2 className={styles.title}>App Launcher</h2>
+          <div className={styles.waffleDots} aria-hidden="true">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <div key={i} className={styles.waffleDot} />
+            ))}
+          </div>
+        </button>
+
+        {isOpen && (
+          <div
+            role="dialog"
+            aria-label="Enterprise Application Launcher"
+            className={styles.flyout}
+          >
+            <header className={styles.flyoutHeader}>
+              <div className={styles.titleRow}>
+                <h2 className={styles.title}>App Launcher</h2>
+                <button
+                  type="button"
+                  className={styles.waffleButton}
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Close App Launcher"
+                  style={{
+                    inlineSize: "1.5rem",
+                    blockSize: "1.5rem",
+                    border: "none",
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className={styles.searchBox}>
+                <label htmlFor={searchInputId} className={styles.srOnly}>
+                  Search applications and modules
+                </label>
+                <input
+                  id={searchInputId}
+                  type="search"
+                  className={styles.searchInput}
+                  placeholder="Search apps or suites..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                />
+              </div>
+            </header>
+
+            <div className={styles.appScrollArea}>
+              {categories.map((category) => {
+                const categoryApps = filteredApps.filter(
+                  (a) => a.category === category
+                );
+                return (
+                  <div key={category} className={styles.categoryGroup}>
+                    <h3 className={styles.categoryTitle}>{category}</h3>
+                    <div className={styles.appGrid}>
+                      {categoryApps.map((app) => (
+                        <button
+                          key={app.id}
+                          type="button"
+                          className={styles.appCard}
+                          onClick={() => handleLaunch(app.id)}
+                          aria-label={`Launch ${app.name}`}
+                        >
+                          <div className={styles.appIcon} aria-hidden="true">
+                            {app.shortIcon}
+                          </div>
+                          <div className={styles.appContent}>
+                            <span className={styles.appName}>{app.name}</span>
+                            <span className={styles.appDesc}>
+                              {app.description}
+                            </span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {filteredApps.length === 0 && (
+                <p
+                  style={{
+                    textAlign: "center",
+                    color: "var(--color-text-secondary)",
+                    fontSize: "var(--text-xs)",
+                    padding: "var(--space-4)",
+                  }}
+                >
+                  No applications match &quot;{searchQuery}&quot;
+                </p>
+              )}
+            </div>
+
+            <footer className={styles.flyoutFooter}>
+              <span>UniERP Suite Ecosystem</span>
               <button
                 type="button"
-                className={styles.waffleButton}
-                onClick={() => setIsOpen(false)}
-                aria-label="Close App Launcher"
-                style={{ width: "1.5rem", height: "1.5rem", border: "none" }}
+                className={styles.allAppsLink}
+                onClick={() => {
+                  setIsOpen(false);
+                  onViewAllApps?.();
+                }}
               >
-                ✕
+                View All Apps →
               </button>
-            </div>
-
-            <div className={styles.searchBox}>
-              <label htmlFor={searchInputId} className={styles.srOnly}>
-                Search applications and modules
-              </label>
-              <input
-                id={searchInputId}
-                type="search"
-                className={styles.searchInput}
-                placeholder="Search apps or suites..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                autoFocus
-              />
-            </div>
-          </header>
-
-          <div className={styles.appScrollArea}>
-            {categories.map((category) => {
-              const categoryApps = filteredApps.filter((a) => a.category === category);
-              return (
-                <div key={category} className={styles.categoryGroup}>
-                  <h3 className={styles.categoryTitle}>{category}</h3>
-                  <div className={styles.appGrid}>
-                    {categoryApps.map((app) => (
-                      <button
-                        key={app.id}
-                        type="button"
-                        className={styles.appCard}
-                        onClick={() => handleLaunch(app.id)}
-                        aria-label={`Launch ${app.name}`}
-                      >
-                        <div className={styles.appIcon} aria-hidden="true">
-                          {app.shortIcon}
-                        </div>
-                        <div className={styles.appContent}>
-                          <span className={styles.appName}>{app.name}</span>
-                          <span className={styles.appDesc}>{app.description}</span>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-
-            {filteredApps.length === 0 && (
-              <p style={{ textAlign: "center", color: "var(--color-text-secondary, #64748b)", fontSize: "0.75rem", padding: "1rem" }}>
-                No applications match &quot;{searchQuery}&quot;
-              </p>
-            )}
+            </footer>
           </div>
+        )}
+      </div>
+    );
+  }
+);
 
-          <footer className={styles.flyoutFooter}>
-            <span>UniERP Suite Ecosystem</span>
-            <button
-              type="button"
-              className={styles.allAppsLink}
-              onClick={() => {
-                setIsOpen(false);
-                onViewAllApps?.();
-              }}
-            >
-              View All 42 Apps →
-            </button>
-          </footer>
-        </div>
-      )}
-    </div>
-  );
-};
+AppLauncherWaffleGrid.displayName = "AppLauncherWaffleGrid";

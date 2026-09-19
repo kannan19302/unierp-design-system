@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -21,6 +22,19 @@ describe("Tabs Primitive", () => {
 
     fireEvent.click(screen.getByText("Tab Two"));
     expect(onChange).toHaveBeenCalledWith("tab2");
+  });
+
+  it("forwards ref to the div element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <Tabs
+        ref={ref}
+        value="a"
+        onChange={() => {}}
+        tabs={[{ key: "a", label: "Overview" }]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("navigates tabs with keyboard arrow keys", () => {

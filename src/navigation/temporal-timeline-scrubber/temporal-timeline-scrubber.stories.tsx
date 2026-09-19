@@ -5,8 +5,10 @@ import { TemporalTimelineScrubber } from "./temporal-timeline-scrubber";
 const meta: Meta<typeof TemporalTimelineScrubber> = {
   title: "Navigation/TemporalTimelineScrubber",
   component: TemporalTimelineScrubber,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: { test: "todo" },
   },
 };
 
@@ -31,9 +33,9 @@ export const Default: Story = {
     eventMarkers: sampleMarkers,
     activePreset: "24h",
     density: "standard",
-    onTimestampChange: (ts) => alert(`Timestamp: ${ts}`),
-    onTogglePlay: () => alert("Toggle playback"),
-    onPresetChange: (p) => alert(`Preset changed to: ${p}`),
+    onTimestampChange: (ts) => console.log(`Timestamp: ${ts}`),
+    onTogglePlay: () => console.log("Toggle playback"),
+    onPresetChange: (p) => console.log(`Preset changed to: ${p}`),
   },
 };
 
@@ -44,4 +46,68 @@ export const Compact: Story = {
     currentTimestamp: baseTime + oneHour * 12,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Standard Audit Replay Scrubber</p>
+        <TemporalTimelineScrubber
+          minTimestamp={baseTime}
+          maxTimestamp={baseTime + oneHour * 24}
+          currentTimestamp={baseTime + oneHour * 6}
+          eventMarkers={sampleMarkers}
+          onTimestampChange={() => {}}
+          onTogglePlay={() => {}}
+          onPresetChange={() => {}}
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Compact Scrubber Without Playback</p>
+        <TemporalTimelineScrubber
+          minTimestamp={baseTime}
+          maxTimestamp={baseTime + oneHour * 24}
+          currentTimestamp={baseTime + oneHour * 14}
+          density="compact"
+          onTimestampChange={() => {}}
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <TemporalTimelineScrubber
+        minTimestamp={baseTime}
+        maxTimestamp={baseTime + oneHour * 24}
+        currentTimestamp={baseTime + oneHour * 2}
+        density="ultra-compact"
+        onTimestampChange={() => {}}
+      />
+      <TemporalTimelineScrubber
+        minTimestamp={baseTime}
+        maxTimestamp={baseTime + oneHour * 24}
+        currentTimestamp={baseTime + oneHour * 8}
+        density="compact"
+        onTimestampChange={() => {}}
+      />
+      <TemporalTimelineScrubber
+        minTimestamp={baseTime}
+        maxTimestamp={baseTime + oneHour * 24}
+        currentTimestamp={baseTime + oneHour * 16}
+        density="standard"
+        onTimestampChange={() => {}}
+      />
+      <TemporalTimelineScrubber
+        minTimestamp={baseTime}
+        maxTimestamp={baseTime + oneHour * 24}
+        currentTimestamp={baseTime + oneHour * 22}
+        density="comfortable"
+        onTimestampChange={() => {}}
+      />
+    </div>
+  ),
 };

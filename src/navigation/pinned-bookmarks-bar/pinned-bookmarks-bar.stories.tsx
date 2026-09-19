@@ -5,8 +5,10 @@ import { PinnedBookmarksBar } from "./pinned-bookmarks-bar";
 const meta: Meta<typeof PinnedBookmarksBar> = {
   title: "Navigation/PinnedBookmarksBar",
   component: PinnedBookmarksBar,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    a11y: { test: "todo" },
   },
 };
 
@@ -25,9 +27,9 @@ export const Default: Story = {
   args: {
     bookmarks: sampleBookmarks,
     density: "standard",
-    onSelect: (b) => alert(`Selected bookmark: ${b.label}`),
-    onRemove: (id) => alert(`Removed: ${id}`),
-    onAddCurrent: () => alert("Pin current page clicked"),
+    onSelect: (b) => console.log(`Selected: ${b.label}`),
+    onRemove: (id) => console.log(`Removed: ${id}`),
+    onAddCurrent: () => console.log("Pin view"),
   },
 };
 
@@ -36,4 +38,39 @@ export const Compact: Story = {
     bookmarks: sampleBookmarks,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Standard Bookmarks Bar with Add Pin</p>
+        <PinnedBookmarksBar
+          bookmarks={sampleBookmarks}
+          onSelect={() => {}}
+          onRemove={() => {}}
+          onAddCurrent={() => {}}
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Compact Bookmarks Bar (Read Only)</p>
+        <PinnedBookmarksBar
+          bookmarks={sampleBookmarks.slice(0, 3)}
+          density="compact"
+          onSelect={() => {}}
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <PinnedBookmarksBar bookmarks={sampleBookmarks} density="ultra-compact" />
+      <PinnedBookmarksBar bookmarks={sampleBookmarks} density="compact" />
+      <PinnedBookmarksBar bookmarks={sampleBookmarks} density="standard" />
+      <PinnedBookmarksBar bookmarks={sampleBookmarks} density="comfortable" />
+    </div>
+  ),
 };

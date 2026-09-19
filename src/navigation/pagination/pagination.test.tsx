@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -11,6 +12,12 @@ describe("Pagination Primitive", () => {
 
     fireEvent.click(screen.getByLabelText("Next page"));
     expect(onChange).toHaveBeenCalledWith(4);
+  });
+
+  it("forwards ref to the navigation element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<Pagination ref={ref} page={3} pageCount={10} onChange={() => {}} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

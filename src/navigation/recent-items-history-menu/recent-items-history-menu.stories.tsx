@@ -5,8 +5,10 @@ import { RecentItemsHistoryMenu } from "./recent-items-history-menu";
 const meta: Meta<typeof RecentItemsHistoryMenu> = {
   title: "Navigation/RecentItemsHistoryMenu",
   component: RecentItemsHistoryMenu,
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    a11y: { test: "todo" },
   },
 };
 
@@ -53,9 +55,9 @@ export const Default: Story = {
     items: sampleItems,
     title: "Recent Items",
     density: "standard",
-    onItemClick: (item) => alert(`Selected: ${item.title}`),
-    onTogglePin: (id, pinned) => alert(`Toggle pin: ${id} -> ${pinned}`),
-    onClearHistory: () => alert("Clear history clicked"),
+    onItemClick: (item) => console.log(`Selected: ${item.title}`),
+    onTogglePin: (id, pinned) => console.log(`Pin: ${id} -> ${pinned}`),
+    onClearHistory: () => console.log("Clear history"),
   },
 };
 
@@ -65,4 +67,39 @@ export const Compact: Story = {
     title: "Recent History",
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Standard Recents Menu</p>
+        <RecentItemsHistoryMenu
+          items={sampleItems}
+          onItemClick={() => {}}
+          onTogglePin={() => {}}
+          onClearHistory={() => {}}
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Compact Menu Without Clear</p>
+        <RecentItemsHistoryMenu
+          items={sampleItems.slice(0, 2)}
+          density="compact"
+          onItemClick={() => {}}
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)" }}>
+      <RecentItemsHistoryMenu items={sampleItems} density="ultra-compact" />
+      <RecentItemsHistoryMenu items={sampleItems} density="compact" />
+      <RecentItemsHistoryMenu items={sampleItems} density="standard" />
+      <RecentItemsHistoryMenu items={sampleItems} density="comfortable" />
+    </div>
+  ),
 };

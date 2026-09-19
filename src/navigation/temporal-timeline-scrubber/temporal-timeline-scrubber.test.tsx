@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -30,6 +30,20 @@ describe("TemporalTimelineScrubber", () => {
     const forwardBtn = screen.getByRole("button", { name: /Step forward/i });
     fireEvent.click(forwardBtn);
     expect(handleTimestampChange).toHaveBeenCalled();
+  });
+
+  it("forwards ref to the container div", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <TemporalTimelineScrubber
+        ref={ref}
+        minTimestamp={baseTime}
+        maxTimestamp={baseTime + oneHour * 10}
+        currentTimestamp={baseTime + oneHour * 5}
+        onTimestampChange={() => {}}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("handles preset selection", () => {

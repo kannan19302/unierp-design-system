@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -20,6 +21,19 @@ describe("SavedViewSwitcher Primitive", () => {
     expect(select).toBeInTheDocument();
     fireEvent.change(select, { target: { value: "view2" } });
     expect(onSelect).toHaveBeenCalledWith("view2");
+  });
+
+  it("forwards ref to the container div", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <SavedViewSwitcher
+        ref={ref}
+        activeViewId="v1"
+        onSelectView={() => {}}
+        views={[{ id: "v1", name: "Standard" }]}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

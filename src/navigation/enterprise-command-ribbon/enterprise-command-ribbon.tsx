@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { useId, useState, forwardRef } from "react";
 import styles from "./enterprise-command-ribbon.module.css";
 
 export interface RibbonActionItem {
@@ -78,89 +78,108 @@ export const defaultRibbonTabs: RibbonTab[] = [
   },
 ];
 
-export interface EnterpriseCommandRibbonProps {
+export interface EnterpriseCommandRibbonProps extends React.HTMLAttributes<HTMLElement> {
   tabs?: RibbonTab[];
   initialTabId?: string;
   onExecuteAction?: (actionId: string) => void;
   density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
+  testId?: string;
 }
 
-export const EnterpriseCommandRibbon: React.FC<EnterpriseCommandRibbonProps> = ({
-  tabs = defaultRibbonTabs,
-  initialTabId = "tab_home",
-  onExecuteAction,
-  density = "compact",
-  className = "",
-}) => {
-  const ribbonId = useId();
-  const [activeTabId, setActiveTabId] = useState<string>(initialTabId);
+/**
+ * EnterpriseCommandRibbon provides an Office/Dynamics 365 style action ribbon bar
+ * organized into functional tabs and semantic action groupings.
+ *
+ * @maturity stable
+ */
+export const EnterpriseCommandRibbon = forwardRef<HTMLElement, EnterpriseCommandRibbonProps>(
+  (
+    {
+      tabs = defaultRibbonTabs,
+      initialTabId = "tab_home",
+      onExecuteAction,
+      density = "compact",
+      className = "",
+      testId = "enterprise-command-ribbon",
+      ...rest
+    },
+    ref
+  ) => {
+    const ribbonId = useId();
+    const [activeTabId, setActiveTabId] = useState<string>(initialTabId);
 
-  const currentTab = tabs.find((t) => t.id === activeTabId) || tabs[0] || defaultRibbonTabs[0]!;
+    const currentTab = tabs.find((t) => t.id === activeTabId) || tabs[0] || defaultRibbonTabs[0]!;
 
-  return (
-    <nav
-      id={ribbonId}
-      aria-label="Enterprise Command Ribbon"
-      className={`${styles.container} ${className}`}
-      data-density={density}
-    >
-      <header className={styles.tabHeader}>
-        <ul className={styles.tabList} role="tablist">
-          {tabs.map((tab) => {
-            const isActive = tab.id === activeTabId;
-            return (
-              <li key={tab.id} role="presentation">
-                <button
-                  type="button"
-                  role="tab"
-                  id={`ribbon-tab-${tab.id}`}
-                  aria-selected={isActive}
-                  className={`${styles.tabButton} ${isActive ? styles.tabButtonActive : ""}`}
-                  onClick={() => setActiveTabId(tab.id)}
-                >
-                  {tab.title}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </header>
-
-      <div
-        role="toolbar"
-        aria-label={`${currentTab.title} action ribbon toolbar`}
-        className={styles.ribbonBody}
+    return (
+      <nav
+        ref={ref}
+        id={ribbonId}
+        aria-label="Enterprise Command Ribbon"
+        className={`${styles.container} ${className}`}
+        data-density={density}
+        data-testid={testId}
+        {...rest}
       >
-        {currentTab.groups.map((group) => (
-          <div key={group.id} className={styles.actionGroup} aria-label={group.title}>
-            {group.actions.map((act) => (
-              <button
-                key={act.id}
-                type="button"
-                className={`${styles.ribbonActionBtn} ${
-                  act.isPrimary ? styles.ribbonActionPrimary : ""
-                }`}
-                onClick={() => onExecuteAction?.(act.id)}
-                disabled={act.isDisabled}
-                aria-label={
-                  act.shortcutKey ? `${act.label} (${act.shortcutKey})` : act.label
-                }
-              >
-                <span className={styles.actionIcon} aria-hidden="true">
-                  {act.icon}
-                </span>
-                <span className={styles.actionLabel}>{act.label}</span>
-                {act.shortcutKey && (
-                  <span className={styles.keyTipBadge} aria-hidden="true">
-                    {act.shortcutKey}
+        <header className={styles.tabHeader}>
+          <ul className={styles.tabList} role="tablist">
+            {tabs.map((tab) => {
+              const isActive = tab.id === activeTabId;
+              return (
+                <li key={tab.id} role="presentation">
+                  <button
+                    type="button"
+                    role="tab"
+                    id={`ribbon-tab-${tab.id}`}
+                    aria-selected={isActive}
+                    className={`${styles.tabButton} ${isActive ? styles.tabButtonActive : ""}`}
+                    onClick={() => setActiveTabId(tab.id)}
+                  >
+                    {tab.title}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </header>
+
+        <div
+          role="toolbar"
+          aria-label={`${currentTab.title} action ribbon toolbar`}
+          className={styles.ribbonBody}
+        >
+          {currentTab.groups.map((group) => (
+            <div key={group.id} className={styles.actionGroup} aria-label={group.title}>
+              {group.actions.map((act) => (
+                <button
+                  key={act.id}
+                  type="button"
+                  className={`${styles.ribbonActionBtn} ${
+                    act.isPrimary ? styles.ribbonActionPrimary : ""
+                  }`}
+                  onClick={() => onExecuteAction?.(act.id)}
+                  disabled={act.isDisabled}
+                  aria-label={
+                    act.shortcutKey ? `${act.label} (${act.shortcutKey})` : act.label
+                  }
+                >
+                  <span className={styles.actionIcon} aria-hidden="true">
+                    {act.icon}
                   </span>
-                )}
-              </button>
-            ))}
-          </div>
-        ))}
-      </div>
-    </nav>
-  );
-};
+                  <span className={styles.actionLabel}>{act.label}</span>
+                  {act.shortcutKey && (
+                    <span className={styles.keyTipBadge} aria-hidden="true">
+                      {act.shortcutKey}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </nav>
+    );
+  }
+);
+
+EnterpriseCommandRibbon.displayName = "EnterpriseCommandRibbon";

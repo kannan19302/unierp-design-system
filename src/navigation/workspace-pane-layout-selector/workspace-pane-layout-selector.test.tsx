@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -22,6 +22,18 @@ describe("WorkspacePaneLayoutSelector", () => {
 
     fireEvent.click(rightBtn);
     expect(handleToggle).toHaveBeenCalledWith("right");
+  });
+
+  it("forwards ref to the toolbar div", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <WorkspacePaneLayoutSelector
+        ref={ref}
+        visibility={{ showLeftPane: true, showRightPane: false, showBottomPane: false }}
+        onTogglePane={() => {}}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("handles preset selection", () => {

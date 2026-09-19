@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import { BimModelViewerToolbar } from "./bim-model-viewer-toolbar";
 
 describe("BimModelViewerToolbar", () => {
@@ -14,6 +14,12 @@ describe("BimModelViewerToolbar", () => {
     expect(screen.getByRole("button", { name: /Orbit Camera/i })).toBeDefined();
     expect(screen.getByRole("button", { name: /Pan Camera/i })).toBeDefined();
     expect(screen.getByRole("button", { name: /Walkthrough/i })).toBeDefined();
+  });
+
+  it("forwards ref to root nav element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<BimModelViewerToolbar ref={ref} modelName="Tower-12-Framing.ifc" />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("switches camera mode when pan button is clicked", () => {

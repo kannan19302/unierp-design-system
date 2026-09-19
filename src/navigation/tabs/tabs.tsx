@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode, type KeyboardEvent } from "react";
+import React, { forwardRef, type ReactNode, type KeyboardEvent } from "react";
 import styles from "./tabs.module.css";
 
 export interface TabItem {
@@ -12,15 +12,16 @@ export interface TabItem {
   disabled?: boolean;
 }
 
-export interface TabsProps {
+export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   tabs: TabItem[];
   value: string;
   onChange: (key: string) => void;
   variant?: "underline" | "pills";
   className?: string;
+  testId?: string;
 }
 
-const TabButton: FC<{
+const TabButton: React.FC<{
   tab: TabItem;
   active: boolean;
   onClick: () => void;
@@ -51,56 +52,73 @@ const TabButton: FC<{
   );
 };
 
-export const Tabs: FC<TabsProps> = ({
-  tabs,
-  value,
-  onChange,
-  variant = "underline",
-  className = "",
-}) => {
-  const enabledTabs = tabs.filter((t) => !t.disabled);
+/**
+ * Tabs allows switching between alternative views within the same context.
+ *
+ * @maturity stable
+ */
+export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
+  (
+    {
+      tabs,
+      value,
+      onChange,
+      variant = "underline",
+      className = "",
+      testId = "tabs",
+      ...rest
+    },
+    ref
+  ) => {
+    const enabledTabs = tabs.filter((t) => !t.disabled);
 
-  const onKeyDown = (e: KeyboardEvent) => {
-    const currentIdx = enabledTabs.findIndex((t) => t.key === value);
-    let nextIdx = currentIdx;
+    const onKeyDown = (e: KeyboardEvent) => {
+      const currentIdx = enabledTabs.findIndex((t) => t.key === value);
+      let nextIdx = currentIdx;
 
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      nextIdx = (currentIdx + 1) % enabledTabs.length;
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      nextIdx = (currentIdx - 1 + enabledTabs.length) % enabledTabs.length;
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      nextIdx = 0;
-    } else if (e.key === "End") {
-      e.preventDefault();
-      nextIdx = enabledTabs.length - 1;
-    } else {
-      return;
-    }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        nextIdx = (currentIdx + 1) % enabledTabs.length;
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        nextIdx = (currentIdx - 1 + enabledTabs.length) % enabledTabs.length;
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        nextIdx = 0;
+      } else if (e.key === "End") {
+        e.preventDefault();
+        nextIdx = enabledTabs.length - 1;
+      } else {
+        return;
+      }
 
-    const targetTab = enabledTabs[nextIdx];
-    if (targetTab) {
-      onChange(targetTab.key);
-    }
-  };
+      const targetTab = enabledTabs[nextIdx];
+      if (targetTab) {
+        onChange(targetTab.key);
+      }
+    };
 
-  return (
-    <div
-      role="tablist"
-      onKeyDown={onKeyDown}
-      className={`${variant === "pills" ? styles.tablistPills : styles.tablist} ${className}`.trim()}
-    >
-      {tabs.map((t) => (
-        <TabButton
-          key={t.key}
-          tab={t}
-          active={t.key === value}
-          onClick={() => onChange(t.key)}
-          variant={variant}
-        />
-      ))}
-    </div>
-  );
-};
+    return (
+      <div
+        ref={ref}
+        role="tablist"
+        onKeyDown={onKeyDown}
+        data-testid={testId}
+        className={`${variant === "pills" ? styles.tablistPills : styles.tablist} ${className}`.trim()}
+        {...rest}
+      >
+        {tabs.map((t) => (
+          <TabButton
+            key={t.key}
+            tab={t}
+            active={t.key === value}
+            onClick={() => onChange(t.key)}
+            variant={variant}
+          />
+        ))}
+      </div>
+    );
+  }
+);
+
+Tabs.displayName = "Tabs";

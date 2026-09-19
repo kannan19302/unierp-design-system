@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -23,6 +23,18 @@ describe("RecordAnchorNavigationStrip", () => {
     expect(screen.getByText("Sections")).toBeInTheDocument();
     expect(screen.getByText("Invoice Lines")).toBeInTheDocument();
     expect(screen.getByText("12")).toBeInTheDocument();
+  });
+
+  it("forwards ref to the nav element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <RecordAnchorNavigationStrip
+        ref={ref}
+        items={sampleSections}
+        title="Sections"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("handles item selection", () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -35,6 +35,19 @@ describe("FacetedFilterNavigationRail", () => {
 
     fireEvent.click(checkbox);
     expect(handleToggle).toHaveBeenCalledWith("status", "opt-pending");
+  });
+
+  it("forwards ref to the navigation container", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <FacetedFilterNavigationRail
+        ref={ref}
+        groups={sampleGroups}
+        selectedOptionIds={["opt-pending"]}
+        onToggleOption={() => {}}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("handles group collapse and clear all", () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -9,6 +9,12 @@ describe("AppLauncherWaffleGrid", () => {
     const { container } = render(<AppLauncherWaffleGrid isOpenByDefault={true} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<AppLauncherWaffleGrid ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("opens and closes flyout on button click", () => {
