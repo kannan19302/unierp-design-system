@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -83,6 +84,19 @@ describe("IncidentEscalationTree", () => {
     const escBtn = screen.getByRole("button", { name: /Escalate Next/i });
     fireEvent.click(escBtn);
     expect(onEscalate).toHaveBeenCalledWith("tier-1");
+  });
+
+  it("forwards ref to container section", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <IncidentEscalationTree
+        ref={ref}
+        title="Production Incident Ladder"
+        tiers={testTiers}
+        policyStatus="active"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

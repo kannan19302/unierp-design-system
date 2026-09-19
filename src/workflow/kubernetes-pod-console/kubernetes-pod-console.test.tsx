@@ -73,6 +73,20 @@ describe("KubernetesPodConsole", () => {
     expect(screen.getByText("Failed to connect to database.")).toBeInTheDocument();
   });
 
+  it("forwards ref to container section", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <KubernetesPodConsole
+        ref={ref}
+        podName="api-pod-123"
+        containers={["app"]}
+        status="Running"
+        logs={mockLogs}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes automated accessibility (axe) checks", async () => {
     const { container } = render(
       <KubernetesPodConsole

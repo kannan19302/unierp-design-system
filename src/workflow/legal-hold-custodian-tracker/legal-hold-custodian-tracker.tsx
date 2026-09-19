@@ -29,13 +29,25 @@ export interface LegalHoldCustodianTrackerProps {
   className?: string;
 }
 
-export const LegalHoldCustodianTracker: React.FC<LegalHoldCustodianTrackerProps> = ({
-  matter,
-  custodians: initialCustodians,
-  onSendEscalationReminder,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * Legal Hold Custodian Tracker
+ *
+ * @component
+ * @maturity stable
+ */
+export const LegalHoldCustodianTracker = React.forwardRef<
+  HTMLElement,
+  LegalHoldCustodianTrackerProps
+>(function LegalHoldCustodianTracker(
+  {
+    matter,
+    custodians: initialCustodians,
+    onSendEscalationReminder,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [custodians, setCustodians] = useState<LegalHoldCustodian[]>(initialCustodians);
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
@@ -59,6 +71,7 @@ export const LegalHoldCustodianTracker: React.FC<LegalHoldCustodianTrackerProps>
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -198,4 +211,6 @@ export const LegalHoldCustodianTracker: React.FC<LegalHoldCustodianTrackerProps>
       </footer>
     </section>
   );
-};
+});
+
+LegalHoldCustodianTracker.displayName = "LegalHoldCustodianTracker";

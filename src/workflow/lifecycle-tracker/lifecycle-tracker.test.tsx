@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -29,6 +30,18 @@ describe("LifecycleTracker Primitive", () => {
       fireEvent.click(draftButton);
       expect(onSelectStage).toHaveBeenCalledWith("draft");
     }
+  });
+
+  it("forwards ref to container nav element", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <LifecycleTracker
+        ref={ref}
+        stages={MOCK_STAGES}
+        currentStageId="review"
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

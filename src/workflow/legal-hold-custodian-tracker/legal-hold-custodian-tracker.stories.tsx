@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   LegalHoldCustodianTracker,
-  LegalMatterInfo,
-  LegalHoldCustodian,
+  type LegalMatterInfo,
+  type LegalHoldCustodian,
 } from "./legal-hold-custodian-tracker";
 
 const sampleMatter: LegalMatterInfo = {
@@ -59,6 +59,7 @@ const meta: Meta<typeof LegalHoldCustodianTracker> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -68,13 +69,58 @@ export const Default: Story = {
   args: {
     matter: sampleMatter,
     custodians: sampleCustodians,
+    density: "compact",
   },
 };
 
 export const UltraCompact: Story = {
   args: {
-    matter: sampleMatter,
-    custodians: sampleCustodians,
+    ...Default.args,
     density: "ultra-compact",
   },
+};
+
+export const Comfortable: Story = {
+  args: {
+    ...Default.args,
+    density: "comfortable",
+  },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Legal Hold Custodian Compliance Tracker</h4>
+        <LegalHoldCustodianTracker
+          matter={sampleMatter}
+          custodians={sampleCustodians}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Active Investigation Roster (Compact)</h4>
+        <LegalHoldCustodianTracker
+          matter={sampleMatter}
+          custodians={sampleCustodians}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Comfortable Density View</h4>
+        <LegalHoldCustodianTracker
+          matter={sampleMatter}
+          custodians={sampleCustodians}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

@@ -77,6 +77,14 @@ export const Default: Story = {
     tiers: mockTiers,
     policyStatus: "active",
     activeTierIndex: 0,
+    density: "compact",
+  },
+};
+
+export const Comfortable: Story = {
+  args: {
+    ...Default.args,
+    density: "comfortable",
   },
 };
 
@@ -86,5 +94,50 @@ export const Standby: Story = {
     tiers: mockTiers.map((t) => ({ ...t, status: "waiting" })),
     policyStatus: "standby",
     activeTierIndex: 0,
+    density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Incident Escalation Tree</h4>
+        <IncidentEscalationTree
+          title="P1 Infrastructure Critical Escalation Policy"
+          tiers={mockTiers}
+          policyStatus="active"
+          activeTierIndex={0}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Active Incident Paging</h4>
+        <IncidentEscalationTree
+          title="P1 Infrastructure Critical Escalation Policy"
+          tiers={mockTiers}
+          policyStatus="active"
+          activeTierIndex={0}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Standby Policy</h4>
+        <IncidentEscalationTree
+          title="Weekend Datacenter Rotation"
+          tiers={mockTiers.map((t) => ({ ...t, status: "waiting" }))}
+          policyStatus="standby"
+          activeTierIndex={0}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

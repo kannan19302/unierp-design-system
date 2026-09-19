@@ -7,6 +7,7 @@ const meta: Meta<typeof LifecycleTracker> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -32,4 +33,30 @@ export const Completed: Story = {
     stages: sampleStages,
     currentStageId: "executed",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Lifecycle Tracker Progression</h4>
+        <LifecycleTracker stages={sampleStages} currentStageId="review" />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>In Progress (Review Stage)</h4>
+        <LifecycleTracker stages={sampleStages} currentStageId="review" />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Completed Lifecycle</h4>
+        <LifecycleTracker stages={sampleStages} currentStageId="executed" />
+      </div>
+    </div>
+  ),
 };

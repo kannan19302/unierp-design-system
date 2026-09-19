@@ -31,21 +31,33 @@ export interface KubernetesPodConsoleProps {
   className?: string;
 }
 
-export const KubernetesPodConsole: React.FC<KubernetesPodConsoleProps> = ({
-  podName,
-  namespace = "default",
-  containers,
-  activeContainer,
-  onSelectContainer,
-  status,
-  restartCount = 0,
-  nodeName = "ip-10-0-14-88.ec2.internal",
-  logs,
-  onRestartPod,
-  onDownloadLogs,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * Kubernetes Pod Console
+ *
+ * @component
+ * @maturity stable
+ */
+export const KubernetesPodConsole = React.forwardRef<
+  HTMLElement,
+  KubernetesPodConsoleProps
+>(function KubernetesPodConsole(
+  {
+    podName,
+    namespace = "default",
+    containers,
+    activeContainer,
+    onSelectContainer,
+    status,
+    restartCount = 0,
+    nodeName = "ip-10-0-14-88.ec2.internal",
+    logs,
+    onRestartPod,
+    onDownloadLogs,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [selectedContainer, setSelectedContainer] = useState<string>(
     activeContainer || (containers.length > 0 && containers[0] ? containers[0] : "app")
@@ -70,6 +82,7 @@ export const KubernetesPodConsole: React.FC<KubernetesPodConsoleProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -209,4 +222,6 @@ export const KubernetesPodConsole: React.FC<KubernetesPodConsoleProps> = ({
       </footer>
     </section>
   );
-};
+});
+
+KubernetesPodConsole.displayName = "KubernetesPodConsole";

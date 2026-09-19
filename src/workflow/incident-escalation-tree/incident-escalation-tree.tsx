@@ -42,16 +42,28 @@ export interface IncidentEscalationTreeProps {
   className?: string;
 }
 
-export const IncidentEscalationTree: React.FC<IncidentEscalationTreeProps> = ({
-  title = "Incident Escalation Policy",
-  tiers,
-  policyStatus = "standby",
-  activeTierIndex = 0,
-  onAcknowledgeTier,
-  onEscalateNow,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * Incident Escalation Tree Component
+ *
+ * @component
+ * @maturity stable
+ */
+export const IncidentEscalationTree = React.forwardRef<
+  HTMLElement,
+  IncidentEscalationTreeProps
+>(function IncidentEscalationTree(
+  {
+    title = "Incident Escalation Policy",
+    tiers,
+    policyStatus = "standby",
+    activeTierIndex = 0,
+    onAcknowledgeTier,
+    onEscalateNow,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const [selectedTierId, setSelectedTierId] = useState<string>(
     tiers[activeTierIndex]?.id || tiers[0]?.id || ""
   );
@@ -91,6 +103,7 @@ export const IncidentEscalationTree: React.FC<IncidentEscalationTreeProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -255,4 +268,6 @@ export const IncidentEscalationTree: React.FC<IncidentEscalationTreeProps> = ({
       </div>
     </section>
   );
-};
+});
+
+IncidentEscalationTree.displayName = "IncidentEscalationTree";

@@ -81,6 +81,18 @@ describe("LegalHoldCustodianTracker", () => {
     expect(screen.getByText("Escalation Sent")).toBeInTheDocument();
   });
 
+  it("forwards ref to container section", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <LegalHoldCustodianTracker
+        ref={ref}
+        matter={sampleMatter}
+        custodians={sampleCustodians}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <LegalHoldCustodianTracker matter={sampleMatter} custodians={sampleCustodians} />
