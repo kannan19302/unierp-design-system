@@ -47,12 +47,25 @@ const sampleTransaction: ExpenseTransactionAuditItem = {
   ],
 };
 
+const compliantTransaction: ExpenseTransactionAuditItem = {
+  ...sampleTransaction,
+  id: "TX-EXP-88905",
+  status: "policy_approved",
+  ruleChecks: sampleTransaction.ruleChecks.map((c) => ({
+    ...c,
+    passed: true,
+    severity: "info",
+    observedValue: "$210.00/night (3 nights)",
+  })),
+};
+
 const meta: Meta<typeof ExpensePolicyRuleAuditor> = {
   title: "Workflow/ExpensePolicyRuleAuditor",
   component: ExpensePolicyRuleAuditor,
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   args: {
     transaction: sampleTransaction,
   },
@@ -69,4 +82,42 @@ export const UltraCompact: Story = {
   args: {
     density: "ultra-compact",
   },
+};
+
+export const Comfortable: Story = {
+  args: {
+    density: "comfortable",
+  },
+};
+
+export const Compliant: Story = {
+  args: {
+    transaction: compliantTransaction,
+  },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Expense Policy Rule Auditor</h4>
+        <ExpensePolicyRuleAuditor transaction={sampleTransaction} density="compact" />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Violation / Override Required</h4>
+        <ExpensePolicyRuleAuditor transaction={sampleTransaction} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Policy Compliant / Auto-Approved</h4>
+        <ExpensePolicyRuleAuditor transaction={compliantTransaction} density="comfortable" />
+      </div>
+    </div>
+  ),
 };

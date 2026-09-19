@@ -73,6 +73,12 @@ describe("FeatureFlagTargetingRuleBuilder", () => {
     expect(screen.getByText(/Matched \[Enterprise Early Access Tier\]/i)).toBeDefined();
   });
 
+  it("forwards ref to container section", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<FeatureFlagTargetingRuleBuilder ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes accessibility axe audit", async () => {
     const { container } = render(<FeatureFlagTargetingRuleBuilder {...defaultProps} />);
     const results = await axe(container);

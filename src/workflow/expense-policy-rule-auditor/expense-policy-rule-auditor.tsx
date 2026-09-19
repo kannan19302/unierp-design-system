@@ -38,14 +38,26 @@ export interface ExpensePolicyRuleAuditorProps {
   className?: string;
 }
 
-export const ExpensePolicyRuleAuditor: React.FC<ExpensePolicyRuleAuditorProps> = ({
-  transaction,
-  onApprove,
-  onOverride,
-  onReject,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * Corporate Spend & Expense Policy Rule Auditor
+ *
+ * @component
+ * @maturity stable
+ */
+export const ExpensePolicyRuleAuditor = React.forwardRef<
+  HTMLElement,
+  ExpensePolicyRuleAuditorProps
+>(function ExpensePolicyRuleAuditor(
+  {
+    transaction,
+    onApprove,
+    onOverride,
+    onReject,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [justification, setJustification] = useState<string>("");
   const [isOverridden, setIsOverridden] = useState<boolean>(false);
@@ -86,6 +98,7 @@ export const ExpensePolicyRuleAuditor: React.FC<ExpensePolicyRuleAuditorProps> =
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -267,4 +280,6 @@ export const ExpensePolicyRuleAuditor: React.FC<ExpensePolicyRuleAuditorProps> =
       </div>
     </section>
   );
-};
+});
+
+ExpensePolicyRuleAuditor.displayName = "ExpensePolicyRuleAuditor";

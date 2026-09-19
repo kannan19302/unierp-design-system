@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -22,6 +23,12 @@ const mockCase = {
 };
 
 describe("DsarRequestLifecycleManager", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<DsarRequestLifecycleManager ref={ref} caseDetails={mockCase} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes axe accessibility tests with zero violations", async () => {
     const { container } = render(
       <DsarRequestLifecycleManager caseDetails={mockCase} />

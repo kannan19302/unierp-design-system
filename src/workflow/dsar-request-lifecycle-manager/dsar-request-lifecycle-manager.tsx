@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./dsar-request-lifecycle-manager.module.css";
 
 export type DsarStage =
@@ -47,12 +47,23 @@ const STAGES: { stage: DsarStage; label: string }[] = [
   { stage: "DELIVERED_AND_CLOSED", label: "5. Closed & Audited" },
 ];
 
-export const DsarRequestLifecycleManager: React.FC<DsarRequestLifecycleManagerProps> = ({
-  caseDetails,
-  onAdvanceStage,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * DsarRequestLifecycleManager component for orchestrating GDPR and CCPA Data Subject Access Request lifecycles.
+ *
+ * @maturity stable
+ */
+export const DsarRequestLifecycleManager = forwardRef<
+  HTMLElement,
+  DsarRequestLifecycleManagerProps
+>(function DsarRequestLifecycleManager(
+  {
+    caseDetails,
+    onAdvanceStage,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [activeStage, setActiveStage] = useState<DsarStage>(caseDetails.currentStage);
 
@@ -68,7 +79,6 @@ export const DsarRequestLifecycleManager: React.FC<DsarRequestLifecycleManagerPr
     }
   };
 
-
   const totalRecords = caseDetails.discoveredSystems.reduce(
     (sum, s) => sum + s.recordsFound,
     0
@@ -76,6 +86,7 @@ export const DsarRequestLifecycleManager: React.FC<DsarRequestLifecycleManagerPr
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -179,7 +190,6 @@ export const DsarRequestLifecycleManager: React.FC<DsarRequestLifecycleManagerPr
             {activeStage === "DELIVERED_AND_CLOSED"
               ? "All personal data subject obligations fulfilled. Cryptographic receipt logged."
               : `Current active phase: ${STAGES[stageIndex]?.label ?? "In Progress"}. Advance to next audit milestone.`}
-
           </span>
         </div>
         <div className={styles.footerActions}>
@@ -196,4 +206,6 @@ export const DsarRequestLifecycleManager: React.FC<DsarRequestLifecycleManagerPr
       </footer>
     </section>
   );
-};
+});
+
+DsarRequestLifecycleManager.displayName = "DsarRequestLifecycleManager";

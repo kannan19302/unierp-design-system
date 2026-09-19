@@ -1,3 +1,4 @@
+import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -79,6 +80,12 @@ describe("ExpensePolicyRuleAuditor", () => {
       "TX-EXP-88902",
       "Approved due to urgent client conference peak pricing"
     );
+  });
+
+  it("forwards ref to container section", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<ExpensePolicyRuleAuditor ref={ref} transaction={sampleTransaction} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

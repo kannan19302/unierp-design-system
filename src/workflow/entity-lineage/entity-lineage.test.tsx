@@ -1,14 +1,21 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { EntityLineage, type LineageItem } from "../entity-lineage";
+import { EntityLineage, type LineageItem } from "./entity-lineage";
 
 const mockLineage: LineageItem[] = [
   { id: "1", documentType: "PO", documentNumber: "PO-100", status: "approved" },
   { id: "2", documentType: "INV", documentNumber: "INV-200", status: "pending", isCurrent: true },
 ];
 
-describe("EntityLineage Primitive", () => {
+describe("EntityLineage", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<EntityLineage ref={ref} items={mockLineage} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("renders lineage items with document numbers", () => {
     render(<EntityLineage items={mockLineage} />);
 

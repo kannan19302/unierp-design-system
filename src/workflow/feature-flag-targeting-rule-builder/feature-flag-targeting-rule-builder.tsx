@@ -43,18 +43,30 @@ export interface FeatureFlagTargetingRuleBuilderProps {
   className?: string;
 }
 
-export const FeatureFlagTargetingRuleBuilder: React.FC<FeatureFlagTargetingRuleBuilderProps> = ({
-  flagKey,
-  flagName,
-  enabled: initialEnabled = true,
-  variations,
-  rules: initialRules = [],
-  defaultOffVariationId,
-  onSaveRules,
-  onToggleEnabled,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * Feature Flag Targeting Rule Builder
+ *
+ * @component
+ * @maturity stable
+ */
+export const FeatureFlagTargetingRuleBuilder = React.forwardRef<
+  HTMLElement,
+  FeatureFlagTargetingRuleBuilderProps
+>(function FeatureFlagTargetingRuleBuilder(
+  {
+    flagKey,
+    flagName,
+    enabled: initialEnabled = true,
+    variations,
+    rules: initialRules = [],
+    defaultOffVariationId,
+    onSaveRules,
+    onToggleEnabled,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [enabled, setEnabled] = useState(initialEnabled);
   const [rules, setRules] = useState<TargetingRule[]>(initialRules);
@@ -161,6 +173,7 @@ export const FeatureFlagTargetingRuleBuilder: React.FC<FeatureFlagTargetingRuleB
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${className}`}
       data-density={density}
       aria-labelledby={headingId}
@@ -339,4 +352,6 @@ export const FeatureFlagTargetingRuleBuilder: React.FC<FeatureFlagTargetingRuleB
       </div>
     </section>
   );
-};
+});
+
+FeatureFlagTargetingRuleBuilder.displayName = "FeatureFlagTargetingRuleBuilder";
