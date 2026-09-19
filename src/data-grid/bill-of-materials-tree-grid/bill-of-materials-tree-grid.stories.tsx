@@ -1,17 +1,6 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { BillOfMaterialsTreeGrid } from "./bill-of-materials-tree-grid";
-
-const meta: Meta<typeof BillOfMaterialsTreeGrid> = {
-  title: "Data Grid/BillOfMaterialsTreeGrid",
-  component: BillOfMaterialsTreeGrid,
-  parameters: {
-    layout: "padded",
-  },
-  tags: ["autodocs"],
-};
-
-export default meta;
-type Story = StoryObj<typeof BillOfMaterialsTreeGrid>;
 
 const sampleBomTree = {
   id: "asm-root",
@@ -106,6 +95,18 @@ const sampleBomTree = {
   ],
 };
 
+const meta: Meta<typeof BillOfMaterialsTreeGrid> = {
+  title: "Data Grid/BillOfMaterialsTreeGrid",
+  component: BillOfMaterialsTreeGrid,
+  parameters: {
+    layout: "padded",
+  },
+  tags: ["autodocs"],
+};
+
+export default meta;
+type Story = StoryObj<typeof BillOfMaterialsTreeGrid>;
+
 export const Default: Story = {
   args: {
     assemblyPartNumber: "PRD-ROBOT-ARM-700",
@@ -121,4 +122,46 @@ export const UltraCompact: Story = {
     ...Default.args,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>BOM Tree Grid Anatomy & Hierarchy</h3>
+      <BillOfMaterialsTreeGrid
+        assemblyPartNumber="PRD-ROBOT-ARM-700"
+        assemblyTitle="6-Axis Industrial Articulated Robotic Arm"
+        revision="Rev D.2"
+        rootBomNode={sampleBomTree}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Standard Density</h4>
+        <BillOfMaterialsTreeGrid
+          assemblyPartNumber="PRD-ROBOT-ARM-700"
+          assemblyTitle="6-Axis Industrial Articulated Robotic Arm"
+          revision="Rev D.2"
+          rootBomNode={sampleBomTree}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4>Comfortable Density</h4>
+        <BillOfMaterialsTreeGrid
+          assemblyPartNumber="PRD-ROBOT-ARM-700"
+          assemblyTitle="6-Axis Industrial Articulated Robotic Arm"
+          revision="Rev D.2"
+          rootBomNode={sampleBomTree}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

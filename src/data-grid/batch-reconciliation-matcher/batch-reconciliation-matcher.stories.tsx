@@ -94,6 +94,7 @@ const meta: Meta<typeof BatchReconciliationMatcher> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: "select",
@@ -150,4 +151,48 @@ export const HighDensityUltraCompact: Story = {
     currency: "USD",
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <BatchReconciliationMatcher
+        {...args}
+        statements={mockStatements}
+        ledgerItems={mockLedgerItems}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Unmatched State</h3>
+        <BatchReconciliationMatcher
+          statements={mockStatements}
+          ledgerItems={mockLedgerItems}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Ultra Compact Density with Active Links</h3>
+        <BatchReconciliationMatcher
+          statements={mockStatements}
+          ledgerItems={mockLedgerItems}
+          proposedMatches={[
+            {
+              statementId: "stmt-1",
+              ledgerId: "ledg-1",
+              confidence: "exact",
+              confidenceScore: 100,
+              varianceAmount: 0,
+            },
+          ]}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };

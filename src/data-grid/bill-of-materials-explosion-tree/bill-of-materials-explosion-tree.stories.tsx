@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   BillOfMaterialsExplosionTree,
@@ -102,4 +103,43 @@ export const Compact: Story = {
     bomData: mockBom,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>BOM Structure Anatomy</h3>
+      <BillOfMaterialsExplosionTree
+        assemblyTitle="Precision Harmonic Drive Actuator"
+        assemblyPartNumber="ASM-8020-HAR"
+        bomData={mockBom}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Default Density</h4>
+        <BillOfMaterialsExplosionTree
+          assemblyTitle="Robotic Arm Actuator Assembly MK-IV"
+          assemblyPartNumber="ASM-9901-ROB"
+          bomData={mockBom}
+          density="comfortable"
+        />
+      </div>
+      <div>
+        <h4>Compact Density</h4>
+        <BillOfMaterialsExplosionTree
+          assemblyTitle="Robotic Arm Actuator Assembly MK-IV (Compact)"
+          assemblyPartNumber="ASM-9901-ROB"
+          bomData={mockBom}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
 };

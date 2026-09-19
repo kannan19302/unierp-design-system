@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -31,6 +32,19 @@ const testBom: BomNodeItem = {
 };
 
 describe("BillOfMaterialsExplosionTree", () => {
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <BillOfMaterialsExplosionTree
+        ref={ref}
+        assemblyTitle="Actuator Unit"
+        assemblyPartNumber="ASM-9901"
+        bomData={testBom}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders BOM parts and computes totals correctly", () => {
     render(
       <BillOfMaterialsExplosionTree

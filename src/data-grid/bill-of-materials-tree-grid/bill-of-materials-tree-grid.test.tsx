@@ -1,7 +1,7 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import { BillOfMaterialsTreeGrid } from "./bill-of-materials-tree-grid";
 
 describe("BillOfMaterialsTreeGrid", () => {
@@ -42,6 +42,12 @@ describe("BillOfMaterialsTreeGrid", () => {
     onSelectNode: vi.fn(),
     onToggleEcoDetails: vi.fn(),
   };
+
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<BillOfMaterialsTreeGrid ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 
   it("renders BOM header, assembly title, and table tree", () => {
     render(<BillOfMaterialsTreeGrid {...defaultProps} />);

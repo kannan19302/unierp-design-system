@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -43,6 +44,18 @@ const mockLedgerItems: LedgerItem[] = [
 ];
 
 describe("BatchReconciliationMatcher", () => {
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <BatchReconciliationMatcher
+        ref={ref}
+        statements={mockStatements}
+        ledgerItems={mockLedgerItems}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("renders statement and ledger dual pane tables", () => {
     render(
       <BatchReconciliationMatcher

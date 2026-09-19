@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -64,6 +65,17 @@ describe("AuditLogForensicExplorer", () => {
 
     expect(screen.getByText("attacker@darknet.io")).toBeInTheDocument();
     expect(screen.queryByText("secops.lead@unierp.internal")).not.toBeInTheDocument();
+  });
+
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <AuditLogForensicExplorer
+        events={testEvents}
+        ref={ref}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

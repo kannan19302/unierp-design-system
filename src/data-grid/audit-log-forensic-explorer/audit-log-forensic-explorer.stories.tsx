@@ -79,3 +79,26 @@ export const HighRiskThreats: Story = {
     density: "compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <AuditLogForensicExplorer {...args} events={mockEvents} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Standard Compact Ledger</h3>
+        <AuditLogForensicExplorer events={mockEvents} density="compact" />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Comfortable Density View</h3>
+        <AuditLogForensicExplorer events={mockEvents} density="comfortable" />
+      </div>
+    </div>
+  ),
+};
