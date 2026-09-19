@@ -73,6 +73,21 @@ describe("MassPayoutBatchApprover", () => {
     expect(onAuthorize).toHaveBeenCalledWith("PAY-2026-0906-GL", "884912");
   });
 
+  it("forwards ref to container section", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <MassPayoutBatchApprover
+        ref={ref}
+        batchId="PAY-2026-0906-GL"
+        settlementDate="2026-09-08"
+        totalPayees={2}
+        totalGrossAmount={29738.0}
+        items={mockLines}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes automated accessibility (axe) checks", async () => {
     const { container } = render(
       <MassPayoutBatchApprover

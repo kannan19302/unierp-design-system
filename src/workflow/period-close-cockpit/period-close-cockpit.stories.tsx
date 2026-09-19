@@ -70,6 +70,7 @@ const meta: Meta<typeof PeriodCloseCockpit> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: "select",
@@ -106,4 +107,45 @@ export const PeriodLockedArchived: Story = {
     isHardLocked: true,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Financial Period Close Orchestration</h4>
+        <PeriodCloseCockpit
+          fiscalPeriod="FY2026-Q3 (September 2026 Close)"
+          tasks={mockTasks}
+          isHardLocked={false}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>In Progress (September Close)</h4>
+        <PeriodCloseCockpit
+          fiscalPeriod="FY2026-Q3 (September 2026 Close)"
+          tasks={mockTasks}
+          isHardLocked={false}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Hard-Locked (Archived Close)</h4>
+        <PeriodCloseCockpit
+          fiscalPeriod="FY2026-Q1 (March 2026 Close)"
+          tasks={mockTasks.map((t) => ({ ...t, status: "completed", exceptionCount: 0 }))}
+          isHardLocked={true}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

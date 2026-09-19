@@ -33,15 +33,27 @@ export interface PaymentRunCockpitProps {
   className?: string;
 }
 
-export const PaymentRunCockpit: React.FC<PaymentRunCockpitProps> = ({
-  runBatchId = "PR-2026-0906-01",
-  title = "Commercial Accounts Payable Execution Run",
-  invoices,
-  executionCutoff = "Today at 16:30 EST (Bank Wire Window)",
-  onExecutePaymentRun,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * Commercial Accounts Payable Execution Run Cockpit
+ *
+ * @component
+ * @maturity stable
+ */
+export const PaymentRunCockpit = React.forwardRef<
+  HTMLElement,
+  PaymentRunCockpitProps
+>(function PaymentRunCockpit(
+  {
+    runBatchId = "PR-2026-0906-01",
+    title = "Commercial Accounts Payable Execution Run",
+    invoices,
+    executionCutoff = "Today at 16:30 EST (Bank Wire Window)",
+    onExecutePaymentRun,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const [selectedRail, setSelectedRail] = useState<PaymentRail | "all">("all");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(
     new Set(invoices.map((inv) => inv.id))
@@ -118,6 +130,7 @@ export const PaymentRunCockpit: React.FC<PaymentRunCockpitProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -293,4 +306,6 @@ export const PaymentRunCockpit: React.FC<PaymentRunCockpitProps> = ({
       </footer>
     </section>
   );
-};
+});
+
+PaymentRunCockpit.displayName = "PaymentRunCockpit";

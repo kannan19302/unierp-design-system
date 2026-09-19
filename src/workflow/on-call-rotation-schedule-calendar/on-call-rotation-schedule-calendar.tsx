@@ -35,18 +35,30 @@ export interface OnCallRotationScheduleCalendarProps {
   className?: string;
 }
 
-export const OnCallRotationScheduleCalendar: React.FC<OnCallRotationScheduleCalendarProps> = ({
-  scheduleName,
-  weekRange,
-  timeZone = "UTC (Coordinated Universal Time)",
-  days,
-  layers,
-  shifts,
-  onRequestOverride,
-  onSelectShift,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * On-Call Rotation Schedule Calendar
+ *
+ * @component
+ * @maturity stable
+ */
+export const OnCallRotationScheduleCalendar = React.forwardRef<
+  HTMLElement,
+  OnCallRotationScheduleCalendarProps
+>(function OnCallRotationScheduleCalendar(
+  {
+    scheduleName,
+    weekRange,
+    timeZone = "UTC (Coordinated Universal Time)",
+    days,
+    layers,
+    shifts,
+    onRequestOverride,
+    onSelectShift,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [activeShiftId, setActiveShiftId] = useState<string | null>(
     shifts[0]?.id ?? null
@@ -65,6 +77,7 @@ export const OnCallRotationScheduleCalendar: React.FC<OnCallRotationScheduleCale
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -213,4 +226,6 @@ export const OnCallRotationScheduleCalendar: React.FC<OnCallRotationScheduleCale
       </div>
     </section>
   );
-};
+});
+
+OnCallRotationScheduleCalendar.displayName = "OnCallRotationScheduleCalendar";

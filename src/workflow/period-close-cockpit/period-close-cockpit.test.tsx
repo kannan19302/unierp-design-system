@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -98,6 +99,18 @@ describe("PeriodCloseCockpit", () => {
 
     fireEvent.click(hardLockBtn);
     expect(onExecuteHardLock).toHaveBeenCalledTimes(1);
+  });
+
+  it("forwards ref to container div element", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <PeriodCloseCockpit
+        ref={ref}
+        fiscalPeriod="FY2026-Q3 Close"
+        tasks={mockTasks}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

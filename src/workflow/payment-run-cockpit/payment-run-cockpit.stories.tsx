@@ -80,14 +80,64 @@ export const Default: Story = {
     title: "Commercial Accounts Payable Execution Run",
     invoices: mockInvoices,
     executionCutoff: "Today at 16:30 EST (Bank Wire Window)",
+    density: "compact",
   },
 };
 
-export const Compact: Story = {
+export const Comfortable: Story = {
+  args: {
+    ...Default.args,
+    density: "comfortable",
+  },
+};
+
+export const WiresOnly: Story = {
   args: {
     runBatchId: "PR-2026-0906-02",
     title: "Mid-Day Wire Transfer Disbursement",
     invoices: mockInvoices.filter((i) => i.rail === "wire"),
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Payment Run Cockpit</h4>
+        <PaymentRunCockpit
+          runBatchId="PR-2026-0906-01"
+          title="Commercial Accounts Payable Execution Run"
+          invoices={mockInvoices}
+          executionCutoff="Today at 16:30 EST (Bank Wire Window)"
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Full Execution Run (Compact)</h4>
+        <PaymentRunCockpit
+          runBatchId="PR-2026-0906-01"
+          title="Commercial Accounts Payable Execution Run"
+          invoices={mockInvoices}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Wire Transfer Execution (Comfortable)</h4>
+        <PaymentRunCockpit
+          runBatchId="PR-2026-0906-02"
+          title="Mid-Day Wire Transfer Disbursement"
+          invoices={mockInvoices.filter((i) => i.rail === "wire")}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

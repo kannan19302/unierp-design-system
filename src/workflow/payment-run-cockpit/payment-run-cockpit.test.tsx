@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -64,6 +65,18 @@ describe("PaymentRunCockpit", () => {
     fireEvent.click(submitBtn);
 
     expect(onExecute).toHaveBeenCalled();
+  });
+
+  it("forwards ref to container section", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <PaymentRunCockpit
+        ref={ref}
+        runBatchId="PR-2026-0906-01"
+        invoices={testInvoices}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

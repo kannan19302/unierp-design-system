@@ -3,7 +3,7 @@
 import {
   useState,
   useMemo,
-  type FC,
+  forwardRef,
 } from "react";
 import {
   Lock,
@@ -53,17 +53,24 @@ export interface PeriodCloseCockpitProps {
 /**
  * `<PeriodCloseCockpit>` — Financial period close orchestration & lock checklist.
  * Benchmarked against Workday Financials (#33), SAP S/4HANA Finance (#5, #12), and NetSuite (#30).
+ *
+ * @component
+ * @maturity stable
  */
-export const PeriodCloseCockpit: FC<PeriodCloseCockpitProps> = ({
-  fiscalPeriod,
-  tasks,
-  isHardLocked = false,
-  onExecuteHardLock,
-  onTaskStatusChange,
-  onTaskAction,
-  density = "compact",
-  className = "",
-}) => {
+export const PeriodCloseCockpit = forwardRef<HTMLDivElement, PeriodCloseCockpitProps>(
+  function PeriodCloseCockpit(
+    {
+      fiscalPeriod,
+      tasks,
+      isHardLocked = false,
+      onExecuteHardLock,
+      onTaskStatusChange,
+      onTaskAction,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   const completedCount = useMemo(
@@ -133,6 +140,7 @@ export const PeriodCloseCockpit: FC<PeriodCloseCockpitProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className}`.trim()}
       data-density={density}
       role="region"
@@ -287,4 +295,6 @@ export const PeriodCloseCockpit: FC<PeriodCloseCockpitProps> = ({
       </div>
     </div>
   );
-};
+});
+
+PeriodCloseCockpit.displayName = "PeriodCloseCockpit";

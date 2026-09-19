@@ -83,6 +83,21 @@ describe("OnCallRotationScheduleCalendar", () => {
     expect(screen.getByText(/Active Coverage Swap/i)).toBeDefined();
   });
 
+  it("forwards ref to container section", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <OnCallRotationScheduleCalendar
+        ref={ref}
+        scheduleName="Platform SRE Escalation"
+        weekRange="Sep 14 – Sep 20, 2026"
+        days={sampleDays}
+        layers={sampleLayers}
+        shifts={sampleShifts}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <OnCallRotationScheduleCalendar

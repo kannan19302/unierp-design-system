@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   OnCallRotationScheduleCalendar,
-  EscalationLayer,
-  OnCallShift,
+  type EscalationLayer,
+  type OnCallShift,
 } from "./on-call-rotation-schedule-calendar";
 
 const sampleDays = [
@@ -82,6 +82,7 @@ const meta: Meta<typeof OnCallRotationScheduleCalendar> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: { type: "select" },
@@ -109,4 +110,58 @@ export const UltraCompact: Story = {
     ...Default.args,
     density: "ultra-compact",
   },
+};
+
+export const Comfortable: Story = {
+  args: {
+    ...Default.args,
+    density: "comfortable",
+  },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>On-Call Rotation Schedule Matrix</h4>
+        <OnCallRotationScheduleCalendar
+          scheduleName="Platform SRE & Infrastructure Tier-1 Rotation"
+          weekRange="Sep 14, 2026 – Sep 20, 2026"
+          days={sampleDays}
+          layers={sampleLayers}
+          shifts={sampleShifts}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Weekly Schedule (Compact Density)</h4>
+        <OnCallRotationScheduleCalendar
+          scheduleName="Platform SRE & Infrastructure Tier-1 Rotation"
+          weekRange="Sep 14, 2026 – Sep 20, 2026"
+          days={sampleDays}
+          layers={sampleLayers}
+          shifts={sampleShifts}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Comfortable Density View</h4>
+        <OnCallRotationScheduleCalendar
+          scheduleName="Platform SRE & Infrastructure Tier-1 Rotation"
+          weekRange="Sep 14, 2026 – Sep 20, 2026"
+          days={sampleDays}
+          layers={sampleLayers}
+          shifts={sampleShifts}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

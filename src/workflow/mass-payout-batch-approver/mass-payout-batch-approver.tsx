@@ -32,21 +32,33 @@ export interface MassPayoutBatchApproverProps {
   className?: string;
 }
 
-export const MassPayoutBatchApprover: React.FC<MassPayoutBatchApproverProps> = ({
-  batchId,
-  batchTitle = "Global Contractor & Supplier Mass Payout Batch",
-  settlementDate,
-  totalPayees,
-  totalGrossAmount,
-  reportingCurrency = "USD",
-  fxRateLockSecondsRemaining = 180,
-  items,
-  onAuthorizeBatch,
-  onRefreshFxRates,
-  onExcludeRecipient,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * Mass Payout Batch Approver
+ *
+ * @component
+ * @maturity stable
+ */
+export const MassPayoutBatchApprover = React.forwardRef<
+  HTMLElement,
+  MassPayoutBatchApproverProps
+>(function MassPayoutBatchApprover(
+  {
+    batchId,
+    batchTitle = "Global Contractor & Supplier Mass Payout Batch",
+    settlementDate,
+    totalPayees,
+    totalGrossAmount,
+    reportingCurrency = "USD",
+    fxRateLockSecondsRemaining = 180,
+    items,
+    onAuthorizeBatch,
+    onRefreshFxRates,
+    onExcludeRecipient,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [tokenInput, setTokenInput] = useState<string>("");
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
@@ -69,6 +81,7 @@ export const MassPayoutBatchApprover: React.FC<MassPayoutBatchApproverProps> = (
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -253,4 +266,6 @@ export const MassPayoutBatchApprover: React.FC<MassPayoutBatchApproverProps> = (
       </footer>
     </section>
   );
-};
+});
+
+MassPayoutBatchApprover.displayName = "MassPayoutBatchApprover";
