@@ -1,9 +1,16 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
+import { createRef } from "react";
 import { axe } from "vitest-axe";
 import { Card } from "./card";
 
 describe("Card Primitive", () => {
+  it("forwards ref to card container", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<Card ref={ref}>Ref Card</Card>);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("renders card content", () => {
     render(<Card>Card Body</Card>);
     expect(screen.getByText("Card Body")).toBeInTheDocument();

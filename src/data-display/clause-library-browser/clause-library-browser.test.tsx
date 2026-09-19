@@ -65,6 +65,12 @@ describe("ClauseLibraryBrowser", () => {
     expect(onInsert).toHaveBeenCalledWith(sampleCategories[0].variants[1]);
   });
 
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<ClauseLibraryBrowser ref={ref} categories={sampleCategories} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <ClauseLibraryBrowser

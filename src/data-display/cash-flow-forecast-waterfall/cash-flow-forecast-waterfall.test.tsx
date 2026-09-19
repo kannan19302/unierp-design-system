@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -19,6 +20,20 @@ const testSteps: CashFlowStepItem[] = [
 ];
 
 describe("CashFlowForecastWaterfall", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <CashFlowForecastWaterfall
+        ref={ref}
+        title="Q3 Cash Bridge Forecast"
+        openingBalance={10000000}
+        items={testSteps}
+        minimumCashBuffer={4000000}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders waterfall elements and computes balances accurately", () => {
     render(
       <CashFlowForecastWaterfall

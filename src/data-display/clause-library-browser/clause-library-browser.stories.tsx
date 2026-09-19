@@ -69,7 +69,7 @@ const meta: Meta<typeof ClauseLibraryBrowser> = {
 export default meta;
 type Story = StoryObj<typeof ClauseLibraryBrowser>;
 
-export const Default: Story = {
+export const AnatomyAndComposition: Story = {
   args: {
     contractContext: "Master Services Agreement (MSA) v4.2",
     categories: mockCategories,
@@ -77,9 +77,26 @@ export const Default: Story = {
   },
 };
 
-export const UltraCompact: Story = {
-  args: {
-    ...Default.args,
-    density: "ultra-compact",
-  },
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Default View</h4>
+        <ClauseLibraryBrowser
+          contractContext="Master Services Agreement (MSA) v4.2"
+          categories={mockCategories}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Ultra-Compact View</h4>
+        <ClauseLibraryBrowser
+          contractContext="Procurement Order Schedule B"
+          categories={mockCategories}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
+

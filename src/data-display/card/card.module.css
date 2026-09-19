@@ -15,19 +15,23 @@
 }
 
 .p_none {
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
 }
 
 .p_sm {
-  padding: var(--density-card-padding, var(--space-3));
+  padding-block: var(--density-card-padding, var(--space-3));
+  padding-inline: var(--density-card-padding, var(--space-3));
 }
 
 .p_md {
-  padding: var(--density-card-padding, var(--space-4));
+  padding-block: var(--density-card-padding, var(--space-4));
+  padding-inline: var(--density-card-padding, var(--space-4));
 }
 
 .p_lg {
-  padding: var(--space-6);
+  padding-block: var(--space-6);
+  padding-inline: var(--space-6);
 }
 
 .hoverable {

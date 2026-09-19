@@ -1,10 +1,16 @@
 import { describe, it, expect } from "vitest";
-import React from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { CapTableScenarioSimulator } from "./cap-table-scenario-simulator";
 
 describe("CapTableScenarioSimulator", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<CapTableScenarioSimulator ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("renders round parameters and has zero accessibility violations", async () => {
     const { container } = render(
       <CapTableScenarioSimulator

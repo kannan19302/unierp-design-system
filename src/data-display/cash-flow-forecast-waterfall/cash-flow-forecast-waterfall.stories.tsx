@@ -68,3 +68,43 @@ export const BufferBreach: Story = {
     minimumCashBuffer: 10000000,
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <CashFlowForecastWaterfall
+        title="Compact Waterfall Anatomy"
+        openingBalance={12000000}
+        items={mockSteps}
+        minimumCashBuffer={8000000}
+        density="compact"
+      />
+      <CashFlowForecastWaterfall
+        title="Comfortable Waterfall Anatomy"
+        openingBalance={12000000}
+        items={mockSteps}
+        minimumCashBuffer={8000000}
+        density="comfortable"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <CashFlowForecastWaterfall
+        title="Healthy Cash Headroom State"
+        openingBalance={15000000}
+        items={mockSteps}
+        minimumCashBuffer={5000000}
+      />
+      <CashFlowForecastWaterfall
+        title="Buffer Breach Alert State"
+        openingBalance={3000000}
+        items={mockSteps}
+        minimumCashBuffer={9000000}
+      />
+    </div>
+  ),
+};

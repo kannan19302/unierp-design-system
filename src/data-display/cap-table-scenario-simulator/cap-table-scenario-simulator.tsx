@@ -1,4 +1,4 @@
-import React, { useState, useId, useMemo } from "react";
+import { forwardRef, useState, useId, useMemo } from "react";
 import styles from "./cap-table-scenario-simulator.module.css";
 
 export interface CapTableStakeholder {
@@ -33,7 +33,12 @@ const DEFAULT_STAKEHOLDERS: CapTableStakeholder[] = [
   { id: "s3", name: "Unallocated ESOP Pool", shareClass: "Option Pool (ESOP)", preShares: 1000000 },
 ];
 
-export const CapTableScenarioSimulator: React.FC<CapTableScenarioSimulatorProps> = ({
+/**
+ * CapTableScenarioSimulator renders an interactive pre/post-money equity dilution and capitalization simulator.
+ *
+ * @maturity stable
+ */
+export const CapTableScenarioSimulator = forwardRef<HTMLDivElement, CapTableScenarioSimulatorProps>(({
   roundName = "Series A Financing Simulation",
   initialStakeholders = DEFAULT_STAKEHOLDERS,
   initialPreMoney = 40000000, // $40M
@@ -42,7 +47,7 @@ export const CapTableScenarioSimulator: React.FC<CapTableScenarioSimulatorProps>
   currency = "USD",
   density = "compact",
   className,
-}) => {
+}, ref) => {
   const simId = useId();
   const [preMoney, setPreMoney] = useState<number>(initialPreMoney);
   const [investment, setInvestment] = useState<number>(initialInvestment);
@@ -93,6 +98,7 @@ export const CapTableScenarioSimulator: React.FC<CapTableScenarioSimulatorProps>
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
       aria-labelledby={`${simId}-title`}
@@ -320,4 +326,6 @@ export const CapTableScenarioSimulator: React.FC<CapTableScenarioSimulatorProps>
       </div>
     </div>
   );
-};
+});
+
+CapTableScenarioSimulator.displayName = "CapTableScenarioSimulator";

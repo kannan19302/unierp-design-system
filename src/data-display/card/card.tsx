@@ -1,22 +1,27 @@
 "use client";
 
-import { type FC, type ReactNode, type HTMLAttributes } from "react";
+import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
 import styles from "./card.module.css";
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+  children?: ReactNode;
   padding?: "none" | "sm" | "md" | "lg";
   hover?: boolean;
 }
 
-export const Card: FC<CardProps> = ({
+/**
+ * Card component providing standard surface elevation, borders, and structured padding.
+ *
+ * @maturity stable
+ */
+export const Card = forwardRef<HTMLDivElement, CardProps>(({
   children,
   padding = "md",
   hover = false,
   className = "",
   style,
   ...props
-}) => {
+}, ref) => {
   const cardClass = [
     styles.card,
     styles[`p_${padding}`],
@@ -27,8 +32,10 @@ export const Card: FC<CardProps> = ({
     .join(" ");
 
   return (
-    <div className={cardClass || undefined} style={style} {...props}>
+    <div ref={ref} className={cardClass || undefined} style={style} {...props}>
       {children}
     </div>
   );
-};
+});
+
+Card.displayName = "Card";
