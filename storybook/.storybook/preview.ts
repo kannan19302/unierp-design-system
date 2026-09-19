@@ -34,7 +34,14 @@ const PLATFORMS = [
 
 const preview: Preview = {
   parameters: {
-    controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
+    controls: {
+      matchers: { color: /(background|color)$/i, date: /Date$/i },
+      expanded: true,
+      sort: "requiredFirst",
+    },
+    docs: {
+      toc: true,
+    },
     layout: "centered",
     backgrounds: { disable: true },
   },

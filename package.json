@@ -180,6 +180,7 @@
     "test:watch": "vitest",
     "tokens:mobile": "node scripts/generate-cross-platform-tokens.mjs",
     "check:mobile-tokens": "node scripts/generate-cross-platform-tokens.mjs --check",
+    "check:storybook": "node scripts/check-storybook-standards.mjs",
     "scaffold": "node scripts/scaffold-page.mjs"
   },
   "dependencies": {

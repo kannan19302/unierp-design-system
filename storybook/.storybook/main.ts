@@ -10,8 +10,12 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
+  docs: {
+    autodocs: true,
+    defaultName: "Documentation",
+  },
   typescript: {
-    reactDocgen: false,
+    reactDocgen: "react-docgen",
   },
   viteFinal: async (config) => {
     return {
