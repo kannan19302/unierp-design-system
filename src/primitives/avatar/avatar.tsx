@@ -1,13 +1,18 @@
 "use client";
 
-import { useState, type FC, type ReactNode, Children } from "react";
+import { useState, forwardRef, Children, isValidElement, cloneElement, type HTMLAttributes, type ReactNode } from "react";
 import { Presence, type PresenceStatus } from "../presence";
 import styles from "./avatar.module.css";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type AvatarShape = "circle" | "square";
 
-export interface AvatarProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL Avatar primitive — user identity visualization with presence indicators and fallback initials.
+ */
+export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   src?: string;
   name?: string;
   initials?: string;
@@ -18,7 +23,7 @@ export interface AvatarProps {
   className?: string;
 }
 
-export const Avatar: FC<AvatarProps> = ({
+export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(({
   src,
   name,
   initials: explicitInitials,
@@ -27,7 +32,8 @@ export const Avatar: FC<AvatarProps> = ({
   presence,
   alt,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const [imgError, setImgError] = useState(false);
 
   const getInitials = (text?: string): string => {
@@ -43,7 +49,7 @@ export const Avatar: FC<AvatarProps> = ({
   const avatarLabel = alt || name || "Avatar";
 
   return (
-    <div className={`${styles.wrapper} ${sizeClass} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.wrapper} ${sizeClass} ${className}`.trim()} {...props}>
       <div
         className={`${styles.avatar} ${shapeClass}`}
         data-shape={shape}
@@ -76,7 +82,9 @@ export const Avatar: FC<AvatarProps> = ({
       )}
     </div>
   );
-};
+});
+
+Avatar.displayName = "Avatar";
 
 // Stable color and contrast pairing for initials background and foreground
 const getAvatarPalette = (str?: string): { bg: string; fg: string } => {
@@ -100,25 +108,24 @@ const getAvatarPalette = (str?: string): { bg: string; fg: string } => {
   return palettes[index] || palettes[0]!;
 };
 
-export interface AvatarGroupProps {
+export interface AvatarGroupProps extends HTMLAttributes<HTMLDivElement> {
   max?: number;
   size?: AvatarSize;
   className?: string;
   children: ReactNode;
 }
 
-import React from "react";
-
-export const AvatarGroup: FC<AvatarGroupProps> = ({
+export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(({
   max = 4,
   size = "md",
   className = "",
   children,
-}) => {
+  ...props
+}, ref) => {
   const childArray = Children.toArray(children);
   const visibleChildren = childArray.slice(0, max).map((child) => {
-    if (React.isValidElement<AvatarProps>(child)) {
-      return React.cloneElement(child, {
+    if (isValidElement<AvatarProps>(child)) {
+      return cloneElement(child, {
         size: child.props.size ?? size,
       });
     }
@@ -127,7 +134,7 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({
   const excess = childArray.length - max;
 
   return (
-    <div className={`${styles.avatarGroup} ${styles[`group_${size}`]} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.avatarGroup} ${styles[`group_${size}`]} ${className}`.trim()} {...props}>
       {visibleChildren}
       {excess > 0 && (
         <div className={`${styles.avatar} ${styles[size] || styles.md} ${styles.excessBadge}`}>
@@ -136,4 +143,6 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({
       )}
     </div>
   );
-};
+});
+
+AvatarGroup.displayName = "AvatarGroup";

@@ -57,15 +57,23 @@ graph TD
 
 ## 4. Quality Engineering & Verification Gates
 
-To maintain institutional reliability, this repository is governed by the following continuous quality gates:
-1. **Type Safety Gate**: Zero TypeScript/type-checker errors under strict mode.
-2. **Layer Boundary Gate**: Verified by `scripts/check-layer.mjs` in `unierp-workspace` to prevent illegal upward or sideways coupling.
-3. **Automated Test Suite**: Must execute cleanly with 100% pass rate before branch integration.
+To maintain institutional reliability, this repository is governed by the 10 Pillars of Enterprise Design System Excellence ([`docs/DESIGN_SYSTEM_STANDARDS.md`](docs/DESIGN_SYSTEM_STANDARDS.md)):
+1. **Type Safety Gate**: Zero TypeScript/type-checker errors under strict mode (`pnpm typecheck`).
+2. **Token Purity Gate**: 100% token purity with zero raw hex or px (`node scripts/check-tokens.mjs`).
+3. **Contrast & a11y Gate**: WCAG 2.2 AA compliance across all 6 themes (`node scripts/check-contrast.mjs`).
+4. **Density Matrix Gate**: Strict 4-tier density compliance (`node scripts/check-density.mjs`).
+5. **Storybook Gate**: 100% clean AST compilation and taxonomy (`node scripts/check-storybook-standards.mjs`).
+6. **Logical Properties Gate**: Zero physical directional CSS (`node scripts/check-logical-properties.mjs`).
+7. **Layer Boundary Gate**: Verified by `scripts/check-layer.mjs` to prevent upward coupling.
+8. **Automated Test Suite**: Must execute cleanly with 100% pass rate (`pnpm test`).
 
 ---
 
 ## 5. Associated AI Skills & Governance Links
 
-- **Project Skill**: [`.agents/skills/design-system-standards/SKILL.md`](.agents/skills/design-system-standards/SKILL.md)
-- **Workspace Governance**: [`../unierp-workspace/governance/UNIERP_MASTER_PLATFORM_GOAL.md`](../unierp-workspace/governance/UNIERP_MASTER_PLATFORM_GOAL.md)
-- **Canonical Protocol**: [`../unierp-platform/docs/standards/AI_AGENT_DEVELOPMENT_PROTOCOL.md`](../unierp-platform/docs/standards/AI_AGENT_DEVELOPMENT_PROTOCOL.md)
+- **Platform Standard**: [`platform/workspace/.agents/standards/STRATA_DESIGN_SYSTEM_STANDARDS.md`](../platform/workspace/.agents/standards/STRATA_DESIGN_SYSTEM_STANDARDS.md)
+- **Design System Standards**: [`docs/DESIGN_SYSTEM_STANDARDS.md`](docs/DESIGN_SYSTEM_STANDARDS.md)
+- **Storybook Standards**: [`docs/STORYBOOK_STANDARDS.md`](docs/STORYBOOK_STANDARDS.md)
+- **Workspace Governance**: [`../platform/workspace/governance/UNIERP_MASTER_PLATFORM_GOAL.md`](../platform/workspace/governance/UNIERP_MASTER_PLATFORM_GOAL.md)
+- **Canonical Protocol**: [`../platform/docs/standards/AI_AGENT_DEVELOPMENT_PROTOCOL.md`](../platform/docs/standards/AI_AGENT_DEVELOPMENT_PROTOCOL.md)
+
