@@ -1,10 +1,16 @@
-import React from "react";
+import { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { CustomerSlaBreachTimeline } from "./customer-sla-breach-timeline";
 
 describe("CustomerSlaBreachTimeline", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<CustomerSlaBreachTimeline ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders with zero axe accessibility violations", async () => {
     const { container } = render(<CustomerSlaBreachTimeline />);
     const results = await axe(container);

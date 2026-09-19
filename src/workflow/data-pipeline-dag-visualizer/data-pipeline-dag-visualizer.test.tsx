@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import { DataPipelineDagVisualizer } from "./data-pipeline-dag-visualizer";
 
 describe("DataPipelineDagVisualizer", () => {
@@ -33,6 +33,12 @@ describe("DataPipelineDagVisualizer", () => {
     onTriggerRun: vi.fn(),
     onRetryTask: vi.fn(),
   };
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<DataPipelineDagVisualizer ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
 
   it("renders pipeline header, stats, and task nodes", () => {
     render(<DataPipelineDagVisualizer {...defaultProps} />);

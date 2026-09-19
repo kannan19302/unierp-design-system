@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   ConstructionSubmittalRegister,
-  ConstructionSubmittalItem,
+  type ConstructionSubmittalItem,
 } from "./construction-submittal-register";
 
 const sampleSubmittals: ConstructionSubmittalItem[] = [
@@ -61,6 +61,7 @@ const meta: Meta<typeof ConstructionSubmittalRegister> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -78,4 +79,50 @@ export const UltraCompact: Story = {
     submittals: sampleSubmittals,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Master Submittal Register Log</h4>
+        <ConstructionSubmittalRegister
+          submittals={sampleSubmittals}
+          projectName="Hudson Yards Tower IV Construction"
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Compact Density</h4>
+        <ConstructionSubmittalRegister
+          submittals={sampleSubmittals}
+          projectName="Tower East Infrastructure"
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Ultra-Compact Density</h4>
+        <ConstructionSubmittalRegister
+          submittals={sampleSubmittals}
+          projectName="Tower East Infrastructure"
+          density="ultra-compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Comfortable Density</h4>
+        <ConstructionSubmittalRegister
+          submittals={sampleSubmittals}
+          projectName="Tower East Infrastructure"
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

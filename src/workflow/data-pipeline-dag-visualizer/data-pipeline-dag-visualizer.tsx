@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./data-pipeline-dag-visualizer.module.css";
 
 export type DagTaskStatus =
@@ -36,19 +36,30 @@ export interface DataPipelineDagVisualizerProps {
   className?: string;
 }
 
-export const DataPipelineDagVisualizer: React.FC<DataPipelineDagVisualizerProps> = ({
-  dagId,
-  pipelineName,
-  scheduleInterval,
-  executionDate,
-  tasks,
-  selectedTaskId: initialSelectedId,
-  onSelectTask,
-  onTriggerRun,
-  onRetryTask,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * DataPipelineDagVisualizer component for visualizing Airflow/Dagster directed acyclic graphs and monitoring data pipelines.
+ *
+ * @maturity stable
+ */
+export const DataPipelineDagVisualizer = forwardRef<
+  HTMLElement,
+  DataPipelineDagVisualizerProps
+>(function DataPipelineDagVisualizer(
+  {
+    dagId,
+    pipelineName,
+    scheduleInterval,
+    executionDate,
+    tasks,
+    selectedTaskId: initialSelectedId,
+    onSelectTask,
+    onTriggerRun,
+    onRetryTask,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [selectedId, setSelectedId] = useState<string>(
     initialSelectedId ?? (tasks.length > 0 ? (tasks[0]?.id ?? "") : "")
@@ -108,6 +119,7 @@ export const DataPipelineDagVisualizer: React.FC<DataPipelineDagVisualizerProps>
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${className}`}
       data-density={density}
       aria-labelledby={headingId}
@@ -293,4 +305,6 @@ export const DataPipelineDagVisualizer: React.FC<DataPipelineDagVisualizerProps>
       </div>
     </section>
   );
-};
+});
+
+DataPipelineDagVisualizer.displayName = "DataPipelineDagVisualizer";

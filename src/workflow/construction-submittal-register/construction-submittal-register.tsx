@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./construction-submittal-register.module.css";
 
 export type ConstructionSubmittalStatus =
@@ -29,13 +29,24 @@ export interface ConstructionSubmittalRegisterProps {
   className?: string;
 }
 
-export const ConstructionSubmittalRegister: React.FC<ConstructionSubmittalRegisterProps> = ({
-  submittals: initialSubmittals,
-  projectName = "Hudson Yards Tower IV Construction",
-  onUpdateStatus,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * ConstructionSubmittalRegister component for managing engineering submittals and CSI specification workflows.
+ *
+ * @maturity stable
+ */
+export const ConstructionSubmittalRegister = forwardRef<
+  HTMLElement,
+  ConstructionSubmittalRegisterProps
+>(function ConstructionSubmittalRegister(
+  {
+    submittals: initialSubmittals,
+    projectName = "Hudson Yards Tower IV Construction",
+    onUpdateStatus,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [submittals, setSubmittals] = useState<ConstructionSubmittalItem[]>(initialSubmittals);
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
@@ -59,6 +70,7 @@ export const ConstructionSubmittalRegister: React.FC<ConstructionSubmittalRegist
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -190,4 +202,6 @@ export const ConstructionSubmittalRegister: React.FC<ConstructionSubmittalRegist
       </footer>
     </section>
   );
-};
+});
+
+ConstructionSubmittalRegister.displayName = "ConstructionSubmittalRegister";

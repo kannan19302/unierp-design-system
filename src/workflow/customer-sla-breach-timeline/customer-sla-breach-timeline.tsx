@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./customer-sla-breach-timeline.module.css";
 
 export type SlaSeverityLevel = "P1_CRITICAL" | "P2_MAJOR" | "P3_MINOR";
@@ -66,15 +66,26 @@ export interface CustomerSlaBreachTimelineProps {
   className?: string;
 }
 
-export const CustomerSlaBreachTimeline: React.FC<CustomerSlaBreachTimelineProps> = ({
-  accountName = "Morgan & Stanley Global Markets",
-  tier = "Platinum Enterprise (99.99% Availability)",
-  msaContractId = "MSA-2024-MS-009",
-  tickets = defaultSlaTickets,
-  onEscalateTicket,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * CustomerSlaBreachTimeline component for tracking enterprise SLA contractual compliance and breach penalties.
+ *
+ * @maturity stable
+ */
+export const CustomerSlaBreachTimeline = forwardRef<
+  HTMLElement,
+  CustomerSlaBreachTimelineProps
+>(function CustomerSlaBreachTimeline(
+  {
+    accountName = "Morgan & Stanley Global Markets",
+    tier = "Platinum Enterprise (99.99% Availability)",
+    msaContractId = "MSA-2024-MS-009",
+    tickets = defaultSlaTickets,
+    onEscalateTicket,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const priorityFilterId = useId();
   const [filterPriority, setFilterPriority] = useState<string>("ALL");
@@ -117,6 +128,7 @@ export const CustomerSlaBreachTimeline: React.FC<CustomerSlaBreachTimelineProps>
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -255,4 +267,6 @@ export const CustomerSlaBreachTimeline: React.FC<CustomerSlaBreachTimelineProps>
       </footer>
     </section>
   );
-};
+});
+
+CustomerSlaBreachTimeline.displayName = "CustomerSlaBreachTimeline";

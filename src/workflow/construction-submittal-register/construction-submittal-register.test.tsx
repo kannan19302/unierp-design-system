@@ -1,10 +1,10 @@
-import React from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
 import {
   ConstructionSubmittalRegister,
-  ConstructionSubmittalItem,
+  type ConstructionSubmittalItem,
 } from "./construction-submittal-register";
 
 const sampleSubmittals: ConstructionSubmittalItem[] = [
@@ -35,6 +35,12 @@ const sampleSubmittals: ConstructionSubmittalItem[] = [
 ];
 
 describe("ConstructionSubmittalRegister", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<ConstructionSubmittalRegister ref={ref} submittals={sampleSubmittals} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders submittal items and project header truthfully", () => {
     render(
       <ConstructionSubmittalRegister

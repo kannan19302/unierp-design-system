@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./contract-clause-risk-analyzer.module.css";
 
 export type ClauseRiskSeverity = "HIGH" | "MEDIUM" | "LOW";
@@ -76,15 +76,26 @@ export interface ContractClauseRiskAnalyzerProps {
   className?: string;
 }
 
-export const ContractClauseRiskAnalyzer: React.FC<ContractClauseRiskAnalyzerProps> = ({
-  contractTitle = "Enterprise Master Subscription Agreement (MSA v4.2)",
-  counterparty = "Vanguard Financial Services Inc.",
-  clauses = defaultContractClauses,
-  onAcceptDeviation,
-  onRevertToStandard,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * ContractClauseRiskAnalyzer component for semantic CLM redline review and risk exposure analysis.
+ *
+ * @maturity stable
+ */
+export const ContractClauseRiskAnalyzer = forwardRef<
+  HTMLElement,
+  ContractClauseRiskAnalyzerProps
+>(function ContractClauseRiskAnalyzer(
+  {
+    contractTitle = "Enterprise Master Subscription Agreement (MSA v4.2)",
+    counterparty = "Vanguard Financial Services Inc.",
+    clauses = defaultContractClauses,
+    onAcceptDeviation,
+    onRevertToStandard,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const filterId = useId();
   const [filterSeverity, setFilterSeverity] = useState<string>("ALL");
@@ -126,6 +137,7 @@ export const ContractClauseRiskAnalyzer: React.FC<ContractClauseRiskAnalyzerProp
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -245,4 +257,6 @@ export const ContractClauseRiskAnalyzer: React.FC<ContractClauseRiskAnalyzerProp
       </footer>
     </section>
   );
-};
+});
+
+ContractClauseRiskAnalyzer.displayName = "ContractClauseRiskAnalyzer";

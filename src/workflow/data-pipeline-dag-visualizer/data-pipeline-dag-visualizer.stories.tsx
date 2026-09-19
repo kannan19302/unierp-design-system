@@ -83,3 +83,62 @@ export const UltraCompact: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>DAG Pipeline Graph & Task Execution Inspector</h4>
+        <DataPipelineDagVisualizer
+          dagId="financial_reconciliation_nightly"
+          pipelineName="Global Multi-Tenant Ledger Reconciliation & Settlement"
+          scheduleInterval="0 2 * * *"
+          executionDate="2026-09-06T02:00:00Z"
+          tasks={sampleTasks}
+          selectedTaskId="dbt_reconcile_ledger"
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Compact Density</h4>
+        <DataPipelineDagVisualizer
+          dagId="etl_daily_aggregate"
+          pipelineName="Daily Ledger Aggregation Pipeline"
+          scheduleInterval="0 4 * * *"
+          executionDate="2026-09-06T04:00:00Z"
+          tasks={sampleTasks}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Ultra-Compact Density</h4>
+        <DataPipelineDagVisualizer
+          dagId="etl_daily_aggregate"
+          pipelineName="Daily Ledger Aggregation Pipeline"
+          scheduleInterval="0 4 * * *"
+          executionDate="2026-09-06T04:00:00Z"
+          tasks={sampleTasks}
+          density="ultra-compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Comfortable Density</h4>
+        <DataPipelineDagVisualizer
+          dagId="etl_daily_aggregate"
+          pipelineName="Daily Ledger Aggregation Pipeline"
+          scheduleInterval="0 4 * * *"
+          executionDate="2026-09-06T04:00:00Z"
+          tasks={sampleTasks}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
+};
