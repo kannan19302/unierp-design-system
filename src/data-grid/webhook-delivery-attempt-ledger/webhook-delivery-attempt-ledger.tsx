@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./webhook-delivery-attempt-ledger.module.css";
 
 export type WebhookDeliveryStatus = "DELIVERED" | "RETRYING" | "FAILED" | "TIMED_OUT";
@@ -25,12 +25,17 @@ export interface WebhookDeliveryAttemptLedgerProps {
   className?: string;
 }
 
-export const WebhookDeliveryAttemptLedger: React.FC<WebhookDeliveryAttemptLedgerProps> = ({
+/**
+ * WebhookDeliveryAttemptLedger displays outbound webhook delivery status and retry forensics.
+ *
+ * @maturity stable
+ */
+export const WebhookDeliveryAttemptLedger = forwardRef<HTMLElement, WebhookDeliveryAttemptLedgerProps>(({
   attempts,
   onReplayAttempt,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const filterSelectId = useId();
   const searchInputId = useId();
@@ -76,6 +81,7 @@ export const WebhookDeliveryAttemptLedger: React.FC<WebhookDeliveryAttemptLedger
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -238,4 +244,7 @@ export const WebhookDeliveryAttemptLedger: React.FC<WebhookDeliveryAttemptLedger
       )}
     </section>
   );
-};
+});
+
+WebhookDeliveryAttemptLedger.displayName = "WebhookDeliveryAttemptLedger";
+

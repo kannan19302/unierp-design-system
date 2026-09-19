@@ -1,12 +1,16 @@
 "use client";
 
 import {
+  forwardRef,
   useState,
   useMemo,
   useRef,
   useCallback,
   type ReactNode,
   type UIEvent,
+  type ForwardedRef,
+  type Ref,
+  type ReactElement,
 } from "react";
 
 import { ArrowUpDown, ArrowUp, ArrowDown, Search } from "lucide-react";
@@ -40,22 +44,25 @@ export interface VirtualizedTableProps<T> {
   emptyMessage?: string;
 }
 
-export function VirtualizedTable<T extends Record<string, any>>({
-  data,
-  columns,
-  rowHeight = 36,
-  viewportHeight = 440,
-  overscan = 5,
-  rowKey,
-  selectedKeys = [],
-  onSelectionChange,
-  onRowClick,
-  showSearch = true,
-  searchPlaceholder = "Search virtual records...",
-  searchFilter,
-  className = "",
-  emptyMessage = "No matching records found",
-}: VirtualizedTableProps<T>): ReactNode {
+function VirtualizedTableInner<T extends Record<string, any>>(
+  {
+    data,
+    columns,
+    rowHeight = 36,
+    viewportHeight = 440,
+    overscan = 5,
+    rowKey,
+    selectedKeys = [],
+    onSelectionChange,
+    onRowClick,
+    showSearch = true,
+    searchPlaceholder = "Search virtual records...",
+    searchFilter,
+    className = "",
+    emptyMessage = "No matching records found",
+  }: VirtualizedTableProps<T>,
+  ref: ForwardedRef<HTMLDivElement>
+): ReactElement | null {
   const [scrollTop, setScrollTop] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortKey, setSortKey] = useState<string | null>(null);
@@ -90,28 +97,35 @@ export function VirtualizedTable<T extends Record<string, any>>({
     });
   }, [filteredData, sortKey, sortDir]);
 
-  // Virtual math
+  // Virtualization math
   const totalCount = sortedData.length;
   const totalHeight = totalCount * rowHeight;
-  const totalWidth = useMemo(
-    () => columns.reduce((acc, col) => acc + (col.width || 150), 0),
-    [columns]
-  );
-
   const startIndex = Math.max(0, Math.floor(scrollTop / rowHeight) - overscan);
-  const endIndex = Math.min(
-    totalCount,
-    Math.ceil((scrollTop + viewportHeight) / rowHeight) + overscan
-  );
+  const visibleCount = Math.ceil(viewportHeight / rowHeight) + 2 * overscan;
+  const endIndex = Math.min(totalCount, startIndex + visibleCount);
 
   const visibleRows = useMemo(() => {
-    return sortedData.slice(startIndex, endIndex).map((row, i) => ({
-      index: startIndex + i,
-      row,
-      key: rowKey(row, startIndex + i),
-      top: (startIndex + i) * rowHeight,
-    }));
+    const rows: { row: T; index: number; key: string; top: number }[] = [];
+    for (let i = startIndex; i < endIndex; i++) {
+      const row = sortedData[i];
+      if (row) {
+        rows.push({
+          row,
+          index: i,
+          key: rowKey(row, i),
+          top: i * rowHeight,
+        });
+      }
+    }
+    return rows;
   }, [sortedData, startIndex, endIndex, rowHeight, rowKey]);
+
+  // Total columns width
+  const totalWidth = useMemo(() => {
+    let w = columns.reduce((acc, col) => acc + col.width, 0);
+    if (onSelectionChange) w += 44;
+    return w;
+  }, [columns, onSelectionChange]);
 
   const handleScroll = useCallback((e: UIEvent<HTMLDivElement>) => {
     setScrollTop(e.currentTarget.scrollTop);
@@ -134,8 +148,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
   const toggleSelectRow = (key: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (!onSelectionChange) return;
-    const isSelected = selectedKeys.includes(key);
-    if (isSelected) {
+    if (selectedKeys.includes(key)) {
       onSelectionChange(selectedKeys.filter((k) => k !== key));
     } else {
       onSelectionChange([...selectedKeys, key]);
@@ -152,7 +165,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
   };
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div ref={ref} className={`${styles.container} ${className}`}>
       {showSearch && (
         <div className={styles.toolbar}>
           <div className={styles.toolbarLeft}>
@@ -161,7 +174,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
                 size={14}
                 style={{
                   position: "absolute",
-                  left: "var(--space-3)",
+                  insetInlineStart: "var(--space-3)",
                   color: "var(--color-text-secondary)",
                   pointerEvents: "none",
                 }}
@@ -169,7 +182,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
               <input
                 type="text"
                 className={styles.searchInput}
-                style={{ paddingLeft: "var(--space-8)" }}
+                style={{ paddingInlineStart: "var(--space-8)" }}
                 placeholder={searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -193,20 +206,20 @@ export function VirtualizedTable<T extends Record<string, any>>({
       <div
         ref={viewportRef}
         className={styles.viewport}
-        style={{ height: viewportHeight }}
+        style={{ blockSize: viewportHeight }}
         onScroll={handleScroll}
         tabIndex={0}
         role="grid"
         aria-rowcount={totalCount}
         aria-colcount={columns.length}
       >
-        <div style={{ minWidth: totalWidth }}>
+        <div style={{ minInlineSize: totalWidth }}>
           {/* Header Row */}
           <div className={styles.headerRow} role="row" aria-rowindex={1}>
             {onSelectionChange && (
               <div
                 className={`${styles.headerCell} ${styles.pinnedLeft}`}
-                style={{ width: 44, minWidth: 44, justifyContent: "center" }}
+                style={{ inlineSize: 44, minInlineSize: 44, justifyContent: "center" }}
                 role="columnheader"
               >
                 <input
@@ -231,22 +244,22 @@ export function VirtualizedTable<T extends Record<string, any>>({
                 <div
                   key={col.key}
                   className={`${styles.headerCell} ${col.sortable ? styles.sortableHeader : ""} ${alignClass} ${pinnedClass}`}
-                  style={{ width: col.width, minWidth: col.minWidth ?? col.width }}
+                  style={{ inlineSize: col.width, minInlineSize: col.minWidth ?? col.width }}
                   onClick={() => toggleSort(col.key, col.sortable)}
                   role="columnheader"
                   aria-sort={isSorted ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                 >
                   <span>{col.header}</span>
                   {col.sortable && (
-                    <span style={{ display: "inline-flex", opacity: isSorted ? 1 : 0.4 }}>
+                    <span style={{ display: "inline-flex", marginInlineStart: "var(--space-1)" }}>
                       {isSorted ? (
                         sortDir === "asc" ? (
-                          <ArrowUp size={14} />
+                          <ArrowUp size={12} />
                         ) : (
-                          <ArrowDown size={14} />
+                          <ArrowDown size={12} />
                         )
                       ) : (
-                        <ArrowUpDown size={14} />
+                        <ArrowUpDown size={12} style={{ opacity: 0.4 }} />
                       )}
                     </span>
                   )}
@@ -256,14 +269,14 @@ export function VirtualizedTable<T extends Record<string, any>>({
           </div>
 
           {/* Virtual Rows Container */}
-          <div className={styles.virtualContent} style={{ height: totalHeight }}>
+          <div className={styles.virtualContent} style={{ blockSize: totalHeight }}>
             {totalCount === 0 ? (
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  height: 180,
+                  blockSize: 180,
                   color: "var(--color-text-secondary)",
                 }}
               >
@@ -277,7 +290,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
                   <div
                     key={key}
                     className={`${styles.row} ${isSelected ? styles.rowSelected : ""}`}
-                    style={{ top, height: rowHeight }}
+                    style={{ insetBlockStart: top, blockSize: rowHeight }}
                     role="row"
                     aria-rowindex={index + 2}
                     aria-selected={isSelected}
@@ -286,7 +299,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
                     {onSelectionChange && (
                       <div
                         className={`${styles.cell} ${styles.pinnedLeft}`}
-                        style={{ width: 44, minWidth: 44, justifyContent: "center" }}
+                        style={{ inlineSize: 44, minInlineSize: 44, justifyContent: "center" }}
                         role="gridcell"
                         onClick={(e) => toggleSelectRow(key, e)}
                       >
@@ -311,7 +324,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
                         <div
                           key={col.key}
                           className={`${styles.cell} ${alignClass} ${pinnedClass}`}
-                          style={{ width: col.width, minWidth: col.minWidth ?? col.width }}
+                          style={{ inlineSize: col.width, minInlineSize: col.minWidth ?? col.width }}
                           role="gridcell"
                         >
                           {col.render ? col.render(row, index) : String(row[col.key] ?? "")}
@@ -336,3 +349,16 @@ export function VirtualizedTable<T extends Record<string, any>>({
     </div>
   );
 }
+
+/**
+ * VirtualizedTable renders high-performance virtualized rows for large enterprise datasets.
+ *
+ * @maturity stable
+ */
+export const VirtualizedTable = forwardRef(VirtualizedTableInner) as <
+  T extends Record<string, any>
+>(
+  props: VirtualizedTableProps<T> & { ref?: Ref<HTMLDivElement> }
+) => ReactElement | null;
+
+(VirtualizedTable as { displayName?: string }).displayName = "VirtualizedTable";

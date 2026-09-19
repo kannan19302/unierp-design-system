@@ -1,7 +1,8 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { VirtualizedTable, type VirtualizedColumn } from "../virtualized-table";
+import { VirtualizedTable, type VirtualizedColumn } from "./virtualized-table";
 
 interface TestItem {
   id: string;
@@ -74,6 +75,21 @@ describe("VirtualizedTable Primitive", () => {
     const selectAllCheckbox = screen.getByLabelText("Select all rows");
     fireEvent.click(selectAllCheckbox);
     expect(onSelectionChange).toHaveBeenCalledWith(["1", "2", "3"]);
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <VirtualizedTable
+        ref={ref}
+        data={mockData}
+        columns={mockColumns}
+        rowKey={(r) => r.id}
+        viewportHeight={300}
+        rowHeight={30}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

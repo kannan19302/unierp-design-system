@@ -59,12 +59,23 @@ const columns: VirtualizedColumn<LedgerRecord>[] = [
     render: (r) => (
       <span
         style={{
-          padding: "2px 8px",
+          paddingBlock: "2px",
+          paddingInline: "8px",
           borderRadius: "var(--radius-full)",
           fontSize: "var(--text-xs)",
           fontWeight: 600,
-          background: r.status === "POSTED" ? "#ecfdf5" : r.status === "RECONCILED" ? "#eff6ff" : "#fffbeb",
-          color: r.status === "POSTED" ? "#059669" : r.status === "RECONCILED" ? "#2563eb" : "#d97706",
+          background:
+            r.status === "POSTED"
+              ? "var(--color-success-subtle, #ecfdf5)"
+              : r.status === "RECONCILED"
+              ? "var(--color-brand-subtle, #eff6ff)"
+              : "var(--color-warning-subtle, #fffbeb)",
+          color:
+            r.status === "POSTED"
+              ? "var(--color-success, #059669)"
+              : r.status === "RECONCILED"
+              ? "var(--color-brand, #2563eb)"
+              : "var(--color-warning, #d97706)",
         }}
       >
         {r.status}
@@ -74,22 +85,89 @@ const columns: VirtualizedColumn<LedgerRecord>[] = [
 ];
 
 const meta: Meta<typeof VirtualizedTable> = {
-  title: "DataGrid/VirtualizedTable",
+  title: "Data Grid/VirtualizedTable",
   component: VirtualizedTable,
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
 type Story = StoryObj<typeof VirtualizedTable<LedgerRecord>>;
 
+export const Default: Story = {
+  render: () => {
+    const data = generateLedgerData(500);
+    return (
+      <div style={{ maxInlineSize: 1100, marginInline: "auto" }}>
+        <VirtualizedTable
+          data={data}
+          columns={columns}
+          rowKey={(r) => r.id}
+          viewportHeight={400}
+          rowHeight={36}
+          overscan={5}
+        />
+      </div>
+    );
+  },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => {
+    const data = generateLedgerData(20);
+    return (
+      <div style={{ maxInlineSize: 1100, marginInline: "auto" }}>
+        <VirtualizedTable
+          data={data}
+          columns={columns}
+          rowKey={(r) => r.id}
+          viewportHeight={300}
+          rowHeight={36}
+          overscan={3}
+        />
+      </div>
+    );
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => {
+    const data = generateLedgerData(50);
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "2rem", maxInlineSize: 1100, marginInline: "auto" }}>
+        <div>
+          <h4 style={{ marginBlockEnd: "0.5rem" }}>With Records</h4>
+          <VirtualizedTable
+            data={data}
+            columns={columns}
+            rowKey={(r) => r.id}
+            viewportHeight={250}
+            rowHeight={36}
+          />
+        </div>
+        <div>
+          <h4 style={{ marginBlockEnd: "0.5rem" }}>Empty State</h4>
+          <VirtualizedTable
+            data={[]}
+            columns={columns}
+            rowKey={(r) => r.id}
+            viewportHeight={200}
+            emptyMessage="No ledger records available"
+          />
+        </div>
+      </div>
+    );
+  },
+};
+
 export const LargeLedgerDataset: Story = {
   render: () => {
     const data = generateLedgerData(5000);
     return (
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <h3 style={{ margin: "0 0 var(--space-3)", fontSize: "var(--text-lg)" }}>
+      <div style={{ maxInlineSize: 1100, marginInline: "auto" }}>
+        <h3 style={{ marginBlock: "0 var(--space-3)", fontSize: "var(--text-lg)" }}>
           General Ledger Journal (5,000 Virtualized Rows)
         </h3>
         <VirtualizedTable

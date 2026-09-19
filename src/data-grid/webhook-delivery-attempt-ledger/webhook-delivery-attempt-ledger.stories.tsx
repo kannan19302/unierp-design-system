@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WebhookDeliveryAttemptLedger } from "./webhook-delivery-attempt-ledger";
 
 const meta: Meta<typeof WebhookDeliveryAttemptLedger> = {
-  title: "DataGrid/WebhookDeliveryAttemptLedger",
+  title: "Data Grid/WebhookDeliveryAttemptLedger",
   component: WebhookDeliveryAttemptLedger,
   parameters: {
     layout: "centered",
@@ -83,6 +83,27 @@ export const Default: Story = {
     attempts: mockAttempts,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", inlineSize: "100%", maxInlineSize: 900 }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Attempts Ledger</h4>
+        <WebhookDeliveryAttemptLedger attempts={mockAttempts} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Empty State</h4>
+        <WebhookDeliveryAttemptLedger attempts={[]} density="compact" />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {

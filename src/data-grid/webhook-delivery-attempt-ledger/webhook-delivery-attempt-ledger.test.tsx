@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -76,5 +77,11 @@ describe("WebhookDeliveryAttemptLedger", () => {
     fireEvent.click(replayBtn);
 
     expect(handleReplay).toHaveBeenCalledWith("att_001");
+  });
+
+  it("forwards ref to section container", () => {
+    const ref = createRef<HTMLElement>();
+    render(<WebhookDeliveryAttemptLedger ref={ref} attempts={mockAttempts} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 });
