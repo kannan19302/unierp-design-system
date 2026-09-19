@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   CamExpenseReconciliationLedger,
@@ -65,6 +66,7 @@ const meta: Meta<typeof CamExpenseReconciliationLedger> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -83,4 +85,40 @@ export const UltraCompact: Story = {
     expenseCategories: sampleCategories,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>CAM Reconciliation Ledger Anatomy & Metrics</h3>
+      <CamExpenseReconciliationLedger
+        property={sampleProperty}
+        expenseCategories={sampleCategories}
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Standard Density</h4>
+        <CamExpenseReconciliationLedger
+          property={sampleProperty}
+          expenseCategories={sampleCategories}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4>Comfortable Density</h4>
+        <CamExpenseReconciliationLedger
+          property={sampleProperty}
+          expenseCategories={sampleCategories}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  type ReactNode,
+} from "react";
 import { Button } from "../../primitives/button";
 import styles from "./column-picker.module.css";
 
@@ -15,78 +22,93 @@ export interface ColumnPickerProps {
   visible: string[];
   onChange: (visible: string[]) => void;
   label?: string;
+  className?: string;
 }
 
-/** Dropdown checklist to show/hide table columns. Controlled. */
-export function ColumnPicker({
-  options,
-  visible,
-  onChange,
-  label = "Columns",
-}: ColumnPickerProps) {
-  const [open, setOpen] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
+/**
+ * `<ColumnPicker>` — Dropdown checklist to show/hide table columns. Controlled.
+ *
+ * @maturity stable
+ */
+export const ColumnPicker = forwardRef<HTMLDivElement, ColumnPickerProps>(
+  (
+    {
+      options,
+      visible,
+      onChange,
+      label = "Columns",
+      className = "",
+    },
+    ref
+  ) => {
+    const [open, setOpen] = useState(false);
+    const rootRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!open) return;
-    const onDown = (e: MouseEvent) => {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node))
-        setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("mousedown", onDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+    useImperativeHandle(ref, () => rootRef.current as HTMLDivElement);
 
-  const toggle = (key: string) => {
-    const next = visible.includes(key)
-      ? visible.filter((k) => k !== key)
-      : [...visible, key];
-    // Never allow hiding every column
-    if (next.length === 0) return;
-    onChange(next);
-  };
+    useEffect(() => {
+      if (!open) return;
+      const onDown = (e: MouseEvent) => {
+        if (rootRef.current && !rootRef.current.contains(e.target as Node))
+          setOpen(false);
+      };
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setOpen(false);
+      };
+      document.addEventListener("mousedown", onDown);
+      document.addEventListener("keydown", onKey);
+      return () => {
+        document.removeEventListener("mousedown", onDown);
+        document.removeEventListener("keydown", onKey);
+      };
+    }, [open]);
 
-  return (
-    <div
-      ref={rootRef}
-      className={styles.container}
-    >
-      <Button
-        variant="secondary"
-        size="sm"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        aria-haspopup="true"
+    const toggle = (key: string) => {
+      const next = visible.includes(key)
+        ? visible.filter((k) => k !== key)
+        : [...visible, key];
+      // Never allow hiding every column
+      if (next.length === 0) return;
+      onChange(next);
+    };
+
+    return (
+      <div
+        ref={rootRef}
+        className={`${styles.container} ${className}`}
       >
-        {label}
-      </Button>
-      {open && (
-        <div
-          role="menu"
-          className={styles.dropdown}
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          aria-haspopup="true"
         >
-          {options.map((o) => (
-            <label
-              key={o.key}
-              className={styles.checkboxItem}
-            >
-              <input
-                type="checkbox"
-                checked={visible.includes(o.key)}
-                onChange={() => toggle(o.key)}
-              />
-              {o.label}
-            </label>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+          {label}
+        </Button>
+        {open && (
+          <div
+            role="menu"
+            className={styles.dropdown}
+          >
+            {options.map((o) => (
+              <label
+                key={o.key}
+                className={styles.checkboxItem}
+              >
+                <input
+                  type="checkbox"
+                  checked={visible.includes(o.key)}
+                  onChange={() => toggle(o.key)}
+                />
+                {o.label}
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
+ColumnPicker.displayName = "ColumnPicker";

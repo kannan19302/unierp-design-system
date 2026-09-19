@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -33,6 +33,18 @@ const sampleCategories: CamExpenseItem[] = [
 ];
 
 describe("CamExpenseReconciliationLedger", () => {
+  it("forwards ref to root section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <CamExpenseReconciliationLedger
+        ref={ref}
+        property={sampleProperty}
+        expenseCategories={sampleCategories}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders property details and expense category rows", () => {
     render(
       <CamExpenseReconciliationLedger

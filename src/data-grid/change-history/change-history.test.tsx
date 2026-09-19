@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -24,6 +25,19 @@ const MOCK_ENTRIES: ChangeEntry[] = [
 ];
 
 describe("ChangeHistory Primitive", () => {
+  it("forwards ref to root section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <ChangeHistory
+        ref={ref}
+        entityType="invoice"
+        entityId="inv-100"
+        initialEntries={MOCK_ENTRIES}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders chronological audit entries with diffs", () => {
     render(
       <ChangeHistory

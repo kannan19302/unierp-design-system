@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { useId, useState, forwardRef } from "react";
 import styles from "./cam-expense-reconciliation-ledger.module.css";
 
 export interface PropertySpecification {
@@ -31,194 +31,207 @@ export interface CamExpenseReconciliationLedgerProps {
   className?: string;
 }
 
-export const CamExpenseReconciliationLedger: React.FC<CamExpenseReconciliationLedgerProps> = ({
-  property,
-  expenseCategories,
-  onApproveReconciliation,
-  density = "compact",
-  className = "",
-}) => {
-  const headingId = useId();
-  const [isApproved, setIsApproved] = useState<boolean>(false);
+/**
+ * `<CamExpenseReconciliationLedger>` — Commercial Real Estate CAM expense true-up and pro-rata recovery ledger.
+ *
+ * @maturity stable
+ */
+export const CamExpenseReconciliationLedger = forwardRef<HTMLElement, CamExpenseReconciliationLedgerProps>(
+  (
+    {
+      property,
+      expenseCategories,
+      onApproveReconciliation,
+      density = "compact",
+      className = "",
+    },
+    ref
+  ) => {
+    const headingId = useId();
+    const [isApproved, setIsApproved] = useState<boolean>(false);
 
-  const formatCurrency = (amount: number) =>
-    new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-    }).format(amount);
+    const formatCurrency = (amount: number) =>
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+      }).format(amount);
 
-  const totalBudget = expenseCategories.reduce((acc, c) => acc + c.annualBudgetUsd, 0);
-  const totalActual = expenseCategories.reduce((acc, c) => acc + c.actualExpenseUsd, 0);
-  const totalTenantEstimated = expenseCategories.reduce(
-    (acc, c) => acc + c.tenantShareEstimatedUsd,
-    0
-  );
-  const totalTenantActual = expenseCategories.reduce(
-    (acc, c) => acc + c.tenantShareActualUsd,
-    0
-  );
-  const netReconciliationDue = expenseCategories.reduce(
-    (acc, c) => acc + c.reconciliationDueUsd,
-    0
-  );
+    const totalBudget = expenseCategories.reduce((acc, c) => acc + c.annualBudgetUsd, 0);
+    const totalActual = expenseCategories.reduce((acc, c) => acc + c.actualExpenseUsd, 0);
+    const totalTenantEstimated = expenseCategories.reduce(
+      (acc, c) => acc + c.tenantShareEstimatedUsd,
+      0
+    );
+    const totalTenantActual = expenseCategories.reduce(
+      (acc, c) => acc + c.tenantShareActualUsd,
+      0
+    );
+    const netReconciliationDue = expenseCategories.reduce(
+      (acc, c) => acc + c.reconciliationDueUsd,
+      0
+    );
 
-  const handleApprove = () => {
-    setIsApproved(true);
-    onApproveReconciliation?.(property.id, netReconciliationDue);
-  };
+    const handleApprove = () => {
+      setIsApproved(true);
+      onApproveReconciliation?.(property.id, netReconciliationDue);
+    };
 
-  return (
-    <section
-      aria-labelledby={headingId}
-      className={`${styles.container} ${className}`}
-      data-density={density}
-    >
-      <header className={styles.header}>
-        <div className={styles.topRow}>
-          <div className={styles.badgeRow}>
-            <span className={styles.creBadge}>CRE ASSET MANAGEMENT &amp; LEASE AUDIT</span>
-            <span className={styles.yearBadge}>FY {property.fiscalYear} TRUE-UP</span>
-          </div>
-          <div className={styles.shareBadge}>
-            Tenant Pro-Rata Share:{" "}
-            <strong>{property.proRataSharePercent.toFixed(2)}%</strong> ({property.leasedAreaSqFt.toLocaleString()} / {property.buildingGrossLeasableSqFt.toLocaleString()} RSF)
-          </div>
-        </div>
-
-        <div className={styles.titleRow}>
-          <div>
-            <h2 id={headingId} className={styles.title}>
-              Common Area Maintenance (CAM) Expense Reconciliation
-            </h2>
-            <div className={styles.subTitle}>
-              {property.propertyName} • {property.tenantName} ({property.suiteNumber})
+    return (
+      <section
+        ref={ref}
+        aria-labelledby={headingId}
+        className={`${styles.container} ${className}`}
+        data-density={density}
+      >
+        <header className={styles.header}>
+          <div className={styles.topRow}>
+            <div className={styles.badgeRow}>
+              <span className={styles.creBadge}>CRE ASSET MANAGEMENT &amp; LEASE AUDIT</span>
+              <span className={styles.yearBadge}>FY {property.fiscalYear} TRUE-UP</span>
+            </div>
+            <div className={styles.shareBadge}>
+              Tenant Pro-Rata Share:{" "}
+              <strong>{property.proRataSharePercent.toFixed(2)}%</strong> ({property.leasedAreaSqFt.toLocaleString()} / {property.buildingGrossLeasableSqFt.toLocaleString()} RSF)
             </div>
           </div>
 
-          <button
-            type="button"
-            className={styles.approveBtn}
-            onClick={handleApprove}
-            disabled={isApproved}
-            aria-label="Approve CAM Reconciliation True-Up Statement"
-          >
-            {isApproved ? "True-Up Approved & Invoiced" : "Approve CAM True-Up"}
-          </button>
-        </div>
-      </header>
+          <div className={styles.titleRow}>
+            <div>
+              <h2 id={headingId} className={styles.title}>
+                Common Area Maintenance (CAM) Expense Reconciliation
+              </h2>
+              <div className={styles.subTitle}>
+                {property.propertyName} • {property.tenantName} ({property.suiteNumber})
+              </div>
+            </div>
 
-      {/* Summary KPI Strip */}
-      <div className={styles.kpiGrid}>
-        <div className={styles.kpiCard}>
-          <span className={styles.kpiLabel}>Total Building Budget</span>
-          <span className={styles.kpiValue}>{formatCurrency(totalBudget)}</span>
+            <button
+              type="button"
+              className={styles.approveBtn}
+              onClick={handleApprove}
+              disabled={isApproved}
+              aria-label="Approve CAM Reconciliation True-Up Statement"
+            >
+              {isApproved ? "True-Up Approved & Invoiced" : "Approve CAM True-Up"}
+            </button>
+          </div>
+        </header>
+
+        {/* Summary KPI Strip */}
+        <div className={styles.kpiGrid}>
+          <div className={styles.kpiCard}>
+            <span className={styles.kpiLabel}>Total Building Budget</span>
+            <span className={styles.kpiValue}>{formatCurrency(totalBudget)}</span>
+          </div>
+          <div className={styles.kpiCard}>
+            <span className={styles.kpiLabel}>Total Building Actuals</span>
+            <span className={styles.kpiValue}>{formatCurrency(totalActual)}</span>
+          </div>
+          <div className={styles.kpiCard}>
+            <span className={styles.kpiLabel}>Tenant Billed to Date</span>
+            <span className={styles.kpiValue}>{formatCurrency(totalTenantEstimated)}</span>
+          </div>
+          <div className={styles.kpiCard}>
+            <span className={styles.kpiLabel}>Tenant Pro-Rata Obligation</span>
+            <span className={styles.kpiValue}>{formatCurrency(totalTenantActual)}</span>
+          </div>
+          <div className={`${styles.kpiCard} ${styles.kpiCardHighlight}`}>
+            <span className={styles.kpiLabel}>Net True-Up Adjustment</span>
+            <span
+              className={`${styles.kpiValue} ${
+                netReconciliationDue >= 0 ? styles.duePositive : styles.dueRefund
+              }`}
+            >
+              {netReconciliationDue >= 0 ? "+" : ""}
+              {formatCurrency(netReconciliationDue)}
+            </span>
+            <span className={styles.kpiSubtext}>
+              {netReconciliationDue >= 0 ? "Tenant Owes Landlord" : "Tenant Credit / Refund Due"}
+            </span>
+          </div>
         </div>
-        <div className={styles.kpiCard}>
-          <span className={styles.kpiLabel}>Total Building Actuals</span>
-          <span className={styles.kpiValue}>{formatCurrency(totalActual)}</span>
+
+        {/* Breakdown Table */}
+        <div className={styles.tableWrapper}>
+          <table className={styles.table} aria-label="CAM expense category breakdown">
+            <thead>
+              <tr>
+                <th scope="col">Expense Category</th>
+                <th scope="col">Building Budget</th>
+                <th scope="col">Building Actual</th>
+                <th scope="col">Gross Variance</th>
+                <th scope="col">Tenant Estimated</th>
+                <th scope="col">Tenant Actual ({property.proRataSharePercent.toFixed(2)}%)</th>
+                <th scope="col">Reconciliation Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {expenseCategories.map((item) => {
+                const isOwed = item.reconciliationDueUsd >= 0;
+                return (
+                  <tr key={item.id}>
+                    <td className={styles.categoryName}>{item.expenseCategory}</td>
+                    <td className={styles.monoCell}>{formatCurrency(item.annualBudgetUsd)}</td>
+                    <td className={styles.monoCell}>{formatCurrency(item.actualExpenseUsd)}</td>
+                    <td
+                      className={`${styles.monoCell} ${
+                        item.varianceUsd > 0 ? styles.varianceOver : styles.varianceUnder
+                      }`}
+                    >
+                      {item.varianceUsd > 0 ? "+" : ""}
+                      {formatCurrency(item.varianceUsd)}
+                    </td>
+                    <td className={styles.monoCell}>
+                      {formatCurrency(item.tenantShareEstimatedUsd)}
+                    </td>
+                    <td className={styles.monoCell}>
+                      {formatCurrency(item.tenantShareActualUsd)}
+                    </td>
+                    <td
+                      className={`${styles.monoCell} ${styles.balanceCell} ${
+                        isOwed ? styles.balanceOwed : styles.balanceCredit
+                      }`}
+                    >
+                      {isOwed ? "+" : ""}
+                      {formatCurrency(item.reconciliationDueUsd)}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr className={styles.totalRow}>
+                <td>Total Reconciled CAM</td>
+                <td className={styles.monoCell}>{formatCurrency(totalBudget)}</td>
+                <td className={styles.monoCell}>{formatCurrency(totalActual)}</td>
+                <td className={styles.monoCell}>
+                  {totalActual - totalBudget >= 0 ? "+" : ""}
+                  {formatCurrency(totalActual - totalBudget)}
+                </td>
+                <td className={styles.monoCell}>{formatCurrency(totalTenantEstimated)}</td>
+                <td className={styles.monoCell}>{formatCurrency(totalTenantActual)}</td>
+                <td
+                  className={`${styles.monoCell} ${styles.balanceCell} ${
+                    netReconciliationDue >= 0 ? styles.balanceOwed : styles.balanceCredit
+                  }`}
+                >
+                  {netReconciliationDue >= 0 ? "+" : ""}
+                  {formatCurrency(netReconciliationDue)}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
-        <div className={styles.kpiCard}>
-          <span className={styles.kpiLabel}>Tenant Billed to Date</span>
-          <span className={styles.kpiValue}>{formatCurrency(totalTenantEstimated)}</span>
-        </div>
-        <div className={styles.kpiCard}>
-          <span className={styles.kpiLabel}>Tenant Pro-Rata Obligation</span>
-          <span className={styles.kpiValue}>{formatCurrency(totalTenantActual)}</span>
-        </div>
-        <div className={`${styles.kpiCard} ${styles.kpiCardHighlight}`}>
-          <span className={styles.kpiLabel}>Net True-Up Adjustment</span>
-          <span
-            className={`${styles.kpiValue} ${
-              netReconciliationDue >= 0 ? styles.duePositive : styles.dueRefund
-            }`}
-          >
-            {netReconciliationDue >= 0 ? "+" : ""}
-            {formatCurrency(netReconciliationDue)}
+
+        <footer className={styles.footer}>
+          <span className={styles.footerText}>
+            Calculated in accordance with BOMA Standard Method for Measuring Floor Area and Lease Section 4.2 Operating Expenses.
           </span>
-          <span className={styles.kpiSubtext}>
-            {netReconciliationDue >= 0 ? "Tenant Owes Landlord" : "Tenant Credit / Refund Due"}
-          </span>
-        </div>
-      </div>
+        </footer>
+      </section>
+    );
+  }
+);
 
-      {/* Breakdown Table */}
-      <div className={styles.tableWrapper}>
-        <table className={styles.table} aria-label="CAM expense category breakdown">
-          <thead>
-            <tr>
-              <th scope="col">Expense Category</th>
-              <th scope="col">Building Budget</th>
-              <th scope="col">Building Actual</th>
-              <th scope="col">Gross Variance</th>
-              <th scope="col">Tenant Estimated</th>
-              <th scope="col">Tenant Actual ({property.proRataSharePercent.toFixed(2)}%)</th>
-              <th scope="col">Reconciliation Balance</th>
-            </tr>
-          </thead>
-          <tbody>
-            {expenseCategories.map((item) => {
-              const isOwed = item.reconciliationDueUsd >= 0;
-              return (
-                <tr key={item.id}>
-                  <td className={styles.categoryName}>{item.expenseCategory}</td>
-                  <td className={styles.monoCell}>{formatCurrency(item.annualBudgetUsd)}</td>
-                  <td className={styles.monoCell}>{formatCurrency(item.actualExpenseUsd)}</td>
-                  <td
-                    className={`${styles.monoCell} ${
-                      item.varianceUsd > 0 ? styles.varianceOver : styles.varianceUnder
-                    }`}
-                  >
-                    {item.varianceUsd > 0 ? "+" : ""}
-                    {formatCurrency(item.varianceUsd)}
-                  </td>
-                  <td className={styles.monoCell}>
-                    {formatCurrency(item.tenantShareEstimatedUsd)}
-                  </td>
-                  <td className={styles.monoCell}>
-                    {formatCurrency(item.tenantShareActualUsd)}
-                  </td>
-                  <td
-                    className={`${styles.monoCell} ${styles.balanceCell} ${
-                      isOwed ? styles.balanceOwed : styles.balanceCredit
-                    }`}
-                  >
-                    {isOwed ? "+" : ""}
-                    {formatCurrency(item.reconciliationDueUsd)}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-          <tfoot>
-            <tr className={styles.totalRow}>
-              <td>Total Reconciled CAM</td>
-              <td className={styles.monoCell}>{formatCurrency(totalBudget)}</td>
-              <td className={styles.monoCell}>{formatCurrency(totalActual)}</td>
-              <td className={styles.monoCell}>
-                {totalActual - totalBudget >= 0 ? "+" : ""}
-                {formatCurrency(totalActual - totalBudget)}
-              </td>
-              <td className={styles.monoCell}>{formatCurrency(totalTenantEstimated)}</td>
-              <td className={styles.monoCell}>{formatCurrency(totalTenantActual)}</td>
-              <td
-                className={`${styles.monoCell} ${styles.balanceCell} ${
-                  netReconciliationDue >= 0 ? styles.balanceOwed : styles.balanceCredit
-                }`}
-              >
-                {netReconciliationDue >= 0 ? "+" : ""}
-                {formatCurrency(netReconciliationDue)}
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-
-      <footer className={styles.footer}>
-        <span className={styles.footerText}>
-          Calculated in accordance with BOMA Standard Method for Measuring Floor Area and Lease Section 4.2 Operating Expenses.
-        </span>
-      </footer>
-    </section>
-  );
-};
+CamExpenseReconciliationLedger.displayName = "CamExpenseReconciliationLedger";

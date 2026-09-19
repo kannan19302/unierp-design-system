@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { BinLocationGrid, StorageBin } from "./bin-location-grid";
@@ -46,6 +46,20 @@ const TEST_BINS: StorageBin[] = [
 ];
 
 describe("BinLocationGrid", () => {
+  it("forwards ref to root container", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <BinLocationGrid
+        ref={ref}
+        aisleCode="Aisle 01 — Test Rack"
+        bays={2}
+        tiers={2}
+        bins={TEST_BINS}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("renders aisle and bins with zero accessibility violations", async () => {
     const { container } = render(
       <BinLocationGrid

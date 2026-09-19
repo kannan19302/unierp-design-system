@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { BinLocationGrid, StorageBin } from "./bin-location-grid";
 
@@ -140,4 +141,48 @@ export const QuarantinedLocationSelected: Story = {
     bins: SAMPLE_BINS,
     selectedBinId: "bin-4",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>Warehouse Rack Bin Layout Anatomy</h3>
+      <BinLocationGrid
+        aisleCode="Aisle 04 — Pharmaceutical Cold Vault"
+        bays={3}
+        tiers={3}
+        bins={SAMPLE_BINS}
+        selectedBinId="bin-2"
+        density="compact"
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Default Density (Bin Selected)</h4>
+        <BinLocationGrid
+          aisleCode="Aisle 04 — Pharmaceutical Cold Vault"
+          bays={3}
+          tiers={3}
+          bins={SAMPLE_BINS}
+          selectedBinId="bin-1"
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4>Comfortable Density (No Selection)</h4>
+        <BinLocationGrid
+          aisleCode="Aisle 04 — Pharmaceutical Cold Vault"
+          bays={3}
+          tiers={3}
+          bins={SAMPLE_BINS}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };

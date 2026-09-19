@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, useState, useEffect, useCallback } from "react";
+import { forwardRef, useState, useEffect, useCallback } from "react";
 import styles from "./change-history.module.css";
 
 interface FieldChange {
@@ -24,6 +24,7 @@ export interface ChangeHistoryProps {
   entityId: string;
   apiBase?: string;
   initialEntries?: ChangeEntry[];
+  className?: string;
 }
 
 function formatValue(val: unknown): string {
@@ -59,114 +60,141 @@ function actionLabel(action: string): string {
   }
 }
 
-export const ChangeHistory: FC<ChangeHistoryProps> = ({
-  entityType,
-  entityId,
-  apiBase = "/api/v1",
-  initialEntries,
-}) => {
-  const [entries, setEntries] = useState<ChangeEntry[]>(initialEntries || []);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-
-  const fetchHistory = useCallback(
-    async (pageNum: number) => {
-      setLoading(true);
-      try {
-        const res = await fetch(
-          `${apiBase}/change-history/${entityType}/${entityId}?page=${pageNum}&limit=20`,
-          { credentials: "include" },
-        );
-        if (!res.ok) return;
-        const result = await res.json();
-        const newEntries = result.data || [];
-        setEntries((prev) =>
-          pageNum === 1 ? newEntries : [...prev, ...newEntries],
-        );
-        setHasMore(pageNum < (result.meta?.totalPages || 1));
-      } catch {
-        // silently fail
-      } finally {
-        setLoading(false);
-      }
+/**
+ * `<ChangeHistory>` — Chronological entity change log, audit diff tracker, and field history timeline.
+ *
+ * @maturity stable
+ */
+export const ChangeHistory = forwardRef<HTMLElement, ChangeHistoryProps>(
+  (
+    {
+      entityType,
+      entityId,
+      apiBase = "/api/v1",
+      initialEntries,
+      className = "",
     },
-    [apiBase, entityType, entityId],
-  );
+    ref
+  ) => {
+    const [entries, setEntries] = useState<ChangeEntry[]>(initialEntries || []);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (entityId && !initialEntries) fetchHistory(1);
-  }, [entityId, fetchHistory, initialEntries]);
-
-  const loadMore = () => {
-    const next = page + 1;
-    setPage(next);
-    fetchHistory(next);
-  };
-
-  if (entries.length === 0 && !loading) return null;
-
-  return (
-    <section aria-label="Change History" className={styles.container}>
-      <h4 className={styles.title}>Activity</h4>
-
-      <div className={styles.timeline}>
-        <div className={styles.timelineLine} />
-
-        {entries.map((entry) => {
-          const dotClass =
-            entry.action === "CREATE"
-              ? styles.dotCreate
-              : entry.action === "DELETE"
-                ? styles.dotDelete
-                : styles.dotDefault;
-
-          return (
-            <div key={entry.id} className={styles.entry}>
-              <div className={`${styles.dot} ${dotClass}`} />
-
-              <div className={styles.entryText}>
-                <span className={styles.userName}>{entry.userName}</span>{" "}
-                {actionLabel(entry.action)}
-                <span className={styles.timestamp}>
-                  {formatDate(entry.createdAt)}
-                </span>
-              </div>
-
-              {entry.fieldChanges &&
-                entry.fieldChanges.length > 0 &&
-                entry.action !== "CREATE" && (
-                  <div className={styles.fieldChanges}>
-                    {entry.fieldChanges.map((fc, i) => (
-                      <div key={i} style={{ marginBottom: "2px" }}>
-                        <span style={{ fontWeight: 500 }}>{fc.label}:</span>{" "}
-                        <span className={styles.oldVal}>
-                          {formatValue(fc.oldValue)}
-                        </span>
-                        {" → "}
-                        <span style={{ fontWeight: 500 }}>
-                          {formatValue(fc.newValue)}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-            </div>
+    const fetchHistory = useCallback(
+      async (pageNum: number) => {
+        setLoading(true);
+        try {
+          const res = await fetch(
+            `${apiBase}/change-history/${entityType}/${entityId}?page=${pageNum}&limit=20`,
+            { credentials: "include" },
           );
-        })}
-      </div>
+          if (!res.ok) return;
+          const result = await res.json();
+          const newEntries = result.data || [];
+          setEntries((prev) =>
+            pageNum === 1 ? newEntries : [...prev, ...newEntries],
+          );
+          setHasMore(pageNum < (result.meta?.totalPages || 1));
+        } catch {
+          // silently fail
+        } finally {
+          setLoading(false);
+        }
+      },
+      [apiBase, entityType, entityId],
+    );
 
-      {loading && (
-        <div style={{ textAlign: "center", padding: "var(--space-3)", color: "var(--color-text-muted)" }}>
-          Loading...
+    useEffect(() => {
+      if (entityId && !initialEntries) fetchHistory(1);
+    }, [entityId, fetchHistory, initialEntries]);
+
+    const loadMore = () => {
+      const next = page + 1;
+      setPage(next);
+      fetchHistory(next);
+    };
+
+    if (entries.length === 0 && !loading) {
+      return (
+        <section ref={ref} aria-label="Change History" className={`${styles.container} ${className}`}>
+          <h4 className={styles.title}>Activity</h4>
+          <div className={styles.entryText}>No activity recorded.</div>
+        </section>
+      );
+    }
+
+    return (
+      <section ref={ref} aria-label="Change History" className={`${styles.container} ${className}`}>
+        <h4 className={styles.title}>Activity</h4>
+
+        <div className={styles.timeline}>
+          <div className={styles.timelineLine} />
+
+          {entries.map((entry) => {
+            const dotClass =
+              entry.action === "CREATE"
+                ? styles.dotCreate
+                : entry.action === "DELETE"
+                  ? styles.dotDelete
+                  : styles.dotDefault;
+
+            return (
+              <div key={entry.id} className={styles.entry}>
+                <div className={`${styles.dot} ${dotClass}`} />
+
+                <div className={styles.entryText}>
+                  <span className={styles.userName}>{entry.userName}</span>{" "}
+                  {actionLabel(entry.action)}
+                  <span className={styles.timestamp}>
+                    {formatDate(entry.createdAt)}
+                  </span>
+                </div>
+
+                {entry.fieldChanges &&
+                  entry.fieldChanges.length > 0 &&
+                  entry.action !== "CREATE" && (
+                    <div className={styles.fieldChanges}>
+                      {entry.fieldChanges.map((fc, i) => (
+                        <div key={i} style={{ marginBlockEnd: "2px" }}>
+                          <span style={{ fontWeight: 500 }}>{fc.label}:</span>{" "}
+                          <span className={styles.oldVal}>
+                            {formatValue(fc.oldValue)}
+                          </span>
+                          {" → "}
+                          <span style={{ fontWeight: 500 }}>
+                            {formatValue(fc.newValue)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+              </div>
+            );
+          })}
         </div>
-      )}
 
-      {hasMore && !loading && !initialEntries && (
-        <button type="button" onClick={loadMore} className={styles.loadMoreBtn}>
-          Load more
-        </button>
-      )}
-    </section>
-  );
-};
+        {loading && (
+          <div
+            style={{
+              textAlign: "center",
+              paddingBlock: "var(--space-3)",
+              paddingInline: "var(--space-3)",
+              color: "var(--color-text-muted)",
+            }}
+          >
+            Loading...
+          </div>
+        )}
+
+        {hasMore && !loading && !initialEntries && (
+          <button type="button" onClick={loadMore} className={styles.loadMoreBtn}>
+            Load more
+          </button>
+        )}
+      </section>
+    );
+  }
+);
+
+ChangeHistory.displayName = "ChangeHistory";

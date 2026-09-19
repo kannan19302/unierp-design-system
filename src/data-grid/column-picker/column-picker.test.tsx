@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -10,6 +11,19 @@ const MOCK_OPTIONS = [
 ];
 
 describe("ColumnPicker Primitive", () => {
+  it("forwards ref to root element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <ColumnPicker
+        ref={ref}
+        options={MOCK_OPTIONS}
+        visible={["id", "name"]}
+        onChange={() => {}}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
   it("opens menu and toggles column visibility", () => {
     const onChange = vi.fn();
     render(

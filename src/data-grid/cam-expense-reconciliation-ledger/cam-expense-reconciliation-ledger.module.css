@@ -1,22 +1,22 @@
 .container {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
-  border-radius: var(--radius-md, 0.5rem);
-  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-  color: var(--color-text-primary, #0f172a);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans, inherit);
+  color: var(--color-text-primary);
   overflow: hidden;
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2, 0.5rem);
-  padding: var(--space-4, 1rem);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
-  background-color: var(--color-surface-subtle, #f8fafc);
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-block-end: 1px solid var(--color-border);
+  background-color: var(--color-surface-subtle);
 }
 
 .topRow {
@@ -24,42 +24,45 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-2, 0.5rem);
+  gap: var(--space-2);
 }
 
 .badgeRow {
   display: flex;
   align-items: center;
-  gap: var(--space-2, 0.5rem);
+  gap: var(--space-2);
 }
 
 .creBadge {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.05em;
-  color: var(--color-brand, #2563eb);
-  background-color: var(--color-brand-subtle, #eff6ff);
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
-  border-radius: var(--radius-sm, 0.25rem);
+  color: var(--color-brand);
+  background-color: var(--color-brand-subtle);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
 }
 
 .yearBadge {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
-  color: var(--color-text-secondary, #334155);
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
-  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
 }
 
 .shareBadge {
-  font-size: var(--text-xs, 0.75rem);
-  color: var(--color-text-secondary, #334155);
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
-  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
-  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-sm);
 }
 
 .titleRow {
@@ -67,98 +70,100 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-3, 0.75rem);
+  gap: var(--space-3);
 }
 
 .title {
   margin: 0;
-  font-size: var(--text-base, 1rem);
-  font-weight: var(--weight-bold, 700);
-  color: var(--color-text-primary, #0f172a);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
 }
 
 .subTitle {
-  font-size: var(--text-xs, 0.75rem);
-  color: var(--color-text-muted, #64748b);
-  margin-top: var(--space-0-5, 0.125rem);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-block-start: var(--space-0-5);
 }
 
 .approveBtn {
   cursor: pointer;
-  padding: var(--space-1-5, 0.375rem) var(--space-3, 0.75rem);
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
-  border-radius: var(--radius-sm, 0.25rem);
-  border: 1px solid var(--color-brand, #2563eb);
-  background-color: var(--color-brand, #2563eb);
-  color: var(--color-text-inverse, #ffffff);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-brand);
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse);
   transition: all 0.15s ease-in-out;
 }
 
 .approveBtn:hover:not(:disabled) {
-  background-color: var(--color-brand-hover, #1d4ed8);
-  border-color: var(--color-brand-hover, #1d4ed8);
+  background-color: var(--color-brand-hover);
+  border-color: var(--color-brand-hover);
 }
 
 .approveBtn:disabled {
   cursor: not-allowed;
   opacity: 0.8;
-  background-color: var(--color-success, #16a34a);
-  border-color: var(--color-success, #16a34a);
-  color: var(--color-text-inverse, #ffffff);
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--color-text-inverse);
 }
 
 .kpiGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  gap: var(--space-3, 0.75rem);
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
-  background-color: var(--color-surface, #ffffff);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface);
+  border-block-end: 1px solid var(--color-border);
 }
 
 .kpiCard {
   display: flex;
   flex-direction: column;
-  gap: var(--space-0-5, 0.125rem);
-  padding: var(--space-2, 0.5rem);
-  background-color: var(--color-surface-subtle, #f8fafc);
-  border: 1px solid var(--color-border, #e2e8f0);
-  border-radius: var(--radius-sm, 0.25rem);
+  gap: var(--space-0-5);
+  padding: var(--space-2);
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
 }
 
 .kpiCardHighlight {
-  background-color: var(--color-surface, #ffffff);
-  border-color: var(--color-brand, #2563eb);
+  background-color: var(--color-surface);
+  border-color: var(--color-brand);
 }
 
 .kpiLabel {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-medium, 500);
-  color: var(--color-text-muted, #64748b);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
 
 .kpiValue {
-  font-size: var(--text-sm, 0.875rem);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
   font-family: var(--font-mono, monospace);
-  color: var(--color-text-primary, #0f172a);
+  color: var(--color-text-primary);
 }
 
 .duePositive {
-  color: var(--color-danger, #dc2626);
+  color: var(--color-danger);
 }
 
 .dueRefund {
-  color: var(--color-success, #16a34a);
+  color: var(--color-success);
 }
 
 .kpiSubtext {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-medium, 500);
-  color: var(--color-text-secondary, #334155);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
 }
 
 .tableWrapper {
@@ -166,86 +171,91 @@
 }
 
 .table {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  text-align: left;
-  font-size: var(--text-xs, 0.75rem);
+  text-align: start;
+  font-size: var(--text-xs);
 }
 
 .table th {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  background-color: var(--color-surface-subtle, #f8fafc);
-  color: var(--color-text-muted, #64748b);
-  font-weight: var(--weight-semibold, 600);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+  border-block-end: 1px solid var(--color-border);
   white-space: nowrap;
 }
 
 .table td {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border-block-end: 1px solid var(--color-border-subtle);
   vertical-align: middle;
 }
 
 .categoryName {
-  font-weight: var(--weight-semibold, 600);
-  color: var(--color-text-primary, #0f172a);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
 }
 
 .monoCell {
   font-family: var(--font-mono, monospace);
-  color: var(--color-text-secondary, #334155);
+  color: var(--color-text-secondary);
 }
 
 .varianceOver {
-  color: var(--color-danger, #dc2626);
+  color: var(--color-danger);
 }
 
 .varianceUnder {
-  color: var(--color-success, #16a34a);
+  color: var(--color-success);
 }
 
 .balanceCell {
-  font-weight: var(--weight-bold, 700);
+  font-weight: var(--weight-bold);
 }
 
 .balanceOwed {
-  color: var(--color-danger, #dc2626);
+  color: var(--color-danger);
 }
 
 .balanceCredit {
-  color: var(--color-success, #16a34a);
+  color: var(--color-success);
 }
 
 .totalRow {
-  background-color: var(--color-surface-subtle, #f8fafc);
-  border-top: 2px solid var(--color-border, #e2e8f0);
-  font-weight: var(--weight-bold, 700);
+  background-color: var(--color-surface-subtle);
+  border-block-start: 2px solid var(--color-border);
+  font-weight: var(--weight-bold);
 }
 
 .totalRow td {
-  border-bottom: none;
-  color: var(--color-text-primary, #0f172a);
+  border-block-end: none;
+  color: var(--color-text-primary);
 }
 
 .footer {
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
-  background-color: var(--color-surface-subtle, #f8fafc);
-  border-top: 1px solid var(--color-border, #e2e8f0);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface-subtle);
+  border-block-start: 1px solid var(--color-border);
 }
 
 .footerText {
-  font-size: var(--text-xs, 0.75rem);
-  color: var(--color-text-muted, #64748b);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }
 
 /* Densities */
 [data-density="ultra-compact"] .table th,
 [data-density="ultra-compact"] .table td {
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
 }
 
 [data-density="comfortable"] .table th,
 [data-density="comfortable"] .table td {
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { ChangeHistory, type ChangeEntry } from "./change-history";
 
@@ -36,6 +37,7 @@ const meta: Meta<typeof ChangeHistory> = {
   title: "DataGrid/ChangeHistory",
   component: ChangeHistory,
   parameters: { layout: "padded" },
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -47,4 +49,40 @@ export const Default: Story = {
     entityId: "inv-2026",
     initialEntries: MOCK_ENTRIES,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <h3>Audit Trail Timeline Anatomy</h3>
+      <ChangeHistory
+        entityType="invoice"
+        entityId="inv-2026"
+        initialEntries={MOCK_ENTRIES}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+      <div>
+        <h4>Populated Timeline</h4>
+        <ChangeHistory
+          entityType="invoice"
+          entityId="inv-2026"
+          initialEntries={MOCK_ENTRIES}
+        />
+      </div>
+      <div>
+        <h4>Empty State</h4>
+        <ChangeHistory
+          entityType="invoice"
+          entityId="inv-empty"
+          initialEntries={[]}
+        />
+      </div>
+    </div>
+  ),
 };
