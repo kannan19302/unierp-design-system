@@ -26,3 +26,20 @@ export const Fair: Story = {
 export const Poor: Story = {
   args: { score: 32 },
 };
+
+export const PillVariants = () => (
+  <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center" }}>
+    <HealthScore score={98} variant="pill" showLabel />
+    <HealthScore score={72} variant="pill" showLabel />
+    <HealthScore score={28} variant="pill" showLabel />
+  </div>
+);
+
+export const TextVariants = () => (
+  <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center" }}>
+    <HealthScore score={95} variant="text" showLabel />
+    <HealthScore score={65} variant="text" showLabel />
+    <HealthScore score={30} variant="text" showLabel />
+  </div>
+);
+

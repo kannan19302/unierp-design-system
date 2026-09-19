@@ -38,3 +38,17 @@ export const Palette = () => (
     <Tag variant="info">Info</Tag>
   </div>
 );
+
+export const Shapes = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+    <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+      <Tag shape="rounded" variant="primary">Rounded Tag</Tag>
+      <Tag shape="rounded" variant="success" onRemove={() => {}}>Removable</Tag>
+    </div>
+    <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+      <Tag shape="pill" variant="primary">Capsule Pill</Tag>
+      <Tag shape="pill" variant="warning" onRemove={() => {}}>Removable Pill</Tag>
+    </div>
+  </div>
+);
+

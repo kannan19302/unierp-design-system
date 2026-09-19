@@ -1,23 +1,32 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — Presence Primitive Styles
+   UniERP Design Language 2.0 — Presence Primitive Styles
    ══════════════════════════════════════════════════════════════ */
 
 .presence {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-1-5, 6px);
   font-family: var(--font-sans);
   line-height: 1;
+  user-select: none;
 }
 
 .label {
   font-size: var(--type-micro, 11px);
   font-weight: var(--weight-medium);
+  letter-spacing: 0.01em;
+}
+
+/* Dot Container & Ping Effect */
+.dotContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .dot {
-  width: var(--space-2, 8px);
-  height: var(--space-2, 8px);
   border-radius: var(--radius-full, 9999px);
   background-color: currentColor;
   display: inline-block;
@@ -25,21 +34,79 @@
   box-shadow: 0 0 0 1.5px var(--color-bg-surface);
 }
 
-.pulse .dot {
-  animation: presencePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.dotPing {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full, 9999px);
+  background-color: currentColor;
+  opacity: 0.65;
+  animation: presenceRadarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-@keyframes presencePulse {
-  0%, 100% {
-    opacity: 1;
+@keyframes presenceRadarPing {
+  0% {
     transform: scale(1);
+    opacity: 0.75;
   }
-  50% {
-    opacity: 0.45;
-    transform: scale(0.85);
+  70%, 100% {
+    transform: scale(2.4);
+    opacity: 0;
   }
 }
 
+/* Sizing */
+.sm .dot,
+.sm .dotPing {
+  width: var(--space-1-5, 6px);
+  height: var(--space-1-5, 6px);
+}
+
+.md .dot,
+.md .dotPing {
+  width: var(--space-2, 8px);
+  height: var(--space-2, 8px);
+}
+
+.lg .dot,
+.lg .dotPing {
+  width: var(--space-2-5, 10px);
+  height: var(--space-2-5, 10px);
+}
+
+/* Pill / Badge Variant */
+.pill,
+.badge {
+  padding: var(--space-0-5, 2px) var(--space-2, 8px);
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid transparent;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.online.pill,
+.online.badge {
+  background-color: var(--color-success-light);
+  border-color: var(--color-success-subtle, var(--color-success));
+}
+
+.busy.pill,
+.busy.badge {
+  background-color: var(--color-danger-light);
+  border-color: var(--color-danger-subtle, var(--color-danger));
+}
+
+.away.pill,
+.away.badge {
+  background-color: var(--color-warning-light);
+  border-color: var(--color-warning-subtle, var(--color-warning));
+}
+
+.offline.pill,
+.offline.badge {
+  background-color: var(--color-bg-muted);
+  border-color: var(--color-border);
+}
+
+/* Color definitions */
 .online {
   color: var(--color-success);
 }
@@ -55,3 +122,4 @@
 .away {
   color: var(--color-warning);
 }
+

@@ -5,11 +5,16 @@ import { Avatar } from "../avatar";
 import type { PresenceStatus } from "../presence";
 import styles from "./user-chip.module.css";
 
+export type UserChipShape = "pill" | "rounded";
+export type UserChipSize = "sm" | "md";
+
 export interface UserChipProps {
   name: string;
   role?: string;
   avatarSrc?: string;
   status?: PresenceStatus;
+  shape?: UserChipShape;
+  size?: UserChipSize;
   onClick?: () => void;
   onRemove?: () => void;
   className?: string;
@@ -20,11 +25,14 @@ export const UserChip: FC<UserChipProps> = ({
   role,
   avatarSrc,
   status,
+  shape = "pill",
+  size = "md",
   onClick,
   onRemove,
   className = "",
 }) => {
   const isInteractive = Boolean(onClick);
+  const avatarSize = size === "sm" ? "xs" : "sm";
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (onClick && (e.key === "Enter" || e.key === " ")) {
@@ -39,10 +47,10 @@ export const UserChip: FC<UserChipProps> = ({
       tabIndex={isInteractive ? 0 : undefined}
       onClick={onClick}
       onKeyDown={isInteractive ? handleKeyDown : undefined}
-      className={`${styles.chip} ${isInteractive ? styles.interactive : ""} ${className}`.trim()}
+      className={`${styles.chip} ${styles[shape]} ${styles[size]} ${isInteractive ? styles.interactive : ""} ${className}`.trim()}
     >
       <div className={styles.avatarWrap}>
-        <Avatar src={avatarSrc} name={name} size="sm" presence={status} />
+        <Avatar src={avatarSrc} name={name} size={avatarSize} presence={status} />
       </div>
       <div className={styles.meta}>
         <span className={styles.name}>{name}</span>

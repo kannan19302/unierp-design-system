@@ -30,9 +30,36 @@ export const Away: Story = {
 };
 
 export const DotVariant: Story = {
-  args: { status: "online", variant: "dot", showLabel: true },
+  args: { status: "online", variant: "dot", size: "md", showLabel: true },
 };
 
-export const PulsingBusyDot: Story = {
-  args: { status: "busy", variant: "dot", pulse: true, showLabel: true },
+export const PulsingRadarDot: Story = {
+  args: { status: "online", variant: "dot", pulse: true, size: "lg", showLabel: true },
 };
+
+export const StatusPills = () => (
+  <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+    <Presence status="online" variant="pill" pulse />
+    <Presence status="busy" variant="pill" />
+    <Presence status="away" variant="pill" />
+    <Presence status="offline" variant="pill" />
+  </div>
+);
+
+export const StandaloneDots = () => (
+  <div style={{ display: "flex", gap: "var(--space-4)", alignItems: "center" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <Presence status="online" variant="dot" size="sm" />
+      <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>Small (6px)</span>
+    </div>
+    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <Presence status="online" variant="dot" size="md" pulse />
+      <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>Medium Radar (8px)</span>
+    </div>
+    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <Presence status="busy" variant="dot" size="lg" pulse />
+      <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>Large Radar (10px)</span>
+    </div>
+  </div>
+);
+

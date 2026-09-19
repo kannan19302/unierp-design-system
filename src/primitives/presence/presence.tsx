@@ -5,11 +5,13 @@ import { Wifi, WifiOff, Clock, MinusCircle } from "lucide-react";
 import styles from "./presence.module.css";
 
 export type PresenceStatus = "online" | "offline" | "busy" | "away";
-export type PresenceVariant = "icon" | "dot";
+export type PresenceVariant = "icon" | "dot" | "pill" | "badge";
+export type PresenceSize = "sm" | "md" | "lg";
 
 export interface PresenceProps {
   status: PresenceStatus;
   variant?: PresenceVariant;
+  size?: PresenceSize;
   showLabel?: boolean;
   pulse?: boolean;
   className?: string;
@@ -26,6 +28,7 @@ const PRESENCE_META = {
 export const Presence: FC<PresenceProps> = ({
   status,
   variant = "icon",
+  size = "md",
   showLabel = false,
   pulse = false,
   className = "",
@@ -33,21 +36,29 @@ export const Presence: FC<PresenceProps> = ({
 }) => {
   const meta = PRESENCE_META[status];
   const { Icon, statusClass } = meta;
+  const isPill = variant === "pill" || variant === "badge";
+  const shouldShowLabel = showLabel || isPill;
+
+  const iconSizes = { sm: 9, md: 11, lg: 13 };
 
   return (
     <span
       role="status"
       aria-label={meta.label}
       title={meta.label}
-      className={`${styles.presence} ${styles[statusClass]} ${styles[variant]} ${pulse ? styles.pulse : ""} ${className}`.trim()}
+      className={`${styles.presence} ${styles[statusClass]} ${styles[variant]} ${styles[size]} ${className}`.trim()}
       style={style}
     >
-      {variant === "dot" ? (
-        <span className={styles.dot} aria-hidden />
+      {variant === "icon" ? (
+        <Icon size={iconSizes[size]} aria-hidden />
       ) : (
-        <Icon size={10} aria-hidden />
+        <span className={styles.dotContainer}>
+          {pulse && <span className={styles.dotPing} aria-hidden />}
+          <span className={styles.dot} aria-hidden />
+        </span>
       )}
-      {showLabel && <span className={styles.label}>{meta.label}</span>}
+      {shouldShowLabel && <span className={styles.label}>{meta.label}</span>}
     </span>
   );
 };
+
