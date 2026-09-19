@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -43,6 +44,14 @@ describe("CashSweepLiquidityOptimizer", () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <CashSweepLiquidityOptimizer ref={ref} accounts={mockAccounts} masterPoolAccountId="acc-100" />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("renders header and account summary numbers", () => {

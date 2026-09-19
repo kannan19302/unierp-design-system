@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -16,6 +17,12 @@ const mockProtocol = {
 };
 
 describe("ClinicalTrialCohortRandomizer", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<ClinicalTrialCohortRandomizer ref={ref} protocol={mockProtocol} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes axe accessibility tests with zero violations", async () => {
     const { container } = render(
       <ClinicalTrialCohortRandomizer protocol={mockProtocol} />

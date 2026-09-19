@@ -60,3 +60,31 @@ export const Comfortable: Story = {
     density: "comfortable",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    matters: mockMatters,
+    initialMatterId: "m-1",
+    density: "standard",
+  },
+  render: (args) => (
+    <div style={{ inlineSize: "100%", maxInlineSize: "640px" }}>
+      <BillableTimeStopwatchDock {...args} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Compact Density</h4>
+        <BillableTimeStopwatchDock matters={mockMatters} initialMatterId="m-1" density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Standard Density</h4>
+        <BillableTimeStopwatchDock matters={mockMatters} initialMatterId="m-2" density="standard" />
+      </div>
+    </div>
+  ),
+};

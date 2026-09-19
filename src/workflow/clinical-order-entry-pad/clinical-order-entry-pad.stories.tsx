@@ -17,6 +17,7 @@ const meta: Meta<typeof ClinicalOrderEntryPad> = {
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   args: {
     patient: mockPatient,
   },
@@ -55,4 +56,44 @@ export const WithPreselectedOrders: Story = {
       },
     ],
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...WithPreselectedOrders.args,
+    density: "standard",
+  },
+  render: (args) => (
+    <div style={{ inlineSize: "100%", maxInlineSize: "960px" }}>
+      <ClinicalOrderEntryPad {...args} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Empty Staging Basket</h4>
+        <ClinicalOrderEntryPad patient={mockPatient} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>With Staged Orders &amp; Allergy Warning</h4>
+        <ClinicalOrderEntryPad
+          patient={mockPatient}
+          initialOrders={[
+            {
+              id: "ord-1",
+              category: "medication",
+              orderName: "Amoxicillin 500mg Oral Capsule",
+              details: "500 mg PO TID with meals for 10 days",
+              priority: "routine",
+              contraindicationWarning: "CRITICAL CONTRAINDICATION: Patient allergic to PENICILLIN.",
+            },
+          ]}
+          density="standard"
+        />
+      </div>
+    </div>
+  ),
 };

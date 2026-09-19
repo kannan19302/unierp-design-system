@@ -72,3 +72,30 @@ export const RenalDoseWarning: Story = {
     density: "compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...CriticalContraindication.args,
+    density: "standard",
+  },
+  render: (args) => (
+    <div style={{ inlineSize: "100%", maxInlineSize: "840px" }}>
+      <ClinicalDecisionSupportAlert {...args} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Critical Severity (Level 1A)</h4>
+        <ClinicalDecisionSupportAlert {...CriticalContraindication.args} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Warning Severity (Renal Dose)</h4>
+        <ClinicalDecisionSupportAlert {...RenalDoseWarning.args} />
+      </div>
+    </div>
+  ),
+};

@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -41,6 +42,18 @@ const testControls: ComplianceControlItem[] = [
 ];
 
 describe("ComplianceEvidenceCollector", () => {
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <ComplianceEvidenceCollector
+        ref={ref}
+        frameworkTitle="SOC 2 Audit Vault"
+        controls={testControls}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("renders framework title and controls list correctly", () => {
     render(
       <ComplianceEvidenceCollector

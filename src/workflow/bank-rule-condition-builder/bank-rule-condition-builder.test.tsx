@@ -1,6 +1,6 @@
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
 import { BankRuleConditionBuilder } from "./bank-rule-condition-builder";
 
@@ -27,6 +27,12 @@ describe("BankRuleConditionBuilder", () => {
     fireEvent.click(simBtn);
 
     expect(screen.getByText(/RULE MATCH SUCCESSFUL/i)).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<BankRuleConditionBuilder ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

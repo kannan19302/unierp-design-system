@@ -97,3 +97,43 @@ export const Compact: Story = {
     density: "compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Dual-Pane Audit Readiness Layout</h4>
+        <ComplianceEvidenceCollector
+          frameworkTitle="SOC 2 Type II Compliance Program"
+          auditPeriod="FY2026 Audit"
+          controls={mockControls}
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Default Density</h4>
+        <ComplianceEvidenceCollector
+          frameworkTitle="Continuous Compliance Telemetry"
+          auditPeriod="Q3 Verification"
+          controls={mockControls}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Comfortable Density</h4>
+        <ComplianceEvidenceCollector
+          frameworkTitle="Continuous Compliance Telemetry (Comfortable)"
+          auditPeriod="Q3 Verification"
+          controls={mockControls}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
+};

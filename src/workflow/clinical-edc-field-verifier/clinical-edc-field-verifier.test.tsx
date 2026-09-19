@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
@@ -9,6 +9,12 @@ describe("ClinicalEdcFieldVerifier", () => {
     const { container } = render(<ClinicalEdcFieldVerifier />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<ClinicalEdcFieldVerifier ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("renders study protocol and eCRF table entries", () => {

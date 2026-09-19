@@ -4,6 +4,7 @@ import { ApprovalChain, type ApprovalStep } from "./approval-chain";
 const meta: Meta<typeof ApprovalChain> = {
   title: "Workflow/ApprovalChain",
   component: ApprovalChain,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -81,9 +82,50 @@ export const Default: Story = {
   },
 };
 
-export const LoadingState: Story = {
+export const AnatomyAndComposition: Story = {
   args: {
     steps: sampleSteps,
-    loading: true,
   },
+  render: (args) => (
+    <div style={{ inlineSize: "100%", maxInlineSize: "720px" }}>
+      <ApprovalChain {...args} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Active Review Process</h4>
+        <ApprovalChain steps={sampleSteps} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Rejected / Escalated Chain</h4>
+        <ApprovalChain
+          steps={[
+            {
+              id: "step-rej",
+              title: "Security & Infosec Review",
+              description: "SOC2 Compliance gate rejected due to open vulnerability tickets.",
+              status: "rejected",
+              approvers: [
+                {
+                  id: "u-sec",
+                  name: "Vikram Malhotra",
+                  role: "Head of Infosec",
+                  status: "rejected",
+                  comment: "Critical unpatched CVE detected in third-party library.",
+                },
+              ],
+            },
+          ]}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Loading State</h4>
+        <ApprovalChain steps={sampleSteps} loading />
+      </div>
+    </div>
+  ),
 };

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
 import {
   CanaryRolloutProgressVisualizer,
-  CanaryMetricComparison,
+  type CanaryMetricComparison,
 } from "./canary-rollout-progress-visualizer";
 
 const sampleMetrics: CanaryMetricComparison[] = [
@@ -48,6 +48,17 @@ describe("CanaryRolloutProgressVisualizer", () => {
 
     expect(onAbort).toHaveBeenCalled();
     expect(screen.getByText(/ROLLED BACK \(ABORTED\)/i)).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <CanaryRolloutProgressVisualizer
+        ref={ref}
+        metrics={sampleMetrics}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

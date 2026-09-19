@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
+import React, { createRef } from "react";
 import { ClinicalDecisionSupportAlert } from "./clinical-decision-support-alert";
 
 describe("ClinicalDecisionSupportAlert", () => {
@@ -46,6 +46,12 @@ describe("ClinicalDecisionSupportAlert", () => {
     expect(screen.getByText(/Robert M. Thorne/i)).toBeDefined();
     expect(screen.getByText("MRN-8492019")).toBeDefined();
     expect(screen.getByText("Switch to Nystatin")).toBeDefined();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<ClinicalDecisionSupportAlert ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("accepts alternative recommendation when clicked", () => {

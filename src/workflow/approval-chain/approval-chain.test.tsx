@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -54,6 +55,12 @@ describe("ApprovalChain Primitive", () => {
     const delegateButton = screen.getByRole("button", { name: /delegate/i });
     fireEvent.click(delegateButton);
     expect(onDelegate).toHaveBeenCalledWith("step-2");
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<ApprovalChain ref={ref} steps={MOCK_STEPS} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

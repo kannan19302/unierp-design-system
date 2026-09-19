@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -25,6 +26,12 @@ describe("BillableTimeStopwatchDock", () => {
     const { container } = render(<BillableTimeStopwatchDock matters={mockMatters} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<BillableTimeStopwatchDock ref={ref} matters={mockMatters} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("renders dock title and initial stopped state", () => {

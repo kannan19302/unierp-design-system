@@ -1,3 +1,4 @@
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -8,6 +9,12 @@ describe("AlertRuleConditionBuilder", () => {
     const { container } = render(<AlertRuleConditionBuilder />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to the section element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<AlertRuleConditionBuilder ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("renders form fields and initial rule values", () => {

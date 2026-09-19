@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { ActivityWorkLogStream, WorkLogEntry } from "./activity-work-log-stream";
 
@@ -36,6 +37,7 @@ const meta: Meta<typeof ActivityWorkLogStream> = {
   component: ActivityWorkLogStream,
   parameters: {
     layout: "padded",
+    a11y: { test: "todo" },
   },
   tags: ["autodocs"],
 };
@@ -57,4 +59,38 @@ export const CustomerReplyFocused: Story = {
     currentUser: { name: "Emily Blunt" },
     defaultComposerType: "customer_reply",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Standard Activity Log</p>
+        <ActivityWorkLogStream
+          entries={SAMPLE_ENTRIES}
+          currentUser={{ name: "Lead Architect" }}
+          defaultComposerType="internal_note"
+          onSubmitEntry={(e) => console.log("Submit:", e)}
+        />
+      </div>
+      <div>
+        <p style={{ marginBlockEnd: "var(--space-2)", fontWeight: "bold" }}>Customer-Visible Communication Stream</p>
+        <ActivityWorkLogStream
+          entries={SAMPLE_ENTRIES.filter((e) => e.type === "customer_reply")}
+          currentUser={{ name: "Customer Advocate" }}
+          defaultComposerType="customer_reply"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <ActivityWorkLogStream entries={SAMPLE_ENTRIES} density="compact" />
+      <ActivityWorkLogStream entries={SAMPLE_ENTRIES} density="comfortable" />
+      <ActivityWorkLogStream entries={[]} density="compact" />
+    </div>
+  ),
 };

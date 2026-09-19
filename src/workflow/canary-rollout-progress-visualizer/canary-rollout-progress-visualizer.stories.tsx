@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   CanaryRolloutProgressVisualizer,
-  CanaryMetricComparison,
+  type CanaryMetricComparison,
 } from "./canary-rollout-progress-visualizer";
 
 const mockMetrics: CanaryMetricComparison[] = [
@@ -86,4 +86,31 @@ export const Aborted: Story = {
         : m
     ),
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+    density: "standard",
+  },
+  render: (args) => (
+    <div style={{ inlineSize: "100%", maxInlineSize: "960px" }}>
+      <CanaryRolloutProgressVisualizer {...args} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Active Analysis (25% Split)</h4>
+        <CanaryRolloutProgressVisualizer {...Default.args} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Emergency Aborted / Rollback</h4>
+        <CanaryRolloutProgressVisualizer {...Aborted.args} />
+      </div>
+    </div>
+  ),
 };

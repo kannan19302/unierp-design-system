@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { forwardRef, useId, useState } from "react";
 import styles from "./alert-rule-condition-builder.module.css";
 
 export type AlertSeverity = "P1_CRITICAL" | "P2_MAJOR" | "P3_WARNING" | "P4_INFO";
@@ -16,12 +16,13 @@ export interface AlertRuleModel {
   suppressionEnabled: boolean;
 }
 
-export interface AlertRuleConditionBuilderProps {
+export interface AlertRuleConditionBuilderProps extends React.HTMLAttributes<HTMLElement> {
   initialRule?: AlertRuleModel;
   onSaveRule?: (rule: AlertRuleModel) => void;
   onTestTrigger?: (rule: AlertRuleModel) => void;
   density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
+  testId?: string;
 }
 
 const AVAILABLE_CHANNELS = [
@@ -31,23 +32,35 @@ const AVAILABLE_CHANNELS = [
   { id: "EMAIL_INFRA", label: "Infra Security Distribution List" },
 ];
 
-export const AlertRuleConditionBuilder: React.FC<AlertRuleConditionBuilderProps> = ({
-  initialRule = {
-    ruleId: "rule_new",
-    ruleName: "High API Error Rate Alert",
-    metricKey: "http_server_errors_total",
-    operator: ">=",
-    threshold: 10,
-    evaluationWindow: "5m",
-    severity: "P1_CRITICAL",
-    channels: ["SLACK_OPS", "PAGERDUTY_TIER1"],
-    suppressionEnabled: false,
-  },
-  onSaveRule,
-  onTestTrigger,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * AlertRuleConditionBuilder provides observability threshold condition editing,
+ * evaluation window sizing, and routing channel assignment for SRE alerting.
+ *
+ * @maturity stable
+ */
+export const AlertRuleConditionBuilder = forwardRef<HTMLElement, AlertRuleConditionBuilderProps>(
+  (
+    {
+      initialRule = {
+        ruleId: "rule_new",
+        ruleName: "High API Error Rate Alert",
+        metricKey: "http_server_errors_total",
+        operator: ">=",
+        threshold: 10,
+        evaluationWindow: "5m",
+        severity: "P1_CRITICAL",
+        channels: ["SLACK_OPS", "PAGERDUTY_TIER1"],
+        suppressionEnabled: false,
+      },
+      onSaveRule,
+      onTestTrigger,
+      density = "compact",
+      className = "",
+      testId = "alert-rule-condition-builder",
+      ...rest
+    },
+    ref
+  ) => {
   const headingId = useId();
   const ruleNameId = useId();
   const metricKeyId = useId();
@@ -100,9 +113,12 @@ export const AlertRuleConditionBuilder: React.FC<AlertRuleConditionBuilderProps>
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
+      data-testid={testId}
+      {...rest}
     >
       <header className={styles.header}>
         <div className={styles.badgeRow}>
@@ -276,4 +292,7 @@ export const AlertRuleConditionBuilder: React.FC<AlertRuleConditionBuilderProps>
       </form>
     </section>
   );
-};
+}
+);
+
+AlertRuleConditionBuilder.displayName = "AlertRuleConditionBuilder";

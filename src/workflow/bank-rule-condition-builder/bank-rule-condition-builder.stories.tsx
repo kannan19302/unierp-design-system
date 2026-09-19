@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   BankRuleConditionBuilder,
-  BankRule,
+  type BankRule,
 } from "./bank-rule-condition-builder";
 
 const mockRule: Partial<BankRule> = {
@@ -45,4 +45,31 @@ export const UltraCompact: Story = {
     ...Default.args,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    initialRule: mockRule,
+    density: "standard",
+  },
+  render: (args) => (
+    <div style={{ inlineSize: "100%", maxInlineSize: "960px" }}>
+      <BankRuleConditionBuilder {...args} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Compact Density</h4>
+        <BankRuleConditionBuilder initialRule={mockRule} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Comfortable Density</h4>
+        <BankRuleConditionBuilder initialRule={mockRule} density="comfortable" />
+      </div>
+    </div>
+  ),
 };

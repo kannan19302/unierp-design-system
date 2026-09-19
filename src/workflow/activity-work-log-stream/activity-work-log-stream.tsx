@@ -1,4 +1,4 @@
-import React, { useState, useId } from "react";
+import React, { forwardRef, useState, useId } from "react";
 import styles from "./activity-work-log-stream.module.css";
 
 export type WorkLogEntryType = "internal_note" | "customer_reply" | "system_audit" | "status_change";
@@ -14,7 +14,7 @@ export interface WorkLogEntry {
   attachments?: Array<{ name: string; sizeBytes?: number }>;
 }
 
-export interface ActivityWorkLogStreamProps {
+export interface ActivityWorkLogStreamProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Log entries in chronological or reverse-chronological order */
   entries: WorkLogEntry[];
   /** Callback fired when a new log entry is submitted */
@@ -27,16 +27,29 @@ export interface ActivityWorkLogStreamProps {
   density?: "compact" | "comfortable";
   /** Optional custom CSS class */
   className?: string;
+  testId?: string;
 }
 
-export const ActivityWorkLogStream: React.FC<ActivityWorkLogStreamProps> = ({
-  entries,
-  onSubmitEntry,
-  currentUser = { name: "System Admin" },
-  defaultComposerType = "internal_note",
-  density = "compact",
-  className,
-}) => {
+/**
+ * ActivityWorkLogStream provides a dual-track collaboration stream
+ * for IT service management, incident management, and case handling.
+ *
+ * @maturity stable
+ */
+export const ActivityWorkLogStream = forwardRef<HTMLDivElement, ActivityWorkLogStreamProps>(
+  (
+    {
+      entries,
+      onSubmitEntry,
+      currentUser = { name: "System Admin" },
+      defaultComposerType = "internal_note",
+      density = "compact",
+      className,
+      testId = "activity-work-log-stream",
+      ...rest
+    },
+    ref
+  ) => {
   const streamId = useId();
   const [filter, setFilter] = useState<"all" | WorkLogEntryType>("all");
   const [composerType, setComposerType] = useState<"internal_note" | "customer_reply">(defaultComposerType);
@@ -61,9 +74,12 @@ export const ActivityWorkLogStream: React.FC<ActivityWorkLogStreamProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
+      data-testid={testId}
       aria-labelledby={`${streamId}-title`}
+      {...rest}
     >
       {/* Stream Header & Filter Tabs */}
       <div className={styles.header}>
@@ -250,4 +266,7 @@ export const ActivityWorkLogStream: React.FC<ActivityWorkLogStreamProps> = ({
       </div>
     </div>
   );
-};
+}
+);
+
+ActivityWorkLogStream.displayName = "ActivityWorkLogStream";

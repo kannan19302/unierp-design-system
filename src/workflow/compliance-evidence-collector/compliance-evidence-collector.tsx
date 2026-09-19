@@ -1,4 +1,4 @@
-import React, { useState, useId, useMemo } from "react";
+import { forwardRef, useState, useId, useMemo } from "react";
 import styles from "./compliance-evidence-collector.module.css";
 
 export type ControlTestStatus = "passing" | "failing" | "stale" | "exempt";
@@ -47,14 +47,25 @@ export interface ComplianceEvidenceCollectorProps {
   className?: string;
 }
 
-export const ComplianceEvidenceCollector: React.FC<ComplianceEvidenceCollectorProps> = ({
-  frameworkTitle = "SOC 2 Type II & ISO 27001 Continuous Audit Program",
-  auditPeriod = "FY2026 Q3 Certification Cycle",
-  controls: initialControls,
-  onReviewEvidence,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * ComplianceEvidenceCollector component for automated audit evidence harvesting and validation.
+ *
+ * @maturity stable
+ */
+export const ComplianceEvidenceCollector = forwardRef<
+  HTMLElement,
+  ComplianceEvidenceCollectorProps
+>(function ComplianceEvidenceCollector(
+  {
+    frameworkTitle = "SOC 2 Type II & ISO 27001 Continuous Audit Program",
+    auditPeriod = "FY2026 Q3 Certification Cycle",
+    controls: initialControls,
+    onReviewEvidence,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const [controls, setControls] = useState<ComplianceControlItem[]>(initialControls);
   const [selectedControlId, setSelectedControlId] = useState<string>(controls[0]?.id || "");
   const headingId = useId();
@@ -128,6 +139,7 @@ export const ComplianceEvidenceCollector: React.FC<ComplianceEvidenceCollectorPr
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -285,4 +297,6 @@ export const ComplianceEvidenceCollector: React.FC<ComplianceEvidenceCollectorPr
       </div>
     </section>
   );
-};
+});
+
+ComplianceEvidenceCollector.displayName = "ComplianceEvidenceCollector";

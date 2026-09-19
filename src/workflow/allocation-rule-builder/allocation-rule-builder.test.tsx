@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { AllocationRuleBuilder } from "./allocation-rule-builder";
@@ -20,6 +20,18 @@ describe("AllocationRuleBuilder", () => {
 
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("forwards ref to the container div", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <AllocationRuleBuilder
+        ref={ref}
+        poolName="Facilities Overhead"
+        poolAmount={1000000}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("handles adding a new target entity row", () => {

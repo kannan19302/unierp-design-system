@@ -1,4 +1,4 @@
-import React, { useState, useId, useMemo } from "react";
+import React, { forwardRef, useState, useId, useMemo } from "react";
 import styles from "./allocation-rule-builder.module.css";
 
 export type AllocationBasisType = "percentage" | "fixed_amount" | "ratio" | "headcount";
@@ -10,7 +10,7 @@ export interface AllocationTarget {
   basisValue: number;
 }
 
-export interface AllocationRuleBuilderProps {
+export interface AllocationRuleBuilderProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Cost pool title (e.g. "Corporate IT & Shared Infrastructure Pool") */
   poolName: string;
   /** Total monetary balance in the pool */
@@ -27,6 +27,7 @@ export interface AllocationRuleBuilderProps {
   density?: "compact" | "comfortable";
   /** Optional custom CSS class */
   className?: string;
+  testId?: string;
 }
 
 const DEFAULT_TARGETS: AllocationTarget[] = [
@@ -35,16 +36,28 @@ const DEFAULT_TARGETS: AllocationTarget[] = [
   { id: "target-3", entityName: "Global Engineering & R&D", costCenterCode: "CC-5000", basisValue: 25 },
 ];
 
-export const AllocationRuleBuilder: React.FC<AllocationRuleBuilderProps> = ({
-  poolName,
-  poolAmount,
-  currency = "USD",
-  basisType = "percentage",
-  initialTargets = DEFAULT_TARGETS,
-  onChangeTargets,
-  density = "compact",
-  className,
-}) => {
+/**
+ * AllocationRuleBuilder manages enterprise cost pooling, overhead distribution,
+ * and cost center apportionment rules for corporate treasury.
+ *
+ * @maturity stable
+ */
+export const AllocationRuleBuilder = forwardRef<HTMLDivElement, AllocationRuleBuilderProps>(
+  (
+    {
+      poolName,
+      poolAmount,
+      currency = "USD",
+      basisType = "percentage",
+      initialTargets = DEFAULT_TARGETS,
+      onChangeTargets,
+      density = "compact",
+      className,
+      testId = "allocation-rule-builder",
+      ...rest
+    },
+    ref
+  ) => {
   const ruleId = useId();
   const [activeBasis, setActiveBasis] = useState<AllocationBasisType>(basisType);
   const [targets, setTargets] = useState<AllocationTarget[]>(initialTargets);
@@ -148,9 +161,12 @@ export const AllocationRuleBuilder: React.FC<AllocationRuleBuilderProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
+      data-testid={testId}
       aria-labelledby={`${ruleId}-title`}
+      {...rest}
     >
       {/* Header Bar */}
       <div className={styles.header}>
@@ -316,4 +332,7 @@ export const AllocationRuleBuilder: React.FC<AllocationRuleBuilderProps> = ({
       </div>
     </div>
   );
-};
+}
+);
+
+AllocationRuleBuilder.displayName = "AllocationRuleBuilder";

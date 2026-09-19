@@ -1,4 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
+import React, { createRef } from "react";
+import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { ClinicalOrderEntryPad, type PatientBannerInfo } from "./clinical-order-entry-pad";
@@ -21,6 +22,12 @@ describe("ClinicalOrderEntryPad", () => {
     expect(screen.getByText("PENICILLIN")).toBeDefined();
     expect(screen.getByText("SULFA DRUGS")).toBeDefined();
     expect(screen.getByText("Clinical Order Composition")).toBeDefined();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<ClinicalOrderEntryPad ref={ref} patient={mockPatient} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("adds a new clinical order to staged basket", () => {

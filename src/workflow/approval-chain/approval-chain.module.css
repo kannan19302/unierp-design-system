@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  width: 100%;
+  inline-size: 100%;
 }
 
 .chain {
@@ -16,51 +16,51 @@
   display: flex;
   gap: var(--space-4);
   position: relative;
-  padding-bottom: var(--space-6);
+  padding-block-end: var(--space-6);
 }
 
 .step:last-child {
-  padding-bottom: 0;
+  padding-block-end: 0;
 }
 
 .step_line {
   position: absolute;
-  left: var(--space-4, 15px);
-  top: var(--space-8, 32px);
-  bottom: 0;
-  width: 2px;
-  background: var(--surface-1-border, var(--color-border));
+  inset-inline-start: var(--space-4);
+  inset-block-start: var(--space-8);
+  inset-block-end: 0;
+  inline-size: 2px;
+  background: var(--surface-1-border);
 }
 
 .step_icon_wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--space-8, 32px);
-  height: var(--space-8, 32px);
+  inline-size: var(--space-8);
+  block-size: var(--space-8);
   border-radius: var(--radius-full);
-  background: var(--surface-1-bg, var(--color-bg-elevated));
-  border: 2px solid var(--surface-1-border, var(--color-border));
+  background: var(--surface-1-bg);
+  border: 2px solid var(--surface-1-border);
   z-index: 1;
   flex-shrink: 0;
 }
 
 .step_approved .step_icon_wrap {
-  background: var(--color-success-bg, rgba(16, 185, 129, 0.1));
-  border-color: var(--color-success, #10b981);
-  color: var(--color-success, #10b981);
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+  color: var(--color-success);
 }
 
 .step_rejected .step_icon_wrap {
-  background: var(--color-danger-bg, rgba(239, 68, 68, 0.1));
-  border-color: var(--color-danger, #ef4444);
-  color: var(--color-danger, #ef4444);
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
 }
 
 .step_pending .step_icon_wrap {
-  background: var(--surface-sunken-bg, var(--color-bg-sunken));
-  border-color: var(--platform-accent, var(--color-primary));
-  color: var(--platform-accent, var(--color-primary));
+  background: var(--surface-sunken-bg);
+  border-color: var(--platform-accent);
+  color: var(--platform-accent);
 }
 
 .step_body {
@@ -68,10 +68,10 @@
   flex-direction: column;
   gap: var(--space-2);
   flex: 1;
-  background: var(--surface-0-bg, var(--color-bg));
-  border: 1px solid var(--surface-1-border, var(--color-border));
+  background: var(--surface-0-bg);
+  border: 1px solid var(--surface-1-border);
   border-radius: var(--radius-md);
-  padding: var(--density-card-padding, var(--space-4));
+  padding: var(--density-card-padding);
 }
 
 .step_header {
@@ -83,8 +83,8 @@
 }
 
 .step_title {
-  font-size: var(--type-h4, var(--text-sm));
-  font-weight: var(--weight-semibold, 600);
+  font-size: var(--type-h4);
+  font-weight: var(--weight-semibold);
   color: var(--color-text);
   margin: 0;
 }
@@ -93,7 +93,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: var(--type-micro, 11px);
+  font-size: var(--type-micro);
   color: var(--color-text-secondary);
 }
 
@@ -107,27 +107,29 @@
 .approver_chip {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1-5, var(--space-2));
-  padding: var(--space-1) var(--space-2-5, var(--space-3));
-  background: var(--surface-sunken-bg, var(--color-bg-sunken));
-  border: 1px solid var(--surface-1-border, var(--color-border));
+  gap: var(--space-1-5);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+  background: var(--surface-sunken-bg);
+  border: 1px solid var(--surface-1-border);
   border-radius: var(--radius-full);
-  font-size: var(--type-label, var(--text-xs));
+  font-size: var(--type-label);
 }
 
 .step_comment {
-  font-size: var(--density-body-size, var(--text-xs));
+  font-size: var(--density-body-size);
   color: var(--color-text-secondary);
   font-style: italic;
-  padding: var(--space-2) var(--space-3);
-  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  background: var(--surface-sunken-bg);
   border-radius: var(--radius-sm);
-  border-left: var(--space-1, 3px) solid var(--surface-1-border, var(--color-border));
+  border-inline-start: var(--space-1) solid var(--surface-1-border);
 }
 
 .step_actions {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-top: var(--space-2);
+  margin-block-start: var(--space-2);
 }

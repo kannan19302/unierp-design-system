@@ -79,3 +79,31 @@ export const Comfortable: Story = {
     density: "comfortable",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    accounts: mockAccounts,
+    masterPoolAccountId: "acc-100",
+    density: "standard",
+  },
+  render: (args) => (
+    <div style={{ inlineSize: "100%", maxInlineSize: "960px" }}>
+      <CashSweepLiquidityOptimizer {...args} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Rebalance Proposal (Compact)</h4>
+        <CashSweepLiquidityOptimizer accounts={mockAccounts} masterPoolAccountId="acc-100" density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Full Schedule (Comfortable)</h4>
+        <CashSweepLiquidityOptimizer accounts={mockAccounts} masterPoolAccountId="acc-100" density="comfortable" />
+      </div>
+    </div>
+  ),
+};
