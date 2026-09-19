@@ -4,11 +4,14 @@ import { DataTable, type Column } from "./table";
 import { ColumnPicker } from "../column-picker";
 import { exportToCsv } from "../csv";
 
-
-export default {
-  title: "Components/DataTable",
+const meta: Meta<typeof DataTable> = {
+  title: "Data Grid/DataTable",
+  component: DataTable,
   parameters: { layout: "padded" },
-} as Meta;
+  tags: ["autodocs"],
+};
+
+export default meta;
 
 const columns: Column<{
   id: string;
@@ -35,6 +38,29 @@ const data = Array.from({ length: 20 }, (_, i) => ({
 
 export const Default: StoryObj = {
   render: () => <DataTable columns={columns} data={data} />,
+};
+
+export const AnatomyAndComposition: StoryObj = {
+  render: () => <DataTable columns={columns} data={data} />,
+};
+
+export const AllStatesGallery: StoryObj = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Populated Table</h4>
+        <DataTable columns={columns} data={data.slice(0, 5)} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Empty Table</h4>
+        <DataTable columns={columns} data={[]} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Loading State</h4>
+        <DataTable columns={columns} data={[]} loading />
+      </div>
+    </div>
+  ),
 };
 
 export const Empty: StoryObj = {

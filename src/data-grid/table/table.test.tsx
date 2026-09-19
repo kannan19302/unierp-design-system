@@ -1,6 +1,8 @@
+import { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { DataTable, type Column } from "../table";
 
 interface Row {
@@ -58,5 +60,17 @@ describe("DataTable", () => {
     render(<DataTable columns={columns} data={data} onRowClick={onRowClick} />);
     await userEvent.click(screen.getByText("Widget"));
     expect(onRowClick).toHaveBeenCalledWith(data[0]);
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<DataTable ref={ref} columns={columns} data={data} rowKey={(r) => r.id} />);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it("has zero accessibility violations", async () => {
+    const { container } = render(<DataTable columns={columns} data={data} rowKey={(r) => r.id} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

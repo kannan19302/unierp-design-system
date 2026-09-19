@@ -1,9 +1,7 @@
-"use client";
-
 import {
+  forwardRef,
   useState,
   useMemo,
-  type FC,
   type ChangeEvent,
 } from "react";
 import {
@@ -61,8 +59,10 @@ export interface SubledgerDistributionTableProps {
 /**
  * `<SubledgerDistributionTable>` — Double-entry multi-dimensional accounting line distribution grid.
  * Benchmarked against NetSuite SuiteCloud (#30), Sage Intacct (#39), and Dynamics 365 (#31).
+ *
+ * @maturity stable
  */
-export const SubledgerDistributionTable: FC<SubledgerDistributionTableProps> = ({
+export const SubledgerDistributionTable = forwardRef<HTMLDivElement, SubledgerDistributionTableProps>(({
   initialRows = [],
   availableAccounts,
   availableSubsidiaries = ["US Operating Entity (001)", "EMEA Holding B.V. (002)", "APAC Pte Ltd (003)"],
@@ -73,7 +73,7 @@ export const SubledgerDistributionTable: FC<SubledgerDistributionTableProps> = (
   readOnly = false,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const [rows, setRows] = useState<DistributionRow[]>(() => {
     if (initialRows.length > 0) return initialRows;
     return [
@@ -178,6 +178,7 @@ export const SubledgerDistributionTable: FC<SubledgerDistributionTableProps> = (
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className}`.trim()}
       data-density={density}
       role="region"
@@ -414,4 +415,7 @@ export const SubledgerDistributionTable: FC<SubledgerDistributionTableProps> = (
       </div>
     </div>
   );
-};
+});
+
+SubledgerDistributionTable.displayName = "SubledgerDistributionTable";
+

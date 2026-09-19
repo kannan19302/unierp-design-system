@@ -1,8 +1,8 @@
-import React from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { ThreeWayMatchingMatrix, MatchedLineItem } from "./three-way-matching-matrix";
+import { ThreeWayMatchingMatrix, type MatchedLineItem } from "./three-way-matching-matrix";
 
 const sampleItems: MatchedLineItem[] = [
   {
@@ -57,7 +57,6 @@ describe("ThreeWayMatchingMatrix", () => {
     expect(screen.getByText(/PRICE VARIANCE/i)).toBeInTheDocument();
   });
 
-
   it("handles line selection and batch approve", () => {
     const onApprove = vi.fn();
     render(
@@ -79,6 +78,17 @@ describe("ThreeWayMatchingMatrix", () => {
 
     fireEvent.click(approveBtn);
     expect(onApprove).toHaveBeenCalledWith(["item-1", "item-2"]);
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <ThreeWayMatchingMatrix
+        ref={ref}
+        items={sampleItems}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./three-way-matching-matrix.module.css";
 
 export type MatchStatus =
@@ -56,7 +56,12 @@ export interface ThreeWayMatchingMatrixProps {
   className?: string;
 }
 
-export const ThreeWayMatchingMatrix: React.FC<ThreeWayMatchingMatrixProps> = ({
+/**
+ * ThreeWayMatchingMatrix matches PO, GRN (Goods Receipt Note), and Invoice line items for discrepancy detection.
+ *
+ * @maturity stable
+ */
+export const ThreeWayMatchingMatrix = forwardRef<HTMLElement, ThreeWayMatchingMatrixProps>(({
   invoiceReference = "INV-2026-9042",
   vendorName = "Apex Industrial Dynamics LLC",
   poReference = "PO-88210",
@@ -68,7 +73,7 @@ export const ThreeWayMatchingMatrix: React.FC<ThreeWayMatchingMatrixProps> = ({
   onDisputeItem,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [items, setItems] = useState<MatchedLineItem[]>(initialItems);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -176,6 +181,7 @@ export const ThreeWayMatchingMatrix: React.FC<ThreeWayMatchingMatrixProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -408,4 +414,7 @@ export const ThreeWayMatchingMatrix: React.FC<ThreeWayMatchingMatrixProps> = ({
       </div>
     </section>
   );
-};
+});
+
+ThreeWayMatchingMatrix.displayName = "ThreeWayMatchingMatrix";
+

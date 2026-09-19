@@ -66,7 +66,7 @@ const mockTaxLines: TaxLineItem[] = [
 ];
 
 const meta: Meta<typeof TaxEngineBreakdownTable> = {
-  title: "DataGrid/TaxEngineBreakdownTable",
+  title: "Data Grid/TaxEngineBreakdownTable",
   component: TaxEngineBreakdownTable,
   parameters: {
     layout: "padded",
@@ -83,6 +83,37 @@ export const Default: Story = {
     transactionRef: "TXN-2026-90412",
     lineItems: mockTaxLines,
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Standard Breakdown</h4>
+        <TaxEngineBreakdownTable
+          title="Multi-Jurisdictional Tax Determination Schedule"
+          transactionRef="TXN-2026-90412"
+          lineItems={mockTaxLines}
+          density="comfortable"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Compact Density</h4>
+        <TaxEngineBreakdownTable
+          title="Point-of-Sale Real-Time Tax Nexus"
+          transactionRef="POS-2026-0041"
+          lineItems={mockTaxLines.slice(0, 4)}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const Compact: Story = {

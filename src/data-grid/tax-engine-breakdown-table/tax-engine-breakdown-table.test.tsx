@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -66,6 +67,19 @@ describe("TaxEngineBreakdownTable", () => {
     fireEvent.click(submitBtn);
 
     expect(onOverride).toHaveBeenCalledWith("tax-1", 4.5, "State enterprise zone deduction");
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <TaxEngineBreakdownTable
+        ref={ref}
+        title="California Tax Schedule"
+        transactionRef="TXN-901"
+        lineItems={testTaxLines}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

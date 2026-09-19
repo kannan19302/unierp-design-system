@@ -1,4 +1,4 @@
-import React, { useState, useId, useMemo } from "react";
+import { forwardRef, useState, useId, useMemo, type FormEvent } from "react";
 import styles from "./tax-engine-breakdown-table.module.css";
 
 export type JurisdictionLevel = "country" | "state" | "county" | "city" | "special_district";
@@ -36,7 +36,12 @@ export interface TaxEngineBreakdownTableProps {
   className?: string;
 }
 
-export const TaxEngineBreakdownTable: React.FC<TaxEngineBreakdownTableProps> = ({
+/**
+ * TaxEngineBreakdownTable displays multi-jurisdictional tax breakdown, nexus, and rates.
+ *
+ * @maturity stable
+ */
+export const TaxEngineBreakdownTable = forwardRef<HTMLElement, TaxEngineBreakdownTableProps>(({
   title = "Multi-Jurisdictional Tax Determination Schedule",
   currency = "USD",
   transactionRef = "TXN-2026-90412",
@@ -44,7 +49,7 @@ export const TaxEngineBreakdownTable: React.FC<TaxEngineBreakdownTableProps> = (
   onTaxOverride,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const [items, setItems] = useState<TaxLineItem[]>(lineItems);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [overrideRateInput, setOverrideRateInput] = useState<string>("");
@@ -108,7 +113,7 @@ export const TaxEngineBreakdownTable: React.FC<TaxEngineBreakdownTableProps> = (
     setIsOverrideModalOpen(true);
   };
 
-  const handleSaveOverride = (e: React.FormEvent) => {
+  const handleSaveOverride = (e: FormEvent) => {
     e.preventDefault();
     if (!selectedItemId) return;
     const newRate = parseFloat(overrideRateInput);
@@ -129,12 +134,15 @@ export const TaxEngineBreakdownTable: React.FC<TaxEngineBreakdownTableProps> = (
     });
 
     setItems(updated);
+    if (onTaxOverride) {
+      onTaxOverride(selectedItemId, newRate, overrideReasonInput);
+    }
     setIsOverrideModalOpen(false);
-    onTaxOverride?.(selectedItemId, newRate, overrideReasonInput);
   };
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -319,4 +327,7 @@ export const TaxEngineBreakdownTable: React.FC<TaxEngineBreakdownTableProps> = (
       )}
     </section>
   );
-};
+});
+
+TaxEngineBreakdownTable.displayName = "TaxEngineBreakdownTable";
+

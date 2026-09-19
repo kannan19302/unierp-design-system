@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -105,6 +106,18 @@ describe("SubledgerDistributionTable", () => {
     fireEvent.click(deleteBtn);
 
     expect(screen.getByText("2 lines")).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <SubledgerDistributionTable
+        ref={ref}
+        initialRows={balancedRows}
+        availableAccounts={mockAccounts}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it("has zero accessibility violations", async () => {

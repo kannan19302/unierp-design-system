@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ThreeWayMatchingMatrix, MatchedLineItem } from "./three-way-matching-matrix";
+import { ThreeWayMatchingMatrix, type MatchedLineItem } from "./three-way-matching-matrix";
 
 const mockItems: MatchedLineItem[] = [
   {
@@ -89,6 +89,55 @@ export const Default: Story = {
     priceTolerancePercent: 2.0,
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Matrix with Variances</h4>
+        <ThreeWayMatchingMatrix
+          invoiceReference="INV-2026-9042"
+          vendorName="Apex Industrial Dynamics LLC"
+          poReference="PO-88210"
+          items={mockItems}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>All Matched (Ultra-Compact)</h4>
+        <ThreeWayMatchingMatrix
+          invoiceReference="INV-2026-9055"
+          vendorName="Precision Fasteners Global Corp"
+          poReference="PO-88224"
+          items={[
+            {
+              id: "item-10",
+              lineNumber: 10,
+              itemCode: "SS-WASHER-A2",
+              description: "Stainless Steel A2 Flat Washer 100pk",
+              poNumber: "PO-88224",
+              poQty: 100,
+              poUnitPrice: 12.0,
+              grnNumber: "GRN-77450",
+              receivedQty: 100,
+              invoiceNumber: "INV-2026-9055",
+              billedQty: 100,
+              billedUnitPrice: 12.0,
+              status: "matched",
+            },
+          ]}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const UltraCompact: Story = {

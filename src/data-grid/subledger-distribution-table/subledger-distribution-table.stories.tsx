@@ -67,11 +67,12 @@ const unbalancedRows: DistributionRow[] = [
 ];
 
 const meta: Meta<typeof SubledgerDistributionTable> = {
-  title: "DataGrid/SubledgerDistributionTable",
+  title: "Data Grid/SubledgerDistributionTable",
   component: SubledgerDistributionTable,
   parameters: {
     layout: "padded",
   },
+  tags: ["autodocs"],
   argTypes: {
     density: {
       control: "select",
@@ -90,6 +91,37 @@ export const BalancedVoucher: Story = {
     currency: "$",
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...BalancedVoucher.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Balanced Voucher</h4>
+        <SubledgerDistributionTable
+          initialRows={balancedRows}
+          availableAccounts={mockAccounts}
+          currency="$"
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Unbalanced with Variance</h4>
+        <SubledgerDistributionTable
+          initialRows={unbalancedRows}
+          availableAccounts={mockAccounts}
+          currency="$"
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const UnbalancedWithAutofillRemainder: Story = {

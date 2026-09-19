@@ -12,38 +12,46 @@
 
 /* Density Variants */
 .ultra-compact {
-  padding: var(--space-2, 0.5rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-2, 0.5rem);
   gap: var(--space-2, 0.5rem);
 }
 .ultra-compact .dataRow td {
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.5rem);
   font-size: var(--text-xs, 0.75rem);
 }
 
 .compact {
-  padding: var(--space-3, 0.75rem);
+  padding-block: var(--space-3, 0.75rem);
+  padding-inline: var(--space-3, 0.75rem);
   gap: var(--space-3, 0.75rem);
 }
 .compact .dataRow td {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   font-size: var(--text-sm, 0.875rem);
 }
 
 .standard {
-  padding: var(--space-4, 1rem);
+  padding-block: var(--space-4, 1rem);
+  padding-inline: var(--space-4, 1rem);
   gap: var(--space-4, 1rem);
 }
 .standard .dataRow td {
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  padding-block: var(--space-3, 0.75rem);
+  padding-inline: var(--space-4, 1rem);
   font-size: var(--text-sm, 0.875rem);
 }
 
 .comfortable {
-  padding: var(--space-6, 1.5rem);
+  padding-block: var(--space-6, 1.5rem);
+  padding-inline: var(--space-6, 1.5rem);
   gap: var(--space-5, 1.25rem);
 }
 .comfortable .dataRow td {
-  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  padding-block: var(--space-4, 1rem);
+  padding-inline: var(--space-5, 1.25rem);
   font-size: var(--text-base, 1rem);
 }
 
@@ -54,8 +62,8 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: var(--space-4, 1rem);
-  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
-  padding-bottom: var(--space-3, 0.75rem);
+  border-block-end: 1px solid var(--color-border-subtle, #f1f5f9);
+  padding-block-end: var(--space-3, 0.75rem);
 }
 
 .titleGroup {
@@ -67,7 +75,8 @@
 .iconTag {
   font-size: var(--text-xl, 1.25rem);
   background-color: var(--color-surface-hover, #f8fafc);
-  padding: var(--space-2, 0.5rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-2, 0.5rem);
   border-radius: var(--radius-md, 0.375rem);
   border: 1px solid var(--color-border, #e2e8f0);
 }
@@ -76,7 +85,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2, 0.5rem);
-  margin-bottom: var(--space-1, 0.25rem);
+  margin-block-end: var(--space-1, 0.25rem);
 }
 
 .invBadge {
@@ -85,7 +94,8 @@
   font-weight: var(--weight-bold, 700);
   background-color: var(--color-brand-muted, #eff6ff);
   color: var(--color-brand, #2563eb);
-  padding: 0.125rem 0.375rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.375rem;
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -94,7 +104,8 @@
   font-size: var(--text-xs, 0.75rem);
   background-color: var(--color-surface-hover, #f1f5f9);
   color: var(--color-text-secondary, #475569);
-  padding: 0.125rem 0.375rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.375rem;
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -105,7 +116,8 @@
 }
 
 .title {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--text-lg, 1.125rem);
   font-weight: var(--weight-bold, 700);
   color: var(--color-text-primary, #0f172a);
@@ -116,7 +128,8 @@
   display: flex;
   gap: var(--space-4, 1rem);
   background-color: var(--color-surface-subtle, #f8fafc);
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   border-radius: var(--radius-md, 0.375rem);
   border: 1px solid var(--color-border-subtle, #e2e8f0);
 }
@@ -154,7 +167,8 @@
   background-color: var(--color-warning-muted, #fffbeb);
   color: var(--color-warning-text, #92400e);
   border: 1px solid var(--color-warning-border, #fef3c7);
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   border-radius: var(--radius-md, 0.375rem);
   font-size: var(--text-sm, 0.875rem);
 }
@@ -166,7 +180,8 @@
   background-color: var(--color-success-muted, #f0fdf4);
   color: var(--color-success-text, #166534);
   border: 1px solid var(--color-success-border, #bbf7d0);
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   border-radius: var(--radius-md, 0.375rem);
   font-size: var(--text-sm, 0.875rem);
 }
@@ -206,7 +221,8 @@
   background: none;
   border: 1px solid var(--color-border, #e2e8f0);
   border-radius: var(--radius-sm, 0.25rem);
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.5rem);
   font-size: var(--text-xs, 0.75rem);
   color: var(--color-text-secondary, #475569);
   cursor: pointer;
@@ -229,7 +245,8 @@
   color: var(--color-text-on-brand, #ffffff);
   border: none;
   border-radius: var(--radius-sm, 0.25rem);
-  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-4, 1rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-bold, 700);
   cursor: pointer;
@@ -248,19 +265,20 @@
 }
 
 .table {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: start;
 }
 
 .headerGroupRow th {
   background-color: var(--color-surface-subtle, #f8fafc);
-  padding: var(--space-2, 0.5rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-2, 0.5rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-bold, 700);
   color: var(--color-text-primary, #0f172a);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
-  border-right: 1px solid var(--color-border-subtle, #f1f5f9);
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
+  border-inline-end: 1px solid var(--color-border-subtle, #f1f5f9);
 }
 
 .poColGroup {
@@ -281,12 +299,13 @@
 
 .subHeaderRow th {
   background-color: var(--color-surface-hover, #f8fafc);
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.5rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-semibold, 600);
   color: var(--color-text-secondary, #64748b);
-  border-bottom: 2px solid var(--color-border, #cbd5e1);
-  border-right: 1px solid var(--color-border-subtle, #f1f5f9);
+  border-block-end: 2px solid var(--color-border, #cbd5e1);
+  border-inline-end: 1px solid var(--color-border-subtle, #f1f5f9);
 }
 
 .checkTh,
@@ -298,15 +317,15 @@
 }
 
 .numSubTh {
-  text-align: right;
+  text-align: end;
 }
 
 .txtSubTh {
-  text-align: left;
+  text-align: start;
 }
 
 .dataRow {
-  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  border-block-end: 1px solid var(--color-border-subtle, #f1f5f9);
   transition: background-color 0.15s ease;
 }
 
@@ -342,7 +361,7 @@
 }
 
 .numCell {
-  text-align: right;
+  text-align: end;
   font-family: var(--font-mono, monospace);
   font-variant-numeric: tabular-nums;
 }
@@ -384,7 +403,8 @@
 
 .statusBadge {
   display: inline-block;
-  padding: 0.125rem 0.375rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.375rem;
   border-radius: var(--radius-sm, 0.25rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-bold, 700);
@@ -424,7 +444,8 @@
   background: none;
   border: 1px solid var(--color-border, #cbd5e1);
   border-radius: var(--radius-sm, 0.25rem);
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.5rem);
   font-size: var(--text-xs, 0.75rem);
   color: var(--color-text-secondary, #475569);
   cursor: pointer;
@@ -438,10 +459,12 @@
 
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  inline-size: 1px;
+  block-size: 1px;
+  padding-block: 0;
+  padding-inline: 0;
+  margin-block: -1px;
+  margin-inline: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;

@@ -1,12 +1,14 @@
-"use client";
-
 import {
+  forwardRef,
   useCallback,
   useMemo,
   useRef,
   useState,
+  type ForwardedRef,
   type KeyboardEvent,
+  type ReactElement,
   type ReactNode,
+  type Ref,
   type UIEvent,
 } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
@@ -111,31 +113,34 @@ type VirtualItem<T> =
  * - Controlled multi-selection with bulk-action bar integration
  * - Pinned summary footer rows
  */
-export function DataTable<T>({
-  columns,
-  data,
-  loading,
-  rowKey,
-  onRowClick,
-  emptyTitle = "Nothing here yet",
-  emptyMessage = "No records to display.",
-  emptyIcon,
-  skeletonRows = 6,
-  sortBy,
-  sortOrder = "asc",
-  onSortChange,
-  selectedKeys,
-  onSelectionChange,
-  bulkActions,
-  virtualized,
-  rowHeight = 36,
-  maxHeight = 480,
-  groupBy,
-  aggregates: _aggregates,
-  onCellEdit,
-  keyboardNav = true,
-  summaryRow,
-}: DataTableProps<T>) {
+function DataTableInner<T>(
+  {
+    columns,
+    data,
+    loading,
+    rowKey,
+    onRowClick,
+    emptyTitle = "Nothing here yet",
+    emptyMessage = "No records to display.",
+    emptyIcon,
+    skeletonRows = 6,
+    sortBy,
+    sortOrder = "asc",
+    onSortChange,
+    selectedKeys,
+    onSelectionChange,
+    bulkActions,
+    virtualized,
+    rowHeight = 36,
+    maxHeight = 480,
+    groupBy,
+    aggregates: _aggregates,
+    onCellEdit,
+    keyboardNav = true,
+    summaryRow,
+  }: DataTableProps<T>,
+  ref: ForwardedRef<HTMLDivElement>
+) {
   const get = (row: T, key: string) =>
     (row as Record<string, unknown>)[key] as ReactNode;
   const keyOf = useCallback(
@@ -757,7 +762,7 @@ export function DataTable<T>({
   );
 
   return (
-    <div style={{ width: "100%" }}>
+    <div ref={ref} style={{ inlineSize: "100%" }}>
       {selectable && someSelected && bulkActions && (
         <div
           role="toolbar"
@@ -768,7 +773,7 @@ export function DataTable<T>({
             justifyContent: "space-between",
             gap: "var(--space-3)",
             padding: "var(--space-2) var(--space-3)",
-            marginBottom: "var(--space-2)",
+            marginBlockEnd: "var(--space-2)",
             background: "var(--surface-sunken-bg, var(--color-bg-sunken))",
             border: "1px solid var(--surface-1-border, var(--color-border))",
             borderRadius: "var(--radius-md)",
@@ -787,7 +792,7 @@ export function DataTable<T>({
           ref={scrollRef}
           onScroll={onScroll}
           style={{
-            maxHeight,
+            maxBlockSize: maxHeight,
             overflowY: "auto",
             border: "1px solid var(--surface-1-border, var(--color-border))",
             borderRadius: "var(--radius-md)",
@@ -809,3 +814,26 @@ export function DataTable<T>({
     </div>
   );
 }
+
+/**
+ * `<DataTable>` — Enterprise DataGrid 2.0 for the UniERP ecosystem.
+ *
+ * Capabilities:
+ * - High-density typography with tabular numerals (`tabular-nums`)
+ * - Virtualized rendering for high-volume operational datasets (10,000+ records)
+ * - Multi-column pinning (`pinned: 'left' | 'right'`) with cumulative sticky offsets
+ * - Excel-style keyboard grid navigation (`Arrow keys`, `Tab`, `F2` inline edit, `Shift+Space` select)
+ * - Synchronized auto-scroll during keyboard cell navigation
+ * - Unified grouped virtualization supporting 50k+ rows with subtotal aggregates
+ * - Optimistic inline cell editing buffer
+ * - Controlled multi-selection with bulk-action bar integration
+ * - Pinned summary footer rows
+ *
+ * @maturity stable
+ */
+export const DataTable = forwardRef(DataTableInner) as <T>(
+  props: DataTableProps<T> & { ref?: Ref<HTMLDivElement> }
+) => ReactElement | null;
+
+(DataTable as unknown as { displayName: string }).displayName = "DataTable";
+
