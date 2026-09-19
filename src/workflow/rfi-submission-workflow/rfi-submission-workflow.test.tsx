@@ -54,6 +54,12 @@ describe("RfiSubmissionWorkflow", () => {
     expect(handleClose).toHaveBeenCalled();
   });
 
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RfiSubmissionWorkflow {...defaultProps} ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("passes accessibility axe audit", async () => {
     const { container } = render(<RfiSubmissionWorkflow {...defaultProps} />);
     const results = await axe(container);

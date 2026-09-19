@@ -63,6 +63,12 @@ describe("SecurityWafRuleInspector", () => {
     expect(handleBlock).toHaveBeenCalledWith("198.51.100.42");
   });
 
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<SecurityWafRuleInspector events={sampleEvents} ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<SecurityWafRuleInspector events={sampleEvents} />);
     const results = await axe(container);

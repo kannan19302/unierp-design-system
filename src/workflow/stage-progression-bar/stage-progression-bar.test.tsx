@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
@@ -42,6 +43,12 @@ describe("StageProgressionBar Component", () => {
     const advanceBtn = screen.getByRole("button", { name: /Approve Voucher/i });
     fireEvent.click(advanceBtn);
     expect(onAdvance).toHaveBeenCalledTimes(1);
+  });
+
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(<StageProgressionBar stages={mockStages} ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

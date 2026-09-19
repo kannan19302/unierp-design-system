@@ -83,3 +83,81 @@ export const Closed: Story = {
     status: "closed",
   },
 };
+
+export const Comfortable: Story = {
+  args: {
+    ...InReview.args,
+    density: "comfortable",
+  },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>RFI Submission & Review Workflow</h4>
+        <RfiSubmissionWorkflow
+          rfiNumber="RFI-2026-089"
+          projectTitle="Hudson Yards Tower C Commercial Core"
+          discipline="Structural Steel"
+          subject="Discrepancy between Grid line C-4 foundation slab anchor bolts"
+          questionDetails="Anchor bolt layout on foundation pier C-4 exhibits deviation."
+          assignedReviewer="Thornton Tomasetti"
+          coordinatingContractor="Turner Construction"
+          costImpactEstimate={14500}
+          scheduleImpactDays={3}
+          status="in_review"
+          attachments={sampleAttachments}
+          activityLog={sampleActivity}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px", maxWidth: "900px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>In Review (Pending Engineer Response)</h4>
+        <RfiSubmissionWorkflow
+          rfiNumber="RFI-2026-089"
+          projectTitle="Hudson Yards Tower C Commercial Core"
+          discipline="Structural Steel"
+          subject="Discrepancy between Grid line C-4 foundation slab anchor bolts"
+          questionDetails="Anchor bolt layout on foundation pier C-4 exhibits deviation."
+          assignedReviewer="Thornton Tomasetti"
+          coordinatingContractor="Turner Construction"
+          costImpactEstimate={14500}
+          scheduleImpactDays={3}
+          status="in_review"
+          attachments={sampleAttachments}
+          activityLog={sampleActivity}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 8px 0" }}>Answered (Official Response Approved)</h4>
+        <RfiSubmissionWorkflow
+          rfiNumber="RFI-2026-089"
+          projectTitle="Hudson Yards Tower C Commercial Core"
+          discipline="Structural Steel"
+          subject="Discrepancy between Grid line C-4 foundation slab anchor bolts"
+          questionDetails="Anchor bolt layout on foundation pier C-4 exhibits deviation."
+          assignedReviewer="Thornton Tomasetti"
+          coordinatingContractor="Turner Construction"
+          costImpactEstimate={14500}
+          scheduleImpactDays={3}
+          status="answered"
+          officialResponse="Option 1 approved per revised engineering detail SK-104."
+          responseAuthor="Elena Rostova, PE"
+          responseDate="2026-09-04"
+          attachments={sampleAttachments}
+          activityLog={sampleActivity}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
+};

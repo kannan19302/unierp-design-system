@@ -101,6 +101,21 @@ describe("ServiceCatalogCartCheckout", () => {
     expect(handleRemove).toHaveBeenCalledWith("item-1");
   });
 
+  it("supports forwarded ref", () => {
+    const ref = React.createRef<HTMLElement>();
+    render(
+      <ServiceCatalogCartCheckout
+        requestId="REQ-2026-9402"
+        requesterName="Elena Rostova"
+        requesterEmail="elena.rostova@unierp.internal"
+        costCenters={sampleCostCenters}
+        initialItems={sampleItems}
+        ref={ref}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <ServiceCatalogCartCheckout

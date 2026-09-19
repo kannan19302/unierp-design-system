@@ -47,6 +47,7 @@ const sampleCostCenters = [
 const meta: Meta<typeof ServiceCatalogCartCheckout> = {
   title: "Workflow/ServiceCatalogCartCheckout",
   component: ServiceCatalogCartCheckout,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -89,4 +90,48 @@ export const EmptyCart: Story = {
     initialItems: [],
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <ServiceCatalogCartCheckout
+        {...args}
+        requestId="REQ-2026-9402"
+        requesterName="Elena Rostova"
+        requesterEmail="elena.rostova@unierp.internal"
+        costCenters={sampleCostCenters}
+        initialItems={sampleItems}
+      />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Active Cart with Multiple Frequencies</h3>
+        <ServiceCatalogCartCheckout
+          requestId="REQ-2026-9402"
+          requesterName="Elena Rostova"
+          requesterEmail="elena.rostova@unierp.internal"
+          costCenters={sampleCostCenters}
+          initialItems={sampleItems}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Empty Cart State</h3>
+        <ServiceCatalogCartCheckout
+          requestId="REQ-2026-9405"
+          requesterName="Marcus Vance"
+          requesterEmail="marcus.vance@unierp.internal"
+          costCenters={sampleCostCenters}
+          initialItems={[]}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
 };

@@ -4,7 +4,7 @@
   background-color: var(--color-surface, #ffffff);
   border: 1px solid var(--color-border, #e2e8f0);
   border-radius: var(--radius-md, 0.5rem);
-  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  box-shadow: var(--shadow-sm);
   font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
   color: var(--color-text-primary, #0f172a);
   overflow: hidden;
@@ -15,7 +15,7 @@
   flex-direction: column;
   gap: var(--space-2, 0.5rem);
   padding: var(--space-4, 1rem);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
   background-color: var(--color-surface-subtle, #f8fafc);
 }
 
@@ -39,7 +39,8 @@
   letter-spacing: 0.05em;
   color: var(--color-danger, #dc2626);
   background-color: var(--color-danger-subtle, #fef2f2);
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-0-5, 0.125rem);
+  padding-inline: var(--space-2, 0.5rem);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -49,7 +50,8 @@
   color: var(--color-text-secondary, #334155);
   background-color: var(--color-surface, #ffffff);
   border: 1px solid var(--color-border, #e2e8f0);
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-0-5, 0.125rem);
+  padding-inline: var(--space-2, 0.5rem);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -65,7 +67,8 @@
   color: var(--color-danger, #dc2626);
   background-color: var(--color-danger-subtle, #fef2f2);
   border: 1px solid var(--color-danger-border, #fecaca);
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-0-5, 0.125rem);
+  padding-inline: var(--space-2, 0.5rem);
   border-radius: var(--radius-full, 9999px);
 }
 
@@ -75,7 +78,8 @@
   color: var(--color-warning-text, #9a3412);
   background-color: var(--color-warning-subtle, #fff7ed);
   border: 1px solid var(--color-warning-border, #fed7aa);
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-0-5, 0.125rem);
+  padding-inline: var(--space-2, 0.5rem);
   border-radius: var(--radius-full, 9999px);
 }
 
@@ -112,7 +116,8 @@
   background-color: var(--color-surface, #ffffff);
   border: 1px solid var(--color-border, #e2e8f0);
   border-radius: var(--radius-sm, 0.25rem);
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.5rem);
   cursor: pointer;
 }
 
@@ -121,24 +126,26 @@
 }
 
 .table {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: start;
   font-size: var(--text-xs, 0.75rem);
 }
 
 .table th {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
   background-color: var(--color-surface-subtle, #f8fafc);
   color: var(--color-text-muted, #64748b);
   font-weight: var(--weight-semibold, 600);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  border-block-end: 1px solid var(--color-border, #e2e8f0);
   white-space: nowrap;
 }
 
 .table td {
-  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  padding-block: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
+  border-block-end: 1px solid var(--color-border-subtle, #f1f5f9);
   vertical-align: middle;
 }
 
@@ -148,7 +155,8 @@
 
 .actionBadge {
   display: inline-block;
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-0-5, 0.125rem);
+  padding-inline: var(--space-2, 0.5rem);
   border-radius: var(--radius-full, 9999px);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-bold, 700);
@@ -214,7 +222,7 @@
 
 .ruleCell {
   color: var(--color-text-secondary, #334155);
-  max-width: 16rem;
+  max-inline-size: 16rem;
 }
 
 .monoCell {
@@ -229,7 +237,8 @@
 
 .blockBtn {
   cursor: pointer;
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-0-5, 0.125rem);
+  padding-inline: var(--space-2, 0.5rem);
   font-size: var(--text-xs, 0.75rem);
   font-weight: var(--weight-semibold, 600);
   border-radius: var(--radius-sm, 0.25rem);
@@ -245,7 +254,8 @@
 
 .allowBtn {
   cursor: pointer;
-  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-0-5, 0.125rem);
+  padding-inline: var(--space-2, 0.5rem);
   font-size: var(--text-xs, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
   border: 1px solid var(--color-border, #e2e8f0);
@@ -259,9 +269,10 @@
 }
 
 .footer {
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  padding-block: var(--space-3, 0.75rem);
+  padding-inline: var(--space-4, 1rem);
   background-color: var(--color-surface-subtle, #f8fafc);
-  border-top: 1px solid var(--color-border, #e2e8f0);
+  border-block-start: 1px solid var(--color-border, #e2e8f0);
 }
 
 .footerText {
@@ -272,10 +283,12 @@
 /* Densities */
 [data-density="ultra-compact"] .table th,
 [data-density="ultra-compact"] .table td {
-  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  padding-block: var(--space-1, 0.25rem);
+  padding-inline: var(--space-2, 0.5rem);
 }
 
 [data-density="comfortable"] .table th,
 [data-density="comfortable"] .table td {
-  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  padding-block: var(--space-3, 0.75rem);
+  padding-inline: var(--space-4, 1rem);
 }

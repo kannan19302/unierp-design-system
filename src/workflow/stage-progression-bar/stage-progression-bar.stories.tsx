@@ -73,3 +73,30 @@ export const UltraCompactDensity: Story = {
     density: "ultra-compact",
   },
 };
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <StageProgressionBar {...args} stages={salesStages} currentStageId="opp" showAdvanceButton />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Standard Sales Opportunity Flow</h3>
+        <StageProgressionBar stages={salesStages} currentStageId="opp" showAdvanceButton />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Procure to Pay Pipeline</h3>
+        <StageProgressionBar stages={procurementStages} currentStageId="grn" />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Compliance Exception State</h3>
+        <StageProgressionBar stages={blockedStages} currentStageId="s3" />
+      </div>
+    </div>
+  ),
+};

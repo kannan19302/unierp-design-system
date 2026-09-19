@@ -42,30 +42,42 @@ export interface RfiSubmissionWorkflowProps {
   className?: string;
 }
 
-export const RfiSubmissionWorkflow: React.FC<RfiSubmissionWorkflowProps> = ({
-  rfiNumber,
-  projectTitle,
-  discipline,
-  subject,
-  questionDetails,
-  proposedSolution: initialProposed = "",
-  assignedReviewer,
-  coordinatingContractor,
-  costImpactEstimate: initialCost = 0,
-  scheduleImpactDays: initialSchedule = 0,
-  status = "submitted",
-  officialResponse,
-  responseAuthor,
-  responseDate,
-  attachments = [],
-  activityLog = [],
-  onSubmitRfi,
-  onApproveResponse,
-  onCloseRfi,
-  onAddComment,
-  density = "compact",
-  className = "",
-}) => {
+/**
+ * RFI Submission Workflow
+ *
+ * @component
+ * @maturity stable
+ */
+export const RfiSubmissionWorkflow = React.forwardRef<
+  HTMLElement,
+  RfiSubmissionWorkflowProps
+>(function RfiSubmissionWorkflow(
+  {
+    rfiNumber,
+    projectTitle,
+    discipline,
+    subject,
+    questionDetails,
+    proposedSolution: initialProposed = "",
+    assignedReviewer,
+    coordinatingContractor,
+    costImpactEstimate: initialCost = 0,
+    scheduleImpactDays: initialSchedule = 0,
+    status = "submitted",
+    officialResponse,
+    responseAuthor,
+    responseDate,
+    attachments = [],
+    activityLog = [],
+    onSubmitRfi,
+    onApproveResponse,
+    onCloseRfi,
+    onAddComment,
+    density = "compact",
+    className = "",
+  },
+  ref
+) {
   const headingId = useId();
   const [proposedSolution, setProposedSolution] = useState(initialProposed);
   const [costImpact, setCostImpact] = useState(initialCost);
@@ -105,6 +117,7 @@ export const RfiSubmissionWorkflow: React.FC<RfiSubmissionWorkflowProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${className}`}
       data-density={density}
       aria-labelledby={headingId}
@@ -365,4 +378,6 @@ export const RfiSubmissionWorkflow: React.FC<RfiSubmissionWorkflowProps> = ({
       </div>
     </section>
   );
-};
+});
+
+RfiSubmissionWorkflow.displayName = "RfiSubmissionWorkflow";

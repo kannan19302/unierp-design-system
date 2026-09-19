@@ -58,6 +58,7 @@ const sampleEvents: WafSecurityEventItem[] = [
 const meta: Meta<typeof SecurityWafRuleInspector> = {
   title: "Workflow/SecurityWafRuleInspector",
   component: SecurityWafRuleInspector,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },
@@ -77,4 +78,31 @@ export const UltraCompact: Story = {
     events: sampleEvents,
     density: "ultra-compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <SecurityWafRuleInspector {...args} events={sampleEvents} />
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Standard Density</h3>
+        <SecurityWafRuleInspector events={sampleEvents} density="standard" />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Ultra Compact Density</h3>
+        <SecurityWafRuleInspector events={sampleEvents} density="ultra-compact" />
+      </div>
+      <div>
+        <h3 style={{ marginBlockEnd: "0.5rem" }}>Empty Threat Stream</h3>
+        <SecurityWafRuleInspector events={[]} />
+      </div>
+    </div>
+  ),
 };
