@@ -40,7 +40,13 @@ const DEFAULT_PRESETS: RolloutCanaryStop[] = [
   { percentage: 100, label: "General", description: "100% GA" },
 ];
 
-export const FeatureRolloutSlider: React.FC<FeatureRolloutSliderProps> = ({
+/**
+ * FeatureRolloutSlider provides a canary deployment percentage controller with audience impact
+ * calculation, milestone buttons, and emergency killswitch integration.
+ *
+ * @maturity stable
+ */
+export const FeatureRolloutSlider = React.forwardRef<HTMLDivElement, FeatureRolloutSliderProps>(({
   flagKey,
   description,
   value = 0,
@@ -52,7 +58,7 @@ export const FeatureRolloutSlider: React.FC<FeatureRolloutSliderProps> = ({
   onKillswitchToggle,
   disabled = false,
   className,
-}) => {
+}, ref) => {
   const sliderId = useId();
   const [internalValue, setInternalValue] = useState<number>(value);
   const currentValue = isKillswitchActive ? 0 : internalValue;
@@ -103,6 +109,7 @@ export const FeatureRolloutSlider: React.FC<FeatureRolloutSliderProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${disabled ? styles.disabled : ""} ${
         isKillswitchActive ? styles.killswitchEngaged : ""
       } ${className ?? ""}`}
@@ -234,4 +241,6 @@ export const FeatureRolloutSlider: React.FC<FeatureRolloutSliderProps> = ({
       </div>
     </div>
   );
-};
+});
+
+FeatureRolloutSlider.displayName = "FeatureRolloutSlider";

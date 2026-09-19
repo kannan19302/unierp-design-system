@@ -1,9 +1,14 @@
 "use client";
 
-import { useState, useId, type FC, type ReactNode, type KeyboardEvent } from "react";
+import { useState, useId, forwardRef, type HTMLAttributes, type ReactNode, type KeyboardEvent } from "react";
 import styles from "./switch.module.css";
 
-export interface SwitchProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL Switch primitive — accessible binary toggle switch adhering to W3C ARIA switch pattern.
+ */
+export interface SwitchProps extends Omit<HTMLAttributes<HTMLLabelElement>, "onChange"> {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -13,7 +18,7 @@ export interface SwitchProps {
   className?: string;
 }
 
-export const Switch: FC<SwitchProps> = ({
+export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(({
   checked: controlledChecked,
   defaultChecked = false,
   onChange,
@@ -21,7 +26,8 @@ export const Switch: FC<SwitchProps> = ({
   label,
   id: customId,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const [internal, setInternal] = useState(defaultChecked);
   const isControlled = controlledChecked !== undefined;
   const checked = isControlled ? controlledChecked : internal;
@@ -55,8 +61,10 @@ export const Switch: FC<SwitchProps> = ({
 
   return (
     <label
+      ref={ref}
       htmlFor={id}
       className={`${styles.container} ${disabled ? styles.disabledContainer : ""} ${className}`.trim()}
+      {...props}
     >
       <div
         id={id}
@@ -78,4 +86,6 @@ export const Switch: FC<SwitchProps> = ({
       )}
     </label>
   );
-};
+});
+
+Switch.displayName = "Switch";

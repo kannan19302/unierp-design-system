@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type MouseEvent, type FC } from "react";
+import { useRef, useState, forwardRef, useImperativeHandle, type MouseEvent } from "react";
 import styles from "./signature-pad.module.css";
 
 export interface SignaturePadProps {
@@ -12,16 +12,24 @@ export interface SignaturePadProps {
   className?: string;
 }
 
-export const SignaturePad: FC<SignaturePadProps> = ({
+/**
+ * SignaturePad provides an HTML5 canvas drawing surface for electronic signatures,
+ * supporting theme-aware stroke colors, touch/mouse drawing, and data URL export.
+ *
+ * @maturity stable
+ */
+export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
   id,
   onSave,
   width = 320,
   height = 120,
   disabled = false,
   className = "",
-}) => {
+}, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = useState(false);
+
+  useImperativeHandle(ref, () => canvasRef.current as HTMLCanvasElement);
 
   const clear = () => {
     if (disabled) return;
@@ -56,7 +64,8 @@ export const SignaturePad: FC<SignaturePadProps> = ({
     const rect = canvas.getBoundingClientRect();
     ctx.lineWidth = 2;
     ctx.lineCap = "round";
-    ctx.strokeStyle = "#1e293b";
+    const strokeColor = getComputedStyle(canvas).getPropertyValue("--color-fg-default").trim() || "#1e293b";
+    ctx.strokeStyle = strokeColor;
     ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
     ctx.stroke();
   };
@@ -89,4 +98,6 @@ export const SignaturePad: FC<SignaturePadProps> = ({
       </div>
     </div>
   );
-};
+});
+
+SignaturePad.displayName = "SignaturePad";

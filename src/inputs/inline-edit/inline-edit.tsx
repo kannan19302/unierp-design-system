@@ -1,11 +1,16 @@
 "use client";
 
-import { useState, useRef, useEffect, type KeyboardEvent } from "react";
+import { useState, useRef, useEffect, forwardRef, type HTMLAttributes, type KeyboardEvent } from "react";
 import { Check, X, Pencil } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./inline-edit.module.css";
 
-export interface InlineEditProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL InlineEdit primitive — in-place cell/title editing with keyboard Enter/Escape bindings and validation.
+ */
+export interface InlineEditProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSave"> {
   value: string;
   onSave: (value: string) => void | Promise<void>;
   label?: string;
@@ -16,7 +21,7 @@ export interface InlineEditProps {
   className?: string;
 }
 
-export function InlineEdit({
+export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(({
   value,
   onSave,
   label,
@@ -25,7 +30,8 @@ export function InlineEdit({
   type = "text",
   validate,
   className,
-}: InlineEditProps) {
+  ...props
+}, ref) => {
   const [isEditing, setIsEditing] = useState(false);
   const [draft, setDraft] = useState(value);
   const [error, setError] = useState<string | null>(null);
@@ -94,7 +100,7 @@ export function InlineEdit({
 
   if (isEditing) {
     return (
-      <div className={cn(styles.container, styles.editing, className)}>
+      <div ref={ref} className={cn(styles.container, styles.editing, className)} {...props}>
         {label && <span className={styles.label}>{label}</span>}
         <div className={styles.inputWrapper}>
           <input
@@ -139,6 +145,7 @@ export function InlineEdit({
 
   return (
     <div
+      ref={ref}
       className={cn(styles.container, styles.display, disabled && styles.disabled, className)}
       onClick={handleStartEditing}
       onKeyDown={(e) => {
@@ -150,6 +157,7 @@ export function InlineEdit({
       tabIndex={disabled ? -1 : 0}
       role="button"
       aria-label={label ? `${label}: ${value || placeholder}` : `Edit: ${value || placeholder}`}
+      {...props}
     >
       {label && <span className={styles.label}>{label}</span>}
       <div className={styles.displayContent}>
@@ -160,4 +168,6 @@ export function InlineEdit({
       </div>
     </div>
   );
-}
+});
+
+InlineEdit.displayName = "InlineEdit";

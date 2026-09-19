@@ -1,20 +1,26 @@
 "use client";
 
-import { useState, type FC } from "react";
+import { useState, forwardRef, type HTMLAttributes } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./calendar.module.css";
 
-export interface CalendarProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL Calendar primitive — accessible monthly date grid with month navigation and selection.
+ */
+export interface CalendarProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
   selectedDate?: Date;
   onSelectDate?: (date: Date) => void;
   className?: string;
 }
 
-export const Calendar: FC<CalendarProps> = ({
+export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   selectedDate = new Date(),
   onSelectDate,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const [currentMonth, setCurrentMonth] = useState(
     new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
   );
@@ -40,7 +46,13 @@ export const Calendar: FC<CalendarProps> = ({
   const weekHeaders = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
   return (
-    <div className={`${styles.calendar} ${className}`.trim()} role="region" aria-label="Calendar">
+    <div
+      ref={ref}
+      className={`${styles.calendar} ${className}`.trim()}
+      role="region"
+      aria-label="Calendar"
+      {...props}
+    >
       <div className={styles.header}>
         <button
           type="button"
@@ -94,4 +106,6 @@ export const Calendar: FC<CalendarProps> = ({
       </div>
     </div>
   );
-};
+});
+
+Calendar.displayName = "Calendar";

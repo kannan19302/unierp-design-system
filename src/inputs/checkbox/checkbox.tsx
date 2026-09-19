@@ -15,6 +15,11 @@ export interface CheckboxProps {
   className?: string;
 }
 
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL Checkbox primitive — supports checked, unchecked, and tri-state indeterminate states.
+ */
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {

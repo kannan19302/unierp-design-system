@@ -4,7 +4,7 @@ import {
   useState,
   useMemo,
   useRef,
-  type FC,
+  forwardRef,
   type ChangeEvent,
 } from "react";
 import {
@@ -49,15 +49,17 @@ export interface SecretEnvironmentEditorProps {
 /**
  * `<SecretEnvironmentEditor>` — Secure key-value credential & environment variable table.
  * Benchmarked against Vercel (#85), AWS Secrets Manager / IAM (#81), and Tailscale (#95).
+ *
+ * @maturity stable
  */
-export const SecretEnvironmentEditor: FC<SecretEnvironmentEditorProps> = ({
+export const SecretEnvironmentEditor = forwardRef<HTMLDivElement, SecretEnvironmentEditorProps>(({
   initialSecrets = [],
   onChange,
   defaultScope = "all",
   title = "Environment Variables & Secrets",
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const [secrets, setSecrets] = useState<SecretItem[]>(initialSecrets);
   const [revealedIds, setRevealedIds] = useState<Set<string>>(new Set());
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -178,6 +180,7 @@ export const SecretEnvironmentEditor: FC<SecretEnvironmentEditorProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className}`.trim()}
       data-density={density}
       role="region"
@@ -391,4 +394,6 @@ export const SecretEnvironmentEditor: FC<SecretEnvironmentEditorProps> = ({
       </div>
     </div>
   );
-};
+});
+
+SecretEnvironmentEditor.displayName = "SecretEnvironmentEditor";

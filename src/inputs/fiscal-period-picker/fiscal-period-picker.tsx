@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC } from "react";
+import { forwardRef, type HTMLAttributes } from "react";
 import styles from "./fiscal-period-picker.module.css";
 
 export interface FiscalPeriod {
@@ -10,7 +10,12 @@ export interface FiscalPeriod {
   endDate: Date;
 }
 
-export interface FiscalPeriodPickerProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL FiscalPeriodPicker primitive — quarters (Q1-Q4) accounting period selector supporting custom start months.
+ */
+export interface FiscalPeriodPickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
   id?: string;
   selectedPeriod?: string;
   onSelectPeriod?: (period: string) => void;
@@ -47,7 +52,7 @@ export function buildFiscalPeriods(fiscalYear: number, startMonth: number): Fisc
   return periods;
 }
 
-export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
+export const FiscalPeriodPicker = forwardRef<HTMLDivElement, FiscalPeriodPickerProps>(({
   id,
   selectedPeriod,
   onSelectPeriod,
@@ -55,12 +60,17 @@ export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
   fiscalYearStartMonth = 1,
   disabled = false,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const periods = buildFiscalPeriods(fiscalYear, fiscalYearStartMonth);
   const currentValue = selectedPeriod ?? (periods[0]?.value || "");
 
   return (
-    <div className={`${styles.container} ${disabled ? styles.disabled : ""} ${className}`.trim()}>
+    <div
+      ref={ref}
+      className={`${styles.container} ${disabled ? styles.disabled : ""} ${className}`.trim()}
+      {...props}
+    >
       <span className={styles.fyLabel}>FY{fiscalYear}:</span>
       <div className={styles.selectWrapper}>
         <select
@@ -81,4 +91,6 @@ export const FiscalPeriodPicker: FC<FiscalPeriodPickerProps> = ({
       </div>
     </div>
   );
-};
+});
+
+FiscalPeriodPicker.displayName = "FiscalPeriodPicker";

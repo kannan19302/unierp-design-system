@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import styles from "./scheduler.module.css";
 
 export interface SchedulerEvent {
@@ -10,7 +10,12 @@ export interface SchedulerEvent {
   endHour?: number;
 }
 
-export interface SchedulerProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL Scheduler primitive — hourly timeline calendar view for shift management and task scheduling.
+ */
+export interface SchedulerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   date?: Date;
   events?: SchedulerEvent[];
   onAddEvent?: (hour: number) => void;
@@ -18,17 +23,24 @@ export interface SchedulerProps {
   title?: ReactNode;
 }
 
-export const Scheduler: FC<SchedulerProps> = ({
+export const Scheduler = forwardRef<HTMLDivElement, SchedulerProps>(({
   date = new Date(),
   events = [],
   onAddEvent,
   className = "",
   title,
-}) => {
+  ...props
+}, ref) => {
   const hours = Array.from({ length: 12 }, (_, i) => i + 8); // 8:00 to 19:00
 
   return (
-    <div className={`${styles.scheduler} ${className}`.trim()} role="region" aria-label="Schedule View">
+    <div
+      ref={ref}
+      className={`${styles.scheduler} ${className}`.trim()}
+      role="region"
+      aria-label="Schedule View"
+      {...props}
+    >
       <div className={styles.header}>
         <h4 className={styles.title}>
           {title ?? `Schedule for ${date.toLocaleDateString()}`}
@@ -60,4 +72,6 @@ export const Scheduler: FC<SchedulerProps> = ({
       </div>
     </div>
   );
-};
+});
+
+Scheduler.displayName = "Scheduler";

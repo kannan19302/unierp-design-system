@@ -1,12 +1,17 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { X } from "lucide-react";
 import styles from "./tag.module.css";
 
 export type TagShape = "rounded" | "pill";
 
-export interface TagProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL Tag primitive — interactive dismissible label for categorization and entity filtering.
+ */
+export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
   onRemove?: () => void;
   variant?: "default" | "primary" | "success" | "warning" | "danger" | "info";
@@ -14,15 +19,20 @@ export interface TagProps {
   className?: string;
 }
 
-export const Tag: FC<TagProps> = ({
+export const Tag = forwardRef<HTMLSpanElement, TagProps>(({
   children,
   onRemove,
   variant = "default",
   shape = "rounded",
   className = "",
-}) => {
+  ...props
+}, ref) => {
   return (
-    <span className={`${styles.tag} ${styles[variant]} ${styles[shape]} ${className}`.trim()}>
+    <span
+      ref={ref}
+      className={`${styles.tag} ${styles[variant]} ${styles[shape]} ${className}`.trim()}
+      {...props}
+    >
       <span className={styles.label}>{children}</span>
       {onRemove && (
         <button
@@ -36,4 +46,6 @@ export const Tag: FC<TagProps> = ({
       )}
     </span>
   );
-};
+});
+
+Tag.displayName = "Tag";

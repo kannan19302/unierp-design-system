@@ -4,7 +4,8 @@ import {
   useState,
   useRef,
   useEffect,
-  type FC,
+  forwardRef,
+  type HTMLAttributes,
   type KeyboardEvent,
   type MouseEvent as ReactMouseEvent,
 } from "react";
@@ -17,7 +18,12 @@ export interface ComboBoxOption {
   disabled?: boolean;
 }
 
-export interface ComboBoxProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL ComboBox primitive — searchable dropdown selector supporting single/multi-selection, tag rendering, and clear.
+ */
+export interface ComboBoxProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   id?: string;
   options: ComboBoxOption[];
   value?: string | string[];
@@ -30,7 +36,7 @@ export interface ComboBoxProps {
   className?: string;
 }
 
-export const ComboBox: FC<ComboBoxProps> = ({
+export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(({
   id,
   options,
   value,
@@ -41,7 +47,8 @@ export const ComboBox: FC<ComboBoxProps> = ({
   multiple = false,
   "aria-label": ariaLabel,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -141,9 +148,14 @@ export const ComboBox: FC<ComboBoxProps> = ({
 
   return (
     <div
-      ref={containerRef}
+      ref={(node) => {
+        (containerRef as any).current = node;
+        if (typeof ref === "function") ref(node);
+        else if (ref) (ref as any).current = node;
+      }}
       className={`${styles.container} ${disabled ? styles.disabled : ""} ${className}`.trim()}
       onKeyDown={handleKeyDown}
+      {...props}
     >
       <div
         id={id}
@@ -248,4 +260,6 @@ export const ComboBox: FC<ComboBoxProps> = ({
       )}
     </div>
   );
-};
+});
+
+ComboBox.displayName = "ComboBox";

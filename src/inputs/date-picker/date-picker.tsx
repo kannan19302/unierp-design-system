@@ -4,6 +4,11 @@ import { forwardRef, type InputHTMLAttributes } from "react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import styles from "./date-picker.module.css";
 
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL DatePicker primitive — input field with calendar icon prefix, min/max bounds, and native picker integration.
+ */
 export interface DatePickerProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange"> {
   value?: string; // YYYY-MM-DD
   onChange?: (date: string) => void;

@@ -9,6 +9,12 @@ export interface CodeEditorProps extends Omit<TextareaHTMLAttributes<HTMLTextAre
   language?: string;
 }
 
+/**
+ * CodeEditor provides an enterprise mono-font editing area with syntax badge,
+ * line-height optimization, and spellcheck disabling.
+ *
+ * @maturity stable
+ */
 export const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(
   (
     {

@@ -40,20 +40,50 @@ const mockSecrets: SecretItem[] = [
   },
 ];
 
+/**
+ * `SecretEnvironmentEditor` provides enterprise credential management with masked secret values,
+ * instant clipboard copy, bulk .env file import parsing, and multi-environment scoping (production, staging, dev).
+ *
+ * ### Architectural Features
+ * - **Masked Security by Default**: Obfuscates credentials until explicit toggle.
+ * - **Clipboard Integration**: Instant copy with visual checkmark confirmation.
+ * - **Environment Scope Filtering**: Instant tab filtering by production/staging/dev deployments.
+ */
 const meta: Meta<typeof SecretEnvironmentEditor> = {
   title: "Inputs/SecretEnvironmentEditor",
   component: SecretEnvironmentEditor,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    docs: {
+      description: {
+        component:
+          "High-density environment variable and secret manager with masking, copying, and bulk .env importing.",
+      },
+    },
   },
   argTypes: {
+    title: {
+      control: "text",
+      description: "Header title displayed at the top of the editor table",
+    },
     density: {
       control: "select",
       options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Table density padding scale",
     },
     defaultScope: {
       control: "select",
       options: ["all", "production", "staging", "development"],
+      description: "Initial active environment filter scope",
+    },
+    initialSecrets: {
+      control: "object",
+      description: "List of secret credentials",
+    },
+    onChange: {
+      action: "secretsChanged",
+      description: "Callback invoked when secrets are added, edited, or removed",
     },
   },
 };
@@ -83,4 +113,60 @@ export const EmptyState: Story = {
     defaultScope: "development",
     density: "compact",
   },
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-md)", maxWidth: 840 }}>
+      <div style={{ padding: "var(--space-md)", border: "1px dashed var(--color-border-subtle)", borderRadius: "var(--radius-md)" }}>
+        <div style={{ fontSize: "var(--font-size-xs)", fontWeight: "bold", color: "var(--color-fg-muted)", marginBottom: "var(--space-xs)" }}>
+          ANATOMY: SCOPE TABS / BULK IMPORT / HIGH DENSITY CREDENTIAL DATA GRID
+        </div>
+        <SecretEnvironmentEditor
+          title="Cluster Deployment Credentials"
+          initialSecrets={mockSecrets.slice(0, 3)}
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xl)", maxWidth: 860 }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-xs) 0", fontSize: "var(--font-size-sm)", color: "var(--color-fg-muted)" }}>
+          Ultra-Compact Mode (ERP Data-Grid Density)
+        </h4>
+        <SecretEnvironmentEditor
+          initialSecrets={mockSecrets}
+          defaultScope="production"
+          density="ultra-compact"
+        />
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-xs) 0", fontSize: "var(--font-size-sm)", color: "var(--color-fg-muted)" }}>
+          Comfortable Mode (Spaced Workspace)
+        </h4>
+        <SecretEnvironmentEditor
+          initialSecrets={mockSecrets.slice(0, 2)}
+          defaultScope="all"
+          density="comfortable"
+        />
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-xs) 0", fontSize: "var(--font-size-sm)", color: "var(--color-fg-muted)" }}>
+          Empty State
+        </h4>
+        <SecretEnvironmentEditor
+          initialSecrets={[]}
+          defaultScope="development"
+          density="compact"
+        />
+      </div>
+    </div>
+  ),
 };

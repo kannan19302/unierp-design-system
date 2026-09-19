@@ -7,13 +7,19 @@ import {
   type InputHTMLAttributes,
   type TextareaHTMLAttributes,
   type SelectHTMLAttributes,
+  type HTMLAttributes,
   type ReactNode,
   type FC,
 } from "react";
 import { AlertCircle } from "lucide-react";
 import styles from "./form-control.module.css";
 
-export interface FormFieldProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL FormField container — accessible label, required asterisk, hint text, and error binding.
+ */
+export interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
   label?: ReactNode;
   htmlFor?: string;
   required?: boolean;
@@ -23,7 +29,7 @@ export interface FormFieldProps {
   children: ReactNode;
 }
 
-export const FormField: FC<FormFieldProps> = ({
+export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(({
   label,
   htmlFor,
   required,
@@ -31,8 +37,9 @@ export const FormField: FC<FormFieldProps> = ({
   hint,
   className = "",
   children,
-}) => (
-  <div className={`${styles.fieldContainer} ${className}`.trim()}>
+  ...props
+}, ref) => (
+  <div ref={ref} className={`${styles.fieldContainer} ${className}`.trim()} {...props}>
     {label && (
       <label htmlFor={htmlFor} className={styles.label}>
         {label}
@@ -49,7 +56,8 @@ export const FormField: FC<FormFieldProps> = ({
       <span className={styles.hintMsg}>{hint}</span>
     ) : null}
   </div>
-);
+));
+FormField.displayName = "FormField";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   invalid?: boolean;
@@ -177,7 +185,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 );
 TextField.displayName = "TextField";
 
-export interface FormSectionProps {
+export interface FormSectionProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   description?: string;
   children: ReactNode;
@@ -186,18 +194,19 @@ export interface FormSectionProps {
   className?: string;
 }
 
-export const FormSection: FC<FormSectionProps> = ({
+export const FormSection = forwardRef<HTMLDivElement, FormSectionProps>(({
   title,
   description,
   children,
   collapsible = false,
   defaultOpen = true,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div className={`${styles.section} ${className}`.trim()}>
+    <div ref={ref} className={`${styles.section} ${className}`.trim()} {...props}>
       <div
         className={`${styles.sectionHeader} ${collapsible ? styles.sectionHeaderClickable : ""}`}
         onClick={() => collapsible && setOpen((o) => !o)}
@@ -217,11 +226,12 @@ export const FormSection: FC<FormSectionProps> = ({
       {open && <div className={styles.sectionBody}>{children}</div>}
     </div>
   );
-};
+});
+FormSection.displayName = "FormSection";
 
 export type AutosaveStatus = "idle" | "saving" | "saved" | "error";
 
-export interface AutosaveIndicatorProps {
+export interface AutosaveIndicatorProps extends HTMLAttributes<HTMLSpanElement> {
   status: AutosaveStatus;
   className?: string;
 }
@@ -229,6 +239,7 @@ export interface AutosaveIndicatorProps {
 export const AutosaveIndicator: FC<AutosaveIndicatorProps> = ({
   status,
   className = "",
+  ...props
 }) => {
   if (status === "idle") return null;
 
@@ -243,6 +254,7 @@ export const AutosaveIndicator: FC<AutosaveIndicatorProps> = ({
       className={`${styles.autosave} ${className}`.trim()}
       style={{ color: config.color }}
       aria-live="polite"
+      {...props}
     >
       {config.label}
     </span>

@@ -1,9 +1,14 @@
 "use client";
 
-import { forwardRef, type ChangeEvent } from "react";
+import { forwardRef, type InputHTMLAttributes, type ChangeEvent } from "react";
 import styles from "./slider.module.css";
 
-export interface SliderProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL Slider primitive — accessible continuous or discrete numerical range input.
+ */
+export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   id?: string;
   value?: number;
   min?: number;
@@ -29,6 +34,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
       showValue = false,
       "aria-label": ariaLabel = "Slider control",
       className = "",
+      ...props
     },
     ref
   ) => {
@@ -50,6 +56,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
           aria-label={ariaLabel}
           onChange={handleChange}
           className={styles.rangeInput}
+          {...props}
         />
         {showValue && (
           <span className={styles.valueDisplay} aria-hidden="true">

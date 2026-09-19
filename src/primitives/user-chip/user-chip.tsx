@@ -1,6 +1,6 @@
 "use client";
 
-import type { FC } from "react";
+import { forwardRef, type HTMLAttributes } from "react";
 import { Avatar } from "../avatar";
 import type { PresenceStatus } from "../presence";
 import styles from "./user-chip.module.css";
@@ -8,7 +8,12 @@ import styles from "./user-chip.module.css";
 export type UserChipShape = "pill" | "rounded";
 export type UserChipSize = "sm" | "md";
 
-export interface UserChipProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL UserChip primitive — compact identity badge showing avatar, presence, name, and role.
+ */
+export interface UserChipProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   role?: string;
   avatarSrc?: string;
@@ -20,7 +25,7 @@ export interface UserChipProps {
   className?: string;
 }
 
-export const UserChip: FC<UserChipProps> = ({
+export const UserChip = forwardRef<HTMLDivElement, UserChipProps>(({
   name,
   role,
   avatarSrc,
@@ -30,7 +35,8 @@ export const UserChip: FC<UserChipProps> = ({
   onClick,
   onRemove,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const isInteractive = Boolean(onClick);
   const avatarSize = size === "sm" ? "xs" : "sm";
 
@@ -43,11 +49,13 @@ export const UserChip: FC<UserChipProps> = ({
 
   return (
     <div
+      ref={ref}
       role={isInteractive ? "button" : undefined}
       tabIndex={isInteractive ? 0 : undefined}
       onClick={onClick}
       onKeyDown={isInteractive ? handleKeyDown : undefined}
       className={`${styles.chip} ${styles[shape]} ${styles[size]} ${isInteractive ? styles.interactive : ""} ${className}`.trim()}
+      {...props}
     >
       <div className={styles.avatarWrap}>
         <Avatar src={avatarSrc} name={name} size={avatarSize} presence={status} />
@@ -71,4 +79,6 @@ export const UserChip: FC<UserChipProps> = ({
       )}
     </div>
   );
-};
+});
+
+UserChip.displayName = "UserChip";

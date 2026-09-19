@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, type FC } from "react";
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { X, ChevronDown, Check } from "lucide-react";
 import styles from "./multi-select.module.css";
 
@@ -21,7 +21,12 @@ export interface MultiSelectProps {
   className?: string;
 }
 
-export const MultiSelect: FC<MultiSelectProps> = ({
+/**
+ * MultiSelect component allowing users to select multiple options from a searchable or tag-based dropdown.
+ *
+ * @maturity stable
+ */
+export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(({
   id,
   options,
   value = [],
@@ -30,9 +35,11 @@ export const MultiSelect: FC<MultiSelectProps> = ({
   disabled = false,
   "aria-label": ariaLabel,
   className = "",
-}) => {
+}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -131,4 +138,6 @@ export const MultiSelect: FC<MultiSelectProps> = ({
       )}
     </div>
   );
-};
+});
+
+MultiSelect.displayName = "MultiSelect";

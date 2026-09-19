@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, type DragEvent, type FC } from "react";
+import { useState, useRef, forwardRef, useImperativeHandle, type DragEvent } from "react";
 import { Upload } from "lucide-react";
 import styles from "./file-upload.module.css";
 
@@ -12,15 +12,24 @@ export interface FileUploadProps {
   className?: string;
 }
 
-export const FileUpload: FC<FileUploadProps> = ({
+/**
+ * FileUpload component providing an accessible dropzone area with keyboard activation,
+ * drag-and-drop feedback, and hidden input triggers.
+ *
+ * @maturity stable
+ */
+export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(({
   onFileSelect,
   accept,
   multiple = false,
   disabled = false,
   className = "",
-}) => {
+}, ref) => {
   const [dragOver, setDragOver] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -50,8 +59,11 @@ export const FileUpload: FC<FileUploadProps> = ({
 
   return (
     <div
+      ref={containerRef}
       role="button"
       tabIndex={disabled ? -1 : 0}
+      aria-disabled={disabled}
+      aria-label="Upload files dropzone"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -78,4 +90,6 @@ export const FileUpload: FC<FileUploadProps> = ({
       <div className={styles.subText}>Supports chunked resumable upload</div>
     </div>
   );
-};
+});
+
+FileUpload.displayName = "FileUpload";

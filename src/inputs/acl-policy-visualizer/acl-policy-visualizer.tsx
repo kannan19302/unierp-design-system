@@ -51,13 +51,19 @@ const DEFAULT_STATEMENTS: AclStatement[] = [
   },
 ];
 
-export const AclPolicyVisualizer: React.FC<AclPolicyVisualizerProps> = ({
+/**
+ * AclPolicyVisualizer provides an enterprise IAM zero-trust policy builder and JSON visualizer,
+ * rendering allow/deny effect badges, actions, resource ARNs, and conditions.
+ *
+ * @maturity stable
+ */
+export const AclPolicyVisualizer = React.forwardRef<HTMLDivElement, AclPolicyVisualizerProps>(({
   policyName = "Production-ZeroTrust-Tenant-Policy",
   initialStatements = DEFAULT_STATEMENTS,
   onChange,
   density = "compact",
   className,
-}) => {
+}, ref) => {
   const policyId = useId();
   const [statements, setStatements] = useState<AclStatement[]>(initialStatements);
   const [activeTab, setActiveTab] = useState<"visual" | "json">("visual");
@@ -117,6 +123,7 @@ export const AclPolicyVisualizer: React.FC<AclPolicyVisualizerProps> = ({
 
   return (
     <div
+      ref={ref}
       className={`${styles.container} ${className ?? ""}`}
       data-density={density}
       aria-labelledby={`${policyId}-title`}
@@ -253,4 +260,6 @@ export const AclPolicyVisualizer: React.FC<AclPolicyVisualizerProps> = ({
       )}
     </div>
   );
-};
+});
+
+AclPolicyVisualizer.displayName = "AclPolicyVisualizer";

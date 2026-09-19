@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type FC, type ChangeEvent } from "react";
+import { useRef, forwardRef, useImperativeHandle, type ChangeEvent } from "react";
 import { Image as ImageIcon } from "lucide-react";
 import styles from "./image-upload.module.css";
 
@@ -12,14 +12,23 @@ export interface ImageUploadProps {
   className?: string;
 }
 
-export const ImageUpload: FC<ImageUploadProps> = ({
+/**
+ * ImageUpload provides a focused single-image picker with instant object-URL preview,
+ * keyboard triggering, and WCAG accessible labeling.
+ *
+ * @maturity stable
+ */
+export const ImageUpload = forwardRef<HTMLDivElement, ImageUploadProps>(({
   id,
   value,
   onChange,
   disabled = false,
   className = "",
-}) => {
+}, ref) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,8 +48,11 @@ export const ImageUpload: FC<ImageUploadProps> = ({
 
   return (
     <div
+      ref={containerRef}
       role="button"
       tabIndex={disabled ? -1 : 0}
+      aria-label="Upload image trigger"
+      aria-disabled={disabled}
       onClick={() => !disabled && inputRef.current?.click()}
       onKeyDown={(e) => {
         if ((e.key === "Enter" || e.key === " ") && !disabled) {
@@ -73,4 +85,6 @@ export const ImageUpload: FC<ImageUploadProps> = ({
       )}
     </div>
   );
-};
+});
+
+ImageUpload.displayName = "ImageUpload";

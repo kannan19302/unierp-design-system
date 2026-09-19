@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, type KeyboardEvent } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type KeyboardEvent } from "react";
 import { cn } from "../../utils/cn";
 import styles from "./segmented-control.module.css";
 
@@ -11,7 +11,12 @@ export interface SegmentedControlOption<T extends string = string> {
   disabled?: boolean;
 }
 
-export interface SegmentedControlProps<T extends string = string> {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL SegmentedControl primitive — high-density inline view/filter switch with arrow-key roving tabindex.
+ */
+export interface SegmentedControlProps<T extends string = string> extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   options: SegmentedControlOption<T>[];
   value: T;
   onChange: (value: T) => void;
@@ -23,7 +28,7 @@ export interface SegmentedControlProps<T extends string = string> {
   "aria-label"?: string;
 }
 
-export function SegmentedControl<T extends string = string>({
+export const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps<any>>(({
   options,
   value,
   onChange,
@@ -33,7 +38,8 @@ export function SegmentedControl<T extends string = string>({
   disabled = false,
   className,
   "aria-label": ariaLabel = "Selection options",
-}: SegmentedControlProps<T>) {
+  ...props
+}, ref) => {
   const handleKeyDown = (e: KeyboardEvent<HTMLElement>, currentIndex: number) => {
     if (disabled || options.length === 0) return;
 
@@ -60,6 +66,7 @@ export function SegmentedControl<T extends string = string>({
 
   return (
     <div
+      ref={ref}
       role="radiogroup"
       aria-label={ariaLabel}
       className={cn(
@@ -69,6 +76,7 @@ export function SegmentedControl<T extends string = string>({
         disabled && styles.disabled,
         className,
       )}
+      {...props}
     >
       {options.map((option, index) => {
         const isSelected = option.value === value;
@@ -99,4 +107,6 @@ export function SegmentedControl<T extends string = string>({
       })}
     </div>
   );
-}
+});
+
+SegmentedControl.displayName = "SegmentedControl";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type KeyboardEvent, type FC } from "react";
+import { useState, forwardRef, type KeyboardEvent } from "react";
 import { X } from "lucide-react";
 import styles from "./tag-input.module.css";
 
@@ -13,14 +13,19 @@ export interface TagInputProps {
   className?: string;
 }
 
-export const TagInput: FC<TagInputProps> = ({
+/**
+ * TagInput component enabling tokenized keyword entry, backspace removal, and keyboard navigation.
+ *
+ * @maturity stable
+ */
+export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(({
   id,
   tags = [],
   onChange,
   placeholder = "Type tag and press enter...",
   disabled = false,
   className = "",
-}) => {
+}, ref) => {
   const [input, setInput] = useState("");
 
   const addTag = () => {
@@ -66,6 +71,7 @@ export const TagInput: FC<TagInputProps> = ({
         </span>
       ))}
       <input
+        ref={ref}
         id={id}
         type="text"
         value={input}
@@ -79,4 +85,6 @@ export const TagInput: FC<TagInputProps> = ({
       />
     </div>
   );
-};
+});
+
+TagInput.displayName = "TagInput";

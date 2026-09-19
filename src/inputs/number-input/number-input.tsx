@@ -1,9 +1,14 @@
 "use client";
 
-import { forwardRef, type ChangeEvent, useState, useEffect } from "react";
+import { forwardRef, type InputHTMLAttributes, type ChangeEvent, useState, useEffect } from "react";
 import styles from "./number-input.module.css";
 
-export interface NumberInputProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL NumberInput primitive — numerical field with tabular-nums font and automatic min/max clamping on blur.
+ */
+export interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   id?: string;
   value?: number | string;
   onChange?: (val: number | undefined) => void;
@@ -31,6 +36,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       invalid = false,
       "aria-label": ariaLabel = "Number input",
       className = "",
+      ...props
     },
     ref
   ) => {
@@ -96,6 +102,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         onChange={handleChange}
         onBlur={handleBlur}
         className={inputClass}
+        {...props}
       />
     );
   }

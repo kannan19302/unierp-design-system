@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type FC, type ReactNode } from "react";
+import { useId, forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import styles from "./radio-group.module.css";
 
 export interface RadioOption {
@@ -10,7 +10,12 @@ export interface RadioOption {
   disabled?: boolean;
 }
 
-export interface RadioGroupProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL RadioGroup primitive — accessible mutually exclusive option selection with hint descriptions.
+ */
+export interface RadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   options: RadioOption[];
   value?: string;
   onChange?: (value: string) => void;
@@ -20,7 +25,7 @@ export interface RadioGroupProps {
   className?: string;
 }
 
-export const RadioGroup: FC<RadioGroupProps> = ({
+export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({
   options,
   value,
   onChange,
@@ -28,14 +33,17 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   disabled = false,
   orientation = "vertical",
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const generatedName = useId();
   const name = customName ?? generatedName;
 
   return (
     <div
+      ref={ref}
       role="radiogroup"
       className={`${styles.group} ${styles[orientation]} ${className}`.trim()}
+      {...props}
     >
       {options.map((opt) => {
         const isChecked = value === opt.value;
@@ -67,4 +75,6 @@ export const RadioGroup: FC<RadioGroupProps> = ({
       })}
     </div>
   );
-};
+});
+
+RadioGroup.displayName = "RadioGroup";

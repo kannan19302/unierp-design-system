@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { AlertCircle, CheckCircle2, Info, XCircle, X } from "lucide-react";
 import styles from "./alert.module.css";
 
@@ -13,7 +13,12 @@ const Icons = {
   danger: XCircle,
 };
 
-export interface AlertProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL Alert primitive — prominent status and contextual feedback notification banner.
+ */
+export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   variant?: FeedbackVariant;
   title?: ReactNode;
   children?: ReactNode;
@@ -22,14 +27,15 @@ export interface AlertProps {
   className?: string;
 }
 
-export const Alert: FC<AlertProps> = ({
+export const Alert = forwardRef<HTMLDivElement, AlertProps>(({
   variant = "info",
   title,
   children,
   onClose,
   action,
   className = "",
-}) => {
+  ...props
+}, ref) => {
   const IconComponent = Icons[variant];
   const variantClass =
     variant === "success"
@@ -42,8 +48,10 @@ export const Alert: FC<AlertProps> = ({
 
   return (
     <div
+      ref={ref}
       role="alert"
       className={`${styles.alert} ${variantClass} ${className}`.trim()}
+      {...props}
     >
       <IconComponent size={18} className={styles.icon} />
       <div className={styles.content}>
@@ -63,4 +71,6 @@ export const Alert: FC<AlertProps> = ({
       )}
     </div>
   );
-};
+});
+
+Alert.displayName = "Alert";

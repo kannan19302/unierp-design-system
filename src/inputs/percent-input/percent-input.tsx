@@ -1,9 +1,14 @@
 "use client";
 
-import { forwardRef, type ChangeEvent, useState, useEffect } from "react";
+import { forwardRef, type InputHTMLAttributes, type ChangeEvent, useState, useEffect } from "react";
 import styles from "./percent-input.module.css";
 
-export interface PercentInputProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL PercentInput primitive — precision percentage input with suffix % glyph and min/max clamping.
+ */
+export interface PercentInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   id?: string;
   value?: number | string;
   onChange?: (val: number | undefined) => void;
@@ -29,6 +34,7 @@ export const PercentInput = forwardRef<HTMLInputElement, PercentInputProps>(
       placeholder = "0.0",
       invalid = false,
       className = "",
+      ...props
     },
     ref
   ) => {
@@ -95,6 +101,7 @@ export const PercentInput = forwardRef<HTMLInputElement, PercentInputProps>(
           onChange={handleChange}
           onBlur={handleBlur}
           className={styles.input}
+          {...props}
         />
         <span className={styles.symbol} aria-hidden="true">
           %

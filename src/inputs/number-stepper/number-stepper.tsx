@@ -1,11 +1,16 @@
 "use client";
 
-import React, { type ChangeEvent, type KeyboardEvent } from "react";
+import { useState, forwardRef, type HTMLAttributes, type ChangeEvent, type KeyboardEvent } from "react";
 import { Plus, Minus } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./number-stepper.module.css";
 
-export interface NumberStepperProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL NumberStepper primitive — precision numerical stepper with tactile plus/minus buttons and clamping.
+ */
+export interface NumberStepperProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
@@ -20,7 +25,7 @@ export interface NumberStepperProps {
   className?: string;
 }
 
-export function NumberStepper({
+export const NumberStepper = forwardRef<HTMLDivElement, NumberStepperProps>(({
   value,
   defaultValue = 0,
   onChange,
@@ -33,8 +38,9 @@ export function NumberStepper({
   label,
   size = "md",
   className,
-}: NumberStepperProps) {
-  const [internalValue, setInternalValue] = React.useState<number>(
+  ...props
+}, ref) => {
+  const [internalValue, setInternalValue] = useState<number>(
     value !== undefined ? value : defaultValue,
   );
 
@@ -92,7 +98,7 @@ export function NumberStepper({
   const isMaxDisabled = disabled || readOnly || currentValue >= max;
 
   return (
-    <div className={cn(styles.wrapper, styles[size], disabled && styles.disabled, className)}>
+    <div ref={ref} className={cn(styles.wrapper, styles[size], disabled && styles.disabled, className)} {...props}>
       {label && <label className={styles.label}>{label}</label>}
       <div className={styles.stepperContainer}>
         <button
@@ -131,4 +137,6 @@ export function NumberStepper({
       </div>
     </div>
   );
-}
+});
+
+NumberStepper.displayName = "NumberStepper";

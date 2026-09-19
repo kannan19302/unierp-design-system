@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, type ChangeEvent } from "react";
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle, type ChangeEvent } from "react";
 import { Check, Palette } from "lucide-react";
 import { cn } from "../../utils/cn";
 import { DEFAULT_COLOR_PRESETS } from "../../tokens/color-presets";
@@ -49,7 +49,13 @@ function getContrastRatio(hex: string, backgroundHex = "#ffffff"): number {
   return Number(((lighter + 0.05) / (darker + 0.05)).toFixed(1));
 }
 
-export function ColorPicker({
+/**
+ * ColorPicker component supporting preset swatches, native HTML color picker, hex text input,
+ * and live WCAG AA/AAA contrast ratio validation.
+ *
+ * @maturity stable
+ */
+export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(({
   value,
   onChange,
   label,
@@ -57,10 +63,12 @@ export function ColorPicker({
   showContrastPreview = true,
   disabled = false,
   className,
-}: ColorPickerProps) {
+}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [draftHex, setDraftHex] = useState(value);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
 
   useEffect(() => {
     setDraftHex(value);
@@ -184,4 +192,6 @@ export function ColorPicker({
       )}
     </div>
   );
-}
+});
+
+ColorPicker.displayName = "ColorPicker";

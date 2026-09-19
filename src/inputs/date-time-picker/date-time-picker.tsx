@@ -4,6 +4,11 @@ import { forwardRef, type InputHTMLAttributes } from "react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import styles from "./date-time-picker.module.css";
 
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL DateTimePicker primitive — combined date and time selector with ISO 8601 datetime-local formatting.
+ */
 export interface DateTimePickerProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange"> {
   value?: string; // YYYY-MM-DDTHH:mm

@@ -1,9 +1,14 @@
 "use client";
 
-import { forwardRef, type ChangeEvent, useState, useEffect } from "react";
+import { forwardRef, type InputHTMLAttributes, type ChangeEvent, useState, useEffect } from "react";
 import styles from "./currency-input.module.css";
 
-export interface CurrencyInputProps {
+/**
+ * @maturity stable
+ * @since 1.0.0
+ * Strata DL CurrencyInput primitive — financial-grade decimal input with currency symbol slot and 2-decimal blur formatting.
+ */
+export interface CurrencyInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   id?: string;
   value?: number | string;
   onChange?: (val: number | undefined) => void;
@@ -16,10 +21,6 @@ export interface CurrencyInputProps {
   max?: number;
 }
 
-/**
- * `<CurrencyInput>` — Financial-grade decimal input primitive.
- * Enforces tabular alignment and exact cents/sub-unit calculation.
- */
 export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
   (
     {
@@ -33,6 +34,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
       className = "",
       min,
       max,
+      ...props
     },
     ref
   ) => {
@@ -102,6 +104,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
           onChange={handleChange}
           onBlur={handleBlur}
           className={styles.input}
+          {...props}
         />
       </div>
     );
