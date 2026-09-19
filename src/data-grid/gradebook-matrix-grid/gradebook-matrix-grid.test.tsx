@@ -1,4 +1,4 @@
-import React from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
@@ -70,6 +70,18 @@ describe("GradebookMatrixGrid", () => {
 
     expect(screen.queryByText("Aiden Scott")).not.toBeInTheDocument();
     expect(screen.getByText("Brianna Lin")).toBeInTheDocument();
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <GradebookMatrixGrid
+        ref={ref}
+        assignments={sampleAssignments}
+        students={sampleStudents}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("has zero accessibility violations", async () => {

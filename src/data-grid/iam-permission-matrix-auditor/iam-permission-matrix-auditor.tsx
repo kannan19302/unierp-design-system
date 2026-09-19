@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./iam-permission-matrix-auditor.module.css";
 
 export type PermissionDecision = "allow" | "deny" | "explicit_deny" | "inherited" | "not_applicable";
@@ -39,7 +39,12 @@ export interface IamPermissionMatrixAuditorProps {
   className?: string;
 }
 
-export const IamPermissionMatrixAuditor: React.FC<IamPermissionMatrixAuditorProps> = ({
+/**
+ * IamPermissionMatrixAuditor evaluates, audits, and simulates cloud IAM effective permissions and policy waterfalls.
+ *
+ * @maturity stable
+ */
+export const IamPermissionMatrixAuditor = forwardRef<HTMLElement, IamPermissionMatrixAuditorProps>(({
   principals,
   permissions,
   matrix,
@@ -49,7 +54,7 @@ export const IamPermissionMatrixAuditor: React.FC<IamPermissionMatrixAuditorProp
   onRevokePermission,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [selectedId, setSelectedId] = useState<string>(
     initialPrincipalId ?? (principals.length > 0 ? (principals[0]?.id ?? "") : "")
@@ -133,6 +138,7 @@ export const IamPermissionMatrixAuditor: React.FC<IamPermissionMatrixAuditorProp
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${className}`}
       data-density={density}
       aria-labelledby={headingId}
@@ -414,4 +420,6 @@ export const IamPermissionMatrixAuditor: React.FC<IamPermissionMatrixAuditorProp
       </div>
     </section>
   );
-};
+});
+
+IamPermissionMatrixAuditor.displayName = "IamPermissionMatrixAuditor";

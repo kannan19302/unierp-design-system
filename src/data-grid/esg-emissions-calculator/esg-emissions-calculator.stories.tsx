@@ -73,6 +73,39 @@ export const Default: Story = {
   },
 };
 
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Compact View</h4>
+        <EsgEmissionsCalculator
+          reportingYear={2026}
+          targetNetZeroYear={2035}
+          annualReductionTargetPct={12.5}
+          activities={mockActivities}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <EsgEmissionsCalculator
+          reportingYear={2026}
+          targetNetZeroYear={2035}
+          annualReductionTargetPct={12.5}
+          activities={mockActivities}
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
 export const UltraCompact: Story = {
   args: {
     ...Default.args,

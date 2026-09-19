@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./esg-emissions-calculator.module.css";
 
 export type EsgScope = "scope_1" | "scope_2" | "scope_3";
@@ -25,7 +25,12 @@ export interface EsgEmissionsCalculatorProps {
   className?: string;
 }
 
-export const EsgEmissionsCalculator: React.FC<EsgEmissionsCalculatorProps> = ({
+/**
+ * EsgEmissionsCalculator calculates and visualizes GHG emissions across Scopes 1, 2, and 3.
+ *
+ * @maturity stable
+ */
+export const EsgEmissionsCalculator = forwardRef<HTMLElement, EsgEmissionsCalculatorProps>(({
   reportingYear = 2026,
   targetNetZeroYear = 2035,
   annualReductionTargetPct = 12.5,
@@ -33,7 +38,7 @@ export const EsgEmissionsCalculator: React.FC<EsgEmissionsCalculatorProps> = ({
   onRecalculateFactors,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [scopeFilter, setScopeFilter] = useState<string>("all");
 
@@ -80,6 +85,7 @@ export const EsgEmissionsCalculator: React.FC<EsgEmissionsCalculatorProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -219,4 +225,6 @@ export const EsgEmissionsCalculator: React.FC<EsgEmissionsCalculatorProps> = ({
       </div>
     </section>
   );
-};
+});
+
+EsgEmissionsCalculator.displayName = "EsgEmissionsCalculator";

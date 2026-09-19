@@ -50,6 +50,39 @@ export const Default: Story = {
   },
 };
 
+export const AnatomyAndComposition: Story = {
+  args: {
+    ...Default.args,
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Default Compact View</h4>
+        <IamPermissionMatrixAuditor
+          principals={samplePrincipals}
+          permissions={samplePermissions}
+          matrix={sampleMatrix}
+          selectedPrincipalId="usr-1"
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "0.5rem" }}>Ultra-Compact View</h4>
+        <IamPermissionMatrixAuditor
+          principals={samplePrincipals}
+          permissions={samplePermissions}
+          matrix={sampleMatrix}
+          selectedPrincipalId="usr-1"
+          density="ultra-compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
 export const UltraCompact: Story = {
   args: {
     ...Default.args,

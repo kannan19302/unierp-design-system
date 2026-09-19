@@ -1,7 +1,7 @@
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import React from "react";
 import { IamPermissionMatrixAuditor } from "./iam-permission-matrix-auditor";
 
 describe("IamPermissionMatrixAuditor", () => {
@@ -52,6 +52,12 @@ describe("IamPermissionMatrixAuditor", () => {
     const select = screen.getByLabelText(/Target Principal:/i);
     fireEvent.change(select, { target: { value: "usr-2" } });
     expect(handleSelect).toHaveBeenCalledWith("usr-2");
+  });
+
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<IamPermissionMatrixAuditor ref={ref} {...defaultProps} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
   it("passes accessibility axe audit", async () => {

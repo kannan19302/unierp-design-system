@@ -1,4 +1,4 @@
-import React, { useId, useState, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
 import styles from "./gradebook-matrix-grid.module.css";
 
 export interface GradeAssignment {
@@ -34,7 +34,12 @@ export interface GradebookMatrixGridProps {
   className?: string;
 }
 
-export const GradebookMatrixGrid: React.FC<GradebookMatrixGridProps> = ({
+/**
+ * GradebookMatrixGrid displays student academic performance across weighted assignments.
+ *
+ * @maturity stable
+ */
+export const GradebookMatrixGrid = forwardRef<HTMLElement, GradebookMatrixGridProps>(({
   courseCode = "AERO-401",
   courseTitle = "Advanced Orbital Mechanics & Propulsion Systems",
   termLabel = "Fall 2026",
@@ -43,7 +48,7 @@ export const GradebookMatrixGrid: React.FC<GradebookMatrixGridProps> = ({
   onScoreUpdate: _onScoreUpdate,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -104,6 +109,7 @@ export const GradebookMatrixGrid: React.FC<GradebookMatrixGridProps> = ({
 
   return (
     <section
+      ref={ref}
       className={`${styles.container} ${styles[density]} ${className}`}
       aria-labelledby={headingId}
       data-density={density}
@@ -226,4 +232,7 @@ export const GradebookMatrixGrid: React.FC<GradebookMatrixGridProps> = ({
       </div>
     </section>
   );
-};
+});
+
+GradebookMatrixGrid.displayName = "GradebookMatrixGrid";
+

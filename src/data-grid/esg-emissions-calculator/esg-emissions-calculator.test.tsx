@@ -1,6 +1,6 @@
-import React from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
 import {
   EsgEmissionsCalculator,
@@ -66,6 +66,12 @@ describe("EsgEmissionsCalculator", () => {
     expect(screen.queryByText("Grid Electricity")).not.toBeInTheDocument();
   });
 
+  it("forwards ref to container element", () => {
+    const ref = createRef<HTMLElement>();
+    render(<EsgEmissionsCalculator ref={ref} activities={sampleActivities} />);
+    expect(ref.current).toBeInstanceOf(HTMLElement);
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <EsgEmissionsCalculator
@@ -76,3 +82,4 @@ describe("EsgEmissionsCalculator", () => {
     expect(results).toHaveNoViolations();
   });
 });
+

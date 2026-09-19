@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import styles from "./freight-carrier-rate-comparator.module.css";
 
 export type FreightTransportMode = "LTL" | "FTL" | "AIR_EXPEDITE" | "INTERMODAL";
@@ -34,13 +34,18 @@ export interface FreightCarrierRateComparatorProps {
   className?: string;
 }
 
-export const FreightCarrierRateComparator: React.FC<FreightCarrierRateComparatorProps> = ({
+/**
+ * FreightCarrierRateComparator compares multi-carrier logistics rates, transit times, and awards tenders.
+ *
+ * @maturity stable
+ */
+export const FreightCarrierRateComparator = forwardRef<HTMLElement, FreightCarrierRateComparatorProps>(({
   lane,
   quotes: initialQuotes,
   onAwardTender,
   density = "compact",
   className = "",
-}) => {
+}, ref) => {
   const headingId = useId();
   const [quotes, setQuotes] = useState<FreightCarrierQuote[]>(initialQuotes);
 
@@ -66,6 +71,7 @@ export const FreightCarrierRateComparator: React.FC<FreightCarrierRateComparator
 
   return (
     <section
+      ref={ref}
       aria-labelledby={headingId}
       className={`${styles.container} ${className}`}
       data-density={density}
@@ -197,4 +203,6 @@ export const FreightCarrierRateComparator: React.FC<FreightCarrierRateComparator
       </footer>
     </section>
   );
-};
+});
+
+FreightCarrierRateComparator.displayName = "FreightCarrierRateComparator";
