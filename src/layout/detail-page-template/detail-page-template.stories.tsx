@@ -96,7 +96,7 @@ export const AllStatesGallery: Story = {
         <DetailPageTemplate
           title="Invoice #INV-2026-901"
           subtitle="Issued to Horizon Holdings LLC"
-          backLabel: "Back to Invoices"
+          backLabel="Back to Invoices"
           onBack={() => {}}
           meta={<Badge variant="warning">Awaiting Approval</Badge>}
           actions={<Button size="sm">Review Invoice</Button>}
