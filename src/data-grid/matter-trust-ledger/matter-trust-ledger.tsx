@@ -1,4 +1,5 @@
 import { forwardRef, useId, useMemo } from "react";
+import { Scale, CheckCircle2, AlertTriangle, Clock, Plus } from "lucide-react";
 import styles from "./matter-trust-ledger.module.css";
 
 export type TrustTransactionType =
@@ -81,7 +82,7 @@ export const MatterTrustLedger = forwardRef<HTMLElement, MatterTrustLedgerProps>
       <header className={styles.header}>
         <div className={styles.titleGroup}>
           <div className={styles.iconTag} aria-hidden="true">
-            ⚖️
+            <Scale size={18} strokeWidth={1.75} className={styles.headerIcon} />
           </div>
           <div>
             <div className={styles.metaRow}>
@@ -92,7 +93,17 @@ export const MatterTrustLedger = forwardRef<HTMLElement, MatterTrustLedgerProps>
                   bankReconciled ? styles.reconOk : styles.reconMismatch
                 }`}
               >
-                {bankReconciled ? "✓ IOLTA 3-Way Reconciled" : "⚠️ Reconciliation Variance"}
+                {bankReconciled ? (
+                  <>
+                    <CheckCircle2 size={11} strokeWidth={2} />
+                    <span>IOLTA 3-Way Reconciled</span>
+                  </>
+                ) : (
+                  <>
+                    <AlertTriangle size={11} strokeWidth={2} />
+                    <span>Reconciliation Variance</span>
+                  </>
+                )}
               </span>
             </div>
             <h2 id={headingId} className={styles.title}>
@@ -109,7 +120,8 @@ export const MatterTrustLedger = forwardRef<HTMLElement, MatterTrustLedgerProps>
               className={styles.replenishBtn}
               onClick={() => onRequestReplenishment(matterId, replenishmentNeeded)}
             >
-              ⚠️ Request Replenishment ({formatCurrency(replenishmentNeeded)})
+              <AlertTriangle size={12} strokeWidth={1.75} />
+              <span>Request Replenishment ({formatCurrency(replenishmentNeeded)})</span>
             </button>
           )}
           {onRequestDisbursement && (
@@ -118,7 +130,8 @@ export const MatterTrustLedger = forwardRef<HTMLElement, MatterTrustLedgerProps>
               className={styles.disburseBtn}
               onClick={() => onRequestDisbursement(matterId)}
             >
-              + Disburse Trust Funds
+              <Plus size={12} strokeWidth={1.75} />
+              <span>+ Disburse Trust Funds</span>
             </button>
           )}
         </div>
@@ -194,11 +207,13 @@ export const MatterTrustLedger = forwardRef<HTMLElement, MatterTrustLedgerProps>
                         styles[`type_${entry.type}`] || styles.typeDefault
                       }`}
                     >
-                      {entry.type.replace(/_/g, " ").toUpperCase()}
+                      {entry.type.replace(/_/g, " ")}
                     </span>
                   </td>
-                  <td><strong>{entry.payeeOrPayor}</strong></td>
-                  <td>{entry.description}</td>
+                  <td>
+                    <span className={styles.payeeName}>{entry.payeeOrPayor}</span>
+                  </td>
+                  <td className={styles.descCell}>{entry.description}</td>
                   <td
                     className={`${styles.thNum} ${
                       entry.amount >= 0 ? styles.depositText : styles.disburseText
@@ -217,7 +232,17 @@ export const MatterTrustLedger = forwardRef<HTMLElement, MatterTrustLedgerProps>
                           : styles.statusTransit
                       }`}
                     >
-                      {entry.reconciliationStatus === "cleared" ? "✓ Cleared" : "⏳ In Transit"}
+                      {entry.reconciliationStatus === "cleared" ? (
+                        <>
+                          <CheckCircle2 size={12} strokeWidth={1.75} />
+                          <span>Cleared</span>
+                        </>
+                      ) : (
+                        <>
+                          <Clock size={12} strokeWidth={1.75} />
+                          <span>In Transit</span>
+                        </>
+                      )}
                     </span>
                   </td>
                 </tr>

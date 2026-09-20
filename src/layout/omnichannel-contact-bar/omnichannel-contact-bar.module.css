@@ -74,15 +74,19 @@
 }
 
 .iconTag {
-  font-size: var(--text-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
 }
 
 .stateSelect {
   padding-block: var(--space-1);
   padding-inline: var(--space-2);
   font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
-  border-radius: var(--radius-sm);
+  font-weight: var(--weight-medium, 500);
+  font-family: var(--font-sans);
+  border-radius: var(--radius-xs, 4px);
   border: 1px solid var(--color-border-default);
   cursor: pointer;
 }
@@ -114,7 +118,7 @@
   gap: var(--space-3);
   background-color: var(--color-bg-subtle);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs, 4px);
   padding-block: var(--space-1);
   padding-inline: var(--space-3);
 }
@@ -126,12 +130,13 @@
 
 .customerName {
   font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium, 500);
   color: var(--color-text-primary);
 }
 
 .callerNumber {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
   font-size: 0.6875rem;
   color: var(--color-text-secondary);
 }
@@ -142,7 +147,8 @@
 }
 
 .acctBadge {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
   font-size: 0.6875rem;
   background-color: var(--color-surface-hover, var(--color-bg-subtle));
   padding-block: 0.0625rem;
@@ -152,7 +158,7 @@
 
 .tierBadge {
   font-size: 0.6875rem;
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium, 500);
   background-color: var(--color-primary-subtle);
   color: var(--color-primary);
   padding-block: 0.0625rem;
@@ -163,26 +169,31 @@
 .idleMessage {
   font-size: var(--text-xs);
   color: var(--color-text-muted);
-  font-style: italic;
 }
 
 /* Timer */
 .timerBox {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  background-color: var(--color-primary-subtle);
+  gap: 0.375rem;
+  background-color: var(--color-bg-sunken);
   padding-block: var(--space-1);
   padding-inline: var(--space-2);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs, 4px);
   border: 1px solid var(--color-border-default);
 }
 
+.timerIcon {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
 .timerDigits {
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
-  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text-primary);
 }
 
 /* Actions */
@@ -195,13 +206,17 @@
 
 .controlBtn,
 .notesBtn {
-  background: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5, 6px);
+  background: var(--color-bg-elevated);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs, 4px);
   padding-block: var(--space-1);
-  padding-inline: var(--space-2);
+  padding-inline: var(--space-2-5, 10px);
   font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium, 500);
+  font-family: var(--font-sans);
   color: var(--color-text-secondary);
   cursor: pointer;
 }
@@ -209,6 +224,7 @@
 .controlBtn:hover,
 .notesBtn:hover {
   background-color: var(--color-surface-hover, var(--color-bg-subtle));
+  color: var(--color-text-primary);
 }
 
 .btnActiveMute {
@@ -224,14 +240,18 @@
 }
 
 .endCallBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5, 6px);
   background-color: var(--color-danger);
   color: var(--color-text-inverse, #ffffff);
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs, 4px);
   padding-block: var(--space-1);
   padding-inline: var(--space-3);
   font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium, 500);
+  font-family: var(--font-sans);
   cursor: pointer;
 }
 

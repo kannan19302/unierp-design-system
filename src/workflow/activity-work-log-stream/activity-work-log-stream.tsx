@@ -1,4 +1,5 @@
 import React, { forwardRef, useState, useId } from "react";
+import { Lock, Globe, Settings, Paperclip } from "lucide-react";
 import styles from "./activity-work-log-stream.module.css";
 
 export type WorkLogEntryType = "internal_note" | "customer_reply" | "system_audit" | "status_change";
@@ -136,7 +137,7 @@ export const ActivityWorkLogStream = forwardRef<HTMLDivElement, ActivityWorkLogS
               onClick={() => setComposerType("internal_note")}
               aria-pressed={isInternal}
             >
-              <span className={styles.modeIcon} aria-hidden="true">🔒</span>
+              <Lock size={13} strokeWidth={1.75} aria-hidden="true" />
               <span>Internal Work Note (Private)</span>
             </button>
             <button
@@ -145,16 +146,22 @@ export const ActivityWorkLogStream = forwardRef<HTMLDivElement, ActivityWorkLogS
               onClick={() => setComposerType("customer_reply")}
               aria-pressed={!isInternal}
             >
-              <span className={styles.modeIcon} aria-hidden="true">🌐</span>
+              <Globe size={13} strokeWidth={1.75} aria-hidden="true" />
               <span>Customer Visible Reply (Public)</span>
             </button>
           </div>
 
           <div className={styles.composerNotice}>
             {isInternal ? (
-              <span>🔒 <strong>Internal Note:</strong> Only visible to internal staff and operators. Hidden from customer.</span>
+              <span>
+                <Lock size={13} strokeWidth={1.75} style={{ verticalAlign: "-2px", marginRight: "var(--space-1)" }} aria-hidden="true" />
+                <strong>Internal Note:</strong> Only visible to internal staff and operators. Hidden from customer.
+              </span>
             ) : (
-              <span>🌐 <strong>Public Reply:</strong> This response will be dispatched to the customer portal and emailed.</span>
+              <span>
+                <Globe size={13} strokeWidth={1.75} style={{ verticalAlign: "-2px", marginRight: "var(--space-1)" }} aria-hidden="true" />
+                <strong>Public Reply:</strong> This response will be dispatched to the customer portal and emailed.
+              </span>
             )}
           </div>
 
@@ -213,7 +220,7 @@ export const ActivityWorkLogStream = forwardRef<HTMLDivElement, ActivityWorkLogS
                     <img src={entry.authorAvatar} alt="" className={styles.avatarImg} />
                   ) : (
                     <div className={styles.avatarFallback}>
-                      {entryIsAudit ? "⚙" : entry.authorName.charAt(0).toUpperCase()}
+                      {entryIsAudit ? <Settings size={14} strokeWidth={1.75} aria-hidden="true" /> : entry.authorName.charAt(0).toUpperCase()}
                     </div>
                   )}
                 </div>
@@ -231,12 +238,14 @@ export const ActivityWorkLogStream = forwardRef<HTMLDivElement, ActivityWorkLogS
                     <div className={styles.entryTags}>
                       {entryIsInternal && (
                         <span className={styles.badgeInternal}>
-                          <span aria-hidden="true">🔒</span> Internal Note
+                          <Lock size={11} strokeWidth={2} aria-hidden="true" />
+                          <span>Internal Note</span>
                         </span>
                       )}
                       {entryIsCustomer && (
                         <span className={styles.badgeCustomer}>
-                          <span aria-hidden="true">🌐</span> Customer Reply
+                          <Globe size={11} strokeWidth={2} aria-hidden="true" />
+                          <span>Customer Reply</span>
                         </span>
                       )}
                       {entryIsAudit && (
@@ -252,7 +261,7 @@ export const ActivityWorkLogStream = forwardRef<HTMLDivElement, ActivityWorkLogS
                     <div className={styles.attachmentsRow} aria-label="Attached files">
                       {entry.attachments.map((att, idx) => (
                         <span key={idx} className={styles.attachmentChip}>
-                          <span aria-hidden="true">📎</span>
+                          <Paperclip size={11} strokeWidth={1.75} aria-hidden="true" />
                           <span>{att.name}</span>
                         </span>
                       ))}

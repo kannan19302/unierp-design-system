@@ -1,4 +1,5 @@
 import React, { useId, useState } from "react";
+import { CreditCard, CheckCircle2, AlertOctagon, AlertTriangle, Check } from "lucide-react";
 import styles from "./expense-policy-rule-auditor.module.css";
 
 export type PolicyViolationSeverity = "info" | "warning" | "violation_block";
@@ -107,7 +108,7 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
       <header className={styles.header}>
         <div className={styles.titleGroup}>
           <div className={styles.iconTag} aria-hidden="true">
-            💳
+            <CreditCard size={18} strokeWidth={1.75} />
           </div>
           <div>
             <div className={styles.metaRow}>
@@ -139,7 +140,7 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
               <span className={styles.fieldValue}>{transaction.cardHolderName}</span>
             </div>
             <div className={styles.infoField}>
-              <span className={styles.fieldLabel}>Merchant</span>
+              <span className={styles.fieldLabel}>Merchant / Supplier</span>
               <span className={styles.fieldValue}>{transaction.merchantName}</span>
             </div>
             <div className={styles.infoField}>
@@ -153,9 +154,15 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
                   transaction.receiptAttached ? styles.receiptOk : styles.receiptMissing
                 }`}
               >
-                {transaction.receiptAttached
-                  ? `✓ Attached (OCR ${transaction.receiptOcrConfidencePct}% match)`
-                  : "⛔ Missing Receipt"}
+                {transaction.receiptAttached ? (
+                  <>
+                    <CheckCircle2 size={12} strokeWidth={2} /> Attached (OCR {transaction.receiptOcrConfidencePct}% match)
+                  </>
+                ) : (
+                  <>
+                    <AlertOctagon size={12} strokeWidth={2} /> Missing Receipt
+                  </>
+                )}
               </span>
             </div>
           </div>
@@ -192,11 +199,19 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
                   : styles.statusCompliant
               }`}
             >
-              {hasBlockingViolations
-                ? "⛔ BLOCKING VIOLATION"
-                : hasWarnings
-                ? "⚠️ WARNING EXCEPTION"
-                : "✓ FULLY COMPLIANT"}
+              {hasBlockingViolations ? (
+                <>
+                  <AlertOctagon size={12} strokeWidth={2} /> BLOCKING VIOLATION
+                </>
+              ) : hasWarnings ? (
+                <>
+                  <AlertTriangle size={12} strokeWidth={2} /> WARNING EXCEPTION
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 size={12} strokeWidth={2} /> FULLY COMPLIANT
+                </>
+              )}
             </span>
           </div>
 
@@ -215,7 +230,13 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
               >
                 <div className={styles.ruleCardHeader}>
                   <span className={styles.ruleIcon} aria-hidden="true">
-                    {check.passed ? "✓" : check.severity === "violation_block" ? "⛔" : "⚠️"}
+                    {check.passed ? (
+                      <CheckCircle2 size={14} strokeWidth={2} />
+                    ) : check.severity === "violation_block" ? (
+                      <AlertOctagon size={14} strokeWidth={2} />
+                    ) : (
+                      <AlertTriangle size={14} strokeWidth={2} />
+                    )}
                   </span>
                   <h4 className={styles.ruleTitle}>{check.ruleName}</h4>
                   <span className={styles.severityTag}>
@@ -223,25 +244,29 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
                   </span>
                 </div>
                 <p className={styles.ruleMessage}>{check.message}</p>
-                <div className={styles.ruleMetricDiff}>
-                  <span>Limit: <strong>{check.policyLimit}</strong></span>
-                  <span>Observed: <strong>{check.observedValue}</strong></span>
+                <div className={styles.ruleMetricsRow}>
+                  <span>
+                    Observed: <strong>{check.observedValue}</strong>
+                  </span>
+                  <span>
+                    Limit: <strong>{check.policyLimit}</strong>
+                  </span>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Action Zone: Manager Override vs Instant Approval */}
-          <div className={styles.actionFooter}>
+          {/* Compliance Resolution Action Strip */}
+          <div className={styles.resolutionBox}>
             {hasBlockingViolations || hasWarnings ? (
-              <div className={styles.overrideBox}>
-                <label htmlFor={`${headingId}-justification`} className={styles.overrideLabel}>
-                  Manager Exception Override Justification (Mandatory):
+              <div className={styles.overrideWorkflow}>
+                <label htmlFor={`override-${headingId}`} className={styles.overrideLabel}>
+                  Manager Exception Override Justification (Required for Audit Trail):
                 </label>
                 <textarea
-                  id={`${headingId}-justification`}
+                  id={`override-${headingId}`}
                   rows={2}
-                  placeholder="Detail client entertainment purpose, emergency travel justification..."
+                  placeholder="State clinical/operational necessity or executive pre-approval rationale..."
                   className={styles.overrideTextarea}
                   value={justification}
                   onChange={(e) => setJustification(e.target.value)}
@@ -253,7 +278,13 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
                     disabled={!justification.trim() || isOverridden || isRejected}
                     onClick={handleOverrideSubmit}
                   >
-                    {isOverridden ? "✓ Exception Override Granted" : "Authorize Policy Override"}
+                    {isOverridden ? (
+                      <>
+                        <Check size={13} strokeWidth={2} /> Exception Override Granted
+                      </>
+                    ) : (
+                      "Authorize Policy Override"
+                    )}
                   </button>
                   <button
                     type="button"
@@ -261,7 +292,13 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
                     disabled={isRejected || isOverridden}
                     onClick={handleRejectSubmit}
                   >
-                    {isRejected ? "✓ Expense Rejected" : "Decline & Flag Cardholder"}
+                    {isRejected ? (
+                      <>
+                        <Check size={13} strokeWidth={2} /> Expense Rejected
+                      </>
+                    ) : (
+                      "Decline & Flag Cardholder"
+                    )}
                   </button>
                 </div>
               </div>
@@ -272,7 +309,13 @@ export const ExpensePolicyRuleAuditor = React.forwardRef<
                 disabled={isApproved}
                 onClick={handleApprove}
               >
-                {isApproved ? "✓ Expense Policy Approved" : "Approve & Release to Ledger"}
+                {isApproved ? (
+                  <>
+                    <Check size={13} strokeWidth={2} /> Expense Policy Approved
+                  </>
+                ) : (
+                  "Approve & Release to Ledger"
+                )}
               </button>
             )}
           </div>

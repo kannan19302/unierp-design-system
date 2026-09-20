@@ -40,13 +40,7 @@ const StatCard: React.FC<StatCardItem> = ({
       <div className={styles.cardHeader}>
         <span className={styles.cardLabel}>{label}</span>
         {icon && (
-          <div
-            className={styles.iconWrap}
-            style={{
-              background: `color-mix(in srgb, ${color} 12%, transparent)`,
-              color,
-            }}
-          >
+          <div className={styles.iconWrap} style={{ color }} aria-hidden="true">
             {icon}
           </div>
         )}

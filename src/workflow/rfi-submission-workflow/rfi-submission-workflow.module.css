@@ -124,17 +124,17 @@
 
 .metricValue {
   font-size: var(--text-base);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-variant-numeric: tabular-nums lining-nums;
 }
 
 .metricValueAlert {
   font-size: var(--text-base);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--color-danger);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-variant-numeric: tabular-nums lining-nums;
 }
 
@@ -348,7 +348,10 @@
 }
 
 .fileIcon {
-  font-size: var(--text-base);
+  color: var(--color-brand);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
 }
 
 .fileDetails {

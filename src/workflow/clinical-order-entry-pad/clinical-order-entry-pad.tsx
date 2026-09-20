@@ -1,4 +1,5 @@
 import React, { forwardRef, useId, useState } from "react";
+import { AlertTriangle, AlertOctagon, X, Check } from "lucide-react";
 import styles from "./clinical-order-entry-pad.module.css";
 
 export type OrderCategory =
@@ -153,7 +154,9 @@ export const ClinicalOrderEntryPad = forwardRef<
 
           {/* Severe Allergy Corridor */}
           <div className={styles.allergyCorridor}>
-            <span className={styles.allergyLabel}>⚠️ RECORDED ALLERGIES:</span>
+            <span className={styles.allergyLabel}>
+              <AlertTriangle size={12} strokeWidth={2} /> RECORDED ALLERGIES:
+            </span>
             <div className={styles.allergyTags}>
               {patient.allergies.length > 0 ? (
                 patient.allergies.map((allergy) => (
@@ -174,7 +177,7 @@ export const ClinicalOrderEntryPad = forwardRef<
         {hasContraindications && (
           <div className={styles.contraindicationAlert} role="alert">
             <span className={styles.alertIcon} aria-hidden="true">
-              ⛔
+              <AlertOctagon size={16} strokeWidth={2} />
             </span>
             <div className={styles.alertText}>
               <strong>CRITICAL CLINICAL DECISION SUPPORT ALERT:</strong> One or
@@ -341,14 +344,14 @@ export const ClinicalOrderEntryPad = forwardRef<
                         onClick={() => handleRemoveOrder(order.id)}
                         aria-label={`Remove order: ${order.orderName}`}
                       >
-                        ✕
+                        <X size={12} strokeWidth={2} />
                       </button>
                     </div>
                     <h4 className={styles.orderCardName}>{order.orderName}</h4>
                     <p className={styles.orderCardDetails}>{order.details}</p>
                     {order.contraindicationWarning && (
                       <div className={styles.contraWarningText}>
-                        ⚠️ {order.contraindicationWarning}
+                        <AlertTriangle size={12} strokeWidth={2} /> {order.contraindicationWarning}
                       </div>
                     )}
                   </div>
@@ -389,9 +392,13 @@ export const ClinicalOrderEntryPad = forwardRef<
               }
               onClick={handleSignAndSubmit}
             >
-              {signed
-                ? "✓ Orders Signed & Transmitted"
-                : "Electronically Sign & Transmit"}
+              {signed ? (
+                <>
+                  <Check size={14} strokeWidth={2} /> Orders Signed &amp; Transmitted
+                </>
+              ) : (
+                "Electronically Sign & Transmit"
+              )}
             </button>
           </div>
         </footer>

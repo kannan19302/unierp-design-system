@@ -1,4 +1,5 @@
 import React, { useState, useId, useMemo } from "react";
+import { CreditCard, AlertTriangle, Check, Lock } from "lucide-react";
 import styles from "./payment-run-cockpit.module.css";
 
 export type PaymentRail = "ach" | "sepa" | "wire" | "virtual_card" | "check";
@@ -139,7 +140,7 @@ export const PaymentRunCockpit = React.forwardRef<
       <header className={styles.header}>
         <div className={styles.titleGroup}>
           <div className={styles.batchTag} aria-hidden="true">
-            💳
+            <CreditCard size={18} strokeWidth={1.75} />
           </div>
           <div>
             <div className={styles.runIdRow}>
@@ -149,14 +150,13 @@ export const PaymentRunCockpit = React.forwardRef<
             <h2 id={headingId} className={styles.title}>{title}</h2>
           </div>
         </div>
-
         <div className={styles.cutoffBox}>
-          <span className={styles.cutoffLabel}>Execution Cutoff Window</span>
-          <span className={styles.cutoffValue}>⏱️ {executionCutoff}</span>
+          <span className={styles.cutoffLabel}>Cutoff Window:</span>
+          <span className={styles.cutoffValue}>{executionCutoff}</span>
         </div>
       </header>
 
-      {/* KPI Metrics Strip */}
+      {/* KPI Value Summary Strip */}
       <div className={styles.kpiStrip}>
         <div className={styles.kpiCard}>
           <span className={styles.kpiLabel}>Selected Invoices</span>
@@ -165,17 +165,19 @@ export const PaymentRunCockpit = React.forwardRef<
           </span>
         </div>
         <div className={styles.kpiCard}>
-          <span className={styles.kpiLabel}>Gross Disbursement</span>
-          <span className={styles.kpiValue}>{formatCurrency(summary.totalGross)}</span>
-        </div>
-        <div className={styles.kpiCard}>
-          <span className={styles.kpiLabel}>Cash Discounts Captured</span>
-          <span className={`${styles.kpiValue} ${styles.discountText}`}>
-            +{formatCurrency(summary.totalDiscount)}
+          <span className={styles.kpiLabel}>Gross Payable</span>
+          <span className={styles.kpiValue}>
+            {formatCurrency(summary.totalGross)}
           </span>
         </div>
         <div className={styles.kpiCard}>
-          <span className={styles.kpiLabel}>Net Settlement Value</span>
+          <span className={styles.kpiLabel}>Dynamic Discounts</span>
+          <span className={`${styles.kpiValue} ${styles.discountText}`}>
+            -{formatCurrency(summary.totalDiscount)}
+          </span>
+        </div>
+        <div className={styles.kpiCard}>
+          <span className={styles.kpiLabel}>Net Settlement</span>
           <span className={`${styles.kpiValue} ${styles.netValue}`}>
             {formatCurrency(summary.totalNet)}
           </span>
@@ -187,7 +189,16 @@ export const PaymentRunCockpit = React.forwardRef<
               summary.maxRisk > 50 ? styles.riskHigh : styles.riskLow
             }`}
           >
-            {summary.maxRisk}/100 {summary.maxRisk > 50 ? "⚠️ Elevated" : "✓ Low"}
+            {summary.maxRisk}/100{" "}
+            {summary.maxRisk > 50 ? (
+              <>
+                <AlertTriangle size={12} strokeWidth={2} /> Elevated
+              </>
+            ) : (
+              <>
+                <Check size={12} strokeWidth={2} /> Low
+              </>
+            )}
           </span>
         </div>
       </div>
@@ -293,7 +304,7 @@ export const PaymentRunCockpit = React.forwardRef<
       {/* Bottom Execution Bar */}
       <footer className={styles.footer}>
         <div className={styles.footerNote}>
-          🔒 Authorized payments undergo real-time ISO 20022 XML generation and dual-control cryptographic signature.
+          <Lock size={12} strokeWidth={1.75} /> Authorized payments undergo real-time ISO 20022 XML generation and dual-control cryptographic signature.
         </div>
         <button
           type="button"

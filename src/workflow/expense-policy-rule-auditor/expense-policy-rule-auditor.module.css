@@ -29,7 +29,15 @@
 }
 
 .iconTag {
-  font-size: var(--text-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--space-8);
+  block-size: var(--space-8);
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-brand);
 }
 
 .metaRow {
@@ -40,14 +48,15 @@
 }
 
 .txIdBadge {
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
   color: var(--color-brand);
   background-color: var(--color-brand-subtle);
   padding-block: var(--space-0-5);
-  padding-inline: var(--space-2);
+  padding-inline: var(--space-1-5);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
+  border: 1px solid color-mix(in srgb, var(--color-brand) 20%, transparent);
 }
 
 .deptTag,
@@ -59,8 +68,9 @@
 .title {
   margin: 0;
   font-size: var(--text-base);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
+  letter-spacing: -0.01em;
 }
 
 .amountWrap {
@@ -70,17 +80,20 @@
 }
 
 .amountLabel {
-  font-size: var(--text-xs);
+  font-size: var(--type-micro);
   color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   font-weight: var(--weight-medium);
 }
 
 .amountValue {
   font-size: var(--text-lg);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
 }
 
 .gridContainer {
@@ -235,26 +248,33 @@
 }
 
 .complianceStatus {
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
   padding-block: var(--space-0-5);
   padding-inline: var(--space-2);
   border-radius: var(--radius-sm);
+  letter-spacing: 0.02em;
 }
 
 .statusBlocked {
   background-color: var(--color-danger-subtle);
   color: var(--color-danger);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 25%, transparent);
 }
 
 .statusWarning {
   background-color: var(--color-warning-subtle);
-  color: var(--color-warning-text);
+  color: var(--color-warning);
+  border: 1px solid color-mix(in srgb, var(--color-warning) 25%, transparent);
 }
 
 .statusCompliant {
   background-color: var(--color-success-subtle);
   color: var(--color-success);
+  border: 1px solid color-mix(in srgb, var(--color-success) 25%, transparent);
 }
 
 .rulesList {

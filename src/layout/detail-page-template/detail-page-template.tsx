@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useState, type HTMLAttributes, type ReactNode } from "react";
+import { ArrowLeft } from "lucide-react";
 import { Tabs, type TabItem } from "../../navigation/tabs";
 import { PageHeader } from "../page-header";
 import styles from "./detail-page-template.module.css";
@@ -81,7 +82,8 @@ export const DetailPageTemplate = forwardRef<HTMLDivElement, DetailPageTemplateP
             onClick={onBack}
             className={styles.backBtn}
           >
-            ← {backLabel}
+            <ArrowLeft size={13} strokeWidth={1.75} />
+            {backLabel}
           </button>
         )}
 

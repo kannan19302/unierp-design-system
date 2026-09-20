@@ -51,3 +51,6 @@ storybook-static/
 **/dist
 **/.turbo
 **/coverage
+
+#Test screenshots
+audit-screenshots

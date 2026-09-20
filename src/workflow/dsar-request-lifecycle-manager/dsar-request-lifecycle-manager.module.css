@@ -117,7 +117,7 @@
   inline-size: 1.25rem;
   block-size: 1.25rem;
   border-radius: var(--radius-full);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
   font-size: var(--text-2xs);
 }
 
@@ -142,7 +142,7 @@
 }
 
 .stepCurrent .stepLabel {
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
   color: var(--color-brand);
 }
 
@@ -178,10 +178,12 @@
 
 .kpiValue {
   font-size: var(--text-base);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
   margin-block: var(--space-0-5);
   margin-inline: 0;
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .kpiValueEmail {

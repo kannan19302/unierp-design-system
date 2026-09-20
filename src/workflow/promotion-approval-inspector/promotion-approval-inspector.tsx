@@ -5,6 +5,7 @@ import {
   useState,
   type CSSProperties,
 } from "react";
+import { AlertTriangle } from "lucide-react";
 import styles from "./promotion-approval-inspector.module.css";
 
 export type ReleaseRiskLevel = "low" | "medium" | "high";
@@ -90,7 +91,7 @@ export const PromotionApprovalInspector = forwardRef<
         <div className={styles.body}>
           {isSelfApprovalViolation && (
             <div className={styles.violationAlert} role="alert">
-              <span className={styles.alertIcon} aria-hidden="true">⚠️</span>
+              <AlertTriangle size={15} strokeWidth={2} className={styles.alertIcon} aria-hidden="true" />
               <div>
                 <strong>Separation of Duties Enforced</strong>
                 <p className={styles.alertDesc}>

@@ -82,8 +82,10 @@
 
 .kpiValue {
   font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  font-family: var(--font-mono);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
   color: var(--color-text);
   line-height: var(--line-height-tight);
 }
@@ -91,6 +93,7 @@
 .changeBadge {
   font-size: var(--font-size-2xs, 0.6875rem);
   font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums lining-nums;
   padding-inline: var(--space-1-5);
   padding-block: var(--space-0-5);
   border-radius: var(--radius-full);
@@ -147,7 +150,8 @@
 }
 
 .targetText {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .subText {

@@ -1,4 +1,15 @@
 import { useId, useState, forwardRef, type HTMLAttributes } from "react";
+import {
+  Phone,
+  Clock,
+  Mic,
+  MicOff,
+  Pause,
+  ArrowRightLeft,
+  FileEdit,
+  PhoneOff,
+  X,
+} from "lucide-react";
 import styles from "./omnichannel-contact-bar.module.css";
 
 export type AgentTelephonyState = "available" | "in_call" | "wrap_up" | "paused";
@@ -100,7 +111,7 @@ export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactB
         {/* Agent State & Status Indicator */}
         <div className={styles.agentStateGroup}>
           <div className={styles.iconTag} aria-hidden="true">
-            📞
+            <Phone size={14} strokeWidth={1.75} className={styles.phoneIcon} />
           </div>
           <div className={styles.stateSelectWrap}>
             <span id={headingId} className={styles.srOnly}>
@@ -145,7 +156,7 @@ export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactB
         {/* Call Timer */}
         {agentState === "in_call" && (
           <div className={styles.timerBox}>
-            <span className={styles.timerIcon} aria-hidden="true">⏱️</span>
+            <Clock size={13} strokeWidth={1.75} className={styles.timerIcon} aria-hidden="true" />
             <span className={styles.timerDigits}>{formatTimer(callDurationSeconds)}</span>
           </div>
         )}
@@ -160,7 +171,17 @@ export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactB
               aria-pressed={isMuted}
               aria-label={isMuted ? "Unmute Microphone" : "Mute Microphone"}
             >
-              {isMuted ? "🔇 Muted" : "🎤 Mute"}
+              {isMuted ? (
+                <>
+                  <MicOff size={13} strokeWidth={1.75} />
+                  <span>Muted</span>
+                </>
+              ) : (
+                <>
+                  <Mic size={13} strokeWidth={1.75} />
+                  <span>Mute</span>
+                </>
+              )}
             </button>
 
             <button
@@ -170,7 +191,8 @@ export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactB
               aria-pressed={isOnHold}
               aria-label={isOnHold ? "Resume Call from Hold" : "Place Caller on Hold"}
             >
-              {isOnHold ? "⏸️ On Hold" : "⏸️ Hold"}
+              <Pause size={13} strokeWidth={1.75} />
+              <span>{isOnHold ? "On Hold" : "Hold"}</span>
             </button>
 
             <button
@@ -179,7 +201,8 @@ export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactB
               onClick={() => onTransferCall?.("Tier-2-Avionics")}
               aria-label="Transfer call to another queue"
             >
-              ⇄ Transfer
+              <ArrowRightLeft size={13} strokeWidth={1.75} />
+              <span>Transfer</span>
             </button>
 
             <button
@@ -188,7 +211,8 @@ export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactB
               onClick={() => setIsScratchpadOpen(!isScratchpadOpen)}
               aria-expanded={isScratchpadOpen}
             >
-              📝 Notes
+              <FileEdit size={13} strokeWidth={1.75} />
+              <span>Notes</span>
             </button>
 
             <button
@@ -197,7 +221,8 @@ export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactB
               onClick={handleEnd}
               aria-label="Disconnect and End Call"
             >
-              End Call
+              <PhoneOff size={13} strokeWidth={1.75} />
+              <span>End Call</span>
             </button>
           </div>
         )}
@@ -242,7 +267,7 @@ export const OmnichannelContactBar = forwardRef<HTMLElement, OmnichannelContactB
               onClick={() => setIsScratchpadOpen(false)}
               aria-label="Close notes drawer"
             >
-              ✕
+              <X size={14} strokeWidth={1.75} />
             </button>
           </div>
           <textarea

@@ -41,11 +41,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-2);
-  font-size: var(--text-lg);
+  inline-size: var(--space-8);
+  block-size: var(--space-8);
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-brand);
 }
 
 .runIdRow {
@@ -57,31 +58,34 @@
 
 .batchCode {
   font-family: var(--font-mono, monospace);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
   color: var(--color-brand);
   background-color: var(--color-brand-subtle);
   border-radius: var(--radius-sm);
-  padding-block: 0;
-  padding-inline: var(--space-2);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1-5);
+  border: 1px solid color-mix(in srgb, var(--color-brand) 20%, transparent);
 }
 
 .statusPill {
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
   color: var(--color-warning);
   background-color: var(--color-warning-subtle);
-  border: 1px solid var(--color-warning);
+  border: 1px solid color-mix(in srgb, var(--color-warning) 25%, transparent);
   border-radius: var(--radius-full);
-  padding-block: 0;
+  padding-block: var(--space-0-5);
   padding-inline: var(--space-2);
+  letter-spacing: 0.03em;
 }
 
 .title {
   margin: 0;
   font-size: var(--text-base);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
+  letter-spacing: -0.01em;
 }
 
 .cutoffBox {
@@ -92,18 +96,18 @@
 }
 
 .cutoffLabel {
-  font-size: var(--text-xs);
+  font-size: var(--type-micro);
   color: var(--color-text-muted);
 }
 
 .cutoffValue {
   font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  color: var(--color-danger);
-  background-color: var(--color-danger-subtle);
-  border: 1px solid var(--color-danger);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-sm);
-  padding-block: var(--space-1);
+  padding-block: var(--space-0-5);
   padding-inline: var(--space-2);
 }
 
@@ -115,9 +119,9 @@
 }
 
 .kpiCard {
-  background-color: var(--color-surface-elevated);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: var(--space-3);
   display: flex;
   flex-direction: column;
@@ -125,16 +129,23 @@
 }
 
 .kpiLabel {
-  font-size: var(--text-xs);
+  font-size: var(--type-micro);
   color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: var(--weight-medium);
 }
 
 .kpiValue {
   font-size: var(--text-base);
-  font-weight: var(--weight-bold);
-  font-family: var(--font-mono, monospace);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-sans);
   font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
   color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
 }
 
 .discountText {
@@ -255,16 +266,16 @@
 
 .invoiceNumCell {
   font-family: var(--font-mono, monospace);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
   color: var(--color-brand);
 }
 
 .vendorCell {
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
 }
 
 .railChip {
-  font-size: var(--text-xs);
+  font-size: var(--type-micro);
   background-color: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -280,30 +291,33 @@
 
 .numberCell {
   text-align: end;
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .discountCell {
   color: var(--color-success);
-  font-family: var(--font-mono, monospace);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .riskBadge {
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
-  padding-block: 0;
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
+  padding-block: var(--space-0-5);
   padding-inline: var(--space-2);
   border-radius: var(--radius-full);
 }
 
 .riskBadgeOk {
   background-color: var(--color-success-subtle);
-  border: 1px solid var(--color-success);
+  border: 1px solid color-mix(in srgb, var(--color-success) 25%, transparent);
   color: var(--color-success);
 }
 
 .riskBadgeWarn {
   background-color: var(--color-danger-subtle);
-  border: 1px solid var(--color-danger);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 25%, transparent);
   color: var(--color-danger);
 }
 
@@ -319,6 +333,9 @@
 }
 
 .footerNote {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
@@ -327,11 +344,11 @@
   background-color: var(--color-brand);
   color: var(--color-surface);
   border: 1px solid var(--color-brand);
-  border-radius: var(--radius-md);
-  padding-block: var(--space-2);
+  border-radius: var(--radius-sm);
+  padding-block: var(--space-1-5);
   padding-inline: var(--space-4);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: opacity 0.15s ease;
 }

@@ -1,10 +1,23 @@
 import React, { useId, useState, forwardRef } from "react";
+import {
+  Check,
+  Eye,
+  RotateCcw,
+  Save,
+  Paperclip,
+  ShieldCheck,
+  User,
+  FileText,
+  Building2,
+  BarChart3,
+  Printer,
+} from "lucide-react";
 import styles from "./enterprise-command-ribbon.module.css";
 
 export interface RibbonActionItem {
   id: string;
   label: string;
-  icon: string;
+  icon: React.ReactNode;
   shortcutKey?: string;
   isPrimary?: boolean;
   isDisabled?: boolean;
@@ -31,18 +44,49 @@ export const defaultRibbonTabs: RibbonTab[] = [
         id: "grp_posting",
         title: "Posting",
         actions: [
-          { id: "act_post", label: "Post & Release", icon: "✓", shortcutKey: "Alt+P", isPrimary: true },
-          { id: "act_preview_gl", label: "Preview GL", icon: "👁", shortcutKey: "Alt+V" },
-          { id: "act_reverse", label: "Reverse Posting", icon: "↺", shortcutKey: "Alt+R" },
+          {
+            id: "act_post",
+            label: "Post & Release",
+            icon: <Check size={14} strokeWidth={2} />,
+            shortcutKey: "Alt+P",
+            isPrimary: true,
+          },
+          {
+            id: "act_preview_gl",
+            label: "Preview GL",
+            icon: <Eye size={14} strokeWidth={1.75} />,
+            shortcutKey: "Alt+V",
+          },
+          {
+            id: "act_reverse",
+            label: "Reverse Posting",
+            icon: <RotateCcw size={14} strokeWidth={1.75} />,
+            shortcutKey: "Alt+R",
+          },
         ],
       },
       {
         id: "grp_manage",
         title: "Document",
         actions: [
-          { id: "act_save", label: "Save Draft", icon: "💾", shortcutKey: "Ctrl+S" },
-          { id: "act_attach", label: "Attach Files", icon: "📎", shortcutKey: "Alt+A" },
-          { id: "act_audit", label: "Audit Trail", icon: "🛡️", shortcutKey: "Alt+T" },
+          {
+            id: "act_save",
+            label: "Save Draft",
+            icon: <Save size={14} strokeWidth={1.75} />,
+            shortcutKey: "Ctrl+S",
+          },
+          {
+            id: "act_attach",
+            label: "Attach Files",
+            icon: <Paperclip size={14} strokeWidth={1.75} />,
+            shortcutKey: "Alt+A",
+          },
+          {
+            id: "act_audit",
+            label: "Audit Trail",
+            icon: <ShieldCheck size={14} strokeWidth={1.75} />,
+            shortcutKey: "Alt+T",
+          },
         ],
       },
     ],
@@ -55,9 +99,21 @@ export const defaultRibbonTabs: RibbonTab[] = [
         id: "grp_entities",
         title: "Related Records",
         actions: [
-          { id: "act_cust_card", label: "Customer 360", icon: "👤" },
-          { id: "act_open_invoices", label: "Open Invoices", icon: "📄" },
-          { id: "act_bank_recon", label: "Bank Reconciliation", icon: "🏦" },
+          {
+            id: "act_cust_card",
+            label: "Customer 360",
+            icon: <User size={14} strokeWidth={1.75} />,
+          },
+          {
+            id: "act_open_invoices",
+            label: "Open Invoices",
+            icon: <FileText size={14} strokeWidth={1.75} />,
+          },
+          {
+            id: "act_bank_recon",
+            label: "Bank Reconciliation",
+            icon: <Building2 size={14} strokeWidth={1.75} />,
+          },
         ],
       },
     ],
@@ -70,8 +126,18 @@ export const defaultRibbonTabs: RibbonTab[] = [
         id: "grp_export",
         title: "Reporting",
         actions: [
-          { id: "act_excel", label: "Export to Excel", icon: "📊", shortcutKey: "Alt+X" },
-          { id: "act_pdf", label: "Print PDF Voucher", icon: "🖨️", shortcutKey: "Ctrl+P" },
+          {
+            id: "act_excel",
+            label: "Export to Excel",
+            icon: <BarChart3 size={14} strokeWidth={1.75} />,
+            shortcutKey: "Alt+X",
+          },
+          {
+            id: "act_pdf",
+            label: "Print PDF Voucher",
+            icon: <Printer size={14} strokeWidth={1.75} />,
+            shortcutKey: "Ctrl+P",
+          },
         ],
       },
     ],

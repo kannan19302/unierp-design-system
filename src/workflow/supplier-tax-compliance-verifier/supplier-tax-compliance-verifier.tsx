@@ -1,4 +1,5 @@
 import { forwardRef, useId, useState } from "react";
+import { Building2, Zap, Check, FileText, Clock } from "lucide-react";
 import styles from "./supplier-tax-compliance-verifier.module.css";
 
 export type TaxValidationStatus =
@@ -80,7 +81,7 @@ export const SupplierTaxComplianceVerifier = forwardRef<HTMLElement, SupplierTax
         <header className={styles.header}>
           <div className={styles.titleGroup}>
             <div className={styles.iconTag} aria-hidden="true">
-              🏛️
+              <Building2 size={18} strokeWidth={1.75} />
             </div>
             <div>
               <div className={styles.metaRow}>
@@ -113,7 +114,13 @@ export const SupplierTaxComplianceVerifier = forwardRef<HTMLElement, SupplierTax
               onClick={handleValidateTin}
               disabled={isValidating}
             >
-              {isValidating ? "Validating TIN..." : "⚡ Live TIN / VIES Check"}
+              {isValidating ? (
+                "Validating TIN..."
+              ) : (
+                <>
+                  <Zap size={12} strokeWidth={1.75} /> Live TIN / VIES Check
+                </>
+              )}
             </button>
             {onApproveTaxProfile && (
               <button
@@ -121,7 +128,7 @@ export const SupplierTaxComplianceVerifier = forwardRef<HTMLElement, SupplierTax
                 className={styles.approveBtn}
                 onClick={() => onApproveTaxProfile(supplier.supplierId)}
               >
-                ✓ Approve Profile
+                <Check size={13} strokeWidth={2} /> Approve Profile
               </button>
             )}
           </div>
@@ -198,7 +205,7 @@ export const SupplierTaxComplianceVerifier = forwardRef<HTMLElement, SupplierTax
                         <span className={styles.docTypeBadge}>{cert.documentType}</span>
                       </td>
                       <td className={styles.fileCell}>
-                        📄 <span>{cert.fileReference}</span>
+                        <FileText size={12} strokeWidth={1.75} /> <span>{cert.fileReference}</span>
                       </td>
                       <td>{cert.uploadedAt}</td>
                       <td>{cert.expiryDate || "Indefinite"}</td>
@@ -210,7 +217,15 @@ export const SupplierTaxComplianceVerifier = forwardRef<HTMLElement, SupplierTax
                               : styles.certPending
                           }`}
                         >
-                          {cert.verifiedByCompliance ? "✓ Verified" : "⏳ Review Pending"}
+                          {cert.verifiedByCompliance ? (
+                            <>
+                              <Check size={12} strokeWidth={2} /> Verified
+                            </>
+                          ) : (
+                            <>
+                              <Clock size={12} strokeWidth={1.75} /> Review Pending
+                            </>
+                          )}
                         </span>
                       </td>
                     </tr>

@@ -1,4 +1,5 @@
-import { forwardRef, useState, useId, useMemo } from "react";
+import { forwardRef, useId, useState, useMemo } from "react";
+import { ShieldCheck, FileText, Check, AlertTriangle } from "lucide-react";
 import styles from "./compliance-evidence-collector.module.css";
 
 export type ControlTestStatus = "passing" | "failing" | "stale" | "exempt";
@@ -148,7 +149,7 @@ export const ComplianceEvidenceCollector = forwardRef<
       <header className={styles.header}>
         <div className={styles.titleGroup}>
           <div className={styles.iconTag} aria-hidden="true">
-            🛡️
+            <ShieldCheck size={18} strokeWidth={1.75} />
           </div>
           <div>
             <div className={styles.metaRow}>
@@ -163,34 +164,34 @@ export const ComplianceEvidenceCollector = forwardRef<
         <div className={styles.readinessBox}>
           <span className={styles.readinessLabel}>Audit Readiness Score</span>
           <span className={styles.readinessVal}>{readiness.percent}% COMPLIANT</span>
+          <div className={styles.progressBar} aria-hidden="true">
+            <div
+              className={styles.progressFill}
+              style={{ inlineSize: `${readiness.percent}%` }}
+            />
+          </div>
         </div>
       </header>
 
-      {/* Main Dual-Pane Layout */}
-      <div className={styles.flowLayout}>
-        {/* Controls List Pane */}
-        <div className={styles.controlsPane}>
-          <h3 className={styles.paneHeading}>Framework Security Controls</h3>
-          <ul className={styles.controlList} role="listbox" aria-label="Security Controls">
+      {/* Main Layout: Left Controls Checklist, Right Evidence Inspector */}
+      <div className={styles.mainLayout}>
+        {/* Controls Sidebar Checklist */}
+        <div className={styles.controlsListPane}>
+          <div className={styles.paneHeader}>
+            <span className={styles.paneHeading}>Scope Controls</span>
+            <span className={styles.countBadge}>{controls.length} TOTAL</span>
+          </div>
+
+          <ul className={styles.controlList} role="listbox" aria-label="Compliance Controls">
             {controls.map((ctrl) => {
               const isSelected = ctrl.id === selectedControlId;
-
               return (
                 <li
                   key={ctrl.id}
-                  className={`${styles.controlCard} ${
-                    isSelected ? styles.controlCardSelected : ""
-                  }`}
-                  onClick={() => setSelectedControlId(ctrl.id)}
                   role="option"
                   aria-selected={isSelected}
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setSelectedControlId(ctrl.id);
-                    }
-                  }}
+                  className={`${styles.controlCard} ${isSelected ? styles.cardSelected : ""}`}
+                  onClick={() => setSelectedControlId(ctrl.id)}
                 >
                   <div className={styles.controlCardTop}>
                     <span className={styles.controlCode}>{ctrl.controlCode}</span>
@@ -201,7 +202,7 @@ export const ComplianceEvidenceCollector = forwardRef<
                   <span className={styles.controlName}>{ctrl.name}</span>
                   <div className={styles.controlSubRow}>
                     <span className={styles.evidenceCount}>
-                      📁 {ctrl.evidenceItems.length} evidence{" "}
+                      <FileText size={12} strokeWidth={1.75} /> {ctrl.evidenceItems.length} evidence{" "}
                       {ctrl.evidenceItems.length === 1 ? "artifact" : "artifacts"}
                     </span>
                     <span className={styles.testDate}>Tested: {ctrl.lastTestedAt}</span>
@@ -279,7 +280,10 @@ export const ComplianceEvidenceCollector = forwardRef<
                               Approve Artifact
                             </button>
                           ) : (
-                            <span className={styles.approvedTag}>✓ Verified</span>
+                            <span className={styles.approvedTag}>
+                              <Check size={12} strokeWidth={2} aria-hidden="true" />
+                              <span>Verified</span>
+                            </span>
                           )}
                         </td>
                       </tr>
@@ -289,7 +293,8 @@ export const ComplianceEvidenceCollector = forwardRef<
               </div>
             ) : (
               <div className={styles.emptyEvidence}>
-                <span>⚠️ No evidence artifacts attached. Automatic test failed or pending.</span>
+                <AlertTriangle size={14} strokeWidth={2} aria-hidden="true" />
+                <span>No evidence artifacts attached. Automatic test failed or pending.</span>
               </div>
             )}
           </div>

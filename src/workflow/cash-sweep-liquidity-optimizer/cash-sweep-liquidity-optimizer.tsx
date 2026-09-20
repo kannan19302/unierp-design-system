@@ -1,4 +1,5 @@
 import React, { forwardRef, useId, useState } from "react";
+import { ArrowUp, ArrowDown, Check } from "lucide-react";
 import styles from "./cash-sweep-liquidity-optimizer.module.css";
 
 export type SweepDirection = "SWEEP_IN" | "SWEEP_OUT" | "OPTIMAL";
@@ -285,13 +286,24 @@ export const CashSweepLiquidityOptimizer = forwardRef<
                             : styles.dirOptimal
                       }`}
                     >
-                      {acc.id === masterAccount?.id
-                        ? "POOL HUB"
-                        : acc.direction === "SWEEP_OUT"
-                          ? "↑ SWEEP TO HUB"
-                          : acc.direction === "SWEEP_IN"
-                            ? "↓ FUND FROM HUB"
-                            : "✓ TARGET MET"}
+                      {acc.id === masterAccount?.id ? (
+                        "POOL HUB"
+                      ) : acc.direction === "SWEEP_OUT" ? (
+                        <>
+                          <ArrowUp size={11} strokeWidth={2} style={{ marginRight: 4 }} aria-hidden="true" />
+                          <span>SWEEP TO HUB</span>
+                        </>
+                      ) : acc.direction === "SWEEP_IN" ? (
+                        <>
+                          <ArrowDown size={11} strokeWidth={2} style={{ marginRight: 4 }} aria-hidden="true" />
+                          <span>FUND FROM HUB</span>
+                        </>
+                      ) : (
+                        <>
+                          <Check size={11} strokeWidth={2} style={{ marginRight: 4 }} aria-hidden="true" />
+                          <span>TARGET MET</span>
+                        </>
+                      )}
                     </span>
                   </td>
                   <td className={`${styles.numCell} ${styles.transferCell}`}>

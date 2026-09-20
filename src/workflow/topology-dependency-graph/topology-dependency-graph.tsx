@@ -1,4 +1,5 @@
 import { forwardRef, useState, useId, useMemo } from "react";
+import { AlertTriangle } from "lucide-react";
 import styles from "./topology-dependency-graph.module.css";
 
 export type TopologyNodeType = "gateway" | "service" | "database" | "queue" | "external";
@@ -303,7 +304,10 @@ export const TopologyDependencyGraph = forwardRef<HTMLDivElement, TopologyDepend
 
                 {selectedNode.health === "warning" && (
                   <div className={styles.incidentNotice}>
-                    ⚠ <strong>Degraded Performance:</strong> Elevated P99 write latency detected on partition 4.
+                    <AlertTriangle size={14} strokeWidth={2} aria-hidden="true" />
+                    <div>
+                      <strong>Degraded Performance:</strong> Elevated P99 write latency detected on partition 4.
+                    </div>
                   </div>
                 )}
               </div>

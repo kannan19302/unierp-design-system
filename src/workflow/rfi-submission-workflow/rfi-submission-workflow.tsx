@@ -1,4 +1,5 @@
 import React, { useId, useState } from "react";
+import { FileText } from "lucide-react";
 import styles from "./rfi-submission-workflow.module.css";
 
 export interface RfiAttachment {
@@ -305,9 +306,7 @@ export const RfiSubmissionWorkflow = React.forwardRef<
               <ul className={styles.attachmentList}>
                 {attachments.map((att) => (
                   <li key={att.id} className={styles.attachmentItem}>
-                    <div className={styles.fileIcon} aria-hidden="true">
-                      📄
-                    </div>
+                    <FileText size={16} strokeWidth={1.75} className={styles.fileIcon} aria-hidden="true" />
                     <div className={styles.fileDetails}>
                       <span className={styles.fileName}>{att.name}</span>
                       <span className={styles.fileSize}>

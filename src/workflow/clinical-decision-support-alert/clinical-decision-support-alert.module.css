@@ -10,16 +10,18 @@
 }
 
 .severity_critical {
-  border: 2px solid var(--color-danger);
-  box-shadow: 0 0 0 1px var(--color-danger);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 30%, var(--color-border));
+  box-shadow: var(--shadow-sm);
 }
 
 .severity_warning {
-  border: 2px solid var(--color-warning);
+  border: 1px solid color-mix(in srgb, var(--color-warning) 30%, var(--color-border));
+  box-shadow: var(--shadow-sm);
 }
 
 .severity_info {
-  border: 2px solid var(--color-brand);
+  border: 1px solid color-mix(in srgb, var(--color-brand) 30%, var(--color-border));
+  box-shadow: var(--shadow-sm);
 }
 
 .header {
@@ -44,30 +46,33 @@
 }
 
 .severityBadge {
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
   padding-block: var(--space-0-5);
   padding-inline: var(--space-2);
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
 }
 
 .badgeCritical {
-  background-color: var(--color-danger);
-  color: var(--color-surface);
+  background-color: var(--color-danger-subtle);
+  color: var(--color-danger);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 25%, transparent);
 }
 
 .badgeWarning {
-  background-color: var(--color-warning);
-  color: var(--color-surface);
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning);
+  border: 1px solid color-mix(in srgb, var(--color-warning) 25%, transparent);
 }
 
 .badgeInfo {
-  background-color: var(--color-brand);
-  color: var(--color-surface);
+  background-color: var(--color-brand-subtle);
+  color: var(--color-brand);
+  border: 1px solid color-mix(in srgb, var(--color-brand) 25%, transparent);
 }
 
 .alertIdTag {
@@ -78,19 +83,21 @@
   padding-block: var(--space-0-5);
   padding-inline: var(--space-1-5);
   border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .evidenceTag {
   font-size: var(--type-micro);
   color: var(--color-text-secondary);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
 }
 
 .title {
   margin: 0;
-  font-size: var(--text-lg);
-  font-weight: var(--weight-bold);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
+  letter-spacing: -0.01em;
 }
 
 .patientContext {
@@ -117,6 +124,7 @@
 
 .patientVal {
   color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .patientValMono {
@@ -126,12 +134,13 @@
 
 .alertVal {
   color: var(--color-danger);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .allergyVal {
   color: var(--color-danger);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
 }
 
 .body {
@@ -144,7 +153,7 @@
   padding-block: var(--space-2);
   padding-inline: var(--space-3);
   background-color: var(--color-surface-muted);
-  border-inline-start: var(--space-1) solid var(--color-danger);
+  border-inline-start: var(--border-width-accent, 3px) solid var(--color-danger);
   border-radius: var(--radius-sm);
 }
 
@@ -152,14 +161,15 @@
   font-size: var(--type-micro);
   color: var(--color-danger);
   text-transform: uppercase;
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.03em;
 }
 
 .triggerOrderText {
   margin: 0;
   margin-block-start: var(--space-1);
   font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
 }
 
@@ -174,10 +184,11 @@
 .sectionHeader {
   margin: 0;
   margin-block-end: var(--space-2);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
   color: var(--color-text-secondary);
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .explanationText {
@@ -212,8 +223,9 @@
   gap: var(--space-3);
   padding-block: var(--space-2);
   padding-inline: var(--space-3);
-  background-color: var(--color-success-subtle);
-  border: 1px solid var(--color-success);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-inline-start: var(--border-width-accent, 3px) solid var(--color-success);
   border-radius: var(--radius-sm);
 }
 
@@ -227,8 +239,8 @@
 .recTitle {
   margin: 0;
   font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
-  color: var(--color-success);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
 }
 
 .recDesc {
@@ -239,53 +251,69 @@
 
 .recDose {
   font-size: var(--type-micro);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
   color: var(--color-brand);
 }
 
 .acceptRecBtn {
-  padding-block: var(--space-2);
+  padding-block: var(--space-1-5);
   padding-inline: var(--space-3);
-  background-color: var(--color-success);
+  background-color: var(--color-brand);
   color: var(--color-surface);
   font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   white-space: nowrap;
+  transition: opacity 0.15s ease;
+}
+
+.acceptRecBtn:hover {
+  opacity: 0.9;
 }
 
 .buttonRow {
   display: flex;
   justify-content: flex-end;
-  gap: var(--space-3);
+  gap: var(--space-2);
   border-block-start: 1px solid var(--color-border-subtle);
   padding-block-start: var(--space-3);
 }
 
 .cancelOrderBtn {
-  padding-block: var(--space-2);
-  padding-inline: var(--space-4);
-  background-color: var(--color-danger);
-  color: var(--color-surface);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
+  background-color: var(--color-danger-subtle);
+  color: var(--color-danger);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 30%, transparent);
   font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  border: none;
+  font-weight: var(--weight-medium);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.cancelOrderBtn:hover {
+  background-color: color-mix(in srgb, var(--color-danger-subtle) 80%, var(--color-danger));
 }
 
 .openOverrideBtn {
-  padding-block: var(--space-2);
+  padding-block: var(--space-1-5);
   padding-inline: var(--space-3);
-  background-color: var(--color-surface-muted);
+  background-color: var(--color-surface);
   color: var(--color-text-secondary);
   font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  border: 1px solid var(--color-border-subtle);
+  font-weight: var(--weight-medium);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.openOverrideBtn:hover {
+  background-color: var(--color-surface-muted);
+  color: var(--color-text-primary);
 }
 
 .overrideSection {

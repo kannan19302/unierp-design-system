@@ -48,7 +48,15 @@
 }
 
 .iconTag {
-  font-size: var(--text-2xl, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--space-8);
+  block-size: var(--space-8);
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-brand);
 }
 
 .metaRow {
@@ -62,38 +70,44 @@
 .countryBadge {
   background-color: var(--color-surface-muted, #f1f5f9);
   color: var(--color-text-secondary, #475569);
-  padding: var(--space-1, 0.125rem) var(--space-2, 0.375rem);
+  padding: var(--space-0-5) var(--space-2, 0.375rem);
   border-radius: var(--radius-sm, 0.25rem);
-  font-size: var(--text-xs, 0.75rem);
+  font-size: var(--type-micro);
+  font-family: var(--font-mono);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .statusBadge {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-bold, 700);
-  padding: var(--space-1, 0.125rem) var(--space-2, 0.375rem);
-  border-radius: var(--radius-sm, 0.25rem);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
+  padding: var(--space-0-5) var(--space-2, 0.375rem);
+  border-radius: var(--radius-full);
 }
 
 .statusVerified {
   background-color: var(--color-success-subtle, #dcfce7);
   color: var(--color-success, #166534);
+  border: 1px solid color-mix(in srgb, var(--color-success) 25%, transparent);
 }
 
 .statusPending {
   background-color: var(--color-warning-subtle, #fef3c7);
   color: var(--color-warning, #92400e);
+  border: 1px solid color-mix(in srgb, var(--color-warning) 25%, transparent);
 }
 
 .statusError {
   background-color: var(--color-danger-subtle, #fee2e2);
   color: var(--color-danger, #991b1b);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 25%, transparent);
 }
 
 .title {
   margin: 0;
-  font-size: var(--text-lg, 1.125rem);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
   color: var(--color-text-primary, #0f172a);
+  letter-spacing: -0.01em;
 }
 
 .headerActions {
@@ -102,25 +116,41 @@
 }
 
 .viesBtn {
-  background-color: var(--color-surface-muted, #f1f5f9);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--color-surface);
   color: var(--color-text-primary, #0f172a);
   border: 1px solid var(--color-border-subtle, #cbd5e1);
   padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
   font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
+  font-weight: var(--weight-medium);
   cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.viesBtn:hover:not(:disabled) {
+  background-color: var(--color-surface-muted);
 }
 
 .approveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   background-color: var(--color-brand, #2563eb);
   color: var(--color-white, #ffffff);
   border: 1px solid transparent;
   padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
   font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
+  font-weight: var(--weight-medium);
   cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.approveBtn:hover {
+  opacity: 0.9;
 }
 
 .detailsRibbon {
@@ -152,7 +182,7 @@
 .ribbonMono {
   font-family: var(--font-mono);
   font-size: var(--text-sm, 0.875rem);
-  font-weight: var(--weight-bold, 700);
+  font-weight: var(--weight-medium);
   color: var(--color-brand, #2563eb);
 }
 
@@ -202,6 +232,7 @@
   color: var(--color-text-secondary, #475569);
   padding: var(--space-2, 0.375rem) var(--space-3, 0.75rem);
   border-block-end: 1px solid var(--color-border-subtle, #e2e8f0);
+  font-weight: var(--weight-medium);
 }
 
 .tableRow {
@@ -214,17 +245,26 @@
 
 .docTypeBadge {
   background-color: var(--color-surface-muted, #f1f5f9);
-  padding: var(--space-1, 0.125rem) var(--space-2, 0.375rem);
+  padding: var(--space-0-5) var(--space-2, 0.375rem);
   border-radius: var(--radius-sm, 0.25rem);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .fileCell {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   color: var(--color-text-primary, #0f172a);
 }
 
 .certStatus {
-  font-weight: var(--weight-semibold, 600);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
 }
 
 .certVerified {

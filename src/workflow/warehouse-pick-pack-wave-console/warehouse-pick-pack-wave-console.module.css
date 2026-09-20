@@ -47,11 +47,15 @@
 }
 
 .iconTag {
-  font-size: var(--text-xl, 1.25rem);
-  background-color: var(--color-surface-hover, #f8fafc);
-  padding: var(--space-2, 0.5rem);
-  border-radius: var(--radius-md, 0.375rem);
-  border: 1px solid var(--color-border, #e2e8f0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--space-8);
+  block-size: var(--space-8);
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-brand);
 }
 
 .metaRow {
@@ -64,20 +68,21 @@
 
 .waveBadge {
   font-family: var(--font-mono, monospace);
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
   background-color: var(--color-brand-muted, #eff6ff);
   color: var(--color-brand, #2563eb);
-  padding-block: 0.125rem;
-  padding-inline: 0.375rem;
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1-5);
   border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid color-mix(in srgb, var(--color-brand) 20%, transparent);
 }
 
 .priorityBadge {
-  font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-bold, 700);
-  padding-block: 0.125rem;
-  padding-inline: 0.375rem;
+  font-size: var(--type-micro);
+  font-weight: var(--weight-medium);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1-5);
   border-radius: var(--radius-sm, 0.25rem);
 }
 
@@ -272,9 +277,11 @@
 }
 
 .qtyNum {
-  font-family: var(--font-mono, monospace);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
   font-size: var(--text-xl, 1.25rem);
-  font-weight: var(--weight-bold, 700);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
   color: var(--color-brand, #1d4ed8);
 }
 
@@ -286,19 +293,19 @@
   padding-block: var(--space-2, 0.5rem);
   padding-inline: var(--space-4, 1rem);
   border-radius: var(--radius-md, 0.375rem);
-  border: 2px dashed var(--color-brand, #2563eb);
+  border: 1px dashed var(--color-brand, #2563eb);
 }
 
 .toteLabel {
   font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-bold, 700);
+  font-weight: var(--weight-medium);
   color: var(--color-text-secondary, #64748b);
 }
 
 .toteSlotName {
   font-family: var(--font-mono, monospace);
   font-size: var(--text-xl, 1.25rem);
-  font-weight: var(--weight-bold, 700);
+  font-weight: var(--weight-semibold);
   color: var(--color-brand, #2563eb);
 }
 
@@ -311,7 +318,7 @@
 
 .scanLabel {
   font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-bold, 700);
+  font-weight: var(--weight-medium);
   color: var(--color-text-primary, #0f172a);
 }
 
@@ -346,28 +353,41 @@
   padding-block: var(--space-2, 0.5rem);
   padding-inline: var(--space-4, 1rem);
   font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-bold, 700);
+  font-weight: var(--weight-medium);
   cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.verifyBtn:hover {
+  opacity: 0.9;
 }
 
 .shortageBtn {
   background: none;
-  border: 1px solid var(--color-warning-border, #f59e0b);
-  color: var(--color-warning-text, #b45309);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-danger);
   border-radius: var(--radius-sm, 0.25rem);
   padding-block: var(--space-2, 0.5rem);
   padding-inline: var(--space-3, 0.75rem);
   font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
+  font-weight: var(--weight-medium);
   cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.shortageBtn:hover {
+  background-color: var(--color-danger-subtle);
 }
 
 .feedbackBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
   padding-block: var(--space-2, 0.5rem);
   padding-inline: var(--space-3, 0.75rem);
   border-radius: var(--radius-sm, 0.25rem);
   font-size: var(--text-xs, 0.75rem);
-  font-weight: var(--weight-semibold, 600);
+  font-weight: var(--weight-medium);
 }
 
 .feedbackNeutral {
@@ -389,21 +409,27 @@
 .waveCompletedCard {
   text-align: center;
   padding: var(--space-6, 1.5rem);
-  background-color: var(--color-success-muted, #f0fdf4);
-  border: 2px solid var(--color-success, #16a34a);
+  background-color: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-success) 30%, var(--color-border));
   border-radius: var(--radius-md, 0.375rem);
+  box-shadow: var(--shadow-sm);
 }
 
 .completedIcon {
-  font-size: var(--text-2xl, 1.5rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-success);
+  margin-block-end: var(--space-2);
 }
 
 .completedTitle {
   margin-block-start: var(--space-2, 0.5rem);
   margin-block-end: var(--space-1, 0.25rem);
   margin-inline: 0;
-  color: var(--color-success-text, #166534);
+  color: var(--color-text-primary);
   font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--weight-semibold);
 }
 
 .completedDesc {
@@ -413,15 +439,20 @@
 }
 
 .completeWaveBtn {
-  background-color: var(--color-success, #16a34a);
-  color: var(--color-text-on-brand, #ffffff);
+  background-color: var(--color-brand);
+  color: var(--color-surface);
   border: none;
   border-radius: var(--radius-sm, 0.25rem);
   padding-block: var(--space-2, 0.5rem);
-  padding-inline: var(--space-5, 1.25rem);
-  font-size: var(--text-sm, 0.875rem);
-  font-weight: var(--weight-bold, 700);
+  padding-inline: var(--space-4, 1rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-medium);
   cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.completeWaveBtn:hover {
+  opacity: 0.9;
 }
 
 /* Cart Totes */

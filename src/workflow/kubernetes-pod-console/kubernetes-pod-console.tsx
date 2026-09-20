@@ -1,4 +1,5 @@
 import React, { useId, useState, useMemo } from "react";
+import { Cpu, Download, RotateCw, Box } from "lucide-react";
 import styles from "./kubernetes-pod-console.module.css";
 
 export type PodLifecycleStatus =
@@ -91,7 +92,7 @@ export const KubernetesPodConsole = React.forwardRef<
       <header className={styles.header}>
         <div className={styles.titleGroup}>
           <div className={styles.iconTag} aria-hidden="true">
-            ☸️
+            <Cpu size={18} strokeWidth={1.75} />
           </div>
           <div>
             <div className={styles.metaRow}>
@@ -128,7 +129,8 @@ export const KubernetesPodConsole = React.forwardRef<
               className={styles.secondaryBtn}
               onClick={onDownloadLogs}
             >
-              💾 Export Logs
+              <Download size={13} strokeWidth={1.75} />
+              Export Logs
             </button>
           )}
           {onRestartPod && (
@@ -137,7 +139,8 @@ export const KubernetesPodConsole = React.forwardRef<
               className={styles.restartBtn}
               onClick={() => onRestartPod(podName)}
             >
-              ↻ Restart Pod
+              <RotateCw size={13} strokeWidth={1.75} />
+              Restart Pod
             </button>
           )}
         </div>
@@ -157,7 +160,8 @@ export const KubernetesPodConsole = React.forwardRef<
               }`}
               onClick={() => handleContainerChange(c)}
             >
-              📦 {c}
+              <Box size={12} strokeWidth={1.75} />
+              {c}
             </button>
           ))}
         </div>

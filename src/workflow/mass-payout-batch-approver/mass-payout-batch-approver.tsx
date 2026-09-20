@@ -1,4 +1,5 @@
 import React, { useId, useState } from "react";
+import { CreditCard, Check, AlertOctagon, CheckCircle2, Clock, X } from "lucide-react";
 import styles from "./mass-payout-batch-approver.module.css";
 
 export type PaymentRailType = "ACH" | "SEPA" | "SWIFT" | "LOCAL_RAIL";
@@ -90,7 +91,7 @@ export const MassPayoutBatchApprover = React.forwardRef<
       <header className={styles.header}>
         <div className={styles.titleGroup}>
           <div className={styles.iconTag} aria-hidden="true">
-            💸
+            <CreditCard size={18} strokeWidth={1.75} />
           </div>
           <div>
             <div className={styles.metaRow}>
@@ -99,7 +100,7 @@ export const MassPayoutBatchApprover = React.forwardRef<
               {isAuthorized ? (
                 <span className={styles.authorizedBadge}>● Payout Authorized</span>
               ) : (
-                <span className={styles.pendingBadge}>● Dual-Approval Required</span>
+                <span className={styles.pendingBadge}>● Awaiting Dual-Signoff</span>
               )}
             </div>
             <h2 id={headingId} className={styles.title}>
@@ -108,34 +109,35 @@ export const MassPayoutBatchApprover = React.forwardRef<
           </div>
         </div>
 
-        {/* FX Rate Lock Timer & Refresh */}
+        {/* FX Rate Lock Countdown Banner */}
         <div className={styles.fxTimerBox}>
-          <span className={styles.fxLabel}>Live FX Rate Lock:</span>
-          <span className={styles.fxTimer}>
-            ⏱️ {Math.floor(fxRateLockSecondsRemaining / 60)}:
-            {String(fxRateLockSecondsRemaining % 60).padStart(2, "0")} remaining
-          </span>
+          <span className={styles.fxLabel}>FX Rate Lock:</span>
+          <span className={styles.fxTimer}>{fxRateLockSecondsRemaining}s remaining</span>
           {onRefreshFxRates && (
             <button
               type="button"
               className={styles.refreshBtn}
               onClick={() => onRefreshFxRates(batchId)}
             >
-              ↻ Refresh Rates
+              Refresh Rates
             </button>
           )}
         </div>
       </header>
 
-      {/* Financial Summary Ribbon */}
+      {/* Ribbon Summary Cards */}
       <div className={styles.summaryRibbon}>
         <div className={styles.ribbonItem}>
-          <span className={styles.ribbonLabel}>Total Recipients</span>
+          <span className={styles.ribbonLabel}>Total Payees</span>
           <span className={styles.ribbonValue}>{totalPayees}</span>
         </div>
         <div className={styles.ribbonItem}>
           <span className={styles.ribbonLabel}>Gross Batch Volume</span>
           <span className={styles.ribbonValue}>{formatCurrency(totalGrossAmount)}</span>
+        </div>
+        <div className={styles.ribbonItem}>
+          <span className={styles.ribbonLabel}>Reporting Currency</span>
+          <span className={styles.ribbonValue}>{reportingCurrency}</span>
         </div>
         <div className={styles.ribbonItem}>
           <span className={styles.ribbonLabel}>Sanctions Compliance</span>
@@ -144,9 +146,15 @@ export const MassPayoutBatchApprover = React.forwardRef<
               flaggedCount > 0 ? styles.ofacFlagged : styles.ofacPassed
             }`}
           >
-            {flaggedCount > 0
-              ? `⛔ ${flaggedCount} Flagged Payees (Action Required)`
-              : "✓ All 142 Payees OFAC Cleared"}
+            {flaggedCount > 0 ? (
+              <>
+                <AlertOctagon size={13} strokeWidth={2} /> {flaggedCount} Flagged Payees (Action Required)
+              </>
+            ) : (
+              <>
+                <CheckCircle2 size={13} strokeWidth={2} /> All 142 Payees OFAC Cleared
+              </>
+            )}
           </span>
         </div>
       </div>
@@ -179,7 +187,7 @@ export const MassPayoutBatchApprover = React.forwardRef<
             ) : (
               items.map((line) => (
                 <tr key={line.id} className={styles.tableRow}>
-                  <td><strong>{line.recipientName}</strong></td>
+                  <td><span className={styles.recipientName}>{line.recipientName}</span></td>
                   <td>{line.country}</td>
                   <td>
                     <span className={styles.railBadge}>{line.rail}</span>
@@ -203,11 +211,19 @@ export const MassPayoutBatchApprover = React.forwardRef<
                           : styles.screenPending
                       }`}
                     >
-                      {line.ofacScreeningStatus === "passed"
-                        ? "✓ Cleared"
-                        : line.ofacScreeningStatus === "flagged"
-                        ? "⛔ Sanctions Hold"
-                        : "⏳ Pending"}
+                      {line.ofacScreeningStatus === "passed" ? (
+                        <>
+                          <Check size={12} strokeWidth={2} /> Cleared
+                        </>
+                      ) : line.ofacScreeningStatus === "flagged" ? (
+                        <>
+                          <AlertOctagon size={12} strokeWidth={2} /> Sanctions Hold
+                        </>
+                      ) : (
+                        <>
+                          <Clock size={12} strokeWidth={2} /> Pending
+                        </>
+                      )}
                     </span>
                   </td>
                   <td className={styles.actionCell}>
@@ -218,7 +234,7 @@ export const MassPayoutBatchApprover = React.forwardRef<
                         onClick={() => onExcludeRecipient(batchId, line.id)}
                         aria-label={`Exclude ${line.recipientName} from batch`}
                       >
-                        ✕ Exclude
+                        <X size={12} strokeWidth={2} /> Exclude
                       </button>
                     )}
                   </td>
@@ -259,7 +275,13 @@ export const MassPayoutBatchApprover = React.forwardRef<
               className={styles.submitBtn}
               disabled={!tokenInput || isAuthorized || flaggedCount > 0}
             >
-              {isAuthorized ? "✓ Authorized" : "Authorize & Release Payout"}
+              {isAuthorized ? (
+                <>
+                  <Check size={13} strokeWidth={2} /> Authorized
+                </>
+              ) : (
+                "Authorize & Release Payout"
+              )}
             </button>
           </div>
         </form>

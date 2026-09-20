@@ -1,4 +1,5 @@
 import React, { useState, useId } from "react";
+import { AlertTriangle, Clock, Smartphone, Phone, MessageSquare, Mail, Zap } from "lucide-react";
 import styles from "./incident-escalation-tree.module.css";
 
 export type NotificationChannelType = "push" | "sms" | "phone" | "email" | "webhook";
@@ -89,15 +90,15 @@ export const IncidentEscalationTree = React.forwardRef<
   const getChannelIcon = (ch: NotificationChannelType) => {
     switch (ch) {
       case "push":
-        return "📱";
+        return <Smartphone size={11} strokeWidth={1.75} />;
       case "phone":
-        return "📞";
+        return <Phone size={11} strokeWidth={1.75} />;
       case "sms":
-        return "💬";
+        return <MessageSquare size={11} strokeWidth={1.75} />;
       case "email":
-        return "✉️";
+        return <Mail size={11} strokeWidth={1.75} />;
       case "webhook":
-        return "⚡";
+        return <Zap size={11} strokeWidth={1.75} />;
     }
   };
 
@@ -111,7 +112,9 @@ export const IncidentEscalationTree = React.forwardRef<
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.titleGroup}>
-          <div className={styles.iconBadge} aria-hidden="true">🚨</div>
+          <div className={styles.iconBadge} aria-hidden="true">
+            <AlertTriangle size={18} strokeWidth={1.75} />
+          </div>
           <div>
             <h2 id={headingId} className={styles.title}>{title}</h2>
             <p className={styles.subtitle}>
@@ -199,7 +202,7 @@ export const IncidentEscalationTree = React.forwardRef<
                   <div className={styles.connector} aria-hidden="true">
                     <div className={styles.connectorLine} />
                     <span className={styles.timeoutBadge}>
-                      ⏱️ Wait {tier.timeoutMinutes}m then escalate
+                      <Clock size={11} strokeWidth={1.75} /> Wait {tier.timeoutMinutes}m then escalate
                     </span>
                     <div className={styles.connectorLine} />
                   </div>

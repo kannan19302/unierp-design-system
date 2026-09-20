@@ -1,4 +1,5 @@
 import { forwardRef, useId, useState } from "react";
+import { Check } from "lucide-react";
 import styles from "./dsar-request-lifecycle-manager.module.css";
 
 export type DsarStage =
@@ -131,7 +132,7 @@ export const DsarRequestLifecycleManager = forwardRef<
                 aria-current={isCurrent ? "step" : undefined}
               >
                 <span className={styles.stepDot}>
-                  {isCompleted ? "✓" : idx + 1}
+                  {isCompleted ? <Check size={11} strokeWidth={2.5} aria-hidden="true" /> : idx + 1}
                 </span>
                 <span className={styles.stepLabel}>{step.label}</span>
               </li>

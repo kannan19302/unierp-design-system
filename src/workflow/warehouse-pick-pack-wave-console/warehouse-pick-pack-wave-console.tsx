@@ -1,4 +1,5 @@
-import { forwardRef, useId, useState } from "react";
+import React, { forwardRef, useId, useState } from "react";
+import { Package, CheckCircle2, AlertTriangle } from "lucide-react";
 import styles from "./warehouse-pick-pack-wave-console.module.css";
 
 export interface PickTask {
@@ -87,7 +88,7 @@ export const WarehousePickPackWaveConsole = forwardRef<HTMLElement, WarehousePic
       if (trimmed === activeTask.sku.toUpperCase() || trimmed === activeTask.locationBarcode.toUpperCase()) {
         setScanFeedback({
           type: "success",
-          message: `✓ Verified: Scanned ${trimmed} matches active item. Place in ${activeTask.targetToteSlot}.`,
+          message: `Verified: Scanned ${trimmed} matches active item. Place in ${activeTask.targetToteSlot}.`,
         });
         // Mark active task completed
         setTasks((prev) =>
@@ -100,7 +101,7 @@ export const WarehousePickPackWaveConsole = forwardRef<HTMLElement, WarehousePic
       } else {
         setScanFeedback({
           type: "error",
-          message: `⛔ Barcode mismatch: Scanned "${trimmed}" does not match expected SKU "${activeTask.sku}".`,
+          message: `Barcode mismatch: Scanned "${trimmed}" does not match expected SKU "${activeTask.sku}".`,
         });
       }
     };
@@ -109,7 +110,7 @@ export const WarehousePickPackWaveConsole = forwardRef<HTMLElement, WarehousePic
       if (!activeTask) return;
       setScanFeedback({
         type: "error",
-        message: `⚠️ Shortage reported for line ${activeTask.sku}. Supervisor notified.`,
+        message: `Shortage reported for line ${activeTask.sku}. Supervisor notified.`,
       });
       setTasks((prev) =>
         prev.map((t, idx) =>
@@ -131,7 +132,7 @@ export const WarehousePickPackWaveConsole = forwardRef<HTMLElement, WarehousePic
         <header className={styles.header}>
           <div className={styles.titleGroup}>
             <div className={styles.iconTag} aria-hidden="true">
-              📦
+              <Package size={18} strokeWidth={1.75} />
             </div>
             <div>
               <div className={styles.metaRow}>
@@ -244,13 +245,21 @@ export const WarehousePickPackWaveConsole = forwardRef<HTMLElement, WarehousePic
                 role="status"
                 aria-live="polite"
               >
-                {scanFeedback.message}
+                {scanFeedback.type === "success" && (
+                  <CheckCircle2 size={15} strokeWidth={2} aria-hidden="true" />
+                )}
+                {scanFeedback.type === "error" && (
+                  <AlertTriangle size={15} strokeWidth={2} aria-hidden="true" />
+                )}
+                <span>{scanFeedback.message}</span>
               </div>
             </form>
           </div>
         ) : (
           <div className={styles.waveCompletedCard}>
-            <span className={styles.completedIcon} aria-hidden="true">🎉</span>
+            <div className={styles.completedIcon} aria-hidden="true">
+              <CheckCircle2 size={32} strokeWidth={1.75} />
+            </div>
             <h3 className={styles.completedTitle}>All Wave Picks Completed!</h3>
             <p className={styles.completedDesc}>
               All {totalTasks} lines have been picked and staged into totes. Proceed to packing station.

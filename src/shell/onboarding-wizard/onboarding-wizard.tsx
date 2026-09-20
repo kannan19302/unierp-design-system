@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Check, Eye, EyeOff } from "lucide-react";
 import styles from "./onboarding-wizard.module.css";
 
 // ============================================================================
@@ -149,7 +150,7 @@ export const OnboardingStepper: React.FC<StepperProps> = ({ activeStep }) => {
           }`}
           aria-current={activeStep === 1 ? "step" : undefined}
         >
-          {activeStep > 1 ? "✓" : "1"}
+          {activeStep > 1 ? <Check size={12} strokeWidth={2.5} aria-hidden="true" /> : "1"}
         </span>
         <span>Account</span>
       </div>
@@ -175,7 +176,7 @@ export const OnboardingStepper: React.FC<StepperProps> = ({ activeStep }) => {
           }`}
           aria-current={activeStep === 2 ? "step" : undefined}
         >
-          {activeStep > 2 ? "✓" : "2"}
+          {activeStep > 2 ? <Check size={12} strokeWidth={2.5} aria-hidden="true" /> : "2"}
         </span>
         <span>Security</span>
       </div>
@@ -288,7 +289,7 @@ export const RegistrationCard: React.FC<RegistrationCardProps> = ({
                   className={`${styles.trailingIcon} ${styles.successIcon}`}
                   aria-hidden="true"
                 >
-                  ✓
+                  <Check size={14} strokeWidth={2} />
                 </span>
               )}
             </div>
@@ -318,7 +319,7 @@ export const RegistrationCard: React.FC<RegistrationCardProps> = ({
                     className={`${styles.trailingIcon} ${styles.successIcon}`}
                     aria-hidden="true"
                   >
-                    ✓
+                    <Check size={14} strokeWidth={2} />
                   </span>
                 )}
               </div>
@@ -347,7 +348,7 @@ export const RegistrationCard: React.FC<RegistrationCardProps> = ({
                     className={`${styles.trailingIcon} ${styles.successIcon}`}
                     aria-hidden="true"
                   >
-                    ✓
+                    <Check size={14} strokeWidth={2} />
                   </span>
                 )}
               </div>
@@ -377,7 +378,7 @@ export const RegistrationCard: React.FC<RegistrationCardProps> = ({
                   className={`${styles.trailingIcon} ${styles.successIcon}`}
                   aria-hidden="true"
                 >
-                  ✓
+                  <Check size={14} strokeWidth={2} />
                 </span>
               )}
             </div>
@@ -405,7 +406,11 @@ export const RegistrationCard: React.FC<RegistrationCardProps> = ({
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? "🙈" : "👁"}
+                {showPassword ? (
+                  <EyeOff size={15} strokeWidth={1.75} aria-hidden="true" />
+                ) : (
+                  <Eye size={15} strokeWidth={1.75} aria-hidden="true" />
+                )}
               </button>
             </div>
           </div>

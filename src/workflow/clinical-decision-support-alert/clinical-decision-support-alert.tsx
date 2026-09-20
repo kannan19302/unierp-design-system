@@ -1,4 +1,5 @@
 import React, { forwardRef, useId, useState } from "react";
+import { AlertOctagon, AlertTriangle, Info } from "lucide-react";
 import styles from "./clinical-decision-support-alert.module.css";
 
 export type CdsSeverity = "critical" | "warning" | "info";
@@ -83,19 +84,19 @@ export const ClinicalDecisionSupportAlert = forwardRef<
           return {
             label: "CRITICAL SAFETY CONTRAINDICATION",
             className: styles.badgeCritical,
-            icon: "🛑",
+            icon: <AlertOctagon size={13} strokeWidth={2} />,
           };
         case "warning":
           return {
             label: "HIGH RISK CLINICAL ADVISORY",
             className: styles.badgeWarning,
-            icon: "⚠️",
+            icon: <AlertTriangle size={13} strokeWidth={2} />,
           };
         default:
           return {
             label: "CLINICAL GUIDELINE RECOMMENDATION",
             className: styles.badgeInfo,
-            icon: "ℹ️",
+            icon: <Info size={13} strokeWidth={2} />,
           };
       }
     };

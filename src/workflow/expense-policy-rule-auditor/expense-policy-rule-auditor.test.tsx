@@ -50,7 +50,7 @@ describe("ExpensePolicyRuleAuditor", () => {
     ).toBeDefined();
     expect(screen.getByText("Elena Rostova")).toBeDefined();
     expect(screen.getByText("Grand Hyatt San Francisco")).toBeDefined();
-    expect(screen.getByText("⛔ BLOCKING VIOLATION")).toBeDefined();
+    expect(screen.getByText(/BLOCKING VIOLATION/i)).toBeDefined();
     expect(screen.getByText(/Room rate exceeds maximum allowable/i)).toBeDefined();
   });
 

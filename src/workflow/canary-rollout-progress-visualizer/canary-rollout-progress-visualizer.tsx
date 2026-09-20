@@ -1,4 +1,5 @@
 import React, { forwardRef, useId, useState } from "react";
+import { GitBranch, Pause, Check, AlertOctagon } from "lucide-react";
 import styles from "./canary-rollout-progress-visualizer.module.css";
 
 export type CanaryStatus = "analyzing" | "paused" | "promoted" | "aborted";
@@ -98,19 +99,22 @@ export const CanaryRolloutProgressVisualizer = forwardRef<
         case "paused":
           return (
             <span className={`${styles.statusBadge} ${styles.statusPaused}`}>
-              ⏸️ ROLLOUT PAUSED
+              <Pause size={12} strokeWidth={2} aria-hidden="true" />
+              <span>ROLLOUT PAUSED</span>
             </span>
           );
         case "promoted":
           return (
             <span className={`${styles.statusBadge} ${styles.statusPromoted}`}>
-              ✓ 100% PROMOTED
+              <Check size={12} strokeWidth={2} aria-hidden="true" />
+              <span>100% PROMOTED</span>
             </span>
           );
         case "aborted":
           return (
             <span className={`${styles.statusBadge} ${styles.statusAborted}`}>
-              🛑 ROLLED BACK (ABORTED)
+              <AlertOctagon size={12} strokeWidth={2} aria-hidden="true" />
+              <span>ROLLED BACK (ABORTED)</span>
             </span>
           );
       }
@@ -128,7 +132,7 @@ export const CanaryRolloutProgressVisualizer = forwardRef<
         <header className={styles.header}>
           <div className={styles.titleGroup}>
             <div className={styles.iconTag} aria-hidden="true">
-              🐤
+              <GitBranch size={18} strokeWidth={1.75} />
             </div>
             <div>
               <div className={styles.metaRow}>

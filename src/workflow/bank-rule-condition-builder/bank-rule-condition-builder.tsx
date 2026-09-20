@@ -1,4 +1,5 @@
 import React, { forwardRef, useId, useState } from "react";
+import { Zap, X, FlaskConical, Check, AlertOctagon } from "lucide-react";
 import styles from "./bank-rule-condition-builder.module.css";
 
 export type RuleField = "description" | "amount" | "payee" | "reference";
@@ -192,7 +193,7 @@ export const BankRuleConditionBuilder = forwardRef<
         <header className={styles.header}>
           <div className={styles.titleGroup}>
             <div className={styles.iconTag} aria-hidden="true">
-              ⚡
+              <Zap size={18} strokeWidth={1.75} />
             </div>
             <div>
               <div className={styles.metaRow}>
@@ -352,7 +353,7 @@ export const BankRuleConditionBuilder = forwardRef<
                     disabled={conditions.length <= 1}
                     aria-label={`Remove condition ${idx + 1}`}
                   >
-                    ✕
+                    <X size={14} strokeWidth={2} aria-hidden="true" />
                   </button>
                 </div>
               ))}
@@ -451,7 +452,8 @@ export const BankRuleConditionBuilder = forwardRef<
           <div className={styles.simulatorCard}>
             <div className={styles.simHeader}>
               <span className={styles.simTitle}>
-                🧪 Test Rule Against Sample Feed Line
+                <FlaskConical size={14} strokeWidth={1.75} style={{ verticalAlign: "-2px", marginRight: "var(--space-1-5)" }} aria-hidden="true" />
+                Test Rule Against Sample Feed Line
               </span>
               <button
                 type="button"
@@ -475,9 +477,17 @@ export const BankRuleConditionBuilder = forwardRef<
                 }`}
                 role="status"
               >
-                {simResult
-                  ? "✓ RULE MATCH SUCCESSFUL: Statement line will automatically trigger GL 6120 allocation."
-                  : "⛔ RULE DID NOT MATCH: Statement line fails one or more configured conditions."}
+                {simResult ? (
+                  <>
+                    <Check size={14} strokeWidth={2} aria-hidden="true" />
+                    <span>RULE MATCH SUCCESSFUL: Statement line will automatically trigger GL 6120 allocation.</span>
+                  </>
+                ) : (
+                  <>
+                    <AlertOctagon size={14} strokeWidth={2} aria-hidden="true" />
+                    <span>RULE DID NOT MATCH: Statement line fails one or more configured conditions.</span>
+                  </>
+                )}
               </div>
             )}
           </div>
