@@ -101,20 +101,20 @@ export const EnterpriseFinanceWorkbench: StoryObj = {
         {/* 2. Workspace Multi-Document Session Tabs */}
         <WorkspaceTabs
           tabs={[
-            { id: "matter-trust", title: "MATTER-7702 (Acme Corp)", icon: <Scale size={14} />, dirty: false, pinned: true },
-            { id: "batch-recon", title: "Sept Batch Reconciliation", icon: <FileText size={14} />, dirty: true },
-            { id: "audit-stream", title: "Trust Audit Trail", icon: <Clock size={14} /> },
+            { id: "matter-trust", title: "MATTER-7702 (Acme Corp)", icon: <Scale size={13} />, dirty: false, pinned: true },
+            { id: "batch-recon", title: "Sept Batch Reconciliation", icon: <FileText size={13} />, dirty: true },
+            { id: "audit-stream", title: "Trust Audit Trail", icon: <Clock size={13} /> },
           ]}
           activeTabId={activeTab}
           onSelectTab={setActiveTab}
         />
 
-        {/* 3. Screen Page Header */}
-        <div style={{ padding: "var(--space-4) var(--space-6) 0 var(--space-6)" }}>
+        {/* 3. Screen Page Header with Integrated Actions and Status */}
+        <div style={{ padding: "var(--space-3) var(--space-6) 0 var(--space-6)", borderBottom: "1px solid var(--color-border-default)", background: "var(--color-bg-elevated)" }}>
           <PageHeader
             title="Matter IOLTA Trust Accounting & Escrow Ledger"
             subtitle="Acme Global Holdings Corp • Corporate Reorganization & Antitrust Defense"
-            badge={<Badge variant="success">Compliant</Badge>}
+            badge={<Badge variant="success">IOLTA Compliant</Badge>}
             actions={
               <div style={{ display: "flex", gap: "var(--space-2)" }}>
                 <Button variant="secondary" size="sm">Audit Log</Button>
@@ -124,8 +124,8 @@ export const EnterpriseFinanceWorkbench: StoryObj = {
           />
         </div>
 
-        {/* 4. Executive KPI Stat Cards */}
-        <div style={{ padding: "var(--space-4) var(--space-6)" }}>
+        {/* 4. Executive KPI Stat Cards — Seamless Hairline Strip */}
+        <div style={{ padding: "var(--space-4) var(--space-6)", background: "var(--color-bg)" }}>
           <StatCardRow
             columns={4}
             stats={[
@@ -134,7 +134,7 @@ export const EnterpriseFinanceWorkbench: StoryObj = {
                 value: "$54,100.00",
                 change: 14.2,
                 changeLabel: "vs prior month",
-                icon: <DollarSign size={16} />,
+                icon: <DollarSign size={15} />,
                 color: "var(--color-primary)",
               },
               {
@@ -142,7 +142,7 @@ export const EnterpriseFinanceWorkbench: StoryObj = {
                 value: "$10,000.00",
                 change: 0,
                 changeLabel: "Contractual buffer",
-                icon: <ShieldCheck size={16} />,
+                icon: <ShieldCheck size={15} />,
                 color: "var(--color-success)",
               },
               {
@@ -150,7 +150,7 @@ export const EnterpriseFinanceWorkbench: StoryObj = {
                 value: "$25,000.00",
                 change: -5.4,
                 changeLabel: "1 transaction awaiting ACH",
-                icon: <Clock size={16} />,
+                icon: <Clock size={15} />,
                 color: "var(--color-warning)",
               },
               {
@@ -158,7 +158,7 @@ export const EnterpriseFinanceWorkbench: StoryObj = {
                 value: "$20,900.00",
                 change: 8.7,
                 changeLabel: "Transferred to operating",
-                icon: <ArrowUpRight size={16} />,
+                icon: <ArrowUpRight size={15} />,
                 color: "var(--color-info)",
               },
             ]}
@@ -169,21 +169,18 @@ export const EnterpriseFinanceWorkbench: StoryObj = {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 340px",
-            gap: "var(--space-6)",
-            padding: "0 var(--space-6) var(--space-6) var(--space-6)",
+            gridTemplateColumns: "1fr 320px",
+            gap: 0,
+            borderTop: "1px solid var(--color-border-default)",
+            background: "var(--color-bg-elevated)",
             flex: 1,
           }}
         >
           {/* Main Grid View */}
           <div
             style={{
-              backgroundColor: "var(--color-bg-elevated)",
-              border: "1px solid var(--color-border)",
-              borderRadius: "var(--radius-md)",
-              padding: "var(--space-4)",
-              boxShadow: "var(--shadow-sm)",
-              overflow: "hidden",
+              padding: "var(--space-5)",
+              overflow: "auto",
             }}
           >
             <MatterTrustLedger
@@ -197,8 +194,8 @@ export const EnterpriseFinanceWorkbench: StoryObj = {
             />
           </div>
 
-          {/* Right Context FactBox Sidebar */}
-          <div>
+          {/* Right Context FactBox Sidebar Docked Flush */}
+          <div style={{ borderLeft: "1px solid var(--color-border-default)", background: "var(--color-bg)" }}>
             <FactBox title="Account Intelligence" density="compact">
               <FactBoxTile title="Three-Way Balance Check">
                 <FactBoxMetric

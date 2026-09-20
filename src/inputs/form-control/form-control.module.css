@@ -29,12 +29,16 @@
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
   background: var(--surface-1-bg, var(--color-bg-elevated));
-  border: 1px solid var(--surface-1-border, var(--color-border));
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-default, var(--color-border));
+  border-radius: var(--radius-sm, 6px);
   outline: none;
   transition: border-color var(--duration-fast) var(--ease-default),
               box-shadow var(--duration-fast) var(--ease-default);
   box-sizing: border-box;
+}
+
+.control:hover:not(:disabled) {
+  border-color: var(--color-border-strong, #94a3b8);
 }
 
 .control:focus {

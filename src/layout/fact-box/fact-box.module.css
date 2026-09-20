@@ -82,16 +82,16 @@
 .tilesContainer {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-3);
+  gap: var(--space-4, 16px);
+  padding: var(--space-4, 16px);
 }
 
 /* ── Tile Card ── */
 .tile {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-sm, 6px);
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -99,8 +99,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-block: var(--space-2);
-  padding-inline: var(--space-3);
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-3, 12px);
   background-color: var(--color-bg-subtle);
   border-block-end: 1px solid var(--color-border-default);
 }
