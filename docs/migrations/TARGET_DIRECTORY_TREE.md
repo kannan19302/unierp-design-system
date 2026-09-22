@@ -12,7 +12,7 @@ The UniERP Design System is organized around two principal logical and physical 
 1. **`src/core/`**: Shared foundations, tokens, themes, styles, atomic primitives, inputs, forms, filters, feedback, data-display, high-density data grids, navigation, overlays, charts, layout shells, enterprise patterns, and screen templates.
 2. **`src/platforms/`**: Platform-specific presentation components owned strictly by the design system, subdivided by application where justified (`provider-admin`, `tenant-admin`, `business-suite`, `developer-platform`, `marketing`, `identity`, `marketplace`, `sites`, `mobile`, `desktop`).
 3. **`adapters/`**: Native client adapters (e.g. Flutter native adapter `adapters/flutter/`).
-4. **Root Compatibility Layer (`src/<category>/`)**: 100% backward-compatible re-export barrels (`export * from "../core/<category>";`) and CSS redirects (`@import "../core/tokens/...";`). **Zero physical component implementations reside in root `src/`**, eliminating duplicate source code and enforcing single source of truth.
+4. **Clean Root Directory (`src/`)**: `src/` contains solely `core/`, `platforms/`, `index.ts`, and `css.d.ts`. Zero legacy duplicate folders reside in `src/`. 100% backward compatibility for all 48 subpaths is handled through `package.json` `"exports"` pointing directly to `./dist/core/...`, ensuring consumer imports continue without change.
 
 ---
 

@@ -19,154 +19,178 @@
       "require": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./styles": "./dist/styles/globals.css",
-    "./tokens/design-tokens.css": "./dist/tokens/design-tokens.css",
-    "./tokens/base.css": "./dist/tokens/base.css",
-    "./tokens/charts.css": "./dist/tokens/charts.css",
-    "./tokens/index.css": "./dist/tokens/index.css",
-    "./tokens/studio.css": "./dist/tokens/studio.css",
-    "./tokens/v2/index.css": "./dist/tokens/v2/index.css",
-    "./tokens/v2": "./dist/tokens/v2/index.css",
-    "./tokens/tokens.json": "./dist/tokens/tokens.g.json",
-    "./tokens/themes/*": "./dist/tokens/themes/*",
+    "./styles": "./dist/core/styles/globals.css",
+    "./styles.css": "./dist/core/styles/globals.css",
+    "./tokens/design-tokens.css": "./dist/core/tokens/design-tokens.css",
+    "./tokens/base.css": "./dist/core/tokens/base.css",
+    "./tokens/charts.css": "./dist/core/tokens/charts.css",
+    "./tokens/index.css": "./dist/core/tokens/index.css",
+    "./tokens/studio.css": "./dist/core/tokens/studio.css",
+    "./tokens/v2/index.css": "./dist/core/tokens/v2/index.css",
+    "./tokens/v2": "./dist/core/tokens/v2/index.css",
+    "./tokens/tokens.json": "./dist/core/tokens/tokens.g.json",
+    "./tokens/themes/*": "./dist/core/tokens/themes/*",
     "./tokens": {
-      "types": "./dist/tokens/index.d.ts",
-      "import": "./dist/tokens/index.js",
-      "require": "./dist/tokens/index.js",
-      "default": "./dist/tokens/index.js"
+      "types": "./dist/core/tokens/index.d.ts",
+      "import": "./dist/core/tokens/index.js",
+      "require": "./dist/core/tokens/index.js",
+      "default": "./dist/core/tokens/index.js"
     },
     "./theme": {
-      "types": "./dist/theme/index.d.ts",
-      "import": "./dist/theme/index.js",
-      "require": "./dist/theme/index.js",
-      "default": "./dist/theme/index.js"
+      "types": "./dist/core/theme/index.d.ts",
+      "import": "./dist/core/theme/index.js",
+      "require": "./dist/core/theme/index.js",
+      "default": "./dist/core/theme/index.js"
     },
     "./components": {
-      "types": "./dist/components/index.d.ts",
-      "import": "./dist/components/index.js",
-      "require": "./dist/components/index.js",
-      "default": "./dist/components/index.js"
+      "types": "./dist/core/components/index.d.ts",
+      "import": "./dist/core/components/index.js",
+      "require": "./dist/core/components/index.js",
+      "default": "./dist/core/components/index.js"
     },
     "./brand": {
-      "types": "./dist/brand/index.d.ts",
-      "import": "./dist/brand/index.js",
-      "require": "./dist/brand/index.js",
-      "default": "./dist/brand/index.js"
+      "types": "./dist/core/brand/index.d.ts",
+      "import": "./dist/core/brand/index.js",
+      "require": "./dist/core/brand/index.js",
+      "default": "./dist/core/brand/index.js"
     },
     "./layout": {
-      "types": "./dist/layout/index.d.ts",
-      "import": "./dist/layout/index.js",
-      "require": "./dist/layout/index.js",
-      "default": "./dist/layout/index.js"
+      "types": "./dist/core/layout/index.d.ts",
+      "import": "./dist/core/layout/index.js",
+      "require": "./dist/core/layout/index.js",
+      "default": "./dist/core/layout/index.js"
     },
     "./charts": {
-      "types": "./dist/charts/index.d.ts",
-      "import": "./dist/charts/index.js",
-      "require": "./dist/charts/index.js",
-      "default": "./dist/charts/index.js"
+      "types": "./dist/core/charts/index.d.ts",
+      "import": "./dist/core/charts/index.js",
+      "require": "./dist/core/charts/index.js",
+      "default": "./dist/core/charts/index.js"
     },
     "./data-grid": {
-      "types": "./dist/data-grid/index.d.ts",
-      "import": "./dist/data-grid/index.js",
-      "require": "./dist/data-grid/index.js",
-      "default": "./dist/data-grid/index.js"
+      "types": "./dist/core/data-grid/index.d.ts",
+      "import": "./dist/core/data-grid/index.js",
+      "require": "./dist/core/data-grid/index.js",
+      "default": "./dist/core/data-grid/index.js"
     },
     "./dashboard": {
-      "types": "./dist/dashboard/index.d.ts",
-      "import": "./dist/dashboard/index.js",
-      "require": "./dist/dashboard/index.js",
-      "default": "./dist/dashboard/index.js"
+      "types": "./dist/core/dashboard/index.d.ts",
+      "import": "./dist/core/dashboard/index.js",
+      "require": "./dist/core/dashboard/index.js",
+      "default": "./dist/core/dashboard/index.js"
     },
     "./notifications": {
-      "types": "./dist/notifications/index.d.ts",
-      "import": "./dist/notifications/index.js",
-      "require": "./dist/notifications/index.js",
-      "default": "./dist/notifications/index.js"
+      "types": "./dist/core/notifications/index.d.ts",
+      "import": "./dist/core/notifications/index.js",
+      "require": "./dist/core/notifications/index.js",
+      "default": "./dist/core/notifications/index.js"
     },
     "./hooks": {
-      "types": "./dist/hooks/index.d.ts",
-      "import": "./dist/hooks/index.js",
-      "require": "./dist/hooks/index.js",
-      "default": "./dist/hooks/index.js"
+      "types": "./dist/core/hooks/index.d.ts",
+      "import": "./dist/core/hooks/index.js",
+      "require": "./dist/core/hooks/index.js",
+      "default": "./dist/core/hooks/index.js"
     },
     "./utils": {
-      "types": "./dist/utils/index.d.ts",
-      "import": "./dist/utils/index.js",
-      "require": "./dist/utils/index.js",
-      "default": "./dist/utils/index.js"
+      "types": "./dist/core/utils/index.d.ts",
+      "import": "./dist/core/utils/index.js",
+      "require": "./dist/core/utils/index.js",
+      "default": "./dist/core/utils/index.js"
     },
     "./icons": {
-      "types": "./dist/icons/index.d.ts",
-      "import": "./dist/icons/index.js",
-      "require": "./dist/icons/index.js",
-      "default": "./dist/icons/index.js"
+      "types": "./dist/core/icons/index.d.ts",
+      "import": "./dist/core/icons/index.js",
+      "require": "./dist/core/icons/index.js",
+      "default": "./dist/core/icons/index.js"
     },
     "./form-engine": {
-      "types": "./dist/form-engine/index.d.ts",
-      "import": "./dist/form-engine/index.js",
-      "require": "./dist/form-engine/index.js",
-      "default": "./dist/form-engine/index.js"
+      "types": "./dist/core/form-engine/index.d.ts",
+      "import": "./dist/core/form-engine/index.js",
+      "require": "./dist/core/form-engine/index.js",
+      "default": "./dist/core/form-engine/index.js"
     },
     "./workflow": {
-      "types": "./dist/workflow/index.d.ts",
-      "import": "./dist/workflow/index.js",
-      "require": "./dist/workflow/index.js",
-      "default": "./dist/workflow/index.js"
+      "types": "./dist/core/workflow/index.d.ts",
+      "import": "./dist/core/workflow/index.js",
+      "require": "./dist/core/workflow/index.js",
+      "default": "./dist/core/workflow/index.js"
     },
-    "./styles.css": "./dist/styles.css",
     "./shell": {
-      "types": "./dist/shell/index.d.ts",
-      "import": "./dist/shell/index.js",
-      "require": "./dist/shell/index.js",
-      "default": "./dist/shell/index.js"
+      "types": "./dist/core/shell/index.d.ts",
+      "import": "./dist/core/shell/index.js",
+      "require": "./dist/core/shell/index.js",
+      "default": "./dist/core/shell/index.js"
     },
     "./primitives": {
-      "types": "./dist/primitives/index.d.ts",
-      "import": "./dist/primitives/index.js",
-      "require": "./dist/primitives/index.js",
-      "default": "./dist/primitives/index.js"
+      "types": "./dist/core/primitives/index.d.ts",
+      "import": "./dist/core/primitives/index.js",
+      "require": "./dist/core/primitives/index.js",
+      "default": "./dist/core/primitives/index.js"
     },
     "./inputs": {
-      "types": "./dist/inputs/index.d.ts",
-      "import": "./dist/inputs/index.js",
-      "require": "./dist/inputs/index.js",
-      "default": "./dist/inputs/index.js"
+      "types": "./dist/core/inputs/index.d.ts",
+      "import": "./dist/core/inputs/index.js",
+      "require": "./dist/core/inputs/index.js",
+      "default": "./dist/core/inputs/index.js"
     },
     "./overlays": {
-      "types": "./dist/overlays/index.d.ts",
-      "import": "./dist/overlays/index.js",
-      "require": "./dist/overlays/index.js",
-      "default": "./dist/overlays/index.js"
+      "types": "./dist/core/overlays/index.d.ts",
+      "import": "./dist/core/overlays/index.js",
+      "require": "./dist/core/overlays/index.js",
+      "default": "./dist/core/overlays/index.js"
     },
     "./navigation": {
-      "types": "./dist/navigation/index.d.ts",
-      "import": "./dist/navigation/index.js",
-      "require": "./dist/navigation/index.js",
-      "default": "./dist/navigation/index.js"
+      "types": "./dist/core/navigation/index.d.ts",
+      "import": "./dist/core/navigation/index.js",
+      "require": "./dist/core/navigation/index.js",
+      "default": "./dist/core/navigation/index.js"
     },
     "./data-display": {
-      "types": "./dist/data-display/index.d.ts",
-      "import": "./dist/data-display/index.js",
-      "require": "./dist/data-display/index.js",
-      "default": "./dist/data-display/index.js"
+      "types": "./dist/core/data-display/index.d.ts",
+      "import": "./dist/core/data-display/index.js",
+      "require": "./dist/core/data-display/index.js",
+      "default": "./dist/core/data-display/index.js"
     },
     "./forms": {
-      "types": "./dist/forms/index.d.ts",
-      "import": "./dist/forms/index.js",
-      "require": "./dist/forms/index.js",
-      "default": "./dist/forms/index.js"
+      "types": "./dist/core/forms/index.d.ts",
+      "import": "./dist/core/forms/index.js",
+      "require": "./dist/core/forms/index.js",
+      "default": "./dist/core/forms/index.js"
     },
     "./blocks": {
-      "types": "./dist/blocks/index.d.ts",
-      "import": "./dist/blocks/index.js",
-      "require": "./dist/blocks/index.js",
-      "default": "./dist/blocks/index.js"
+      "types": "./dist/core/blocks/index.d.ts",
+      "import": "./dist/core/blocks/index.js",
+      "require": "./dist/core/blocks/index.js",
+      "default": "./dist/core/blocks/index.js"
     },
     "./studio": {
-      "types": "./dist/studio/index.d.ts",
-      "import": "./dist/studio/index.js",
-      "require": "./dist/studio/index.js",
-      "default": "./dist/studio/index.js"
+      "types": "./dist/core/studio/index.d.ts",
+      "import": "./dist/core/studio/index.js",
+      "require": "./dist/core/studio/index.js",
+      "default": "./dist/core/studio/index.js"
+    },
+    "./filters": {
+      "types": "./dist/core/filters/index.d.ts",
+      "import": "./dist/core/filters/index.js",
+      "require": "./dist/core/filters/index.js",
+      "default": "./dist/core/filters/index.js"
+    },
+    "./feedback": {
+      "types": "./dist/core/feedback/index.d.ts",
+      "import": "./dist/core/feedback/index.js",
+      "require": "./dist/core/feedback/index.js",
+      "default": "./dist/core/feedback/index.js"
+    },
+    "./patterns": {
+      "types": "./dist/core/patterns/index.d.ts",
+      "import": "./dist/core/patterns/index.js",
+      "require": "./dist/core/patterns/index.js",
+      "default": "./dist/core/patterns/index.js"
+    },
+    "./templates": {
+      "types": "./dist/core/templates/index.d.ts",
+      "import": "./dist/core/templates/index.js",
+      "require": "./dist/core/templates/index.js",
+      "default": "./dist/core/templates/index.js"
     },
     "./core": {
       "types": "./dist/core/index.d.ts",

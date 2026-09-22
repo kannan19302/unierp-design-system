@@ -23,6 +23,7 @@ export * from "./patterns";
 export * from "./templates";
 export * from "./hooks";
 export * from "./utils";
+export * as Icons from "./icons";
 
 // Explicit non-conflicting exports from workflow, form-engine, notifications
 export {
