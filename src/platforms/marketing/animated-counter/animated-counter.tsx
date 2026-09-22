@@ -7,6 +7,8 @@ export interface AnimatedCounterProps {
   suffix?: string;
   decimals?: number;
   durationMs?: number;
+  /** Duration in seconds (compatibility alias for durationMs) */
+  duration?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -26,12 +28,14 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   prefix = '',
   suffix = '',
   decimals = 0,
-  durationMs = 1200,
+  durationMs,
+  duration,
   className = '',
   style,
 }) => {
   const [displayValue, setDisplayValue] = useState<number>(0);
   const elementRef = useRef<HTMLSpanElement>(null);
+  const effectiveDurationMs = durationMs ?? (duration !== undefined ? duration * 1000 : 1200);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -43,7 +47,7 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
       typeof window.matchMedia === 'function'
         ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
         : false;
-    if (prefersReducedMotion || durationMs <= 0) {
+    if (prefersReducedMotion || effectiveDurationMs <= 0) {
       setDisplayValue(value);
       return;
     }
@@ -57,7 +61,7 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const elapsed = timestamp - startTimestamp;
-      const progress = Math.min(elapsed / durationMs, 1);
+      const progress = Math.min(elapsed / effectiveDurationMs, 1);
 
       // Ease-out cubic curve
       const easeOut = 1 - Math.pow(1 - progress, 3);
@@ -76,7 +80,7 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [value, durationMs]);
+  }, [value, effectiveDurationMs]);
 
   return (
     <span

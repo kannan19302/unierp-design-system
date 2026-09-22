@@ -28,7 +28,14 @@ import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const TOKENS = join(HERE, "..", "src", "tokens");
-const OUT_DIR = resolve(HERE, "..", "..", "unierp-mobile", "lib", "src", "tokens");
+const ADAPTER_FLUTTER_DIR = resolve(HERE, "..", "adapters", "flutter", "lib", "src", "tokens");
+const ADAPTER_FLUTTER_FILE = join(ADAPTER_FLUTTER_DIR, "tokens.g.dart");
+
+const MOBILE_CANDIDATES = [
+  resolve(HERE, "..", "..", "mobile", "lib", "src", "tokens"),
+  resolve(HERE, "..", "..", "unierp-mobile", "lib", "src", "tokens"),
+];
+const OUT_DIR = MOBILE_CANDIDATES.find((dir) => existsSync(resolve(dir, "..", "..", ".."))) ?? MOBILE_CANDIDATES[0];
 const OUT_FILE = join(OUT_DIR, "tokens.g.dart");
 
 // Second target: the Tauri desktop shell. It has no bundler and no
@@ -397,12 +404,6 @@ ${emitScale("strata")}
 // The mobile repository is a sibling checkout and is often simply not present —
 // in CI for this package, in a shallow clone, on a machine that only does web.
 // A gate that fails because a DIFFERENT repository is missing is a gate people
-// switch off, so absence is skipped and only real drift fails.
-if (!existsSync(resolve(OUT_DIR, "..", "..", ".."))) {
-  console.log("  skip  unierp-mobile not checked out — nothing to compare");
-  process.exit(0);
-}
-
 if (CHECK_ONLY) {
   if (existsSync(DESKTOP_DIR)) {
     const currentCss = existsSync(DESKTOP_FILE) ? readFileSync(DESKTOP_FILE, "utf8") : "";
@@ -425,15 +426,28 @@ if (CHECK_ONLY) {
     process.exit(1);
   }
 
-  const current = existsSync(OUT_FILE) ? readFileSync(OUT_FILE, "utf8") : "";
-  if (current !== dart) {
-    console.error(
-      "  FAIL  unierp-mobile tokens have drifted from the design system.\n" +
-        "        Run: node scripts/generate-cross-platform-tokens.mjs",
-    );
-    process.exit(1);
+  if (existsSync(ADAPTER_FLUTTER_FILE)) {
+    const currentAdapter = readFileSync(ADAPTER_FLUTTER_FILE, "utf8");
+    if (currentAdapter !== dart) {
+      console.error(
+        "  FAIL  Flutter adapter tokens have drifted from the design system.\n" +
+          "        Run: node scripts/generate-cross-platform-tokens.mjs",
+      );
+      process.exit(1);
+    }
   }
-  console.log("  ok    mobile and platform tokens match the design system");
+
+  if (existsSync(resolve(OUT_DIR, "..", "..", ".."))) {
+    const current = existsSync(OUT_FILE) ? readFileSync(OUT_FILE, "utf8") : "";
+    if (current !== dart) {
+      console.error(
+        "  FAIL  mobile tokens have drifted from the design system.\n" +
+          "        Run: node scripts/generate-cross-platform-tokens.mjs",
+      );
+      process.exit(1);
+    }
+  }
+  console.log("  ok    mobile, desktop, and adapter tokens match the design system");
   process.exit(0);
 }
 
@@ -444,9 +458,15 @@ if (existsSync(DIST_TOKENS_DIR)) {
   writeFileSync(DIST_JSON_FILE, json);
 }
 
-if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
-writeFileSync(OUT_FILE, dart);
-console.log(`  ok    Dart tokens generated from meridian → ${OUT_FILE}`);
+if (!existsSync(ADAPTER_FLUTTER_DIR)) mkdirSync(ADAPTER_FLUTTER_DIR, { recursive: true });
+writeFileSync(ADAPTER_FLUTTER_FILE, dart);
+console.log(`  ok    Dart adapter tokens generated → ${ADAPTER_FLUTTER_FILE}`);
+
+if (existsSync(resolve(OUT_DIR, "..", "..", ".."))) {
+  if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
+  writeFileSync(OUT_FILE, dart);
+  console.log(`  ok    Dart tokens generated → ${OUT_FILE}`);
+}
 
 if (existsSync(DESKTOP_DIR)) {
   writeFileSync(DESKTOP_FILE, css);

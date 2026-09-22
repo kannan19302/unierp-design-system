@@ -95,6 +95,63 @@ function scanCategory(category) {
   return components;
 }
 
+function scanPlatforms() {
+  const platDir = join(SRC_DIR, "platforms");
+  if (!existsSync(platDir)) return [];
+  const components = [];
+  const platforms = readdirSync(platDir);
+
+  for (const plat of platforms) {
+    const fullPlat = join(platDir, plat);
+    if (!statSync(fullPlat).isDirectory()) continue;
+
+    const subEntries = readdirSync(fullPlat);
+    const dirsToScan = [];
+    if (subEntries.includes("shared") && statSync(join(fullPlat, "shared")).isDirectory()) {
+      dirsToScan.push({ base: join(fullPlat, "shared"), prefix: `platforms/${plat}/shared` });
+    }
+    dirsToScan.push({ base: fullPlat, prefix: `platforms/${plat}` });
+
+    for (const { base, prefix } of dirsToScan) {
+      for (const entry of readdirSync(base)) {
+        const full = join(base, entry);
+        if (!statSync(full).isDirectory() || entry === "shared" || entry === "applications") continue;
+
+        const files = readdirSync(full);
+        const hasSource = files.some(
+          (f) =>
+            (f.endsWith(".tsx") || f.endsWith(".ts")) &&
+            !f.endsWith(".stories.tsx") &&
+            !f.endsWith(".test.tsx") &&
+            !f.endsWith(".stories.ts") &&
+            !f.endsWith(".test.ts") &&
+            f !== "index.ts" &&
+            f !== "index.tsx"
+        );
+        const hasCssModule = files.some((f) => f.endsWith(".module.css"));
+        const hasStory = files.some((f) => f.endsWith(".stories.tsx") || f.endsWith(".stories.ts"));
+        const hasTest = files.some((f) => f.endsWith(".test.tsx") || f.endsWith(".test.ts"));
+        const hasIndex = files.includes("index.ts") || files.includes("index.tsx");
+
+        if (hasSource || hasIndex) {
+          components.push({
+            name: entry,
+            category: prefix,
+            path: `src/${prefix}/${entry}`,
+            hasSource,
+            hasCssModule,
+            hasStory,
+            hasTest,
+            hasIndex,
+            isConformant5FileAnatomy: hasSource && hasCssModule && hasStory && hasTest && hasIndex,
+          });
+        }
+      }
+    }
+  }
+  return components;
+}
+
 const inventory = {
   packageName: PKG_JSON.name,
   packageVersion: PKG_JSON.version,
@@ -122,6 +179,18 @@ for (const cat of SUBPATH_CATEGORIES) {
     if (c.hasTest) inventory.totals.totalTests++;
     if (c.isConformant5FileAnatomy) inventory.totals.fullyConformant5FileComponents++;
   }
+}
+
+const platformComps = scanPlatforms();
+inventory.categories["platforms"] = {
+  count: platformComps.length,
+  components: platformComps,
+};
+inventory.totals.totalComponents += platformComps.length;
+for (const c of platformComps) {
+  if (c.hasStory) inventory.totals.totalStories++;
+  if (c.hasTest) inventory.totals.totalTests++;
+  if (c.isConformant5FileAnatomy) inventory.totals.fullyConformant5FileComponents++;
 }
 
 if (!existsSync(join(ROOT, "dist"))) {
