@@ -48,6 +48,10 @@ const VALID_CATEGORIES = [
   "components",
   "form-engine",
   "workflow",
+  "filters",
+  "feedback",
+  "patterns",
+  "templates",
 ];
 
 const CANONICAL_PREFIXES = [
@@ -65,6 +69,8 @@ const CANONICAL_PREFIXES = [
   "Charts/",
   "Dashboard/",
   "Workflow/",
+  "Core/",
+  "Platforms/",
 ];
 
 let totalScanned = 0;
@@ -72,7 +78,9 @@ let errors = [];
 let warnings = [];
 
 for (const category of VALID_CATEGORIES) {
-  const catDir = join(SRC_DIR, category);
+  const catDir = existsSync(join(SRC_DIR, "core", category))
+    ? join(SRC_DIR, "core", category)
+    : join(SRC_DIR, category);
   if (!existsSync(catDir)) continue;
 
   const entries = readdirSync(catDir);

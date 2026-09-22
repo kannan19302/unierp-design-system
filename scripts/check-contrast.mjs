@@ -19,8 +19,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-
-const TOKENS_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "src", "tokens");
+const TOKENS_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "src", "core", "tokens");
 
 /* ── colour ─────────────────────────────────────────────────────────────── */
 

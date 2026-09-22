@@ -42,6 +42,10 @@ const SUBPATH_CATEGORIES = [
   "components",
   "form-engine",
   "workflow",
+  "filters",
+  "feedback",
+  "patterns",
+  "templates",
 ];
 
 const FLOORPLANS = [
@@ -55,7 +59,7 @@ const FLOORPLANS = [
 ];
 
 function scanCategory(category) {
-  const catDir = join(SRC_DIR, category);
+  const catDir = join(SRC_DIR, "core", category);
   if (!existsSync(catDir)) return [];
 
   const components = [];
@@ -85,7 +89,7 @@ function scanCategory(category) {
       components.push({
         name: entry,
         category,
-        path: `src/${category}/${entry}`,
+        path: `src/core/${category}/${entry}`,
         hasSource,
         hasCssModule,
         hasStory,
@@ -160,7 +164,7 @@ if (process.argv.includes("--test-fail-closed")) {
   const mockComponent = {
     name: "mock-broken",
     category: "primitives",
-    path: "src/primitives/mock-broken",
+    path: "src/core/primitives/mock-broken",
     hasSource: true,
     hasCssModule: false,
     hasStory: true,
@@ -241,7 +245,7 @@ console.log(`  ok    100% Vitest unit & a11y test coverage (${totalTests}/${tota
 for (const fp of FLOORPLANS) {
   const comp = scanCategory(fp.category).find((c) => c.name === fp.folder);
   if (!comp) {
-    console.error(`  FAIL  Canonical floorplan missing: ${fp.name} (src/${fp.category}/${fp.folder})`);
+    console.error(`  FAIL  Canonical floorplan missing: ${fp.name} (src/core/${fp.category}/${fp.folder})`);
     process.exit(1);
   }
 }

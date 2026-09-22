@@ -1,2 +1,2 @@
-export * from "./logo";
-export { BrandMark, type BrandMarkProps } from "../primitives/brand-mark";
+// Backward-compatibility re-export barrel (PLATFORM_ARCHITECTURE.md § 7.2)
+export * from "../core/brand";

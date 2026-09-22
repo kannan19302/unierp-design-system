@@ -14,15 +14,15 @@ import { join, resolve } from "node:path";
 const ROOT = resolve(".");
 
 const REQUIRED_DENSITY_FILES = [
-  "src/tokens/v2/density.css",
-  "src/tokens/v2/typography.css",
-  "src/primitives/button/button.module.css",
-  "src/inputs/form-control/form-control.module.css",
-  "src/inputs/combobox/combobox.module.css",
-  "src/inputs/date-picker/date-picker.module.css",
-  "src/navigation/tabs/tabs.module.css",
-  "src/data-display/card/card.module.css",
-  "src/data-grid/table/table.tsx",
+  "src/core/tokens/v2/density.css",
+  "src/core/tokens/v2/typography.css",
+  "src/core/primitives/button/button.module.css",
+  "src/core/inputs/form-control/form-control.module.css",
+  "src/core/inputs/combobox/combobox.module.css",
+  "src/core/inputs/date-picker/date-picker.module.css",
+  "src/core/navigation/tabs/tabs.module.css",
+  "src/core/data-display/card/card.module.css",
+  "src/core/data-grid/table/table.tsx",
 ];
 
 let failed = false;
@@ -50,8 +50,8 @@ for (const rel of REQUIRED_DENSITY_FILES) {
 // ── Verify minimum text size constraint (>= 11px / 0.6875rem) ──
 console.log("\nChecking minimum text size across density modes (>= 11px / 0.6875rem)...");
 
-const densityCssPath = join(ROOT, "src/tokens/v2/density.css");
-const typographyCssPath = join(ROOT, "src/tokens/v2/typography.css");
+const densityCssPath = join(ROOT, "src/core/tokens/v2/density.css");
+const typographyCssPath = join(ROOT, "src/core/tokens/v2/typography.css");
 
 if (existsSync(densityCssPath)) {
   const content = readFileSync(densityCssPath, "utf-8");

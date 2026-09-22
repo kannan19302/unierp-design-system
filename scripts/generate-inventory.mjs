@@ -39,6 +39,10 @@ const SUBPATH_CATEGORIES = [
   "components",
   "form-engine",
   "workflow",
+  "filters",
+  "feedback",
+  "patterns",
+  "templates",
 ];
 
 const FLOORPLANS = [
@@ -52,7 +56,7 @@ const FLOORPLANS = [
 ];
 
 function scanCategory(category) {
-  const catDir = join(SRC_DIR, category);
+  const catDir = join(SRC_DIR, "core", category);
   if (!existsSync(catDir)) return [];
 
   const components = [];
@@ -82,7 +86,7 @@ function scanCategory(category) {
       components.push({
         name: entry,
         category,
-        path: `src/${category}/${entry}`,
+        path: `src/core/${category}/${entry}`,
         hasSource,
         hasCssModule,
         hasStory,

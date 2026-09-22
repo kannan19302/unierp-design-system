@@ -17,6 +17,10 @@ export * from "./charts";
 export * from "./theme";
 export * from "./blocks";
 export * from "./brand";
+export * from "./filters";
+export * from "./feedback";
+export * from "./patterns";
+export * from "./templates";
 export * from "./hooks";
 export * from "./utils";
 

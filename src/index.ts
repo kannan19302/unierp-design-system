@@ -240,4 +240,6 @@ export {
 } from "./notifications";
 
 export * as Platforms from "./platforms";
+export * from "./platforms";
+export * from "./core";
 

@@ -1,0 +1,90 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(var(--space-1, 4px));
+  z-index: 9999;
+  padding: var(--spacing-md, 16px);
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-sm, 12px);
+  padding: var(--spacing-lg, 24px);
+  background-color: var(--color-surface, var(--color-text-inverse));
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-lg, 8px);
+  box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1));
+  font-family: var(--font-sans, inherit);
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: var(--breakpoint-sm, 400px);
+}
+
+.iconArea {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--type-lg-size, 1.125rem);
+  font-weight: 600;
+  color: var(--color-text-primary, #0f172a);
+}
+
+.description {
+  margin: 0;
+  font-size: var(--density-compact-size, 0.8125rem);
+  color: var(--color-text-muted, var(--color-text-muted));
+  line-height: 1.5;
+}
+
+.countdown {
+  font-family: var(--font-mono, monospace);
+  color: var(--color-danger, #ef4444);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm, 10px);
+  margin-block-start: var(--spacing-xs, 8px);
+  inline-size: 100%;
+}
+
+.signOutBtn,
+.extendBtn {
+  flex: 1;
+  min-block-size: var(--density-comfortable, 36px);
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--density-compact-size, 0.8125rem);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.signOutBtn {
+  background: transparent;
+  border: 1px solid var(--color-border, var(--color-border));
+  color: var(--color-text-primary, #0f172a);
+}
+
+.signOutBtn:hover {
+  background-color: var(--color-surface-subtle, #f8fafc);
+}
+
+.extendBtn {
+  background-color: var(--color-brand-600, #2563eb);
+  border: 1px solid var(--color-brand-600, #2563eb);
+  color: var(--color-text-inverse);
+}
+
+.extendBtn:hover {
+  background-color: var(--color-brand-700, #1d4ed8);
+}

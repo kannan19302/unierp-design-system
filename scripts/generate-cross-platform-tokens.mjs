@@ -27,7 +27,8 @@ import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const TOKENS = join(HERE, "..", "src", "tokens");
+const TOKENS = join(HERE, "..", "src", "core", "tokens");
+const LEGACY_TOKENS = join(HERE, "..", "src", "tokens");
 const ADAPTER_FLUTTER_DIR = resolve(HERE, "..", "adapters", "flutter", "lib", "src", "tokens");
 const ADAPTER_FLUTTER_FILE = join(ADAPTER_FLUTTER_DIR, "tokens.g.dart");
 
@@ -452,6 +453,9 @@ if (CHECK_ONLY) {
 }
 
 writeFileSync(JSON_FILE, json);
+if (existsSync(LEGACY_TOKENS)) {
+  writeFileSync(join(LEGACY_TOKENS, "tokens.g.json"), json);
+}
 console.log(`  ok    JSON token dictionary generated → ${JSON_FILE}`);
 
 if (existsSync(DIST_TOKENS_DIR)) {
