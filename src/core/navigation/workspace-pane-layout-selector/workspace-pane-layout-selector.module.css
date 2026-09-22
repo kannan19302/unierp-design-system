@@ -1,0 +1,112 @@
+.paneBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  background-color: var(--color-surface);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  gap: var(--space-2);
+}
+
+.togglesGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.paneToggleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  border: var(--border-width-thin) solid var(--color-border);
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.paneToggleBtn:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.paneToggleActive {
+  background-color: var(--color-primary-subtle);
+  border-color: var(--color-primary-border);
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.presetsGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.presetBtn {
+  background: none;
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--radius-xs);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.presetBtn:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.presetActive {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-primary);
+}
+
+.kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-text-tertiary);
+}
+
+/* Density overrides */
+.paneBar[data-density="ultra-compact"] {
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
+}
+
+.paneBar[data-density="ultra-compact"] .paneToggleBtn {
+  padding-block: 0;
+  padding-inline: var(--space-1);
+  font-size: var(--text-2xs);
+}
+
+.paneBar[data-density="compact"] {
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
+}
+
+.paneBar[data-density="standard"] {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+}
+
+.paneBar[data-density="comfortable"] {
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
+}

@@ -1,0 +1,195 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--space-8, 2rem);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-elevated, var(--color-surface));
+  cursor: pointer;
+  transition: all var(--duration-fast, 150ms) ease;
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-primary);
+  user-select: none;
+  box-shadow: var(--shadow-xs, var(--shadow-sm));
+}
+
+.pill:hover {
+  border-color: var(--color-primary);
+  background: var(--color-surface-hover, var(--color-surface-secondary));
+  box-shadow: var(--shadow-sm);
+}
+
+.pillActive {
+  border-color: var(--color-primary);
+  outline: 2px solid var(--color-primary-subtle, var(--color-primary));
+}
+
+.gaugeWrapper {
+  position: relative;
+  width: 1.125rem;
+  height: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gaugeSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.gaugeBg {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 2.5;
+}
+
+.gaugeProgress {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--duration-normal, 300ms) ease;
+}
+
+.title {
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.percent {
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.chevron {
+  color: var(--color-text-tertiary);
+  transition: transform var(--duration-fast, 150ms) ease;
+  margin-inline-start: 2px;
+}
+
+.chevronRotated {
+  transform: rotate(180deg);
+}
+
+.drawer {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  inset-inline-end: 0;
+  width: 20rem;
+  max-width: calc(100vw - var(--space-8));
+  background: var(--color-surface-elevated, var(--color-surface));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-4);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  animation: drawerIn var(--duration-fast, 150ms) ease-out;
+}
+
+@keyframes drawerIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.drawerTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary);
+}
+
+.drawerPercent {
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-primary);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  transition: background var(--duration-fast, 150ms) ease;
+  gap: var(--space-2);
+}
+
+.item:hover {
+  background: var(--color-surface-sunken, var(--color-surface-secondary));
+}
+
+.itemCompleted {
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+.itemLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.actionBtn {
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  transition: background var(--duration-fast, 150ms) ease;
+}
+
+.actionBtn:hover {
+  background: var(--color-primary-subtle, var(--color-surface-secondary));
+  text-decoration: underline;
+}

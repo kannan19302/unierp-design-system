@@ -1,0 +1,93 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Tag Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5, 6px);
+  padding: var(--space-0-5, 2px) var(--space-2, 8px);
+  font-family: var(--font-sans);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  border: 1px solid transparent;
+  user-select: none;
+  box-sizing: border-box;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.rounded {
+  border-radius: var(--radius-md, 6px);
+}
+
+.pill {
+  border-radius: var(--radius-full, 9999px);
+}
+
+.label {
+  display: inline-block;
+}
+
+.removeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  width: var(--space-3-5, 14px);
+  height: var(--space-3-5, 14px);
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.75;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.removeBtn:hover {
+  opacity: 1;
+  background-color: var(--color-bg-hover);
+}
+
+.removeBtn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring, 0 0 0 2px var(--color-focus));
+  opacity: 1;
+}
+
+.default {
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  color: var(--surface-text-primary, var(--color-text));
+  border-color: var(--surface-1-border, var(--color-border));
+}
+
+.primary {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.success {
+  background: var(--color-success-light);
+  color: var(--color-success-text);
+  border-color: var(--color-success);
+}
+
+.warning {
+  background: var(--color-warning-light);
+  color: var(--color-warning-text);
+  border-color: var(--color-warning);
+}
+
+.danger {
+  background: var(--color-danger-light);
+  color: var(--color-danger-text);
+  border-color: var(--color-danger);
+}
+
+.info {
+  background: var(--color-info-light);
+  color: var(--color-info-text);
+  border-color: var(--color-info);
+}

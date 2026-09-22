@@ -1,0 +1,155 @@
+.navStrip {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+}
+
+.horizontal {
+  flex-direction: row;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--space-2);
+  padding-block-end: var(--space-1);
+  border-block-end: 1px solid var(--color-border-subtle);
+}
+
+.title {
+  font-size: var(--text-2xs);
+  font-weight: var(--font-weight-bold, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.itemList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.horizontal .itemList {
+  flex-direction: row;
+  align-items: center;
+}
+
+.itemButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-2-5);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  text-align: start;
+  transition: all var(--duration-fast, 150ms) ease;
+}
+
+.itemButton:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.itemButtonActive {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold, 600);
+  border-color: var(--color-primary-border);
+}
+
+.itemLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.itemLabel {
+  white-space: nowrap;
+}
+
+.itemRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.badge {
+  font-size: var(--text-2xs);
+  font-weight: var(--font-weight-semibold, 600);
+  padding-block: 0;
+  padding-inline: var(--space-1-5);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-secondary);
+}
+
+.statusIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--space-3-5, 0.875rem);
+  block-size: var(--space-3-5, 0.875rem);
+  border-radius: var(--radius-full);
+  font-size: var(--text-2xs);
+  line-height: 1;
+}
+
+.statusCompleted {
+  color: var(--color-success);
+}
+
+.statusError {
+  color: var(--color-danger);
+}
+
+.statusWarning {
+  color: var(--color-warning);
+}
+
+.statusPending {
+  color: var(--color-text-tertiary);
+}
+
+/* Density overrides */
+.navStrip[data-density="ultra-compact"] .itemButton {
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1-5);
+  font-size: var(--text-2xs);
+}
+
+.navStrip[data-density="compact"] .itemButton {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+}
+
+.navStrip[data-density="standard"] .itemButton {
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-2-5);
+}
+
+.navStrip[data-density="comfortable"] .itemButton {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+}

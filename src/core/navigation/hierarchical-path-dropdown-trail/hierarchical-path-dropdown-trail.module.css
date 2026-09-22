@@ -1,0 +1,187 @@
+.trailNav {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
+  box-sizing: border-box;
+  inline-size: 100%;
+  gap: var(--space-1-5);
+}
+
+.trailList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.segmentItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.segmentBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: all var(--duration-fast, 150ms) ease;
+}
+
+.segmentBtn:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.segmentCurrent {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold, 700);
+  background-color: var(--color-primary-subtle);
+}
+
+.chevron {
+  font-size: var(--text-2xs);
+  color: var(--color-text-tertiary);
+  user-select: none;
+}
+
+.dropdownMenu {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-1));
+  inset-inline-start: 0;
+  inline-size: 16rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-overlay, 50);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.searchInput {
+  inline-size: 100%;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  font-size: var(--text-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.siblingList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-block-size: 12rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.siblingBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-2);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  text-align: start;
+}
+
+.siblingBtn:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.siblingCurrent {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+.actionsSection {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.copyBtn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  font-size: var(--text-2xs);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast, 150ms) ease;
+}
+
+.copyBtn:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+/* Density overrides */
+.trailNav[data-density="ultra-compact"] {
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
+}
+
+.trailNav[data-density="ultra-compact"] .segmentBtn {
+  padding-block: 0;
+  padding-inline: var(--space-1);
+  font-size: var(--text-2xs);
+}
+
+.trailNav[data-density="compact"] {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+}
+
+.trailNav[data-density="standard"] {
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
+}
+
+.trailNav[data-density="comfortable"] {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+}

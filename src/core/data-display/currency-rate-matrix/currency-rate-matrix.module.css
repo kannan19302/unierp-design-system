@@ -1,0 +1,350 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 2.0 — CurrencyRateMatrix
+   Inspired by Mercury Banking OS (#45) & SAP S/4HANA FX (#12)
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-surface, var(--color-bg-elevated));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+/* ── Toolbar ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.baseInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+  font-size: var(--text-xs);
+}
+
+.globeIcon {
+  color: var(--color-primary);
+}
+
+.baseLabel {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+}
+
+.baseBadge {
+  background-color: var(--color-primary);
+  color: var(--color-white, #ffffff);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-bold);
+  padding: var(--space-0-5, 2px) var(--space-2, var(--space-1));
+  border-radius: var(--radius-sm);
+}
+
+.searchBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: var(--space-48, 192px);
+  max-width: var(--space-80, 320px);
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--space-2-5, var(--space-2));
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2) 0 var(--space-8, var(--space-6));
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary, var(--color-text));
+  font-size: var(--text-xs);
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.toolBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2-5, var(--space-2));
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary, var(--color-text));
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.toolBtn:hover {
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+}
+
+.toolBtnActive {
+  background-color: var(--color-primary-subtle, rgba(14, 165, 233, 0.15));
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.toolBtn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ── Inline Calculator Ribbon ── */
+.calcBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-primary-subtle, rgba(14, 165, 233, 0.08));
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.calcInputGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+}
+
+.calcLabel {
+  font-weight: var(--weight-bold);
+  font-size: var(--text-xs);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.calcInput {
+  width: var(--space-24, 96px);
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary, var(--color-text));
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  box-sizing: border-box;
+}
+
+.calcSelect {
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary, var(--color-text));
+  font-size: var(--text-xs);
+  box-sizing: border-box;
+}
+
+.calcArrow {
+  color: var(--color-text-muted);
+}
+
+.calcResult {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  padding-left: var(--space-2);
+}
+
+.calcRateNote {
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  margin-left: auto;
+}
+
+/* ── High-Density Rate Table ── */
+.tableScroll {
+  overflow-x: auto;
+  max-height: var(--space-96, 384px);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-xs);
+  text-align: left;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-2xs, var(--text-xs));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: var(--space-1-5, var(--space-1)) var(--space-2-5, var(--space-2));
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1;
+}
+
+.numericCol {
+  text-align: right;
+}
+
+.row {
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  height: var(--density-row-height, 32px);
+  transition: background-color var(--transition-fast, 150ms ease);
+}
+
+.row:hover {
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.currencyCell {
+  padding: 0 var(--space-2-5, var(--space-2));
+}
+
+.currencyGroup {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-1-5, var(--space-1));
+}
+
+.flag {
+  font-size: var(--text-xs);
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.name {
+  color: var(--color-text-muted);
+  font-size: var(--text-2xs, var(--text-xs));
+}
+
+.rateCell,
+.inverseCell {
+  padding: 0 var(--space-2-5, var(--space-2));
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+}
+
+.rateCell {
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.inverseCell {
+  color: var(--color-text-muted);
+  font-size: var(--text-2xs, var(--text-xs));
+}
+
+.deltaCell {
+  padding: 0 var(--space-2-5, var(--space-2));
+}
+
+.deltaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-0-5, 2px) var(--space-1-5, var(--space-1));
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-bold);
+}
+
+.deltaPositive {
+  background-color: var(--color-success-subtle, rgba(16, 185, 129, 0.15));
+  color: var(--color-success, #10b981);
+}
+
+.deltaNegative {
+  background-color: var(--color-danger-subtle, rgba(239, 68, 68, 0.15));
+  color: var(--color-danger, #ef4444);
+}
+
+.sourceCell {
+  padding: 0 var(--space-2-5, var(--space-2));
+}
+
+.providerTag {
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-muted);
+  background-color: var(--color-bg-subtle);
+  padding: var(--space-0-5, 2px) var(--space-1-5, var(--space-1));
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.timeCell {
+  padding: 0 var(--space-2-5, var(--space-2));
+}
+
+.timeGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-2xs, var(--text-xs));
+}
+
+.timeIcon {
+  color: var(--color-text-muted);
+}
+
+/* ── 4-Tier Density ── */
+.container[data-density="ultra-compact"] .row {
+  height: var(--density-row-height);
+}
+
+.container[data-density="compact"] .row {
+  height: var(--density-row-height);
+}
+
+.container[data-density="standard"] .row {
+  height: var(--density-row-height);
+}
+
+.container[data-density="comfortable"] .row {
+  height: var(--density-row-height);
+}

@@ -3,7 +3,8 @@ import path from 'path';
 
 const config: StorybookConfig = {
   stories: [
-    '../../src/**/*.stories.@(ts|tsx)',
+    '../../src/core/**/*.stories.@(ts|tsx)',
+    '../../src/platforms/**/*.stories.@(ts|tsx)',
   ],
   addons: ['@storybook/addon-essentials', '@storybook/addon-links', '@storybook/addon-a11y'],
   framework: {

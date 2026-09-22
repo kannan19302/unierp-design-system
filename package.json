@@ -167,10 +167,64 @@
       "import": "./dist/studio/index.js",
       "require": "./dist/studio/index.js",
       "default": "./dist/studio/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js",
+      "require": "./dist/core/index.js",
+      "default": "./dist/core/index.js"
+    },
+    "./core/*": {
+      "types": "./dist/core/*/index.d.ts",
+      "import": "./dist/core/*/index.js",
+      "require": "./dist/core/*/index.js",
+      "default": "./dist/core/*/index.js"
+    },
+    "./platforms": {
+      "types": "./dist/platforms/index.d.ts",
+      "import": "./dist/platforms/index.js",
+      "require": "./dist/platforms/index.js",
+      "default": "./dist/platforms/index.js"
+    },
+    "./platforms/provider-admin": {
+      "types": "./dist/platforms/provider-admin/index.d.ts",
+      "import": "./dist/platforms/provider-admin/index.js",
+      "require": "./dist/platforms/provider-admin/index.js",
+      "default": "./dist/platforms/provider-admin/index.js"
+    },
+    "./platforms/business-suite": {
+      "types": "./dist/platforms/business-suite/index.d.ts",
+      "import": "./dist/platforms/business-suite/index.js",
+      "require": "./dist/platforms/business-suite/index.js",
+      "default": "./dist/platforms/business-suite/index.js"
+    },
+    "./platforms/tenant-admin": {
+      "types": "./dist/platforms/tenant-admin/index.d.ts",
+      "import": "./dist/platforms/tenant-admin/index.js",
+      "require": "./dist/platforms/tenant-admin/index.js",
+      "default": "./dist/platforms/tenant-admin/index.js"
+    },
+    "./platforms/developer-platform": {
+      "types": "./dist/platforms/developer-platform/index.d.ts",
+      "import": "./dist/platforms/developer-platform/index.js",
+      "require": "./dist/platforms/developer-platform/index.js",
+      "default": "./dist/platforms/developer-platform/index.js"
+    },
+    "./platforms/marketing": {
+      "types": "./dist/platforms/marketing/index.d.ts",
+      "import": "./dist/platforms/marketing/index.js",
+      "require": "./dist/platforms/marketing/index.js",
+      "default": "./dist/platforms/marketing/index.js"
+    },
+    "./platforms/*": {
+      "types": "./dist/platforms/*/index.d.ts",
+      "import": "./dist/platforms/*/index.js",
+      "require": "./dist/platforms/*/index.js",
+      "default": "./dist/platforms/*/index.js"
     }
   },
   "scripts": {
-    "build": "node scripts/check-inventory.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && node scripts/check-density.mjs && node scripts/check-tokens.mjs && node scripts/check-logical-properties.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs && node scripts/generate-inventory.mjs",
+    "build": "node scripts/check-inventory.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && node scripts/check-density.mjs && node scripts/check-tokens.mjs && node scripts/check-logical-properties.mjs && node scripts/check-ui-governance.mjs --test-fixtures && node scripts/check-ui-governance.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs && node scripts/generate-inventory.mjs",
     "check:inventory": "node scripts/check-inventory.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:platform-accents": "node scripts/check-platform-accents.mjs",
@@ -179,7 +233,8 @@
     "check:tokens:baseline": "node scripts/check-tokens.mjs --baseline",
     "check:logical-properties": "node scripts/check-logical-properties.mjs",
     "check:logical-properties:baseline": "node scripts/check-logical-properties.mjs --baseline",
-    "lint": "node scripts/check-inventory.mjs && node scripts/check-tokens.mjs && node scripts/check-logical-properties.mjs && node scripts/check-layer.mjs && node scripts/check-density.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && tsc --noEmit",
+    "check:ui-governance": "node scripts/check-ui-governance.mjs --test-fixtures && node scripts/check-ui-governance.mjs",
+    "lint": "node scripts/check-inventory.mjs && node scripts/check-tokens.mjs && node scripts/check-logical-properties.mjs && node scripts/check-ui-governance.mjs && node scripts/check-layer.mjs && node scripts/check-density.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && tsc --noEmit",
     "clean": "rimraf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

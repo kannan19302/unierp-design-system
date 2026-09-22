@@ -1,0 +1,51 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — SignaturePad Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.canvas {
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  background: var(--color-bg-elevated, #ffffff);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hint {
+  font-size: var(--type-micro, 11px);
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.clearBtn {
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  color: var(--surface-text-primary, var(--color-text));
+  font-size: var(--type-micro, 11px);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  outline: none;
+}
+
+.clearBtn:hover {
+  background: var(--surface-hover, var(--color-bg-sunken));
+}

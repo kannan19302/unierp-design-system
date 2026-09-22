@@ -1,0 +1,122 @@
+.pathContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  background-color: var(--color-surface);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  gap: var(--space-3);
+}
+
+.stagesList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-inline: auto;
+  gap: var(--space-1);
+}
+
+.stageItem {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-inline-size: var(--space-28);
+}
+
+.stageButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1-5);
+  inline-size: 100%;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border: var(--border-width-thin) solid var(--color-border);
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  clip-path: polygon(0% 0%, calc(100% - var(--space-3)) 0%, 100% 50%, calc(100% - var(--space-3)) 100%, 0% 100%, var(--space-3) 50%);
+  transition: all var(--duration-fast) var(--ease-default);
+  white-space: nowrap;
+}
+
+.stageItem:first-child .stageButton {
+  clip-path: polygon(0% 0%, calc(100% - var(--space-3)) 0%, 100% 50%, calc(100% - var(--space-3)) 100%, 0% 100%);
+  border-start-start-radius: var(--radius-sm);
+  border-end-start-radius: var(--radius-sm);
+}
+
+.stageItem:last-child .stageButton {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, var(--space-3) 50%);
+  border-start-end-radius: var(--radius-sm);
+  border-end-end-radius: var(--radius-sm);
+}
+
+.stageCompleted {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+  border-color: var(--color-success-border);
+}
+
+.stageCurrent {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary);
+}
+
+.stageSelected {
+  box-shadow: 0 0 0 var(--border-width-medium) var(--color-focus-ring);
+}
+
+.stageActionBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.stageActionBtn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Density overrides */
+.pathContainer[data-density="ultra-compact"] .stageButton {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  font-size: var(--text-2xs);
+}
+
+.pathContainer[data-density="compact"] .stageButton {
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-2-5);
+}
+
+.pathContainer[data-density="standard"] .stageButton {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+}
+
+.pathContainer[data-density="comfortable"] .stageButton {
+  padding-block: var(--space-2-5);
+  padding-inline: var(--space-4);
+}

@@ -1,0 +1,146 @@
+"use client";
+
+import { forwardRef, type ReactNode } from "react";
+import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianState } from "../meridian-bar";
+import { StrataBar } from "../strata-bar";
+import { PageHeader } from "../../layout/page-header";
+import styles from "./transaction-workspace.module.css";
+
+export type StrataSegment = MeridianSegment;
+export type StrataAction = MeridianAction;
+export type StrataState = MeridianState;
+
+export interface TransactionSummaryItem {
+  label: string;
+  value: string | number;
+  highlight?: boolean;
+}
+
+export interface TransactionWorkspaceProps {
+  /** Context address segments */
+  segments?: MeridianSegment[] | readonly string[];
+  /** Lifecycle / approval status */
+  state?: { label: string; tone?: MeridianState };
+  /** Primary next verb */
+  action?: MeridianAction;
+  title: string;
+  subtitle?: string;
+  documentNumber?: string;
+  /** Header fields section (e.g. posting date, entity, currency, ref number) */
+  headerFields: ReactNode;
+  /** Main transaction line items grid or table */
+  children: ReactNode;
+  /** Summary calculation totals (subtotal, tax, discounts, net balance) */
+  summaryItems?: TransactionSummaryItem[];
+  /** Validation / balance alerts */
+  validationAlerts?: ReactNode;
+  /** Action footer buttons (Save Draft, Post, Submit, Cancel) */
+  footerActions?: ReactNode;
+  /** Density mode for transaction ledger and header */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
+  className?: string;
+}
+
+/**
+ * `<TransactionWorkspace>` — High-density financial transaction voucher floorplan with context bar, document header, line items, and balancing footer.
+ * @maturity stable
+ */
+export const TransactionWorkspace = forwardRef<HTMLDivElement, TransactionWorkspaceProps>(({
+  segments,
+  state,
+  action,
+  title,
+  subtitle,
+  documentNumber,
+  headerFields,
+  children,
+  summaryItems,
+  validationAlerts,
+  footerActions,
+  density = "compact",
+  className = "",
+}, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={`${styles.root} ${className}`.trim()}
+      data-floorplan="transaction-workspace"
+      data-density={density}
+    >
+      {/* Context boundary */}
+      {segments && segments.length > 0 && (
+        typeof segments[0] === "string" ? (
+          <StrataBar
+            segments={segments as readonly string[]}
+            state={
+              state
+                ? {
+                    kind: (state.tone as any) || "neutral",
+                    label: state.label,
+                  }
+                : undefined
+            }
+            action={action as any}
+            className={styles.meridianBar}
+          />
+        ) : (
+          <MeridianBar
+            segments={segments as MeridianSegment[]}
+            state={state}
+            action={action}
+            copyable
+            className={styles.meridianBar}
+          />
+        )
+      )}
+
+      {/* Header */}
+      <div className={styles.headerRow}>
+        <div>
+          <PageHeader
+            title={documentNumber ? `${title} — ${documentNumber}` : title}
+            description={subtitle}
+          />
+        </div>
+      </div>
+
+      {/* Validation banner / alerts if any */}
+      {validationAlerts && <div className={styles.alertSlot}>{validationAlerts}</div>}
+
+      {/* Master Document Header Fields */}
+      <div className={styles.headerCard} role="region" aria-label="Transaction Details">
+        {headerFields}
+      </div>
+
+      {/* Line Items Transaction Body */}
+      <div className={styles.lineItemsCard} role="region" aria-label="Transaction Line Items">
+        {children}
+      </div>
+
+      {/* Summary Totals & Footer Action Bar */}
+      <div className={styles.footerWrap}>
+        {summaryItems && summaryItems.length > 0 && (
+          <div className={styles.summaryGrid} role="region" aria-label="Summary Totals">
+            {summaryItems.map((item, i) => (
+              <div
+                key={i}
+                className={`${styles.summaryItem} ${item.highlight ? styles.summaryHighlight : ""}`}
+              >
+                <span className={styles.summaryLabel}>{item.label}</span>
+                <span className={styles.summaryValue}>{item.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {footerActions && (
+          <div className={styles.actionsBar} role="toolbar" aria-label="Transaction Actions">
+            {footerActions}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+});
+
+TransactionWorkspace.displayName = "TransactionWorkspace";

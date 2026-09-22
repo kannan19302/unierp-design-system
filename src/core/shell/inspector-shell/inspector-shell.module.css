@@ -1,0 +1,68 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — InspectorShell (List + Inspector)
+   ══════════════════════════════════════════════════════════════ */
+
+.root {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--surface-0-bg, var(--color-bg));
+}
+
+.navRail {
+  flex-shrink: 0;
+  width: var(--density-sidebar-width, 240px);
+  border-right: 1px solid var(--surface-1-border, var(--color-border));
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  overflow-y: auto;
+  transition: width var(--duration-normal) var(--ease-default);
+}
+
+.navRailCollapsed {
+  width: var(--density-sidebar-collapsed-width, 56px);
+}
+
+.mainArea {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+}
+
+.topBar {
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+}
+
+.workingArea {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.listColumn {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: var(--density-card-padding, 16px);
+  background: var(--surface-0-bg, var(--color-bg));
+}
+
+.inspectorColumn {
+  flex-shrink: 0;
+  width: var(--density-inspector-width, 320px);
+  border-left: 1px solid var(--surface-1-border, var(--color-border));
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  overflow-y: auto;
+  transition: width var(--duration-normal) var(--ease-default);
+}
+
+.inspectorCollapsed {
+  width: 0;
+  overflow: hidden;
+  border-left: none;
+}

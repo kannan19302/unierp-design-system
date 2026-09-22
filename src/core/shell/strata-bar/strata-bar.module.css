@@ -1,0 +1,168 @@
+/* StrataBar — the operational context bar for Strata Workbench.
+   NOTE ON CLASS NAMES: underscores, never hyphens. */
+
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--strata-bar-height, var(--meridian-bar-height, 40px));
+  padding: 0 var(--space-4);
+  box-sizing: border-box;
+
+  background: var(--color-bg-elevated);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.scoped {
+  border-left: var(--scope-edge-width) solid var(--scope-hue, transparent);
+}
+
+/* ── Left: identity ── */
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.segments {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sep {
+  color: var(--color-text-tertiary);
+  user-select: none;
+}
+
+.terminal {
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary);
+}
+
+.copy_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-height-sm, 24px);
+  height: var(--control-height-sm, 24px);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.copy_btn:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.copy_btn:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 1px;
+}
+
+/* ── Center: Lifecycle Path & Status ── */
+
+.center {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.lifecycle_path {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.path_step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-half) var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium, 500);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-sunken);
+  color: var(--color-text-secondary);
+}
+
+.path_step_active {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.state_pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-half) var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium, 500);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.state_dot {
+  width: var(--status-dot-size, 6px);
+  height: var(--status-dot-size, 6px);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* ── Right: Collaboration & Next Action ── */
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.avatars {
+  display: flex;
+  align-items: center;
+  margin-right: var(--space-1);
+}
+
+.avatar_circle {
+  width: var(--space-5, 20px);
+  height: var(--space-5, 20px);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-bg-elevated);
+  margin-left: calc(-1 * var(--space-1-5, 6px));
+  background: var(--color-primary);
+  color: var(--on-primary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold, 700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar_circle:first-child {
+  margin-left: 0;
+}
+
+.action {
+  flex-shrink: 0;
+}

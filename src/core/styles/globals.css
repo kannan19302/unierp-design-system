@@ -1,0 +1,17 @@
+/* ─────────────────────────────────────────────────
+   Global Styles — Universal ERP System
+   ─────────────────────────────────────────────────
+   Import this file in the root layout.
+   ───────────────────────────────────────────────── */
+
+@import "./fonts.css";
+
+@import "../tokens/design-tokens.css";
+@import "../tokens/v2/index.css";
+
+/* Import stylesheets */
+@import "./layers/reset.css";
+@import "./layers/base.css";
+@import "./layers/components.css";
+@import "./layers/utilities.css";
+@import "./layers/overrides.css";

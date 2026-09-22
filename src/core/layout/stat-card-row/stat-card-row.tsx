@@ -1,0 +1,101 @@
+"use client";
+
+import React from "react";
+import { Skeleton } from "../../primitives/skeleton";
+import styles from "./stat-card-row.module.css";
+
+export interface StatCardItem {
+  label: string;
+  value: string | number;
+  /** Signed number, e.g. 12.5 → "+12.5%", -3 → "-3%" */
+  change?: number;
+  changeLabel?: string;
+  icon?: React.ReactNode;
+  /** CSS color token or value for the accent, e.g. 'var(--color-primary)' */
+  color?: string;
+  loading?: boolean;
+}
+
+export interface StatCardRowProps extends React.HTMLAttributes<HTMLDivElement> {
+  stats: StatCardItem[];
+  columns?: 2 | 3 | 4 | 5;
+}
+
+const StatCard: React.FC<StatCardItem> = ({
+  label,
+  value,
+  change,
+  changeLabel,
+  icon,
+  color = "var(--color-primary)",
+  loading = false,
+}) => {
+  const isPositive = typeof change === "number" && change >= 0;
+  const changeColor = isPositive
+    ? "var(--color-success-text)"
+    : "var(--color-danger-text)";
+
+  return (
+    <div className={styles.card}>
+      <div className={styles.cardHeader}>
+        <span className={styles.cardLabel}>{label}</span>
+        {icon && (
+          <div className={styles.iconWrap} style={{ color }} aria-hidden="true">
+            {icon}
+          </div>
+        )}
+      </div>
+
+      {loading ? (
+        <Skeleton height={28} width="60%" />
+      ) : (
+        <div className={styles.cardValue}>
+          {typeof value === "number" ? value.toLocaleString() : value}
+        </div>
+      )}
+
+      {typeof change === "number" && (
+        <div
+          className={styles.changeIndicator}
+          style={{ color: changeColor }}
+        >
+          <span>{isPositive ? "↑" : "↓"}</span>
+          <span>
+            {Math.abs(change).toFixed(1)}%{changeLabel ? ` ${changeLabel}` : ""}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/**
+ * `<StatCardRow>` arranges high-level KPI tiles in a responsive grid,
+ * supporting comparative trend indicators, custom brand accents, and loading shimmers.
+ *
+ * @maturity stable
+ */
+export const StatCardRow = React.forwardRef<HTMLDivElement, StatCardRowProps>(
+  ({ stats, columns, className = "", style, ...props }, ref) => {
+    const cols = columns ?? (Math.min(stats.length, 4) as 2 | 3 | 4 | 5);
+
+    return (
+      <div
+        ref={ref}
+        className={`${styles.rowGrid} ${className}`.trim()}
+        style={{
+          ...style,
+          gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+        }}
+        {...props}
+      >
+        {stats.map((stat, i) => (
+          <StatCard key={i} {...stat} />
+        ))}
+      </div>
+    );
+  }
+);
+
+StatCardRow.displayName = "StatCardRow";
+

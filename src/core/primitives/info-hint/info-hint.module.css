@@ -1,0 +1,28 @@
+.hintIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary, var(--color-text-muted));
+  cursor: help;
+  user-select: none;
+  flex-shrink: 0;
+  vertical-align: middle;
+  border-radius: var(--radius-full, 9999px);
+  transition: color var(--duration-fast) var(--ease-default),
+              transform var(--duration-fast) var(--ease-default);
+}
+
+.hintIcon:hover {
+  color: var(--color-primary);
+  transform: scale(1.08);
+}
+
+.hintIcon:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring, 0 0 0 2px var(--color-focus));
+  color: var(--color-primary);
+}
+
+.svgIcon {
+  display: block;
+}

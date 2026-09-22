@@ -1,0 +1,29 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Tooltip Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  position: relative;
+  display: inline-flex;
+}
+
+.triggerChild {
+  display: inline-flex;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: var(--z-tooltip, 99999);
+  background: var(--surface-tooltip-bg, #0f172a);
+  color: var(--surface-tooltip-fg, #f8fafc);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-xs, 2px);
+  font-family: var(--font-sans);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-medium);
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+}

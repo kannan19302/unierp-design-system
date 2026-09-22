@@ -1,0 +1,263 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-lg, 8px);
+  overflow: hidden;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.gradeBadge {
+  font-size: var(--text-2xs, 0.6875rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 4px);
+  background-color: var(--color-primary-subtle, #eff6ff);
+  color: var(--color-primary, #2563eb);
+  border: 1px solid var(--color-primary-border, #bfdbfe);
+}
+
+.geoBadge {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+  font-weight: 500;
+}
+
+.title {
+  font-size: var(--text-base, 1rem);
+  font-weight: 700;
+  color: var(--color-text-primary, #0f172a);
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+}
+
+.selectLabel {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  color: var(--color-text-secondary, #475569);
+}
+
+.selectInput {
+  font-size: var(--text-xs, 0.75rem);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: var(--radius-sm, 4px);
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.summaryRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--space-3, 0.75rem);
+  padding: var(--space-3, 0.75rem) var(--space-5, 1.25rem);
+  background-color: var(--color-surface, #ffffff);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+}
+
+.summaryCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.summaryLabel {
+  font-size: var(--text-2xs, 0.6875rem);
+  color: var(--color-text-secondary, #64748b);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.summaryValue {
+  font-size: var(--text-base, 1rem);
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.compaPill {
+  display: inline-flex;
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 700;
+  padding: 0.125rem var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+  width: fit-content;
+}
+
+.compaHealthy {
+  background-color: var(--color-success-subtle, #f0fdf4);
+  color: var(--color-success, #16a34a);
+}
+
+.compaLow {
+  background-color: var(--color-warning-subtle, #fffbeb);
+  color: var(--color-warning, #d97706);
+}
+
+.compaHigh {
+  background-color: var(--color-danger-subtle, #fef2f2);
+  color: var(--color-danger, #dc2626);
+}
+
+.rangeArea {
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 1rem);
+}
+
+.barTrack {
+  position: relative;
+  height: 2.25rem;
+  background-color: var(--color-surface-subtle, #f1f5f9);
+  border-radius: var(--radius-md, 6px);
+  overflow: hidden;
+  border: 1px solid var(--color-border, #cbd5e1);
+  display: flex;
+}
+
+.bandSegmentMinToMid {
+  background-color: var(--color-primary-subtle, #dbeafe);
+  height: 100%;
+}
+
+.bandSegmentMidToMax {
+  background-color: var(--color-accent-subtle, #e0e7ff);
+  height: 100%;
+}
+
+.candidateMarker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.25rem;
+  background-color: var(--color-danger, #dc2626);
+  z-index: 10;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.candidateLabel {
+  position: absolute;
+  top: 0.25rem;
+  font-size: var(--text-2xs, 0.6875rem);
+  font-weight: 700;
+  color: var(--color-danger, #dc2626);
+  background-color: var(--color-surface, #ffffff);
+  padding: 0 0.25rem;
+  border-radius: var(--radius-xs, 2px);
+  border: 1px solid var(--color-danger-border, #fca5a5);
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.midpointMarker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--color-primary, #2563eb);
+  z-index: 5;
+}
+
+.scaleRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #64748b);
+  font-family: var(--font-mono, monospace);
+  padding: 0 0.25rem;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-top: 1px solid var(--color-border, #e2e8f0);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.table th {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  color: var(--color-text-secondary, #64748b);
+  font-weight: 600;
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+}
+
+.table td {
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.monoCell {
+  font-family: var(--font-mono, monospace);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2-5, 0.625rem) var(--space-5, 1.25rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-top: 1px solid var(--color-border, #e2e8f0);
+  font-size: var(--text-2xs, 0.6875rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+/* Density */
+.container[data-density="ultra-compact"] .rangeArea {
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+}
+
+.container[data-density="ultra-compact"] .barTrack {
+  height: 1.5rem;
+}
+
+.container[data-density="compact"] .rangeArea {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+}
+
+.container[data-density="standard"] .rangeArea {
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+}
+
+.container[data-density="comfortable"] .rangeArea {
+  padding: var(--space-6, 1.5rem) var(--space-6, 1.5rem);
+}

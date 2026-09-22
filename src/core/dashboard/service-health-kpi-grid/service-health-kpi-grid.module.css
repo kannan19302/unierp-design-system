@@ -1,0 +1,171 @@
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-block-end: var(--space-3);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-3);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-inline: var(--space-3-5, 0.875rem);
+  padding-block: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.card:hover {
+  border-color: var(--color-brand);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-block-end: var(--space-1);
+}
+
+.kpiTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.statusDot {
+  inline-size: var(--space-2);
+  block-size: var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.dot_healthy {
+  background: var(--color-success);
+}
+
+.dot_warning {
+  background: var(--color-warning);
+}
+
+.dot_critical {
+  background: var(--color-danger);
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-block-end: var(--space-2);
+}
+
+.kpiValue {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  line-height: var(--line-height-tight);
+}
+
+.changeBadge {
+  font-size: var(--font-size-2xs, 0.6875rem);
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums lining-nums;
+  padding-inline: var(--space-1-5);
+  padding-block: var(--space-0-5);
+  border-radius: var(--radius-full);
+}
+
+.positive {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.negative {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+
+.neutral {
+  background: var(--color-surface-subtle);
+  color: var(--color-text-muted);
+}
+
+.progressTrack {
+  inline-size: 100%;
+  block-size: var(--space-1);
+  background: var(--color-surface-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-block-end: var(--space-2);
+}
+
+.progressBar {
+  block-size: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) ease;
+}
+
+.bar_healthy {
+  background: var(--color-success);
+}
+
+.bar_warning {
+  background: var(--color-warning);
+}
+
+.bar_critical {
+  background: var(--color-danger);
+}
+
+.cardBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-2xs, 0.6875rem);
+  color: var(--color-text-muted);
+}
+
+.targetText {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.subText {
+  margin-inline-start: auto;
+}
+
+@media (forced-colors: active) {
+  .card {
+    border: 1px solid ButtonText;
+  }
+  .progressTrack {
+    border: 1px solid ButtonText;
+  }
+  .progressBar {
+    background: Highlight;
+  }
+}

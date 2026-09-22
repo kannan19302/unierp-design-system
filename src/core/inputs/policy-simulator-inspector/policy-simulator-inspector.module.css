@@ -1,0 +1,180 @@
+.simulator {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.header {
+  padding-inline: var(--space-4);
+  padding-block: var(--space-3);
+  background: var(--color-surface);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.desc {
+  margin: var(--space-1) 0 0 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-inline: var(--space-4);
+  padding-block: var(--space-4);
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.input,
+.select {
+  inline-size: 100%;
+  padding-inline: var(--space-2-5);
+  padding-block: var(--space-1-5);
+  font-size: var(--font-size-xs);
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--color-brand);
+}
+
+.submitBtn {
+  margin-block-start: var(--space-2);
+  padding-inline: var(--space-4);
+  padding-block: var(--space-2);
+  background: var(--color-brand);
+  color: var(--color-brand-contrast, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.submitBtn:hover {
+  opacity: 0.9;
+}
+
+.submitBtn:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.resultCard {
+  margin-inline: var(--space-4);
+  margin-block-end: var(--space-4);
+  padding-inline: var(--space-4);
+  padding-block: var(--space-3);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.decisionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.decisionLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.decisionPill {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  padding-inline: var(--space-3);
+  padding-block: var(--space-0-5);
+  border-radius: var(--radius-full);
+}
+
+.ALLOW {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.DENY {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+
+.kvList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  font-size: var(--font-size-xs);
+}
+
+.kvRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.key {
+  color: var(--color-text-muted);
+  inline-size: 8rem;
+  flex-shrink: 0;
+}
+
+.val {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.deniedText {
+  color: var(--color-danger);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (forced-colors: active) {
+  .simulator {
+    border: 1px solid ButtonText;
+  }
+  .submitBtn {
+    border: 1px solid Highlight;
+  }
+  .resultCard {
+    border: 1px solid ButtonText;
+  }
+}

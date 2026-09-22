@@ -1,0 +1,284 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-lg, 0.5rem);
+  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  color: var(--color-text-primary, #0f172a);
+  overflow: hidden;
+}
+
+.header {
+  padding: var(--space-4, 1rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cryptoBadge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  letter-spacing: 0.05em;
+  color: var(--color-primary, #2563eb);
+  background-color: var(--color-primary-subtle, #eff6ff);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-primary-border, #bfdbfe);
+}
+
+.statusPill {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.pillIdle {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  color: var(--color-text-secondary, #475569);
+  border: 1px solid var(--color-border, #cbd5e1);
+}
+
+.pillValid {
+  background-color: var(--color-success-subtle, #f0fdf4);
+  color: var(--color-success-text, #15803d);
+  border: 1px solid var(--color-success-border, #bbf7d0);
+}
+
+.pillFailed {
+  background-color: var(--color-danger-subtle, #fef2f2);
+  color: var(--color-danger-text, #b91c1c);
+  border: 1px solid var(--color-danger-border, #fecaca);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem);
+}
+
+.title {
+  font-size: var(--text-base, 1rem);
+  font-weight: var(--weight-bold, 700);
+  margin: 0;
+  color: var(--color-text-primary, #0f172a);
+}
+
+.epochMeta {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  font-family: var(--font-mono, monospace);
+}
+
+.rootBanner {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.rootHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rootLabel {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-secondary, #475569);
+}
+
+.algorithmPill {
+  font-size: 0.625rem;
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-tertiary, #64748b);
+}
+
+.rootHash {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-primary, #2563eb);
+  background-color: var(--color-surface, #ffffff);
+  padding: var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-border, #cbd5e1);
+  word-break: break-all;
+}
+
+.targetCard {
+  padding: var(--space-4, 1rem);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+}
+
+.sectionHeading {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-secondary, #475569);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.targetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-3, 0.75rem);
+}
+
+.targetField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.targetLabel {
+  font-size: 0.6875rem;
+  color: var(--color-text-tertiary, #64748b);
+}
+
+.targetValue {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.leafHashRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.leafLabel {
+  font-size: 0.6875rem;
+  color: var(--color-text-tertiary, #64748b);
+}
+
+.leafHash {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  color: var(--color-text-secondary, #475569);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  padding: 0.375rem 0.5rem;
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-border-subtle, #f1f5f9);
+  word-break: break-all;
+}
+
+.proofPathSection {
+  padding: var(--space-4, 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+}
+
+.siblingList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.siblingItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border: 1px solid var(--color-border-subtle, #f1f5f9);
+  border-radius: var(--radius-md, 0.375rem);
+  gap: var(--space-2, 0.5rem);
+  flex-wrap: wrap;
+}
+
+.siblingStep {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.stepNumber {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.positionBadge {
+  font-size: 0.625rem;
+  font-weight: var(--weight-semibold, 600);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #cbd5e1);
+  color: var(--color-text-secondary, #475569);
+}
+
+.siblingHash {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  color: var(--color-text-secondary, #475569);
+  word-break: break-all;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-top: 1px solid var(--color-border, #e2e8f0);
+}
+
+.footerNotice {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-secondary, #475569);
+  max-width: 32rem;
+}
+
+.footerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.verifyBtn {
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-surface, #ffffff);
+  background-color: var(--color-primary, #2563eb);
+  border: 1px solid var(--color-primary, #2563eb);
+  border-radius: var(--radius-md, 0.375rem);
+  cursor: pointer;
+}
+
+/* Density overrides */
+[data-density="ultra-compact"] .targetCard,
+[data-density="ultra-compact"] .proofPathSection {
+  padding: var(--space-2, 0.5rem);
+  gap: var(--space-2, 0.5rem);
+}
+
+[data-density="comfortable"] .targetCard,
+[data-density="comfortable"] .proofPathSection {
+  padding: var(--space-6, 1.5rem);
+  gap: var(--space-4, 1rem);
+}

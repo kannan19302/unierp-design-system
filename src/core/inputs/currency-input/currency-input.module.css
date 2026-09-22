@@ -1,0 +1,58 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — CurrencyInput Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.symbol {
+  position: absolute;
+  left: var(--density-control-padding-x, var(--space-3));
+  font-family: var(--font-mono);
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-secondary, var(--color-text-muted));
+  pointer-events: none;
+  font-variant-numeric: tabular-nums lining-nums;
+  line-height: 1;
+}
+
+.input {
+  width: 100%;
+  height: var(--density-control-height, 32px);
+  padding: 0 var(--density-control-padding-x, var(--space-3)) 0 var(--space-7);
+  font-family: var(--font-sans);
+  font-size: var(--type-dense, var(--text-sm));
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--surface-text-primary, var(--color-text));
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border: 1px solid var(--surface-1-border, var(--color-border));
+  border-radius: var(--radius-sm, 2px);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.input:disabled {
+  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  color: var(--surface-text-disabled, var(--color-text-muted));
+  cursor: not-allowed;
+}
+
+.invalid .input {
+  border-color: var(--color-danger, #ef4444) !important;
+}
+
+.invalid .input:focus {
+  box-shadow: 0 0 0 1px var(--color-danger, #ef4444) !important;
+}

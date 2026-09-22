@@ -1,0 +1,344 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-elevated);
+  border-block-start: 1px solid var(--color-border-default);
+  box-shadow: none;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  position: relative;
+  z-index: 50;
+  box-sizing: border-box;
+}
+
+.docked {
+  border-inline: none;
+  border-block-end: none;
+  border-radius: 0;
+  inline-size: 100%;
+}
+
+.floating {
+  inline-size: 100%;
+  max-inline-size: 60rem;
+  margin-inline: auto;
+  margin-block: 0;
+}
+
+/* Density Variants */
+.ultra-compact {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+}
+.ultra-compact .barContent {
+  min-block-size: 1.75rem;
+}
+
+.compact {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+}
+.compact .barContent {
+  min-block-size: 2.25rem;
+}
+
+.standard {
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+}
+.standard .barContent {
+  min-block-size: 2.75rem;
+}
+
+.comfortable {
+  padding-block: var(--space-4);
+  padding-inline: var(--space-5);
+}
+.comfortable .barContent {
+  min-block-size: 3.25rem;
+}
+
+/* Bar Content Layout */
+.barContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.agentStateGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.iconTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.stateSelect {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium, 500);
+  font-family: var(--font-sans);
+  border-radius: var(--radius-xs, 4px);
+  border: 1px solid var(--color-border-default);
+  cursor: pointer;
+}
+
+.state_available {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.state_in_call {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+}
+
+.state_wrap_up {
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning);
+}
+
+.state_paused {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+}
+
+/* Caller Card */
+.callerCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xs, 4px);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+}
+
+.callerPrimary {
+  display: flex;
+  flex-direction: column;
+}
+
+.customerName {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text-primary);
+}
+
+.callerNumber {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 0.6875rem;
+  color: var(--color-text-secondary);
+}
+
+.callerMeta {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.acctBadge {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 0.6875rem;
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+  padding-block: 0.0625rem;
+  padding-inline: 0.25rem;
+  border-radius: var(--radius-xs, 2px);
+}
+
+.tierBadge {
+  font-size: 0.6875rem;
+  font-weight: var(--weight-medium, 500);
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  padding-block: 0.0625rem;
+  padding-inline: 0.25rem;
+  border-radius: var(--radius-xs, 2px);
+}
+
+.idleMessage {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Timer */
+.timerBox {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: var(--color-bg-sunken);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-xs, 4px);
+  border: 1px solid var(--color-border-default);
+}
+
+.timerIcon {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.timerDigits {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text-primary);
+}
+
+/* Actions */
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.controlBtn,
+.notesBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5, 6px);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xs, 4px);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5, 10px);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium, 500);
+  font-family: var(--font-sans);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.controlBtn:hover,
+.notesBtn:hover {
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+  color: var(--color-text-primary);
+}
+
+.btnActiveMute {
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+.btnActiveHold {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.endCallBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5, 6px);
+  background-color: var(--color-danger);
+  color: var(--color-text-inverse, #ffffff);
+  border: none;
+  border-radius: var(--radius-xs, 4px);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium, 500);
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.endCallBtn:hover {
+  background-color: var(--color-danger-hover, var(--color-danger));
+}
+
+/* Wrap-up stage */
+.wrapUpControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dispositionSelect {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  font-size: var(--text-xs);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-surface);
+}
+
+.completeWrapBtn {
+  background-color: var(--color-success);
+  color: var(--color-text-inverse, #ffffff);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+}
+
+/* Scratchpad Drawer */
+.scratchpadDrawer {
+  border-block-start: 1px solid var(--color-border-default);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  background-color: var(--color-bg-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.scratchpadHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scratchpadTitle {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.closeDrawerBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: var(--text-xs);
+}
+
+.notesArea {
+  inline-size: 100%;
+  padding: var(--space-2);
+  font-size: var(--text-xs);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+

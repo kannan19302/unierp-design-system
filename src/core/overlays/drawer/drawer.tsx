@@ -1,0 +1,112 @@
+import { useState, forwardRef, type FC, type ReactNode, type CSSProperties } from "react";
+import { X } from "lucide-react";
+import { Portal } from "../portal";
+import { useEscapeKey, useFocusTrap, useScrollLock } from "../overlay-hooks";
+import styles from "./drawer.module.css";
+
+export interface DrawerProps {
+  open: boolean;
+  onClose: () => void;
+  title?: ReactNode;
+  side?: "left" | "right" | "top" | "bottom";
+  size?: "sm" | "md" | "lg";
+  width?: number;
+  footer?: ReactNode;
+  children?: ReactNode;
+  "aria-label"?: string;
+  className?: string;
+}
+
+const DRAWER_WIDTH: Record<NonNullable<DrawerProps["size"]>, number> = {
+  sm: 360,
+  md: 480,
+  lg: 640,
+};
+
+/**
+ * `<Drawer>` — Sliding sheet overlay for side-panel forms, filters, query builders, and inspectors.
+ * @maturity stable
+ */
+export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(({
+  open,
+  onClose,
+  title,
+  side = "right",
+  size = "md",
+  width,
+  footer,
+  children,
+  "aria-label": ariaLabel,
+  className = "",
+}, ref) => {
+  const [panel, setPanel] = useState<HTMLDivElement | null>(null);
+  useEscapeKey(onClose, open);
+  useFocusTrap(panel, open);
+  useScrollLock(open);
+
+  if (!open) return null;
+
+  const contentWidth = width ?? DRAWER_WIDTH[size];
+  const sideStyles: Record<string, CSSProperties> = {
+    right: { width: `${contentWidth}px` },
+    left: { width: `${contentWidth}px` },
+    top: { height: "var(--drawer-height-vertical, 320px)" },
+    bottom: { height: "var(--drawer-height-vertical, 320px)" },
+  };
+
+  const panelClass = [styles.panel, styles[side], className]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <Portal>
+      <div className={styles.backdrop} onClick={onClose} aria-hidden="true" />
+      <div
+        ref={(node) => {
+          setPanel(node);
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={ariaLabel ?? (typeof title === "string" ? title : undefined)}
+        tabIndex={-1}
+        className={panelClass}
+        style={sideStyles[side]}
+      >
+        <div className={styles.header}>
+          {title && <h2 className={styles.title}>{title}</h2>}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close drawer"
+            className={styles.closeBtn}
+          >
+            <X size={16} aria-hidden="true" />
+          </button>
+        </div>
+        <div className={styles.body}>{children}</div>
+        {footer && <div className={styles.footer}>{footer}</div>}
+      </div>
+    </Portal>
+  );
+});
+
+Drawer.displayName = "Drawer";
+
+export interface SheetProps {
+  open: boolean;
+  onClose: () => void;
+  title?: ReactNode;
+  side?: "left" | "right" | "top" | "bottom";
+  children?: ReactNode;
+}
+
+export const Sheet: FC<SheetProps> = ({ open, onClose, title, side = "right", children }) => (
+  <Drawer open={open} onClose={onClose} title={title} side={side}>
+    {children}
+  </Drawer>
+);

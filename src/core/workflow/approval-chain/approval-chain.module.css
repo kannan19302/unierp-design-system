@@ -1,0 +1,135 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  inline-size: 100%;
+}
+
+.chain {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.step {
+  display: flex;
+  gap: var(--space-4);
+  position: relative;
+  padding-block-end: var(--space-6);
+}
+
+.step:last-child {
+  padding-block-end: 0;
+}
+
+.step_line {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  inset-block-start: var(--space-8);
+  inset-block-end: 0;
+  inline-size: 2px;
+  background: var(--surface-1-border);
+}
+
+.step_icon_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--space-8);
+  block-size: var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--surface-1-bg);
+  border: 2px solid var(--surface-1-border);
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.step_approved .step_icon_wrap {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.step_rejected .step_icon_wrap {
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.step_pending .step_icon_wrap {
+  background: var(--surface-sunken-bg);
+  border-color: var(--platform-accent);
+  color: var(--platform-accent);
+}
+
+.step_body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+  background: var(--surface-0-bg);
+  border: 1px solid var(--surface-1-border);
+  border-radius: var(--radius-md);
+  padding: var(--density-card-padding);
+}
+
+.step_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.step_title {
+  font-size: var(--type-h4);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.step_meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--type-micro);
+  color: var(--color-text-secondary);
+}
+
+.approvers_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.approver_chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+  background: var(--surface-sunken-bg);
+  border: 1px solid var(--surface-1-border);
+  border-radius: var(--radius-full);
+  font-size: var(--type-label);
+}
+
+.step_comment {
+  font-size: var(--density-body-size);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  background: var(--surface-sunken-bg);
+  border-radius: var(--radius-sm);
+  border-inline-start: var(--space-1) solid var(--surface-1-border);
+}
+
+.step_actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-block-start: var(--space-2);
+}

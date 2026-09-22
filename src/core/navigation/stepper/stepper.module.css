@@ -1,0 +1,116 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Stepper Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  inline-size: 100%;
+  font-family: var(--font-sans);
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  inline-size: 100%;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.stepItem:last-child {
+  flex: 0 0 auto;
+}
+
+.stepBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  text-align: start;
+}
+
+.stepBtn:disabled {
+  cursor: default;
+}
+
+.indicator {
+  inline-size: var(--space-6);
+  block-size: var(--space-6);
+  border-radius: var(--radius-full);
+  border: var(--border-width-thin) solid var(--color-border);
+  background: var(--color-bg-sunken);
+  color: var(--color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--type-micro);
+  font-weight: var(--weight-bold);
+  flex-shrink: 0;
+  box-sizing: border-box;
+  transition: background var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default),
+              color var(--duration-fast) var(--ease-default);
+}
+
+.active .indicator {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.completed .indicator {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--color-text-inverse);
+}
+
+.checkIcon {
+  color: currentColor;
+}
+
+.textWrap {
+  display: flex;
+  flex-direction: column;
+  line-height: var(--leading-tight);
+}
+
+.title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+}
+
+.active .title {
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+}
+
+.completed .title {
+  color: var(--color-text);
+}
+
+.description {
+  font-size: var(--type-micro);
+  color: var(--color-text-muted);
+}
+
+.line {
+  flex: 1;
+  block-size: var(--border-width-thin);
+  background: var(--color-border);
+  margin-block: 0;
+  margin-inline: var(--space-3);
+}
+
+.lineCompleted {
+  background: var(--color-success);
+}

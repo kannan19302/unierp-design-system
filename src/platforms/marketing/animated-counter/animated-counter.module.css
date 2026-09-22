@@ -1,0 +1,7 @@
+.counter {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  font-weight: var(--font-weight-bold, 700);
+  color: inherit;
+}

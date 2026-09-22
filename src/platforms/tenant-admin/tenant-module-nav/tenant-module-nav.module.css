@@ -1,0 +1,77 @@
+.navContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-2);
+}
+
+.searchWrapper {
+  max-width: 20rem;
+  width: 100%;
+}
+
+.tabList {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tabList::-webkit-scrollbar {
+  display: none;
+}
+
+.tabItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast, 150ms) ease;
+  position: relative;
+  background: transparent;
+  border: none;
+}
+
+.tabItem:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-hover, var(--color-surface-secondary));
+}
+
+.tabItem:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.active {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold, 600);
+  background: var(--color-primary-subtle, var(--color-surface-secondary));
+}
+
+.badge {
+  font-size: var(--text-2xs, 0.6875rem);
+  padding-block: 1px;
+  padding-inline: var(--space-1);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-sunken, var(--color-border));
+  color: var(--color-text-secondary);
+}
+
+.active .badge {
+  background: var(--color-primary);
+  color: var(--color-text-inverse, #ffffff);
+}

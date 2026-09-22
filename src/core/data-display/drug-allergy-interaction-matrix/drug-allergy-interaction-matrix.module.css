@@ -1,0 +1,334 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 0.5rem);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  color: var(--color-text-primary, #0f172a);
+  overflow: hidden;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-4, 1rem);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  background-color: var(--color-surface-subtle, #f8fafc);
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem);
+}
+
+.patientInfo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem);
+}
+
+.clinicalBadge {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  letter-spacing: 0.05em;
+  color: var(--color-danger, #dc2626);
+  background-color: var(--color-danger-subtle, #fef2f2);
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.patientName {
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.mrnText {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+  font-family: var(--font-mono, monospace);
+}
+
+.kpiPills {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.kpiContraindicated {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-danger, #dc2626);
+  background-color: var(--color-danger-subtle, #fef2f2);
+  border: 1px solid var(--color-danger-border, #fecaca);
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+}
+
+.kpiMajor {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-warning-text, #9a3412);
+  background-color: var(--color-warning-subtle, #fff7ed);
+  border: 1px solid var(--color-warning-border, #fed7aa);
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+}
+
+.kpiSafe {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-success, #16a34a);
+  background-color: var(--color-success-subtle, #f0fdf4);
+  border: 1px solid var(--color-success-border, #bbf7d0);
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-base, 1rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.contextStrip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+  font-size: var(--text-xs, 0.75rem);
+  background-color: var(--color-surface, #ffffff);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.contextItem {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+}
+
+.contextLabel {
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-secondary, #334155);
+}
+
+.contextValue {
+  color: var(--color-text-primary, #0f172a);
+}
+
+.allergyText {
+  color: var(--color-danger, #dc2626);
+  font-weight: var(--weight-semibold, 600);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.table th {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  color: var(--color-text-muted, #64748b);
+  font-weight: var(--weight-semibold, 600);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  vertical-align: middle;
+}
+
+.contraRow {
+  background-color: var(--color-danger-subtle, #fef2f2);
+}
+
+.majorRow {
+  background-color: var(--color-warning-subtle, #fff7ed);
+}
+
+.overriddenRow {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  opacity: 0.8;
+}
+
+.severityBadge {
+  display: inline-block;
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  text-transform: uppercase;
+}
+
+.sevContra {
+  background-color: var(--color-danger, #dc2626);
+  color: var(--color-text-inverse, #ffffff);
+}
+
+.sevMajor {
+  background-color: var(--color-warning-text, #9a3412);
+  color: var(--color-text-inverse, #ffffff);
+}
+
+.sevModerate {
+  background-color: var(--color-brand-subtle, #eff6ff);
+  color: var(--color-brand, #2563eb);
+  border: 1px solid var(--color-brand-border, #bfdbfe);
+}
+
+.sevMinor {
+  background-color: var(--color-surface-subtle, #f8fafc);
+  color: var(--color-text-muted, #64748b);
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+.drugNameCell {
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-text-primary, #0f172a);
+}
+
+.interactingCell {
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-secondary, #334155);
+}
+
+.effectCell {
+  color: var(--color-text-primary, #0f172a);
+  max-width: 18rem;
+}
+
+.recCell {
+  color: var(--color-text-secondary, #334155);
+  max-width: 18rem;
+}
+
+.overriddenInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5, 0.125rem);
+}
+
+.overriddenTag {
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-bold, 700);
+  color: var(--color-success, #16a34a);
+}
+
+.overriddenReason {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+}
+
+.overrideInputBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+  min-width: 12rem;
+}
+
+.overrideInput {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-primary, #0f172a);
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-sm, 0.25rem);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+}
+
+.overrideActions {
+  display: flex;
+  gap: var(--space-1, 0.25rem);
+}
+
+.confirmBtn {
+  cursor: pointer;
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-brand, #2563eb);
+  background-color: var(--color-brand, #2563eb);
+  color: var(--color-text-inverse, #ffffff);
+}
+
+.confirmBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.cancelBtn {
+  cursor: pointer;
+  padding: var(--space-0-5, 0.125rem) var(--space-2, 0.5rem);
+  font-size: var(--text-xs, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-border, #e2e8f0);
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-text-secondary, #334155);
+}
+
+.overrideBtn {
+  cursor: pointer;
+  padding: var(--space-1, 0.25rem) var(--space-2-5, 0.625rem);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-semibold, 600);
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--color-danger, #dc2626);
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-danger, #dc2626);
+  transition: all 0.15s ease-in-out;
+}
+
+.overrideBtn:hover {
+  background-color: var(--color-danger-subtle, #fef2f2);
+}
+
+.footer {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  background-color: var(--color-surface-subtle, #f8fafc);
+  border-top: 1px solid var(--color-border, #e2e8f0);
+}
+
+.footerText {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+}
+
+/* Densities */
+[data-density="ultra-compact"] .table th,
+[data-density="ultra-compact"] .table td {
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+}
+
+[data-density="comfortable"] .table th,
+[data-density="comfortable"] .table td {
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+}

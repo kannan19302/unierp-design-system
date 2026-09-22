@@ -1,0 +1,134 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — LiveRegion Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.region {
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+/* ── Screen Reader Hidden Mode ── */
+.srOnly {
+  position: absolute;
+  width: var(--border-width, 1px);
+  height: var(--border-width, 1px);
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Banner Mode (Rich announcement container) ── */
+.banner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 6px);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-normal) var(--ease-default);
+}
+
+.banner.polite {
+  border-left: var(--border-width-accent, 3px) solid var(--color-info);
+}
+
+.banner.assertive {
+  border-left: var(--border-width-accent, 3px) solid var(--color-warning);
+}
+
+/* ── Badge Mode (Inline capsule) ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-1, 4px) var(--space-3, 12px);
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  font-size: var(--type-caption, 12px);
+}
+
+/* ── HUD Mode (Compact telemetry strip) ── */
+.hud {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  background: var(--color-bg-sunken);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--type-micro, 11px);
+}
+
+/* ── Beacon Indicator ── */
+.beaconHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+}
+
+.beacon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-2, 8px);
+  height: var(--space-2, 8px);
+  flex-shrink: 0;
+}
+
+.beaconDot {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full, 9999px);
+  background-color: var(--color-info);
+}
+
+.assertive .beaconDot {
+  background-color: var(--color-warning);
+}
+
+.beaconPing {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full, 9999px);
+  background-color: var(--color-info);
+  opacity: 0.7;
+  animation: liveBeaconPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.assertive .beaconPing {
+  background-color: var(--color-warning);
+}
+
+@keyframes liveBeaconPing {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  75%, 100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.politenessTag {
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  font-variant-caps: all-small-caps;
+}
+
+.content {
+  font-size: var(--type-body-sm);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+}
+

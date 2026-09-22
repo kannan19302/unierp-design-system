@@ -1,0 +1,266 @@
+/* ----------------------------------------------------------
+   Meridian chrome — the tokens that are NOT colour-mode dependent,
+   plus the studio-chrome overrides and chart ramps for both Meridian modes.
+
+   Split out from themes/meridian*.css because three groups of tokens here
+   (scope hues, the display type scale, the tightened geometry) are identical
+   in light and dark, and duplicating them across two files is how the two
+   silently drift apart.
+
+   Load order: after tokens/studio.css, whose `[data-theme="dark"]` block would
+   otherwise be the last word for anything meridian-dark shares with it.
+   ---------------------------------------------------------- */
+
+/* ══ Shared across both Meridian modes ════════════════════ */
+
+[data-theme="meridian"],
+[data-theme="meridian-dark"] {
+  /* ── Scope hues ──
+     app · site · library · manage. A THIRD colour axis, orthogonal to both the
+     accent and the semantic ramp: scope answers "where does this live", status
+     answers "what state is it in", and the accent answers "what can I click".
+
+     This is the one idea worth carrying out of patina, and it is what keeps
+     eleven layout anatomies from becoming a rainbow: an anatomy may differ per
+     platform, but a colour may not change meaning between them.
+
+     Rendered as a 3px edge or a hairline outline — NEVER as a filled badge,
+     because a filled badge competes with the one thing on a screen that is
+     allowed to be bright: the next action. */
+  --scope-app: #0e6b75;
+  --scope-site: #4f53b8;
+  --scope-library: #8a6114;
+  --scope-manage: #4a5558;
+
+  /* ── The signal hue ──
+     Coral. Marketing surfaces and empty-state illustration ONLY. It is
+     declared here rather than inside the marketing app so that there is
+     exactly one definition to gate against, and scripts/check-tokens.mjs fails
+     the build if it is referenced from product CSS.
+
+     It exists because the answer to "how do we attract a buyer" and the answer
+     to "what does an eight-hour ledger screen feel like" are not the same
+     answer, and letting either leak into the other ruins both. */
+  --brand-signal: #e4572e;
+  --brand-signal-hover: #cf4622;
+  --brand-signal-subtle: #fbe9e3;
+
+  /* ── Geometry ──
+     An ERP screen holding forty rows and six nested panels reads as an
+     instrument, not a phone. Nothing in the product is more rounded than 8px,
+     and the two small steps are tightened so chips and inputs stay crisp at
+     12px type. The editorial (marketing) shell deliberately re-opens 2xl to
+     16px inside its own scope — that register change is the point of it. */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 8px;
+
+  /* ── Display type scale ──
+     Instrument Sans is variable on weight only, so unlike patina there is no
+     width axis to drive: the display voice here is TRACKING, tightened as the
+     type gets bigger, so a hero reads as signage while a card title still
+     reads as an interface label.
+
+     Applied in a stylesheet, never from a style prop — a custom property
+     cannot express a whole font-variation-settings declaration. */
+  --display-wght-hero: 700;
+  --display-wght-title: 640;
+  --display-wght-label: 600;
+
+  --display-tracking-hero: -0.035em;
+  --display-tracking-title: -0.022em;
+  --display-tracking-label: -0.008em;
+
+  /* Uppercase mono labels — the eyebrow above a section title and the head of
+     every table column. Small, spaced, and always mono, so a label is never
+     mistaken for content. */
+  --label-size: 0.65625rem; /* 10.5px */
+  --label-tracking: 0.1em;
+
+  /* ── Motion ──
+     Faster than the stock scale. The §6 durations were set for a marketing
+     register; at 200ms, a dropdown in a data-entry loop that a clerk opens
+     four hundred times a day is felt as latency, not as polish. */
+  --duration-fast: 90ms;
+  --duration-normal: 150ms;
+  --ease-default: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* ── The Meridian bar ──
+     Height is a token because the bar is the one element that must sit in the
+     identical position on all eleven surfaces; a shell that hardcodes its own
+     offset is how that guarantee is quietly lost. */
+  --meridian-bar-height: 44px;
+}
+
+/* ══ Studio chrome — Meridian light ═══════════════════════ */
+
+[data-theme="meridian"] {
+  --studio-0: #ffffff;
+  --studio-50: #faf9f7;
+  --studio-100: #f2f1ee;
+  --studio-200: #e2e0db;
+  --studio-300: #c4c1ba;
+  --studio-400: #9b9891;
+  --studio-500: #737b7e;
+  --studio-600: #4c5457;
+  --studio-700: #383f42;
+  --studio-800: #23292b;
+  --studio-900: #14191b;
+  --studio-950: #090c0d;
+
+  --studio-accent: #0e6b75;
+  --studio-accent-bright: #12838f;
+  --studio-accent-light: #3aa9b3;
+  --studio-accent-muted: #9bcbd0;
+  --studio-accent-subtle: #dcedef;
+  --studio-indigo: #4f53b8;
+
+  --studio-success: #1f7a45;
+  --studio-success-bright: #269154;
+  --studio-success-strong: #196337;
+  --studio-success-text: #14512e;
+  --studio-success-muted: #b3dcc3;
+  --studio-success-subtle: #e2f1e8;
+  --studio-success-surface: #f1f9f4;
+
+  --studio-warning: #a15c07;
+  --studio-warning-strong: #834a05;
+  --studio-warning-text: #6f3f04;
+  --studio-warning-subtle: #faefdc;
+  --studio-warning-surface: #fdf7ee;
+
+  --studio-danger: #b3121f;
+  --studio-danger-bright: #cc1826;
+  --studio-danger-rose: #b3121f;
+  --studio-danger-text: #7d0b15;
+  --studio-danger-muted: #eeb4b9;
+  --studio-danger-subtle: #fae4e6;
+  --studio-danger-surface: #fdf3f4;
+  --studio-danger-surface-rose: #fdf3f4;
+
+  --studio-violet: #4f53b8;
+  --studio-pink: #a6437a;
+
+  --studio-chrome-bg: #faf9f7;
+  --studio-chrome-raised: #ffffff;
+  --studio-chrome-border: #e2e0db;
+  --studio-chrome-text: #14191b;
+  --studio-chrome-text-muted: #737b7e;
+  --studio-canvas-bg: #eeedea;
+}
+
+/* ══ Studio chrome — Meridian dark ════════════════════════ */
+
+[data-theme="meridian-dark"] {
+  /* ── Scope hues, lifted for a dark ground ──
+     The shared block above carries the light-mode values, which land at around
+     2.1–3.0:1 on the dark elevated surface — below the 3:1 a UI boundary needs.
+     Scope renders as a 3px edge, so it IS a boundary, not decoration, and it
+     has to clear that bar. Same four meanings, same order, different values. */
+  --scope-app: #48c5ce;
+  --scope-site: #8b8fe0;
+  --scope-library: #d9a441;
+  --scope-manage: #9aa5a8;
+
+  --studio-0: #1c2023;
+  --studio-50: #171b1e;
+  --studio-100: #1e2326;
+  --studio-200: #2e3438;
+  --studio-300: #414850;
+  --studio-400: #5c646b;
+  --studio-500: #7b7a75;
+  --studio-600: #a3a29d;
+  --studio-700: #c2c0ba;
+  --studio-800: #dbd8d2;
+  --studio-900: #e6e3de;
+  --studio-950: #ffffff;
+
+  --studio-accent: #48c5ce;
+  --studio-accent-bright: #63d2da;
+  --studio-accent-light: #7cdde3;
+  --studio-accent-muted: #1d5a60;
+  --studio-accent-subtle: #0f3538;
+  --studio-indigo: #8b8fe0;
+
+  --studio-success: #45b877;
+  --studio-success-bright: #5cc78a;
+  --studio-success-strong: #38a266;
+  --studio-success-text: #a5e2bd;
+  --studio-success-muted: #1b4a30;
+  --studio-success-subtle: #10281a;
+  --studio-success-surface: #0b1c12;
+
+  --studio-warning: #dfa040;
+  --studio-warning-strong: #ecb257;
+  --studio-warning-text: #f2d19f;
+  --studio-warning-subtle: #2d2314;
+  --studio-warning-surface: #1f180e;
+
+  --studio-danger: #e56a72;
+  --studio-danger-bright: #ef8188;
+  --studio-danger-rose: #e56a72;
+  --studio-danger-text: #f5bcc0;
+  --studio-danger-muted: #5c2429;
+  --studio-danger-subtle: #2e1517;
+  --studio-danger-surface: #1f0e10;
+  --studio-danger-surface-rose: #1f0e10;
+
+  --studio-violet: #8b8fe0;
+  --studio-pink: #d47ba8;
+
+  /* The canvas must read as RECESSED relative to the chrome. --studio-50 is
+     the chrome here, so the canvas is pushed BELOW it rather than to
+     --studio-100, which is lighter. */
+  --studio-chrome-bg: #171b1e;
+  --studio-chrome-raised: #1c2023;
+  --studio-chrome-border: #2e3438;
+  --studio-chrome-text: #e6e3de;
+  --studio-chrome-text-muted: #7b7a75;
+  --studio-canvas-bg: #0e1113;
+}
+
+/* ══ Chart palette ════════════════════════════════════════
+   charts.css owns a categorical ramp built for the indigo themes; on the warm
+   Meridian ground its blues and violets sit at nearly the same value and a
+   five-series line chart becomes unreadable.
+
+   This ramp is ordered by VALUE as well as by hue, so adjacent series separate
+   in greyscale — which is what makes it survive being printed, screenshotted
+   into a ticket, or read by someone with deuteranopia or protanopia. Never
+   hand-pick a chart colour and never re-order the ramp per chart. */
+
+/* The ramp ALTERNATES dark and light on purpose. A first draft of this palette
+   picked ten pleasant hues at similar saturation and lightness; every adjacent
+   pair then differed by under 1.25:1 in luminance, which reads fine on screen
+   in colour and turns into one grey band the moment the chart is printed,
+   screenshotted into a ticket, or looked at by someone with deuteranopia.
+   scripts/check-contrast.mjs enforces the alternation — reorder these by hue
+   because it looks tidier and the build will tell you what you broke. */
+
+[data-theme="meridian"] {
+  --chart-1: #0e6b75; /* teal, deep */
+  --chart-2: #d99a2b; /* ochre, light */
+  --chart-3: #3a3f9e; /* violet, deep */
+  --chart-4: #4fa96b; /* green, light */
+  --chart-5: #9c1220; /* crimson, deep */
+  --chart-6: #86adb8; /* slate, light */
+  --chart-7: #6b2456; /* plum, deep */
+  --chart-8: #9aa63f; /* olive, light */
+  --chart-9: #2b4470; /* steel, deep */
+  --chart-10: #9ba09f; /* graphite, light */
+}
+
+[data-theme="meridian-dark"] {
+  --chart-1: #48c5ce; /* teal, light */
+  --chart-2: #a9711d; /* ochre, deep */
+  --chart-3: #b4b7f0; /* violet, light */
+  --chart-4: #2e8a52; /* green, deep */
+  --chart-5: #f2a5aa; /* rose, light */
+  --chart-6: #4a7480; /* slate, deep */
+  --chart-7: #eeaed3; /* pink, light */
+  --chart-8: #767d22; /* olive, deep */
+  --chart-9: #a8c0e8; /* steel, light */
+  --chart-10: #7d7c77; /* graphite, deep */
+}

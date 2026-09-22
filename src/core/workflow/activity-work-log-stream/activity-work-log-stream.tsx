@@ -1,0 +1,281 @@
+import React, { forwardRef, useState, useId } from "react";
+import { Lock, Globe, Settings, Paperclip } from "lucide-react";
+import styles from "./activity-work-log-stream.module.css";
+
+export type WorkLogEntryType = "internal_note" | "customer_reply" | "system_audit" | "status_change";
+
+export interface WorkLogEntry {
+  id: string;
+  type: WorkLogEntryType;
+  authorName: string;
+  authorRole?: string;
+  authorAvatar?: string;
+  createdAt: string;
+  content: string;
+  attachments?: Array<{ name: string; sizeBytes?: number }>;
+}
+
+export interface ActivityWorkLogStreamProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Log entries in chronological or reverse-chronological order */
+  entries: WorkLogEntry[];
+  /** Callback fired when a new log entry is submitted */
+  onSubmitEntry?: (entry: { type: "internal_note" | "customer_reply"; content: string }) => void;
+  /** Current logged in user name */
+  currentUser?: { name: string; avatar?: string };
+  /** Default mode for composer */
+  defaultComposerType?: "internal_note" | "customer_reply";
+  /** Density */
+  density?: "compact" | "comfortable";
+  /** Optional custom CSS class */
+  className?: string;
+  testId?: string;
+}
+
+/**
+ * ActivityWorkLogStream provides a dual-track collaboration stream
+ * for IT service management, incident management, and case handling.
+ *
+ * @maturity stable
+ */
+export const ActivityWorkLogStream = forwardRef<HTMLDivElement, ActivityWorkLogStreamProps>(
+  (
+    {
+      entries,
+      onSubmitEntry,
+      currentUser = { name: "System Admin" },
+      defaultComposerType = "internal_note",
+      density = "compact",
+      className,
+      testId = "activity-work-log-stream",
+      ...rest
+    },
+    ref
+  ) => {
+  const streamId = useId();
+  const [filter, setFilter] = useState<"all" | WorkLogEntryType>("all");
+  const [composerType, setComposerType] = useState<"internal_note" | "customer_reply">(defaultComposerType);
+  const [draftContent, setDraftContent] = useState("");
+
+  const filteredEntries = entries.filter((e) => {
+    if (filter === "all") return true;
+    return e.type === filter;
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!draftContent.trim()) return;
+    onSubmitEntry?.({
+      type: composerType,
+      content: draftContent.trim(),
+    });
+    setDraftContent("");
+  };
+
+  const isInternal = composerType === "internal_note";
+
+  return (
+    <div
+      ref={ref}
+      className={`${styles.container} ${className ?? ""}`}
+      data-density={density}
+      data-testid={testId}
+      aria-labelledby={`${streamId}-title`}
+      {...rest}
+    >
+      {/* Stream Header & Filter Tabs */}
+      <div className={styles.header}>
+        <h3 id={`${streamId}-title`} className={styles.streamTitle}>
+          Activity &amp; Work Log
+        </h3>
+        <div className={styles.filterTabs} role="tablist" aria-label="Filter work log entries">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={filter === "all"}
+            className={`${styles.filterTab} ${filter === "all" ? styles.filterTabActive : ""}`}
+            onClick={() => setFilter("all")}
+          >
+            All ({entries.length})
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={filter === "internal_note"}
+            className={`${styles.filterTab} ${filter === "internal_note" ? styles.filterTabActive : ""}`}
+            onClick={() => setFilter("internal_note")}
+          >
+            Internal Notes
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={filter === "customer_reply"}
+            className={`${styles.filterTab} ${filter === "customer_reply" ? styles.filterTabActive : ""}`}
+            onClick={() => setFilter("customer_reply")}
+          >
+            Customer Visible
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={filter === "system_audit"}
+            className={`${styles.filterTab} ${filter === "system_audit" ? styles.filterTabActive : ""}`}
+            onClick={() => setFilter("system_audit")}
+          >
+            Audit Events
+          </button>
+        </div>
+      </div>
+
+      {/* Interactive Dual-Track Composer */}
+      {onSubmitEntry && (
+        <form onSubmit={handleSubmit} className={`${styles.composer} ${isInternal ? styles.composerInternal : styles.composerCustomer}`}>
+          <div className={styles.composerTypeBar} role="group" aria-label="Compose visibility mode">
+            <button
+              type="button"
+              className={`${styles.modeBtn} ${isInternal ? styles.modeBtnInternalActive : ""}`}
+              onClick={() => setComposerType("internal_note")}
+              aria-pressed={isInternal}
+            >
+              <Lock size={13} strokeWidth={1.75} aria-hidden="true" />
+              <span>Internal Work Note (Private)</span>
+            </button>
+            <button
+              type="button"
+              className={`${styles.modeBtn} ${!isInternal ? styles.modeBtnCustomerActive : ""}`}
+              onClick={() => setComposerType("customer_reply")}
+              aria-pressed={!isInternal}
+            >
+              <Globe size={13} strokeWidth={1.75} aria-hidden="true" />
+              <span>Customer Visible Reply (Public)</span>
+            </button>
+          </div>
+
+          <div className={styles.composerNotice}>
+            {isInternal ? (
+              <span>
+                <Lock size={13} strokeWidth={1.75} style={{ verticalAlign: "-2px", marginRight: "var(--space-1)" }} aria-hidden="true" />
+                <strong>Internal Note:</strong> Only visible to internal staff and operators. Hidden from customer.
+              </span>
+            ) : (
+              <span>
+                <Globe size={13} strokeWidth={1.75} style={{ verticalAlign: "-2px", marginRight: "var(--space-1)" }} aria-hidden="true" />
+                <strong>Public Reply:</strong> This response will be dispatched to the customer portal and emailed.
+              </span>
+            )}
+          </div>
+
+          <div className={styles.composerBody}>
+            <label htmlFor={`${streamId}-composer-text`} className={styles.srOnly}>
+              {isInternal ? "Internal work note content" : "Customer reply content"}
+            </label>
+            <textarea
+              id={`${streamId}-composer-text`}
+              value={draftContent}
+              onChange={(e) => setDraftContent(e.target.value)}
+              placeholder={isInternal ? "Add internal note for tier-2/3 team or auditors..." : "Type response to send to customer contact..."}
+              rows={3}
+              className={styles.textarea}
+            />
+            <div className={styles.composerFooter}>
+              <span className={styles.currentUserBadge}>
+                Posting as <strong>{currentUser.name}</strong>
+              </span>
+              <button
+                type="submit"
+                disabled={!draftContent.trim()}
+                className={`${styles.submitBtn} ${isInternal ? styles.submitBtnInternal : styles.submitBtnCustomer}`}
+              >
+                {isInternal ? "Post Work Note" : "Send Customer Reply"}
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+
+      {/* Activity Timeline List */}
+      <div className={styles.timelineList} role="feed" aria-label="Activity entries">
+        {filteredEntries.length === 0 ? (
+          <div className={styles.emptyFeed}>No entries matching selected filter.</div>
+        ) : (
+          filteredEntries.map((entry) => {
+            const entryIsInternal = entry.type === "internal_note";
+            const entryIsCustomer = entry.type === "customer_reply";
+            const entryIsAudit = entry.type === "system_audit";
+
+            return (
+              <article
+                key={entry.id}
+                className={`${styles.timelineEntry} ${
+                  entryIsInternal
+                    ? styles.entryInternal
+                    : entryIsCustomer
+                    ? styles.entryCustomer
+                    : styles.entryAudit
+                }`}
+              >
+                {/* Avatar / Icon Badge */}
+                <div className={styles.entryAvatar}>
+                  {entry.authorAvatar ? (
+                    <img src={entry.authorAvatar} alt="" className={styles.avatarImg} />
+                  ) : (
+                    <div className={styles.avatarFallback}>
+                      {entryIsAudit ? <Settings size={14} strokeWidth={1.75} aria-hidden="true" /> : entry.authorName.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                </div>
+
+                {/* Entry Content Card */}
+                <div className={styles.entryCard}>
+                  <div className={styles.entryMeta}>
+                    <div className={styles.entryAuthor}>
+                      <span className={styles.authorName}>{entry.authorName}</span>
+                      {entry.authorRole && (
+                        <span className={styles.authorRole}>• {entry.authorRole}</span>
+                      )}
+                    </div>
+
+                    <div className={styles.entryTags}>
+                      {entryIsInternal && (
+                        <span className={styles.badgeInternal}>
+                          <Lock size={11} strokeWidth={2} aria-hidden="true" />
+                          <span>Internal Note</span>
+                        </span>
+                      )}
+                      {entryIsCustomer && (
+                        <span className={styles.badgeCustomer}>
+                          <Globe size={11} strokeWidth={2} aria-hidden="true" />
+                          <span>Customer Reply</span>
+                        </span>
+                      )}
+                      {entryIsAudit && (
+                        <span className={styles.badgeAudit}>Audit Event</span>
+                      )}
+                      <time className={styles.entryTimestamp}>{entry.createdAt}</time>
+                    </div>
+                  </div>
+
+                  <div className={styles.entryBodyText}>{entry.content}</div>
+
+                  {entry.attachments && entry.attachments.length > 0 && (
+                    <div className={styles.attachmentsRow} aria-label="Attached files">
+                      {entry.attachments.map((att, idx) => (
+                        <span key={idx} className={styles.attachmentChip}>
+                          <Paperclip size={11} strokeWidth={1.75} aria-hidden="true" />
+                          <span>{att.name}</span>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            );
+          })
+        )}
+      </div>
+    </div>
+  );
+}
+);
+
+ActivityWorkLogStream.displayName = "ActivityWorkLogStream";

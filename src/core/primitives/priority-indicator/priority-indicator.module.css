@@ -1,0 +1,59 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — PriorityIndicator Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+}
+
+.label {
+  display: inline-block;
+}
+
+.low {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}
+
+.medium {
+  color: var(--color-info);
+}
+
+.high {
+  color: var(--color-warning-text);
+}
+
+.urgent {
+  color: var(--color-danger);
+}
+
+.pill {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid transparent;
+}
+
+.pill.low {
+  background: var(--color-bg-sunken);
+  border-color: var(--color-border);
+}
+
+.pill.medium {
+  background: var(--color-info-light);
+  border-color: var(--color-info);
+}
+
+.pill.high {
+  background: var(--color-warning-light);
+  border-color: var(--color-warning);
+}
+
+.pill.urgent {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
+}

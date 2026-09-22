@@ -1,0 +1,34 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — RTL & BiDi Direction Rules
+   ══════════════════════════════════════════════════════════════
+
+   Enterprise ERP localization for Arabic, Hebrew, Urdu, and Persian.
+   Applied automatically when <html dir="rtl"> or [dir="rtl"] is set.
+   ══════════════════════════════════════════════════════════════ */
+
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] [dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+}
+
+/* ── Directional Icon Mirroring ── */
+[dir="rtl"] .u-mirror-rtl,
+[dir="rtl"] svg[data-icon-direction="start"],
+[dir="rtl"] svg[data-icon-direction="end"],
+[dir="rtl"] [data-direction-flip="true"] {
+  transform: scaleX(-1);
+}
+
+/* ── Numerical Table Columns ── */
+/* In RTL enterprise accounting, tabular numeric columns remain LTR for mathematical parsing */
+[dir="rtl"] [data-numeric-column="true"],
+[dir="rtl"] .u-tabular-nums {
+  direction: ltr;
+  text-align: right;
+  unicode-bidi: isolate;
+}

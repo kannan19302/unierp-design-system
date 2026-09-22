@@ -1,0 +1,47 @@
+.banner {
+  height: var(--banner-height, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+  background-color: var(--color-warning-subtle, #fef3c7);
+  color: var(--color-warning-text, #92400e);
+  border-bottom: 1px solid var(--color-warning-border, #fcd34d);
+  font-size: var(--text-xs);
+  z-index: var(--z-fixed, 800);
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.warningIcon {
+  color: var(--color-warning, #d97706);
+  flex-shrink: 0;
+}
+
+.tenantName {
+  font-weight: var(--weight-bold);
+  text-decoration: underline;
+}
+
+.endButton {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-warning-border, #fcd34d);
+  color: var(--color-warning-text, #92400e);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.endButton:hover {
+  background: var(--color-warning, #d97706);
+  color: var(--color-text-inverse);
+}

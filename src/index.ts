@@ -238,3 +238,6 @@ export {
   type NotificationPriority,
   type NotificationCategory,
 } from "./notifications";
+
+export * as Platforms from "./platforms";
+

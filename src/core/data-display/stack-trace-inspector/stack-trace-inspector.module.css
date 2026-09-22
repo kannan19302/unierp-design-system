@@ -1,0 +1,329 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 2.0 — StackTraceInspector
+   Inspired by Sentry (#96), Datadog APM (#53), GitHub Primer (#9)
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-surface, var(--color-bg-elevated));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-subtle, var(--color-bg));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2-5, var(--space-2));
+}
+
+.errorIcon {
+  color: var(--color-danger, #ef4444);
+  margin-top: var(--space-0-5, 2px);
+  flex-shrink: 0;
+}
+
+.exceptionDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5, 2px);
+}
+
+.exceptionType {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-bold);
+  color: var(--color-danger, #ef4444);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.exceptionMsg {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary, var(--color-text));
+  word-break: break-word;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-2-5, var(--space-2));
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary, var(--color-text));
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.copyBtn:hover {
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+}
+
+/* ── Suspect Commit Banner ── */
+.suspectBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-warning-subtle, rgba(245, 158, 11, 0.12));
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+  flex-wrap: wrap;
+}
+
+.commitIcon {
+  color: var(--color-warning, #f59e0b);
+}
+
+.suspectLabel {
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.commitSha {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-bold);
+  background-color: var(--color-surface);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+}
+
+.commitAuthor {
+  color: var(--color-text-muted);
+}
+
+.commitMsg {
+  font-style: italic;
+  color: var(--color-text-primary, var(--color-text));
+}
+
+/* ── Filter Strip ── */
+.filterStrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-1-5, var(--space-1)) var(--space-4);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filterLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5, var(--space-1));
+}
+
+.codeIcon {
+  color: var(--color-text-muted);
+}
+
+.frameCount {
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-muted);
+}
+
+.filterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  font-family: inherit;
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  padding: var(--space-0-5, 2px) var(--space-2, var(--space-1));
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.filterBtn:hover {
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.filterBtnActive {
+  background-color: var(--color-primary-subtle, rgba(14, 165, 233, 0.15));
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+/* ── Frames List ── */
+.framesList {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: var(--space-96, 384px);
+}
+
+.frameItem {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.vendorFrame {
+  opacity: 0.65;
+  background-color: var(--color-bg-subtle, var(--color-bg));
+}
+
+.frameHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--density-row-height, 32px);
+  padding: 0 var(--space-4);
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 150ms ease);
+}
+
+.frameHeader:hover {
+  background-color: var(--color-surface-hover, var(--color-bg-subtle));
+}
+
+.frameHeader:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.expandIcon {
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.frameIndex {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  color: var(--color-text-muted);
+  min-width: var(--space-6, 24px);
+}
+
+.functionName {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary, var(--color-text));
+}
+
+.locationWrap {
+  margin-left: auto;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+}
+
+.fileName {
+  color: var(--color-text-muted);
+}
+
+.lineIndicator {
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+.scopeTag {
+  font-size: var(--text-2xs, var(--text-xs));
+  font-weight: var(--weight-semibold);
+  padding: 1px var(--space-1-5, var(--space-1));
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.tagInApp {
+  background-color: var(--color-primary-subtle, rgba(14, 165, 233, 0.15));
+  color: var(--color-primary);
+}
+
+.tagVendor {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+}
+
+/* ── Code Context Block ── */
+.codeBlockWrap {
+  background-color: var(--color-bg, #0f172a);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-2) 0;
+  overflow-x: auto;
+}
+
+.codeBlock {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs, var(--text-xs));
+  line-height: var(--leading-relaxed, 1.6);
+}
+
+.codeLine {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.targetLine {
+  background-color: var(--color-danger-subtle, rgba(239, 68, 68, 0.2));
+  color: var(--color-danger, #ef4444);
+  font-weight: var(--weight-bold);
+}
+
+.codeLineNum {
+  width: var(--space-8, 32px);
+  min-width: var(--space-8, 32px);
+  text-align: right;
+  padding-right: var(--space-3);
+  user-select: none;
+  color: var(--color-text-muted);
+}
+
+.codeContent {
+  white-space: pre;
+}
+
+/* ── 4-Tier Density ── */
+.container[data-density="ultra-compact"] .frameHeader {
+  height: var(--density-row-height);
+}
+
+.container[data-density="compact"] .frameHeader {
+  height: var(--density-row-height);
+}
+
+.container[data-density="standard"] .frameHeader {
+  height: var(--density-row-height);
+}
+
+.container[data-density="comfortable"] .frameHeader {
+  height: var(--density-row-height);
+}

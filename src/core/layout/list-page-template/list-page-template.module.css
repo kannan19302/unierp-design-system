@@ -1,0 +1,187 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  inline-size: 100%;
+  box-sizing: border-box;
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.searchWrap {
+  position: relative;
+  flex: 1 1 var(--space-56, 220px);
+  max-inline-size: var(--space-90, 360px);
+}
+
+.searchIcon {
+  position: absolute;
+  inset-inline-start: var(--space-3);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  inline-size: 100%;
+  padding-inline-start: var(--space-8);
+  padding-inline-end: var(--space-3);
+  block-size: var(--density-control-height, var(--space-8));
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.searchInput:focus {
+  border-color: var(--color-border-focus, var(--color-primary));
+  box-shadow: 0 0 0 2px var(--color-bg-surface), 0 0 0 var(--space-1, 4px) var(--color-primary-subtle);
+}
+
+.filterSelect {
+  block-size: var(--density-control-height, var(--space-8));
+  padding-block: 0;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.filterSelect:focus {
+  border-color: var(--color-border-focus, var(--color-primary));
+  box-shadow: 0 0 0 2px var(--color-bg-surface), 0 0 0 var(--space-1, 4px) var(--color-primary-subtle);
+}
+
+.tableCard {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.tableOverflow {
+  overflow-x: auto;
+}
+
+.table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  text-align: left;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-block-end: 1px solid var(--color-border-default);
+  background: var(--color-bg-sunken);
+  white-space: nowrap;
+}
+
+.td {
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  border-block-end: 1px solid var(--color-border-default);
+  vertical-align: middle;
+}
+
+.skeletonBar {
+  block-size: var(--space-3-5, 14px);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--color-bg-sunken) 25%, var(--color-border-default) 37%, var(--color-bg-sunken) 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.emptyState {
+  padding-block: var(--space-12);
+  padding-inline: var(--space-8);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+}
+
+.emptyTitle {
+  font-weight: var(--weight-semibold, 600);
+  margin-block-end: var(--space-1);
+}
+
+.clickableRow {
+  cursor: pointer;
+  transition: background var(--duration-fast, 150ms);
+}
+
+.clickableRow:hover {
+  background: var(--color-bg-hover, var(--color-bg-subtle));
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  border-block-start: 1px solid var(--color-border-default);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.paginationActions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.pageBtn {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5, var(--space-2));
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.pageBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+

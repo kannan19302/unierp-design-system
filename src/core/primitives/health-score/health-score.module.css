@@ -1,0 +1,61 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — HealthScore Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  font-family: var(--font-sans);
+  line-height: 1;
+  user-select: none;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.scoreText {
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.label {
+  font-weight: var(--weight-normal);
+  margin-left: var(--space-1);
+  opacity: 0.85;
+}
+
+.good {
+  color: var(--color-success);
+}
+
+.fair {
+  color: var(--color-warning-text);
+}
+
+.poor {
+  color: var(--color-danger);
+}
+
+.pill {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid transparent;
+}
+
+.pill.good {
+  background: var(--color-success-light);
+  border-color: var(--color-success);
+}
+
+.pill.fair {
+  background: var(--color-warning-light);
+  border-color: var(--color-warning);
+}
+
+.pill.poor {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
+}

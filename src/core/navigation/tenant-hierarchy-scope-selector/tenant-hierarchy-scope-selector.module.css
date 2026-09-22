@@ -1,0 +1,228 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-sans);
+}
+
+.scopeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border: var(--border-width-thin) solid var(--color-border);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-default), background-color var(--duration-fast) var(--ease-default);
+}
+
+.scopeButton:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-primary-border);
+}
+
+.orgIcon {
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+}
+
+.scopeHierarchy {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.scopePart {
+  color: var(--color-text-primary);
+}
+
+.scopeSeparator {
+  color: var(--color-text-secondary);
+  font-size: var(--text-2xs);
+}
+
+.envPill {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1-5);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.envProd {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+  border: var(--border-width-thin) solid var(--color-success-border);
+}
+
+.envStaging {
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning);
+  border: var(--border-width-thin) solid var(--color-warning-border);
+}
+
+.envDev {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  border: var(--border-width-thin) solid var(--color-primary-border);
+}
+
+.flyout {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-2));
+  inset-inline-start: 0;
+  inline-size: var(--space-96, 24rem);
+  max-block-size: var(--space-96, 24rem);
+  background-color: var(--color-surface);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 50;
+}
+
+.flyoutHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface-subtle);
+  border-block-end: var(--border-width-thin) solid var(--color-border);
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--space-1);
+}
+
+.searchInput {
+  inline-size: 100%;
+  font-size: var(--text-xs);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-2-5);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: var(--border-width-thin);
+  block-size: var(--border-width-thin);
+  padding: 0;
+  margin: calc(-1 * var(--border-width-thin));
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.scopeList {
+  overflow-block: auto;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.scopeItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  border: var(--border-width-thin) solid transparent;
+  cursor: pointer;
+  text-align: start;
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.scopeItem:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.scopeItemActive {
+  background-color: var(--color-primary-subtle);
+  border-color: var(--color-primary-border);
+}
+
+.itemMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.itemPath {
+  font-size: var(--text-2xs);
+  color: var(--color-text-secondary);
+}
+
+.itemTitle {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface-subtle);
+  border-block-start: var(--border-width-thin) solid var(--color-border);
+  font-size: var(--text-2xs);
+  color: var(--color-text-secondary);
+}
+
+/* Density overrides */
+.wrapper[data-density="ultra-compact"] .scopeButton {
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
+  font-size: var(--text-2xs);
+}
+
+.wrapper[data-density="compact"] .scopeButton {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+}
+
+.wrapper[data-density="standard"] .scopeButton {
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
+}
+
+.wrapper[data-density="comfortable"] .scopeButton {
+  padding-block: var(--space-2-5);
+  padding-inline: var(--space-4);
+}

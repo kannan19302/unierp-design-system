@@ -1,0 +1,96 @@
+/* ── AuthShell — Split-panel authentication layout ──
+   Uses Strata DL 3.0 tokens exclusively. Zero raw hex/px values. */
+
+.root {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+/* ── Form Panel (left) ── */
+.formPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-6);
+  background: var(--color-bg-elevated);
+}
+
+.formContainer {
+  width: 100%;
+  max-width: var(--auth-card-max-width);
+}
+
+.logo {
+  margin-bottom: var(--space-6);
+}
+
+.tenantName {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  margin: 0 0 var(--space-8) 0;
+}
+
+.formContent {
+  width: 100%;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: var(--space-8);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+/* ── Illustration Panel (right) ── */
+.illustrationPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  border-left: 1px solid var(--color-border);
+}
+
+.illustrationContent {
+  max-width: var(--auth-illustration-max-width);
+  width: 100%;
+  padding: var(--space-8);
+}
+
+/* ── Responsive: collapse illustration below 768px ── */
+@media (max-width: 768px) {
+  .root {
+    flex-direction: column;
+  }
+
+  .illustrationPanel {
+    display: none;
+  }
+
+  .formPanel {
+    padding: var(--space-6) var(--space-4);
+  }
+}

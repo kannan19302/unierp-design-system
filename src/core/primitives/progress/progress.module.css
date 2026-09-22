@@ -1,0 +1,95 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-sans);
+  font-size: var(--type-micro, 11px);
+  color: var(--color-text-secondary);
+}
+
+.label {
+  font-weight: var(--weight-medium);
+}
+
+.valueText {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+
+.track {
+  width: 100%;
+  background: var(--color-bg-sunken);
+  border-radius: var(--radius-full, 9999px);
+  box-shadow: inset 0 1px 1px var(--color-border-subtle);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sizing tiers */
+.xs {
+  height: var(--space-1, 4px);
+}
+
+.sm {
+  height: var(--space-1-5, 6px);
+}
+
+.md {
+  height: var(--space-2, 8px);
+}
+
+.lg {
+  height: var(--space-3, 12px);
+}
+
+.indicator {
+  height: 100%;
+  border-radius: var(--radius-full, 9999px);
+  transition: width var(--duration-normal) var(--ease-default);
+}
+
+/* Tone variants */
+.primary .indicator {
+  background: var(--platform-accent, var(--color-primary));
+}
+
+.success .indicator {
+  background: var(--color-success);
+}
+
+.warning .indicator {
+  background: var(--color-warning);
+}
+
+.danger .indicator {
+  background: var(--color-danger);
+}
+
+.neutral .indicator {
+  background: var(--color-text-muted);
+}
+
+/* Indeterminate animation */
+.indeterminate {
+  width: 50% !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  animation: progressIndeterminate 1.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes progressIndeterminate {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 100%;
+  }
+}

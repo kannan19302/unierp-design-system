@@ -1,0 +1,116 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 2.0 — UserChip Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+  user-select: none;
+  max-width: 100%;
+  transition: background-color var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default),
+              transform var(--duration-fast) var(--ease-default);
+}
+
+/* Shapes */
+.pill {
+  border-radius: var(--radius-full, 9999px);
+}
+
+.rounded {
+  border-radius: var(--radius-md, 6px);
+}
+
+/* Sizes */
+.sm {
+  padding: var(--space-0-5, 2px) var(--space-2-5, 10px) var(--space-0-5, 2px) var(--space-0-5, 2px);
+  gap: var(--space-1-5, 6px);
+}
+
+.md {
+  padding: var(--space-1, 4px) var(--space-3, 12px) var(--space-1, 4px) var(--space-1, 4px);
+  gap: var(--space-2, 8px);
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+.interactive:hover {
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+}
+
+.interactive:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring, 0 0 0 2px var(--color-focus));
+}
+
+.avatarWrap {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption, 12px);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.role {
+  font-family: var(--font-sans);
+  font-size: var(--type-micro, 11px);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.removeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-4, 16px);
+  height: var(--space-4, 16px);
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-left: var(--space-1, 4px);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--text-sm, 14px);
+  line-height: 1;
+  flex-shrink: 0;
+  transition: background-color var(--duration-fast) var(--ease-default),
+              color var(--duration-fast) var(--ease-default);
+}
+
+.removeBtn:hover {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.removeBtn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring, 0 0 0 2px var(--color-focus));
+}
+

@@ -1,0 +1,124 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+}
+
+.label {
+  font-size: var(--type-caption);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.display {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  border: var(--border-width, 1px) solid transparent;
+  cursor: pointer;
+  transition: var(--transition-color, background-color var(--duration-fast));
+}
+
+.display:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border);
+}
+
+.display:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.displayContent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.valueText {
+  font-size: var(--type-body);
+  color: var(--color-text-primary);
+  font-variant-numeric: var(--numeric-variant);
+}
+
+.placeholder {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+.pencilIcon {
+  color: var(--color-text-tertiary);
+  opacity: 0;
+  transition: var(--transition-fade, opacity var(--duration-fast));
+}
+
+.display:hover .pencilIcon,
+.display:focus-visible .pencilIcon {
+  opacity: 1;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.input {
+  flex: 1;
+  min-width: var(--space-24, 96px);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--type-body);
+  font-family: inherit;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: var(--border-width, 1px) solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+
+.inputError {
+  border-color: var(--color-danger);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  border: var(--border-width, 1px) solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-color, background-color var(--duration-fast));
+}
+
+.saveBtn:hover {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.cancelBtn:hover {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.errorMessage {
+  font-size: var(--type-caption);
+  color: var(--color-danger);
+}
