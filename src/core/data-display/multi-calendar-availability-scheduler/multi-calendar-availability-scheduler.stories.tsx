@@ -36,7 +36,7 @@ const sampleBookings: ScheduledBooking[] = [
   {
     id: "b-1",
     resourceId: "res-1",
-    title: "Core/Data Display/Strata DL 2.0 Design Review",
+    title: "Strata DL 2.0 Design Review",
     startTime: "09:00",
     endTime: "10:30",
   },
@@ -72,7 +72,7 @@ const sampleBookings: ScheduledBooking[] = [
 ];
 
 const meta: Meta<typeof MultiCalendarAvailabilityScheduler> = {
-  title: "Data Display/MultiCalendarAvailabilityScheduler",
+  title: "Core/Data Display/MultiCalendarAvailabilityScheduler",
   component: MultiCalendarAvailabilityScheduler,
   tags: ["autodocs"],
   parameters: {

@@ -5,7 +5,7 @@ import type { CloseTask } from "./period-close-cockpit";
 const mockTasks: CloseTask[] = [
   {
     id: "task-ap",
-    title: "Core/Workflow/Accounts Payable Invoice Matching & Hard Lock",
+    title: "Accounts Payable Invoice Matching & Hard Lock",
     category: "Subledger AP/AR",
     owner: "Elena Rostova",
     dueDate: "2026-09-02",
@@ -65,7 +65,7 @@ const mockTasks: CloseTask[] = [
 ];
 
 const meta: Meta<typeof PeriodCloseCockpit> = {
-  title: "Workflow/PeriodCloseCockpit",
+  title: "Core/Workflow/PeriodCloseCockpit",
   component: PeriodCloseCockpit,
   parameters: {
     layout: "padded",

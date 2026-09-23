@@ -7,7 +7,7 @@ import {
 const mockRoot: OrgNode = {
   id: "emp-ceo",
   name: "Dr. Evelyn Vance",
-  title: "Core/Data Display/Chief Executive Officer",
+  title: "Chief Executive Officer",
   department: "Executive Leadership",
   avatarInitials: "EV",
   email: "evelyn.vance@aerospace.unierp.com",
@@ -80,7 +80,7 @@ const mockRoot: OrgNode = {
 };
 
 const meta: Meta<typeof OrgChartHierarchyTree> = {
-  title: "Data Display/OrgChartHierarchyTree",
+  title: "Core/Data Display/OrgChartHierarchyTree",
   component: OrgChartHierarchyTree,
   parameters: {
     layout: "padded",

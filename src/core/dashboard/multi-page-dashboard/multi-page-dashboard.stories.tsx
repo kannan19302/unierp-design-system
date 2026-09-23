@@ -4,7 +4,7 @@ import { MultiPageDashboard, type DashboardPage } from "./multi-page-dashboard";
 const MOCK_PAGES: DashboardPage[] = [
   {
     id: "finance",
-    title: "Core/Dashboard/Financial Health",
+    title: "Financial Health",
     subtitle: "P&L, Accounts Receivable, Cash Flow",
     content: (
       <div style={{ padding: "var(--space-6)", background: "var(--color-surface-elevated)", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border-default)" }}>
@@ -44,7 +44,7 @@ const MOCK_PAGES: DashboardPage[] = [
 ];
 
 const meta: Meta<typeof MultiPageDashboard> = {
-  title: "Dashboard/MultiPageDashboard",
+  title: "Core/Dashboard/MultiPageDashboard",
   component: MultiPageDashboard,
   tags: ["autodocs"],
   parameters: {

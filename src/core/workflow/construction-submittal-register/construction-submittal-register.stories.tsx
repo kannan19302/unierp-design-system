@@ -9,7 +9,7 @@ const sampleSubmittals: ConstructionSubmittalItem[] = [
     id: "sub_033000_14",
     submittalNumber: "03-3000-014",
     specSection: "03 30 00 Cast-in-Place Concrete",
-    title: "Core/Workflow/High-Strength Structural Concrete Mix Design C-40",
+    title: "High-Strength Structural Concrete Mix Design C-40",
     subcontractor: "Apex Structural Pours LLC",
     reviewer: "Thornton Tomasetti Structural Engineering",
     status: "APPROVED",
@@ -56,7 +56,7 @@ const sampleSubmittals: ConstructionSubmittalItem[] = [
 ];
 
 const meta: Meta<typeof ConstructionSubmittalRegister> = {
-  title: "Workflow/ConstructionSubmittalRegister",
+  title: "Core/Workflow/ConstructionSubmittalRegister",
   component: ConstructionSubmittalRegister,
   parameters: {
     layout: "padded",

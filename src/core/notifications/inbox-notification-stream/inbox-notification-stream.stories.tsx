@@ -4,7 +4,7 @@ import { InboxNotificationStream } from "./inbox-notification-stream";
 const SAMPLE_ITEMS = [
   {
     id: "1",
-    title: "Core/Notifications/New Invoice Approved",
+    title: "New Invoice Approved",
     body: "Invoice #INV-2026-0891 has been approved by John Smith.",
     timestamp: "2 min ago",
     read: false,
@@ -29,7 +29,7 @@ const SAMPLE_ITEMS = [
 ];
 
 const meta: Meta<typeof InboxNotificationStream> = {
-  title: "Notifications/InboxNotificationStream",
+  title: "Core/Notifications/InboxNotificationStream",
   component: InboxNotificationStream,
   tags: ["autodocs"],
   parameters: {

@@ -4,7 +4,7 @@ import { WorkflowGraph, type WorkflowNode, type WorkflowEdge } from "./workflow-
 const sampleNodes: WorkflowNode[] = [
   {
     id: "step-1",
-    title: "Core/Workflow/Draft Created",
+    title: "Draft Created",
     subtitle: "By requester",
     status: "completed",
     assignee: "Sarah Jenkins",
@@ -51,7 +51,7 @@ const sampleEdges: WorkflowEdge[] = [
 ];
 
 const meta: Meta<typeof WorkflowGraph> = {
-  title: "Workflow/WorkflowGraph",
+  title: "Core/Workflow/WorkflowGraph",
   component: WorkflowGraph,
   tags: ["autodocs"],
   parameters: {

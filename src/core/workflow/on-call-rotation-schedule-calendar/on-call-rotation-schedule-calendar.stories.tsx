@@ -18,7 +18,7 @@ const sampleDays = [
 const sampleLayers: EscalationLayer[] = [
   {
     tier: "tier_1_primary",
-    title: "Core/Workflow/Tier 1: Primary On-Call",
+    title: "Tier 1: Primary On-Call",
     escalationTimeoutMinutes: 5,
   },
   {
@@ -77,7 +77,7 @@ const sampleShifts: OnCallShift[] = [
 ];
 
 const meta: Meta<typeof OnCallRotationScheduleCalendar> = {
-  title: "Workflow/OnCallRotationScheduleCalendar",
+  title: "Core/Workflow/OnCallRotationScheduleCalendar",
   component: OnCallRotationScheduleCalendar,
   parameters: {
     layout: "padded",

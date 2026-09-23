@@ -35,6 +35,11 @@ const PLATFORMS = [
 
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: ["Core", "Platforms"],
+      },
+    },
     controls: {
       matchers: { color: /(background|color)$/i, date: /Date$/i },
       expanded: true,

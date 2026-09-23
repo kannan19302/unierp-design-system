@@ -3,7 +3,7 @@ import { Footer, type FooterSection, type FooterLink } from "./footer";
 
 const sampleSections: FooterSection[] = [
   {
-    title: "Core/Layout/Platform",
+    title: "Platform",
     links: [
       { label: "Core ERP", href: "/platform/erp" },
       { label: "Developer Studio", href: "/platform/studio" },
@@ -48,7 +48,7 @@ const sampleLegal: FooterLink[] = [
 ];
 
 const meta: Meta<typeof Footer> = {
-  title: "Layout/Footer",
+  title: "Core/Layout/Footer",
   component: Footer,
   parameters: {
     layout: "fullscreen",

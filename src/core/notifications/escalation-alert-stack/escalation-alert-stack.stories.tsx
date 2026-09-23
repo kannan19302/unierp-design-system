@@ -4,7 +4,7 @@ import { EscalationAlertStack } from "./escalation-alert-stack";
 const SAMPLE_ALERTS = [
   {
     id: "1",
-    title: "Core/Notifications/Database CPU at 98%",
+    title: "Database CPU at 98%",
     severity: "critical" as const,
     timestamp: "30s ago",
     source: "prod-db-01",
@@ -26,7 +26,7 @@ const SAMPLE_ALERTS = [
 ];
 
 const meta: Meta<typeof EscalationAlertStack> = {
-  title: "Notifications/EscalationAlertStack",
+  title: "Core/Notifications/EscalationAlertStack",
   component: EscalationAlertStack,
   tags: ["autodocs"],
   parameters: {

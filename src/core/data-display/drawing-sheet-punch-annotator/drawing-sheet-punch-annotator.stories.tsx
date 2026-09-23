@@ -20,7 +20,7 @@ const samplePins: PunchItemPin[] = [
     posX: 32,
     posY: 38,
     trade: "electrical",
-    title: "Core/Data Display/Conduit Stub-up Out of Tolerance",
+    title: "Conduit Stub-up Out of Tolerance",
     description: "Electrical feed stub-up in Elec Closet 202 is 4 inches south of wall centerline.",
     assignedSubcontractor: "Helix Electric Corp",
     dueDate: "2026-09-12",
@@ -58,7 +58,7 @@ const samplePins: PunchItemPin[] = [
 ];
 
 const meta: Meta<typeof DrawingSheetPunchAnnotator> = {
-  title: "Data Display/DrawingSheetPunchAnnotator",
+  title: "Core/Data Display/DrawingSheetPunchAnnotator",
   component: DrawingSheetPunchAnnotator,
   parameters: {
     layout: "padded",

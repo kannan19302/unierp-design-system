@@ -10,7 +10,7 @@ const sampleNav = [
 
 const sampleFooterSections = [
   {
-    title: "Core/Shell/Product",
+    title: "Product",
     links: [
       { label: "Features", href: "/features" },
       { label: "Security", href: "/security" },
@@ -28,7 +28,7 @@ const sampleFooterSections = [
 ];
 
 const meta: Meta<typeof SiteShell> = {
-  title: "Shell/SiteShell",
+  title: "Core/Shell/SiteShell",
   component: SiteShell,
   tags: ["autodocs"],
   parameters: {
