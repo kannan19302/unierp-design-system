@@ -12,3 +12,13 @@ export * from "../navigation";
 export * from "../data-display";
 export * from "../forms";
 export * from "../layout";
+
+// Explicitly resolve re-export ambiguity for V3 primitives
+export {
+  Input,
+  type InputProps,
+  Textarea,
+  type TextareaProps,
+  Collapsible,
+  type CollapsibleProps,
+} from "../primitives";

@@ -7,9 +7,11 @@ import type { FeedbackVariant } from "./alert";
 
 const Icons = {
   info: Info,
+  default: Info,
   success: CheckCircle2,
   warning: AlertCircle,
   danger: XCircle,
+  destructive: XCircle,
 };
 
 export interface BannerProps {
@@ -27,15 +29,17 @@ export const Banner: FC<BannerProps> = ({
   onDismiss,
   className = "",
 }) => {
-  const IconComponent = Icons[variant];
+  const IconComponent = Icons[variant] || Info;
+  const isDestructive = variant === "danger" || variant === "destructive";
   const variantClass =
     variant === "success"
       ? styles.alertSuccess
       : variant === "warning"
         ? styles.alertWarning
-        : variant === "danger"
+        : isDestructive
           ? styles.alertDanger
           : styles.alertInfo;
+
 
   return (
     <div

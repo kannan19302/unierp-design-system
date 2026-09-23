@@ -4,7 +4,6 @@ import {
   forwardRef,
   type InputHTMLAttributes,
   type ReactNode,
-  type ChangeEvent,
 } from "react";
 import styles from "./input.module.css";
 
