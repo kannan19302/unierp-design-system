@@ -12,6 +12,9 @@ import {
   type ReactNode,
   type Ref,
   type UIEvent,
+  type HTMLAttributes,
+  type ThHTMLAttributes,
+  type TdHTMLAttributes,
 } from "react";
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, ChevronRight } from "lucide-react";
 import { Skeleton } from "../../primitives/skeleton";
@@ -773,4 +776,81 @@ export const DataTable = forwardRef(DataTableInner) as <T>(
 ) => ReactElement | null;
 
 (DataTable as unknown as { displayName: string }).displayName = "DataTable";
+
+export interface TableProps extends HTMLAttributes<HTMLTableElement> {}
+
+/**
+ * `<Table>` — Composable HTML table container adhering to Strata DL 3.0 / shadcn pattern.
+ */
+export const Table = forwardRef<HTMLTableElement, TableProps>(
+  ({ className = "", ...props }, ref) => (
+    <div className={styles.tableContainer}>
+      <table ref={ref} className={`${styles.table} ${className}`.trim()} {...props} />
+    </div>
+  )
+);
+Table.displayName = "Table";
+
+export interface TableHeaderProps extends HTMLAttributes<HTMLTableSectionElement> {}
+
+export const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(
+  ({ className = "", ...props }, ref) => (
+    <thead ref={ref} className={`${styles.headerRow} ${className}`.trim()} {...props} />
+  )
+);
+TableHeader.displayName = "TableHeader";
+
+export interface TableBodyProps extends HTMLAttributes<HTMLTableSectionElement> {}
+
+export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
+  ({ className = "", ...props }, ref) => (
+    <tbody ref={ref} className={className || undefined} {...props} />
+  )
+);
+TableBody.displayName = "TableBody";
+
+export interface TableFooterProps extends HTMLAttributes<HTMLTableSectionElement> {}
+
+export const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(
+  ({ className = "", ...props }, ref) => (
+    <tfoot ref={ref} className={`${styles.summaryRow} ${className}`.trim()} {...props} />
+  )
+);
+TableFooter.displayName = "TableFooter";
+
+export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {}
+
+export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
+  ({ className = "", ...props }, ref) => (
+    <tr ref={ref} className={`${styles.dataRow} ${className}`.trim()} {...props} />
+  )
+);
+TableRow.displayName = "TableRow";
+
+export interface TableHeadProps extends ThHTMLAttributes<HTMLTableCellElement> {}
+
+export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(
+  ({ className = "", ...props }, ref) => (
+    <th ref={ref} className={`${styles.headerCell} ${className}`.trim()} {...props} />
+  )
+);
+TableHead.displayName = "TableHead";
+
+export interface TableCellProps extends TdHTMLAttributes<HTMLTableCellElement> {}
+
+export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
+  ({ className = "", ...props }, ref) => (
+    <td ref={ref} className={`${styles.cell} ${className}`.trim()} {...props} />
+  )
+);
+TableCell.displayName = "TableCell";
+
+export interface TableCaptionProps extends HTMLAttributes<HTMLTableCaptionElement> {}
+
+export const TableCaption = forwardRef<HTMLTableCaptionElement, TableCaptionProps>(
+  ({ className = "", ...props }, ref) => (
+    <caption ref={ref} className={`${styles.caption} ${className}`.trim()} {...props} />
+  )
+);
+TableCaption.displayName = "TableCaption";
 

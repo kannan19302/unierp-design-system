@@ -1,0 +1,20 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 3.0 — Separator Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.separator {
+  flex-shrink: 0;
+  background-color: var(--color-border);
+}
+
+.horizontal {
+  inline-size: 100%;
+  block-size: 1px;
+}
+
+.vertical {
+  inline-size: 1px;
+  block-size: 100%;
+  min-block-size: var(--density-control-height, 32px);
+  align-self: stretch;
+}

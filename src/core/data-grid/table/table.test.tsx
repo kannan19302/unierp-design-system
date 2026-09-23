@@ -3,7 +3,18 @@ import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { DataTable, type Column } from "../table";
+import {
+  DataTable,
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption,
+  type Column,
+} from "./table";
 
 interface Row {
   id: string;
@@ -177,3 +188,40 @@ describe("DataTable", () => {
     expect(results).toHaveNoViolations();
   });
 });
+
+describe("Composable Table Primitives", () => {
+  it("renders standard composable table structure", () => {
+    render(
+      <Table>
+        <TableCaption>Invoice Line Items</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>SKU</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Amount</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>SKU-001</TableCell>
+            <TableCell>Server License</TableCell>
+            <TableCell>$5,000.00</TableCell>
+          </TableRow>
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={2}>Total</TableCell>
+            <TableCell>$5,000.00</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    );
+
+    expect(screen.getByText("Invoice Line Items")).toBeInTheDocument();
+    expect(screen.getByRole("columnheader", { name: "SKU" })).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "SKU-001" })).toBeInTheDocument();
+    expect(screen.getAllByRole("cell", { name: "$5,000.00" })).toHaveLength(2);
+  });
+});
+
+

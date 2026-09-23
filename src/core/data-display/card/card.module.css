@@ -43,3 +43,43 @@
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5, 6px);
+  padding: var(--space-4, 16px);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.cardTitle {
+  font-family: var(--font-sans);
+  font-size: var(--type-base, 14px);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--color-text);
+  margin: 0;
+  line-height: var(--leading-tight, 1.25);
+}
+
+.cardDescription {
+  font-family: var(--font-sans);
+  font-size: var(--type-xs, 12px);
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: var(--leading-normal, 1.5);
+}
+
+.cardContent {
+  padding: var(--space-4, 16px);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  border-block-start: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle);
+  border-end-start-radius: var(--radius-md, 6px);
+  border-end-end-radius: var(--radius-md, 6px);
+}

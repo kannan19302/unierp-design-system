@@ -11,9 +11,9 @@ import styles from "./button.module.css";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual style variant */
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "link";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "destructive" | "link";
   /** Size of the button */
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "icon";
   /** Show loading spinner */
   isLoading?: boolean;
   /** Render as child element (for polymorphic Link components) */

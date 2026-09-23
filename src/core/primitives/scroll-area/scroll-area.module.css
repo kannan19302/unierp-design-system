@@ -1,0 +1,70 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 3.0 — ScrollArea Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.scrollArea {
+  position: relative;
+  overflow: auto;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+  outline: none;
+}
+
+.scrollArea:focus-visible {
+  box-shadow: 0 0 0 1px var(--color-primary), 0 0 0 var(--focus-ring-offset, 2px) var(--color-bg);
+}
+
+.viewport {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* ── Orientations ── */
+.vertical {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.horizontal {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.both {
+  overflow: auto;
+}
+
+/* ── Webkit Scrollbar Styling ── */
+.scrollArea::-webkit-scrollbar {
+  inline-size: var(--space-1-5, 6px);
+  block-size: var(--space-1-5, 6px);
+}
+
+.scrollArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--radius-full, 9999px);
+}
+
+.scrollArea::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-border-hover);
+}
+
+/* ── Hide Scrollbar ── */
+.hideScrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hideScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar {
+  position: absolute;
+  pointer-events: none;
+}

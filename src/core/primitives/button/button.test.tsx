@@ -61,4 +61,15 @@ describe("Button Primitive", () => {
     render(<Button isLoading>Processing</Button>);
     expect(screen.getByRole("button")).toHaveAttribute("aria-busy", "true");
   });
+
+  it("supports destructive variant and icon size", () => {
+    render(
+      <Button variant="destructive" size="icon" aria-label="Delete">
+        X
+      </Button>
+    );
+    const btn = screen.getByRole("button", { name: "Delete" });
+    expect(btn.className).toContain("destructive");
+    expect(btn.className).toContain("icon");
+  });
 });

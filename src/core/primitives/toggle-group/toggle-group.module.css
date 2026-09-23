@@ -1,0 +1,84 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 3.0 — ToggleGroup Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.group {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius, 6px);
+  gap: var(--space-1, 4px);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1-5, 6px);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium, 500);
+  border: 1px solid transparent;
+  border-radius: var(--radius, 6px);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  background-color: transparent;
+  color: var(--color-text-muted);
+  transition: background-color var(--duration-fast, 150ms) var(--ease-default),
+              color var(--duration-fast, 150ms) var(--ease-default),
+              border-color var(--duration-fast, 150ms) var(--ease-default);
+  outline: none;
+}
+
+.item:hover:not(:disabled) {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text);
+}
+
+.item:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary), 0 0 0 var(--focus-ring-offset, 2px) var(--color-bg);
+  z-index: 1;
+}
+
+.item:disabled {
+  opacity: var(--opacity-disabled, 0.5);
+  cursor: not-allowed;
+}
+
+/* ── Selected State ── */
+.item.selected {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text);
+}
+
+.item.outline {
+  border-color: var(--color-border);
+}
+
+.item.outline.selected {
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+}
+
+/* ── Sizes ── */
+.sm {
+  height: var(--density-control-height-sm, 28px);
+  padding-inline: var(--space-2, 8px);
+  font-size: var(--type-xs, 12px);
+  border-radius: var(--radius-sm, 4px);
+}
+
+.md {
+  height: var(--density-control-height, 32px);
+  padding-inline: var(--space-3, 12px);
+  font-size: var(--type-sm, 13px);
+  border-radius: var(--radius, 6px);
+}
+
+.lg {
+  height: var(--density-row-height, 40px);
+  padding-inline: var(--space-3-5, 14px);
+  font-size: var(--type-base, 14px);
+  border-radius: var(--radius-md, 8px);
+}

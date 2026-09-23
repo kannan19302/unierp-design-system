@@ -1,0 +1,96 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 3.0 — Textarea Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.textarea {
+  box-sizing: border-box;
+  inline-size: 100%;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius, 6px);
+  outline: none;
+  line-height: var(--leading-normal, 1.5);
+  letter-spacing: -0.01em;
+  transition: border-color var(--duration-fast, 150ms) var(--ease-default),
+              box-shadow var(--duration-fast, 150ms) var(--ease-default),
+              background-color var(--duration-fast, 150ms) var(--ease-default);
+}
+
+.textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.textarea:hover:not(:disabled) {
+  border-color: var(--color-border-hover);
+}
+
+.textarea:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary), 0 0 0 var(--focus-ring-offset, 2px) var(--color-bg);
+}
+
+/* ── Sizes ── */
+.sm {
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-2-5, 10px);
+  font-size: var(--type-xs, 12px);
+  min-block-size: calc(var(--density-control-height-sm, 28px) * 2);
+  border-radius: var(--radius-sm, 4px);
+}
+
+.md {
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-3, 12px);
+  font-size: var(--type-sm, 13px);
+  min-block-size: calc(var(--density-control-height, 32px) * 2.5);
+  border-radius: var(--radius, 6px);
+}
+
+.lg {
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-4, 16px);
+  font-size: var(--type-base, 14px);
+  min-block-size: calc(var(--density-row-height, 40px) * 2.5);
+  border-radius: var(--radius-md, 8px);
+}
+
+/* ── Resize Modes ── */
+.resize_none {
+  resize: none;
+}
+
+.resize_vertical {
+  resize: vertical;
+}
+
+.resize_horizontal {
+  resize: horizontal;
+}
+
+.resize_both {
+  resize: both;
+}
+
+.fullWidth {
+  inline-size: 100%;
+}
+
+/* ── States ── */
+.textarea:disabled {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  opacity: var(--opacity-disabled, 0.5);
+  cursor: not-allowed;
+  border-color: var(--color-border);
+}
+
+.error {
+  border-color: var(--color-danger, #ef4444) !important;
+}
+
+.error:focus-visible {
+  box-shadow: 0 0 0 1px var(--color-danger, #ef4444), 0 0 0 var(--focus-ring-offset, 2px) var(--color-bg) !important;
+}

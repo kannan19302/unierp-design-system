@@ -1,6 +1,17 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { DataTable, type Column } from "./table";
+import {
+  DataTable,
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption,
+  type Column,
+} from "./table";
 import { ColumnPicker } from "../column-picker";
 import { exportToCsv } from "../csv";
 import { Search, Download } from "lucide-react";
@@ -258,4 +269,42 @@ export const WithColumnPicker: StoryObj = {
       </div>
     );
   },
+};
+
+export const ComposableTable: StoryObj = {
+  render: () => (
+    <div style={{ maxWidth: "600px" }}>
+      <Table>
+        <TableCaption>A composable list of recent enterprise payment runs.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Run ID</TableHead>
+            <TableHead>Method</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead style={{ textAlign: "end" }}>Total Amount</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>PR-2026-081</TableCell>
+            <TableCell>ACH Direct</TableCell>
+            <TableCell>Completed</TableCell>
+            <TableCell style={{ textAlign: "end" }}>$452,100.00</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>PR-2026-082</TableCell>
+            <TableCell>Wire Transfer</TableCell>
+            <TableCell>Processing</TableCell>
+            <TableCell style={{ textAlign: "end" }}>$1,250,000.00</TableCell>
+          </TableRow>
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={3}>Grand Total</TableCell>
+            <TableCell style={{ textAlign: "end" }}>$1,702,100.00</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
+  ),
 };

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { axe } from "vitest-axe";
-import { Alert } from "./alert";
+import { Alert, AlertTitle, AlertDescription } from "./alert";
 import { InlineMessage } from "./inline-message";
 
 describe("Alert Primitive", () => {
@@ -16,6 +16,20 @@ describe("Alert Primitive", () => {
     expect(screen.getByText("Notice contents")).toBeInTheDocument();
   });
 
+  it("supports destructive variant and AlertTitle/AlertDescription compounds", () => {
+    render(
+      <Alert variant="destructive">
+        <AlertTitle>Fatal Error</AlertTitle>
+        <AlertDescription>Disk threshold reached.</AlertDescription>
+      </Alert>
+    );
+
+    const alert = screen.getByRole("alert");
+    expect(alert.className).toContain("alertDanger");
+    expect(screen.getByText("Fatal Error")).toBeInTheDocument();
+    expect(screen.getByText("Disk threshold reached.")).toBeInTheDocument();
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <Alert variant="success" title="Success">
@@ -26,6 +40,7 @@ describe("Alert Primitive", () => {
     expect(results).toHaveNoViolations();
   });
 });
+
 
 describe("InlineMessage Primitive", () => {
   it("renders inline message", () => {

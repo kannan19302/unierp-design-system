@@ -1,0 +1,51 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 3.0 — Collapsible Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.collapsible {
+  inline-size: 100%;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-3, 12px);
+  font-family: var(--font-sans);
+  font-size: var(--type-sm, 13px);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text);
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius, 6px);
+  cursor: pointer;
+  outline: none;
+  transition: background-color var(--duration-fast, 150ms) var(--ease-default),
+              border-color var(--duration-fast, 150ms) var(--ease-default);
+}
+
+.trigger:hover:not(:disabled) {
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-border-hover);
+}
+
+.trigger:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary), 0 0 0 var(--focus-ring-offset, 2px) var(--color-bg);
+}
+
+.trigger:disabled {
+  opacity: var(--opacity-disabled, 0.5);
+  cursor: not-allowed;
+}
+
+.content {
+  margin-block-start: var(--space-2, 8px);
+  padding: var(--space-3, 12px);
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius, 6px);
+  font-size: var(--type-sm, 13px);
+  color: var(--color-text-muted);
+}

@@ -10,7 +10,16 @@ import styles from "./badge.module.css";
  * Strata DL Badge primitive — compact visual status indicator.
  */
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  variant?: "default" | "primary" | "success" | "warning" | "danger" | "info";
+  variant?:
+    | "default"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "warning"
+    | "danger"
+    | "destructive"
+    | "outline"
+    | "info";
   size?: "sm" | "md";
   dot?: boolean;
   pulse?: boolean;

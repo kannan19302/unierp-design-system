@@ -1,5 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Card } from "./card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "./card";
 
 const meta: Meta<typeof Card> = {
   title: "Core/DataDisplay/Card",
@@ -33,16 +40,25 @@ export const Default: Story = {
 
 export const AnatomyAndComposition: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
-      <Card padding="md">
-        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>Anatomy & Composition Card</h4>
-        <p style={{ marginBlock: 0, marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Structured content container with standard surface elevation and typography.
-        </p>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", width: "360px" }}>
+      <Card padding="none">
+        <CardHeader>
+          <CardTitle>Quarterly Revenue Forecast</CardTitle>
+          <CardDescription>Fiscal year 2026 performance targets</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div style={{ fontSize: "var(--text-sm)" }}>Projected Gross Run Rate: $48.2M ARR</div>
+        </CardContent>
+        <CardFooter>
+          <button type="button" style={{ padding: "4px 8px", fontSize: "12px" }}>
+            View Full Report
+          </button>
+        </CardFooter>
       </Card>
     </div>
   ),
 };
+
 
 export const AllStatesGallery: Story = {
   render: () => (

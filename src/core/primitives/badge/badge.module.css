@@ -71,6 +71,18 @@
   border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
 }
 
+.secondary {
+  background: var(--surface-1-bg, var(--color-bg-elevated));
+  color: var(--color-text-secondary);
+  border-color: var(--surface-1-border, var(--color-border));
+}
+
+.outline {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
 .success {
   background: var(--color-success-light);
   color: var(--color-success-text);
@@ -83,7 +95,8 @@
   border-color: color-mix(in srgb, var(--color-warning) 30%, transparent);
 }
 
-.danger {
+.danger,
+.destructive {
   background: var(--color-danger-light);
   color: var(--color-danger-text);
   border-color: color-mix(in srgb, var(--color-danger) 30%, transparent);
@@ -94,3 +107,4 @@
   color: var(--color-info-text);
   border-color: color-mix(in srgb, var(--color-info) 30%, transparent);
 }
+

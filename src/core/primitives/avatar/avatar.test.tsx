@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
-import { Avatar, AvatarGroup } from "./avatar";
+import { Avatar, AvatarGroup, AvatarImage, AvatarFallback } from "./avatar";
 
 describe("Avatar Primitive", () => {
   it("renders user initials accurately", () => {
@@ -24,6 +24,15 @@ describe("Avatar Primitive", () => {
     expect(container.querySelector('[data-shape="square"]')).toBeInTheDocument();
   });
 
+  it("renders compound Avatar with AvatarImage and AvatarFallback", () => {
+    render(
+      <Avatar>
+        <AvatarFallback>TC</AvatarFallback>
+      </Avatar>
+    );
+    expect(screen.getByText("TC")).toBeInTheDocument();
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <AvatarGroup>
@@ -35,3 +44,4 @@ describe("Avatar Primitive", () => {
     expect(results).toHaveNoViolations();
   });
 });
+

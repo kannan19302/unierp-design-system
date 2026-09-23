@@ -57,6 +57,12 @@
   font-size: var(--type-body-lg, var(--text-base));
 }
 
+.icon {
+  inline-size: var(--density-control-height, 32px);
+  block-size: var(--density-control-height, 32px);
+  padding: 0;
+}
+
 /* ── Variants ── */
 .primary {
   background: var(--color-primary);
@@ -103,13 +109,15 @@
   color: var(--color-primary);
 }
 
-.danger {
+.danger,
+.destructive {
   background: var(--color-danger);
   color: var(--color-text-inverse);
   border-color: var(--color-danger);
 }
 
-.danger:hover:not(:disabled) {
+.danger:hover:not(:disabled),
+.destructive:hover:not(:disabled) {
   background: var(--color-danger-hover);
   border-color: var(--color-danger-hover);
 }

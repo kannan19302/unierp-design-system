@@ -1,0 +1,131 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 3.0 — Input Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.fullWidth {
+  display: flex;
+  inline-size: 100%;
+}
+
+.input {
+  box-sizing: border-box;
+  inline-size: 100%;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius, 6px);
+  outline: none;
+  letter-spacing: -0.01em;
+  transition: border-color var(--duration-fast, 150ms) var(--ease-default),
+              box-shadow var(--duration-fast, 150ms) var(--ease-default),
+              background-color var(--duration-fast, 150ms) var(--ease-default);
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.input:hover:not(:disabled) {
+  border-color: var(--color-border-hover);
+}
+
+.input:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary), 0 0 0 var(--focus-ring-offset, 2px) var(--color-bg);
+}
+
+/* ── Sizes ── */
+.sm {
+  height: var(--density-control-height-sm, 28px);
+  padding-inline: var(--space-2, 8px);
+  font-size: var(--type-xs, 12px);
+  border-radius: var(--radius-sm, 4px);
+}
+
+.md {
+  height: var(--density-control-height, 32px);
+  padding-inline: var(--space-3, 12px);
+  font-size: var(--type-sm, 13px);
+  border-radius: var(--radius, 6px);
+}
+
+.lg {
+  height: var(--density-row-height, 40px);
+  padding-inline: var(--space-3-5, 14px);
+  font-size: var(--type-base, 14px);
+  border-radius: var(--radius-md, 8px);
+}
+
+/* ── Icon Offsets ── */
+.hasLeftIcon.sm {
+  padding-inline-start: var(--space-7, 28px);
+}
+
+.hasLeftIcon.md {
+  padding-inline-start: var(--space-8, 32px);
+}
+
+.hasLeftIcon.lg {
+  padding-inline-start: var(--space-10, 40px);
+}
+
+.hasRightIcon.sm {
+  padding-inline-end: var(--space-7, 28px);
+}
+
+.hasRightIcon.md {
+  padding-inline-end: var(--space-8, 32px);
+}
+
+.hasRightIcon.lg {
+  padding-inline-end: var(--space-10, 40px);
+}
+
+/* ── Slots ── */
+.iconSlot {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.leftSlot {
+  inset-inline-start: var(--space-2-5, 10px);
+}
+
+.rightSlot {
+  inset-inline-end: var(--space-2-5, 10px);
+}
+
+/* ── States ── */
+.input:disabled {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  opacity: var(--opacity-disabled, 0.5);
+  cursor: not-allowed;
+  border-color: var(--color-border);
+}
+
+.disabledWrapper {
+  cursor: not-allowed;
+}
+
+.error {
+  border-color: var(--color-danger, #ef4444) !important;
+}
+
+.error:focus-visible {
+  box-shadow: 0 0 0 1px var(--color-danger, #ef4444), 0 0 0 var(--focus-ring-offset, 2px) var(--color-bg) !important;
+}

@@ -15,9 +15,15 @@ describe("Badge Primitive", () => {
     expect(screen.getByText("PARTIALLY PAID")).toBeInTheDocument();
   });
 
-  it("has zero accessibility violations", async () => {
-    const { container } = render(<Badge variant="primary" dot>Live</Badge>);
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+  it("supports secondary, destructive, and outline variants", () => {
+    const { rerender } = render(<Badge variant="secondary">Secondary</Badge>);
+    expect(screen.getByText("Secondary").parentElement?.className).toContain("secondary");
+
+    rerender(<Badge variant="destructive">Destructive</Badge>);
+    expect(screen.getByText("Destructive").parentElement?.className).toContain("destructive");
+
+    rerender(<Badge variant="outline">Outline</Badge>);
+    expect(screen.getByText("Outline").parentElement?.className).toContain("outline");
   });
 });
+

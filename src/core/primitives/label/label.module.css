@@ -1,0 +1,52 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Strata Design Language 3.0 — Label Primitive Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1, 4px);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text);
+  line-height: var(--leading-tight, 1.25);
+  user-select: none;
+  cursor: default;
+}
+
+/* ── Sizes ── */
+.sm {
+  font-size: var(--type-xs, 12px);
+}
+
+.md {
+  font-size: var(--type-sm, 13px);
+}
+
+.lg {
+  font-size: var(--type-base, 14px);
+}
+
+/* ── States ── */
+.disabled {
+  opacity: var(--opacity-disabled, 0.5);
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--color-danger, #ef4444);
+}
+
+/* ── Badges / Indicators ── */
+.required {
+  color: var(--color-danger, #ef4444);
+  margin-inline-start: var(--space-0-5, 2px);
+  font-weight: var(--weight-bold, 700);
+}
+
+.optional {
+  color: var(--color-text-muted);
+  font-size: var(--type-micro, 11px);
+  font-weight: var(--weight-normal, 400);
+  margin-inline-start: var(--space-1, 4px);
+}

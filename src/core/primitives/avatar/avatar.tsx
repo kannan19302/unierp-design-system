@@ -1,6 +1,15 @@
 "use client";
 
-import { useState, forwardRef, Children, isValidElement, cloneElement, type HTMLAttributes, type ReactNode } from "react";
+import {
+  useState,
+  forwardRef,
+  Children,
+  isValidElement,
+  cloneElement,
+  type HTMLAttributes,
+  type ImgHTMLAttributes,
+  type ReactNode,
+} from "react";
 import { Presence, type PresenceStatus } from "../presence";
 import styles from "./avatar.module.css";
 
@@ -21,6 +30,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   presence?: PresenceStatus;
   alt?: string;
   className?: string;
+  children?: ReactNode;
 }
 
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(({
@@ -32,6 +42,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(({
   presence,
   alt,
   className = "",
+  children,
   ...props
 }, ref) => {
   const [imgError, setImgError] = useState(false);
@@ -54,7 +65,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(({
         className={`${styles.avatar} ${shapeClass}`}
         data-shape={shape}
         style={
-          src && !imgError
+          children || (src && !imgError)
             ? undefined
             : {
                 backgroundColor: getAvatarPalette(name || initials).bg,
@@ -64,7 +75,9 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(({
         role="img"
         aria-label={avatarLabel}
       >
-        {src && !imgError ? (
+        {children ? (
+          children
+        ) : src && !imgError ? (
           <img
             src={src}
             alt={avatarLabel}
@@ -85,6 +98,35 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(({
 });
 
 Avatar.displayName = "Avatar";
+
+export interface AvatarImageProps extends ImgHTMLAttributes<HTMLImageElement> {}
+
+export const AvatarImage = forwardRef<HTMLImageElement, AvatarImageProps>(
+  ({ className = "", alt = "Avatar", ...props }, ref) => (
+    <img
+      ref={ref}
+      alt={alt}
+      className={`${styles.image} ${className}`.trim()}
+      {...props}
+    />
+  )
+);
+AvatarImage.displayName = "AvatarImage";
+
+export interface AvatarFallbackProps extends HTMLAttributes<HTMLSpanElement> {}
+
+export const AvatarFallback = forwardRef<HTMLSpanElement, AvatarFallbackProps>(
+  ({ children, className = "", ...props }, ref) => (
+    <span
+      ref={ref}
+      className={`${styles.initials} ${className}`.trim()}
+      {...props}
+    >
+      {children}
+    </span>
+  )
+);
+AvatarFallback.displayName = "AvatarFallback";
 
 // Stable color and contrast pairing for initials background and foreground
 const getAvatarPalette = (str?: string): { bg: string; fg: string } => {

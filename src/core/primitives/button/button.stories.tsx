@@ -178,3 +178,19 @@ export const AllStatesGallery = () => (
   </div>
 );
 
+export const Destructive: Story = {
+  args: {
+    children: "Delete Resource",
+    variant: "destructive",
+  },
+};
+
+export const IconButton: Story = {
+  args: {
+    size: "icon",
+    variant: "outline",
+    "aria-label": "Delete Item",
+    children: <Trash2 size={14} />,
+  },
+};
+
