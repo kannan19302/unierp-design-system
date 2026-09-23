@@ -160,7 +160,8 @@
 }
 
 @keyframes strata-indeterminate {
-  0% { left: -35%; width: 35%; }
-  60% { left: 100%; width: 0%; }
-  100% { left: 100%; width: 0%; }
+  0% { inset-inline-start: -35%; width: 35%; }
+  60% { inset-inline-start: 100%; width: 0%; }
+  100% { inset-inline-start: 100%; width: 0%; }
 }
+

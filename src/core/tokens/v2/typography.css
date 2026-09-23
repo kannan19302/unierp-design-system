@@ -2,9 +2,9 @@
    UniERP Design Language 2.0 — Typography Tokens
    ══════════════════════════════════════════════════════════════
 
-   Primary product font: Geist Sans
-   Technical/code font:  Geist Mono
-   Fallback stack:       Inter → Segoe UI → system-ui → Noto Sans
+   Heading/body font:    Inter
+   Technical/code font:  IBM Plex Mono
+   Fallback stack:       system-ui → Segoe UI → sans-serif
 
    Typography is optimized for long-duration professional use and dense
    information environments. The scale is tighter than consumer UIs,
@@ -33,10 +33,8 @@
      Strata Workbench unified typography:
      Display: Inter (SemiBold / Bold with -0.02em tracking)
      Body:    Inter (workhorse data & UI text)
-     Mono:    IBM Plex Mono / JetBrains Mono (tabular numerics & identifiers) */
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans", sans-serif;
-  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", "JetBrains Mono", "Geist Mono", ui-monospace, "Consolas", monospace;
+     Mono:    IBM Plex Mono (identifiers & code, not ordinary business numbers).
+     Family declarations live in base.css and the standalone theme assets. */
 
   /* ── Enterprise type scale ──
      Semantic names tied to purpose, not arbitrary size labels.
@@ -82,12 +80,11 @@
   --tracking-page: -0.015em;
   --tracking-display: -0.025em;
 
-  /* ── Label type (uppercase mono) ──
-     Table column heads, section eyebrows, metadata labels.
-     Small, spaced, always mono — so a label is never mistaken for content.
-     Never below 11px (0.6875rem) per Meridian density contract. */
+  /* ── Label type ──
+     Inter, sentence case for field and table labels. Retain the public scale
+     while avoiding wide uppercase tracking in dense business workflows. */
   --type-label: 0.6875rem;    /* 11px */
-  --tracking-label: 0.08em;
+  --tracking-label: 0.01em;
   --weight-label: 600;
 
   /* ── Tabular numerals ──

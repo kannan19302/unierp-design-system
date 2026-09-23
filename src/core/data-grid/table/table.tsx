@@ -1,22 +1,22 @@
 import {
   forwardRef,
   useCallback,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
   type ForwardedRef,
+  type CSSProperties,
   type KeyboardEvent,
   type ReactElement,
   type ReactNode,
   type Ref,
   type UIEvent,
 } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, ChevronRight } from "lucide-react";
 import { Skeleton } from "../../primitives/skeleton";
 import { EmptyState } from "../../data-display/empty-state";
-
-
-
+import styles from "./table.module.css";
 export type ColumnAlign = "left" | "right" | "center";
 export type ColumnPin = "left" | "right";
 
@@ -80,9 +80,18 @@ export interface DataTableProps<T> {
   keyboardNav?: boolean;
   /** DL 2.0: Pinned summary footer row */
   summaryRow?: ReactNode | Record<string, ReactNode>;
+  /** Accessible table name when no visible caption is rendered. */
+  "aria-label"?: string;
+  /** Visible table caption. Use for concise dataset context. */
+  caption?: ReactNode;
+  /** Composable controls rendered above the table. */
+  toolbar?: ReactNode;
+  /** Composable pagination or result metadata rendered below the table. */
+  footer?: ReactNode;
+  /** Accessible label for each selectable row. */
+  rowLabel?: (row: T, index: number) => string;
 }
 
-const cellPad = "var(--density-cell-padding-y, var(--space-3)) var(--density-cell-padding-x, var(--space-4))";
 const OVERSCAN = 8;
 const CHECKBOX_WIDTH = 40;
 
@@ -138,6 +147,11 @@ function DataTableInner<T>(
     onCellEdit,
     keyboardNav = true,
     summaryRow,
+    "aria-label": ariaLabel,
+    caption,
+    toolbar,
+    footer,
+    rowLabel,
   }: DataTableProps<T>,
   ref: ForwardedRef<HTMLDivElement>
 ) {
@@ -234,15 +248,14 @@ function DataTableInner<T>(
     }
 
     const items: VirtualItem<T>[] = [];
-    const map = new Map<string, T[]>();
-    for (const row of data) {
+    const map = new Map<string, { row: T; rowIndex: number }[]>();
+    for (const [rowIndex, row] of data.entries()) {
       const gVal = String((row as Record<string, unknown>)[groupBy] ?? "Unassigned");
       const list = map.get(gVal) ?? [];
-      list.push(row);
+      list.push({ row, rowIndex });
       map.set(gVal, list);
     }
 
-    let globalRowIdx = 0;
     for (const [gVal, groupRows] of map.entries()) {
       const isCollapsed = collapsedGroups.has(gVal);
       items.push({
@@ -256,8 +269,8 @@ function DataTableInner<T>(
         for (const r of groupRows) {
           items.push({
             type: "row",
-            row: r,
-            rowIndex: globalRowIdx++,
+            row: r.row,
+            rowIndex: r.rowIndex,
             groupKey: gVal,
           });
         }
@@ -295,8 +308,23 @@ function DataTableInner<T>(
   const [editingCell, setEditingCell] = useState<{ rowKey: string; colKey: string } | null>(null);
   const [editValue, setEditValue] = useState("");
   const [optimisticEdits, setOptimisticEdits] = useState<Map<string, string>>(new Map());
+  const cellRefs = useRef(new Map<string, HTMLTableCellElement>());
+  const pendingFocus = useRef<{ row: number; col: number } | null>(null);
+  const finishingEdit = useRef(false);
+
+  useLayoutEffect(() => {
+    const target = pendingFocus.current;
+    if (!target) return;
+    const cell = cellRefs.current.get(`${target.row}:${target.col}`);
+    if (cell) {
+      pendingFocus.current = null;
+      cell.focus();
+    }
+  });
 
   const commitCellEdit = (rKey: string, cKey: string, val: string) => {
+    if (finishingEdit.current) return;
+    finishingEdit.current = true;
     setOptimisticEdits((prev) => new Map(prev).set(`${rKey}_${cKey}`, val));
     onCellEdit?.(rKey, cKey, val);
     setEditingCell(null);
@@ -312,77 +340,81 @@ function DataTableInner<T>(
     } else if (rowBottom > currentScrollTop + maxHeight) {
       scrollRef.current.scrollTop = rowBottom - maxHeight;
     }
+    setScrollTop(scrollRef.current.scrollTop);
+  };
+
+  const focusCell = (row: number, col: number) => {
+    pendingFocus.current = { row, col };
+    setActiveCell({ row, col });
+    syncScrollToRow(row);
   };
 
   const handleGridKeyDown = (e: KeyboardEvent<HTMLTableElement>) => {
-    if (!keyboardNav || data.length === 0) return;
+    if (data.length === 0) return;
+    // Native controls own their keys; grid navigation must not swallow sorting,
+    // group toggles, selection or row-action activation.
+    if (!editingCell && (e.target as HTMLElement).closest("button, input, select, textarea, a[href]")) return;
 
     if (editingCell) {
       if (e.key === "Enter") {
         e.preventDefault();
+        pendingFocus.current = activeCell;
         commitCellEdit(editingCell.rowKey, editingCell.colKey, editValue);
       } else if (e.key === "Escape") {
         e.preventDefault();
+        finishingEdit.current = true;
+        pendingFocus.current = activeCell;
         setEditingCell(null);
       }
       return;
     }
 
-    const maxRow = data.length - 1;
+    if (!keyboardNav) return;
+
     const maxCol = columns.length - 1;
-    const curRow = activeCell?.row ?? 0;
+    const rowPositions = flatItems.flatMap((item, index) => item.type === "row" ? [index] : []);
+    if (!rowPositions.length || maxCol < 0) return;
+    const curRow = activeCell?.row ?? rowPositions[0]!;
     const curCol = activeCell?.col ?? 0;
+    const rowPosition = Math.max(0, rowPositions.indexOf(curRow));
+    const currentItem = flatItems[curRow];
 
     switch (e.key) {
       case "ArrowUp": {
         e.preventDefault();
-        const nextRow = Math.max(0, curRow - 1);
-        setActiveCell({ row: nextRow, col: curCol });
-        syncScrollToRow(nextRow);
+        focusCell(rowPositions[Math.max(0, rowPosition - 1)]!, curCol);
         break;
       }
       case "ArrowDown": {
         e.preventDefault();
-        const nextRow = Math.min(maxRow, curRow + 1);
-        setActiveCell({ row: nextRow, col: curCol });
-        syncScrollToRow(nextRow);
+        focusCell(rowPositions[Math.min(rowPositions.length - 1, rowPosition + 1)]!, curCol);
         break;
       }
       case "ArrowLeft":
         e.preventDefault();
-        setActiveCell({ row: curRow, col: Math.max(0, curCol - 1) });
+        focusCell(curRow, Math.max(0, curCol - 1));
         break;
       case "ArrowRight":
         e.preventDefault();
-        setActiveCell({ row: curRow, col: Math.min(maxCol, curCol + 1) });
+        focusCell(curRow, Math.min(maxCol, curCol + 1));
         break;
       case "Tab":
-        e.preventDefault();
-        if (e.shiftKey) {
-          const nextCol = curCol > 0 ? curCol - 1 : maxCol;
-          const nextRow = curCol > 0 ? curRow : Math.max(0, curRow - 1);
-          setActiveCell({ row: nextRow, col: nextCol });
-          syncScrollToRow(nextRow);
-        } else {
-          const nextCol = curCol < maxCol ? curCol + 1 : 0;
-          const nextRow = curCol < maxCol ? curRow : Math.min(maxRow, curRow + 1);
-          setActiveCell({ row: nextRow, col: nextCol });
-          syncScrollToRow(nextRow);
-        }
+        // Keep native traversal through embedded controls and out of the table.
         break;
       case "F2":
       case "Enter": {
         e.preventDefault();
-        const row = data[curRow];
+        const row = currentItem?.type === "row" ? currentItem.row : undefined;
         const col = columns[curCol];
-        if (row && col && onCellEdit) {
+        if (row && col && onCellEdit && currentItem?.type === "row") {
           const isEditable = typeof col.editable === "function" ? col.editable(row) : col.editable;
           if (isEditable) {
-            const rKey = keyOf(row, curRow);
+            const rKey = keyOf(row, currentItem.rowIndex);
             const editKey = `${rKey}_${col.key}`;
             const curVal = optimisticEdits.has(editKey)
               ? optimisticEdits.get(editKey)
               : String((row as Record<string, unknown>)[col.key] ?? "");
+            finishingEdit.current = false;
             setEditingCell({ rowKey: rKey, colKey: col.key });
             setEditValue(curVal ?? "");
           }
@@ -390,9 +422,9 @@ function DataTableInner<T>(
         break;
       }
       case " ":
-        if (selectable && e.shiftKey && data[curRow]) {
+        if (selectable && e.shiftKey && currentItem?.type === "row") {
           e.preventDefault();
-          const rKey = keyOf(data[curRow], curRow);
+          const rKey = keyOf(currentItem.row, currentItem.rowIndex);
           toggleOne(rKey);
         }
         break;
@@ -405,38 +437,31 @@ function DataTableInner<T>(
       <tr
         key={`grp-${groupVal}-${absIndex}`}
         onClick={() => toggleGroup(groupVal)}
-        style={{
-          background: "var(--surface-sunken-bg, var(--color-bg-sunken))",
-          borderBottom: "1px solid var(--surface-1-border, var(--color-border))",
-          cursor: "pointer",
-          fontWeight: 600,
-          height: windowing ? rowHeight : undefined,
-        }}
+        className={styles.groupRow}
+        style={windowing ? ({ "--data-row-height": `${rowHeight}px` } as CSSProperties) : undefined}
       >
-        <td colSpan={colSpan} style={{ padding: cellPad }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-2)" }}>
+        <td colSpan={colSpan} className={styles.groupCell}>
+          <button
+            type="button"
+            className={styles.groupToggle}
+            aria-expanded={!isCollapsed}
+            onClick={(event) => {
+              event.stopPropagation();
+              toggleGroup(groupVal);
+            }}
+          >
             {isCollapsed ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
             <span>{groupVal}</span>
-            <span
-              style={{
-                fontSize: "var(--type-micro, 11px)",
-                padding: "0 var(--space-1\.5)",
-                borderRadius: "var(--radius-full)",
-                background: "var(--surface-2-bg, var(--color-bg-elevated))",
-                color: "var(--color-text-secondary)",
-              }}
-            >
-              {count}
-            </span>
-          </span>
+            <span className={styles.groupCount}>{count}</span>
+          </button>
         </td>
       </tr>
     );
   };
 
   // ── Render Row Helper ──
-  const renderRow = (row: T, absIndex: number) => {
-    const key = keyOf(row, absIndex);
+  const renderRow = (row: T, absIndex: number, sourceIndex: number) => {
+    const key = keyOf(row, sourceIndex);
     const isRowSelected = selectable && selected.has(key);
 
     return (
@@ -444,42 +469,18 @@ function DataTableInner<T>(
         key={key}
         aria-selected={isRowSelected ? true : undefined}
         onClick={onRowClick ? () => onRowClick(row) : undefined}
-        style={{
-          borderBottom: "1px solid var(--surface-1-border, var(--color-border))",
-          cursor: onRowClick ? "pointer" : undefined,
-          height: windowing ? rowHeight : undefined,
-          background: isRowSelected
-            ? "var(--surface-selected, var(--color-bg-sunken))"
-            : undefined,
-          transition: "background var(--duration-fast, 150ms) var(--ease-default)",
-        }}
-        onMouseEnter={(e: any) => {
-          if (!isRowSelected) {
-            e.currentTarget.style.background = "var(--surface-hover, var(--color-bg-hover))";
-          }
-        }}
-        onMouseLeave={(e: any) => {
-          e.currentTarget.style.background = isRowSelected
-            ? "var(--surface-selected, var(--color-bg-sunken))"
-            : "transparent";
-        }}
+        data-clickable={onRowClick ? "true" : undefined}
+        className={styles.dataRow}
+        style={windowing ? ({ "--data-row-height": `${rowHeight}px` } as CSSProperties) : undefined}
       >
         {selectable && (
           <td
-            style={{
-              padding: cellPad,
-              width: CHECKBOX_WIDTH,
-              textAlign: "center",
-              position: "sticky",
-              left: 0,
-              background: "inherit",
-              zIndex: 1,
-            }}
+            className={`${styles.cell} ${styles.selectionCell}`}
             onClick={(e: any) => e.stopPropagation()}
           >
             <input
               type="checkbox"
-              aria-label="Select row"
+              aria-label={rowLabel ? `Select ${rowLabel(row, sourceIndex)}` : "Select row"}
               checked={selected.has(key)}
               onChange={() => toggleOne(key)}
             />
@@ -504,6 +505,12 @@ function DataTableInner<T>(
           return (
             <td
               key={c.key}
+              ref={(cell) => {
+                const position = `${absIndex}:${colIdx}`;
+                if (cell) cellRefs.current.set(position, cell);
+                else cellRefs.current.delete(position);
+              }}
+              className={`${styles.cell} ${isPinnedLeft || isPinnedRight ? styles.pinnedCell : ""} ${isLastLeft ? styles.pinnedLeftEdge : ""} ${isFirstRight ? styles.pinnedRightEdge : ""}`}
               tabIndex={keyboardNav ? 0 : undefined}
               onFocus={() => setActiveCell({ row: absIndex, col: colIdx })}
               onDoubleClick={() => {
@@ -512,50 +519,33 @@ function DataTableInner<T>(
                   const curVal = optimisticEdits.has(editKey)
                     ? optimisticEdits.get(editKey)
                     : String((row as Record<string, unknown>)[c.key] ?? "");
+                  finishingEdit.current = false;
+                  setActiveCell({ row: absIndex, col: colIdx });
                   setEditingCell({ rowKey: key, colKey: c.key });
                   setEditValue(curVal ?? "");
                 }
               }}
               style={{
-                padding: cellPad,
                 textAlign: c.align || "left",
-                color: "var(--color-text)",
                 position: isPinnedLeft || isPinnedRight ? "sticky" : undefined,
                 left: leftOffset,
                 right: rightOffset,
-                background: isPinnedLeft || isPinnedRight ? "var(--surface-1-bg, var(--color-bg-elevated))" : undefined,
-                boxShadow: isLastLeft
-                  ? "2px 0 4px -1px rgba(0, 0, 0, 0.08)"
-                  : isFirstRight
-                    ? "-2px 0 4px -1px rgba(0, 0, 0, 0.08)"
-                    : undefined,
                 zIndex: isPinnedLeft || isPinnedRight ? 1 : undefined,
-                outline: isCellFocused ? "2px solid var(--platform-accent, var(--color-primary))" : "none",
-                outlineOffset: "-2px",
-                fontVariantNumeric: "tabular-nums lining-nums",
               }}
+              data-active={isCellFocused ? "true" : undefined}
             >
               {isCellEditing ? (
                 <input
                   type="text"
+                  aria-label={typeof c.header === "string" ? `Edit ${c.header}` : `Edit ${c.key}`}
                   value={editValue}
                   autoFocus
                   onChange={(e) => setEditValue(e.target.value)}
                   onBlur={() => commitCellEdit(key, c.key, editValue)}
-                  style={{
-                    width: "100%",
-                    padding: "var(--space-1) var(--space-2)",
-                    fontSize: "inherit",
-                    fontFamily: "inherit",
-                    border: "1px solid var(--platform-accent, var(--color-primary))",
-                    borderRadius: "var(--radius-sm)",
-                    background: "var(--surface-0-bg, var(--color-bg))",
-                    color: "inherit",
-                    outline: "none",
-                  }}
+                  className={styles.cellEditor}
                 />
               ) : c.render ? (
-                c.render(row, absIndex)
+                c.render(row, sourceIndex)
               ) : (
                 currentDisplayVal
               )}
@@ -570,34 +560,15 @@ function DataTableInner<T>(
     <table
       onKeyDown={handleGridKeyDown}
       tabIndex={0}
-      style={{
-        width: "100%",
-        borderCollapse: "collapse",
-        fontSize: "var(--density-body-size, var(--text-sm))",
-        outline: "none",
-      }}
+      className={styles.table}
+      aria-label={caption ? undefined : ariaLabel ?? "Data table"}
     >
+      {caption && <caption className={styles.caption}>{caption}</caption>}
       <thead>
-        <tr
-          style={{
-            background: "var(--surface-sunken-bg, var(--color-bg-sunken))",
-            borderBottom: "1px solid var(--surface-1-border, var(--color-border))",
-            position: "sticky",
-            top: 0,
-            zIndex: 2,
-          }}
-        >
+        <tr className={styles.headerRow}>
           {selectable && (
             <th
-              style={{
-                padding: cellPad,
-                width: CHECKBOX_WIDTH,
-                textAlign: "center",
-                position: "sticky",
-                left: 0,
-                background: "inherit",
-                zIndex: 3,
-              }}
+              className={`${styles.headerCell} ${styles.selectionCell}`}
             >
               <input
                 type="checkbox"
@@ -622,8 +593,7 @@ function DataTableInner<T>(
             return (
               <th
                 key={c.key}
-                className={c.sortable ? "dt-sort-th" : undefined}
-                onClick={c.sortable ? () => handleSort(c) : undefined}
+                className={`${styles.headerCell} ${isPinnedLeft || isPinnedRight ? styles.pinnedHeaderCell : ""} ${isLastLeft ? styles.pinnedLeftEdge : ""} ${isFirstRight ? styles.pinnedRightEdge : ""}`}
                 aria-sort={
                   active
                     ? sortOrder === "asc"
@@ -633,53 +603,36 @@ function DataTableInner<T>(
                 }
                 style={{
                   textAlign: c.align || "left",
-                  padding: cellPad,
                   width: c.width,
                   minWidth: c.minWidth,
-                  fontWeight: "var(--weight-semibold, 600)",
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "var(--text-xs, 0.75rem)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.03em",
-                  color: "var(--color-text-secondary)",
-                  whiteSpace: "nowrap",
-                  cursor: c.sortable ? "pointer" : undefined,
-                  userSelect: "none",
                   position: isPinnedLeft || isPinnedRight ? "sticky" : undefined,
                   left: leftOffset,
                   right: rightOffset,
-                  background: "inherit",
-                  boxShadow: isLastLeft
-                    ? "2px 0 4px -1px rgba(0, 0, 0, 0.08)"
-                    : isFirstRight
-                      ? "-2px 0 4px -1px rgba(0, 0, 0, 0.08)"
-                      : undefined,
                   zIndex: isPinnedLeft || isPinnedRight ? 3 : 2,
                 }}
               >
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "var(--space-1)",
-                    justifyContent:
-                      c.align === "right"
-                        ? "flex-end"
-                        : c.align === "center"
-                          ? "center"
-                          : "flex-start",
-                  }}
-                >
-                  {c.header}
-                  {c.sortable && (
+                {c.sortable ? (
+                  <button
+                    type="button"
+                    className={styles.sortButton}
+                    data-align={c.align ?? "left"}
+                    onClick={() => handleSort(c)}
+                  >
+                    {c.header}
                     <span
-                      className="dt-sort-arrow"
+                      className={styles.sortArrow}
                       data-active={active}
                       data-order={sortOrder}
                       aria-hidden="true"
-                    />
-                  )}
-                </span>
+                    >
+                      {active ? sortOrder === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} /> : <ArrowUpDown size={14} />}
+                    </span>
+                  </button>
+                ) : (
+                  <span className={styles.headerContent} data-align={c.align ?? "left"}>
+                  {c.header}
+                  </span>
+                )}
               </th>
             );
           })}
@@ -688,14 +641,14 @@ function DataTableInner<T>(
       <tbody>
         {loading ? (
           Array.from({ length: skeletonRows }).map((_, i) => (
-            <tr key={`skel-${i}`} style={{ borderBottom: "1px solid var(--surface-1-border, var(--color-border))" }}>
+            <tr key={`skel-${i}`} className={styles.dataRow}>
               {selectable && (
-                <td style={{ padding: cellPad, textAlign: "center" }}>
+                <td className={`${styles.cell} ${styles.selectionCell}`}>
                   <Skeleton width={16} height={16} radius="sm" />
                 </td>
               )}
               {columns.map((c) => (
-                <td key={c.key} style={{ padding: cellPad }}>
+                <td key={c.key} className={styles.cell}>
                   <Skeleton width={`${50 + (i * 13) % 40}%`} height={16} />
                 </td>
               ))}
@@ -703,7 +656,7 @@ function DataTableInner<T>(
           ))
         ) : flatItems.length === 0 ? (
           <tr>
-            <td colSpan={colSpan} style={{ padding: "var(--space-12) var(--space-4)", textAlign: "center" }}>
+            <td colSpan={colSpan} className={styles.emptyCell}>
               <EmptyState title={emptyTitle} description={emptyMessage} icon={emptyIcon} />
             </td>
           </tr>
@@ -711,7 +664,7 @@ function DataTableInner<T>(
           <>
             {windowing && topSpacer > 0 && (
               <tr>
-                <td colSpan={colSpan} style={{ height: topSpacer, padding: 0 }} />
+                <td colSpan={colSpan} className={styles.spacerCell} style={{ height: topSpacer }} />
               </tr>
             )}
             {visibleItems.map((item, idx) => {
@@ -719,11 +672,11 @@ function DataTableInner<T>(
               if (item.type === "group") {
                 return renderGroupHeader(item.groupKey, item.count, item.collapsed, absIndex);
               }
-              return renderRow(item.row, absIndex);
+              return renderRow(item.row, absIndex, item.rowIndex);
             })}
             {windowing && bottomSpacer > 0 && (
               <tr>
-                <td colSpan={colSpan} style={{ height: bottomSpacer, padding: 0 }} />
+                <td colSpan={colSpan} className={styles.spacerCell} style={{ height: bottomSpacer }} />
               </tr>
             )}
           </>
@@ -733,21 +686,14 @@ function DataTableInner<T>(
       {/* Summary Footer */}
       {summaryRow && (
         <tfoot>
-          <tr
-            style={{
-              background: "var(--surface-sunken-bg, var(--color-bg-sunken))",
-              borderTop: "2px solid var(--surface-1-border, var(--color-border))",
-              fontWeight: 600,
-            }}
-          >
-            {selectable && <td style={{ padding: cellPad }} />}
+          <tr className={styles.summaryRow}>
+            {selectable && <td className={styles.cell} />}
             {columns.map((c) => (
               <td
                 key={`summary-${c.key}`}
+                className={styles.cell}
                 style={{
-                  padding: cellPad,
                   textAlign: c.align || "left",
-                  fontVariantNumeric: "tabular-nums lining-nums",
                 }}
               >
                 {typeof summaryRow === "object" && summaryRow !== null && c.key in summaryRow
@@ -762,28 +708,26 @@ function DataTableInner<T>(
   );
 
   return (
-    <div ref={ref} style={{ inlineSize: "100%" }}>
+    <div
+      ref={ref}
+      className={styles.root}
+      style={{ "--data-table-row-height": "var(--density-row-height)" } as CSSProperties}
+    >
+      {toolbar && (
+        <div className={styles.toolbar} role="toolbar" aria-label="Table controls">
+          {toolbar}
+        </div>
+      )}
       {selectable && someSelected && bulkActions && (
         <div
           role="toolbar"
           aria-label="Bulk actions"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "var(--space-3)",
-            padding: "var(--space-2) var(--space-3)",
-            marginBlockEnd: "var(--space-2)",
-            background: "var(--surface-sunken-bg, var(--color-bg-sunken))",
-            border: "1px solid var(--surface-1-border, var(--color-border))",
-            borderRadius: "var(--radius-md)",
-            fontSize: "var(--density-body-size, var(--text-sm))",
-          }}
+          className={styles.bulkToolbar}
         >
-          <span style={{ fontWeight: "var(--weight-semibold, 600)" }}>
+          <span className={styles.selectionStatus} role="status" aria-live="polite">
             {selected.size} selected
           </span>
-          <div>{bulkActions([...selected])}</div>
+          <div className={styles.bulkActions}>{bulkActions([...selected])}</div>
         </div>
       )}
 
@@ -791,26 +735,19 @@ function DataTableInner<T>(
         <div
           ref={scrollRef}
           onScroll={onScroll}
+          className={`${styles.tableContainer} ${styles.virtualizedContainer}`}
           style={{
             maxBlockSize: maxHeight,
-            overflowY: "auto",
-            border: "1px solid var(--surface-1-border, var(--color-border))",
-            borderRadius: "var(--radius-md)",
           }}
         >
           {table}
         </div>
       ) : (
-        <div
-          style={{
-            overflowX: "auto",
-            border: "1px solid var(--surface-1-border, var(--color-border))",
-            borderRadius: "var(--radius-md)",
-          }}
-        >
+        <div className={styles.tableContainer}>
           {table}
         </div>
       )}
+      {footer && <div className={styles.footer}>{footer}</div>}
     </div>
   );
 }

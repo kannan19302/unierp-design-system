@@ -1,0 +1,23 @@
+.workbench {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  max-inline-size: var(--command-palette-width);
+  margin-inline: auto;
+  font-family: var(--font-sans);
+  color: var(--surface-text-primary);
+  background: var(--surface-0-bg);
+}
+.header { display: grid; gap: var(--space-2); }
+.context, .description { color: var(--surface-text-secondary); font-size: var(--type-body); }
+.context { border-inline-start: var(--border-width-accent) solid var(--color-primary); padding-inline-start: var(--space-2); }
+.title { font-family: var(--font-display); font-size: var(--type-page); letter-spacing: var(--tracking-page); }
+.sectionTitle { font-family: var(--font-display); font-size: var(--type-section); }
+.actions, .geometry { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.summary { display: flex; flex-wrap: wrap; gap: var(--space-8); padding-block: var(--space-4); border-block: var(--border-width-thin) solid var(--separator-color); }
+.metric { display: block; font-size: var(--type-display); font-weight: var(--weight-semibold); font-variant-numeric: tabular-nums lining-nums; }
+.success { display: flex; align-items: center; gap: var(--space-1); color: var(--color-success-text); }
+.surface { display: grid; gap: var(--space-4); padding: var(--space-4); border: var(--border-width-thin) solid var(--surface-1-border); border-radius: var(--radius-xl); background: var(--surface-1-bg); }
+.result { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); padding: var(--space-3); border-radius: var(--radius-md); background: var(--surface-selected); }
+.numeric { margin-inline-start: auto; font-variant-numeric: tabular-nums lining-nums; }
+.radius { display: grid; place-items: center; inline-size: var(--space-12); block-size: var(--space-12); border: var(--border-width-thin) solid var(--color-border-strong); background: var(--surface-1-bg); }

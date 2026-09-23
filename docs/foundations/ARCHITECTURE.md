@@ -6,7 +6,7 @@ The UniERP Design System (`@kannan19302/ui`) is the authoritative design languag
 ## 2. Core Foundations
 1. **Unified Token Hierarchy**:
    - **Colors**: Semantic variables (`var(--color-bg)`, `var(--color-text)`, `var(--color-primary)`, `var(--color-border)`).
-   - **Typography**: Display (`Inter`), Sans (`Inter`), Mono (`IBM Plex Mono` / `JetBrains Mono`).
+   - **Typography**: Display (`Inter`), Sans (`Inter`), Mono (`IBM Plex Mono`).
    - **Numerical Precision**: Tabular numerals (`font-variant-numeric: tabular-nums lining-nums;`) on all monetary, quantity, ledger, and metric displays.
    - **Elevation**: 5-tier elevation system (`var(--shadow-xs)` to `var(--shadow-2xl)`).
    - **Motion**: Purposeful, spring-based easing curves (`var(--ease-spring)`, `var(--ease-default)`) with instant transitions for compact and expert density modes.

@@ -6,7 +6,8 @@
    Removes shadows, strengthens borders, maximizes text contrast.
    ══════════════════════════════════════════════════════════════ */
 
-[data-theme="strata-high-contrast"] {
+[data-theme="strata-high-contrast"],
+[data-theme="high-contrast"] {
   color-scheme: light;
 
   /* ── Background / Canvas ──────────────────────────────────── */

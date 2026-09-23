@@ -28,6 +28,9 @@
     "./tokens/studio.css": "./dist/core/tokens/studio.css",
     "./tokens/v2/index.css": "./dist/core/tokens/v2/index.css",
     "./tokens/v2": "./dist/core/tokens/v2/index.css",
+    "./tokens/v3/index.css": "./dist/core/tokens/v3/index.css",
+    "./tokens/v3": "./dist/core/tokens/v3/index.css",
+    "./tokens/v3/*": "./dist/core/tokens/v3/*",
     "./tokens/tokens.json": "./dist/core/tokens/tokens.g.json",
     "./tokens/themes/*": "./dist/core/tokens/themes/*",
     "./tokens": {
@@ -248,7 +251,8 @@
     }
   },
   "scripts": {
-    "build": "node scripts/check-inventory.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && node scripts/check-density.mjs && node scripts/check-tokens.mjs && node scripts/check-logical-properties.mjs && node scripts/check-ui-governance.mjs --test-fixtures && node scripts/check-ui-governance.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs && node scripts/generate-inventory.mjs",
+    "check:foundations": "node --test scripts/check-foundations.test.mjs",
+    "build": "node --test scripts/check-foundations.test.mjs && node scripts/check-inventory.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && node scripts/check-density.mjs && node scripts/check-tokens.mjs && node scripts/check-logical-properties.mjs && node scripts/check-ui-governance.mjs --test-fixtures && node scripts/check-ui-governance.mjs && node scripts/generate-cross-platform-tokens.mjs --check && rimraf dist && tsc -p tsconfig.build.json && node scripts/copy-css.mjs && node scripts/fix-client-directives.mjs && node scripts/bundle-css-modules.mjs && node scripts/generate-inventory.mjs",
     "check:inventory": "node scripts/check-inventory.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:platform-accents": "node scripts/check-platform-accents.mjs",
@@ -258,7 +262,7 @@
     "check:logical-properties": "node scripts/check-logical-properties.mjs",
     "check:logical-properties:baseline": "node scripts/check-logical-properties.mjs --baseline",
     "check:ui-governance": "node scripts/check-ui-governance.mjs --test-fixtures && node scripts/check-ui-governance.mjs",
-    "lint": "node scripts/check-inventory.mjs && node scripts/check-tokens.mjs && node scripts/check-logical-properties.mjs && node scripts/check-ui-governance.mjs && node scripts/check-layer.mjs && node scripts/check-density.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && tsc --noEmit",
+    "lint": "node --test scripts/check-foundations.test.mjs && node scripts/check-inventory.mjs && node scripts/check-tokens.mjs && node scripts/check-logical-properties.mjs && node scripts/check-ui-governance.mjs && node scripts/check-layer.mjs && node scripts/check-density.mjs && node scripts/check-contrast.mjs && node scripts/check-platform-accents.mjs && tsc --noEmit",
     "clean": "rimraf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

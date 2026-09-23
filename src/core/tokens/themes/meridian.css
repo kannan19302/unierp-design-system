@@ -32,27 +32,12 @@
   color-scheme: light;
 
   /* ── Typefaces ──
-     Three faces, three jobs.
-
-     Inter STAYS as the body and data face. It is correct at 14px, it has the
-     tabular figures a ledger column requires, and ~785 files already depend on
-     its metrics — swapping the workhorse is a large visual regression bought
-     for nothing. Personality is carried by the two faces around it instead.
-
-     Instrument Sans is the display face: semi-condensed, so a page title can
-     be large without eating the line, with enough character in the R and the g
-     to not read as another grotesque. It appears ONLY in headings, KPI
-     figures, wizard plates and marketing.
-
-     Martian Mono is deliberately not JetBrains Mono — the mono here is doing
-     identity work (the Meridian bar's address, ids, versions, counts), and it
-     should not look like a code editor leaked into the chrome.
-
-     Each app loads these through next/font under the same variable names; the
-     literals are what a consumer without next/font falls back to. */
-  --font-display: "Instrument Sans", "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-mono: "Martian Mono", ui-monospace, "IBM Plex Mono", "Consolas", monospace;
+     Compatibility themes retain Inter for headings, body and business data,
+     plus IBM Plex Mono for identifiers and code. A colour-theme change must
+     not change text metrics or reflow a business workflow. */
+  --font-display: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
 
   /* ── Surfaces ──
      Warm-neutral, not blue-grey and not the cream that every generated design

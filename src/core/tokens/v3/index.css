@@ -27,9 +27,9 @@
    V3 is ADDITIVE over V2 over V1. Import V3 AFTER V1/V2.
 
    Usage in the design system entry CSS:
-     @import "../tokens/base.css";          /* V1 */
-     @import "../tokens/v2/index.css";      /* V2 */
-     @import "../tokens/v3/index.css";      /* V3 — this file */
+     @import "../tokens/base.css";          // V1
+     @import "../tokens/v2/index.css";      // V2
+     @import "../tokens/v3/index.css";      // V3 -- this file
    ══════════════════════════════════════════════════════════════ */
 
 /* ── Foundation Primitives ──────────────────────────────────── */

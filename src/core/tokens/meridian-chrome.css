@@ -45,23 +45,11 @@
   --brand-signal-hover: #cf4622;
   --brand-signal-subtle: #fbe9e3;
 
-  /* ── Geometry ──
-     An ERP screen holding forty rows and six nested panels reads as an
-     instrument, not a phone. Nothing in the product is more rounded than 8px,
-     and the two small steps are tightened so chips and inputs stay crisp at
-     12px type. The editorial (marketing) shell deliberately re-opens 2xl to
-     16px inside its own scope — that register change is the point of it. */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 6px;
-  --radius-xl: 8px;
-  --radius-2xl: 8px;
+  /* Geometry inherits base.css, including for the Meridian aliases. */
 
   /* ── Display type scale ──
-     Instrument Sans is variable on weight only, so unlike patina there is no
-     width axis to drive: the display voice here is TRACKING, tightened as the
-     type gets bigger, so a hero reads as signage while a card title still
-     reads as an interface label.
+     Inter uses progressively tighter tracking as type gets bigger, so a page
+     title reads as signage while a card title remains an interface label.
 
      Applied in a stylesheet, never from a style prop — a custom property
      cannot express a whole font-variation-settings declaration. */
@@ -73,9 +61,8 @@
   --display-tracking-title: -0.022em;
   --display-tracking-label: -0.008em;
 
-  /* Uppercase mono labels — the eyebrow above a section title and the head of
-     every table column. Small, spaced, and always mono, so a label is never
-     mistaken for content. */
+  /* Compatibility aliases for older compact labels. New product UI uses the
+     sentence-case Inter label roles in v2/typography.css. */
   --label-size: 0.65625rem; /* 10.5px */
   --label-tracking: 0.1em;
 

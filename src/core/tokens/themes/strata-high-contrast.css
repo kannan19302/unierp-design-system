@@ -9,9 +9,9 @@
   color-scheme: light;
 
   /* ── Typefaces ── */
-  --font-display: "Plus Jakarta Sans", "Inter Display", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Geist Mono", "Martian Mono", monospace;
+  --font-display: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
 
   /* ── Surfaces ── */
   --color-bg: #ffffff;

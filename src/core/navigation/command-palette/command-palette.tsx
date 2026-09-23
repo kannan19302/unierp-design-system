@@ -2,14 +2,17 @@
 
 import React, {
   useState,
+  useCallback,
   useEffect,
+  useId,
   useRef,
   forwardRef,
   type ReactNode,
 } from "react";
 import { Search, Command, X } from "lucide-react";
 import { Portal } from "../../overlays/portal";
-import { useEscapeKey, useScrollLock } from "../../overlays/overlay-hooks";
+import { FocusTrap } from "../../overlays/focus-trap";
+import { useScrollLock } from "../../overlays/overlay-hooks";
 import styles from "./command-palette.module.css";
 
 export interface CommandItem {
@@ -50,8 +53,11 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     const [query, setQuery] = useState("");
     const [selectedIndex, setSelectedIndex] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
+    const listId = useId();
+    const closeRef = useRef(onClose);
+    closeRef.current = onClose;
+    const close = useCallback(() => closeRef.current(), []);
 
-    useEscapeKey(onClose, open);
     useScrollLock(open);
 
     const filtered = items.filter(
@@ -66,31 +72,35 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     }, [query]);
 
     useEffect(() => {
-      if (open) {
-        setTimeout(() => inputRef.current?.focus(), 50);
-      } else {
+      if (!open) {
         setQuery("");
+        setSelectedIndex(0);
       }
     }, [open]);
 
+    const activeIndex = Math.min(selectedIndex, Math.max(0, filtered.length - 1));
+    const activeOptionId = filtered[activeIndex] ? `${listId}-${activeIndex}` : undefined;
+
     useEffect(() => {
-      if (!open) return;
-      const onKey = (e: KeyboardEvent) => {
+      if (open && activeOptionId) {
+        document.getElementById(activeOptionId)?.scrollIntoView?.({ block: "nearest" });
+      }
+    }, [open, activeOptionId]);
+
+    const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.nativeEvent.isComposing) return;
         if (e.key === "ArrowDown") {
           e.preventDefault();
-          setSelectedIndex((prev) => (prev + 1) % (filtered.length || 1));
+          setSelectedIndex((activeIndex + 1) % (filtered.length || 1));
         } else if (e.key === "ArrowUp") {
           e.preventDefault();
-          setSelectedIndex((prev) => (prev - 1 + (filtered.length || 1)) % (filtered.length || 1));
-        } else if (e.key === "Enter" && filtered[selectedIndex]) {
+          setSelectedIndex((activeIndex - 1 + (filtered.length || 1)) % (filtered.length || 1));
+        } else if (e.key === "Enter" && filtered[activeIndex]) {
           e.preventDefault();
-          filtered[selectedIndex]!.onSelect();
-          onClose();
+          filtered[activeIndex]!.onSelect();
+          close();
         }
-      };
-      document.addEventListener("keydown", onKey);
-      return () => document.removeEventListener("keydown", onKey);
-    }, [open, onClose, filtered, selectedIndex]);
+    };
 
     if (!open) return null;
 
@@ -98,67 +108,83 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
       <Portal>
         <div className={styles.backdrop} onClick={onClose} aria-hidden="true" />
         <div className={styles.wrapper}>
-          <div
-            ref={ref}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Command Palette"
-            className={`${styles.dialog} ${className}`.trim()}
-            tabIndex={-1}
-            {...rest}
-          >
-            <div className={styles.searchBar}>
-              <Search size={16} className={styles.searchIcon} aria-hidden="true" />
-              <input
-                ref={inputRef}
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={placeholder}
-                className={styles.input}
-              />
-              <button
-                type="button"
-                onClick={onClose}
-                aria-label="Close command palette"
-                className={styles.closeBtn}
-              >
-                <X size={16} aria-hidden="true" />
-              </button>
-            </div>
+          <FocusTrap active={open} initialFocusRef={inputRef} onEscape={close}>
+            <div
+              ref={ref}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Command Palette"
+              className={`${styles.dialog} ${className}`.trim()}
+              tabIndex={-1}
+              {...rest}
+            >
+              <div className={styles.searchBar}>
+                <Search size={18} className={styles.searchIcon} aria-hidden="true" />
+                <input
+                  ref={inputRef}
+                  type="text"
+                  role="combobox"
+                  aria-label="Search commands"
+                  aria-autocomplete="list"
+                  aria-controls={listId}
+                  aria-expanded="true"
+                  aria-activedescendant={activeOptionId}
+                  onKeyDown={handleSearchKeyDown}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={placeholder}
+                  className={styles.input}
+                />
+                <button
+                  type="button"
+                  onClick={onClose}
+                  aria-label="Close command palette"
+                  className={styles.closeBtn}
+                >
+                  <X size={16} aria-hidden="true" />
+                </button>
+              </div>
 
-            <div className={styles.list}>
-              {filtered.length === 0 ? (
-                <div className={styles.empty}>No matching commands or records found.</div>
-              ) : (
-                filtered.map((item, idx) => {
-                  const active = idx === selectedIndex;
-                  return (
-                    <div
-                      key={item.id}
-                      onClick={() => {
-                        item.onSelect();
-                        onClose();
-                      }}
-                      onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`${styles.item} ${active ? styles.activeItem : ""}`}
-                    >
-                      <span className={styles.itemIcon}>
-                        {item.icon || <Command size={14} aria-hidden="true" />}
-                      </span>
-                      <div className={styles.itemMeta}>
-                        <div className={styles.itemTitle}>{item.title}</div>
-                        {item.subtitle && (
-                          <div className={styles.itemSubtitle}>{item.subtitle}</div>
-                        )}
-                      </div>
-                      <span className={styles.itemCategory}>{item.category}</span>
-                    </div>
-                  );
-                })
-              )}
+              <div id={listId} className={styles.list} role="listbox" aria-label="Command results">
+                {filtered.length === 0 ? (
+                  <div className={styles.empty} role="status">No matching commands or records found.</div>
+                ) : (
+                  filtered.map((item, idx) => {
+                    const active = idx === activeIndex;
+                    return (
+                      <button
+                        type="button"
+                        id={`${listId}-${idx}`}
+                        role="option"
+                        aria-selected={active}
+                        key={item.id}
+                        onClick={() => {
+                          item.onSelect();
+                          onClose();
+                        }}
+                        onMouseEnter={() => setSelectedIndex(idx)}
+                        onFocus={() => setSelectedIndex(idx)}
+                        className={`${styles.item} ${active ? styles.activeItem : ""}`}
+                      >
+                        <span className={styles.itemIcon}>
+                          {item.icon || <Command size={16} aria-hidden="true" />}
+                        </span>
+                        <span className={styles.itemMeta}>
+                          <span className={styles.itemTitle}>{item.title}</span>
+                          {item.subtitle && <span className={styles.itemSubtitle}>{item.subtitle}</span>}
+                        </span>
+                        <span className={styles.itemCategory}>{item.category}</span>
+                      </button>
+                    );
+                  })
+                )}
+              </div>
+              <div className={styles.footer} aria-live="polite">
+                <span>{filtered.length} {filtered.length === 1 ? "result" : "results"}</span>
+                <span><kbd>↑</kbd><kbd>↓</kbd> Navigate <kbd>Enter</kbd> Open <kbd>Esc</kbd> Close</span>
+              </div>
             </div>
-          </div>
+          </FocusTrap>
         </div>
       </Portal>
     );

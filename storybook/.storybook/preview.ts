@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/react";
 import "@kannan19302/ui/tokens/index.css";
 import "@kannan19302/ui/tokens/v2/index.css";
+import "@kannan19302/ui/tokens/v3/index.css";
 import "@kannan19302/ui/styles/fonts.css";
 import "@kannan19302/ui/styles/globals.css";
 

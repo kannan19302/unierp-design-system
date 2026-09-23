@@ -13,17 +13,17 @@
       achieving >7.2:1 contrast for high-productivity focus.
    3. Hairline 1px borders (#e2e8f0, #94a3b8) establish structural framing without
       unnecessary blur or wasted whitespace.
-   4. Tabular numeric alignment with JetBrains Mono for exact financial column decimals.
+   4. Inter tabular lining figures align financial columns; IBM Plex Mono is reserved for code and identifiers.
 */
 
 [data-theme="strata"],
 [data-theme="meridian"] {
   color-scheme: light;
 
-  /* ── Typefaces (Strata DL 3.0 — Inter Enterprise Typography) ── */
-  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", "IBM Plex Mono", monospace;
+  /* ── Typefaces (Strata business typography) ── */
+  --font-display: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
 
   /* ── Surfaces ── */
   --color-bg: #f8fafc;

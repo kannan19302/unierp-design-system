@@ -6,7 +6,8 @@
    and night-shift workflows. Overrides semantic tokens from colors.css.
    ══════════════════════════════════════════════════════════════ */
 
-[data-theme="strata-dark"] {
+[data-theme="strata-dark"],
+[data-theme="dark"] {
   color-scheme: dark;
 
   /* ── Background / Canvas ──────────────────────────────────── */

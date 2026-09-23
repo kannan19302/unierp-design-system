@@ -3,7 +3,7 @@
    ══════════════════════════════════════════════════════════════
 
    Primary Product Font: Inter (300 to 900 variable weights)
-   Technical / Code Font: IBM Plex Mono / Geist Mono
+   Technical / Code Font: IBM Plex Mono
    System Fallbacks:     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif
 
    Loads authoritative Google Fonts with font-display: swap while providing
@@ -20,28 +20,4 @@
     local("-apple-system"),
     system-ui;
   font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Sans";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src:
-    local("Geist Sans"),
-    local("Geist-Regular"),
-    local("Geist"),
-    system-ui;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src:
-    local("Geist Mono"),
-    local("GeistMono-Regular"),
-    local("GeistMono"),
-    ui-monospace;
 }
