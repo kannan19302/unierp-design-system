@@ -61,5 +61,4 @@ export {
 } from "./use-studio-document";
 
 export * from "./wysiwyg-canvas";
-export * from "./css-properties-inspector";
 export * from "./data-query-drawer";

@@ -11,12 +11,10 @@ export * from "./artifact-address";
 export * from "./command-palette";
 export * from "./saved-view-switcher";
 export * from "./sidenav";
-export * from "./bim-model-viewer-toolbar";
 
 // Enterprise Navigation & Hierarchy Workspaces (Wave 11: Batches 43–46)
 export * from "./workspace-global-rail";
 export * from "./app-launcher-waffle-grid";
-export * from "./tenant-hierarchy-scope-selector";
 export * from "./blade-navigation-stack";
 export * from "./document-tab-bar";
 export * from "./catalog-schema-explorer-tree";

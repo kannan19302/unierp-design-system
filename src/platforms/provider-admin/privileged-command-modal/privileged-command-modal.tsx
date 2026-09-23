@@ -121,7 +121,7 @@ export function PrivilegedCommandModal({
               >
                 <Input
                   value={justification}
-                  onChange={(e) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setJustification(e.target.value);
                     if (error) setError(null);
                   }}
@@ -133,7 +133,7 @@ export function PrivilegedCommandModal({
               <FormField label="Approval Reference (Optional)">
                 <Input
                   value={approvalRef}
-                  onChange={(e) => setApprovalRef(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setApprovalRef(e.target.value)}
                   placeholder="e.g. Dual-approval signature token or Slack link"
                 />
               </FormField>

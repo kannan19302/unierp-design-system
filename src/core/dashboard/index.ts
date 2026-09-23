@@ -29,7 +29,6 @@ export {
 
 
 export { ExecutiveSummaryDashboard, type ExecutiveSummaryDashboardProps } from "./executive-summary-dashboard";
-export { FinancialStatementViewer, type FinancialStatementViewerProps } from "./financial-statement-viewer";
 export { RealTimeMetricsBoard, type RealTimeMetricsBoardProps } from "./real-time-metrics-board";
 export { DashboardGridLayout, type DashboardGridLayoutProps } from "./dashboard-grid-layout";
 export { CrossFilterDashboard, type CrossFilterDashboardProps } from "./cross-filter-dashboard";

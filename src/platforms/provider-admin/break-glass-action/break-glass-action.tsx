@@ -90,7 +90,7 @@ export function BreakGlassAction({
           <FormField label="Audit Justification" required error={error}>
             <Input
               value={justification}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setJustification(e.target.value);
                 if (error) setError(null);
               }}

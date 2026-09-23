@@ -13,7 +13,6 @@ export * from "./stat-card-row";
 export * from "./view-switcher";
 export * from "./context-rail";
 export * from "./workspace-tabs";
-export * from "./footer";
 export * from "./fact-box";
 export * from "./split-screen-auditor";
 export * from "./billable-timer-dock";

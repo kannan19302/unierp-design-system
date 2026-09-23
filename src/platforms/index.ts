@@ -19,3 +19,6 @@ export * from './marketplace';
 export * from './sites';
 export * from './mobile';
 export * from './desktop';
+
+// Disambiguate RuleOperator across platforms
+export { type RuleOperator } from './business-suite';

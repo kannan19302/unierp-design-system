@@ -27,8 +27,3 @@ export * from "./inline-edit";
 export * from "./number-stepper";
 export * from "./segmented-control";
 export * from "./color-picker";
-export * from "./secret-environment-editor";
-export * from "./feature-rollout-slider";
-export * from "./acl-policy-visualizer";
-export * from "./record-field-policy-matrix";
-export * from "./policy-simulator-inspector";
