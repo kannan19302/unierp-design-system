@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CashSweepLiquidityOptimizer } from "./cash-sweep-liquidity-optimizer";
 
 const meta: Meta<typeof CashSweepLiquidityOptimizer> = {
-  title: "Platforms/BusinessSuite/Finance/CashSweepLiquidityOptimizer",
+  title: "Platforms/BusinessSuite/FinanceTreasury/CashSweepLiquidityOptimizer",
   component: CashSweepLiquidityOptimizer,
   parameters: {
     layout: "centered",

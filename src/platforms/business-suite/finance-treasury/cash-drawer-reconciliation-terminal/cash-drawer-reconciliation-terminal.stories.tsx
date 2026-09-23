@@ -11,7 +11,7 @@ const mockShift = {
 };
 
 const meta: Meta<typeof CashDrawerReconciliationTerminal> = {
-  title: "Platforms/BusinessSuite/Finance/CashDrawerReconciliationTerminal",
+  title: "Platforms/BusinessSuite/FinanceTreasury/CashDrawerReconciliationTerminal",
   component: CashDrawerReconciliationTerminal,
   parameters: {
     layout: "centered",

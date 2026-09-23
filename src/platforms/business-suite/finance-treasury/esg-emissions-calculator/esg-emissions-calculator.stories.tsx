@@ -52,7 +52,7 @@ const mockActivities: EmissionActivityLine[] = [
 ];
 
 const meta: Meta<typeof EsgEmissionsCalculator> = {
-  title: "Platforms/BusinessSuite/Finance/EsgEmissionsCalculator",
+  title: "Platforms/BusinessSuite/FinanceTreasury/EsgEmissionsCalculator",
   component: EsgEmissionsCalculator,
   parameters: {
     layout: "padded",

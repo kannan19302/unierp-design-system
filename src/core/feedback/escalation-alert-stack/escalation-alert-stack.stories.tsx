@@ -4,7 +4,7 @@ import { EscalationAlertStack } from "./escalation-alert-stack";
 const SAMPLE_ALERTS = [
   {
     id: "1",
-    title: "Database CPU at 98%",
+    title: "Core/Feedback/EscalationAlertStack",
     severity: "critical" as const,
     timestamp: "30s ago",
     source: "prod-db-01",

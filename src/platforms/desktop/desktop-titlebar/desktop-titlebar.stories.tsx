@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DesktopTitlebar } from "./desktop-titlebar";
 
 const meta: Meta<typeof DesktopTitlebar> = {
-  title: "Platforms/Desktop/DesktopTitlebar/DesktopTitlebar",
+  title: "Platforms/Desktop/DesktopTitlebar",
   component: DesktopTitlebar,
   parameters: {
     layout: "fullscreen",

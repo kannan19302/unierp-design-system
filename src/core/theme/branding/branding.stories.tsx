@@ -46,7 +46,7 @@ const BrandingDemo = () => {
 };
 
 const meta: Meta = {
-  title: "Core/Foundations/Branding",
+  title: "Core/Theme/Branding",
   component: BrandingDemo,
   parameters: { layout: "centered" },
 };

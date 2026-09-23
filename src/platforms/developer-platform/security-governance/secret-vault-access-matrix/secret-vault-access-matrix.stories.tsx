@@ -5,7 +5,7 @@ import {
 } from "./secret-vault-access-matrix";
 
 const meta: Meta<typeof SecretVaultAccessMatrix> = {
-  title: "Platforms/DeveloperPlatform/Security/SecretVaultAccessMatrix",
+  title: "Platforms/DeveloperPlatform/SecurityGovernance/SecretVaultAccessMatrix",
   component: SecretVaultAccessMatrix,
   parameters: {
     layout: "centered",

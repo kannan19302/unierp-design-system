@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { BuilderSidebar, DEFAULT_BUILDER_GROUPS } from './builder-sidebar';
 
 const meta: Meta<typeof BuilderSidebar> = {
-  title: "Platforms/DeveloperPlatform/Workbench/BuilderSidebar",
+  title: "Platforms/DeveloperPlatform/DevtoolsWorkbench/BuilderSidebar",
   component: BuilderSidebar,
   parameters: {
     layout: 'fullscreen',

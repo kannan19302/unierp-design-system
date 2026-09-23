@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AssessmentRubricMatrix } from "./assessment-rubric-matrix";
 
 const meta: Meta<typeof AssessmentRubricMatrix> = {
-  title: "Platforms/BusinessSuite/LegalOps/AssessmentRubricMatrix",
+  title: "Platforms/BusinessSuite/LegalCompliance/AssessmentRubricMatrix",
   component: AssessmentRubricMatrix,
   parameters: {
     layout: "padded",

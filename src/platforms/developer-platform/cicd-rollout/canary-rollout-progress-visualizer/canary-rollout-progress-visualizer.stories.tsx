@@ -40,7 +40,7 @@ const mockMetrics: CanaryMetricComparison[] = [
 ];
 
 const meta: Meta<typeof CanaryRolloutProgressVisualizer> = {
-  title: "Platforms/DeveloperPlatform/CICD/CanaryRolloutProgressVisualizer",
+  title: "Platforms/DeveloperPlatform/CicdRollout/CanaryRolloutProgressVisualizer",
   component: CanaryRolloutProgressVisualizer,
   parameters: {
     layout: "padded",

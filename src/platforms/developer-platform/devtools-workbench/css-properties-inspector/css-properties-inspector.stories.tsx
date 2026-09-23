@@ -6,7 +6,7 @@ import {
 } from "./css-properties-inspector";
 
 const meta: Meta<typeof CssPropertiesInspector> = {
-  title: "Platforms/DeveloperPlatform/Workbench/CssPropertiesInspector",
+  title: "Platforms/DeveloperPlatform/DevtoolsWorkbench/CssPropertiesInspector",
   component: CssPropertiesInspector,
   tags: ["autodocs"],
   parameters: {

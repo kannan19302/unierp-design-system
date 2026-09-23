@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { VendorPaymentMethodSelector } from "./vendor-payment-method-selector";
 
 const meta: Meta<typeof VendorPaymentMethodSelector> = {
-  title: "Platforms/BusinessSuite/Finance/VendorPaymentMethodSelector",
+  title: "Platforms/BusinessSuite/FinanceTreasury/VendorPaymentMethodSelector",
   component: VendorPaymentMethodSelector,
   parameters: {
     layout: "padded",

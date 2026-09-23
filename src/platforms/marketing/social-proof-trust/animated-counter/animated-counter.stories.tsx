@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { AnimatedCounter } from './animated-counter';
 
 const meta: Meta<typeof AnimatedCounter> = {
-  title: "Platforms/Marketing/SocialProof/AnimatedCounter",
+  title: "Platforms/Marketing/SocialProofTrust/AnimatedCounter",
   component: AnimatedCounter,
   parameters: {
     layout: 'centered',

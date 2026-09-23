@@ -10,7 +10,7 @@ const sampleNav = [
 
 const sampleFooterSections = [
   {
-    title: "Platforms/Sites/Product",
+    title: "Platforms/Sites/Chrome/SiteShell",
     links: [
       { label: "Features", href: "/features" },
       { label: "Security", href: "/security" },

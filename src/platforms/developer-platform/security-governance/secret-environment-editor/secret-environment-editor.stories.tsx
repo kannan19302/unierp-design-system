@@ -50,7 +50,7 @@ const mockSecrets: SecretItem[] = [
  * - **Environment Scope Filtering**: Instant tab filtering by production/staging/dev deployments.
  */
 const meta: Meta<typeof SecretEnvironmentEditor> = {
-  title: "Platforms/DeveloperPlatform/Security/SecretEnvironmentEditor",
+  title: "Platforms/DeveloperPlatform/SecurityGovernance/SecretEnvironmentEditor",
   component: SecretEnvironmentEditor,
   tags: ["autodocs"],
   parameters: {

@@ -54,7 +54,7 @@ const sampleLines: IntercompanyPairLine[] = [
 ];
 
 const meta: Meta<typeof IntercompanyEliminationMatrix> = {
-  title: "Platforms/BusinessSuite/Finance/IntercompanyEliminationMatrix",
+  title: "Platforms/BusinessSuite/FinanceTreasury/IntercompanyEliminationMatrix",
   component: IntercompanyEliminationMatrix,
   parameters: {
     layout: "padded",

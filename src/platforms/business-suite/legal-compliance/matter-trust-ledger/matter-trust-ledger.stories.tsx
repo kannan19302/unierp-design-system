@@ -52,7 +52,7 @@ const mockEntries: TrustLedgerEntry[] = [
 ];
 
 const meta: Meta<typeof MatterTrustLedger> = {
-  title: "Platforms/BusinessSuite/LegalOps/MatterTrustLedger",
+  title: "Platforms/BusinessSuite/LegalCompliance/MatterTrustLedger",
   component: MatterTrustLedger,
   parameters: {
     layout: "padded",

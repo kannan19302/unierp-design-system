@@ -70,7 +70,7 @@ const sampleLines: PolicyCoverageLine[] = [
 ];
 
 const meta: Meta<typeof InsurancePolicyCoverageMatrix> = {
-  title: "Platforms/BusinessSuite/LegalOps/InsurancePolicyCoverageMatrix",
+  title: "Platforms/BusinessSuite/LegalCompliance/InsurancePolicyCoverageMatrix",
   component: InsurancePolicyCoverageMatrix,
   parameters: {
     layout: "padded",

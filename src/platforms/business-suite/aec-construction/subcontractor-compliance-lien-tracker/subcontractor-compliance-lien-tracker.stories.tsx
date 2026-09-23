@@ -41,7 +41,7 @@ const mockRecords = [
 ];
 
 const meta: Meta<typeof SubcontractorComplianceLienTracker> = {
-  title: "Platforms/BusinessSuite/Construction/SubcontractorComplianceLienTracker",
+  title: "Platforms/BusinessSuite/AecConstruction/SubcontractorComplianceLienTracker",
   component: SubcontractorComplianceLienTracker,
   parameters: {
     layout: "centered",

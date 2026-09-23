@@ -45,7 +45,7 @@ const sampleCostCenters = [
 ];
 
 const meta: Meta<typeof ServiceCatalogCartCheckout> = {
-  title: "Platforms/BusinessSuite/LegalOps/ServiceCatalogCartCheckout",
+  title: "Platforms/BusinessSuite/LegalCompliance/ServiceCatalogCartCheckout",
   component: ServiceCatalogCartCheckout,
   tags: ["autodocs"],
   parameters: {

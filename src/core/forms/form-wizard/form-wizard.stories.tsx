@@ -4,7 +4,7 @@ import { FormWizard, type WizardStep } from "./form-wizard";
 const sampleSteps: WizardStep[] = [
   {
     id: "step-1",
-    title: "Organization Profile",
+    title: "Core/Forms/FormWizard",
     subtitle: "Legal entity and registration numbers",
     component: (
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", maxWidth: 500 }}>

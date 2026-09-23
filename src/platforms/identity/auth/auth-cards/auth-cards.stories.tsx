@@ -10,7 +10,7 @@ import {
 } from "./auth-cards";
 
 const meta: Meta<typeof SignInCard> = {
-  title: "Platforms/Identity/AuthCards/AuthCards",
+  title: "Platforms/Identity/Auth/AuthCards",
   component: SignInCard,
   parameters: {
     layout: "centered",

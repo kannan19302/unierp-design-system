@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SocialProofBlock } from "./social-proof";
 
 const meta: Meta<typeof SocialProofBlock> = {
-  title: "Platforms/Marketing/SocialProof/SocialProof",
+  title: "Platforms/Marketing/SocialProofTrust/SocialProof",
   component: SocialProofBlock,
   parameters: { layout: "fullscreen" },
 };

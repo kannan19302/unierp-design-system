@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TrustBarBlock } from "./trust-bar";
 
 const meta: Meta<typeof TrustBarBlock> = {
-  title: "Platforms/Marketing/SocialProof/TrustBar",
+  title: "Platforms/Marketing/SocialProofTrust/TrustBar",
   component: TrustBarBlock,
   parameters: { layout: "fullscreen" },
 };

@@ -45,7 +45,7 @@ const SAMPLE_TICKETS: OrderTicket[] = [
 ];
 
 const meta: Meta<typeof OrderTicketRack> = {
-  title: "Platforms/BusinessSuite/SupplyChain/OrderTicketRack",
+  title: "Platforms/BusinessSuite/SupplyChainLogistics/OrderTicketRack",
   component: OrderTicketRack,
   parameters: {
     layout: "padded",

@@ -5,7 +5,7 @@ import type { CloseTask } from "./period-close-cockpit";
 const mockTasks: CloseTask[] = [
   {
     id: "task-ap",
-    title: "Platforms/BusinessSuite/Accounts Payable Invoice Matching & Hard Lock",
+    title: "Platforms/BusinessSuite/FinanceTreasury/PeriodCloseCockpit",
     category: "Subledger AP/AR",
     owner: "Elena Rostova",
     dueDate: "2026-09-02",

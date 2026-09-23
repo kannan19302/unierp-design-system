@@ -54,7 +54,7 @@ const mockBeds: InpatientBed[] = [
 ];
 
 const meta: Meta<typeof InpatientBedBoard> = {
-  title: "Platforms/BusinessSuite/Clinical/InpatientBedBoard",
+  title: "Platforms/BusinessSuite/ClinicalHealthcare/InpatientBedBoard",
   component: InpatientBedBoard,
   parameters: {
     layout: "padded",

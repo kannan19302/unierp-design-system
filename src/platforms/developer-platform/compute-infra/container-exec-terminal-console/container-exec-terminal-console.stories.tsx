@@ -29,7 +29,7 @@ const sampleSessions: TerminalSessionTab[] = [
 ];
 
 const meta: Meta<typeof ContainerExecTerminalConsole> = {
-  title: "Platforms/DeveloperPlatform/Compute/ContainerExecTerminalConsole",
+  title: "Platforms/DeveloperPlatform/ComputeInfra/ContainerExecTerminalConsole",
   component: ContainerExecTerminalConsole,
   parameters: {
     layout: "padded",

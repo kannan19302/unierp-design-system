@@ -31,7 +31,7 @@ const sampleAnnotations: DocumentAnnotation[] = [
 ];
 
 const meta: Meta<typeof DocumentAnnotator> = {
-  title: "Platforms/DeveloperPlatform/Workbench/DocumentAnnotator",
+  title: "Platforms/DeveloperPlatform/DevtoolsWorkbench/DocumentAnnotator",
   component: DocumentAnnotator,
   parameters: {
     layout: "padded",

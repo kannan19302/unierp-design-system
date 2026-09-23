@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { RestApiClientWorkbench } from "./rest-api-client-workbench";
 
 const meta: Meta<typeof RestApiClientWorkbench> = {
-  title: "Platforms/DeveloperPlatform/Workbench/RestApiClientWorkbench",
+  title: "Platforms/DeveloperPlatform/DevtoolsWorkbench/RestApiClientWorkbench",
   component: RestApiClientWorkbench,
   parameters: {
     layout: "padded",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ExtensionCard } from "./extension-card";
 
 const meta: Meta<typeof ExtensionCard> = {
-  title: "Platforms/Marketplace/ExtensionCard/ExtensionCard",
+  title: "Platforms/Marketplace/ExtensionCard",
   component: ExtensionCard,
   parameters: {
     layout: "centered",

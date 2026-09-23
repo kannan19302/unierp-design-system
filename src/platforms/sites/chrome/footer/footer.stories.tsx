@@ -3,7 +3,7 @@ import { Footer, type FooterSection, type FooterLink } from "./footer";
 
 const sampleSections: FooterSection[] = [
   {
-    title: "Platforms/Sites/Platform",
+    title: "Platforms/Sites/Chrome/Footer",
     links: [
       { label: "Core ERP", href: "/platform/erp" },
       { label: "Developer Studio", href: "/platform/studio" },

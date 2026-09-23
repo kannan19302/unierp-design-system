@@ -62,7 +62,7 @@ const mockPlan: PlanNode = {
 };
 
 const meta: Meta<typeof QueryExecutionPlanViewer> = {
-  title: "Platforms/DeveloperPlatform/Database/QueryExecutionPlanViewer",
+  title: "Platforms/DeveloperPlatform/DatabaseData/QueryExecutionPlanViewer",
   component: QueryExecutionPlanViewer,
   parameters: {
     layout: "padded",

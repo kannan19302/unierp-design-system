@@ -63,7 +63,7 @@ const mockPeriods: LeaseSchedulePeriod[] = [
 ];
 
 const meta: Meta<typeof LeaseAmortizationSchedule> = {
-  title: "Platforms/BusinessSuite/RealEstate/LeaseAmortizationSchedule",
+  title: "Platforms/BusinessSuite/RealEstateHospitality/LeaseAmortizationSchedule",
   component: LeaseAmortizationSchedule,
   parameters: {
     layout: "padded",

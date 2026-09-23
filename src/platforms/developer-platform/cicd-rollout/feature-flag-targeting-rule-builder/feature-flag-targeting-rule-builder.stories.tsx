@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FeatureFlagTargetingRuleBuilder } from "./feature-flag-targeting-rule-builder";
 
 const meta: Meta<typeof FeatureFlagTargetingRuleBuilder> = {
-  title: "Platforms/DeveloperPlatform/CICD/FeatureFlagTargetingRuleBuilder",
+  title: "Platforms/DeveloperPlatform/CicdRollout/FeatureFlagTargetingRuleBuilder",
   component: FeatureFlagTargetingRuleBuilder,
   parameters: {
     layout: "padded",

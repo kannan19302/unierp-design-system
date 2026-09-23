@@ -22,7 +22,7 @@ const mockRule: Partial<BankRule> = {
 };
 
 const meta: Meta<typeof BankRuleConditionBuilder> = {
-  title: "Platforms/BusinessSuite/Finance/BankRuleConditionBuilder",
+  title: "Platforms/BusinessSuite/FinanceTreasury/BankRuleConditionBuilder",
   component: BankRuleConditionBuilder,
   parameters: {
     layout: "padded",

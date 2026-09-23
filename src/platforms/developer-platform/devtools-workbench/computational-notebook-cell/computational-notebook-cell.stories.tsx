@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ComputationalNotebookCell } from "./computational-notebook-cell";
 
 const meta: Meta<typeof ComputationalNotebookCell> = {
-  title: "Platforms/DeveloperPlatform/Workbench/ComputationalNotebookCell",
+  title: "Platforms/DeveloperPlatform/DevtoolsWorkbench/ComputationalNotebookCell",
   component: ComputationalNotebookCell,
   parameters: {
     layout: "centered",

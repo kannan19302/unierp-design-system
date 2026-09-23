@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { IdpLoginCard } from "./idp-login-card";
 
 const meta: Meta<typeof IdpLoginCard> = {
-  title: "Platforms/Identity/AuthCards/IdpLoginCard",
+  title: "Platforms/Identity/Auth/IdpLoginCard",
   component: IdpLoginCard,
   parameters: {
     layout: "centered",

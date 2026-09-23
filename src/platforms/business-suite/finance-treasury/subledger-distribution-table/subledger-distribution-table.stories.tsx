@@ -67,7 +67,7 @@ const unbalancedRows: DistributionRow[] = [
 ];
 
 const meta: Meta<typeof SubledgerDistributionTable> = {
-  title: "Platforms/BusinessSuite/Finance/SubledgerDistributionTable",
+  title: "Platforms/BusinessSuite/FinanceTreasury/SubledgerDistributionTable",
   component: SubledgerDistributionTable,
   parameters: {
     layout: "padded",

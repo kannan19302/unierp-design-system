@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { IntegrationShowcase } from "./integration-showcase";
 
 const meta: Meta<typeof IntegrationShowcase> = {
-  title: "Platforms/Marketing/Showcase/IntegrationShowcase",
+  title: "Platforms/Marketing/FeatureShowcase/IntegrationShowcase",
   component: IntegrationShowcase,
   parameters: { layout: "centered" },
 };

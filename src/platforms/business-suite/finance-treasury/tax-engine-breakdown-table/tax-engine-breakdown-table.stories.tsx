@@ -66,7 +66,7 @@ const mockTaxLines: TaxLineItem[] = [
 ];
 
 const meta: Meta<typeof TaxEngineBreakdownTable> = {
-  title: "Platforms/BusinessSuite/Finance/TaxEngineBreakdownTable",
+  title: "Platforms/BusinessSuite/FinanceTreasury/TaxEngineBreakdownTable",
   component: TaxEngineBreakdownTable,
   parameters: {
     layout: "padded",

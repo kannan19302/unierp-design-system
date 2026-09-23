@@ -44,7 +44,7 @@ const mockLogs: PodLogEntry[] = [
 ];
 
 const meta: Meta<typeof KubernetesPodConsole> = {
-  title: "Platforms/DeveloperPlatform/Compute/KubernetesPodConsole",
+  title: "Platforms/DeveloperPlatform/ComputeInfra/KubernetesPodConsole",
   component: KubernetesPodConsole,
   parameters: {
     layout: "padded",

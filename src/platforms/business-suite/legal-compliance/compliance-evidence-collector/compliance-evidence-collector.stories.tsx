@@ -70,7 +70,7 @@ const mockControls: ComplianceControlItem[] = [
 ];
 
 const meta: Meta<typeof ComplianceEvidenceCollector> = {
-  title: "Platforms/BusinessSuite/LegalOps/ComplianceEvidenceCollector",
+  title: "Platforms/BusinessSuite/LegalCompliance/ComplianceEvidenceCollector",
   component: ComplianceEvidenceCollector,
   parameters: {
     layout: "padded",

@@ -36,7 +36,7 @@ const sampleBookings: ScheduledBooking[] = [
   {
     id: "b-1",
     resourceId: "res-1",
-    title: "Strata DL 2.0 Design Review",
+    title: "Core/DataDisplay/MultiCalendarAvailabilityScheduler",
     startTime: "09:00",
     endTime: "10:30",
   },

@@ -45,7 +45,7 @@ const mockEmployees: EmployeeRosterEntry[] = [
 ];
 
 const meta: Meta<typeof ShiftRosterScheduler> = {
-  title: "Platforms/BusinessSuite/Talent/ShiftRosterScheduler",
+  title: "Platforms/BusinessSuite/HrTalent/ShiftRosterScheduler",
   component: ShiftRosterScheduler,
   parameters: {
     layout: "padded",

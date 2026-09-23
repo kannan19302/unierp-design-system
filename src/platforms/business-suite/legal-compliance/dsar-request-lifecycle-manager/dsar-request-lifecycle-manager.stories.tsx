@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DsarRequestLifecycleManager } from "./dsar-request-lifecycle-manager";
 
 const meta: Meta<typeof DsarRequestLifecycleManager> = {
-  title: "Platforms/BusinessSuite/LegalOps/DsarRequestLifecycleManager",
+  title: "Platforms/BusinessSuite/LegalCompliance/DsarRequestLifecycleManager",
   component: DsarRequestLifecycleManager,
   parameters: {
     layout: "centered",

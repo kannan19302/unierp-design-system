@@ -77,7 +77,7 @@ const mockBom: BomNodeItem = {
 };
 
 const meta: Meta<typeof BillOfMaterialsExplosionTree> = {
-  title: "Platforms/BusinessSuite/SupplyChain/BillOfMaterialsExplosionTree",
+  title: "Platforms/BusinessSuite/SupplyChainLogistics/BillOfMaterialsExplosionTree",
   component: BillOfMaterialsExplosionTree,
   parameters: {
     layout: "padded",

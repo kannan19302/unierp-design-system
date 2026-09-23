@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WebhookDeliveryAttemptLedger } from "./webhook-delivery-attempt-ledger";
 
 const meta: Meta<typeof WebhookDeliveryAttemptLedger> = {
-  title: "Platforms/DeveloperPlatform/Security/WebhookDeliveryAttemptLedger",
+  title: "Platforms/DeveloperPlatform/SecurityGovernance/WebhookDeliveryAttemptLedger",
   component: WebhookDeliveryAttemptLedger,
   parameters: {
     layout: "centered",

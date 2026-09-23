@@ -61,7 +61,7 @@ const SAMPLE_UNITS: LeaseUnitRow[] = [
 ];
 
 const meta: Meta<typeof RentRollFinancialSchedule> = {
-  title: "Platforms/BusinessSuite/RealEstate/RentRollFinancialSchedule",
+  title: "Platforms/BusinessSuite/RealEstateHospitality/RentRollFinancialSchedule",
   component: RentRollFinancialSchedule,
   parameters: {
     layout: "padded",

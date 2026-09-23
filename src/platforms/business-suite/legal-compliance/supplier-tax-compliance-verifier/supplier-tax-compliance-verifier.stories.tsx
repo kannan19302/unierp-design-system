@@ -36,7 +36,7 @@ const mockSupplier: SupplierTaxProfile = {
 };
 
 const meta: Meta<typeof SupplierTaxComplianceVerifier> = {
-  title: "Platforms/BusinessSuite/LegalOps/SupplierTaxComplianceVerifier",
+  title: "Platforms/BusinessSuite/LegalCompliance/SupplierTaxComplianceVerifier",
   component: SupplierTaxComplianceVerifier,
   parameters: {
     layout: "padded",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WindowFrame } from "./window-frame";
 
 const meta: Meta<typeof WindowFrame> = {
-  title: "Platforms/Desktop/WindowFrame/WindowFrame",
+  title: "Platforms/Desktop/WindowFrame",
   component: WindowFrame,
   parameters: {
     layout: "fullscreen",

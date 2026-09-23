@@ -112,7 +112,7 @@ const SAMPLE_BINS: StorageBin[] = [
 ];
 
 const meta: Meta<typeof BinLocationGrid> = {
-  title: "Platforms/BusinessSuite/SupplyChain/BinLocationGrid",
+  title: "Platforms/BusinessSuite/SupplyChainLogistics/BinLocationGrid",
   component: BinLocationGrid,
   parameters: {
     layout: "padded",

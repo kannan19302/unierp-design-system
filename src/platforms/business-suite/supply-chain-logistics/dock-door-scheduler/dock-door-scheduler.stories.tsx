@@ -58,7 +58,7 @@ const mockAppointments: DockAppointment[] = [
 ];
 
 const meta: Meta<typeof DockDoorScheduler> = {
-  title: "Platforms/BusinessSuite/SupplyChain/DockDoorScheduler",
+  title: "Platforms/BusinessSuite/SupplyChainLogistics/DockDoorScheduler",
   component: DockDoorScheduler,
   parameters: {
     layout: "padded",

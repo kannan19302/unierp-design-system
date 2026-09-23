@@ -3,7 +3,7 @@ import React from 'react';
 import { DeveloperNav } from './developer-nav';
 
 const meta: Meta<typeof DeveloperNav> = {
-  title: "Platforms/DeveloperPlatform/Workbench/DeveloperNav",
+  title: "Platforms/DeveloperPlatform/DevtoolsWorkbench/DeveloperNav",
   component: DeveloperNav,
   tags: ['autodocs'],
 };

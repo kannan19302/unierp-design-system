@@ -41,7 +41,7 @@ const mockLines: PayoutBatchLine[] = [
 ];
 
 const meta: Meta<typeof MassPayoutBatchApprover> = {
-  title: "Platforms/BusinessSuite/Finance/MassPayoutBatchApprover",
+  title: "Platforms/BusinessSuite/FinanceTreasury/MassPayoutBatchApprover",
   component: MassPayoutBatchApprover,
   parameters: {
     layout: "padded",

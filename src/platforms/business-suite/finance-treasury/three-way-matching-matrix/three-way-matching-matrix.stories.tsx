@@ -69,7 +69,7 @@ const mockItems: MatchedLineItem[] = [
 ];
 
 const meta: Meta<typeof ThreeWayMatchingMatrix> = {
-  title: "Platforms/BusinessSuite/Finance/ThreeWayMatchingMatrix",
+  title: "Platforms/BusinessSuite/FinanceTreasury/ThreeWayMatchingMatrix",
   component: ThreeWayMatchingMatrix,
   parameters: {
     layout: "padded",

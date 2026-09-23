@@ -55,7 +55,7 @@ const mockShareClasses: ShareClassEntry[] = [
 ];
 
 const meta: Meta<typeof ShareClassCapTableStructure> = {
-  title: "Platforms/BusinessSuite/Finance/ShareClassCapTableStructure",
+  title: "Platforms/BusinessSuite/FinanceTreasury/ShareClassCapTableStructure",
   component: ShareClassCapTableStructure,
   parameters: {
     layout: "centered",

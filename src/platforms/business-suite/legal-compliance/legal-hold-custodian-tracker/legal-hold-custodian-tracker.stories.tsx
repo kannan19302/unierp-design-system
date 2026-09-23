@@ -54,7 +54,7 @@ const sampleCustodians: LegalHoldCustodian[] = [
 ];
 
 const meta: Meta<typeof LegalHoldCustodianTracker> = {
-  title: "Platforms/BusinessSuite/LegalOps/LegalHoldCustodianTracker",
+  title: "Platforms/BusinessSuite/LegalCompliance/LegalHoldCustodianTracker",
   component: LegalHoldCustodianTracker,
   parameters: {
     layout: "padded",

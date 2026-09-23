@@ -52,30 +52,37 @@ const VALID_CATEGORIES = [
   "feedback",
   "patterns",
   "templates",
-];
-
-const CANONICAL_PREFIXES = [
-  "Primitives/",
-  "Inputs/",
-  "Overlays/",
-  "Navigation/",
-  "DataDisplay/",
-  "DataGrid/",
-  "Forms/",
-  "Blocks/",
-  "Layout/",
-  "Shell/",
-  "Studio/",
-  "Charts/",
-  "Dashboard/",
-  "Workflow/",
-  "Core/",
-  "Platforms/",
+  "theme",
+  "brand",
 ];
 
 let totalScanned = 0;
 let errors = [];
 let warnings = [];
+
+function checkStoryFile(fullPath, storyFile, context) {
+  totalScanned++;
+  const storyPath = join(fullPath, storyFile);
+  const content = readFileSync(storyPath, "utf8");
+
+  // Check title taxonomy
+  const titleMatch = content.match(/title:\s*["']([^"']+)["']/);
+  if (!titleMatch) {
+    errors.push(`${context}: No Storybook title found in ${storyFile}`);
+  } else {
+    const title = titleMatch[1];
+    if (!title.startsWith("Core/") && !title.startsWith("Platforms/")) {
+      errors.push(
+        `${context}: Non-canonical taxonomy "${title}". Must use canonical prefix ("Core/*" or "Platforms/*").`
+      );
+    }
+  }
+
+  // Check component attachment
+  if (!content.includes("component:")) {
+    warnings.push(`${context}: Default export should specify "component: ..." for prop table generation.`);
+  }
+}
 
 for (const category of VALID_CATEGORIES) {
   const catDir = existsSync(join(SRC_DIR, "core", category))
@@ -94,7 +101,6 @@ for (const category of VALID_CATEGORIES) {
     );
 
     if (!storyFile) {
-      // Not all subdirectories are components, but if they have source files they must have stories
       const hasSource = files.some(
         (f) =>
           (f.endsWith(".tsx") || f.endsWith(".ts")) &&
@@ -109,27 +115,39 @@ for (const category of VALID_CATEGORIES) {
       continue;
     }
 
-    totalScanned++;
-    const storyPath = join(full, storyFile);
-    const content = readFileSync(storyPath, "utf8");
+    checkStoryFile(full, storyFile, `${category}/${entry}`);
+  }
+}
 
-    // Check title taxonomy
-    const titleMatch = content.match(/title:\s*["']([^"']+)["']/);
-    if (!titleMatch) {
-      errors.push(`${category}/${entry}: No Storybook title found in ${storyFile}`);
-    } else {
-      const title = titleMatch[1];
-      if (title.startsWith("COMPONENTS/")) {
-        errors.push(
-          `${category}/${entry}: Non-standard taxonomy "${title}". Must use canonical prefix (e.g. Primitives/*, Inputs/*).`
+// Check Platforms stories
+const platDir = join(SRC_DIR, "platforms");
+if (existsSync(platDir)) {
+  function walkPlatforms(dir, prefix) {
+    for (const entry of readdirSync(dir)) {
+      const full = join(dir, entry);
+      if (!statSync(full).isDirectory() || entry === "applications") continue;
+
+      const subEntries = readdirSync(full, { withFileTypes: true });
+      const hasSubDirs = subEntries.some((e) => e.isDirectory());
+      const files = subEntries.filter((e) => !e.isDirectory()).map((e) => e.name);
+      const hasCssModule = files.some((f) => f.endsWith(".module.css"));
+
+      if (hasSubDirs && !hasCssModule) {
+        walkPlatforms(full, `${prefix}/${entry}`);
+      } else {
+        const storyFile = files.find(
+          (f) => f.endsWith(".stories.tsx") || f.endsWith(".stories.ts")
         );
+        if (storyFile) {
+          checkStoryFile(full, storyFile, `${prefix}/${entry}`);
+        }
       }
     }
+  }
 
-    // Check component attachment
-    if (!content.includes("component:")) {
-      warnings.push(`${category}/${entry}: Default export should specify "component: ..." for prop table generation.`);
-    }
+  for (const plat of readdirSync(platDir)) {
+    const p = join(platDir, plat);
+    if (statSync(p).isDirectory()) walkPlatforms(p, `platforms/${plat}`);
   }
 }
 

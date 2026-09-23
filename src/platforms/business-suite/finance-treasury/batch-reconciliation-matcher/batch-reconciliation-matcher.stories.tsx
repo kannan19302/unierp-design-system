@@ -89,7 +89,7 @@ const mockLedgerItems: LedgerItem[] = [
 ];
 
 const meta: Meta<typeof BatchReconciliationMatcher> = {
-  title: "Platforms/BusinessSuite/Finance/BatchReconciliationMatcher",
+  title: "Platforms/BusinessSuite/FinanceTreasury/BatchReconciliationMatcher",
   component: BatchReconciliationMatcher,
   parameters: {
     layout: "padded",

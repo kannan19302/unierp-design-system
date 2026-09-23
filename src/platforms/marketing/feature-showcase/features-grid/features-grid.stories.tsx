@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FeaturesGridBlock } from "./features-grid";
 
 const meta: Meta<typeof FeaturesGridBlock> = {
-  title: "Platforms/Marketing/Showcase/FeaturesGrid",
+  title: "Platforms/Marketing/FeatureShowcase/FeaturesGrid",
   component: FeaturesGridBlock,
   parameters: { layout: "fullscreen" },
 };

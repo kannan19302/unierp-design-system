@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ComparisonTable } from "./comparison-table";
 
 const meta: Meta<typeof ComparisonTable> = {
-  title: "Platforms/Marketing/Pricing/ComparisonTable",
+  title: "Platforms/Marketing/PricingConversion/ComparisonTable",
   component: ComparisonTable,
   parameters: { layout: "centered" },
 };

@@ -57,7 +57,7 @@ const mockMilestones: ShipmentMilestone[] = [
 ];
 
 const meta: Meta<typeof ShipmentTrackingMilestoneTracker> = {
-  title: "Platforms/BusinessSuite/SupplyChain/ShipmentTrackingMilestoneTracker",
+  title: "Platforms/BusinessSuite/SupplyChainLogistics/ShipmentTrackingMilestoneTracker",
   component: ShipmentTrackingMilestoneTracker,
   parameters: {
     layout: "padded",

@@ -4,7 +4,7 @@ import { Folder, Box, Globe, Code2 } from "lucide-react";
 import { DocumentTabBar, type DocumentTabItem } from "./document-tab-bar";
 
 const visualProjectTabs: DocumentTabItem[] = [
-  { id: "projects", title: "Projects", icon: <Folder size={14} />, isClosable: true },
+  { id: "projects", title: "Core/Navigation/DocumentTabBar", icon: <Folder size={14} />, isClosable: true },
   { id: "supplier_exp", title: "Supplier experience", icon: <Box size={14} />, isClosable: true },
   { id: "corp_website", title: "Corporate website", icon: <Globe size={14} />, isClosable: true },
   { id: "supplier_portal", title: "Supplier portal", icon: <Box size={14} />, isDirty: true, isClosable: true },

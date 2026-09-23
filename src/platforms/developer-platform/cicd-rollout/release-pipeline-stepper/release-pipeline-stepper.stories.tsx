@@ -6,7 +6,7 @@ import {
 } from "./release-pipeline-stepper";
 
 const meta: Meta<typeof ReleasePipelineStepper> = {
-  title: "Platforms/DeveloperPlatform/CICD/ReleasePipelineStepper",
+  title: "Platforms/DeveloperPlatform/CicdRollout/ReleasePipelineStepper",
   component: ReleasePipelineStepper,
   tags: ["autodocs"],
   parameters: {

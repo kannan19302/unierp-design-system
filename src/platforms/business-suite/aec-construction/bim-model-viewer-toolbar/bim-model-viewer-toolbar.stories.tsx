@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BimModelViewerToolbar } from "./bim-model-viewer-toolbar";
 
 const meta: Meta<typeof BimModelViewerToolbar> = {
-  title: "Platforms/BusinessSuite/Construction/BimModelViewerToolbar",
+  title: "Platforms/BusinessSuite/AecConstruction/BimModelViewerToolbar",
   component: BimModelViewerToolbar,
   tags: ["autodocs"],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ListingDetailHeader } from "./listing-detail-header";
 
 const meta: Meta<typeof ListingDetailHeader> = {
-  title: "Platforms/Marketplace/ListingDetailHeader/ListingDetailHeader",
+  title: "Platforms/Marketplace/ListingDetailHeader",
   component: ListingDetailHeader,
   parameters: {
     layout: "fullscreen",

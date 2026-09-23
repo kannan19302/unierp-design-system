@@ -52,7 +52,7 @@ const sampleLines: InboundReceivingLine[] = [
 ];
 
 const meta: Meta<typeof InboundReceivingDiscrepancyLog> = {
-  title: "Platforms/BusinessSuite/SupplyChain/InboundReceivingDiscrepancyLog",
+  title: "Platforms/BusinessSuite/SupplyChainLogistics/InboundReceivingDiscrepancyLog",
   component: InboundReceivingDiscrepancyLog,
   parameters: {
     layout: "padded",

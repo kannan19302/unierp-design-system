@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DatabaseGrantPrivilegeMatrix } from "./database-grant-privilege-matrix";
 
 const meta: Meta<typeof DatabaseGrantPrivilegeMatrix> = {
-  title: "Platforms/DeveloperPlatform/Database/DatabaseGrantPrivilegeMatrix",
+  title: "Platforms/DeveloperPlatform/DatabaseData/DatabaseGrantPrivilegeMatrix",
   component: DatabaseGrantPrivilegeMatrix,
   parameters: {
     layout: "centered",

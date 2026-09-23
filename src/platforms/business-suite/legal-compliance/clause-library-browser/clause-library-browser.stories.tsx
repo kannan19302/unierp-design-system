@@ -58,7 +58,7 @@ const mockCategories: ClauseCategory[] = [
 ];
 
 const meta: Meta<typeof ClauseLibraryBrowser> = {
-  title: "Platforms/BusinessSuite/LegalOps/ClauseLibraryBrowser",
+  title: "Platforms/BusinessSuite/LegalCompliance/ClauseLibraryBrowser",
   component: ClauseLibraryBrowser,
   parameters: {
     layout: "padded",

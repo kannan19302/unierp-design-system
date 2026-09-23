@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TestimonialCarousel } from "./testimonial-carousel";
 
 const meta: Meta<typeof TestimonialCarousel> = {
-  title: "Platforms/Marketing/SocialProof/TestimonialCarousel",
+  title: "Platforms/Marketing/SocialProofTrust/TestimonialCarousel",
   component: TestimonialCarousel,
   parameters: { layout: "centered" },
 };

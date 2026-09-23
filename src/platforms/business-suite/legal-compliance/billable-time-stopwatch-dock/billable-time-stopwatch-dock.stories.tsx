@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BillableTimeStopwatchDock } from "./billable-time-stopwatch-dock";
 
 const meta: Meta<typeof BillableTimeStopwatchDock> = {
-  title: "Platforms/BusinessSuite/LegalOps/BillableTimeStopwatchDock",
+  title: "Platforms/BusinessSuite/LegalCompliance/BillableTimeStopwatchDock",
   component: BillableTimeStopwatchDock,
   parameters: {
     layout: "centered",

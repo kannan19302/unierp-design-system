@@ -72,7 +72,7 @@ const sampleUnits: CommercialLeaseUnit[] = [
 ];
 
 const meta: Meta<typeof MultiUnitLeasingMatrix> = {
-  title: "Platforms/BusinessSuite/RealEstate/MultiUnitLeasingMatrix",
+  title: "Platforms/BusinessSuite/RealEstateHospitality/MultiUnitLeasingMatrix",
   component: MultiUnitLeasingMatrix,
   parameters: {
     layout: "padded",

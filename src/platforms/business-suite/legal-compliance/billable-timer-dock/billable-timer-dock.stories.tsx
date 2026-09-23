@@ -27,7 +27,7 @@ const mockProjects: MatterOrProject[] = [
 ];
 
 const meta: Meta<typeof BillableTimerDock> = {
-  title: "Platforms/BusinessSuite/LegalOps/BillableTimerDock",
+  title: "Platforms/BusinessSuite/LegalCompliance/BillableTimerDock",
   component: BillableTimerDock,
   tags: ["autodocs"],
   parameters: {

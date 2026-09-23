@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PricingBlock } from "./pricing";
 
 const meta: Meta<typeof PricingBlock> = {
-  title: "Platforms/Marketing/Pricing/Pricing",
+  title: "Platforms/Marketing/PricingConversion/Pricing",
   component: PricingBlock,
   parameters: { layout: "fullscreen" },
 };

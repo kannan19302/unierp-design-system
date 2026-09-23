@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CTABanner } from "./cta-banner";
 
 const meta: Meta<typeof CTABanner> = {
-  title: "Platforms/Marketing/Pricing/CtaBanner",
+  title: "Platforms/Marketing/PricingConversion/CtaBanner",
   component: CTABanner,
   parameters: { layout: "centered" },
 };

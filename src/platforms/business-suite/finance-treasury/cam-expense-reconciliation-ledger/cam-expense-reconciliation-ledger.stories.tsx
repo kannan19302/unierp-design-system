@@ -61,7 +61,7 @@ const sampleCategories: CamExpenseItem[] = [
 ];
 
 const meta: Meta<typeof CamExpenseReconciliationLedger> = {
-  title: "Platforms/BusinessSuite/Finance/CamExpenseReconciliationLedger",
+  title: "Platforms/BusinessSuite/FinanceTreasury/CamExpenseReconciliationLedger",
   component: CamExpenseReconciliationLedger,
   parameters: {
     layout: "padded",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ContractClauseRiskAnalyzer } from "./contract-clause-risk-analyzer";
 
 const meta: Meta<typeof ContractClauseRiskAnalyzer> = {
-  title: "Platforms/BusinessSuite/LegalOps/ContractClauseRiskAnalyzer",
+  title: "Platforms/BusinessSuite/LegalCompliance/ContractClauseRiskAnalyzer",
   component: ContractClauseRiskAnalyzer,
   parameters: {
     layout: "padded",

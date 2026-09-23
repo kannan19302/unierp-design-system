@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CustomerSlaBreachTimeline } from "./customer-sla-breach-timeline";
 
 const meta: Meta<typeof CustomerSlaBreachTimeline> = {
-  title: "Platforms/BusinessSuite/LegalOps/CustomerSlaBreachTimeline",
+  title: "Platforms/BusinessSuite/LegalCompliance/CustomerSlaBreachTimeline",
   component: CustomerSlaBreachTimeline,
   parameters: {
     layout: "padded",

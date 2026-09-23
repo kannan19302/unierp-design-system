@@ -48,7 +48,7 @@ const sampleCategories: SpendCategoryItem[] = [
 ];
 
 const meta: Meta<typeof SpendCategorySourcingMatrix> = {
-  title: "Platforms/BusinessSuite/LegalOps/SpendCategorySourcingMatrix",
+  title: "Platforms/BusinessSuite/LegalCompliance/SpendCategorySourcingMatrix",
   component: SpendCategorySourcingMatrix,
   parameters: {
     layout: "padded",

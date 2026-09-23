@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CapTableScenarioSimulator } from "./cap-table-scenario-simulator";
 
 const meta: Meta<typeof CapTableScenarioSimulator> = {
-  title: "Platforms/BusinessSuite/Finance/CapTableScenarioSimulator",
+  title: "Platforms/BusinessSuite/FinanceTreasury/CapTableScenarioSimulator",
   component: CapTableScenarioSimulator,
   parameters: {
     layout: "padded",

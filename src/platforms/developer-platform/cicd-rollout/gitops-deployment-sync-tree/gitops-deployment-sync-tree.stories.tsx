@@ -69,7 +69,7 @@ const sampleTree: GitOpsResourceNode[] = [
 ];
 
 const meta: Meta<typeof GitOpsDeploymentSyncTree> = {
-  title: "Platforms/DeveloperPlatform/CICD/GitopsDeploymentSyncTree",
+  title: "Platforms/DeveloperPlatform/CicdRollout/GitopsDeploymentSyncTree",
   component: GitOpsDeploymentSyncTree,
   tags: ["autodocs"],
   parameters: {

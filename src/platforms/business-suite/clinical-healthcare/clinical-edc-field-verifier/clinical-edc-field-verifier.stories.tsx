@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ClinicalEdcFieldVerifier } from "./clinical-edc-field-verifier";
 
 const meta: Meta<typeof ClinicalEdcFieldVerifier> = {
-  title: "Platforms/BusinessSuite/Clinical/ClinicalEdcFieldVerifier",
+  title: "Platforms/BusinessSuite/ClinicalHealthcare/ClinicalEdcFieldVerifier",
   component: ClinicalEdcFieldVerifier,
   parameters: {
     layout: "padded",

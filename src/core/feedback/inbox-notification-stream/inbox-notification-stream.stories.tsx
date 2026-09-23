@@ -4,7 +4,7 @@ import { InboxNotificationStream } from "./inbox-notification-stream";
 const SAMPLE_ITEMS = [
   {
     id: "1",
-    title: "New Invoice Approved",
+    title: "Core/Feedback/InboxNotificationStream",
     body: "Invoice #INV-2026-0891 has been approved by John Smith.",
     timestamp: "2 min ago",
     read: false,
