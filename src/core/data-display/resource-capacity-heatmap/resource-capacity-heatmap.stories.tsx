@@ -65,7 +65,7 @@ const SAMPLE_RESOURCES: ResourceRow[] = [
 ];
 
 const meta: Meta<typeof ResourceCapacityHeatmap> = {
-  title: "Core/Data Display/ResourceCapacityHeatmap",
+  title: "Core/DataDisplay/ResourceCapacityHeatmap",
   component: ResourceCapacityHeatmap,
   parameters: {
     layout: "padded",

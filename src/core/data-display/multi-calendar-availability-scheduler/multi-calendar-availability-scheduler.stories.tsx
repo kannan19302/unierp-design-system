@@ -72,7 +72,7 @@ const sampleBookings: ScheduledBooking[] = [
 ];
 
 const meta: Meta<typeof MultiCalendarAvailabilityScheduler> = {
-  title: "Core/Data Display/MultiCalendarAvailabilityScheduler",
+  title: "Core/DataDisplay/MultiCalendarAvailabilityScheduler",
   component: MultiCalendarAvailabilityScheduler,
   tags: ["autodocs"],
   parameters: {

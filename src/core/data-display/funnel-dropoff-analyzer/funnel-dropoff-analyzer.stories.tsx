@@ -68,7 +68,7 @@ const mockSteps: FunnelStep[] = [
 ];
 
 const meta: Meta<typeof FunnelDropoffAnalyzer> = {
-  title: "Core/Data Display/FunnelDropoffAnalyzer",
+  title: "Core/DataDisplay/FunnelDropoffAnalyzer",
   component: FunnelDropoffAnalyzer,
   parameters: {
     layout: "padded",

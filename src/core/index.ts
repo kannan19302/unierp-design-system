@@ -17,6 +17,11 @@ export {
   Collapsible,
   type CollapsibleProps,
 } from "./primitives";
+
+export {
+  type SelectOption,
+} from "./inputs";
+
 export * from "./data-grid";
 export * from "./forms";
 export * from "./layout";
@@ -25,17 +30,14 @@ export * from "./studio";
 export * from "./dashboard";
 export * from "./charts";
 export * from "./theme";
-export * from "./blocks";
 export * from "./brand";
-export * from "./filters";
 export * from "./feedback";
-export * from "./patterns";
-export * from "./templates";
+export * from "./tokens";
 export * from "./hooks";
 export * from "./utils";
 export * as Icons from "./icons";
 
-// Explicit non-conflicting exports from workflow, form-engine, notifications
+// Explicit non-conflicting exports from workflow
 export {
   ApprovalChain,
   type Approver,
@@ -53,27 +55,17 @@ export {
   type ActivityWorkLogStreamProps,
   type WorkLogEntry,
   type WorkLogEntryType,
+  WorkflowGraph,
+  type WorkflowGraphProps,
+  type WorkflowNode,
+  type WorkflowEdge,
+  type WorkflowNodeStatus,
+  BpmnPalette,
+  type BpmnPaletteProps,
+  BpmnSimulationBar,
+  type BpmnSimulationBarProps,
+  EntityLineage,
+  type EntityLineageProps,
+  AlertRuleConditionBuilder,
+  type AlertRuleConditionBuilderProps,
 } from "./workflow";
-
-export {
-  SettingsPage,
-  type SettingsPageProps,
-  type SettingSchemaEntry,
-  type SettingScope,
-  type SettingType,
-  SchemaForm,
-  type SchemaFormProps,
-  type FormFieldSchema,
-  type FormSectionSchema,
-  type FormFieldType,
-} from "./form-engine";
-
-export {
-  DemoBanner,
-  type DemoBannerProps,
-  NotificationCenter,
-  type NotificationCenterProps,
-  type NotificationItem,
-  type NotificationPriority,
-  type NotificationCategory,
-} from "./notifications";

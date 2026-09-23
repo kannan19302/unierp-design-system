@@ -108,23 +108,19 @@ function scanPlatforms() {
   const components = [];
   const platforms = readdirSync(platDir);
 
-  for (const plat of platforms) {
-    const fullPlat = join(platDir, plat);
-    if (!statSync(fullPlat).isDirectory()) continue;
+  function walkPlatformDir(dir, prefix) {
+    for (const entry of readdirSync(dir)) {
+      const full = join(dir, entry);
+      if (!statSync(full).isDirectory() || entry === "applications") continue;
 
-    const subEntries = readdirSync(fullPlat);
-    const dirsToScan = [];
-    if (subEntries.includes("shared") && statSync(join(fullPlat, "shared")).isDirectory()) {
-      dirsToScan.push({ base: join(fullPlat, "shared"), prefix: `platforms/${plat}/shared` });
-    }
-    dirsToScan.push({ base: fullPlat, prefix: `platforms/${plat}` });
+      const subEntries = readdirSync(full, { withFileTypes: true });
+      const hasSubDirs = subEntries.some((e) => e.isDirectory());
+      const files = subEntries.filter((e) => !e.isDirectory()).map((e) => e.name);
+      const hasCssModule = files.some((f) => f.endsWith(".module.css"));
 
-    for (const { base, prefix } of dirsToScan) {
-      for (const entry of readdirSync(base)) {
-        const full = join(base, entry);
-        if (!statSync(full).isDirectory() || entry === "shared" || entry === "applications") continue;
-
-        const files = readdirSync(full);
+      if (hasSubDirs && !hasCssModule) {
+        walkPlatformDir(full, `${prefix}/${entry}`);
+      } else {
         const hasSource = files.some(
           (f) =>
             (f.endsWith(".tsx") || f.endsWith(".ts")) &&
@@ -135,12 +131,11 @@ function scanPlatforms() {
             f !== "index.ts" &&
             f !== "index.tsx"
         );
-        const hasCssModule = files.some((f) => f.endsWith(".module.css"));
         const hasStory = files.some((f) => f.endsWith(".stories.tsx") || f.endsWith(".stories.ts"));
         const hasTest = files.some((f) => f.endsWith(".test.tsx") || f.endsWith(".test.ts"));
         const hasIndex = files.includes("index.ts") || files.includes("index.tsx");
 
-        if (hasSource || hasIndex) {
+        if (hasSource || hasCssModule) {
           components.push({
             name: entry,
             category: prefix,
@@ -155,6 +150,12 @@ function scanPlatforms() {
         }
       }
     }
+  }
+
+  for (const plat of platforms) {
+    const fullPlat = join(platDir, plat);
+    if (!statSync(fullPlat).isDirectory()) continue;
+    walkPlatformDir(fullPlat, `platforms/${plat}`);
   }
   return components;
 }

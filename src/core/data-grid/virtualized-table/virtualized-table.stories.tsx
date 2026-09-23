@@ -85,7 +85,7 @@ const columns: VirtualizedColumn<LedgerRecord>[] = [
 ];
 
 const meta: Meta<typeof VirtualizedTable> = {
-  title: "Core/Data Grid/VirtualizedTable",
+  title: "Core/DataGrid/VirtualizedTable",
   component: VirtualizedTable,
   parameters: {
     layout: "padded",

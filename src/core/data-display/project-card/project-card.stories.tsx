@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ProjectCard, type ProjectType, type ProjectStatus } from "./project-card";
 
 const meta: Meta<typeof ProjectCard> = {
-  title: "Core/Data Display/ProjectCard",
+  title: "Core/DataDisplay/ProjectCard",
   component: ProjectCard,
   tags: ["autodocs"],
   parameters: {

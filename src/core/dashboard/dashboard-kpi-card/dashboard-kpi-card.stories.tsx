@@ -3,7 +3,7 @@ import { Users, DollarSign, Activity } from "lucide-react";
 import { DashboardKPICard } from "./dashboard-kpi-card";
 
 const meta: Meta<typeof DashboardKPICard> = {
-  title: "Core/Dashboard/KPICard",
+  title: "Core/Dashboard/DashboardKpiCard",
   component: DashboardKPICard,
   tags: ["autodocs"],
   parameters: {

@@ -70,7 +70,7 @@ const ManifestDemo = () => {
 };
 
 const meta: Meta = {
-  title: "Core/Shell/PlatformManifest",
+  title: "Core/Shell/Manifest",
   component: ManifestDemo,
   parameters: { layout: "centered" },
 };

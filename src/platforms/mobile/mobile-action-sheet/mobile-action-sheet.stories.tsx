@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MobileActionSheet } from "./mobile-action-sheet";
 
 const meta: Meta<typeof MobileActionSheet> = {
-  title: "Platforms/Mobile/MobileActionSheet",
+  title: "Platforms/Mobile/MobileActionSheet/MobileActionSheet",
   component: MobileActionSheet,
   parameters: {
     layout: "centered",

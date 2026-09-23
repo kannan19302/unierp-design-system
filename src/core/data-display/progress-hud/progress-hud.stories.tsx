@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ProgressHUD } from "./progress-hud";
 
 const meta: Meta<typeof ProgressHUD> = {
-  title: "Core/Data Display/ProgressHUD",
+  title: "Core/DataDisplay/ProgressHud",
   component: ProgressHUD,
   tags: ["autodocs"],
   parameters: {

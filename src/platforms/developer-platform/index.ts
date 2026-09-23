@@ -1,37 +1,7 @@
-export * from './api-rate-limit-throttle-console';
-export * from './audit-log-forensic-explorer';
-export * from './builder-sidebar';
-export * from './canary-rollout-progress-visualizer';
-export * from './computational-notebook-cell';
-export * from './compute-cluster-topology-map';
-export * from './container-exec-terminal-console';
-export * from './css-properties-inspector';
-export * from './data-pipeline-dag-visualizer';
-export * from './database-grant-privilege-matrix';
-export * from './database-query-explain-plan';
-export * from './developer-nav';
-export * from './distributed-trace-flame-graph';
-export * from './dns-zone-record-editor';
-export * from './document-annotator';
-export * from './feature-flag-targeting-rule-builder';
-export * from './feature-rollout-slider';
-export * from './gitops-deployment-sync-tree';
-export * from './graphql-schema-relationship-viewer';
-export * from './incident-escalation-tree';
-export * from './kafka-consumer-group-lag-matrix';
-export * from './kubernetes-pod-console';
-export * from './merkle-proof-audit-trail-verifier';
-export * from './on-call-rotation-schedule-calendar';
-export * from './promotion-approval-inspector';
-export * from './query-execution-plan-viewer';
-export * from './release-pipeline-stepper';
-export * from './rest-api-client-workbench';
-export * from './secret-environment-editor';
-export * from './secret-vault-access-matrix';
-export * from './security-waf-rule-inspector';
-export * from './stack-trace-inspector';
-export * from './topology-dependency-graph';
-export * from './webhook-delivery-attempt-ledger';
-
-// Disambiguate EscalationTier
-export { type EscalationTier } from './incident-escalation-tree';
+// Platform: developer-platform
+export * from "./observability";
+export * from "./database-data";
+export * from "./cicd-rollout";
+export * from "./security-governance";
+export * from "./compute-infra";
+export * from "./devtools-workbench";

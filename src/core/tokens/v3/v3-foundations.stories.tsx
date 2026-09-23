@@ -14,7 +14,7 @@ import styles from "./v3-foundations.module.css";
    ══════════════════════════════════════════════════════════════ */
 
 const meta: Meta = {
-  title: "Core/Foundations/V3 Token Catalog",
+  title: "Core/Tokens/V3",
   tags: ["autodocs"],
   parameters: { layout: "padded" },
 };

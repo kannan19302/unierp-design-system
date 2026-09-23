@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { KeyboardShortcutsHelp, DEFAULT_BUSINESS_SHORTCUTS } from './keyboard-shortcuts-help';
 
 const meta: Meta<typeof KeyboardShortcutsHelp> = {
-  title: 'Platforms/BusinessSuite/KeyboardShortcutsHelp',
+  title: 'Platforms/BusinessSuite/Shared/KeyboardShortcutsHelp',
   component: KeyboardShortcutsHelp,
   parameters: {
     layout: 'fullscreen',

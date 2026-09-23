@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TabContextMenu } from './tab-context-menu';
 
 const meta: Meta<typeof TabContextMenu> = {
-  title: 'Platforms/BusinessSuite/TabContextMenu',
+  title: 'Platforms/BusinessSuite/Shared/TabContextMenu',
   component: TabContextMenu,
   parameters: {
     layout: 'centered',

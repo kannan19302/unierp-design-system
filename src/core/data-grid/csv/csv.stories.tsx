@@ -31,7 +31,7 @@ const CsvDemo = () => {
 };
 
 const meta: Meta = {
-  title: "Core/DataGrid/CsvExport",
+  title: "Core/DataGrid/Csv",
   component: CsvDemo,
   parameters: { layout: "centered" },
 };

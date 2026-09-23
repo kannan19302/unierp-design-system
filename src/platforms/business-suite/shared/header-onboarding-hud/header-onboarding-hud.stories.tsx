@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeaderOnboardingHUD } from './header-onboarding-hud';
 
 const meta: Meta<typeof HeaderOnboardingHUD> = {
-  title: 'Platforms/BusinessSuite/HeaderOnboardingHUD',
+  title: 'Platforms/BusinessSuite/Shared/HeaderOnboardingHud',
   component: HeaderOnboardingHUD,
   parameters: {
     layout: 'centered',

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { OnboardingChecklist } from './onboarding-checklist';
 
 const meta: Meta<typeof OnboardingChecklist> = {
-  title: 'Platforms/BusinessSuite/OnboardingChecklist',
+  title: 'Platforms/BusinessSuite/Shared/OnboardingChecklist',
   component: OnboardingChecklist,
   parameters: {
     layout: 'padded',

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { StrataAppGrid, DEFAULT_STRATA_APPS } from './strata-app-grid';
 
 const meta: Meta<typeof StrataAppGrid> = {
-  title: 'Platforms/BusinessSuite/StrataAppGrid',
+  title: 'Platforms/BusinessSuite/Shared/StrataAppGrid',
   component: StrataAppGrid,
   parameters: {
     layout: 'padded',

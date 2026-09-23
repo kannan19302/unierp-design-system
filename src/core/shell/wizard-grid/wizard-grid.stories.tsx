@@ -33,7 +33,7 @@ const MOCK_TILES: WizardTile[] = [
 ];
 
 const meta: Meta<typeof PlatformWizardGrid> = {
-  title: "Core/Shell/PlatformWizardGrid",
+  title: "Core/Shell/WizardGrid",
   component: PlatformWizardGrid,
   tags: ["autodocs"],
   parameters: {

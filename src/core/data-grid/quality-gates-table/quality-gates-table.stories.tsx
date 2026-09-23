@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { QualityGatesTable, type QualityGateRow } from "./quality-gates-table";
 
 const meta: Meta<typeof QualityGatesTable> = {
-  title: "Core/Data Display/QualityGatesTable",
+  title: "Core/DataGrid/QualityGatesTable",
   component: QualityGatesTable,
   tags: ["autodocs"],
   parameters: {

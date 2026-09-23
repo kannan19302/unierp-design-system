@@ -35,7 +35,7 @@ const defaultArgs = {
 };
 
 const meta: Meta<typeof PivotGrid> = {
-  title: "Core/Data Grid/PivotGrid",
+  title: "Core/DataGrid/PivotGrid",
   component: PivotGrid,
   parameters: {
     layout: "padded",

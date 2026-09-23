@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MobileBottomNav } from "./mobile-bottom-nav";
 
 const meta: Meta<typeof MobileBottomNav> = {
-  title: "Platforms/Mobile/MobileBottomNav",
+  title: "Platforms/Mobile/MobileBottomNav/MobileBottomNav",
   component: MobileBottomNav,
   parameters: {
     layout: "fullscreen",

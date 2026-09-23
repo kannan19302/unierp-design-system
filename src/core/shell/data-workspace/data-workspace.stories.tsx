@@ -26,7 +26,7 @@ const SAMPLE_DATA: InvoiceRow[] = [
 ];
 
 const meta: Meta<typeof DataWorkspace> = {
-  title: "Core/Shell/Floorplans/DataWorkspace",
+  title: "Core/Shell/DataWorkspace",
   component: DataWorkspace,
   tags: ["autodocs"],
   parameters: {

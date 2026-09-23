@@ -5,7 +5,7 @@ import { LayoutDashboard, FileSpreadsheet, Users, Settings } from "lucide-react"
 import { BrandMark } from "../../primitives/brand-mark";
 
 const meta: Meta<typeof SideNav> = {
-  title: "Core/Navigation/SideNav",
+  title: "Core/Navigation/Sidenav",
   component: SideNav,
   tags: ["autodocs"],
   parameters: {
