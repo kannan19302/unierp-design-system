@@ -12,12 +12,17 @@
   font-weight: var(--weight-medium);
 }
 
+.requiredIndicator {
+  color: var(--color-danger, #ef4444);
+}
+
 .triggerButton {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0 var(--space-2);
-  height: var(--density-control-height, 32px);
+  padding-block: 0;
+  padding-inline: var(--space-2);
+  height: var(--density-control-height-md, 32px);
   background-color: var(--color-surface);
   border: var(--border-width, 1px) solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -34,6 +39,35 @@
 .triggerButton:focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
+}
+
+.triggerButton.invalid {
+  border-color: var(--color-danger, #ef4444);
+}
+
+/* 4-Tier Density */
+.wrapper[data-density="ultra-compact"] .triggerButton {
+  height: var(--density-control-height-xs, 24px);
+  padding-inline: var(--space-1-5, 6px);
+  font-size: var(--type-micro);
+}
+
+.wrapper[data-density="compact"] .triggerButton {
+  height: var(--density-control-height-sm, 28px);
+  padding-inline: var(--space-2);
+  font-size: var(--type-caption);
+}
+
+.wrapper[data-density="standard"] .triggerButton {
+  height: var(--density-control-height-md, 32px);
+  padding-inline: var(--space-2);
+  font-size: var(--type-caption);
+}
+
+.wrapper[data-density="comfortable"] .triggerButton {
+  height: var(--density-control-height-lg, 40px);
+  padding-inline: var(--space-3);
+  font-size: var(--type-body-sm);
 }
 
 .colorSwatch {
@@ -53,7 +87,13 @@
 
 .paletteIcon {
   color: var(--color-text-tertiary);
-  margin-left: auto;
+  margin-inline-start: auto;
+}
+
+.errorMessage {
+  font-size: var(--type-micro);
+  color: var(--color-danger, #ef4444);
+  font-weight: var(--weight-medium);
 }
 
 .disabled {
@@ -69,8 +109,8 @@
 .popover {
   position: absolute;
   top: 100%;
-  left: 0;
-  margin-top: var(--space-1);
+  inset-inline-start: 0;
+  margin-block-start: var(--space-1);
   padding: var(--space-3);
   background-color: var(--color-surface);
   border: var(--border-width, 1px) solid var(--color-border);
@@ -133,7 +173,8 @@
 .hexInput {
   flex: 1;
   height: var(--density-control-height-sm, 28px);
-  padding: 0 var(--space-2);
+  padding-block: 0;
+  padding-inline: var(--space-2);
   border: var(--border-width, 1px) solid var(--color-border);
   border-radius: var(--radius-sm);
   background-color: var(--color-surface);
@@ -161,8 +202,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding-top: var(--space-2);
-  border-top: var(--border-width, 1px) solid var(--color-border);
+  padding-block-start: var(--space-2);
+  border-block-start: var(--border-width, 1px) solid var(--color-border);
   font-size: var(--type-micro);
 }
 
@@ -177,8 +218,9 @@
 }
 
 .badge {
-  margin-left: auto;
-  padding: 0 var(--space-1-5, 6px);
+  margin-inline-start: auto;
+  padding-block: 0;
+  padding-inline: var(--space-1-5, 6px);
   border-radius: var(--radius-sm);
   font-weight: var(--weight-bold);
   font-size: var(--type-micro);

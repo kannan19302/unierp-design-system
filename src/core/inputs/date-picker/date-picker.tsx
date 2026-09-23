@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, type InputHTMLAttributes } from "react";
+import { forwardRef, useId, type InputHTMLAttributes } from "react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import styles from "./date-picker.module.css";
 
@@ -13,8 +13,12 @@ export interface DatePickerProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   value?: string; // YYYY-MM-DD
   onChange?: (date: string) => void;
   invalid?: boolean;
+  required?: boolean;
+  label?: string;
+  error?: string;
   minDate?: string;
   maxDate?: string;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
@@ -25,33 +29,63 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
       onChange,
       invalid = false,
       disabled = false,
+      required = false,
+      label,
+      error,
       minDate,
       maxDate,
+      density,
       className = "",
       ...props
     },
     ref
   ) => {
+    const generatedId = useId();
+    const inputId = id || generatedId;
+    const errorId = error && inputId ? `${inputId}-error` : undefined;
+
+    const wrapperClass = [
+      styles.wrapper,
+      density ? styles[density] : "",
+      invalid || !!error ? styles.invalid : "",
+      disabled ? styles.disabled : "",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
     return (
-      <div
-        className={`${styles.wrapper} ${invalid ? styles.invalid : ""} ${
-          disabled ? styles.disabled : ""
-        } ${className}`.trim()}
-      >
-        <CalendarIcon size={14} className={styles.icon} aria-hidden="true" />
-        <input
-          ref={ref}
-          id={id}
-          type="date"
-          value={value}
-          disabled={disabled}
-          min={minDate}
-          max={maxDate}
-          aria-invalid={invalid || undefined}
-          onChange={(e) => onChange?.(e.target.value)}
-          className={styles.input}
-          {...props}
-        />
+      <div className={styles.rootContainer} data-density={density}>
+        {label && (
+          <label htmlFor={inputId} className={styles.label}>
+            {label}
+            {required && <span className={styles.requiredMark} aria-hidden="true"> *</span>}
+          </label>
+        )}
+        <div className={wrapperClass}>
+          <CalendarIcon size={14} className={styles.icon} aria-hidden="true" />
+          <input
+            ref={ref}
+            id={inputId}
+            type="date"
+            value={value}
+            disabled={disabled}
+            required={required}
+            min={minDate}
+            max={maxDate}
+            aria-invalid={invalid || !!error || undefined}
+            aria-describedby={errorId}
+            aria-label={label ? undefined : (props["aria-label"] ?? "Select date")}
+            onChange={(e) => onChange?.(e.target.value)}
+            className={styles.input}
+            {...props}
+          />
+        </div>
+        {error && (
+          <span id={errorId} className={styles.errorMessage} role="alert">
+            {error}
+          </span>
+        )}
       </div>
     );
   }

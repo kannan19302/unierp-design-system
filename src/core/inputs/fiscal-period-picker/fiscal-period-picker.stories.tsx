@@ -18,6 +18,7 @@ const meta: Meta<typeof FiscalPeriodPicker> = {
   component: FiscalPeriodPicker,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -125,3 +126,47 @@ export const AllStatesGallery = () => (
     </div>
   </div>
 );
+
+export const V1WorkspacePreview = () => {
+  const [period, setPeriod] = useState("FY2026-Q3");
+
+  return (
+    <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "560px" }}>
+      <div style={{ marginBottom: "var(--space-4)" }}>
+        <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+          Financial Reporting Period Cockpit
+        </h3>
+        <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Select statutory fiscal quarters for corporate balance sheet consolidation.
+        </p>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+        <FiscalPeriodPicker
+          label="Reporting Accounting Quarter"
+          fiscalYear={2026}
+          fiscalYearStartMonth={1}
+          selectedPeriod={period}
+          onSelectPeriod={setPeriod}
+          density="standard"
+          required
+        />
+      </div>
+
+      <div style={{ marginTop: "var(--space-4)", display: "flex", justifyContent: "flex-end" }}>
+        <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+          Selected period: {period}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export const StateMatrix = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "480px" }}>
+    <FiscalPeriodPicker label="Default Open Quarter" fiscalYear={2026} />
+    <FiscalPeriodPicker label="Invalid / Closed Period" fiscalYear={2026} invalid error="Selected fiscal period has been audited and locked" />
+    <FiscalPeriodPicker label="Disabled Historical Year" fiscalYear={2024} disabled />
+  </div>
+);
+

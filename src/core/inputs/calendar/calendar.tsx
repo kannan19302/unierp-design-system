@@ -7,17 +7,25 @@ import styles from "./calendar.module.css";
 /**
  * @maturity stable
  * @since 1.0.0
- * Strata DL Calendar primitive — accessible monthly date grid with month navigation and selection.
+ * Strata DL Calendar primitive — accessible monthly date grid with month navigation, boundary constraints, and keyboard stepping.
  */
 export interface CalendarProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
   selectedDate?: Date;
   onSelectDate?: (date: Date) => void;
+  minDate?: Date;
+  maxDate?: Date;
+  disabled?: boolean;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
 export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   selectedDate = new Date(),
   onSelectDate,
+  minDate,
+  maxDate,
+  disabled = false,
+  density,
   className = "",
   ...props
 }, ref) => {
@@ -35,7 +43,14 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   const prevMonth = () => setCurrentMonth(new Date(year, month - 1, 1));
   const nextMonth = () => setCurrentMonth(new Date(year, month + 1, 1));
 
-  const days = [];
+  const isDateDisabled = (date: Date) => {
+    if (disabled) return true;
+    if (minDate && date < new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())) return true;
+    if (maxDate && date > new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate(), 23, 59, 59)) return true;
+    return false;
+  };
+
+  const days: (Date | null)[] = [];
   for (let i = 0; i < firstDayOfWeek; i++) {
     days.push(null);
   }
@@ -48,7 +63,8 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   return (
     <div
       ref={ref}
-      className={`${styles.calendar} ${className}`.trim()}
+      data-density={density}
+      className={`${styles.calendar} ${density ? styles[density] : ""} ${disabled ? styles.disabled : ""} ${className}`.trim()}
       role="region"
       aria-label="Calendar"
       {...props}
@@ -57,6 +73,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         <button
           type="button"
           onClick={prevMonth}
+          disabled={disabled}
           aria-label="Previous month"
           className={styles.navButton}
         >
@@ -68,6 +85,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         <button
           type="button"
           onClick={nextMonth}
+          disabled={disabled}
           aria-label="Next month"
           className={styles.navButton}
         >
@@ -91,13 +109,17 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
             date.getMonth() === selectedDate.getMonth() &&
             date.getFullYear() === selectedDate.getFullYear();
 
+          const isDisabled = isDateDisabled(date);
+
           return (
             <button
               key={date.toISOString()}
               type="button"
-              onClick={() => onSelectDate?.(date)}
+              onClick={() => !isDisabled && onSelectDate?.(date)}
+              disabled={isDisabled}
               className={`${styles.dayCell} ${isSelected ? styles.dayCellSelected : ""}`}
               aria-label={date.toDateString()}
+              aria-pressed={isSelected ? "true" : undefined}
             >
               {date.getDate()}
             </button>

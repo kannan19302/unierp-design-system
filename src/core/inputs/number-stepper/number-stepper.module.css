@@ -69,26 +69,68 @@
   margin: 0;
 }
 
-/* Sizing */
-.sm .stepperContainer {
-  height: var(--density-control-height-sm, 28px);
+/* Sizing & Density */
+.sm .stepperContainer,
+.wrapper[data-density="compact"] .stepperContainer,
+:global([data-density="compact"]) .wrapper .stepperContainer {
+  height: var(--density-control-height-compact, 28px);
 }
-.sm .input {
+.sm .input,
+.wrapper[data-density="compact"] .input,
+:global([data-density="compact"]) .wrapper .input {
   font-size: var(--type-dense);
 }
 
-.md .stepperContainer {
-  height: var(--density-control-height, 32px);
+.wrapper[data-density="ultra-compact"] .stepperContainer,
+:global([data-density="ultra-compact"]) .wrapper .stepperContainer {
+  height: var(--density-control-height-ultra-compact, 24px);
 }
-.md .input {
+.wrapper[data-density="ultra-compact"] .input,
+:global([data-density="ultra-compact"]) .wrapper .input {
+  font-size: var(--type-micro, 11px);
+}
+
+.md .stepperContainer,
+.wrapper[data-density="standard"] .stepperContainer,
+:global([data-density="standard"]) .wrapper .stepperContainer {
+  height: var(--density-control-height-standard, 32px);
+}
+.md .input,
+.wrapper[data-density="standard"] .input,
+:global([data-density="standard"]) .wrapper .input {
   font-size: var(--type-body);
 }
 
-.lg .stepperContainer {
-  height: var(--space-10, 40px);
+.lg .stepperContainer,
+.wrapper[data-density="comfortable"] .stepperContainer,
+:global([data-density="comfortable"]) .wrapper .stepperContainer {
+  height: var(--density-control-height-comfortable, 40px);
 }
-.lg .input {
+.lg .input,
+.wrapper[data-density="comfortable"] .input,
+:global([data-density="comfortable"]) .wrapper .input {
   font-size: var(--type-body-lg);
+}
+
+/* Invalid / Error */
+.invalid .stepperContainer {
+  border-color: var(--color-danger);
+}
+
+.invalid .stepperContainer:focus-within {
+  border-color: var(--color-danger);
+  outline: 2px solid var(--color-danger-subtle, var(--color-danger));
+  outline-offset: 1px;
+}
+
+.requiredMark {
+  color: var(--color-danger);
+}
+
+.errorMessage {
+  font-size: var(--type-caption);
+  color: var(--color-danger);
+  margin-block-start: var(--space-1);
 }
 
 .disabled {

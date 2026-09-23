@@ -15,6 +15,7 @@ const meta: Meta<typeof TagInput> = {
   component: TagInput,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -116,3 +117,58 @@ export const AllStatesGallery: Story = {
     );
   },
 };
+
+export const V1WorkspacePreview: Story = {
+  render: () => {
+    const [classifications, setClassifications] = useState(["Manufacturing", "Direct-Cost", "SOX-Audited"]);
+    const [segments, setSegments] = useState(["NA-West", "Tier-1"]);
+
+    return (
+      <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "560px" }}>
+        <div style={{ marginBottom: "var(--space-4)" }}>
+          <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+            Ledger Account Taxonomy & Tags
+          </h3>
+          <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+            Classify and tag general ledger accounts with keyboard enter-to-commit and backspace-to-pop.
+          </p>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+          <TagInput
+            label="Accounting Classifications"
+            tags={classifications}
+            onChange={setClassifications}
+            placeholder="Add new classification tag..."
+            density="standard"
+            required
+          />
+          <TagInput
+            label="Operating Segments"
+            tags={segments}
+            onChange={setSegments}
+            placeholder="Add operating segment tag..."
+            density="standard"
+          />
+        </div>
+
+        <div style={{ marginTop: "var(--space-4)", display: "flex", justifyContent: "flex-end" }}>
+          <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+            Tags synchronize with the reporting dimension catalog
+          </span>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const StateMatrix: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "480px" }}>
+      <TagInput label="Default Tags" tags={["GL-2026", "Audited"]} onChange={() => {}} />
+      <TagInput label="Invalid / Error State" tags={[]} invalid error="At least one tag is required" onChange={() => {}} />
+      <TagInput label="Disabled State" tags={["Fixed-Asset", "Compliance-Locked"]} disabled onChange={() => {}} />
+    </div>
+  ),
+};
+

@@ -17,8 +17,34 @@ describe("PercentInput Primitive", () => {
     expect(input.value).toBe("100");
   });
 
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(<PercentInput density="compact" value={10} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "compact");
+
+    rerender(<PercentInput density="ultra-compact" value={10} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<PercentInput density="comfortable" value={10} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "comfortable");
+  });
+
+  it("handles invalid state and displays error message", () => {
+    render(
+      <PercentInput
+        label="Markup Rate"
+        value={120}
+        invalid
+        error="Markup cannot exceed 100%"
+      />
+    );
+
+    const input = screen.getByRole("spinbutton");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(screen.getByRole("alert")).toHaveTextContent("Markup cannot exceed 100%");
+  });
+
   it("has zero accessibility violations", async () => {
-    const { container } = render(<PercentInput value={50} />);
+    const { container } = render(<PercentInput label="Interest Rate" value={50} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

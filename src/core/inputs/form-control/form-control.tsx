@@ -11,7 +11,7 @@ import {
   type ReactNode,
   type FC,
 } from "react";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, ChevronDown } from "lucide-react";
 import styles from "./form-control.module.css";
 
 /**
@@ -216,11 +216,11 @@ export const FormSection = forwardRef<HTMLDivElement, FormSectionProps>(({
           {description && <p className={styles.sectionDesc}>{description}</p>}
         </div>
         {collapsible && (
-          <span
+          <ChevronDown
+            size={16}
             className={`${styles.chevron} ${open ? styles.chevronOpen : ""}`}
-          >
-            ▾
-          </span>
+            aria-hidden="true"
+          />
         )}
       </div>
       {open && <div className={styles.sectionBody}>{children}</div>}
@@ -244,9 +244,9 @@ export const AutosaveIndicator: FC<AutosaveIndicatorProps> = ({
   if (status === "idle") return null;
 
   const config = {
-    saving: { label: "Saving changes...", color: "var(--color-text-secondary)" },
-    saved: { label: "All changes saved", color: "var(--color-success)" },
-    error: { label: "Failed to save", color: "var(--color-danger)" },
+    saving: { label: "Saving changes...", color: "var(--color-text-secondary, var(--color-text-muted))" },
+    saved: { label: "All changes saved", color: "var(--color-text-success, var(--color-success))" },
+    error: { label: "Failed to save", color: "var(--color-text-danger, var(--color-danger))" },
   }[status];
 
   return (

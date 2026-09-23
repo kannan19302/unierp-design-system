@@ -13,7 +13,7 @@ describe("FilterRuleBuilder Component", () => {
   it("adds a new rule on button click", () => {
     const onRulesChange = vi.fn();
     render(<FilterRuleBuilder onRulesChange={onRulesChange} />);
-    const addBtn = screen.getByRole("button", { name: /\+ add filter condition/i });
+    const addBtn = screen.getByRole("button", { name: /add filter condition/i });
     fireEvent.click(addBtn);
     expect(screen.getByTestId("filter-rule-1")).toBeInTheDocument();
     expect(onRulesChange).toHaveBeenCalled();
@@ -25,6 +25,17 @@ describe("FilterRuleBuilder Component", () => {
     const removeBtn = screen.getByRole("button", { name: /remove rule 1/i });
     fireEvent.click(removeBtn);
     expect(screen.queryByTestId("filter-rule-0")).not.toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(<FilterRuleBuilder density="compact" />);
+    expect(container.firstChild).toHaveAttribute("data-density", "compact");
+
+    rerender(<FilterRuleBuilder density="ultra-compact" />);
+    expect(container.firstChild).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<FilterRuleBuilder density="comfortable" />);
+    expect(container.firstChild).toHaveAttribute("data-density", "comfortable");
   });
 
   it("has zero accessibility violations", async () => {

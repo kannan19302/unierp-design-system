@@ -2,10 +2,41 @@
    UniERP Design Language 1.0 — FileUpload Styles
    ══════════════════════════════════════════════════════════════ */
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5, 6px);
+  width: 100%;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.requiredIndicator {
+  color: var(--color-danger, #ef4444);
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-size: var(--type-micro);
+  color: var(--color-text-tertiary);
+}
+
 .dropzone {
   border: 1px dashed var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
-  padding: var(--space-6);
+  padding-block: var(--space-6);
+  padding-inline: var(--space-6);
   text-align: center;
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   cursor: pointer;
@@ -13,6 +44,10 @@
   transition: border-color var(--duration-fast) var(--ease-default),
               background var(--duration-fast) var(--ease-default);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .dropzone:focus-visible {
@@ -23,6 +58,10 @@
 .dragOver {
   border-color: var(--color-primary);
   background: var(--color-primary-light);
+}
+
+.dropzoneError {
+  border-color: var(--color-danger, #ef4444);
 }
 
 .disabled {
@@ -36,7 +75,7 @@
 
 .uploadIcon {
   color: var(--surface-text-secondary, var(--color-text-muted));
-  margin-bottom: var(--space-2);
+  margin-block-end: var(--space-2);
 }
 
 .primaryText {
@@ -48,7 +87,184 @@
 
 .subText {
   font-family: var(--font-sans);
-  font-size: var(--type-micro, 11px);
+  font-size: var(--type-micro);
   color: var(--surface-text-secondary, var(--color-text-muted));
-  margin-top: var(--space-1, 4px);
+  margin-block-start: var(--space-1, 4px);
+}
+
+.errorMessage {
+  font-family: var(--font-sans);
+  font-size: var(--type-micro);
+  color: var(--color-danger, #ef4444);
+  font-weight: var(--weight-medium);
+}
+
+/* 4-Tier Density */
+.wrapper[data-density="ultra-compact"] .dropzone {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  min-height: var(--density-control-height-xs, 24px);
+}
+
+.wrapper[data-density="ultra-compact"] .uploadIcon {
+  width: var(--space-4, 16px);
+  height: var(--space-4, 16px);
+  margin-block-end: var(--space-1);
+}
+
+.wrapper[data-density="ultra-compact"] .primaryText {
+  font-size: var(--type-micro);
+}
+
+.wrapper[data-density="ultra-compact"] .subText {
+  display: none;
+}
+
+.wrapper[data-density="compact"] .dropzone {
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  min-height: var(--density-control-height-sm, 28px);
+}
+
+.wrapper[data-density="compact"] .uploadIcon {
+  width: var(--space-5, 20px);
+  height: var(--space-5, 20px);
+  margin-block-end: var(--space-1);
+}
+
+.wrapper[data-density="standard"] .dropzone {
+  padding-block: var(--space-5);
+  padding-inline: var(--space-6);
+}
+
+.wrapper[data-density="comfortable"] .dropzone {
+  padding-block: var(--space-8);
+  padding-inline: var(--space-8);
+}
+
+.wrapper[data-density="comfortable"] .uploadIcon {
+  width: var(--space-8, 32px);
+  height: var(--space-8, 32px);
+  margin-block-end: var(--space-3);
+}
+
+/* File Queue / Staging List */
+.fileList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5, 6px);
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-2);
+  background: var(--color-surface);
+  border: var(--border-width, 1px) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--type-caption);
+}
+
+.fileIcon {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.fileDetails {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.fileNameRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.fileName {
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileSize {
+  font-size: var(--type-micro);
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.progressBar {
+  width: 100%;
+  height: var(--border-width, 2px);
+  background: var(--color-bg-sunken);
+  border-radius: var(--radius-xs, 2px);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width var(--duration-fast) ease-out;
+}
+
+.fileErrorText {
+  font-size: var(--type-micro);
+  color: var(--color-danger, #ef4444);
+}
+
+.fileActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.spinIcon {
+  animation: spin 1s linear infinite;
+  color: var(--color-primary);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.doneIcon {
+  color: var(--color-success, #16a34a);
+}
+
+.errorIcon {
+  color: var(--color-danger, #ef4444);
+}
+
+.removeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  border-radius: var(--radius-xs, 2px);
+}
+
+.removeBtn:hover {
+  color: var(--color-danger, #ef4444);
 }

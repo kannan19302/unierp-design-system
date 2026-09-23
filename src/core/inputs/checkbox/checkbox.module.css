@@ -1,20 +1,23 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — Checkbox Primitive Styles
+   Strata V1 — Checkbox Styles
+   Tri-state support, 4-tier density scaling,
+   high-contrast focus indicators, and accessible layout.
    ══════════════════════════════════════════════════════════════ */
 
 .container {
   display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
+  align-items: flex-start;
+  gap: var(--space-2, 8px);
   cursor: pointer;
   user-select: none;
   font-family: var(--font-sans);
   position: relative;
+  line-height: var(--leading-normal, 1.5);
 }
 
 .disabledContainer {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .hiddenInput {
@@ -28,9 +31,11 @@
 .box {
   width: var(--checkbox-size, 16px);
   height: var(--checkbox-size, 16px);
-  border-radius: var(--radius-sm, 2px);
-  background: var(--surface-1-bg, var(--color-bg-elevated));
-  border: 1px solid var(--surface-1-border, var(--color-border));
+  min-width: var(--checkbox-size, 16px);
+  min-height: var(--checkbox-size, 16px);
+  border-radius: var(--radius-xs, 2px);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -39,11 +44,16 @@
               box-shadow var(--duration-fast) var(--ease-default);
   box-sizing: border-box;
   flex-shrink: 0;
+  margin-block-start: var(--space-0-5, 2px);
+}
+
+.container:hover:not(.disabledContainer) .box {
+  border-color: var(--color-border-strong);
 }
 
 .hiddenInput:focus-visible + .box {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
-  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-border-focus);
+  border-color: var(--color-border-focus);
 }
 
 .checked,
@@ -53,11 +63,96 @@
   color: var(--color-text-inverse, #ffffff);
 }
 
+.container:hover:not(.disabledContainer) .checked,
+.container:hover:not(.disabledContainer) .indeterminate {
+  background: var(--color-primary-hover, var(--color-primary));
+  border-color: var(--color-primary-hover, var(--color-primary));
+}
+
+.invalid {
+  border-color: var(--color-text-danger, var(--color-danger, #ef4444));
+}
+
+.hiddenInput:focus-visible + .invalid {
+  box-shadow: 0 0 0 2px var(--color-text-danger, var(--color-danger, #ef4444));
+}
+
+.disabled {
+  background: var(--color-bg-sunken);
+  border-color: var(--color-border);
+}
+
 .icon {
   color: currentColor;
 }
 
+.labelCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
 .labelText {
   font-size: var(--type-dense, var(--text-sm));
-  color: var(--surface-text-primary, var(--color-text));
+  color: var(--color-text);
+  font-weight: var(--weight-normal, 400);
+}
+
+.descriptionText {
+  font-size: var(--type-micro, 11px);
+  color: var(--color-text-muted);
+  line-height: var(--leading-tight, 1.25);
+}
+
+/* ── 4-Tier Ergonomic Density Matrix (ADR-0009) ───────────── */
+/* Ultra-Compact (24px row context, 14px box) */
+[data-density="ultra-compact"] .box,
+.container[data-density="ultra-compact"] .box,
+.container.ultra-compact .box {
+  --checkbox-size: var(--checkbox-size-ultra-compact, 14px);
+}
+
+[data-density="ultra-compact"] .labelText,
+.container[data-density="ultra-compact"] .labelText,
+.container.ultra-compact .labelText {
+  font-size: var(--type-micro, 11px);
+}
+
+/* Compact (28px row context, 15px box) */
+[data-density="compact"] .box,
+.container[data-density="compact"] .box,
+.container.compact .box {
+  --checkbox-size: var(--checkbox-size-compact, 15px);
+}
+
+[data-density="compact"] .labelText,
+.container[data-density="compact"] .labelText,
+.container.compact .labelText {
+  font-size: var(--type-dense, 12px);
+}
+
+/* Standard (32px row context, 16px box — default) */
+[data-density="standard"] .box,
+.container[data-density="standard"] .box,
+.container.standard .box {
+  --checkbox-size: var(--checkbox-size-standard, 16px);
+}
+
+[data-density="standard"] .labelText,
+.container[data-density="standard"] .labelText,
+.container.standard .labelText {
+  font-size: var(--text-sm, 13px);
+}
+
+/* Comfortable (40px row context, 18px box) */
+[data-density="comfortable"] .box,
+.container[data-density="comfortable"] .box,
+.container.comfortable .box {
+  --checkbox-size: var(--checkbox-size-comfortable, 18px);
+}
+
+[data-density="comfortable"] .labelText,
+.container[data-density="comfortable"] .labelText,
+.container.comfortable .labelText {
+  font-size: var(--text-base, 14px);
 }

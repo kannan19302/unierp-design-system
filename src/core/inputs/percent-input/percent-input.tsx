@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, type InputHTMLAttributes, type ChangeEvent, useState, useEffect } from "react";
+import { forwardRef, type InputHTMLAttributes, type ChangeEvent, useState, useEffect, useId } from "react";
 import styles from "./percent-input.module.css";
 
 /**
@@ -18,6 +18,10 @@ export interface PercentInputProps extends Omit<InputHTMLAttributes<HTMLInputEle
   disabled?: boolean;
   placeholder?: string;
   invalid?: boolean;
+  required?: boolean;
+  label?: string;
+  error?: string;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
@@ -33,6 +37,10 @@ export const PercentInput = forwardRef<HTMLInputElement, PercentInputProps>(
       disabled = false,
       placeholder = "0.0",
       invalid = false,
+      required = false,
+      label,
+      error,
+      density,
       className = "",
       ...props
     },
@@ -76,9 +84,14 @@ export const PercentInput = forwardRef<HTMLInputElement, PercentInputProps>(
       }
     };
 
+    const generatedId = useId();
+    const inputId = id || generatedId;
+    const errorId = error && inputId ? `${inputId}-error` : undefined;
+
     const containerClass = [
       styles.wrapper,
-      invalid ? styles.invalid : "",
+      density ? styles[density] : "",
+      invalid || !!error ? styles.invalid : "",
       disabled ? styles.disabled : "",
       className,
     ]
@@ -86,26 +99,42 @@ export const PercentInput = forwardRef<HTMLInputElement, PercentInputProps>(
       .join(" ");
 
     return (
-      <div className={containerClass}>
-        <input
-          ref={ref}
-          id={id}
-          type="number"
-          step={step}
-          min={min}
-          max={max}
-          value={displayVal}
-          disabled={disabled}
-          placeholder={placeholder}
-          aria-invalid={invalid || undefined}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className={styles.input}
-          {...props}
-        />
-        <span className={styles.symbol} aria-hidden="true">
-          %
-        </span>
+      <div className={styles.rootContainer} data-density={density}>
+        {label && (
+          <label htmlFor={inputId} className={styles.label}>
+            {label}
+            {required && <span className={styles.requiredMark} aria-hidden="true"> *</span>}
+          </label>
+        )}
+        <div className={containerClass}>
+          <input
+            ref={ref}
+            id={inputId}
+            type="number"
+            step={step}
+            min={min}
+            max={max}
+            value={displayVal}
+            disabled={disabled}
+            placeholder={placeholder}
+            required={required}
+            aria-invalid={invalid || !!error || undefined}
+            aria-describedby={errorId}
+            aria-label={label ? undefined : (props["aria-label"] ?? "Percentage value")}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={styles.input}
+            {...props}
+          />
+          <span className={styles.symbol} aria-hidden="true">
+            %
+          </span>
+        </div>
+        {error && (
+          <span id={errorId} className={styles.errorMessage} role="alert">
+            {error}
+          </span>
+        )}
       </div>
     );
   }

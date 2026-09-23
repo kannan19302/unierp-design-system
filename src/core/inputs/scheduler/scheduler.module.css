@@ -1,23 +1,66 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Scheduler Styles
+   ══════════════════════════════════════════════════════════════ */
+
 .scheduler {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border: var(--border-width, 1px) solid var(--color-border);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--color-bg-elevated, var(--color-bg-surface));
+  background: var(--color-surface, #ffffff);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--space-2-5, 10px);
+  padding-inline: var(--space-4);
+  border-block-end: var(--border-width, 1px) solid var(--color-border);
+  background: var(--color-bg-sunken, #f8fafc);
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.calIcon {
+  color: var(--color-primary);
 }
 
 .title {
   font-weight: var(--font-weight-semibold, 600);
   font-size: var(--type-body-sm);
-  color: var(--color-text);
+  color: var(--color-text-primary);
   margin: 0;
+}
+
+.navControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6, 24px);
+  height: var(--space-6, 24px);
+  border: var(--border-width, 1px) solid var(--color-border);
+  border-radius: var(--radius-xs, 2px);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--duration-fast);
+}
+
+.navBtn:hover {
+  background: var(--color-surface-hover, #f1f5f9);
 }
 
 .timeline {
@@ -27,33 +70,161 @@
 
 .hourRow {
   display: flex;
-  border-bottom: 1px solid var(--color-border-subtle, rgba(0,0,0,0.05));
-  min-height: var(--space-12, 3rem);
+  border-block-end: var(--border-width, 1px) solid var(--color-border-subtle, rgba(0, 0, 0, 0.05));
+  min-height: var(--space-12, 48px);
+  outline: none;
+  transition: background-color var(--duration-fast);
+  cursor: pointer;
+}
+
+.hourRow:last-child {
+  border-block-end: none;
+}
+
+.hourRow:hover {
+  background: var(--color-surface-hover, #f8fafc);
+}
+
+.hourRow:focus-visible {
+  background: var(--color-surface-hover, #f8fafc);
+  outline: var(--focus-ring);
+  outline-offset: -1px;
 }
 
 .hourLabel {
-  width: var(--space-16, 4rem);
-  padding: var(--space-2);
-  font-size: var(--type-micro, 11px);
+  width: var(--space-16, 64px);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+  font-size: var(--type-micro);
   color: var(--color-text-secondary);
-  border-right: 1px solid var(--color-border);
+  border-inline-end: var(--border-width, 1px) solid var(--color-border);
   font-family: var(--font-mono, monospace);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  background: var(--color-bg-sunken, #f8fafc);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.clockIcon {
+  color: var(--color-text-tertiary);
+  margin-block-start: var(--space-0-5, 2px);
 }
 
 .hourContent {
   flex: 1;
-  padding: var(--space-1);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   display: flex;
   gap: var(--space-2);
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .eventCard {
-  padding: var(--space-1) var(--space-2);
+  display: inline-flex;
+  flex-direction: column;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   background: var(--color-primary-light, rgba(59, 130, 246, 0.1));
-  border-left: var(--space-0-5, 2px) solid var(--platform-accent, var(--color-primary));
+  border-block: none;
+  border-inline-end: none;
+  border-inline-start: var(--space-0-5, 2px) solid var(--color-primary);
   border-radius: var(--radius-sm);
-  font-size: var(--type-micro, 12px);
+  font-size: var(--type-micro);
+  text-align: start;
+  cursor: pointer;
+  outline: none;
+  transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.eventCard:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.eventTitle {
   font-weight: var(--font-weight-medium, 500);
-  color: var(--color-text);
+  color: var(--color-text-primary);
+}
+
+.eventSubtitle {
+  font-size: var(--type-micro-dense, 10px);
+  color: var(--color-text-secondary);
+}
+
+/* Event Categories */
+.eventCard.primary {
+  background: var(--color-primary-light, rgba(59, 130, 246, 0.1));
+  border-inline-start-color: var(--color-primary);
+}
+
+.eventCard.success {
+  background: var(--color-success-light, rgba(22, 163, 74, 0.1));
+  border-inline-start-color: var(--color-success, #16a34a);
+}
+
+.eventCard.warning {
+  background: var(--color-warning-light, rgba(234, 179, 8, 0.15));
+  border-inline-start-color: var(--color-warning, #eab308);
+}
+
+.eventCard.danger {
+  background: var(--color-danger-light, rgba(239, 68, 68, 0.1));
+  border-inline-start-color: var(--color-danger, #ef4444);
+}
+
+/* 4-Tier Density */
+.scheduler[data-density="ultra-compact"] .header {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+}
+
+.scheduler[data-density="ultra-compact"] .title {
+  font-size: var(--type-caption);
+}
+
+.scheduler[data-density="ultra-compact"] .hourRow {
+  min-height: var(--space-7, 28px);
+}
+
+.scheduler[data-density="ultra-compact"] .hourLabel {
+  width: var(--space-12, 48px);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1);
+  font-size: var(--type-micro-dense, 10px);
+}
+
+.scheduler[data-density="ultra-compact"] .eventCard {
+  padding-block: var(--space-0-5, 2px);
+  padding-inline: var(--space-1-5, 6px);
+  font-size: var(--type-micro-dense, 10px);
+}
+
+.scheduler[data-density="compact"] .hourRow {
+  min-height: var(--space-9, 36px);
+}
+
+.scheduler[data-density="compact"] .hourLabel {
+  width: var(--space-14, 56px);
+}
+
+.scheduler[data-density="standard"] .hourRow {
+  min-height: var(--space-12, 48px);
+}
+
+.scheduler[data-density="comfortable"] .hourRow {
+  min-height: var(--space-16, 64px);
+}
+
+.scheduler[data-density="comfortable"] .hourLabel {
+  width: var(--space-18, 72px);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
+}
+
+.scheduler[data-density="comfortable"] .eventCard {
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-3);
 }

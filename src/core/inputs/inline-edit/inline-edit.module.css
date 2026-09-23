@@ -1,3 +1,7 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — InlineEdit Styles
+   ══════════════════════════════════════════════════════════════ */
+
 .container {
   display: flex;
   flex-direction: column;
@@ -11,14 +15,21 @@
   font-weight: var(--weight-medium);
 }
 
+.requiredMark {
+  color: var(--color-danger);
+}
+
 .display {
   display: inline-flex;
   align-items: center;
-  padding: var(--space-1) var(--space-2);
+  min-height: var(--density-control-height, 32px);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   border-radius: var(--radius-sm);
   border: var(--border-width, 1px) solid transparent;
   cursor: pointer;
   transition: var(--transition-color, background-color var(--duration-fast));
+  box-sizing: border-box;
 }
 
 .display:hover {
@@ -73,7 +84,9 @@
 .input {
   flex: 1;
   min-width: var(--space-24, 96px);
-  padding: var(--space-1) var(--space-2);
+  height: var(--density-control-height, 32px);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   font-size: var(--type-body);
   font-family: inherit;
   color: var(--color-text-primary);
@@ -81,6 +94,7 @@
   border: var(--border-width, 1px) solid var(--color-primary);
   border-radius: var(--radius-sm);
   outline: none;
+  box-sizing: border-box;
 }
 
 .inputError {
@@ -97,7 +111,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-1);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1);
   border-radius: var(--radius-sm);
   border: var(--border-width, 1px) solid var(--color-border);
   background-color: var(--color-surface);
@@ -121,4 +136,42 @@
 .errorMessage {
   font-size: var(--type-caption);
   color: var(--color-danger);
+  margin-block-start: var(--space-1);
+}
+
+/* 4-Tier Density */
+.container[data-density="ultra-compact"] .display,
+.container[data-density="ultra-compact"] .input,
+:global([data-density="ultra-compact"]) .container .display,
+:global([data-density="ultra-compact"]) .container .input {
+  min-height: var(--density-control-height-ultra-compact, 24px);
+  height: var(--density-control-height-ultra-compact, 24px);
+  font-size: var(--type-micro, 11px);
+}
+
+.container[data-density="compact"] .display,
+.container[data-density="compact"] .input,
+:global([data-density="compact"]) .container .display,
+:global([data-density="compact"]) .container .input {
+  min-height: var(--density-control-height-compact, 28px);
+  height: var(--density-control-height-compact, 28px);
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.container[data-density="standard"] .display,
+.container[data-density="standard"] .input,
+:global([data-density="standard"]) .container .display,
+:global([data-density="standard"]) .container .input {
+  min-height: var(--density-control-height-standard, 32px);
+  height: var(--density-control-height-standard, 32px);
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.container[data-density="comfortable"] .display,
+.container[data-density="comfortable"] .input,
+:global([data-density="comfortable"]) .container .display,
+:global([data-density="comfortable"]) .container .input {
+  min-height: var(--density-control-height-comfortable, 40px);
+  height: var(--density-control-height-comfortable, 40px);
+  font-size: var(--type-body, var(--text-base));
 }

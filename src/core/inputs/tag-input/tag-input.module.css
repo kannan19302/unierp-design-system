@@ -2,19 +2,40 @@
    UniERP Design Language 1.0 — TagInput Styles
    ══════════════════════════════════════════════════════════════ */
 
+.rootContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  width: 100%;
+}
+
+.label {
+  font-size: var(--type-caption);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.requiredMark {
+  color: var(--color-danger);
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1);
   min-height: var(--density-control-height, 32px);
-  padding: 2px var(--density-control-padding-x, var(--space-3));
+  padding-block: 2px;
+  padding-inline: var(--density-control-padding-x, var(--space-3));
   font-family: var(--font-sans);
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
   box-sizing: border-box;
   width: 100%;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
 }
 
 .container:focus-within {
@@ -25,6 +46,15 @@
 .disabled {
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.invalid {
+  border-color: var(--color-danger) !important;
+}
+
+.invalid:focus-within {
+  box-shadow: 0 0 0 1px var(--color-danger) !important;
 }
 
 .tagChip {
@@ -35,7 +65,8 @@
   color: var(--color-primary);
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-sm, 2px);
-  padding: 1px var(--space-2);
+  padding-block: 1px;
+  padding-inline: var(--space-2);
   font-size: var(--type-micro, 11px);
   font-weight: var(--weight-medium);
   line-height: 1;
@@ -52,7 +83,8 @@
   justify-content: center;
   background: none;
   border: none;
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
   color: currentColor;
   cursor: pointer;
   opacity: 0.8;
@@ -72,4 +104,47 @@
   font-family: var(--font-sans);
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
+}
+
+.errorMessage {
+  font-size: var(--type-caption);
+  color: var(--color-danger);
+  margin-block-start: var(--space-1);
+}
+
+/* 4-Tier Density */
+.container[data-density="ultra-compact"],
+:global([data-density="ultra-compact"]) .container {
+  min-height: var(--density-control-height-ultra-compact, 24px);
+}
+.container[data-density="ultra-compact"] .inputField,
+:global([data-density="ultra-compact"]) .container .inputField {
+  font-size: var(--type-micro, 11px);
+}
+
+.container[data-density="compact"],
+:global([data-density="compact"]) .container {
+  min-height: var(--density-control-height-compact, 28px);
+}
+.container[data-density="compact"] .inputField,
+:global([data-density="compact"]) .container .inputField {
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.container[data-density="standard"],
+:global([data-density="standard"]) .container {
+  min-height: var(--density-control-height-standard, 32px);
+}
+.container[data-density="standard"] .inputField,
+:global([data-density="standard"]) .container .inputField {
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.container[data-density="comfortable"],
+:global([data-density="comfortable"]) .container {
+  min-height: var(--density-control-height-comfortable, 40px);
+}
+.container[data-density="comfortable"] .inputField,
+:global([data-density="comfortable"]) .container .inputField {
+  font-size: var(--type-body, var(--text-base));
 }

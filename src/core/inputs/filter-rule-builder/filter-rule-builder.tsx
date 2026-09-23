@@ -1,4 +1,7 @@
+"use client";
+
 import { forwardRef, useState, type HTMLAttributes } from "react";
+import { Plus, X } from "lucide-react";
 import styles from "./filter-rule-builder.module.css";
 
 export interface FilterRuleItem {
@@ -13,6 +16,7 @@ export interface FilterRuleBuilderProps extends HTMLAttributes<HTMLDivElement> {
   onRulesChange?: (rules: FilterRuleItem[]) => void;
   availableFields?: Array<{ value: string; label: string }>;
   maxRules?: number;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderProps>(
@@ -29,6 +33,7 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
         { value: "assignee", label: "Assignee" },
       ],
       maxRules = 10,
+      density,
       className = "",
       ...props
     },
@@ -70,7 +75,8 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`}
+        data-density={density}
+        className={`${styles.container} ${density ? styles[density] : ""} ${className}`.trim()}
         role="region"
         aria-label="Filter Rule Builder"
         {...props}
@@ -145,7 +151,7 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
                 aria-label={`Remove rule ${idx + 1}`}
                 onClick={() => handleRemoveRule(rule.id)}
               >
-                ×
+                <X size={14} aria-hidden="true" />
               </button>
             </div>
           ))}
@@ -157,7 +163,8 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
             className={styles.addBtn}
             onClick={handleAddRule}
           >
-            + Add Filter Condition
+            <Plus size={14} aria-hidden="true" />
+            <span>Add Filter Condition</span>
           </button>
         )}
       </div>

@@ -19,6 +19,7 @@ const meta: Meta<typeof DateTimePicker> = {
   component: DateTimePicker,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -132,3 +133,54 @@ export const AllStatesGallery = () => (
     </div>
   </div>
 );
+
+export const V1WorkspacePreview = () => {
+  const [dispatchTime, setDispatchTime] = useState("2026-09-23T14:30");
+  const [cutoffTime, setCutoffTime] = useState("18:00");
+
+  return (
+    <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "560px" }}>
+      <div style={{ marginBottom: "var(--space-4)" }}>
+        <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+          Freight Dispatch Window Scheduler
+        </h3>
+        <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Schedule multi-modal cargo dispatch departure timestamps and carrier cutoff limits.
+        </p>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: "var(--space-4)" }}>
+        <DateTimePicker
+          label="Estimated Departure Datetime"
+          value={dispatchTime}
+          onChange={setDispatchTime}
+          density="standard"
+          required
+        />
+        <TimePicker
+          label="Carrier Yard Gate Cutoff"
+          value={cutoffTime}
+          onChange={setCutoffTime}
+          density="standard"
+          required
+        />
+      </div>
+
+      <div style={{ marginTop: "var(--space-4)", display: "flex", justifyContent: "flex-end" }}>
+        <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+          Timestamps logged in UTC and local terminal offset
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export const StateMatrix = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "480px" }}>
+    <DateTimePicker label="Default Populated Datetime" value="2026-09-23T10:00" />
+    <DateTimePicker label="Invalid / Expired Window" value="2024-01-01T00:00" invalid error="Dispatch timestamp cannot be in the past" />
+    <DateTimePicker label="Disabled Historical Record" value="2026-05-10T11:00" disabled />
+    <TimePicker label="Standalone Time" value="14:30" />
+  </div>
+);
+

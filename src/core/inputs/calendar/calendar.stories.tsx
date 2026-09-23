@@ -18,6 +18,7 @@ const meta: Meta<typeof Calendar> = {
   component: Calendar,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -105,3 +106,43 @@ export const AllStatesGallery = () => {
     </div>
   );
 };
+
+export const V1WorkspacePreview = () => {
+  const [auditDate, setAuditDate] = useState<Date>(new Date(2026, 8, 25));
+
+  return (
+    <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "420px" }}>
+      <div style={{ marginBottom: "var(--space-4)" }}>
+        <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+          Statutory Period Close Schedule
+        </h3>
+        <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Schedule fiscal audit deadlines with monthly navigation and bounded date selections.
+        </p>
+      </div>
+
+      <Calendar
+        selectedDate={auditDate}
+        onSelectDate={setAuditDate}
+        density="standard"
+      />
+
+      <div style={{ marginTop: "var(--space-4)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+          Target: {auditDate.toDateString()}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export const StateMatrix = () => {
+  const fixedDate = new Date(2026, 8, 15);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "400px" }}>
+      <Calendar selectedDate={fixedDate} />
+      <Calendar selectedDate={fixedDate} disabled />
+    </div>
+  );
+};
+

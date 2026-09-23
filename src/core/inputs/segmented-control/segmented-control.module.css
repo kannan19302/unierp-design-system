@@ -1,12 +1,20 @@
+/* ══════════════════════════════════════════════════════════════
+   Strata V1 — SegmentedControl Primitive Styles
+   Tactile view switcher, 4-tier density scaling,
+   CSS logical properties, and high-contrast active indicator.
+   ══════════════════════════════════════════════════════════════ */
+
 .container {
   display: inline-flex;
   align-items: center;
-  padding: var(--space-0-5, 2px);
-  background-color: var(--color-surface-sunken);
-  border: var(--border-width, 1px) solid var(--color-border);
-  border-radius: var(--radius-md);
+  padding-block: var(--space-0-5, 2px);
+  padding-inline: var(--space-0-5, 2px);
+  background-color: var(--color-bg-sunken);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 6px);
   user-select: none;
   font-family: var(--font-sans);
+  box-sizing: border-box;
 }
 
 .fullWidth {
@@ -23,34 +31,37 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-1-5, 6px);
-  padding: 0 var(--space-3);
+  padding-block: 0;
+  padding-inline: var(--space-3, 12px);
   height: 100%;
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-sm, 3px);
   background: transparent;
-  color: var(--color-text-secondary);
-  font-size: var(--type-caption);
-  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  font-size: var(--type-dense, var(--text-sm));
+  font-weight: var(--weight-medium, 500);
   cursor: pointer;
   outline: none;
-  transition: var(--transition-color, background-color var(--duration-fast));
+  transition: color var(--duration-fast) var(--ease-default),
+              background-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .segment:hover:not(.segmentDisabled):not(.selected) {
-  color: var(--color-text-primary);
-  background-color: var(--color-surface-hover);
+  color: var(--color-text);
+  background-color: var(--color-bg-hover);
 }
 
 .segment:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-ring-offset);
+  box-shadow: 0 0 0 2px var(--color-border-focus);
 }
 
 .selected {
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
-  box-shadow: var(--elevation-1);
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(0, 0, 0, 0.08));
 }
 
 .segmentDisabled {
@@ -59,39 +70,97 @@
 }
 
 .disabled {
-  opacity: 0.5;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
 .icon {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .label {
-  line-height: var(--leading-tight);
+  line-height: var(--leading-tight, 1.25);
 }
 
-/* Sizes */
+/* ── Sizing Variants ──────────────────────────────────────── */
 .sm {
   height: var(--density-control-height-sm, 28px);
 }
 .sm .segment {
-  font-size: var(--type-micro);
-  padding: 0 var(--space-2);
+  font-size: var(--type-micro, 11px);
+  padding-inline: var(--space-2, 8px);
 }
 
 .md {
   height: var(--density-control-height, 32px);
 }
 .md .segment {
-  font-size: var(--type-caption);
+  font-size: var(--type-dense, var(--text-sm));
 }
 
 .lg {
   height: var(--space-10, 40px);
 }
 .lg .segment {
-  font-size: var(--type-body);
-  padding: 0 var(--space-4);
+  font-size: var(--text-base, 14px);
+  padding-inline: var(--space-4, 16px);
+}
+
+/* ── 4-Tier Ergonomic Density Matrix (ADR-0009) ───────────── */
+/* Ultra-Compact (24px) */
+[data-density="ultra-compact"] .container,
+.container[data-density="ultra-compact"],
+.container.ultra-compact {
+  height: var(--density-control-height, 24px);
+}
+
+[data-density="ultra-compact"] .segment,
+.container[data-density="ultra-compact"] .segment,
+.container.ultra-compact .segment {
+  font-size: var(--type-micro, 11px);
+  padding-inline: var(--space-1-5, 6px);
+}
+
+/* Compact (28px) */
+[data-density="compact"] .container,
+.container[data-density="compact"],
+.container.compact {
+  height: var(--density-control-height, 28px);
+}
+
+[data-density="compact"] .segment,
+.container[data-density="compact"] .segment,
+.container.compact .segment {
+  font-size: var(--type-dense, 12px);
+  padding-inline: var(--space-2, 8px);
+}
+
+/* Standard (32px — default) */
+[data-density="standard"] .container,
+.container[data-density="standard"],
+.container.standard {
+  height: var(--density-control-height, 32px);
+}
+
+[data-density="standard"] .segment,
+.container[data-density="standard"] .segment,
+.container.standard .segment {
+  font-size: var(--text-sm, 13px);
+  padding-inline: var(--space-3, 12px);
+}
+
+/* Comfortable (40px) */
+[data-density="comfortable"] .container,
+.container[data-density="comfortable"],
+.container.comfortable {
+  height: var(--density-control-height, 40px);
+}
+
+[data-density="comfortable"] .segment,
+.container[data-density="comfortable"] .segment,
+.container.comfortable .segment {
+  font-size: var(--text-base, 14px);
+  padding-inline: var(--space-4, 16px);
 }

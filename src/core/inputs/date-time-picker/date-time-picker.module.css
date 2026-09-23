@@ -1,6 +1,24 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — DateTimePicker Styles
+   UniERP Design Language 1.0 — DateTimePicker & TimePicker Styles
    ══════════════════════════════════════════════════════════════ */
+
+.rootContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  width: 100%;
+}
+
+.label {
+  font-size: var(--type-caption);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.requiredMark {
+  color: var(--color-danger);
+}
 
 .wrapper {
   position: relative;
@@ -17,7 +35,7 @@
 
 .icon {
   position: absolute;
-  left: var(--density-control-padding-x, var(--space-3));
+  inset-inline-start: var(--density-control-padding-x, var(--space-3));
   color: var(--surface-text-secondary, var(--color-text-muted));
   pointer-events: none;
 }
@@ -25,7 +43,9 @@
 .input {
   width: 100%;
   height: var(--density-control-height, 32px);
-  padding: 0 var(--density-control-padding-x, var(--space-3)) 0 var(--space-7);
+  padding-block: 0;
+  padding-inline-start: var(--space-7);
+  padding-inline-end: var(--density-control-padding-x, var(--space-3));
   font-family: var(--font-sans);
   font-size: var(--type-dense, var(--text-sm));
   font-variant-numeric: tabular-nums lining-nums;
@@ -35,6 +55,8 @@
   border-radius: var(--radius-sm, 2px);
   outline: none;
   box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
 }
 
 .input:focus {
@@ -43,5 +65,40 @@
 }
 
 .invalid .input {
-  border-color: var(--color-danger, #ef4444) !important;
+  border-color: var(--color-danger) !important;
+}
+
+.invalid .input:focus {
+  box-shadow: 0 0 0 1px var(--color-danger) !important;
+}
+
+.errorMessage {
+  font-size: var(--type-caption);
+  color: var(--color-danger);
+  margin-block-start: var(--space-1);
+}
+
+/* 4-Tier Density */
+.wrapper[data-density="ultra-compact"] .input,
+:global([data-density="ultra-compact"]) .wrapper .input {
+  height: var(--density-control-height-ultra-compact, 24px);
+  font-size: var(--type-micro, 11px);
+}
+
+.wrapper[data-density="compact"] .input,
+:global([data-density="compact"]) .wrapper .input {
+  height: var(--density-control-height-compact, 28px);
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.wrapper[data-density="standard"] .input,
+:global([data-density="standard"]) .wrapper .input {
+  height: var(--density-control-height-standard, 32px);
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.wrapper[data-density="comfortable"] .input,
+:global([data-density="comfortable"]) .wrapper .input {
+  height: var(--density-control-height-comfortable, 40px);
+  font-size: var(--type-body, var(--text-base));
 }

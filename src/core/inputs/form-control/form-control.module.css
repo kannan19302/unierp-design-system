@@ -1,5 +1,7 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — FormControl Styles
+   Strata V1 — FormControl Styles
+   Accessible field layouts, 4-tier density scaling,
+   logical properties, and high-contrast validation states.
    ══════════════════════════════════════════════════════════════ */
 
 .fieldContainer {
@@ -11,26 +13,28 @@
 
 .label {
   font-family: var(--font-sans);
-  font-size: var(--type-caption, 12px);
-  font-weight: var(--weight-medium);
-  color: var(--surface-text-primary, var(--color-text));
-  line-height: var(--leading-tight);
+  font-size: var(--type-caption, var(--text-xs, 12px));
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text);
+  line-height: var(--leading-tight, 1.25);
 }
 
 .requiredStar {
-  color: var(--color-danger, #ef4444);
+  color: var(--color-text-danger, var(--color-danger, #ef4444));
 }
 
 .control {
   width: 100%;
   height: var(--density-control-height, 32px);
-  padding: 0 var(--density-control-padding-x, var(--space-3));
+  min-height: var(--density-control-height, 32px);
+  padding-block: 0;
+  padding-inline: var(--density-control-padding-x, var(--space-3));
   font-family: var(--font-sans);
   font-size: var(--type-dense, var(--text-sm));
-  color: var(--surface-text-primary, var(--color-text));
-  background: var(--surface-1-bg, var(--color-bg-elevated));
-  border: 1px solid var(--color-border-default, var(--color-border));
-  border-radius: var(--radius-sm, 6px);
+  color: var(--color-text);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 3px);
   outline: none;
   transition: border-color var(--duration-fast) var(--ease-default),
               box-shadow var(--duration-fast) var(--ease-default);
@@ -38,34 +42,36 @@
 }
 
 .control:hover:not(:disabled) {
-  border-color: var(--color-border-strong, #94a3b8);
+  border-color: var(--color-border-strong);
 }
 
 .control:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 1px var(--color-primary);
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 2px var(--color-border-focus);
 }
 
 .control:disabled {
-  background: var(--surface-sunken-bg, var(--color-bg-sunken));
-  color: var(--surface-text-disabled, var(--color-text-muted));
+  background: var(--color-bg-sunken);
+  color: var(--color-text-muted);
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .invalid {
-  border-color: var(--color-danger, #ef4444) !important;
+  border-color: var(--color-text-danger, var(--color-danger, #ef4444)) !important;
 }
 
 .invalid:focus {
-  box-shadow: 0 0 0 1px var(--color-danger, #ef4444) !important;
+  box-shadow: 0 0 0 2px var(--color-text-danger, var(--color-danger, #ef4444)) !important;
 }
 
 .textarea {
   height: auto;
   min-height: var(--textarea-min-height, 5rem);
-  padding: var(--space-2) var(--density-control-padding-x, var(--space-3));
+  padding-block: var(--space-2);
+  padding-inline: var(--density-control-padding-x, var(--space-3));
   resize: vertical;
-  line-height: var(--leading-normal);
+  line-height: var(--leading-normal, 1.5);
 }
 
 .inputWrapper {
@@ -80,7 +86,7 @@
   inset-inline-start: var(--space-2-5);
   display: inline-flex;
   align-items: center;
-  color: var(--surface-text-secondary, var(--color-text-muted));
+  color: var(--color-text-muted);
   pointer-events: none;
 }
 
@@ -89,7 +95,7 @@
   inset-inline-end: var(--space-2-5);
   display: inline-flex;
   align-items: center;
-  color: var(--surface-text-secondary, var(--color-text-muted));
+  color: var(--color-text-muted);
   pointer-events: none;
 }
 
@@ -109,19 +115,19 @@
 .select {
   appearance: none;
   cursor: pointer;
-  padding-right: var(--space-8);
+  padding-inline-end: var(--space-8);
 }
 
 .selectArrow {
   position: absolute;
-  right: var(--space-3);
+  inset-inline-end: var(--space-3);
   top: 50%;
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-left: var(--space-1, 4px) solid transparent;
-  border-right: var(--space-1, 4px) solid transparent;
-  border-top: var(--space-1-25, 5px) solid var(--surface-text-secondary, var(--color-text-secondary));
+  border-inline-start: var(--space-1, 4px) solid transparent;
+  border-inline-end: var(--space-1, 4px) solid transparent;
+  border-top: var(--space-1-25, 5px) solid var(--color-text-muted);
   pointer-events: none;
 }
 
@@ -131,14 +137,14 @@
   gap: var(--space-1);
   font-family: var(--font-sans);
   font-size: var(--type-micro, 11px);
-  color: var(--color-danger, #ef4444);
-  font-weight: var(--weight-medium);
+  color: var(--color-text-danger, var(--color-danger, #ef4444));
+  font-weight: var(--weight-medium, 500);
 }
 
 .hintMsg {
   font-family: var(--font-sans);
   font-size: var(--type-micro, 11px);
-  color: var(--surface-text-secondary, var(--color-text-muted));
+  color: var(--color-text-muted);
 }
 
 .section {
@@ -147,8 +153,8 @@
   gap: var(--space-3);
   padding: var(--space-4);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--surface-1-bg, var(--color-bg-elevated));
+  border-radius: var(--radius-md, 6px);
+  background: var(--color-bg-elevated);
 }
 
 .sectionHeader {
@@ -163,21 +169,21 @@
 }
 
 .sectionTitle {
-  font-size: var(--type-body);
+  font-size: var(--type-body, var(--text-sm));
   font-weight: var(--font-weight-semibold, 600);
   color: var(--color-text);
   margin: 0;
 }
 
 .sectionDesc {
-  font-size: var(--type-caption, 12px);
-  color: var(--color-text-secondary);
+  font-size: var(--type-caption, var(--text-xs, 12px));
+  color: var(--color-text-muted);
   margin: var(--space-0-5, 2px) 0 0 0;
 }
 
 .chevron {
   transition: transform var(--duration-fast) var(--ease-default);
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 }
 
 .chevronOpen {
@@ -196,4 +202,33 @@
   gap: var(--space-1);
   font-size: var(--type-micro, 11px);
   font-weight: var(--font-weight-medium, 500);
+}
+
+/* ── 4-Tier Ergonomic Density Matrix (ADR-0009) ───────────── */
+[data-density="ultra-compact"] .control {
+  height: var(--density-control-height, 24px);
+  min-height: var(--density-control-height, 24px);
+  padding-inline: var(--density-control-padding-x, var(--space-1-5, 6px));
+  font-size: var(--type-micro, 11px);
+}
+
+[data-density="compact"] .control {
+  height: var(--density-control-height, 28px);
+  min-height: var(--density-control-height, 28px);
+  padding-inline: var(--density-control-padding-x, var(--space-2, 8px));
+  font-size: var(--type-dense, 12px);
+}
+
+[data-density="standard"] .control {
+  height: var(--density-control-height, 32px);
+  min-height: var(--density-control-height, 32px);
+  padding-inline: var(--density-control-padding-x, var(--space-3, 12px));
+  font-size: var(--text-sm, 13px);
+}
+
+[data-density="comfortable"] .control {
+  height: var(--density-control-height, 40px);
+  min-height: var(--density-control-height, 40px);
+  padding-inline: var(--density-control-padding-x, var(--space-4, 16px));
+  font-size: var(--text-base, 14px);
 }

@@ -1,39 +1,121 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — Slider Primitive Styles
+   Strata V1 — Slider Primitive Styles
+   Continuous/discrete range input, 4-tier density matrix,
+   tabular numeric alignment, and CSS logical properties.
    ══════════════════════════════════════════════════════════════ */
 
 .container {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-3, 12px);
   width: 100%;
   box-sizing: border-box;
 }
 
 .disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   pointer-events: none;
 }
 
 .rangeInput {
   width: 100%;
-  height: var(--space-1, 4px);
-  border-radius: var(--radius-full);
-  background: var(--surface-sunken-bg, var(--color-bg-sunken));
+  height: var(--slider-track-height, var(--space-1, 4px));
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-bg-sunken);
+  border: 1px solid var(--color-border);
   outline: none;
   cursor: pointer;
   accent-color: var(--color-primary);
+  box-sizing: border-box;
 }
 
 .rangeInput:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-border-focus);
 }
 
 .valueDisplay {
   font-family: var(--font-mono);
   font-size: var(--type-micro, 11px);
   font-variant-numeric: tabular-nums lining-nums;
-  color: var(--surface-text-primary, var(--color-text));
+  color: var(--color-text);
   min-width: var(--density-control-height-sm, 28px);
-  text-align: right;
+  text-align: end;
+  flex-shrink: 0;
+}
+
+/* ── 4-Tier Ergonomic Density Matrix (ADR-0009) ───────────── */
+/* Ultra-Compact (24px) */
+[data-density="ultra-compact"] .container,
+.container[data-density="ultra-compact"],
+.container.ultra-compact {
+  gap: var(--space-1-5, 6px);
+}
+
+[data-density="ultra-compact"] .rangeInput,
+.container[data-density="ultra-compact"] .rangeInput,
+.container.ultra-compact .rangeInput {
+  --slider-track-height: 2px;
+}
+
+[data-density="ultra-compact"] .valueDisplay,
+.container[data-density="ultra-compact"] .valueDisplay,
+.container.ultra-compact .valueDisplay {
+  font-size: var(--type-micro, 11px);
+}
+
+/* Compact (28px) */
+[data-density="compact"] .container,
+.container[data-density="compact"],
+.container.compact {
+  gap: var(--space-2, 8px);
+}
+
+[data-density="compact"] .rangeInput,
+.container[data-density="compact"] .rangeInput,
+.container.compact .rangeInput {
+  --slider-track-height: var(--space-1, 4px);
+}
+
+[data-density="compact"] .valueDisplay,
+.container[data-density="compact"] .valueDisplay,
+.container.compact .valueDisplay {
+  font-size: var(--type-dense, 12px);
+}
+
+/* Standard (32px — default) */
+[data-density="standard"] .container,
+.container[data-density="standard"],
+.container.standard {
+  gap: var(--space-3, 12px);
+}
+
+[data-density="standard"] .rangeInput,
+.container[data-density="standard"] .rangeInput,
+.container.standard .rangeInput {
+  --slider-track-height: var(--space-1, 4px);
+}
+
+[data-density="standard"] .valueDisplay,
+.container[data-density="standard"] .valueDisplay,
+.container.standard .valueDisplay {
+  font-size: var(--text-sm, 13px);
+}
+
+/* Comfortable (40px) */
+[data-density="comfortable"] .container,
+.container[data-density="comfortable"],
+.container.comfortable {
+  gap: var(--space-4, 16px);
+}
+
+[data-density="comfortable"] .rangeInput,
+.container[data-density="comfortable"] .rangeInput,
+.container.comfortable .rangeInput {
+  --slider-track-height: var(--space-1-5, 6px);
+}
+
+[data-density="comfortable"] .valueDisplay,
+.container[data-density="comfortable"] .valueDisplay,
+.container.comfortable .valueDisplay {
+  font-size: var(--text-base, 14px);
 }

@@ -20,8 +20,34 @@ describe("FiscalPeriodPicker Primitive", () => {
     expect(onSelect).toHaveBeenCalledWith("FY2026-Q2");
   });
 
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(<FiscalPeriodPicker density="compact" fiscalYear={2026} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "compact");
+
+    rerender(<FiscalPeriodPicker density="ultra-compact" fiscalYear={2026} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<FiscalPeriodPicker density="comfortable" fiscalYear={2026} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "comfortable");
+  });
+
+  it("handles invalid state and displays error message", () => {
+    render(
+      <FiscalPeriodPicker
+        label="Quarter"
+        fiscalYear={2026}
+        invalid
+        error="Period is locked"
+      />
+    );
+
+    const select = screen.getByLabelText("Quarter");
+    expect(select).toHaveAttribute("aria-invalid", "true");
+    expect(screen.getByRole("alert")).toHaveTextContent("Period is locked");
+  });
+
   it("has zero accessibility violations", async () => {
-    const { container } = render(<FiscalPeriodPicker fiscalYear={2026} />);
+    const { container } = render(<FiscalPeriodPicker label="Fiscal Period" fiscalYear={2026} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

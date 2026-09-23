@@ -14,9 +14,11 @@ import {
   X,
   ChevronDown,
   Star,
+  MoreHorizontal,
   PanelLeftClose,
   PanelLeftOpen,
 } from "lucide-react";
+import { DropdownMenu } from "../../overlays/dropdown-menu";
 import styles from "./sidenav.module.css";
 
 export interface SideNavAction {
@@ -37,6 +39,7 @@ export interface SideNavItem {
   group?: string;
   isFavorite?: boolean;
   quickAction?: SideNavAction;
+  defaultExpanded?: boolean;
   items?: SideNavItem[];
   onClick?: () => void;
 }
@@ -72,6 +75,8 @@ export interface SideNavProps extends React.HTMLAttributes<HTMLElement> {
   onToggleCollapse?: (collapsed?: boolean) => void;
   allowFavorites?: boolean;
   favorites?: string[];
+  /** Full item catalog for pinned favorites when source sections are hidden. */
+  favoriteItems?: SideNavItem[];
   onToggleFavorite?: (key: string) => void;
   searchable?: boolean;
   searchPlaceholder?: string;
@@ -79,6 +84,8 @@ export interface SideNavProps extends React.HTMLAttributes<HTMLElement> {
   onSearchChange?: (query: string) => void;
   globalResults?: SideNavSearchResult[];
   onSelectResult?: (result: SideNavSearchResult) => void;
+  /** Accessible name for the inner navigation landmark when multiple sidebars share a page. */
+  navigationLabel?: string;
   className?: string;
   testId?: string;
 }
@@ -100,6 +107,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       onToggleCollapse,
       allowFavorites = false,
       favorites = [],
+      favoriteItems,
       onToggleFavorite,
       searchable = false,
       searchPlaceholder = "Search navigation… (/)",
@@ -107,6 +115,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       onSearchChange,
       globalResults,
       onSelectResult,
+      navigationLabel,
       className = "",
       testId = "side-nav",
       ...rest
@@ -114,6 +123,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     ref
   ) => {
   const [internalQuery, setInternalQuery] = useState("");
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     if (propSections) {
@@ -129,7 +139,15 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
   });
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const focusSearchOnExpand = useRef(false);
   const query = controlledQuery !== undefined ? controlledQuery : internalQuery;
+
+  useEffect(() => {
+    if (!collapsed && focusSearchOnExpand.current) {
+      inputRef.current?.focus();
+      focusSearchOnExpand.current = false;
+    }
+  }, [collapsed]);
 
   const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -223,9 +241,9 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
         }
       }
     };
-    for (const sec of rawSections) {
-      findFavorites(sec.items);
-    }
+    if (favoriteItems) findFavorites(favoriteItems);
+    else for (const sec of rawSections) findFavorites(sec.items);
+    favoritedItems.sort((first, second) => favorites.indexOf(first.key) - favorites.indexOf(second.key));
   }
 
   // Filter global results if provided
@@ -246,6 +264,14 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     const isStarred = favorites.includes(item.key) || item.isFavorite;
     const hasChildren = item.items && item.items.length > 0;
     const itemTitle = typeof item.label === "string" ? item.label : undefined;
+    const isExpanded = lowerQuery ? true : (expandedItems[item.key] ?? item.defaultExpanded ?? true);
+    const itemContent = (
+      <>
+        {item.icon && <span className={styles.icon} aria-hidden="true">{item.icon}</span>}
+        {!collapsed && <span className={styles.label}>{item.label}</span>}
+        {!collapsed && item.badge && <span className={styles.badge}>{item.badge}</span>}
+      </>
+    );
 
     return (
       <div key={item.key} className={styles.itemWrapper}>
@@ -255,18 +281,30 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
           }`}
           style={depth > 0 && !collapsed ? { paddingInlineStart: `calc(var(--space-3) + (${depth} * var(--space-3)))` } : undefined}
         >
-          <button
-            type="button"
-            disabled={item.disabled}
-            onClick={item.onClick}
-            className={styles.itemBtn}
-            title={collapsed ? itemTitle : undefined}
-            aria-current={item.active ? "page" : undefined}
-          >
-            {item.icon && <span className={styles.icon}>{item.icon}</span>}
-            {!collapsed && <span className={styles.label}>{item.label}</span>}
-            {!collapsed && item.badge && <span className={styles.badge}>{item.badge}</span>}
-          </button>
+          {item.href && !item.disabled ? (
+            <a href={item.href} onClick={item.onClick} className={styles.itemBtn}
+              title={collapsed ? itemTitle : undefined}
+              aria-label={collapsed ? itemTitle : undefined}
+              aria-current={item.active ? "page" : undefined}>
+              {itemContent}
+            </a>
+          ) : (
+            <button type="button" disabled={item.disabled} onClick={item.onClick}
+              className={styles.itemBtn} title={collapsed ? itemTitle : undefined}
+              aria-label={collapsed ? itemTitle : undefined}
+              aria-current={item.active ? "page" : undefined}>
+              {itemContent}
+            </button>
+          )}
+
+          {!collapsed && hasChildren && (
+            <button type="button" className={styles.itemExpandBtn}
+              aria-label={`${isExpanded ? "Collapse" : "Expand"} ${itemTitle ?? "navigation"} items`}
+              aria-expanded={isExpanded}
+              onClick={() => setExpandedItems((previous) => ({ ...previous, [item.key]: !isExpanded }))}>
+              <ChevronDown size={14} className={`${styles.chevron} ${isExpanded ? "" : styles.chevronCollapsed}`} aria-hidden="true" />
+            </button>
+          )}
 
           {/* Quick Action Button */}
           {!collapsed && item.quickAction && (
@@ -284,29 +322,28 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             </button>
           )}
 
-          {/* Favorite Toggle */}
-          {!collapsed && allowFavorites && (
-            <button
-              type="button"
-              className={`${styles.starBtn} ${isStarred ? styles.starred : ""}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleFavorite?.(item.key);
-              }}
-              aria-label={
-                isStarred
-                  ? `Remove ${typeof item.label === "string" ? item.label : "item"} from favorites`
-                  : `Add ${typeof item.label === "string" ? item.label : "item"} to favorites`
+          {/* Contextual item actions */}
+          {!collapsed && allowFavorites && onToggleFavorite && (
+            <DropdownMenu
+              className={styles.itemActionMenu}
+              trigger={
+                <button type="button" className={styles.itemMoreBtn}
+                  aria-label={`More options for ${itemTitle ?? "item"}`}>
+                  <MoreHorizontal size={16} aria-hidden="true" />
+                </button>
               }
-              title={isStarred ? "Starred item" : "Star item"}
-            >
-              <Star size={13} fill={isStarred ? "currentColor" : "none"} />
-            </button>
+              items={[{
+                key: "favorite",
+                label: isStarred ? "Remove from favorites" : "Add to favorites",
+                icon: <Star size={15} fill={isStarred ? "currentColor" : "none"} aria-hidden="true" />,
+                onClick: () => onToggleFavorite(item.key),
+              }]}
+            />
           )}
         </div>
 
         {/* Child Sub-items (Tree expansion) */}
-        {!collapsed && hasChildren && (
+        {!collapsed && hasChildren && isExpanded && (
           <div className={styles.nestedContainer}>
             <div className={styles.treeRail} aria-hidden="true" />
             <div className={styles.nestedList}>
@@ -346,7 +383,16 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       {/* Search Input */}
       {searchable && (
         <div className={styles.searchWrapper}>
-          <Search size={14} className={styles.searchIcon} aria-hidden="true" />
+          {collapsed && onToggleCollapse ? (
+            <button type="button" className={styles.collapsedSearchBtn}
+              aria-label="Expand sidebar and search"
+              onClick={() => {
+                focusSearchOnExpand.current = true;
+                onToggleCollapse?.(false);
+              }}>
+              <Search size={16} aria-hidden="true" />
+            </button>
+          ) : <Search size={14} className={styles.searchIcon} aria-hidden="true" />}
           {!collapsed && (
             <>
               <input
@@ -376,7 +422,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       )}
 
       {/* Navigation Groups */}
-      <nav className={styles.nav}>
+      <nav className={styles.nav} aria-label={navigationLabel}>
         {totalItemCount === 0 && filteredGlobalResults.length === 0 && query ? (
           <div className={styles.emptyState} role="status">
             No navigation results found
@@ -407,12 +453,10 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
                 <div key={secKey} className={styles.sectionGroup}>
                   {section.title && !collapsed && (
                     <div className={styles.sectionHeaderRow}>
-                      <button
-                        type="button"
-                        onClick={() => isCollapsible && toggleSection(secKey)}
-                        disabled={!isCollapsible}
-                        className={`${styles.sectionHeaderBtn} ${isCollapsible ? styles.interactive : ""}`}
-                        aria-expanded={isCollapsible ? !isSecCollapsed : undefined}
+                      {isCollapsible ? <button
+                        type="button" onClick={() => toggleSection(secKey)}
+                        className={`${styles.sectionHeaderBtn} ${styles.interactive}`}
+                        aria-expanded={!isSecCollapsed}
                         aria-label={`Toggle ${section.title} section`}
                       >
                         {isCollapsible && (
@@ -426,10 +470,12 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
                         <span className={styles.sectionTitle}>{section.title}</span>
                         {section.badge ? (
                           <span className={styles.sectionBadge}>{section.badge}</span>
-                        ) : (
-                          <span className={styles.sectionCount}>{section.items.length}</span>
-                        )}
-                      </button>
+                        ) : <span className={styles.sectionCount}>{section.items.length}</span>}
+                      </button> : <div className={styles.sectionHeaderBtn}>
+                        {section.icon && <span className={styles.sectionIcon}>{section.icon}</span>}
+                        <span className={styles.sectionTitle}>{section.title}</span>
+                        {section.badge && <span className={styles.sectionBadge}>{section.badge}</span>}
+                      </div>}
 
                       {section.quickAction && (
                         <button

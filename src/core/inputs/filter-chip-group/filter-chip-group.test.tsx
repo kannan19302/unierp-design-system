@@ -26,6 +26,17 @@ describe("FilterChipGroup Component", () => {
     expect(onClearAll).toHaveBeenCalled();
   });
 
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(<FilterChipGroup density="compact" />);
+    expect(container.firstChild).toHaveAttribute("data-density", "compact");
+
+    rerender(<FilterChipGroup density="ultra-compact" />);
+    expect(container.firstChild).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<FilterChipGroup density="comfortable" />);
+    expect(container.firstChild).toHaveAttribute("data-density", "comfortable");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<FilterChipGroup />);
     const results = await axe(container);

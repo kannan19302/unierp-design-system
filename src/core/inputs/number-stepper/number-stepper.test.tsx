@@ -48,6 +48,32 @@ describe("NumberStepper Component", () => {
     expect(onChange).toHaveBeenCalledWith(20);
   });
 
+  it("supports 4-tier density attributes", () => {
+    const { container, rerender } = render(<NumberStepper density="compact" defaultValue={10} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "compact");
+
+    rerender(<NumberStepper density="ultra-compact" defaultValue={10} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<NumberStepper density="comfortable" defaultValue={10} />);
+    expect(container.firstChild).toHaveAttribute("data-density", "comfortable");
+  });
+
+  it("handles invalid state and displays error message", () => {
+    render(
+      <NumberStepper
+        label="Batch Size"
+        defaultValue={0}
+        invalid
+        error="Minimum batch is 1"
+      />
+    );
+
+    const input = screen.getByRole("spinbutton");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(screen.getByRole("alert")).toHaveTextContent("Minimum batch is 1");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<NumberStepper label="Order Quantity" defaultValue={1} />);
     const results = await axe(container);

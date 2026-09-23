@@ -18,6 +18,7 @@ const meta: Meta<typeof PercentInput> = {
   component: PercentInput,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -133,3 +134,58 @@ export const AllStatesGallery = () => (
     </div>
   </div>
 );
+
+export const V1WorkspacePreview = () => {
+  const [markupRate, setMarkupRate] = useState<number | undefined>(18.5);
+  const [commissionRate, setCommissionRate] = useState<number | undefined>(3.25);
+
+  return (
+    <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "560px" }}>
+      <div style={{ marginBottom: "var(--space-4)" }}>
+        <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+          Tariff & Commission Schedule
+        </h3>
+        <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Manage statutory tariffs, agency commissions, and price adjustment margins with precision bounds.
+        </p>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
+        <PercentInput
+          label="Distributor Markup Rate"
+          value={markupRate}
+          onChange={setMarkupRate}
+          min={0}
+          max={100}
+          step={0.5}
+          density="standard"
+          required
+        />
+        <PercentInput
+          label="Broker Commission"
+          value={commissionRate}
+          onChange={setCommissionRate}
+          min={0}
+          max={20}
+          step={0.25}
+          density="standard"
+        />
+      </div>
+
+      <div style={{ marginTop: "var(--space-4)", display: "flex", justifyContent: "flex-end" }}>
+        <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+          Calculations locked after fiscal period close
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export const StateMatrix = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "480px" }}>
+    <PercentInput label="Default Populated Rate" value={12.5} />
+    <PercentInput label="Invalid Out-of-Bounds" value={150} invalid error="Rate cannot exceed 100%" />
+    <PercentInput label="Disabled Statutory Rate" value={21.0} disabled />
+  </div>
+);
+

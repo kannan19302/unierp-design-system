@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StrataBar } from "../../../core/shell/strata-bar";
 import { PageHeader } from "../../../core/layout/page-header";
 import { ServiceHealthKpiGrid } from "../../../core/dashboard/service-health-kpi-grid";
-import { KubernetesPodConsole } from "./kubernetes-pod-console";
+import { KubernetesPodConsole } from "../compute-infra/kubernetes-pod-console";
 import { FactBox, FactBoxTile, FactBoxField, FactBoxMetric } from "../../../core/layout/fact-box";
 import { Badge } from "../../../core/primitives/badge";
 import { Button } from "../../../core/primitives/button";

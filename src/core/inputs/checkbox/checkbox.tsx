@@ -10,15 +10,23 @@ export interface CheckboxProps {
   indeterminate?: boolean;
   onChange?: (checked: boolean) => void;
   disabled?: boolean;
+  invalid?: boolean;
   label?: ReactNode;
+  description?: ReactNode;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   id?: string;
+  name?: string;
+  value?: string;
+  "aria-label"?: string;
+  "aria-describedby"?: string;
   className?: string;
 }
 
 /**
  * @maturity stable
  * @since 1.0.0
- * Strata DL Checkbox primitive — supports checked, unchecked, and tri-state indeterminate states.
+ * Strata V1 Checkbox primitive — supports checked, unchecked, tri-state indeterminate,
+ * 4-tier density scaling, assistive descriptions, and high-contrast focus rings.
  */
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
@@ -28,8 +36,15 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       indeterminate = false,
       onChange,
       disabled = false,
+      invalid = false,
       label,
+      description,
+      density,
       id: customId,
+      name,
+      value,
+      "aria-label": ariaLabel,
+      "aria-describedby": customDescribedBy,
       className = "",
     },
     ref
@@ -40,6 +55,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     const generatedId = useId();
     const id = customId ?? generatedId;
+    const descId = description ? `${id}-desc` : undefined;
+    const ariaDescribedBy = [customDescribedBy, descId].filter(Boolean).join(" ") || undefined;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       if (disabled) return;
@@ -48,10 +65,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       onChange?.(next);
     };
 
+    const densityClass = density ? styles[density] : "";
     const boxClass = [
       styles.box,
       checked ? styles.checked : "",
       indeterminate ? styles.indeterminate : "",
+      invalid ? styles.invalid : "",
       disabled ? styles.disabled : "",
     ]
       .filter(Boolean)
@@ -60,14 +79,28 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     return (
       <label
         htmlFor={id}
-        className={`${styles.container} ${disabled ? styles.disabledContainer : ""} ${className}`.trim()}
+        data-density={density}
+        className={[
+          styles.container,
+          densityClass,
+          disabled ? styles.disabledContainer : "",
+          invalid ? styles.invalidContainer : "",
+          className,
+        ]
+          .filter(Boolean)
+          .join(" ")}
       >
         <input
           ref={ref}
           type="checkbox"
           id={id}
+          name={name}
+          value={value}
           checked={checked}
           disabled={disabled}
+          aria-invalid={invalid ? "true" : undefined}
+          aria-label={ariaLabel}
+          aria-describedby={ariaDescribedBy}
           onChange={handleChange}
           className={styles.hiddenInput}
         />
@@ -78,9 +111,19 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             <Check size={11} strokeWidth={3} className={styles.icon} />
           ) : null}
         </div>
-        {label && <span className={styles.labelText}>{label}</span>}
+        {(label || description) && (
+          <div className={styles.labelCol}>
+            {label && <span className={styles.labelText}>{label}</span>}
+            {description && (
+              <span id={descId} className={styles.descriptionText}>
+                {description}
+              </span>
+            )}
+          </div>
+        )}
       </label>
     );
   }
 );
+
 Checkbox.displayName = "Checkbox";

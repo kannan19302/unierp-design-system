@@ -17,6 +17,7 @@ const meta: Meta<typeof NumberStepper> = {
   component: NumberStepper,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -32,7 +33,9 @@ const meta: Meta<typeof NumberStepper> = {
     step: { control: "number", description: "Amount incremented or decremented per click." },
     precision: { control: "number", description: "Number of decimal digits allowed." },
     size: { control: "select", options: ["sm", "md", "lg"], description: "Height and button sizing tier." },
+    density: { control: "select", options: ["ultra-compact", "compact", "standard", "comfortable"], description: "4-tier density scaling." },
     disabled: { control: "boolean", description: "Disables buttons and input editing." },
+    invalid: { control: "boolean", description: "Marks input as having an error." },
   },
 };
 
@@ -136,5 +139,54 @@ export const AllStatesGallery = () => (
         </div>
       </div>
     </div>
+  </div>
+);
+
+export const V1WorkspacePreview = () => (
+  <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "600px" }}>
+    <div style={{ marginBottom: "var(--space-4)" }}>
+      <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+        Purchase Order Batch Allocation
+      </h3>
+      <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        Configure production run lot allocations and inventory thresholds with precision boundary stepping.
+      </p>
+    </div>
+
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
+      <NumberStepper
+        label="Units per Pallet"
+        defaultValue={48}
+        min={1}
+        max={144}
+        step={12}
+        density="standard"
+        required
+      />
+      <NumberStepper
+        label="Sample Rate (%)"
+        defaultValue={2.5}
+        min={0.5}
+        max={10}
+        step={0.5}
+        precision={1}
+        density="standard"
+      />
+    </div>
+
+    <div style={{ marginTop: "var(--space-4)", display: "flex", gap: "var(--space-3)", justifyContent: "flex-end" }}>
+      <div style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", alignSelf: "center" }}>
+        Total lot units calculated automatically
+      </div>
+    </div>
+  </div>
+);
+
+export const StateMatrix = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "500px" }}>
+    <NumberStepper label="Default State" defaultValue={10} min={0} max={100} />
+    <NumberStepper label="Invalid / Error State" defaultValue={0} min={1} max={100} invalid error="Minimum order quantity is 1" />
+    <NumberStepper label="Disabled State" defaultValue={25} disabled />
+    <NumberStepper label="Read-Only State" defaultValue={50} readOnly />
   </div>
 );

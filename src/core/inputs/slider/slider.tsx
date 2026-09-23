@@ -1,12 +1,13 @@
 "use client";
 
-import { forwardRef, type InputHTMLAttributes, type ChangeEvent } from "react";
+import { forwardRef, useId, type InputHTMLAttributes, type ChangeEvent } from "react";
 import styles from "./slider.module.css";
 
 /**
  * @maturity stable
  * @since 1.0.0
- * Strata DL Slider primitive — accessible continuous or discrete numerical range input.
+ * Strata V1 Slider primitive — accessible continuous or discrete numerical range input
+ * with 4-tier density scaling, tabular numeric indicators, and custom value formatting.
  */
 export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   id?: string;
@@ -17,6 +18,8 @@ export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
   onChange?: (val: number) => void;
   disabled?: boolean;
   showValue?: boolean;
+  valueFormatter?: (val: number) => string;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   "aria-label"?: string;
   className?: string;
 }
@@ -32,21 +35,38 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
       onChange,
       disabled = false,
       showValue = false,
+      valueFormatter,
+      density,
       "aria-label": ariaLabel = "Slider control",
       className = "",
       ...props
     },
     ref
   ) => {
+    const generatedId = useId();
+    const inputId = id || generatedId;
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       onChange?.(Number(e.target.value));
     };
 
+    const densityClass = density ? styles[density] : "";
+    const formattedValue = valueFormatter ? valueFormatter(value) : value;
+
     return (
-      <div className={`${styles.container} ${disabled ? styles.disabled : ""} ${className}`.trim()}>
+      <div
+        data-density={density}
+        className={[
+          styles.container,
+          densityClass,
+          disabled ? styles.disabled : "",
+          className,
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <input
           ref={ref}
-          id={id}
+          id={inputId}
           type="range"
           min={min}
           max={max}
@@ -54,17 +74,21 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
           value={value}
           disabled={disabled}
           aria-label={ariaLabel}
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuenow={value}
           onChange={handleChange}
           className={styles.rangeInput}
           {...props}
         />
         {showValue && (
           <span className={styles.valueDisplay} aria-hidden="true">
-            {value}
+            {formattedValue}
           </span>
         )}
       </div>
     );
   }
 );
+
 Slider.displayName = "Slider";

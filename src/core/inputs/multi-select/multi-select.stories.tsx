@@ -25,6 +25,7 @@ const meta: Meta<typeof MultiSelect> = {
   component: MultiSelect,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -140,3 +141,51 @@ export const AllStatesGallery: Story = {
     );
   },
 };
+
+export const V1WorkspacePreview: Story = {
+  render: () => {
+    const [selectedHubs, setSelectedHubs] = useState(["NY", "CA"]);
+
+    return (
+      <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "560px" }}>
+        <div style={{ marginBottom: "var(--space-4)" }}>
+          <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+            Distribution Logistics Hubs
+          </h3>
+          <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+            Assign order fulfillment routes across authorized enterprise distribution nodes.
+          </p>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+          <MultiSelect
+            label="Authorized Fulfillment Centers"
+            options={sampleOptions}
+            value={selectedHubs}
+            onChange={setSelectedHubs}
+            placeholder="Select regional distribution centers..."
+            density="standard"
+            required
+          />
+        </div>
+
+        <div style={{ marginTop: "var(--space-4)", display: "flex", justifyContent: "flex-end" }}>
+          <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+            Inventory synchronizes automatically across selected hubs
+          </span>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const StateMatrix: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "480px" }}>
+      <MultiSelect label="Default Selection" options={sampleOptions} value={["NY", "CA"]} onChange={() => {}} />
+      <MultiSelect label="Invalid / Empty Selection" options={sampleOptions} value={[]} invalid error="At least one distribution hub must be selected" onChange={() => {}} />
+      <MultiSelect label="Disabled State" options={sampleOptions} value={["TX"]} disabled onChange={() => {}} />
+    </div>
+  ),
+};
+

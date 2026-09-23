@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Scheduler, type SchedulerProps, type SchedulerEvent } from "./scheduler";
 
@@ -10,23 +10,30 @@ import { Scheduler, type SchedulerProps, type SchedulerEvent } from "./scheduler
  *
  * ### Key Capabilities
  * - **Hourly Granularity**: Continuous vertical timeline ranging across active operational business hours.
- * - **Event Card Clustering**: Renders multiple event cards per time slot without overlap collision.
- * - **Interactive Slot Selection**: Clickable hour rows triggering new event booking modals.
+ * - **Event Card Clustering & Categorization**: Color-coded category tags (primary, success, warning, danger).
+ * - **Interactive Slot Selection**: Keyboard & click-enabled hour rows triggering event booking callbacks.
+ * - **4-Tier Density**: Ultra-compact (28px row), Compact (36px row), Standard (48px row), Comfortable (64px row).
  */
 const meta: Meta<typeof Scheduler> = {
   title: "Core/Inputs/Scheduler",
   component: Scheduler,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
-          "Enterprise hourly timeline scheduler with event card clustering, clickable hour rows, and density scaling.",
+          "Enterprise hourly timeline scheduler with event card clustering, clickable hour rows, and 4-tier density scaling.",
       },
     },
   },
   argTypes: {
     title: { control: "text", description: "Schedule header banner title." },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "4-tier density scaling",
+    },
   },
 };
 
@@ -34,84 +41,126 @@ export default meta;
 type Story = StoryObj<typeof Scheduler>;
 
 const SAMPLE_EVENTS: SchedulerEvent[] = [
-  { id: "1", title: "Daily Production Standup (Room 304)", startHour: 9 },
-  { id: "2", title: "Vendor SLA Delivery Dispatch", startHour: 11 },
-  { id: "3", title: "Quarterly Financial Reconciliation Audit", startHour: 14 },
-  { id: "4", title: "Database Migration Maintenance Window", startHour: 18 },
+  { id: "1", title: "Daily Production Standup", subtitle: "Conf Room 304", startHour: 9, category: "primary" },
+  { id: "2", title: "Vendor SLA Delivery Dispatch", subtitle: "Gate 4", startHour: 11, category: "success" },
+  { id: "3", title: "Reconciliation Audit", subtitle: "Auditor Desk", startHour: 14, category: "warning" },
+  { id: "4", title: "Database Migration Maintenance Window", subtitle: "Infra Team", startHour: 18, category: "danger" },
 ];
 
 function InteractiveScheduler(props: Partial<SchedulerProps>) {
   const [events, setEvents] = useState<SchedulerEvent[]>(props.events ?? SAMPLE_EVENTS);
+  const [currentDate, setCurrentDate] = useState(new Date(2026, 8, 23));
 
   const handleAdd = (hour: number) => {
     const title = prompt(`Book new event for ${hour}:00:`, "Operational Triage");
     if (title) {
-      setEvents((prev) => [...prev, { id: String(Date.now()), title, startHour: hour }]);
+      setEvents((prev) => [
+        ...prev,
+        { id: String(Date.now()), title, startHour: hour, category: "primary" },
+      ]);
     }
   };
 
-  return <Scheduler events={events} onAddEvent={handleAdd} {...props} />;
+  return (
+    <Scheduler
+      date={currentDate}
+      onDateChange={setCurrentDate}
+      events={events}
+      onAddEvent={handleAdd}
+      onEventClick={(evt) => alert(`Selected Event: ${evt.title}`)}
+      {...props}
+    />
+  );
 }
 
 export const Default: Story = {
-  render: () => <InteractiveScheduler />,
+  render: () => (
+    <div style={{ maxWidth: 640 }}>
+      <InteractiveScheduler />
+    </div>
+  ),
 };
 
-/**
- * Exploded sub-component anatomy and compound composition story.
- */
-export const AnatomyAndComposition = () => (
-  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "540px" }}>
-    <div style={{ padding: "var(--space-4)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
-      <Scheduler
-        title="Plant 4 - Heavy Machinery Maintenance Timeline"
-        events={[
-          { id: "m1", title: "Turbine 1 Lubrication Cycle", startHour: 8 },
-          { id: "m2", title: "Hydraulic Pressure Sensor Recalibration", startHour: 10 },
-          { id: "m3", title: "Safety Inspector Audit Walkthrough", startHour: 13 },
-        ]}
+export const DensityTiers: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", maxWidth: 600 }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)" }}>Ultra-Compact Density (28px row)</h4>
+        <Scheduler
+          density="ultra-compact"
+          title="Line 1 Shifts (Ultra-Compact)"
+          startHour={8}
+          endHour={13}
+          events={SAMPLE_EVENTS}
+        />
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)" }}>Compact Density (36px row)</h4>
+        <Scheduler
+          density="compact"
+          title="Line 2 Shifts (Compact)"
+          startHour={8}
+          endHour={13}
+          events={SAMPLE_EVENTS}
+        />
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)" }}>Standard Density (48px row)</h4>
+        <Scheduler
+          density="standard"
+          title="Plant Maintenance (Standard)"
+          startHour={8}
+          endHour={13}
+          events={SAMPLE_EVENTS}
+        />
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)" }}>Comfortable Density (64px row)</h4>
+        <Scheduler
+          density="comfortable"
+          title="Executive Schedule (Comfortable)"
+          startHour={8}
+          endHour={13}
+          events={SAMPLE_EVENTS}
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const StateMatrix: Story = {
+  render: () => (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "var(--space-4)" }}>
+      <div style={{ padding: "var(--space-3)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)" }}>Populated Schedule</h4>
+        <Scheduler title="Active Day Schedule" events={SAMPLE_EVENTS} startHour={9} endHour={14} />
+      </div>
+
+      <div style={{ padding: "var(--space-3)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)" }}>Empty Schedule</h4>
+        <Scheduler title="Sunday Off-shift (Empty)" events={[]} startHour={9} endHour={14} />
+      </div>
+    </div>
+  ),
+};
+
+export const V1WorkspacePreview: Story = {
+  render: () => (
+    <div style={{ padding: "var(--space-4)", background: "var(--color-surface-subtle)", borderRadius: "var(--radius-lg)", maxWidth: 720 }}>
+      <div style={{ marginBottom: "var(--space-3)", borderBottom: "1px solid var(--color-border)", paddingBottom: "var(--space-2)" }}>
+        <h3 style={{ margin: 0, fontSize: "var(--font-size-md)", fontWeight: "var(--weight-semibold)" }}>Facility Shift Dispatcher</h3>
+        <p style={{ margin: 0, fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
+          Monitor loading dock reservations, maintenance slots, and supervisor walkthrough schedules.
+        </p>
+      </div>
+      <InteractiveScheduler
+        title="Dock Bay 4 - Inbound Deliveries"
+        startHour={7}
+        endHour={16}
       />
     </div>
-  </div>
-);
-
-/**
- * All States Gallery rendering all lifecycle, event density, and density variants.
- */
-export const AllStatesGallery = () => (
-  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", maxWidth: "600px" }}>
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-      <h4 style={{ margin: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-        Populated & Empty Scheduler States
-      </h4>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
-        <div>
-          <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", display: "block", marginBottom: "var(--space-2)" }}>
-            Populated Schedule
-          </span>
-          <Scheduler title="Active Ops Day" events={SAMPLE_EVENTS} />
-        </div>
-        <div>
-          <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", display: "block", marginBottom: "var(--space-2)" }}>
-            Empty Schedule (No Bookings)
-          </span>
-          <Scheduler title="Open Weekend Shift" events={[]} />
-        </div>
-      </div>
-    </div>
-
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-      <h4 style={{ margin: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-        4-Tier Ergonomic Density Matrix
-      </h4>
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-        <div data-density="ultra-compact" style={{ padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
-          <Scheduler title="Ultra-Compact (24px) Schedule" events={[{ id: "1", title: "Quick Shift", startHour: 9 }]} />
-        </div>
-        <div data-density="standard" style={{ padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
-          <Scheduler title="Standard (32px) Schedule" events={[{ id: "1", title: "Standard Meeting", startHour: 10 }]} />
-        </div>
-      </div>
-    </div>
-  </div>
-);
+  ),
+};

@@ -2,6 +2,23 @@
    UniERP Design Language 1.0 — FiscalPeriodPicker Styles
    ══════════════════════════════════════════════════════════════ */
 
+.rootContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+}
+
+.label {
+  font-size: var(--type-caption);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.requiredMark {
+  color: var(--color-danger);
+}
+
 .container {
   display: inline-flex;
   align-items: center;
@@ -30,7 +47,9 @@
 .select {
   appearance: none;
   height: var(--density-control-height, 32px);
-  padding: 0 var(--space-7) 0 var(--density-control-padding-x, var(--space-3));
+  padding-block: 0;
+  padding-inline-start: var(--density-control-padding-x, var(--space-3));
+  padding-inline-end: var(--space-7);
   font-family: var(--font-sans);
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
@@ -39,6 +58,9 @@
   border-radius: var(--radius-sm, 2px);
   outline: none;
   cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
 }
 
 .select:focus {
@@ -46,15 +68,48 @@
   box-shadow: 0 0 0 1px var(--color-primary);
 }
 
+.invalid .select {
+  border-color: var(--color-danger) !important;
+}
+
+.invalid .select:focus {
+  box-shadow: 0 0 0 1px var(--color-danger) !important;
+}
+
 .arrow {
   position: absolute;
-  right: var(--space-2-5);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-left: var(--space-1, 4px) solid transparent;
-  border-right: var(--space-1, 4px) solid transparent;
-  border-top: var(--select-arrow-height, 5px) solid var(--surface-text-secondary, var(--color-text-secondary));
+  inset-inline-end: var(--space-2);
+  color: var(--surface-text-secondary, var(--color-text-secondary));
   pointer-events: none;
+}
+
+.errorMessage {
+  font-size: var(--type-caption);
+  color: var(--color-danger);
+  margin-block-start: var(--space-1);
+}
+
+/* 4-Tier Density */
+.container[data-density="ultra-compact"] .select,
+:global([data-density="ultra-compact"]) .container .select {
+  height: var(--density-control-height-ultra-compact, 24px);
+  font-size: var(--type-micro, 11px);
+}
+
+.container[data-density="compact"] .select,
+:global([data-density="compact"]) .container .select {
+  height: var(--density-control-height-compact, 28px);
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.container[data-density="standard"] .select,
+:global([data-density="standard"]) .container .select {
+  height: var(--density-control-height-standard, 32px);
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.container[data-density="comfortable"] .select,
+:global([data-density="comfortable"]) .container .select {
+  height: var(--density-control-height-comfortable, 40px);
+  font-size: var(--type-body, var(--text-base));
 }

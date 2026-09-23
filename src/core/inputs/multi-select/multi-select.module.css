@@ -2,6 +2,24 @@
    UniERP Design Language 1.0 — MultiSelect Styles
    ══════════════════════════════════════════════════════════════ */
 
+.rootContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  width: 100%;
+}
+
+.label {
+  font-size: var(--type-caption);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.requiredMark {
+  color: var(--color-danger);
+}
+
 .container {
   position: relative;
   width: 100%;
@@ -9,28 +27,39 @@
   box-sizing: border-box;
 }
 
-.disabled {
-  opacity: 0.6;
-  pointer-events: none;
-}
-
 .trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: var(--density-control-height, 32px);
-  padding: 2px var(--density-control-padding-x, var(--space-3));
+  padding-block: 2px;
+  padding-inline: var(--density-control-padding-x, var(--space-3));
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
   cursor: pointer;
   outline: none;
   box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
 }
 
 .trigger:focus-visible {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.invalid {
+  border-color: var(--color-danger) !important;
+}
+
+.invalid:focus-visible {
+  box-shadow: 0 0 0 1px var(--color-danger) !important;
 }
 
 .tagList {
@@ -53,8 +82,9 @@
   color: var(--surface-text-primary, var(--color-text));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
-  padding: 1px var(--space-1-5);
-  font-size: var(--type-micro, 11px);
+  padding-block: 1px;
+  padding-inline: var(--space-1-5);
+  font-size: var(--type-micro);
   line-height: 1;
 }
 
@@ -64,21 +94,25 @@
   justify-content: center;
   background: none;
   border: none;
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
   cursor: pointer;
   color: inherit;
   opacity: 0.7;
+  border-radius: var(--radius-xs, 2px);
 }
 
-.removeBtn:hover {
+.removeBtn:hover,
+.removeBtn:focus-visible {
   opacity: 1;
+  outline: 1px solid var(--color-primary);
 }
 
 .chevron {
   color: var(--surface-text-secondary, var(--color-text-muted));
   transition: transform var(--duration-fast) var(--ease-default);
   flex-shrink: 0;
-  margin-left: var(--space-2);
+  margin-inline-start: var(--space-2);
 }
 
 .openChevron {
@@ -88,15 +122,16 @@
 .dropdown {
   position: absolute;
   top: calc(100% + var(--space-1, 4px));
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
   box-shadow: var(--shadow-md);
   list-style: none;
   margin: 0;
-  padding: var(--space-1) 0;
+  padding-block: var(--space-1);
+  padding-inline: 0;
   max-height: var(--select-menu-max-height, 220px);
   overflow-y: auto;
   z-index: var(--z-dropdown, 100);
@@ -106,19 +141,27 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-1-5) var(--space-3);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
   cursor: pointer;
   user-select: none;
 }
 
-.option:hover:not(.disabledOption) {
+.option:hover:not(.disabledOption),
+.optionFocused:not(.disabledOption) {
   background: var(--surface-hover, var(--color-bg-sunken));
+}
+
+.optionFocused:not(.disabledOption) {
+  outline: 1px solid var(--color-primary);
+  outline-offset: -1px;
 }
 
 .selectedOption {
   background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .disabledOption {
@@ -126,23 +169,54 @@
   cursor: not-allowed;
 }
 
-.checkSquare {
-  width: var(--size-check-sm, 14px);
-  height: var(--size-check-sm, 14px);
-  border: 1px solid var(--surface-1-border, var(--color-border));
-  border-radius: 2px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
-.checkSquareActive {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-text-inverse, #ffffff);
-}
-
 .optionLabel {
   flex: 1;
+}
+
+.checkIcon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.errorMessage {
+  font-size: var(--type-caption);
+  color: var(--color-danger);
+  margin-block-start: var(--space-1);
+}
+
+/* 4-Tier Density */
+.trigger[data-density="ultra-compact"],
+:global([data-density="ultra-compact"]) .trigger {
+  min-height: var(--density-control-height-ultra-compact, 24px);
+}
+.trigger[data-density="ultra-compact"] .placeholder,
+:global([data-density="ultra-compact"]) .trigger .placeholder {
+  font-size: var(--type-micro);
+}
+
+.trigger[data-density="compact"],
+:global([data-density="compact"]) .trigger {
+  min-height: var(--density-control-height-compact, 28px);
+}
+.trigger[data-density="compact"] .placeholder,
+:global([data-density="compact"]) .trigger .placeholder {
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.trigger[data-density="standard"],
+:global([data-density="standard"]) .trigger {
+  min-height: var(--density-control-height-standard, 32px);
+}
+.trigger[data-density="standard"] .placeholder,
+:global([data-density="standard"]) .trigger .placeholder {
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.trigger[data-density="comfortable"],
+:global([data-density="comfortable"]) .trigger {
+  min-height: var(--density-control-height-comfortable, 40px);
+}
+.trigger[data-density="comfortable"] .placeholder,
+:global([data-density="comfortable"]) .trigger .placeholder {
+  font-size: var(--type-body, var(--text-base));
 }

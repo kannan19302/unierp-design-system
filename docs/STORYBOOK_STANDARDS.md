@@ -2,6 +2,8 @@
 
 This guide documents the enterprise Storybook standards required for all components in `@kannan19302/ui`.
 
+For V1 component upgrades, use the [approved SideNav quality reference and elevation workflow](DESIGN_SYSTEM_STANDARDS.md#v1-component-elevation-golden-reference). Storybook variants should reflect each component's own semantics and states.
+
 ## 1. Golden Rules for Storybook Stories
 
 1. **Every Component Must Have Autodocs**:

@@ -1,37 +1,48 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — Switch Primitive Styles
+   Strata V1 — Switch Primitive Styles
+   Binary toggle, 4-tier density, CSS logical properties,
+   and accessible focus outlines.
    ══════════════════════════════════════════════════════════════ */
 
 .container {
   display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
+  align-items: flex-start;
+  gap: var(--space-2, 8px);
   cursor: pointer;
   user-select: none;
   font-family: var(--font-sans);
+  line-height: var(--leading-normal, 1.5);
 }
 
 .disabledContainer {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .track {
   position: relative;
   width: var(--switch-width, 34px);
   height: var(--switch-height, 20px);
-  border-radius: var(--radius-full);
-  background: var(--surface-sunken-bg, var(--color-bg-sunken));
-  border: 1px solid var(--surface-1-border, var(--color-border));
+  min-width: var(--switch-width, 34px);
+  min-height: var(--switch-height, 20px);
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-bg-sunken);
+  border: 1px solid var(--color-border);
   transition: background var(--duration-fast) var(--ease-default),
               border-color var(--duration-fast) var(--ease-default);
   outline: none;
   box-sizing: border-box;
   flex-shrink: 0;
+  margin-block-start: var(--space-0-5, 2px);
+}
+
+.container:hover:not(.disabledContainer) .track {
+  border-color: var(--color-border-strong);
 }
 
 .track:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-border-focus);
+  border-color: var(--color-border-focus);
 }
 
 .checked {
@@ -39,15 +50,25 @@
   border-color: var(--color-primary);
 }
 
+.container:hover:not(.disabledContainer) .checked {
+  background: var(--color-primary-hover, var(--color-primary));
+  border-color: var(--color-primary-hover, var(--color-primary));
+}
+
+.disabled {
+  background: var(--color-bg-sunken);
+  border-color: var(--color-border);
+}
+
 .thumb {
   position: absolute;
   top: 1px;
-  left: 1px;
+  inset-inline-start: 1px;
   width: var(--switch-thumb-size, 16px);
   height: var(--switch-thumb-size, 16px);
-  border-radius: 50%;
+  border-radius: var(--radius-full, 9999px);
   background: var(--color-text-inverse, #ffffff);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs, 0 1px 2px rgba(0, 0, 0, 0.1));
   transition: transform var(--duration-fast) var(--ease-default);
 }
 
@@ -55,7 +76,89 @@
   transform: translateX(var(--switch-thumb-offset, 14px));
 }
 
+[dir="rtl"] .checked .thumb {
+  transform: translateX(calc(-1 * var(--switch-thumb-offset, 14px)));
+}
+
+.labelCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
 .labelText {
   font-size: var(--type-dense, var(--text-sm));
-  color: var(--surface-text-primary, var(--color-text));
+  color: var(--color-text);
+  font-weight: var(--weight-normal, 400);
+}
+
+.descriptionText {
+  font-size: var(--type-micro, 11px);
+  color: var(--color-text-muted);
+  line-height: var(--leading-tight, 1.25);
+}
+
+/* ── 4-Tier Ergonomic Density Matrix (ADR-0009) ───────────── */
+/* Ultra-Compact (24px row context) */
+[data-density="ultra-compact"] .track,
+.container[data-density="ultra-compact"] .track,
+.container.ultra-compact .track {
+  --switch-width: var(--switch-width-ultra-compact, 26px);
+  --switch-height: var(--switch-height-ultra-compact, 14px);
+  --switch-thumb-size: var(--switch-thumb-ultra-compact, 10px);
+  --switch-thumb-offset: var(--switch-offset-ultra-compact, 12px);
+}
+
+[data-density="ultra-compact"] .labelText,
+.container[data-density="ultra-compact"] .labelText,
+.container.ultra-compact .labelText {
+  font-size: var(--type-micro, 11px);
+}
+
+/* Compact (28px row context) */
+[data-density="compact"] .track,
+.container[data-density="compact"] .track,
+.container.compact .track {
+  --switch-width: var(--switch-width-compact, 30px);
+  --switch-height: var(--switch-height-compact, 16px);
+  --switch-thumb-size: var(--switch-thumb-compact, 12px);
+  --switch-thumb-offset: var(--switch-offset-compact, 14px);
+}
+
+[data-density="compact"] .labelText,
+.container[data-density="compact"] .labelText,
+.container.compact .labelText {
+  font-size: var(--type-dense, 12px);
+}
+
+/* Standard (32px row context — default) */
+[data-density="standard"] .track,
+.container[data-density="standard"] .track,
+.container.standard .track {
+  --switch-width: var(--switch-width-standard, 34px);
+  --switch-height: var(--switch-height-standard, 20px);
+  --switch-thumb-size: var(--switch-thumb-standard, 16px);
+  --switch-thumb-offset: var(--switch-offset-standard, 14px);
+}
+
+[data-density="standard"] .labelText,
+.container[data-density="standard"] .labelText,
+.container.standard .labelText {
+  font-size: var(--text-sm, 13px);
+}
+
+/* Comfortable (40px row context) */
+[data-density="comfortable"] .track,
+.container[data-density="comfortable"] .track,
+.container.comfortable .track {
+  --switch-width: var(--switch-width-comfortable, 42px);
+  --switch-height: var(--switch-height-comfortable, 24px);
+  --switch-thumb-size: var(--switch-thumb-comfortable, 20px);
+  --switch-thumb-offset: var(--switch-offset-comfortable, 18px);
+}
+
+[data-density="comfortable"] .labelText,
+.container[data-density="comfortable"] .labelText,
+.container.comfortable .labelText {
+  font-size: var(--text-base, 14px);
 }

@@ -19,6 +19,7 @@ const meta: Meta<typeof InlineEdit> = {
   component: InlineEdit,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -131,3 +132,53 @@ export const AllStatesGallery = () => (
     </div>
   </div>
 );
+
+export const V1WorkspacePreview = () => {
+  const [accountName, setAccountName] = useState("Acme Aerospace Industries LLC");
+  const [accountCode, setAccountCode] = useState("CORP-9840-US");
+
+  return (
+    <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "560px" }}>
+      <div style={{ marginBottom: "var(--space-4)" }}>
+        <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+          Enterprise Account Details
+        </h3>
+        <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Click any record attribute to initiate in-place editing with keyboard commit and validation.
+        </p>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+        <InlineEdit
+          label="Entity Legal Registered Name"
+          value={accountName}
+          onSave={(val) => setAccountName(val)}
+          density="standard"
+          required
+          validate={(val) => (!val.trim() ? "Legal name cannot be empty" : null)}
+        />
+        <InlineEdit
+          label="Tax Reference / Entity Code"
+          value={accountCode}
+          onSave={(val) => setAccountCode(val)}
+          density="standard"
+        />
+      </div>
+
+      <div style={{ marginTop: "var(--space-4)", display: "flex", justifyContent: "flex-end" }}>
+        <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+          Press Enter to save or Escape to discard changes
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export const StateMatrix = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "480px" }}>
+    <InlineEdit label="Standard Committed Record" value="Enterprise Plan Tier 4" onSave={() => {}} />
+    <InlineEdit label="Empty / Unset Record" value="" placeholder="Add internal description..." onSave={() => {}} />
+    <InlineEdit label="Disabled / Locked by Audit Policy" value="LOCKED-GL-2026" disabled onSave={() => {}} />
+  </div>
+);
+

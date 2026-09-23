@@ -18,6 +18,7 @@ const meta: Meta<typeof CurrencyInput> = {
   component: CurrencyInput,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -139,3 +140,55 @@ export const AllStatesGallery = () => (
     </div>
   </div>
 );
+
+export const V1WorkspacePreview = () => {
+  const [lineAmount, setLineAmount] = useState<number | undefined>(4250.0);
+  const [discount, setDiscount] = useState<number | undefined>(-150.0);
+
+  return (
+    <div style={{ padding: "var(--space-6)", background: "var(--color-bg-canvas)", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", maxWidth: "560px" }}>
+      <div style={{ marginBottom: "var(--space-4)" }}>
+        <h3 style={{ margin: 0, fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)" }}>
+          General Ledger Journal Entry
+        </h3>
+        <p style={{ margin: "var(--space-1) 0 0 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Posting financial debits and credits with currency formatting and negative deficit detection.
+        </p>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
+        <CurrencyInput
+          label="Line Item Debit"
+          currencySymbol="$"
+          value={lineAmount}
+          onChange={setLineAmount}
+          density="standard"
+          required
+        />
+        <CurrencyInput
+          label="Adjustment Discount"
+          currencySymbol="$"
+          value={discount}
+          onChange={setDiscount}
+          density="standard"
+        />
+      </div>
+
+      <div style={{ marginTop: "var(--space-4)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+          All ledger entries are audited against SOX compliance rules
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export const StateMatrix = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "480px" }}>
+    <CurrencyInput label="Default Positive Amount" currencySymbol="$" value={1490.5} />
+    <CurrencyInput label="Negative Deficit (Debit Alert)" currencySymbol="$" value={-350.0} />
+    <CurrencyInput label="Invalid / Error State" currencySymbol="$" value={0} invalid error="Debit amount cannot be zero" />
+    <CurrencyInput label="Disabled Posted Amount" currencySymbol="$" value={98500} disabled />
+  </div>
+);
+

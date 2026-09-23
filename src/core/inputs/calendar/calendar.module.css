@@ -1,16 +1,28 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Calendar Styles
+   ══════════════════════════════════════════════════════════════ */
+
 .calendar {
   width: var(--calendar-width, var(--space-72, 17.5rem));
-  padding: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-bg-elevated, var(--color-bg-surface));
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-3);
+  margin-block-end: var(--space-3);
 }
 
 .navButton {
@@ -18,14 +30,28 @@
   border: none;
   cursor: pointer;
   color: var(--color-text);
-  padding: var(--space-1);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1);
   border-radius: var(--radius-sm);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.navButton:hover:not(:disabled) {
+  background-color: var(--color-bg-hover, var(--color-surface-hover));
+}
+
+.navButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .monthLabel {
   font-weight: var(--font-weight-semibold, 600);
   font-size: var(--type-body-sm);
+  color: var(--color-text);
 }
 
 .grid {
@@ -39,11 +65,14 @@
   font-size: var(--type-micro, 10px);
   color: var(--color-text-secondary);
   font-weight: var(--font-weight-semibold, 600);
-  padding-bottom: var(--space-1);
+  padding-block-end: var(--space-1);
 }
 
 .dayCell {
-  padding: var(--space-1-5, 6px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--density-control-height, 32px);
   font-size: var(--type-micro, 12px);
   border-radius: var(--radius-sm);
   border: none;
@@ -51,14 +80,66 @@
   cursor: pointer;
   color: var(--color-text);
   font-variant-numeric: tabular-nums;
+  transition: background-color var(--duration-fast) var(--ease-default),
+              color var(--duration-fast) var(--ease-default);
 }
 
-.dayCell:hover {
-  background: var(--color-bg-hover, rgba(0,0,0,0.05));
+.dayCell:hover:not(:disabled):not(.dayCellSelected) {
+  background: var(--color-bg-hover, var(--color-surface-hover));
+}
+
+.dayCell:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .dayCellSelected {
   background: var(--platform-accent, var(--color-primary));
-  color: var(--on-primary, #ffffff);
+  color: var(--color-text-inverse, #ffffff);
   font-weight: var(--font-weight-bold, 700);
+}
+
+/* 4-Tier Density */
+.calendar[data-density="ultra-compact"],
+:global([data-density="ultra-compact"]) .calendar {
+  width: var(--space-60, 15rem);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+}
+.calendar[data-density="ultra-compact"] .dayCell,
+:global([data-density="ultra-compact"]) .calendar .dayCell {
+  height: var(--density-control-height-ultra-compact, 24px);
+  font-size: var(--type-micro, 10px);
+}
+
+.calendar[data-density="compact"],
+:global([data-density="compact"]) .calendar {
+  width: var(--space-64, 16rem);
+}
+.calendar[data-density="compact"] .dayCell,
+:global([data-density="compact"]) .calendar .dayCell {
+  height: var(--density-control-height-compact, 28px);
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.calendar[data-density="standard"],
+:global([data-density="standard"]) .calendar {
+  width: var(--calendar-width, var(--space-72, 17.5rem));
+}
+.calendar[data-density="standard"] .dayCell,
+:global([data-density="standard"]) .calendar .dayCell {
+  height: var(--density-control-height-standard, 32px);
+  font-size: var(--type-dense, var(--text-sm));
+}
+
+.calendar[data-density="comfortable"],
+:global([data-density="comfortable"]) .calendar {
+  width: var(--space-80, 20rem);
+  padding-block: var(--space-4);
+  padding-inline: var(--space-4);
+}
+.calendar[data-density="comfortable"] .dayCell,
+:global([data-density="comfortable"]) .calendar .dayCell {
+  height: var(--density-control-height-comfortable, 40px);
+  font-size: var(--type-body, var(--text-base));
 }

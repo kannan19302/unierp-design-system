@@ -10,6 +10,37 @@ describe("RichTextEditor Primitive", () => {
     render(<RichTextEditor value="Initial text" onChange={onChange} />);
     const textarea = screen.getByDisplayValue("Initial text");
     expect(textarea).toBeInTheDocument();
+    expect(screen.getByRole("toolbar")).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(<RichTextEditor density="ultra-compact" />);
+    expect(container.firstChild).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<RichTextEditor density="comfortable" />);
+    expect(container.firstChild).toHaveAttribute("data-density", "comfortable");
+  });
+
+  it("applies bold formatting via toolbar button", () => {
+    const onChange = vi.fn();
+    render(<RichTextEditor value="hello" onChange={onChange} />);
+
+    const boldBtn = screen.getByRole("button", { name: /bold text formatting/i });
+    fireEvent.click(boldBtn);
+
+    expect(onChange).toHaveBeenCalledWith("****hello");
+  });
+
+  it("renders error state and sets aria-invalid", () => {
+    render(
+      <RichTextEditor
+        id="rich-test"
+        error="Field is required"
+        invalid
+      />,
+    );
+    expect(screen.getByRole("alert")).toHaveTextContent("Field is required");
+    expect(screen.getByRole("textbox")).toHaveAttribute("aria-invalid", "true");
   });
 
   it("sanitizes dangerous tags correctly", () => {
@@ -21,7 +52,7 @@ describe("RichTextEditor Primitive", () => {
   });
 
   it("has zero accessibility violations", async () => {
-    const { container } = render(<RichTextEditor value="Invoice details" />);
+    const { container } = render(<RichTextEditor label="Invoice notes" value="Invoice details" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

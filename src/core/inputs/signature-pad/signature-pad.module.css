@@ -5,9 +5,75 @@
 .container {
   display: inline-flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-1-5, 6px);
   font-family: var(--font-sans);
   box-sizing: border-box;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.requiredIndicator {
+  color: var(--color-danger, #ef4444);
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-size: var(--type-micro);
+  color: var(--color-text-tertiary);
+}
+
+.modeTabs {
+  display: inline-flex;
+  gap: var(--space-1);
+  background: var(--color-bg-sunken, #f8fafc);
+  padding-block: var(--space-0-5, 2px);
+  padding-inline: var(--space-0-5, 2px);
+  border-radius: var(--radius-sm);
+  border: var(--border-width, 1px) solid var(--color-border);
+  align-self: flex-start;
+}
+
+.modeTab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-block: var(--space-0-5, 2px);
+  padding-inline: var(--space-2);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: var(--type-micro);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-xs, 2px);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.modeTab:hover:not(:disabled) {
+  color: var(--color-text-primary);
+}
+
+.modeTab:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.modeTabActive {
+  background: var(--color-surface, #ffffff);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .disabled {
@@ -15,37 +81,161 @@
   pointer-events: none;
 }
 
-.canvas {
-  border: 1px solid var(--surface-1-border, var(--color-border));
+.canvasWrapper {
+  position: relative;
+  display: inline-flex;
+  border: var(--border-width, 1px) solid var(--color-border);
   border-radius: var(--radius-sm, 2px);
-  background: var(--color-bg-elevated, #ffffff);
+  background: var(--color-surface, #ffffff);
+  overflow: hidden;
+  transition: border-color var(--duration-fast) var(--ease-default);
+}
+
+.canvasWrapper:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
+}
+
+.canvasError {
+  border-color: var(--color-danger, #ef4444);
+}
+
+.canvas {
   cursor: crosshair;
   touch-action: none;
+  display: block;
+}
+
+.baselineGuide {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  inset-inline-end: var(--space-4);
+  bottom: var(--space-6, 24px);
+  border-block-end: 1px dashed var(--color-border-subtle, #cbd5e1);
+  pointer-events: none;
+}
+
+/* Accessible Type Signature Mode */
+.typeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
+  background: var(--color-surface, #ffffff);
+  box-sizing: border-box;
+}
+
+.typedInput {
+  width: 100%;
+  height: var(--density-control-height-sm, 28px);
+  padding-block: 0;
+  padding-inline: var(--space-2);
+  border: var(--border-width, 1px) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.typedInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.typedPreviewBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--color-border-subtle, #cbd5e1);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-sunken, #f8fafc);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+  min-height: var(--space-12, 48px);
+  box-sizing: border-box;
+}
+
+.typedPreview {
+  font-family: "Brush Script MT", "Caveat", "Segoe Script", cursive, sans-serif;
+  font-size: var(--text-lg, 18px);
+  color: var(--color-text-primary);
+  font-style: italic;
+  user-select: none;
 }
 
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.hintSection {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.hintIcon {
+  color: var(--color-text-tertiary);
 }
 
 .hint {
-  font-size: var(--type-micro, 11px);
-  color: var(--surface-text-secondary, var(--color-text-muted));
+  font-size: var(--type-micro);
+  color: var(--color-text-secondary);
 }
 
 .clearBtn {
-  padding: var(--space-1) var(--space-2);
-  border: 1px solid var(--surface-1-border, var(--color-border));
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  border: var(--border-width, 1px) solid var(--color-border);
   border-radius: var(--radius-sm, 2px);
-  background: var(--surface-1-bg, var(--color-bg-elevated));
-  color: var(--surface-text-primary, var(--color-text));
-  font-size: var(--type-micro, 11px);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--type-micro);
   font-family: var(--font-sans);
   cursor: pointer;
   outline: none;
+  transition: background-color var(--duration-fast) var(--ease-default);
 }
 
-.clearBtn:hover {
-  background: var(--surface-hover, var(--color-bg-sunken));
+.clearBtn:hover:not(:disabled) {
+  background: var(--color-surface-hover, #f1f5f9);
+}
+
+.clearBtn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.clearBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  font-family: var(--font-sans);
+  font-size: var(--type-micro);
+  color: var(--color-danger, #ef4444);
+  font-weight: var(--weight-medium);
+}
+
+/* 4-Tier Density */
+.container[data-density="ultra-compact"] .footer {
+  font-size: var(--type-micro);
+}
+
+.container[data-density="ultra-compact"] .baselineGuide {
+  bottom: var(--space-4, 16px);
+}
+
+.container[data-density="comfortable"] .baselineGuide {
+  bottom: var(--space-8, 32px);
 }

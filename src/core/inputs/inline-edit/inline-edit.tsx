@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, forwardRef, type HTMLAttributes, type KeyboardEvent } from "react";
+import { useState, useRef, useEffect, forwardRef, useId, type HTMLAttributes, type KeyboardEvent } from "react";
 import { Check, X, Pencil } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./inline-edit.module.css";
@@ -11,24 +11,30 @@ import styles from "./inline-edit.module.css";
  * Strata DL InlineEdit primitive — in-place cell/title editing with keyboard Enter/Escape bindings and validation.
  */
 export interface InlineEditProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSave"> {
+  id?: string;
   value: string;
   onSave: (value: string) => void | Promise<void>;
   label?: string;
   placeholder?: string;
   disabled?: boolean;
+  required?: boolean;
   type?: "text" | "number";
   validate?: (val: string) => string | null;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
 export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(({
+  id,
   value,
   onSave,
   label,
   placeholder = "Click to edit...",
   disabled = false,
+  required = false,
   type = "text",
   validate,
+  density,
   className,
   ...props
 }, ref) => {
@@ -98,13 +104,28 @@ export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(({
     }
   };
 
+  const generatedId = useId();
+  const inputId = id || generatedId;
+  const errorId = error ? `${inputId}-error` : undefined;
+
   if (isEditing) {
     return (
-      <div ref={ref} className={cn(styles.container, styles.editing, className)} {...props}>
-        {label && <span className={styles.label}>{label}</span>}
+      <div
+        ref={ref}
+        data-density={density}
+        className={cn(styles.container, styles.editing, density && styles[density], className)}
+        {...props}
+      >
+        {label && (
+          <label htmlFor={inputId} className={styles.label}>
+            {label}
+            {required && <span className={styles.requiredMark} aria-hidden="true"> *</span>}
+          </label>
+        )}
         <div className={styles.inputWrapper}>
           <input
             ref={inputRef}
+            id={inputId}
             type={type}
             value={draft}
             disabled={isSaving}
@@ -116,6 +137,7 @@ export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(({
             className={cn(styles.input, error && styles.inputError)}
             aria-label={label ?? placeholder}
             aria-invalid={!!error}
+            aria-describedby={errorId}
           />
           <div className={styles.actions}>
             <button
@@ -138,7 +160,11 @@ export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(({
             </button>
           </div>
         </div>
-        {error && <span className={styles.errorMessage} role="alert">{error}</span>}
+        {error && (
+          <span id={errorId} className={styles.errorMessage} role="alert">
+            {error}
+          </span>
+        )}
       </div>
     );
   }
@@ -146,7 +172,14 @@ export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(({
   return (
     <div
       ref={ref}
-      className={cn(styles.container, styles.display, disabled && styles.disabled, className)}
+      data-density={density}
+      className={cn(
+        styles.container,
+        styles.display,
+        density && styles[density],
+        disabled && styles.disabled,
+        className
+      )}
       onClick={handleStartEditing}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -159,7 +192,12 @@ export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(({
       aria-label={label ? `${label}: ${value || placeholder}` : `Edit: ${value || placeholder}`}
       {...props}
     >
-      {label && <span className={styles.label}>{label}</span>}
+      {label && (
+        <span className={styles.label}>
+          {label}
+          {required && <span className={styles.requiredMark} aria-hidden="true"> *</span>}
+        </span>
+      )}
       <div className={styles.displayContent}>
         <span className={cn(styles.valueText, !value && styles.placeholder)}>
           {value || placeholder}

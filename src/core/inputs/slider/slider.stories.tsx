@@ -3,21 +3,19 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Slider, type SliderProps } from "./slider";
 
 /**
- * ## Slider Primitive
+ * ## Strata V1 Slider Primitive
  *
- * Accessible continuous and stepped range slider for adjusting percentages, thresholds,
- * allocation ratios, and rollout increments.
- *
- * ### Key Capabilities
- * - **W3C Range Semantics**: Native HTML range input with aria-valuemin, aria-valuemax, and aria-valuenow.
- * - **Value Readout**: Integrated numerical readout display badge.
- * - **Step Snapping**: Granular stepped increments for defined financial percentage thresholds.
+ * Accessible continuous and stepped range slider engineered to the SideNav V1 reference standard:
+ * - **W3C Range Semantics**: Native HTML range input with `aria-valuemin`, `aria-valuemax`, and `aria-valuenow`.
+ * - **Tabular Value Readout**: Monospace tabular-nums indicator badge for financial precision.
+ * - **4-Tier Density**: `ultra-compact` (24px context), `compact` (28px), `standard` (32px), `comfortable` (40px).
  */
 const meta: Meta<typeof Slider> = {
   title: "Core/Inputs/Slider",
   component: Slider,
   tags: ["autodocs"],
   parameters: {
+    a11y: { test: "error" },
     docs: {
       description: {
         component:
@@ -37,95 +35,194 @@ const meta: Meta<typeof Slider> = {
 export default meta;
 type Story = StoryObj<typeof Slider>;
 
-function InteractiveSlider(props: Partial<SliderProps>) {
-  const [val, setVal] = useState(props.value ?? 60);
-  return <Slider value={val} onChange={setVal} showValue {...props} />;
-}
+function ReserveAllocationWorkbench() {
+  const [reserveRatio, setReserveRatio] = useState(35);
+  const [interestSpread, setInterestSpread] = useState(1.75);
+  const [density, setDensity] = useState<"ultra-compact" | "compact" | "standard" | "comfortable">("standard");
 
-export const Default: Story = {
-  render: () => <InteractiveSlider value={60} />,
-};
-
-export const Stepped: Story = {
-  render: () => <InteractiveSlider min={0} max={100} step={25} value={50} />,
-};
-
-/**
- * Exploded sub-component anatomy and compound composition story.
- */
-export const AnatomyAndComposition = () => {
-  const [reserve, setReserve] = useState(35);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: "480px" }}>
-      <div style={{ padding: "var(--space-4)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-2)" }}>
-          <span style={{ fontSize: "var(--text-sm)", fontWeight: "var(--font-medium)", color: "var(--color-text-primary)" }}>
-            Cash Reserve Liquidity Ratio
-          </span>
-          <span style={{ fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)", color: "var(--color-primary)" }}>
-            {reserve}% Target
-          </span>
+    <div
+      data-density={density}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--space-4)",
+        maxWidth: "540px",
+        padding: "var(--space-6)",
+        background: "var(--color-bg)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "var(--radius-md)",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          <h3 style={{ margin: 0, fontSize: "var(--text-base)", fontWeight: 600, color: "var(--color-text)" }}>
+            Liquidity Buffer Allocation
+          </h3>
+          <p style={{ margin: "var(--space-0-5) 0 0", fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>
+            Treasury allocation controls with real-time numeric readouts
+          </p>
         </div>
-        <Slider
-          value={reserve}
-          onChange={setReserve}
-          min={10}
-          max={90}
-          step={5}
-          showValue
-          aria-label="Cash reserve liquidity ratio"
-        />
-        <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", marginTop: "var(--space-2)", display: "block" }}>
-          Recommended enterprise buffer: 25% - 40% of trailing quarterly OPEX.
-        </span>
+
+        <div style={{ display: "flex", gap: "var(--space-1)" }}>
+          {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((d) => (
+            <button
+              key={d}
+              type="button"
+              onClick={() => setDensity(d)}
+              style={{
+                fontSize: "var(--type-micro, 11px)",
+                padding: "2px 6px",
+                background: density === d ? "var(--color-primary)" : "var(--color-bg-sunken)",
+                color: density === d ? "var(--color-bg-elevated)" : "var(--color-text)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "var(--radius-sm)",
+                cursor: "pointer",
+              }}
+            >
+              {d === "ultra-compact" ? "24px" : d === "compact" ? "28px" : d === "standard" ? "32px" : "40px"}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--space-4)",
+          padding: "var(--space-4)",
+          background: "var(--color-bg-elevated)",
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-sm)",
+        }}
+      >
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-1)" }}>
+            <label style={{ fontSize: "var(--text-xs)", fontWeight: 500, color: "var(--color-text)" }}>
+              Tier 1 Cash Buffer Target
+            </label>
+            <span style={{ fontSize: "var(--type-micro, 11px)", color: "var(--color-text-muted)" }}>
+              Recommended: 25% - 40%
+            </span>
+          </div>
+          <Slider
+            value={reserveRatio}
+            onChange={setReserveRatio}
+            min={5}
+            max={75}
+            step={1}
+            showValue
+            valueFormatter={(v) => `${v}%`}
+            density={density}
+            aria-label="Tier 1 cash buffer target"
+          />
+        </div>
+
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "var(--space-1)" }}>
+            <label style={{ fontSize: "var(--text-xs)", fontWeight: 500, color: "var(--color-text)" }}>
+              SOFR Overnight Margin Spread
+            </label>
+            <span style={{ fontSize: "var(--type-micro, 11px)", color: "var(--color-text-muted)" }}>
+              Fixed spread: 0.25% - 5.00%
+            </span>
+          </div>
+          <Slider
+            value={interestSpread}
+            onChange={setInterestSpread}
+            min={0.25}
+            max={5.0}
+            step={0.25}
+            showValue
+            valueFormatter={(v) => `${v.toFixed(2)}%`}
+            density={density}
+            aria-label="SOFR overnight margin spread"
+          />
+        </div>
       </div>
     </div>
   );
+}
+
+export const V1WorkspacePreview: Story = {
+  name: "V1 slider reference",
+  render: () => <ReserveAllocationWorkbench />,
+  parameters: { controls: { disable: true } },
 };
 
-/**
- * All States Gallery rendering all lifecycle, stepped, and density variants.
- */
-export const AllStatesGallery = () => (
-  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", maxWidth: "560px" }}>
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-      <h4 style={{ margin: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-        Continuous & Stepped States
-      </h4>
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
-        <div>
-          <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>Continuous Range (0 - 100)</span>
-          <Slider value={42} showValue />
+export const StateMatrix: Story = {
+  name: "V1 state matrix",
+  render: () => (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+        gap: "var(--space-4, 16px)",
+        padding: "var(--space-4, 16px)",
+        background: "var(--color-bg)",
+      }}
+    >
+      <div style={{ padding: "var(--space-3)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-sm)" }}>
+        <div style={{ fontSize: "var(--text-xs)", fontWeight: 600, marginBottom: "var(--space-2)", color: "var(--color-text)" }}>
+          1. Continuous Slider with Readout
         </div>
-        <div>
-          <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>Discrete Step (Quarterly Quarters: 25% increments)</span>
-          <Slider value={75} step={25} showValue />
-        </div>
-        <div>
-          <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)" }}>Disabled Slider</span>
-          <Slider value={50} disabled showValue />
-        </div>
+        <Slider value={45} showValue aria-label="Continuous percentage" />
       </div>
-    </div>
 
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-      <h4 style={{ margin: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-        4-Tier Ergonomic Density Matrix
-      </h4>
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-        <div data-density="ultra-compact" style={{ padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
-          <Slider value={30} showValue />
+      <div style={{ padding: "var(--space-3)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-sm)" }}>
+        <div style={{ fontSize: "var(--text-xs)", fontWeight: 600, marginBottom: "var(--space-2)", color: "var(--color-text)" }}>
+          2. Stepped Snap Points (Step = 25)
         </div>
-        <div data-density="compact" style={{ padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
-          <Slider value={45} showValue />
+        <Slider value={50} min={0} max={100} step={25} showValue aria-label="Stepped value" />
+      </div>
+
+      <div style={{ padding: "var(--space-3)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-sm)" }}>
+        <div style={{ fontSize: "var(--text-xs)", fontWeight: 600, marginBottom: "var(--space-2)", color: "var(--color-text-muted)" }}>
+          3. Disabled State
         </div>
-        <div data-density="standard" style={{ padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
-          <Slider value={60} showValue />
+        <Slider value={70} disabled showValue aria-label="Disabled slider" />
+      </div>
+
+      <div style={{ padding: "var(--space-3)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-sm)", gridColumn: "1 / -1" }}>
+        <div style={{ fontSize: "var(--text-xs)", fontWeight: 600, marginBottom: "var(--space-3)", color: "var(--color-text)" }}>
+          4. 4-Tier Ergonomic Density Matrix (ADR-0009)
         </div>
-        <div data-density="comfortable" style={{ padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
-          <Slider value={80} showValue />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "var(--space-3)" }}>
+          <div data-density="ultra-compact">
+            <div style={{ fontSize: "var(--type-micro, 11px)", color: "var(--color-text-muted)", marginBottom: "4px" }}>
+              Ultra-Compact (24px)
+            </div>
+            <Slider density="ultra-compact" value={20} showValue aria-label="Ultra-compact" />
+          </div>
+          <div data-density="compact">
+            <div style={{ fontSize: "var(--type-micro, 11px)", color: "var(--color-text-muted)", marginBottom: "4px" }}>
+              Compact (28px)
+            </div>
+            <Slider density="compact" value={40} showValue aria-label="Compact" />
+          </div>
+          <div data-density="standard">
+            <div style={{ fontSize: "var(--type-micro, 11px)", color: "var(--color-text-muted)", marginBottom: "4px" }}>
+              Standard (32px)
+            </div>
+            <Slider density="standard" value={60} showValue aria-label="Standard" />
+          </div>
+          <div data-density="comfortable">
+            <div style={{ fontSize: "var(--type-micro, 11px)", color: "var(--color-text-muted)", marginBottom: "4px" }}>
+              Comfortable (40px)
+            </div>
+            <Slider density="comfortable" value={80} showValue aria-label="Comfortable" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  ),
+  parameters: { layout: "fullscreen", controls: { disable: true } },
+};
+
+export const Default: Story = {
+  render: () => {
+    const [val, setVal] = useState(60);
+    return <Slider value={val} onChange={setVal} showValue aria-label="Percentage" />;
+  },
+};

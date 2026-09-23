@@ -1,53 +1,57 @@
-import React from "react";
-import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
 import { SegmentedControl } from "./segmented-control";
 
-describe("SegmentedControl Component", () => {
-  const options = [
-    { value: "opt1", label: "Option 1" },
-    { value: "opt2", label: "Option 2" },
-    { value: "opt3", label: "Option 3" },
-  ];
+const OPTIONS = [
+  { value: "day", label: "Day" },
+  { value: "week", label: "Week" },
+  { value: "month", label: "Month", disabled: true },
+  { value: "year", label: "Year" },
+];
 
-  it("renders all segments and identifies selected option", () => {
-    render(<SegmentedControl options={options} value="opt2" onChange={() => {}} />);
-
-    const radios = screen.getAllByRole("radio");
-    expect(radios).toHaveLength(3);
-    expect(radios[1]).toHaveAttribute("aria-checked", "true");
-    expect(radios[0]).toHaveAttribute("aria-checked", "false");
+describe("Strata V1 SegmentedControl Primitive", () => {
+  it("renders all options and active state", () => {
+    render(<SegmentedControl options={OPTIONS} value="day" onChange={() => {}} />);
+    expect(screen.getByRole("radio", { name: "Day" })).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("radio", { name: "Week" })).toHaveAttribute("aria-checked", "false");
   });
 
-  it("calls onChange when clicking a segment", () => {
+  it("calls onChange on click", () => {
     const onChange = vi.fn();
-    render(<SegmentedControl options={options} value="opt1" onChange={onChange} />);
-
-    fireEvent.click(screen.getByText("Option 3"));
-    expect(onChange).toHaveBeenCalledWith("opt3");
+    render(<SegmentedControl options={OPTIONS} value="day" onChange={onChange} />);
+    fireEvent.click(screen.getByRole("radio", { name: "Week" }));
+    expect(onChange).toHaveBeenCalledWith("week");
   });
 
-  it("supports keyboard arrow navigation", () => {
+  it("does not select disabled segment", () => {
     const onChange = vi.fn();
-    render(<SegmentedControl options={options} value="opt1" onChange={onChange} />);
-
-    const firstRadio = screen.getAllByRole("radio")[0];
-    fireEvent.keyDown(firstRadio, { key: "ArrowRight" });
-
-    expect(onChange).toHaveBeenCalledWith("opt2");
+    render(<SegmentedControl options={OPTIONS} value="day" onChange={onChange} />);
+    fireEvent.click(screen.getByRole("radio", { name: "Month" }));
+    expect(onChange).not.toHaveBeenCalled();
   });
 
-  it("has zero accessibility violations", async () => {
-    const { container } = render(
-      <SegmentedControl
-        options={options}
-        value="opt1"
-        onChange={() => {}}
-        aria-label="View switch"
-      />,
+  it("supports keyboard arrow navigation skipping disabled options", () => {
+    const onChange = vi.fn();
+    render(<SegmentedControl options={OPTIONS} value="week" onChange={onChange} />);
+    const weekBtn = screen.getByRole("radio", { name: "Week" });
+
+    // ArrowRight should skip "month" (disabled) and land on "year"
+    fireEvent.keyDown(weekBtn, { key: "ArrowRight" });
+    expect(onChange).toHaveBeenCalledWith("year");
+  });
+
+  it("has zero accessibility violations across sizes", async () => {
+    const { container, rerender } = render(
+      <SegmentedControl options={OPTIONS} value="day" onChange={() => {}} />
     );
-    const results = await axe(container);
+    let results = await axe(container);
+    expect(results).toHaveNoViolations();
+
+    rerender(
+      <SegmentedControl size="sm" fullWidth options={OPTIONS} value="year" onChange={() => {}} />
+    );
+    results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 });

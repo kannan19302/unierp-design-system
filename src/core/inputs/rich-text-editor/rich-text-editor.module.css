@@ -2,18 +2,55 @@
    UniERP Design Language 1.0 — RichTextEditor Styles
    ══════════════════════════════════════════════════════════════ */
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5, 6px);
+  width: 100%;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.requiredIndicator {
+  color: var(--color-danger, #ef4444);
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-size: var(--type-micro);
+  color: var(--color-text-tertiary);
+}
+
 .container {
-  border: 1px solid var(--surface-1-border, var(--color-border));
+  border: var(--border-width, 1px) solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
   overflow: hidden;
   background: var(--surface-1-bg, var(--color-bg-elevated));
   box-sizing: border-box;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--duration-fast) var(--ease-default);
 }
 
 .container:focus-within {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.containerError {
+  border-color: var(--color-danger, #ef4444);
 }
 
 .disabled {
@@ -25,9 +62,11 @@
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  padding: var(--space-1) var(--space-2);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
-  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  border-block-end: var(--border-width, 1px) solid var(--surface-1-border, var(--color-border));
+  flex-wrap: wrap;
 }
 
 .toolBtn {
@@ -42,30 +81,80 @@
   color: var(--surface-text-primary, var(--color-text));
   cursor: pointer;
   padding: 0;
+  transition: background var(--duration-fast);
 }
 
-.toolBtn:hover {
+.toolBtn:hover:not(:disabled) {
   background: var(--surface-hover, rgba(0, 0, 0, 0.05));
 }
 
 .divider {
-  width: 1px;
+  width: var(--border-width, 1px);
   height: var(--size-divider-sm, 14px);
   background: var(--surface-1-border, var(--color-border));
-  margin: 0 var(--space-1);
+  margin-block: 0;
+  margin-inline: var(--space-1);
 }
 
 .textarea {
   width: 100%;
   min-height: var(--editor-min-height, 120px);
-  padding: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
   border: none;
   background: transparent;
   outline: none;
   font-family: var(--font-sans);
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
-  line-height: var(--leading-normal);
+  line-height: var(--leading-normal, 1.5);
   resize: vertical;
   box-sizing: border-box;
+}
+
+.errorMessage {
+  font-family: var(--font-sans);
+  font-size: var(--type-micro);
+  color: var(--color-danger, #ef4444);
+  font-weight: var(--weight-medium);
+}
+
+/* 4-Tier Density */
+.wrapper[data-density="ultra-compact"] .toolbar {
+  padding-block: var(--space-0-5, 2px);
+  padding-inline: var(--space-1-5, 6px);
+}
+
+.wrapper[data-density="ultra-compact"] .toolBtn {
+  width: var(--space-5, 20px);
+  height: var(--space-5, 20px);
+}
+
+.wrapper[data-density="ultra-compact"] .textarea {
+  min-height: var(--editor-min-height-xs, 60px);
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-2);
+  font-size: var(--type-micro);
+}
+
+.wrapper[data-density="compact"] .textarea {
+  min-height: var(--editor-min-height-sm, 90px);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2-5, 10px);
+}
+
+.wrapper[data-density="standard"] .textarea {
+  min-height: var(--editor-min-height, 120px);
+}
+
+.wrapper[data-density="comfortable"] .toolBtn {
+  width: var(--space-7, 28px);
+  height: var(--space-7, 28px);
+}
+
+.wrapper[data-density="comfortable"] .textarea {
+  min-height: var(--editor-min-height-lg, 180px);
+  padding-block: var(--space-4);
+  padding-inline: var(--space-4);
+  font-size: var(--type-body-sm);
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, useId, type HTMLAttributes } from "react";
+import { ChevronDown } from "lucide-react";
 import styles from "./fiscal-period-picker.module.css";
 
 export interface FiscalPeriod {
@@ -22,6 +23,11 @@ export interface FiscalPeriodPickerProps extends Omit<HTMLAttributes<HTMLDivElem
   fiscalYear?: number;
   fiscalYearStartMonth?: number;
   disabled?: boolean;
+  invalid?: boolean;
+  required?: boolean;
+  label?: string;
+  error?: string;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
 }
 
@@ -59,36 +65,67 @@ export const FiscalPeriodPicker = forwardRef<HTMLDivElement, FiscalPeriodPickerP
   fiscalYear = new Date().getFullYear(),
   fiscalYearStartMonth = 1,
   disabled = false,
+  invalid = false,
+  required = false,
+  label,
+  error,
+  density,
   className = "",
   ...props
 }, ref) => {
   const periods = buildFiscalPeriods(fiscalYear, fiscalYearStartMonth);
   const currentValue = selectedPeriod ?? (periods[0]?.value || "");
 
+  const generatedId = useId();
+  const selectId = id || generatedId;
+  const errorId = error && selectId ? `${selectId}-error` : undefined;
+
+  const containerClass = [
+    styles.container,
+    density ? styles[density] : "",
+    invalid || !!error ? styles.invalid : "",
+    disabled ? styles.disabled : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div
-      ref={ref}
-      className={`${styles.container} ${disabled ? styles.disabled : ""} ${className}`.trim()}
-      {...props}
-    >
-      <span className={styles.fyLabel}>FY{fiscalYear}:</span>
-      <div className={styles.selectWrapper}>
-        <select
-          id={id}
-          value={currentValue}
-          disabled={disabled}
-          onChange={(e) => onSelectPeriod?.(e.target.value)}
-          aria-label="Fiscal period"
-          className={styles.select}
-        >
-          {periods.map((p) => (
-            <option key={p.value} value={p.value}>
-              {p.label}
-            </option>
-          ))}
-        </select>
-        <span className={styles.arrow} aria-hidden="true" />
+    <div ref={ref} className={styles.rootContainer} data-density={density} {...props}>
+      {label && (
+        <label htmlFor={selectId} className={styles.label}>
+          {label}
+          {required && <span className={styles.requiredMark} aria-hidden="true"> *</span>}
+        </label>
+      )}
+      <div className={containerClass}>
+        <span className={styles.fyLabel}>FY{fiscalYear}:</span>
+        <div className={styles.selectWrapper}>
+          <select
+            id={selectId}
+            value={currentValue}
+            disabled={disabled}
+            required={required}
+            aria-invalid={invalid || !!error || undefined}
+            aria-describedby={errorId}
+            onChange={(e) => onSelectPeriod?.(e.target.value)}
+            aria-label={label ? undefined : "Fiscal period"}
+            className={styles.select}
+          >
+            {periods.map((p) => (
+              <option key={p.value} value={p.value}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown size={14} className={styles.arrow} aria-hidden="true" />
+        </div>
       </div>
+      {error && (
+        <span id={errorId} className={styles.errorMessage} role="alert">
+          {error}
+        </span>
+      )}
     </div>
   );
 });

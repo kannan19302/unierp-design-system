@@ -1,10 +1,12 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — RadioGroup Primitive Styles
+   Strata V1 — RadioGroup Primitive Styles
+   Mutually exclusive radio controls, 4-tier density scaling,
+   CSS logical properties, and high-contrast focus rings.
    ══════════════════════════════════════════════════════════════ */
 
 .group {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-3, 12px);
   font-family: var(--font-sans);
 }
 
@@ -20,15 +22,16 @@
 .item {
   display: inline-flex;
   align-items: flex-start;
-  gap: var(--space-2);
+  gap: var(--space-2, 8px);
   cursor: pointer;
   user-select: none;
   position: relative;
+  line-height: var(--leading-normal, 1.5);
 }
 
 .disabledItem {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .hiddenInput {
@@ -42,9 +45,11 @@
 .radio {
   width: var(--radio-size, 16px);
   height: var(--radio-size, 16px);
-  border-radius: 50%;
-  background: var(--surface-1-bg, var(--color-bg-elevated));
-  border: 1px solid var(--surface-1-border, var(--color-border));
+  min-width: var(--radio-size, 16px);
+  min-height: var(--radio-size, 16px);
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -52,12 +57,16 @@
               box-shadow var(--duration-fast) var(--ease-default);
   box-sizing: border-box;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-block-start: 2px;
+}
+
+.item:hover:not(.disabledItem) .radio {
+  border-color: var(--color-border-strong);
 }
 
 .hiddenInput:focus-visible + .radio {
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 var(--space-1, 4px) var(--color-focus-ring);
-  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-border-focus);
+  border-color: var(--color-border-focus);
 }
 
 .checked {
@@ -67,24 +76,81 @@
 .dot {
   width: var(--radio-dot-size, 8px);
   height: var(--radio-dot-size, 8px);
-  border-radius: 50%;
+  border-radius: var(--radius-full, 9999px);
   background: var(--color-primary);
 }
 
 .labelContent {
   display: flex;
   flex-direction: column;
-  line-height: 1.25;
+  line-height: var(--leading-tight, 1.25);
 }
 
 .label {
   font-size: var(--type-dense, var(--text-sm));
-  color: var(--surface-text-primary, var(--color-text));
-  font-weight: var(--weight-medium);
+  color: var(--color-text);
+  font-weight: var(--weight-medium, 500);
 }
 
 .hint {
   font-size: var(--type-micro, 11px);
-  color: var(--surface-text-secondary, var(--color-text-muted));
-  margin-top: 2px;
+  color: var(--color-text-muted);
+  margin-block-start: 2px;
+}
+
+/* ── 4-Tier Ergonomic Density Matrix (ADR-0009) ───────────── */
+/* Ultra-Compact (24px row context) */
+[data-density="ultra-compact"] .radio,
+.group[data-density="ultra-compact"] .radio,
+.group.ultra-compact .radio {
+  --radio-size: var(--radio-size-ultra-compact, 14px);
+  --radio-dot-size: var(--radio-dot-ultra-compact, 6px);
+}
+
+[data-density="ultra-compact"] .label,
+.group[data-density="ultra-compact"] .label,
+.group.ultra-compact .label {
+  font-size: var(--type-micro, 11px);
+}
+
+/* Compact (28px row context) */
+[data-density="compact"] .radio,
+.group[data-density="compact"] .radio,
+.group.compact .radio {
+  --radio-size: var(--radio-size-compact, 15px);
+  --radio-dot-size: var(--radio-dot-compact, 7px);
+}
+
+[data-density="compact"] .label,
+.group[data-density="compact"] .label,
+.group.compact .label {
+  font-size: var(--type-dense, 12px);
+}
+
+/* Standard (32px row context — default) */
+[data-density="standard"] .radio,
+.group[data-density="standard"] .radio,
+.group.standard .radio {
+  --radio-size: var(--radio-size-standard, 16px);
+  --radio-dot-size: var(--radio-dot-standard, 8px);
+}
+
+[data-density="standard"] .label,
+.group[data-density="standard"] .label,
+.group.standard .label {
+  font-size: var(--text-sm, 13px);
+}
+
+/* Comfortable (40px row context) */
+[data-density="comfortable"] .radio,
+.group[data-density="comfortable"] .radio,
+.group.comfortable .radio {
+  --radio-size: var(--radio-size-comfortable, 18px);
+  --radio-dot-size: var(--radio-dot-comfortable, 10px);
+}
+
+[data-density="comfortable"] .label,
+.group[data-density="comfortable"] .label,
+.group.comfortable .label {
+  font-size: var(--text-base, 14px);
 }

@@ -1,4 +1,7 @@
+"use client";
+
 import { forwardRef, type HTMLAttributes } from "react";
+import { X } from "lucide-react";
 import styles from "./filter-chip-group.module.css";
 
 export interface FilterChip {
@@ -13,6 +16,8 @@ export interface FilterChipGroupProps extends HTMLAttributes<HTMLDivElement> {
   chips?: FilterChip[];
   onRemoveChip?: (id: string) => void;
   onClearAll?: () => void;
+  prefixLabel?: string;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 export const FilterChipGroup = forwardRef<HTMLDivElement, FilterChipGroupProps>(
@@ -24,6 +29,8 @@ export const FilterChipGroup = forwardRef<HTMLDivElement, FilterChipGroupProps>(
       ],
       onRemoveChip,
       onClearAll,
+      prefixLabel = "Active Filters:",
+      density,
       className = "",
       ...props
     },
@@ -34,12 +41,13 @@ export const FilterChipGroup = forwardRef<HTMLDivElement, FilterChipGroupProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`}
+        data-density={density}
+        className={`${styles.container} ${density ? styles[density] : ""} ${className}`.trim()}
         role="group"
         aria-label="Active filters"
         {...props}
       >
-        <span className={styles.prefixLabel}>Active Filters:</span>
+        {prefixLabel && <span className={styles.prefixLabel}>{prefixLabel}</span>}
         <div className={styles.chipList}>
           {chips.map((chip) => (
             <span key={chip.id} className={styles.chip} data-testid={`filter-chip-${chip.id}`}>
@@ -52,7 +60,7 @@ export const FilterChipGroup = forwardRef<HTMLDivElement, FilterChipGroupProps>(
                   aria-label={`Remove filter for ${chip.field}: ${chip.label}`}
                   onClick={() => onRemoveChip?.(chip.id)}
                 >
-                  ×
+                  <X size={10} aria-hidden="true" />
                 </button>
               )}
             </span>

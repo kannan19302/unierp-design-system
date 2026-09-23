@@ -25,7 +25,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  z-index: var(--z-modal-backdrop, 9999);
+  z-index: var(--z-overlay, 200);
   background: var(--surface-overlay, rgba(0, 0, 0, 0.45));
   backdrop-filter: blur(2px);
   animation: modalFadeIn var(--duration-fast) var(--ease-out) forwards;

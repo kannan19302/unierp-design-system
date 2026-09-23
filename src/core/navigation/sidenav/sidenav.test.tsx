@@ -1,5 +1,5 @@
 import React, { createRef } from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
 import { SideNav } from "./sidenav";
@@ -122,13 +122,38 @@ describe("SideNav Primitive", () => {
 
     // Starred section rendered
     expect(screen.getByText("Starred")).toBeInTheDocument();
-    const starButtons = screen.getAllByRole("button", { name: /favorites/i });
-    expect(starButtons.length).toBeGreaterThan(0);
+    expect(screen.queryByRole("button", { name: /Add Tax & Compliance to favorites/i })).not.toBeInTheDocument();
 
-    // Toggle favorite on Tax
-    const taxStar = screen.getByRole("button", { name: /Add Tax & Compliance to favorites/i });
-    fireEvent.click(taxStar);
+    // Item actions stay behind the contextual menu.
+    fireEvent.click(screen.getByRole("button", { name: "More options for Tax & Compliance" }));
+    fireEvent.click(screen.getByRole("menuitem", { name: "Add to favorites" }));
     expect(onToggleFav).toHaveBeenCalledWith("tax");
+    expect(screen.queryByRole("menuitem", { name: "Add to favorites" })).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByRole("button", { name: "More options for General Ledger" })[0]);
+    fireEvent.click(screen.getByRole("menuitem", { name: "Remove from favorites" }));
+    expect(onToggleFav).toHaveBeenCalledWith("gl");
+  });
+
+  it("names the inner navigation landmark for sidebars shown together", () => {
+    render(<SideNav items={[{ key: "1", label: "Dashboard" }]} navigationLabel="Default sidebar items" />);
+    expect(screen.getByRole("navigation", { name: "Default sidebar items" })).toBeInTheDocument();
+  });
+
+  it("keeps ordered favorites available when their source section is hidden", () => {
+    render(<SideNav allowFavorites favorites={["design", "approvals"]}
+      favoriteItems={[
+        { key: "approvals", label: "My approvals" },
+        { key: "design", label: "Design Engineering" },
+      ]}
+      sections={[{ key: "quick", title: "Quick Views", items: [{ key: "approvals", label: "My approvals" }] }]}
+    />);
+
+    const starred = document.querySelector('[data-section="starred"]');
+    expect(starred).not.toBeNull();
+    expect(within(starred as HTMLElement).getAllByRole("button").map((button) => button.textContent)).toEqual([
+      "Design Engineering", "My approvals",
+    ]);
   });
 
   it("triggers quick actions when provided", () => {
@@ -169,6 +194,64 @@ describe("SideNav Primitive", () => {
     expect(expandBtn).toBeInTheDocument();
     fireEvent.click(expandBtn);
     expect(onToggle).toHaveBeenCalledWith(false);
+  });
+
+  it("opens the collapsed rail when its search control is selected", () => {
+    const onToggle = vi.fn();
+    render(<SideNav collapsed searchable onToggleCollapse={onToggle} items={[{ key: "home", label: "Home" }]} />);
+    fireEvent.click(screen.getByRole("button", { name: "Expand sidebar and search" }));
+    expect(onToggle).toHaveBeenCalledWith(false);
+  });
+
+  it("renders navigation destinations as links with current-page semantics", () => {
+    render(<SideNav items={[
+      { key: "overview", label: "Overview", href: "/overview", active: true },
+      { key: "locked", label: "Locked", href: "/locked", disabled: true },
+    ]} />);
+
+    expect(screen.getByRole("link", { name: "Overview" })).toHaveAttribute("href", "/overview");
+    expect(screen.getByRole("link", { name: "Overview" })).toHaveAttribute("aria-current", "page");
+    expect(screen.queryByRole("link", { name: "Locked" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Locked" })).toBeDisabled();
+  });
+
+  it("toggles nested navigation without hiding the parent destination", () => {
+    render(<SideNav items={[{
+      key: "finance", label: "Finance", href: "/finance",
+      items: [{ key: "invoices", label: "Invoices", href: "/finance/invoices" }],
+    }]} />);
+
+    const toggle = screen.getByRole("button", { name: "Collapse Finance items" });
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    fireEvent.click(toggle);
+    expect(screen.queryByRole("link", { name: "Invoices" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Finance" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Expand Finance items" }));
+    expect(screen.getByRole("link", { name: "Invoices" })).toBeInTheDocument();
+  });
+
+  it("respects initially collapsed nested groups", () => {
+    render(<SideNav items={[{
+      key: "models", label: "Models", defaultExpanded: false,
+      items: [{ key: "catalog", label: "Model catalog" }],
+    }]} />);
+
+    expect(screen.queryByText("Model catalog")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Expand Models items" }));
+    expect(screen.getByText("Model catalog")).toBeInTheDocument();
+  });
+
+  it("reveals a nested match while searching a collapsed group", () => {
+    render(<SideNav searchable items={[{
+      key: "models", label: "Models", defaultExpanded: false,
+      items: [{ key: "deployments", label: "Deployments" }],
+    }]} />);
+
+    fireEvent.change(screen.getByRole("searchbox", { name: "Search navigation" }), {
+      target: { value: "deployments" },
+    });
+    expect(screen.getByRole("button", { name: "Deployments" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Collapse Models items" })).toHaveAttribute("aria-expanded", "true");
   });
 
   it("forwards ref to the aside element", () => {

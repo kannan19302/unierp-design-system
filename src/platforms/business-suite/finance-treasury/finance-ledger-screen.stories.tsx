@@ -4,7 +4,7 @@ import { StrataBar } from "../../../core/shell/strata-bar";
 import { WorkspaceTabs } from "../../../core/layout/workspace-tabs";
 import { PageHeader } from "../../../core/layout/page-header";
 import { StatCardRow } from "../../../core/layout/stat-card-row";
-import { MatterTrustLedger, type TrustLedgerEntry } from "./matter-trust-ledger";
+import { MatterTrustLedger, type TrustLedgerEntry } from "../legal-compliance/matter-trust-ledger";
 import { FactBox, FactBoxTile, FactBoxField, FactBoxMetric } from "../../../core/layout/fact-box";
 import { OmnichannelContactBar } from "../../../core/layout/omnichannel-contact-bar";
 import { Badge } from "../../../core/primitives/badge";
