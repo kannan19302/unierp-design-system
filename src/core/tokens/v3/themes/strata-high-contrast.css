@@ -1,0 +1,124 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Strata High-Contrast Theme
+   ══════════════════════════════════════════════════════════════
+
+   Maximum contrast for accessibility. WCAG 2.2 AAA level.
+   Removes shadows, strengthens borders, maximizes text contrast.
+   ══════════════════════════════════════════════════════════════ */
+
+[data-theme="strata-high-contrast"] {
+  color-scheme: light;
+
+  /* ── Background / Canvas ──────────────────────────────────── */
+  --color-bg: var(--prim-white);
+  --color-bg-elevated: var(--prim-white);
+  --color-bg-sunken: var(--prim-zinc-100);
+  --color-bg-hover: var(--prim-zinc-200);
+  --color-bg-active: var(--prim-zinc-300);
+  --color-bg-overlay: rgb(0 0 0 / 0.7);
+  --color-bg-muted: var(--prim-zinc-100);
+  --color-bg-accent: var(--prim-zinc-200);
+  --color-bg-accent-hover: var(--prim-zinc-300);
+
+  /* ── Surface Aliases ──────────────────────────────────────── */
+  --color-surface: var(--prim-white);
+  --color-surface-elevated: var(--prim-white);
+  --color-surface-sunken: var(--prim-zinc-100);
+  --color-surface-muted: var(--prim-zinc-100);
+  --color-surface-hover: var(--prim-zinc-200);
+  --color-surface-subtle: var(--prim-zinc-100);
+
+  /* ── Foreground / Text (maximum contrast) ─────────────────── */
+  --color-text: var(--prim-black);
+  --color-text-primary: var(--prim-black);
+  --color-text-secondary: var(--prim-zinc-800);
+  --color-text-tertiary: var(--prim-zinc-700);
+  --color-text-muted: var(--prim-zinc-700);
+  --color-text-inverse: var(--prim-white);
+  --color-text-link: var(--prim-blue-800);
+  --color-text-disabled: var(--prim-zinc-500);
+
+  /* ── Border (strengthened for visibility) ─────────────────── */
+  --color-border: var(--prim-zinc-400);
+  --color-border-strong: var(--prim-zinc-700);
+  --color-border-subtle: var(--prim-zinc-300);
+  --color-border-focus: var(--prim-blue-800);
+  --color-border-input: var(--prim-zinc-500);
+  --color-border-default: var(--prim-zinc-400);
+
+  /* ── Ring ──────────────────────────────────────────────────── */
+  --color-ring: var(--prim-blue-800);
+  --color-ring-destructive: var(--prim-red-800);
+
+  /* ── Brand / Primary ──────────────────────────────────────── */
+  --color-brand: var(--prim-blue-800);
+  --color-primary: var(--prim-blue-800);
+  --color-primary-hover: var(--prim-blue-900);
+  --color-primary-active: var(--prim-blue-950);
+  --color-primary-light: var(--prim-blue-50);
+  --color-primary-subtle: var(--prim-blue-100);
+  --color-primary-text: var(--prim-white);
+  --color-primary-border: var(--prim-blue-700);
+  --color-brand-subtle: var(--prim-blue-100);
+  --on-primary: var(--prim-white);
+
+  /* ── Focus ────────────────────────────────────────────────── */
+  --color-focus: var(--prim-blue-800);
+  --color-focus-ring: var(--prim-blue-800);
+
+  /* ── Success ──────────────────────────────────────────────── */
+  --color-success: var(--prim-green-800);
+  --color-success-hover: var(--prim-green-900);
+  --color-success-light: var(--prim-green-50);
+  --color-success-text: var(--prim-green-900);
+
+  /* ── Warning ──────────────────────────────────────────────── */
+  --color-warning: var(--prim-amber-700);
+  --color-warning-hover: var(--prim-amber-800);
+  --color-warning-light: var(--prim-amber-50);
+  --color-warning-text: var(--prim-amber-900);
+
+  /* ── Danger ───────────────────────────────────────────────── */
+  --color-danger: var(--prim-red-800);
+  --color-danger-hover: var(--prim-red-900);
+  --color-danger-light: var(--prim-red-50);
+  --color-danger-text: var(--prim-red-900);
+  --on-danger: var(--prim-white);
+
+  /* ── Info ──────────────────────────────────────────────────── */
+  --color-info: var(--prim-sky-800);
+  --color-info-hover: var(--prim-sky-900);
+  --color-info-light: var(--prim-sky-50);
+  --color-info-text: var(--prim-sky-900);
+
+  /* ── Sidebar ──────────────────────────────────────────────── */
+  --color-sidebar-bg: var(--prim-white);
+  --color-sidebar-text: var(--prim-zinc-800);
+  --color-sidebar-text-active: var(--prim-black);
+  --color-sidebar-hover: var(--prim-zinc-200);
+  --color-sidebar-active: var(--prim-blue-100);
+  --color-sidebar-border: var(--prim-zinc-400);
+
+  /* ── Card ──────────────────────────────────────────────────── */
+  --color-card-bg: var(--prim-white);
+  --color-card-foreground: var(--prim-black);
+  --color-card-border: var(--prim-zinc-400);
+
+  /* ── Strata-specific ──────────────────────────────────────── */
+  --strata-bg-base: var(--prim-white);
+  --strata-surface-card: var(--prim-white);
+  --strata-surface-sunken: var(--prim-zinc-100);
+  --strata-border: var(--prim-zinc-400);
+
+  /* ── High-contrast overrides for surface hierarchy ────────── */
+  --elevation-1: none;
+  --elevation-2: none;
+  --elevation-3: none;
+  --elevation-4: none;
+  --elevation-5: none;
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+}

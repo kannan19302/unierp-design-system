@@ -1,0 +1,192 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Primitive Color Scales
+   ══════════════════════════════════════════════════════════════
+
+   Raw color values. These are NOT consumed directly by components.
+   Components reference SEMANTIC tokens from colors.css which map
+   to these primitives via the theme files.
+
+   Scales: Zinc (neutral), Blue (primary), Emerald (success),
+   Amber (warning), Red (danger), Sky (info), Violet (accent).
+
+   Every step is named --prim-{hue}-{step}.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Zinc (Neutral) ────────────────────────────────────────── */
+  --prim-zinc-25: #fafafa;
+  --prim-zinc-50: #fafafa;
+  --prim-zinc-100: #f4f4f5;
+  --prim-zinc-150: #ececee;
+  --prim-zinc-200: #e4e4e7;
+  --prim-zinc-300: #d4d4d8;
+  --prim-zinc-400: #a1a1aa;
+  --prim-zinc-500: #71717a;
+  --prim-zinc-600: #52525b;
+  --prim-zinc-700: #3f3f46;
+  --prim-zinc-800: #27272a;
+  --prim-zinc-850: #1f1f23;
+  --prim-zinc-900: #18181b;
+  --prim-zinc-925: #0f0f12;
+  --prim-zinc-950: #09090b;
+
+  /* ── Blue (Primary / Brand) ────────────────────────────────── */
+  --prim-blue-50: #eff6ff;
+  --prim-blue-100: #dbeafe;
+  --prim-blue-200: #bfdbfe;
+  --prim-blue-300: #93c5fd;
+  --prim-blue-400: #60a5fa;
+  --prim-blue-500: #3b82f6;
+  --prim-blue-600: #2563eb;
+  --prim-blue-700: #1d4ed8;
+  --prim-blue-800: #1e40af;
+  --prim-blue-900: #1e3a8a;
+  --prim-blue-950: #172554;
+
+  /* ── Sky (Info) ────────────────────────────────────────────── */
+  --prim-sky-50: #f0f9ff;
+  --prim-sky-100: #e0f2fe;
+  --prim-sky-200: #bae6fd;
+  --prim-sky-300: #7dd3fc;
+  --prim-sky-400: #38bdf8;
+  --prim-sky-500: #0ea5e9;
+  --prim-sky-600: #0284c7;
+  --prim-sky-700: #0369a1;
+  --prim-sky-800: #075985;
+  --prim-sky-900: #0c4a6e;
+  --prim-sky-950: #082f49;
+
+  /* ── Emerald (Success) ─────────────────────────────────────── */
+  --prim-emerald-50: #ecfdf5;
+  --prim-emerald-100: #d1fae5;
+  --prim-emerald-200: #a7f3d0;
+  --prim-emerald-300: #6ee7b7;
+  --prim-emerald-400: #34d399;
+  --prim-emerald-500: #10b981;
+  --prim-emerald-600: #059669;
+  --prim-emerald-700: #047857;
+  --prim-emerald-800: #065f46;
+  --prim-emerald-900: #064e3b;
+  --prim-emerald-950: #022c22;
+
+  /* ── Green (Extended Success) ──────────────────────────────── */
+  --prim-green-50: #f0fdf4;
+  --prim-green-100: #dcfce7;
+  --prim-green-200: #bbf7d0;
+  --prim-green-300: #86efac;
+  --prim-green-400: #4ade80;
+  --prim-green-500: #22c55e;
+  --prim-green-600: #16a34a;
+  --prim-green-700: #15803d;
+  --prim-green-800: #166534;
+  --prim-green-900: #14532d;
+  --prim-green-950: #052e16;
+
+  /* ── Amber (Warning) ───────────────────────────────────────── */
+  --prim-amber-50: #fffbeb;
+  --prim-amber-100: #fef3c7;
+  --prim-amber-200: #fde68a;
+  --prim-amber-300: #fcd34d;
+  --prim-amber-400: #fbbf24;
+  --prim-amber-500: #f59e0b;
+  --prim-amber-600: #d97706;
+  --prim-amber-700: #b45309;
+  --prim-amber-800: #92400e;
+  --prim-amber-900: #78350f;
+  --prim-amber-950: #451a03;
+
+  /* ── Red (Danger / Destructive) ────────────────────────────── */
+  --prim-red-50: #fef2f2;
+  --prim-red-100: #fee2e2;
+  --prim-red-200: #fecaca;
+  --prim-red-300: #fca5a5;
+  --prim-red-400: #f87171;
+  --prim-red-500: #ef4444;
+  --prim-red-600: #dc2626;
+  --prim-red-700: #b91c1c;
+  --prim-red-800: #991b1b;
+  --prim-red-900: #7f1d1d;
+  --prim-red-950: #450a0a;
+
+  /* ── Violet (Platform Accent) ──────────────────────────────── */
+  --prim-violet-50: #f5f3ff;
+  --prim-violet-100: #ede9fe;
+  --prim-violet-200: #ddd6fe;
+  --prim-violet-300: #c4b5fd;
+  --prim-violet-400: #a78bfa;
+  --prim-violet-500: #8b5cf6;
+  --prim-violet-600: #7c3aed;
+  --prim-violet-700: #6d28d9;
+  --prim-violet-800: #5b21b6;
+  --prim-violet-900: #4c1d95;
+  --prim-violet-950: #2e1065;
+
+  /* ── Purple (Platform Accent Extended) ─────────────────────── */
+  --prim-purple-50: #faf5ff;
+  --prim-purple-100: #f3e8ff;
+  --prim-purple-200: #e9d5ff;
+  --prim-purple-300: #d8b4fe;
+  --prim-purple-400: #c084fc;
+  --prim-purple-500: #a855f7;
+  --prim-purple-600: #9333ea;
+  --prim-purple-700: #7e22ce;
+  --prim-purple-800: #6b21a8;
+  --prim-purple-900: #581c87;
+  --prim-purple-950: #3b0764;
+
+  /* ── Teal (Platform Accent — Marketing) ────────────────────── */
+  --prim-teal-50: #f0fdfa;
+  --prim-teal-100: #ccfbf1;
+  --prim-teal-200: #99f6e4;
+  --prim-teal-300: #5eead4;
+  --prim-teal-400: #2dd4bf;
+  --prim-teal-500: #14b8a6;
+  --prim-teal-600: #0d9488;
+  --prim-teal-700: #0f766e;
+  --prim-teal-800: #115e59;
+  --prim-teal-900: #134e4a;
+  --prim-teal-950: #042f2e;
+
+  /* ── Orange (Platform Accent — Ops) ────────────────────────── */
+  --prim-orange-50: #fff7ed;
+  --prim-orange-100: #ffedd5;
+  --prim-orange-200: #fed7aa;
+  --prim-orange-300: #fdba74;
+  --prim-orange-400: #fb923c;
+  --prim-orange-500: #f97316;
+  --prim-orange-600: #ea580c;
+  --prim-orange-700: #c2410c;
+  --prim-orange-800: #9a3412;
+  --prim-orange-900: #7c2d12;
+  --prim-orange-950: #431407;
+
+  /* ── Indigo (Platform Accent — Website) ────────────────────── */
+  --prim-indigo-50: #eef2ff;
+  --prim-indigo-100: #e0e7ff;
+  --prim-indigo-200: #c7d2fe;
+  --prim-indigo-300: #a5b4fc;
+  --prim-indigo-400: #818cf8;
+  --prim-indigo-500: #6366f1;
+  --prim-indigo-600: #4f46e5;
+  --prim-indigo-700: #4338ca;
+  --prim-indigo-800: #3730a3;
+  --prim-indigo-900: #312e81;
+  --prim-indigo-950: #1e1b4b;
+
+  /* ── Pink (Avatar ramp) ────────────────────────────────────── */
+  --prim-pink-50: #fdf2f8;
+  --prim-pink-100: #fce7f3;
+  --prim-pink-200: #fbcfe8;
+  --prim-pink-300: #f9a8d4;
+  --prim-pink-400: #f472b6;
+  --prim-pink-500: #ec4899;
+  --prim-pink-600: #db2777;
+  --prim-pink-700: #be185d;
+  --prim-pink-800: #9d174d;
+  --prim-pink-900: #831843;
+  --prim-pink-950: #500724;
+
+  /* ── White / Black absolute ────────────────────────────────── */
+  --prim-white: #ffffff;
+  --prim-black: #000000;
+}

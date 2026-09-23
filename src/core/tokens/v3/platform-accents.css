@@ -1,0 +1,134 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Platform Accent Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Each UniERP platform scope gets a unique accent color applied
+   via [data-scope] on a container or <html>. The accent is used
+   for the scope edge, sidebar active state, and primary button
+   variant within that scope.
+
+   Updated for V3 to reference primitive scale tokens.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Provider Control Center (PCC) ──────────────────────────── */
+[data-scope="platform-admin"],
+[data-scope="pcc"] {
+  --scope-accent: var(--prim-violet-600);
+  --scope-accent-hover: var(--prim-violet-700);
+  --scope-accent-light: var(--prim-violet-50);
+  --scope-accent-text: var(--prim-white);
+  --scope-accent-border: var(--prim-violet-500);
+}
+
+/* ── Business Applications ──────────────────────────────────── */
+[data-scope="apps"],
+[data-scope="business"] {
+  --scope-accent: var(--prim-blue-700);
+  --scope-accent-hover: var(--prim-blue-800);
+  --scope-accent-light: var(--prim-blue-50);
+  --scope-accent-text: var(--prim-white);
+  --scope-accent-border: var(--prim-blue-600);
+}
+
+/* ── Tenant / Organization Control Center ───────────────────── */
+[data-scope="tenant-admin"],
+[data-scope="occ"] {
+  --scope-accent: var(--prim-teal-700);
+  --scope-accent-hover: var(--prim-teal-800);
+  --scope-accent-light: var(--prim-teal-50);
+  --scope-accent-text: var(--prim-white);
+  --scope-accent-border: var(--prim-teal-600);
+}
+
+/* ── Developer Platform ─────────────────────────────────────── */
+[data-scope="developer"] {
+  --scope-accent: var(--prim-indigo-600);
+  --scope-accent-hover: var(--prim-indigo-700);
+  --scope-accent-light: var(--prim-indigo-50);
+  --scope-accent-text: var(--prim-white);
+  --scope-accent-border: var(--prim-indigo-500);
+}
+
+/* ── Marketplace ────────────────────────────────────────────── */
+[data-scope="marketplace"] {
+  --scope-accent: var(--prim-purple-600);
+  --scope-accent-hover: var(--prim-purple-700);
+  --scope-accent-light: var(--prim-purple-50);
+  --scope-accent-text: var(--prim-white);
+  --scope-accent-border: var(--prim-purple-500);
+}
+
+/* ── Operations Center ──────────────────────────────────────── */
+[data-scope="ops"] {
+  --scope-accent: var(--prim-orange-600);
+  --scope-accent-hover: var(--prim-orange-700);
+  --scope-accent-light: var(--prim-orange-50);
+  --scope-accent-text: var(--prim-white);
+  --scope-accent-border: var(--prim-orange-500);
+}
+
+/* ── Marketing / Website ────────────────────────────────────── */
+[data-scope="marketing"],
+[data-scope="website"] {
+  --scope-accent: var(--prim-emerald-600);
+  --scope-accent-hover: var(--prim-emerald-700);
+  --scope-accent-light: var(--prim-emerald-50);
+  --scope-accent-text: var(--prim-white);
+  --scope-accent-border: var(--prim-emerald-500);
+}
+
+/* ── Dark mode accent overrides ─────────────────────────────── */
+[data-theme="strata-dark"] {
+  [data-scope="platform-admin"],
+  [data-scope="pcc"] {
+    --scope-accent: var(--prim-violet-400);
+    --scope-accent-hover: var(--prim-violet-500);
+    --scope-accent-light: var(--prim-violet-950);
+    --scope-accent-text: var(--prim-zinc-950);
+  }
+
+  [data-scope="apps"],
+  [data-scope="business"] {
+    --scope-accent: var(--prim-blue-400);
+    --scope-accent-hover: var(--prim-blue-500);
+    --scope-accent-light: var(--prim-blue-950);
+    --scope-accent-text: var(--prim-zinc-950);
+  }
+
+  [data-scope="tenant-admin"],
+  [data-scope="occ"] {
+    --scope-accent: var(--prim-teal-400);
+    --scope-accent-hover: var(--prim-teal-500);
+    --scope-accent-light: var(--prim-teal-950);
+    --scope-accent-text: var(--prim-zinc-950);
+  }
+
+  [data-scope="developer"] {
+    --scope-accent: var(--prim-indigo-400);
+    --scope-accent-hover: var(--prim-indigo-500);
+    --scope-accent-light: var(--prim-indigo-950);
+    --scope-accent-text: var(--prim-zinc-950);
+  }
+
+  [data-scope="marketplace"] {
+    --scope-accent: var(--prim-purple-400);
+    --scope-accent-hover: var(--prim-purple-500);
+    --scope-accent-light: var(--prim-purple-950);
+    --scope-accent-text: var(--prim-zinc-950);
+  }
+
+  [data-scope="ops"] {
+    --scope-accent: var(--prim-orange-400);
+    --scope-accent-hover: var(--prim-orange-500);
+    --scope-accent-light: var(--prim-orange-950);
+    --scope-accent-text: var(--prim-zinc-950);
+  }
+
+  [data-scope="marketing"],
+  [data-scope="website"] {
+    --scope-accent: var(--prim-emerald-400);
+    --scope-accent-hover: var(--prim-emerald-500);
+    --scope-accent-light: var(--prim-emerald-950);
+    --scope-accent-text: var(--prim-zinc-950);
+  }
+}

@@ -1,0 +1,174 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Strata Dark Theme
+   ══════════════════════════════════════════════════════════════
+
+   Dark mode for enterprise operations centers, developer tooling,
+   and night-shift workflows. Overrides semantic tokens from colors.css.
+   ══════════════════════════════════════════════════════════════ */
+
+[data-theme="strata-dark"] {
+  color-scheme: dark;
+
+  /* ── Background / Canvas ──────────────────────────────────── */
+  --color-bg: var(--prim-zinc-950);
+  --color-bg-elevated: var(--prim-zinc-900);
+  --color-bg-sunken: var(--prim-zinc-925);
+  --color-bg-hover: var(--prim-zinc-800);
+  --color-bg-active: var(--prim-zinc-700);
+  --color-bg-overlay: rgb(0 0 0 / 0.75);
+  --color-bg-muted: var(--prim-zinc-800);
+  --color-bg-accent: var(--prim-zinc-800);
+  --color-bg-accent-hover: var(--prim-zinc-700);
+
+  /* ── Surface Aliases ──────────────────────────────────────── */
+  --color-surface: var(--prim-zinc-900);
+  --color-surface-elevated: var(--prim-zinc-900);
+  --color-surface-sunken: var(--prim-zinc-925);
+  --color-surface-muted: var(--prim-zinc-925);
+  --color-surface-hover: var(--prim-zinc-800);
+  --color-surface-subtle: var(--prim-zinc-925);
+
+  /* ── Foreground / Text ────────────────────────────────────── */
+  --color-text: var(--prim-zinc-50);
+  --color-text-primary: var(--prim-zinc-50);
+  --color-text-secondary: var(--prim-zinc-400);
+  --color-text-tertiary: var(--prim-zinc-500);
+  --color-text-muted: var(--prim-zinc-400);
+  --color-text-inverse: var(--prim-zinc-950);
+  --color-text-link: var(--prim-sky-400);
+  --color-text-disabled: var(--prim-zinc-600);
+
+  /* ── Border ───────────────────────────────────────────────── */
+  --color-border: var(--prim-zinc-800);
+  --color-border-strong: var(--prim-zinc-600);
+  --color-border-subtle: var(--prim-zinc-850);
+  --color-border-focus: var(--prim-sky-400);
+  --color-border-input: var(--prim-zinc-700);
+  --color-border-default: var(--prim-zinc-800);
+
+  /* ── Ring ──────────────────────────────────────────────────── */
+  --color-ring: var(--prim-sky-400);
+  --color-ring-destructive: var(--prim-red-500);
+
+  /* ── Brand / Primary ──────────────────────────────────────── */
+  --color-brand: var(--prim-sky-400);
+  --color-primary: var(--prim-sky-400);
+  --color-primary-hover: var(--prim-sky-500);
+  --color-primary-active: var(--prim-sky-600);
+  --color-primary-light: var(--prim-sky-950);
+  --color-primary-subtle: var(--prim-sky-900);
+  --color-primary-text: var(--prim-zinc-950);
+  --color-primary-border: var(--prim-sky-400);
+  --color-brand-subtle: var(--prim-sky-900);
+  --on-primary: var(--prim-zinc-950);
+
+  /* ── Focus ────────────────────────────────────────────────── */
+  --color-focus: var(--prim-sky-400);
+  --color-focus-ring: var(--prim-sky-400);
+
+  /* ── Success ──────────────────────────────────────────────── */
+  --color-success: var(--prim-green-400);
+  --color-success-hover: var(--prim-green-500);
+  --color-success-light: var(--prim-green-950);
+  --color-success-text: var(--prim-green-300);
+  --color-success-subtle: var(--prim-green-950);
+  --color-success-default: var(--prim-green-400);
+  --color-success-strong: var(--prim-green-500);
+  --color-success-border: var(--prim-green-700);
+
+  /* ── Warning ──────────────────────────────────────────────── */
+  --color-warning: var(--prim-amber-400);
+  --color-warning-hover: var(--prim-amber-500);
+  --color-warning-light: var(--prim-amber-950);
+  --color-warning-text: var(--prim-amber-200);
+  --color-warning-subtle: var(--prim-amber-950);
+  --color-warning-default: var(--prim-amber-400);
+  --color-warning-strong: var(--prim-amber-500);
+  --color-warning-border: var(--prim-amber-700);
+  --color-warning-bg: var(--prim-amber-950);
+
+  /* ── Danger / Destructive ─────────────────────────────────── */
+  --color-danger: var(--prim-red-400);
+  --color-danger-hover: var(--prim-red-500);
+  --color-danger-light: var(--prim-red-950);
+  --color-danger-text: var(--prim-red-300);
+  --on-danger: var(--prim-zinc-950);
+  --color-error-subtle: var(--prim-red-950);
+  --color-error-default: var(--prim-red-400);
+  --color-error-strong: var(--prim-red-500);
+  --color-error-border: var(--prim-red-700);
+
+  /* ── Info ──────────────────────────────────────────────────── */
+  --color-info: var(--prim-blue-400);
+  --color-info-hover: var(--prim-blue-500);
+  --color-info-light: var(--prim-blue-950);
+  --color-info-text: var(--prim-blue-300);
+  --color-info-subtle: var(--prim-blue-950);
+  --color-info-default: var(--prim-blue-400);
+  --color-info-strong: var(--prim-blue-500);
+  --color-info-border: var(--prim-blue-700);
+
+  /* ── Sidebar ──────────────────────────────────────────────── */
+  --color-sidebar-bg: var(--prim-zinc-950);
+  --color-sidebar-text: var(--prim-zinc-400);
+  --color-sidebar-text-active: var(--prim-zinc-50);
+  --color-sidebar-hover: var(--prim-zinc-900);
+  --color-sidebar-active: var(--prim-zinc-850);
+  --color-sidebar-border: var(--prim-zinc-800);
+  --color-sidebar-accent: var(--prim-zinc-800);
+  --color-sidebar-accent-foreground: var(--prim-zinc-50);
+
+  /* ── Card ──────────────────────────────────────────────────── */
+  --color-card-bg: var(--prim-zinc-900);
+  --color-card-foreground: var(--prim-zinc-50);
+  --color-card-border: var(--prim-zinc-800);
+
+  /* ── Popover ──────────────────────────────────────────────── */
+  --color-popover-bg: var(--prim-zinc-900);
+  --color-popover-foreground: var(--prim-zinc-50);
+  --color-popover-border: var(--prim-zinc-800);
+
+  /* ── Input ────────────────────────────────────────────────── */
+  --color-input-bg: var(--prim-zinc-900);
+  --color-input-border: var(--prim-zinc-700);
+  --color-input-foreground: var(--prim-zinc-50);
+  --color-input-placeholder: var(--prim-zinc-500);
+  --color-input-disabled-bg: var(--prim-zinc-800);
+  --color-input-disabled-text: var(--prim-zinc-600);
+
+  /* ── Muted ────────────────────────────────────────────────── */
+  --color-muted-bg: var(--prim-zinc-800);
+  --color-muted-foreground: var(--prim-zinc-400);
+
+  /* ── Accent ───────────────────────────────────────────────── */
+  --color-accent-bg: var(--prim-zinc-800);
+  --color-accent-foreground: var(--prim-zinc-50);
+
+  /* ── Scope Edges ──────────────────────────────────────────── */
+  --scope-app: var(--prim-sky-400);
+  --scope-site: var(--prim-teal-400);
+
+  /* ── Avatar Identity Ramp (dark) ──────────────────────────── */
+  --color-avatar-0-bg: var(--prim-blue-900);
+  --color-avatar-0-fg: var(--prim-blue-300);
+  --color-avatar-1-bg: var(--prim-pink-900);
+  --color-avatar-1-fg: var(--prim-pink-300);
+  --color-avatar-2-bg: var(--prim-green-900);
+  --color-avatar-2-fg: var(--prim-green-300);
+  --color-avatar-3-bg: var(--prim-amber-900);
+  --color-avatar-3-fg: var(--prim-amber-200);
+  --color-avatar-4-bg: var(--prim-violet-900);
+  --color-avatar-4-fg: var(--prim-violet-300);
+  --color-avatar-5-bg: var(--prim-sky-900);
+  --color-avatar-5-fg: var(--prim-sky-300);
+  --color-avatar-6-bg: var(--prim-red-900);
+  --color-avatar-6-fg: var(--prim-red-300);
+  --color-avatar-7-bg: var(--prim-teal-900);
+  --color-avatar-7-fg: var(--prim-teal-300);
+
+  /* ── Strata-specific Aliases ──────────────────────────────── */
+  --strata-bg-base: var(--prim-zinc-950);
+  --strata-surface-card: var(--prim-zinc-900);
+  --strata-surface-sunken: var(--prim-zinc-925);
+  --strata-border: var(--prim-zinc-800);
+}

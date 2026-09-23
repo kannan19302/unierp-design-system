@@ -1,0 +1,61 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Chart & Data Visualization Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Neutral chart palette, accessible, with light/dark variants.
+   10-color categorical series. Grid, axis, tooltip, legend tokens.
+   ══════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme="strata"] {
+  /* ── Categorical Series Palette ───────────────────────────── */
+  --chart-1: #2563eb;   /* Blue 600 */
+  --chart-2: #16a34a;   /* Green 600 */
+  --chart-3: #d97706;   /* Amber 600 */
+  --chart-4: #dc2626;   /* Red 600 */
+  --chart-5: #7c3aed;   /* Violet 600 */
+  --chart-6: #0891b2;   /* Cyan 600 */
+  --chart-7: #c026d3;   /* Fuchsia 600 */
+  --chart-8: #db2777;   /* Pink 600 */
+  --chart-9: #059669;   /* Emerald 600 */
+  --chart-10: #4f46e5;  /* Indigo 600 */
+
+  /* ── Chart Structure ──────────────────────────────────────── */
+  --chart-grid: var(--color-border);
+  --chart-grid-stroke: 1px;
+  --chart-axis-text: var(--color-text-secondary);
+  --chart-axis-line: var(--color-border-strong);
+  --chart-contrast: var(--prim-white);
+  --chart-tooltip-bg: var(--color-bg-elevated);
+  --chart-tooltip-border: var(--color-border);
+  --chart-tooltip-text: var(--color-text);
+  --chart-tooltip-shadow: var(--shadow-md);
+  --chart-legend-text: var(--color-text-secondary);
+  --chart-cursor: var(--color-border-strong);
+  --chart-reference-line: var(--color-border-strong);
+
+  /* ── Semantic Chart Colors ────────────────────────────────── */
+  --chart-positive: var(--color-success);
+  --chart-negative: var(--color-danger);
+  --chart-neutral: var(--color-text-tertiary);
+  --chart-target: var(--color-primary);
+
+  /* ── Gradient endpoints (for area charts) ─────────────────── */
+  --chart-gradient-start-opacity: 0.3;
+  --chart-gradient-end-opacity: 0.02;
+}
+
+/* ── Dark Theme Chart Overrides ─────────────────────────────── */
+[data-theme="strata-dark"] {
+  --chart-1: #60a5fa;   /* Blue 400 */
+  --chart-2: #4ade80;   /* Green 400 */
+  --chart-3: #fbbf24;   /* Amber 400 */
+  --chart-4: #f87171;   /* Red 400 */
+  --chart-5: #a78bfa;   /* Violet 400 */
+  --chart-6: #22d3ee;   /* Cyan 400 */
+  --chart-7: #e879f9;   /* Fuchsia 400 */
+  --chart-8: #f472b6;   /* Pink 400 */
+  --chart-9: #34d399;   /* Emerald 400 */
+  --chart-10: #a5b4fc;  /* Indigo 400 */
+  --chart-contrast: var(--prim-zinc-950);
+}

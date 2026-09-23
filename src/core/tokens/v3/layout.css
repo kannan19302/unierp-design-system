@@ -1,0 +1,105 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Layout & Shell Structure Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Structural dimensions for application shells, sidebars, headers,
+   content areas, and responsive breakpoints. Every dimension that
+   appears in MORE THAN ONE file must be a token.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── App Shell ────────────────────────────────────────────── */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 64px;
+  --header-height: 56px;
+  --content-max-width: 1400px;
+
+  /* ── Navigation Structure ─────────────────────────────────── */
+  --nav-rail-width: 56px;
+  --nav-panel-width: 240px;
+  --nav-panel-width-expanded: 264px;
+  --nav-topbar-height: 48px;
+  --nav-breadcrumb-height: 36px;
+  --nav-tab-bar-height: 40px;
+
+  /* ── Shell Structure ──────────────────────────────────────── */
+  --rail-icon-size: 40px;
+  --panel-width: 280px;
+  --list-column-min: 320px;
+  --list-column-min-dense: 260px;
+  --anchor-nav-width: 180px;
+  --form-measure: 720px;
+
+  /* ── Tiles ────────────────────────────────────────────────── */
+  --tile-min: 260px;
+  --tile-min-dense: 200px;
+  --tile-height: 148px;
+  --tile-height-dense: 96px;
+
+  /* ── Data Workspace ───────────────────────────────────────── */
+  --data-header-height: 36px;
+  --data-filter-bar-height: 44px;
+  --data-bulk-action-height: 40px;
+  --data-row-number-width: 48px;
+  --data-checkbox-column-width: 40px;
+  --data-action-column-width: 48px;
+  --filter-max-width: 420px;
+
+  /* ── Object Workspace ─────────────────────────────────────── */
+  --object-header-height: auto;
+  --object-tab-bar-height: 40px;
+  --object-sidebar-width: 320px;
+  --object-facts-bar-height: auto;
+
+  /* ── Context Rail ─────────────────────────────────────────── */
+  --context-rail-width: 320px;
+  --context-rail-width-collapsed: 40px;
+  --context-rail-min-width: 280px;
+  --context-rail-max-width: 420px;
+
+  /* ── Workbench (three-pane) ───────────────────────────────── */
+  --workbench-nav-width: 220px;
+  --workbench-list-width: 360px;
+  --workbench-list-min-width: 280px;
+
+  /* ── KPI & Metrics ────────────────────────────────────────── */
+  --kpi-card-min-width: 160px;
+  --kpi-strip-height: 72px;
+  --kpi-strip-height-compact: 56px;
+
+  /* ── Command Palette ──────────────────────────────────────── */
+  --command-palette-width: 600px;
+  --command-palette-max-height: 480px;
+  --search-input-height: var(--density-control-height, 32px);
+
+  /* ── Notification ─────────────────────────────────────────── */
+  --notification-dot-size: 8px;
+  --notification-badge-min-width: 18px;
+  --notification-badge-height: 18px;
+
+  /* ── AI Experience ────────────────────────────────────────── */
+  --ai-indicator-size: 16px;
+  --ai-accent: var(--color-info);
+  --ai-accent-subtle: var(--color-info-light);
+
+  /* ── Auth & Marketing ─────────────────────────────────────── */
+  --auth-card-max-width: 400px;
+  --auth-illustration-max-width: 480px;
+  --masthead-height: 72px;
+  --footer-height-compact: 40px;
+
+  /* ── Responsive Breakpoints ───────────────────────────────── */
+  --bp-mobile: 640px;
+  --bp-tablet: 768px;
+  --bp-laptop: 1024px;
+  --bp-desktop: 1280px;
+  --bp-wide: 1536px;
+  --bp-ultrawide: 1920px;
+
+  /* ── Container Max Widths ─────────────────────────────────── */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+}

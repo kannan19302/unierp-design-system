@@ -1,0 +1,22 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Z-Index Layering Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Managed z-index scale prevents stacking conflicts.
+   Every floating element must use a z-index token.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --z-base: 0;
+  --z-raised: 1;
+  --z-dropdown: 50;
+  --z-sticky: 100;
+  --z-header: 150;
+  --z-overlay: 200;
+  --z-drawer: 250;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+  --z-max: 9999;
+}

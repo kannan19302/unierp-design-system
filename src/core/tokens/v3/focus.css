@@ -1,0 +1,30 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Focus Ring Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Standardized keyboard focus indicators for accessibility.
+   Every interactive element must show a visible focus ring
+   on keyboard focus (:focus-visible).
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Focus Ring Dimensions ────────────────────────────────── */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--color-ring, var(--color-border-focus));
+  --focus-ring-style: solid;
+  --focus-ring: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+
+  /* ── Destructive Focus Ring ───────────────────────────────── */
+  --focus-ring-destructive-color: var(--color-ring-destructive, var(--color-danger));
+  --focus-ring-destructive: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-destructive-color);
+
+  /* ── Focus Ring Opacity (for ring/50 patterns) ────────────── */
+  --focus-ring-opacity: 0.5;
+}
+
+/* ── High Contrast Focus ────────────────────────────────────── */
+[data-theme="strata-high-contrast"] {
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+}

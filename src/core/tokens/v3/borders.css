@@ -1,0 +1,26 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Border & Divider Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Hairline borders for structural framing. Prefer borders over
+   shadows for hierarchy in dense enterprise interfaces.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Border Widths ────────────────────────────────────────── */
+  --border-width-none: 0;
+  --border-width-thin: 1px;
+  --border-width-thick: 2px;
+  --border-width-accent: var(--scope-edge-width, 3px);
+
+  /* ── Separator / Divider ──────────────────────────────────── */
+  --separator-weight: 1px;
+  --separator-weight-heavy: 2px;
+  --separator-style: solid;
+  --separator-color: var(--color-border);
+  --separator-color-strong: var(--color-border-strong);
+
+  /* ── Structural dimensions ────────────────────────────────── */
+  --scope-edge-width: 3px;
+  --status-dot-size: 6px;
+}

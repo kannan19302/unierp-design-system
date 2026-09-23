@@ -1,0 +1,23 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Border Radius Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Nova-aligned, enterprise-restrained radius system.
+   Default component radius is 6px (--radius / --radius-md).
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Radius Scale ─────────────────────────────────────────── */
+  --radius-none: 0;
+  --radius-xs: 0.125rem;    /* 2px — inline badges, tiny elements */
+  --radius-sm: 0.25rem;     /* 4px — chips, small controls */
+  --radius: 0.375rem;       /* 6px — DEFAULT COMPONENT RADIUS */
+  --radius-md: 0.375rem;    /* 6px — alias of default */
+  --radius-lg: 0.5rem;      /* 8px — cards, dialogs, large controls */
+  --radius-xl: 0.75rem;     /* 12px — large panels, modal corners */
+  --radius-2xl: 1rem;       /* 16px — marketing surfaces only */
+  --radius-full: 9999px;    /* Circular — avatars, pills, toggles */
+
+  /* Marketing override — editorial surfaces keep softer corners */
+  --radius-2xl-marketing: 1rem; /* 16px */
+}

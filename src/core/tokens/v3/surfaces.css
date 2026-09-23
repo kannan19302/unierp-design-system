@@ -1,0 +1,62 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Surface Hierarchy Tokens
+   ══════════════════════════════════════════════════════════════
+
+   5-level surface system + sunken + interactive states.
+   Derived from active theme colors — changes automatically
+   across light/dark/high-contrast themes.
+   ══════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme] {
+  /* ── Surface Depth Scale ──────────────────────────────────── */
+  --surface-0-bg: var(--color-bg);
+  --surface-0-border: transparent;
+  --surface-0-shadow: none;
+
+  --surface-1-bg: var(--color-bg-elevated);
+  --surface-1-border: var(--color-border);
+  --surface-1-shadow: none;
+
+  --surface-2-bg: var(--color-bg-elevated);
+  --surface-2-border: var(--color-border);
+  --surface-2-shadow: var(--elevation-1);
+
+  --surface-3-bg: var(--color-bg-elevated);
+  --surface-3-border: var(--color-border-strong);
+  --surface-3-shadow: var(--shadow-lg);
+
+  --surface-4-bg: var(--color-bg-overlay);
+  --surface-4-border: transparent;
+  --surface-4-shadow: none;
+
+  /* ── Special Surfaces ─────────────────────────────────────── */
+  --surface-sunken-bg: var(--color-bg-sunken);
+  --surface-sunken-border: var(--color-border);
+
+  /* ── Interactive Surface States ────────────────────────────── */
+  --surface-hover: var(--color-bg-hover);
+  --surface-active: var(--color-bg-active);
+  --surface-selected: var(--color-primary-light);
+  --surface-selected-hover: var(--color-primary-subtle);
+
+  /* ── Text Hierarchy on Surfaces ───────────────────────────── */
+  --surface-text-primary: var(--color-text);
+  --surface-text-secondary: var(--color-text-secondary);
+  --surface-text-tertiary: var(--color-text-tertiary);
+  --surface-text-disabled: var(--color-text-disabled);
+
+  /* ── Disabled Surface ─────────────────────────────────────── */
+  --surface-disabled-bg: var(--color-bg-muted);
+  --surface-disabled-border: var(--color-border);
+  --surface-disabled-text: var(--color-text-disabled);
+}
+
+/* ── High Contrast Overrides ────────────────────────────────── */
+[data-theme="strata-high-contrast"] {
+  --surface-0-border: var(--color-border);
+  --surface-2-shadow: none;
+  --surface-3-shadow: none;
+  --separator-weight: var(--border-width-thick);
+  --separator-weight-heavy: var(--border-width-thick);
+}

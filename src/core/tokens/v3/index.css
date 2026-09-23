@@ -1,0 +1,65 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Token Entry Point
+   ══════════════════════════════════════════════════════════════
+
+   IMPORT ORDER MATTERS. Files are layered in dependency order:
+
+   1. Primitives   — raw color scales (no semantics)
+   2. Typography   — font families, scale, weights
+   3. Spacing      — spatial scale
+   4. Radius       — corner radius scale
+   5. Borders      — border widths, dividers
+   6. Elevation    — shadows, depth
+   7. Opacity      — opacity scale
+   8. Motion       — easing, duration
+   9. Z-Index      — stacking layers
+   10. Focus       — keyboard focus indicators
+   11. Icons       — icon sizing
+   12. Layout      — shell structure dimensions
+   13. Colors      — semantic color tokens (LIGHT DEFAULT)
+   14. Surfaces    — surface hierarchy (uses color tokens)
+   15. Density     — 4-tier density matrix (overrides many above)
+   16. Charts      — data visualization palette
+   17. Keyframes   — shared animations
+   18. Themes      — dark + high-contrast overrides
+   19. Platform    — scope accent system
+
+   V3 is ADDITIVE over V2 over V1. Import V3 AFTER V1/V2.
+
+   Usage in the design system entry CSS:
+     @import "../tokens/base.css";          /* V1 */
+     @import "../tokens/v2/index.css";      /* V2 */
+     @import "../tokens/v3/index.css";      /* V3 — this file */
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Foundation Primitives ──────────────────────────────────── */
+@import "./primitives.css";
+
+/* ── Structural Tokens ──────────────────────────────────────── */
+@import "./typography.css";
+@import "./spacing.css";
+@import "./radius.css";
+@import "./borders.css";
+@import "./elevation.css";
+@import "./opacity.css";
+@import "./motion.css";
+@import "./z-index.css";
+@import "./focus.css";
+@import "./icons.css";
+@import "./layout.css";
+
+/* ── Semantic Color System (Light Default) ──────────────────── */
+@import "./colors.css";
+
+/* ── Derived Systems ────────────────────────────────────────── */
+@import "./surfaces.css";
+@import "./density.css";
+@import "./charts.css";
+@import "./keyframes.css";
+
+/* ── Theme Overrides ────────────────────────────────────────── */
+@import "./themes/strata-dark.css";
+@import "./themes/strata-high-contrast.css";
+
+/* ── Platform Identity ──────────────────────────────────────── */
+@import "./platform-accents.css";

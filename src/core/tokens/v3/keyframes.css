@@ -1,0 +1,166 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Shared Keyframe Animations
+   ══════════════════════════════════════════════════════════════
+
+   Standard keyframes referenced by component CSS modules.
+   All animations use V3 duration/easing tokens.
+   ══════════════════════════════════════════════════════════════ */
+
+@keyframes strata-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes strata-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes strata-slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-2, 8px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes strata-slide-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--space-2, 8px)));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes strata-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--space-4, 16px)));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes strata-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(var(--space-4, 16px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes strata-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes strata-scale-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes strata-pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes strata-skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes strata-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes strata-accordion-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+
+@keyframes strata-accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+
+@keyframes strata-collapsible-down {
+  from { height: 0; }
+  to { height: var(--radix-collapsible-content-height); }
+}
+
+@keyframes strata-collapsible-up {
+  from { height: var(--radix-collapsible-content-height); }
+  to { height: 0; }
+}
+
+@keyframes strata-dialog-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes strata-dialog-content-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes strata-drawer-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes strata-toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-4, 16px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes strata-indeterminate {
+  0% { left: -35%; width: 35%; }
+  60% { left: 100%; width: 0%; }
+  100% { left: 100%; width: 0%; }
+}

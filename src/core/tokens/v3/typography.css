@@ -1,0 +1,153 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Typography Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Enterprise typography optimized for data-dense, long-duration
+   professional use. Inter (heading + body), IBM Plex Mono (code).
+
+   The type scale is intentionally tighter than consumer UIs.
+   Every step serves a documented purpose in the enterprise hierarchy.
+
+   V3 is ADDITIVE — it preserves all V2 typography tokens and adds
+   completeness where V2 had gaps.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Font Families ────────────────────────────────────────── */
+  --font-display: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  --font-serif: Georgia, "Times New Roman", serif;
+
+  /* Backward-compatible aliases */
+  --font-family-display: var(--font-display);
+  --font-family-sans: var(--font-sans);
+  --font-family-mono: var(--font-mono);
+
+  /* ── Enterprise Type Scale ────────────────────────────────── */
+  --type-2xs: 0.625rem;       /* 10px — ultra-compact micro text (minimum viable) */
+  --type-micro: 0.6875rem;    /* 11px — timestamps, record IDs, metadata */
+  --type-caption: 0.75rem;    /* 12px — secondary table data, captions */
+  --type-dense: 0.8125rem;    /* 13px — dense tables, compact control text */
+  --type-body: 0.8125rem;     /* 13px — primary application UI (standard density) */
+  --type-body-lg: 0.875rem;   /* 14px — comfortable body, longer-form text */
+  --type-section: 1rem;       /* 16px — section titles, group headers */
+  --type-workspace: 1.125rem; /* 18px — workspace titles */
+  --type-workspace-lg: 1.25rem; /* 20px — workspace title (comfortable) */
+  --type-page: 1.375rem;      /* 22px — page titles */
+  --type-page-lg: 1.5rem;     /* 24px — page title (comfortable) */
+  --type-display: 1.75rem;    /* 28px — major KPI */
+  --type-display-lg: 2rem;    /* 32px — hero KPI, display numbers */
+
+  /* V1 compatible aliases */
+  --text-2xs: var(--type-micro);
+  --text-xs: var(--type-caption);
+  --text-sm: var(--type-body-lg);
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* ── Line Heights (per scale step) ────────────────────────── */
+  --leading-micro: 1.2;
+  --leading-caption: 1.3;
+  --leading-dense: 1.35;
+  --leading-body: 1.45;
+  --leading-section: 1.35;
+  --leading-workspace: 1.3;
+  --leading-page: 1.25;
+  --leading-display: 1.15;
+
+  /* V1 compatible aliases */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* ── Font Weights ─────────────────────────────────────────── */
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* V1 compatible aliases */
+  --font-weight-normal: var(--weight-normal);
+  --font-weight-medium: var(--weight-medium);
+  --font-weight-semibold: var(--weight-semibold);
+  --font-weight-bold: var(--weight-bold);
+
+  /* ── Letter Spacing ───────────────────────────────────────── */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-micro: 0.02em;
+  --tracking-caption: 0.01em;
+  --tracking-body: 0;
+  --tracking-normal: 0;
+  --tracking-section: -0.005em;
+  --tracking-workspace: -0.01em;
+  --tracking-page: -0.015em;
+  --tracking-display: -0.025em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* ── Label Type ───────────────────────────────────────────── */
+  --type-label: 0.6875rem;    /* 11px */
+  --tracking-label: 0.01em;
+  --weight-label: 600;
+
+  /* ── Tabular Numerics ─────────────────────────────────────── */
+  --numeric-font-feature: "tnum" 1, "lnum" 1;
+  --numeric-variant: tabular-nums lining-nums;
+
+  /* ── Measure (max line length) ────────────────────────────── */
+  --measure-narrow: 45ch;
+  --measure-normal: 65ch;
+  --measure-wide: 80ch;
+
+  /* ── Text decoration ──────────────────────────────────────── */
+  --underline-offset: 4px;
+  --underline-thickness: 1px;
+}
+
+/* ── Density-Responsive Type ────────────────────────────────── */
+[data-density="comfortable"] {
+  --type-body: 0.875rem;       /* 14px */
+  --type-dense: 0.8125rem;     /* 13px */
+  --type-workspace: 1.25rem;   /* 20px */
+  --type-page: 1.5rem;         /* 24px */
+  --type-display: 2rem;        /* 32px */
+  --type-label: 0.75rem;       /* 12px */
+}
+
+[data-density="standard"] {
+  --type-body: 0.8125rem;      /* 13px */
+  --type-dense: 0.8125rem;     /* 13px */
+  --type-workspace: 1.125rem;  /* 18px */
+  --type-page: 1.375rem;       /* 22px */
+  --type-display: 1.75rem;     /* 28px */
+  --type-label: 0.6875rem;     /* 11px */
+}
+
+[data-density="compact"] {
+  --type-body: 0.75rem;        /* 12px */
+  --type-dense: 0.75rem;       /* 12px */
+  --type-workspace: 1rem;      /* 16px */
+  --type-page: 1.25rem;        /* 20px */
+  --type-display: 1.5rem;      /* 24px */
+  --type-label: 0.6875rem;     /* 11px */
+}
+
+[data-density="ultra-compact"] {
+  --type-body: 0.6875rem;      /* 11px — minimum viable text size */
+  --type-dense: 0.6875rem;     /* 11px */
+  --type-workspace: 0.875rem;  /* 14px */
+  --type-page: 1.125rem;       /* 18px */
+  --type-display: 1.375rem;    /* 22px */
+  --type-label: 0.6875rem;     /* 11px */
+}

@@ -1,0 +1,31 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 3.0 — Icon Tokens
+   ══════════════════════════════════════════════════════════════
+
+   Lucide icon library. Density-aware sizing.
+   Default grid: 24px. Default stroke: 2px.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Icon Size Scale ──────────────────────────────────────── */
+  --icon-xs: 12px;
+  --icon-sm: 14px;
+  --icon-md: 18px;
+  --icon-lg: 22px;
+  --icon-xl: 24px;
+  --icon-2xl: 32px;
+
+  /* ── Icon Stroke ──────────────────────────────────────────── */
+  --icon-stroke: 2px;
+  --icon-stroke-sm: 1.5px;
+  --icon-stroke-lg: 2.5px;
+
+  /* ── Density-aware default size ────────────────────────────── */
+  --icon-default: var(--density-icon-size, 18px);
+  --icon-default-sm: var(--density-icon-size-sm, 14px);
+  --icon-default-lg: var(--density-icon-size-lg, 22px);
+
+  /* ── Icon container (for click targets) ───────────────────── */
+  --icon-button-size: var(--density-control-height, 32px);
+  --icon-button-size-sm: var(--density-control-height-sm, 28px);
+}
