@@ -5,7 +5,7 @@ import {
 } from "./dual-axis-telemetry-chart";
 
 const meta: Meta<typeof DualAxisTelemetryChart> = {
-  title: "Charts/DualAxisTelemetryChart",
+  title: "Core/Charts/DualAxisTelemetryChart",
   component: DualAxisTelemetryChart,
   tags: ["autodocs"],
   parameters: {

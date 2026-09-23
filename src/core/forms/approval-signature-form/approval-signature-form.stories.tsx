@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ApprovalSignatureForm } from "./approval-signature-form";
 
 const meta: Meta<typeof ApprovalSignatureForm> = {
-  title: "Forms/ApprovalSignatureForm",
+  title: "Core/Forms/ApprovalSignatureForm",
   component: ApprovalSignatureForm,
   tags: ["autodocs"],
   parameters: {

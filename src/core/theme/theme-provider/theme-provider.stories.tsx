@@ -50,7 +50,7 @@ const ThemeViewer = () => {
 };
 
 const meta: Meta<typeof ThemeProvider> = {
-  title: "Theme/ThemeProvider",
+  title: "Core/Theme/ThemeProvider",
   component: ThemeProvider,
   parameters: { layout: "centered" },
 };

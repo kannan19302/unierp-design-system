@@ -66,7 +66,7 @@ const ToastDemo = () => {
 };
 
 const meta: Meta = {
-  title: "Notifications/Toast",
+  title: "Core/Notifications/Toast",
   component: ToastDemo,
   tags: ["autodocs"],
   parameters: {

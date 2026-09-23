@@ -12,7 +12,7 @@ const mockCaller: CallerProfile = {
 };
 
 const meta: Meta<typeof OmnichannelContactBar> = {
-  title: "Layout/OmnichannelContactBar",
+  title: "Core/Layout/OmnichannelContactBar",
   component: OmnichannelContactBar,
   parameters: {
     layout: "fullscreen",

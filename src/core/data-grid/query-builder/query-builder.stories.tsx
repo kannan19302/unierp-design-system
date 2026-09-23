@@ -20,7 +20,7 @@ const sampleFields: QueryField[] = [
 ];
 
 const meta: Meta<typeof QueryBuilder> = {
-  title: "Data Grid/QueryBuilder",
+  title: "Core/Data Grid/QueryBuilder",
   component: QueryBuilder,
   parameters: {
     layout: "padded",

@@ -9,7 +9,7 @@ const SAMPLE_DATA = [
 ];
 
 const meta: Meta<typeof BoxPlotChart> = {
-  title: "Charts/BoxPlotChart",
+  title: "Core/Charts/BoxPlotChart",
   component: BoxPlotChart,
   tags: ["autodocs"],
   parameters: {

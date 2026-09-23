@@ -31,7 +31,7 @@ const sampleAnnotations: DocumentAnnotation[] = [
 ];
 
 const meta: Meta<typeof DocumentAnnotator> = {
-  title: "DataDisplay/DocumentAnnotator",
+  title: "Core/DataDisplay/DocumentAnnotator",
   component: DocumentAnnotator,
   parameters: {
     layout: "padded",

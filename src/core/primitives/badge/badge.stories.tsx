@@ -3,7 +3,7 @@ import { Badge } from "./badge";
 import { StatusBadge } from "./status-badge";
 
 const meta: Meta<typeof Badge> = {
-  title: "Primitives/Badge",
+  title: "Core/Primitives/Badge",
   component: Badge,
   tags: ["autodocs"],
   parameters: {

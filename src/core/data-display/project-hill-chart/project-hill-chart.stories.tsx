@@ -40,7 +40,7 @@ const mockScopes: HillChartScope[] = [
 ];
 
 const meta: Meta<typeof ProjectHillChart> = {
-  title: "Data Display/ProjectHillChart",
+  title: "Core/Data Display/ProjectHillChart",
   component: ProjectHillChart,
   parameters: {
     layout: "padded",

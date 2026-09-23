@@ -48,7 +48,7 @@ const mockTranches: VestingTranche[] = [
 ];
 
 const meta: Meta<typeof OptionVestingScheduleWaterfall> = {
-  title: "Data Display/OptionVestingScheduleWaterfall",
+  title: "Core/Data Display/OptionVestingScheduleWaterfall",
   component: OptionVestingScheduleWaterfall,
   parameters: {
     layout: "padded",

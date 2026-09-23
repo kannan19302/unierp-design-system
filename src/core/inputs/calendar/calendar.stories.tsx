@@ -14,7 +14,7 @@ import { Calendar, type CalendarProps } from "./calendar";
  * - **Interactive Selection**: Visual highlight on the currently selected date.
  */
 const meta: Meta<typeof Calendar> = {
-  title: "Inputs/Calendar",
+  title: "Core/Inputs/Calendar",
   component: Calendar,
   tags: ["autodocs"],
   parameters: {

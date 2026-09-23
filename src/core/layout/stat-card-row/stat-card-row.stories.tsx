@@ -3,7 +3,7 @@ import { Package, Users, DollarSign, TrendingUp } from "lucide-react";
 import { StatCardRow } from "./stat-card-row";
 
 const meta: Meta<typeof StatCardRow> = {
-  title: "Layout/StatCardRow",
+  title: "Core/Layout/StatCardRow",
   component: StatCardRow,
   parameters: {
     layout: "padded",

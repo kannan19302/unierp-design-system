@@ -3,7 +3,7 @@ import { FactBox, FactBoxTile, FactBoxField, FactBoxMetric } from "./fact-box";
 import { Badge } from "../../primitives/badge";
 
 const meta: Meta<typeof FactBox> = {
-  title: "Layout/FactBox",
+  title: "Core/Layout/FactBox",
   component: FactBox,
   tags: ["autodocs"],
   parameters: {

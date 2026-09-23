@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SystemStatusBar } from "./system-status-bar";
 
 const meta: Meta<typeof SystemStatusBar> = {
-  title: "Notifications/SystemStatusBar",
+  title: "Core/Notifications/SystemStatusBar",
   component: SystemStatusBar,
   tags: ["autodocs"],
   parameters: {

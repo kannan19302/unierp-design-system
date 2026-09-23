@@ -54,7 +54,7 @@ const mockRecords: DnsZoneRecord[] = [
 ];
 
 const meta: Meta<typeof DnsZoneRecordEditor> = {
-  title: "Data Grid/DnsZoneRecordEditor",
+  title: "Core/Data Grid/DnsZoneRecordEditor",
   component: DnsZoneRecordEditor,
   parameters: {
     layout: "padded",

@@ -43,7 +43,7 @@ const SAMPLE_FILES: FileTreeNode[] = [
 ];
 
 const meta: Meta<typeof FileTree> = {
-  title: "Data Display/FileTree",
+  title: "Core/Data Display/FileTree",
   component: FileTree,
   parameters: {
     layout: "centered",

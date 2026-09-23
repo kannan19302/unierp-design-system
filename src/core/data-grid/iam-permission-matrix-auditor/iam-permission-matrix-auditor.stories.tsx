@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { IamPermissionMatrixAuditor } from "./iam-permission-matrix-auditor";
 
 const meta: Meta<typeof IamPermissionMatrixAuditor> = {
-  title: "Data Grid/IamPermissionMatrixAuditor",
+  title: "Core/Data Grid/IamPermissionMatrixAuditor",
   component: IamPermissionMatrixAuditor,
   parameters: {
     layout: "padded",

@@ -5,7 +5,7 @@ import {
 } from "./secret-vault-access-matrix";
 
 const meta: Meta<typeof SecretVaultAccessMatrix> = {
-  title: "Data Grid/SecretVaultAccessMatrix",
+  title: "Core/Data Grid/SecretVaultAccessMatrix",
   component: SecretVaultAccessMatrix,
   parameters: {
     layout: "centered",

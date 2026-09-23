@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CatalogSchemaExplorerTree } from "./catalog-schema-explorer-tree";
 
 const meta: Meta<typeof CatalogSchemaExplorerTree> = {
-  title: "Navigation/CatalogSchemaExplorerTree",
+  title: "Core/Navigation/CatalogSchemaExplorerTree",
   component: CatalogSchemaExplorerTree,
   tags: ["autodocs"],
   parameters: {

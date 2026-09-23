@@ -69,7 +69,7 @@ const mockItems: MatchedLineItem[] = [
 ];
 
 const meta: Meta<typeof ThreeWayMatchingMatrix> = {
-  title: "Data Grid/ThreeWayMatchingMatrix",
+  title: "Core/Data Grid/ThreeWayMatchingMatrix",
   component: ThreeWayMatchingMatrix,
   parameters: {
     layout: "padded",

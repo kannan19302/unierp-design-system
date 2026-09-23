@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ChangelogSection } from "./changelog-section";
 
 const meta: Meta<typeof ChangelogSection> = {
-  title: "Blocks/ChangelogSection",
+  title: "Core/Blocks/ChangelogSection",
   component: ChangelogSection,
   parameters: { layout: "centered" },
 };

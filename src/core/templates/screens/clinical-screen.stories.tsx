@@ -11,7 +11,7 @@ import { Button } from "../../primitives/button";
 import { UserCheck, Stethoscope, AlertTriangle, FileText, CheckCircle2 } from "lucide-react";
 
 const meta: Meta = {
-  title: "Screens/ClinicalDecisionSupportScreen",
+  title: "Core/Screens/ClinicalDecisionSupportScreen",
   parameters: {
     layout: "fullscreen",
   },

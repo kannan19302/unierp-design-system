@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BulletChart } from "./bullet-chart";
 
 const meta: Meta<typeof BulletChart> = {
-  title: "Charts/BulletChart",
+  title: "Core/Charts/BulletChart",
   component: BulletChart,
   tags: ["autodocs"],
   parameters: {

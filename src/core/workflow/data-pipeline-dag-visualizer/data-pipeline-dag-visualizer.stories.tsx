@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DataPipelineDagVisualizer } from "./data-pipeline-dag-visualizer";
 
 const meta: Meta<typeof DataPipelineDagVisualizer> = {
-  title: "Workflow/DataPipelineDagVisualizer",
+  title: "Core/Workflow/DataPipelineDagVisualizer",
   component: DataPipelineDagVisualizer,
   parameters: {
     layout: "padded",

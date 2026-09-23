@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { InfoHint } from "./info-hint";
 
 const meta: Meta<typeof InfoHint> = {
-  title: "Primitives/InfoHint",
+  title: "Core/Primitives/InfoHint",
   component: InfoHint,
   parameters: {
     layout: "centered",

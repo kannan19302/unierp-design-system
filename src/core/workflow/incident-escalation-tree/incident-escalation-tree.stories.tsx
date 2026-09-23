@@ -60,7 +60,7 @@ const mockTiers: EscalationTier[] = [
 ];
 
 const meta: Meta<typeof IncidentEscalationTree> = {
-  title: "Workflow/IncidentEscalationTree",
+  title: "Core/Workflow/IncidentEscalationTree",
   component: IncidentEscalationTree,
   parameters: {
     layout: "padded",

@@ -94,7 +94,7 @@ const mockRates: ExchangeRateEntry[] = [
 ];
 
 const meta: Meta<typeof CurrencyRateMatrix> = {
-  title: "DataDisplay/CurrencyRateMatrix",
+  title: "Core/DataDisplay/CurrencyRateMatrix",
   component: CurrencyRateMatrix,
   parameters: {
     layout: "padded",

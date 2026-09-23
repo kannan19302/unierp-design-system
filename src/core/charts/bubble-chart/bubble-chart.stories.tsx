@@ -10,7 +10,7 @@ const SAMPLE_BUBBLES = [
 ];
 
 const meta: Meta<typeof BubbleChart> = {
-  title: "Charts/BubbleChart",
+  title: "Core/Charts/BubbleChart",
   component: BubbleChart,
   tags: ["autodocs"],
   parameters: {

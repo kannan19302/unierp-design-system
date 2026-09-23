@@ -13,7 +13,7 @@ import { RadioGroup } from "./radio-group";
  * - **Flexible Orientations**: Stacked vertical flow for dense forms or inline horizontal layout.
  */
 const meta: Meta<typeof RadioGroup> = {
-  title: "Inputs/RadioGroup",
+  title: "Core/Inputs/RadioGroup",
   component: RadioGroup,
   tags: ["autodocs"],
   parameters: {

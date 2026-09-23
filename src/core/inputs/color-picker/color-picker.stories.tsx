@@ -13,7 +13,7 @@ import { ColorPicker, type ColorPickerProps } from "./color-picker";
  * - **Native Eyedropper / System Picker**: Seamless fallback to browser-native color controls.
  */
 const meta: Meta<typeof ColorPicker> = {
-  title: "Inputs/ColorPicker",
+  title: "Core/Inputs/ColorPicker",
   component: ColorPicker,
   tags: ["autodocs"],
   parameters: {

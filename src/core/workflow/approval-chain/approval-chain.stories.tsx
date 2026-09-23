@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ApprovalChain, type ApprovalStep } from "./approval-chain";
 
 const meta: Meta<typeof ApprovalChain> = {
-  title: "Workflow/ApprovalChain",
+  title: "Core/Workflow/ApprovalChain",
   component: ApprovalChain,
   tags: ["autodocs"],
   parameters: {

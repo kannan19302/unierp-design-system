@@ -5,7 +5,7 @@ import {
 } from "./service-health-kpi-grid";
 
 const meta: Meta<typeof ServiceHealthKpiGrid> = {
-  title: "Dashboard/ServiceHealthKpiGrid",
+  title: "Core/Dashboard/ServiceHealthKpiGrid",
   component: ServiceHealthKpiGrid,
   tags: ["autodocs"],
   parameters: {

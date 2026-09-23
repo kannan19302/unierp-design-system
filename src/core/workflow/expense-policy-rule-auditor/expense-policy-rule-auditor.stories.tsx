@@ -60,7 +60,7 @@ const compliantTransaction: ExpenseTransactionAuditItem = {
 };
 
 const meta: Meta<typeof ExpensePolicyRuleAuditor> = {
-  title: "Workflow/ExpensePolicyRuleAuditor",
+  title: "Core/Workflow/ExpensePolicyRuleAuditor",
   component: ExpensePolicyRuleAuditor,
   parameters: {
     layout: "padded",

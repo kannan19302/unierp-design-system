@@ -34,7 +34,7 @@ const MOCK_TILES: CatalogTile[] = [
 ];
 
 const meta: Meta<typeof CatalogShell> = {
-  title: "Shell/CatalogShell",
+  title: "Core/Shell/CatalogShell",
   component: CatalogShell,
   tags: ["autodocs"],
   parameters: {

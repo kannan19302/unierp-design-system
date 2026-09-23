@@ -4,7 +4,7 @@ import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof SplitViewShell> = {
-  title: "Shell/SplitViewShell",
+  title: "Core/Shell/SplitViewShell",
   component: SplitViewShell,
   tags: ["autodocs"],
   parameters: {

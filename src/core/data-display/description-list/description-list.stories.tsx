@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DescriptionList } from "./description-list";
 
 const meta: Meta<typeof DescriptionList> = {
-  title: "DataDisplay/DescriptionList",
+  title: "Core/DataDisplay/DescriptionList",
   component: DescriptionList,
   tags: ["autodocs"],
   argTypes: {

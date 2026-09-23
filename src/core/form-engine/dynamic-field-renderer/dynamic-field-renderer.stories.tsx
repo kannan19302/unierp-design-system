@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DynamicFieldRenderer } from "./dynamic-field-renderer";
 
 const meta: Meta<typeof DynamicFieldRenderer> = {
-  title: "FormEngine/DynamicFieldRenderer",
+  title: "Core/FormEngine/DynamicFieldRenderer",
   component: DynamicFieldRenderer,
   parameters: { layout: "centered" },
 };

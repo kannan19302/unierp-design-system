@@ -10,7 +10,7 @@ import { Badge } from "../badge";
 import { Button } from "../button";
 
 const meta: Meta<typeof ProtectedComponent> = {
-  title: "Primitives/ProtectedComponent",
+  title: "Core/Primitives/ProtectedComponent",
   component: ProtectedComponent,
   parameters: {
     layout: "centered",

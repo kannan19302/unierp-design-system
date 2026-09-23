@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PromotionApprovalInspector } from "./promotion-approval-inspector";
 
 const meta: Meta<typeof PromotionApprovalInspector> = {
-  title: "Workflow/PromotionApprovalInspector",
+  title: "Core/Workflow/PromotionApprovalInspector",
   component: PromotionApprovalInspector,
   tags: ["autodocs"],
   parameters: {

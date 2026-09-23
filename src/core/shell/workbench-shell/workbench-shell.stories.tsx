@@ -4,7 +4,7 @@ import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof WorkbenchShell> = {
-  title: "Shell/WorkbenchShell",
+  title: "Core/Shell/WorkbenchShell",
   component: WorkbenchShell,
   parameters: {
     layout: "fullscreen",

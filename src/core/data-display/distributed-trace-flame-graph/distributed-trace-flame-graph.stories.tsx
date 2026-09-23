@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DistributedTraceFlameGraph } from "./distributed-trace-flame-graph";
 
 const meta: Meta<typeof DistributedTraceFlameGraph> = {
-  title: "Data Display/DistributedTraceFlameGraph",
+  title: "Core/Data Display/DistributedTraceFlameGraph",
   component: DistributedTraceFlameGraph,
   parameters: {
     layout: "padded",

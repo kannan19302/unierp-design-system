@@ -67,7 +67,7 @@ const unbalancedRows: DistributionRow[] = [
 ];
 
 const meta: Meta<typeof SubledgerDistributionTable> = {
-  title: "Data Grid/SubledgerDistributionTable",
+  title: "Core/Data Grid/SubledgerDistributionTable",
   component: SubledgerDistributionTable,
   parameters: {
     layout: "padded",

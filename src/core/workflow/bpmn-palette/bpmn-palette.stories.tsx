@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BpmnPalette } from "./bpmn-palette";
 
 const meta: Meta<typeof BpmnPalette> = {
-  title: "Workflow/BpmnPalette",
+  title: "Core/Workflow/BpmnPalette",
   component: BpmnPalette,
   tags: ["autodocs"],
   parameters: {

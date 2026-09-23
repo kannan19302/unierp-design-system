@@ -43,7 +43,7 @@ const sampleLineage: LineageItem[] = [
 ];
 
 const meta: Meta<typeof EntityLineage> = {
-  title: "Workflow/EntityLineage",
+  title: "Core/Workflow/EntityLineage",
   component: EntityLineage,
   parameters: {
     layout: "padded",

@@ -7,7 +7,7 @@ import {
 } from "./bpmn-simulation-bar";
 
 const meta: Meta<typeof BpmnSimulationBar> = {
-  title: "Workflow/BpmnSimulationBar",
+  title: "Core/Workflow/BpmnSimulationBar",
   component: BpmnSimulationBar,
   tags: ["autodocs"],
   parameters: {

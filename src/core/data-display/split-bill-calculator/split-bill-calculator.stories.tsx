@@ -13,7 +13,7 @@ const mockItems: BillLineItem[] = [
 ];
 
 const meta: Meta<typeof SplitBillCalculator> = {
-  title: "DataDisplay/SplitBillCalculator",
+  title: "Core/DataDisplay/SplitBillCalculator",
   component: SplitBillCalculator,
   parameters: {
     layout: "padded",

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PinnedBookmarksBar } from "./pinned-bookmarks-bar";
 
 const meta: Meta<typeof PinnedBookmarksBar> = {
-  title: "Navigation/PinnedBookmarksBar",
+  title: "Core/Navigation/PinnedBookmarksBar",
   component: PinnedBookmarksBar,
   tags: ["autodocs"],
   parameters: {

@@ -4,7 +4,7 @@ import { ConfirmDialog } from "./confirm-dialog";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof Modal> = {
-  title: "Overlays/Modal",
+  title: "Core/Overlays/Modal",
   component: Modal,
   parameters: {
     layout: "fullscreen",

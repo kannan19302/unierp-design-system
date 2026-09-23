@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ContextualActionFloatingDock } from "./contextual-action-floating-dock";
 
 const meta: Meta<typeof ContextualActionFloatingDock> = {
-  title: "Navigation/ContextualActionFloatingDock",
+  title: "Core/Navigation/ContextualActionFloatingDock",
   component: ContextualActionFloatingDock,
   tags: ["autodocs"],
   parameters: {

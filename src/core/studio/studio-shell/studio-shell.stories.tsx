@@ -34,7 +34,7 @@ const FullFrame = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof StudioShell> = {
-  title: "Studio/StudioShell",
+  title: "Core/Studio/StudioShell",
   component: StudioShell,
   tags: ["autodocs"],
   parameters: {

@@ -4,7 +4,7 @@ import { WorkflowGraph, type WorkflowNode, type WorkflowEdge } from "./workflow-
 const sampleNodes: WorkflowNode[] = [
   {
     id: "step-1",
-    title: "Draft Created",
+    title: "Core/Workflow/Draft Created",
     subtitle: "By requester",
     status: "completed",
     assignee: "Sarah Jenkins",

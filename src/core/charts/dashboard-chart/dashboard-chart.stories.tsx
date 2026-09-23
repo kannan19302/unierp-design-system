@@ -9,7 +9,7 @@ const MOCK_SALES_DATA = [
 ];
 
 const meta: Meta<typeof DashboardChart> = {
-  title: "Charts/DashboardChart",
+  title: "Core/Charts/DashboardChart",
   component: DashboardChart,
   tags: ["autodocs"],
   parameters: {

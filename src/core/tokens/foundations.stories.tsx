@@ -6,7 +6,7 @@ import { Search, Plus, Check, DEFAULT_ICON_STROKE_WIDTH } from "../icons";
 import styles from "./foundations.module.css";
 
 const meta: Meta<typeof Card> = {
-  title: "Foundations/Business foundations",
+  title: "Core/Foundations/Business foundations",
   component: Card,
   tags: ["autodocs"],
   parameters: { layout: "fullscreen" },

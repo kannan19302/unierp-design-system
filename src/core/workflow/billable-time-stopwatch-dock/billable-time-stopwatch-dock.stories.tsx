@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BillableTimeStopwatchDock } from "./billable-time-stopwatch-dock";
 
 const meta: Meta<typeof BillableTimeStopwatchDock> = {
-  title: "Workflow/BillableTimeStopwatchDock",
+  title: "Core/Workflow/BillableTimeStopwatchDock",
   component: BillableTimeStopwatchDock,
   parameters: {
     layout: "centered",

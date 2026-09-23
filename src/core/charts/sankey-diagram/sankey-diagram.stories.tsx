@@ -17,7 +17,7 @@ const SAMPLE_LINKS = [
 ];
 
 const meta: Meta<typeof SankeyDiagram> = {
-  title: "Charts/SankeyDiagram",
+  title: "Core/Charts/SankeyDiagram",
   component: SankeyDiagram,
   tags: ["autodocs"],
   parameters: {

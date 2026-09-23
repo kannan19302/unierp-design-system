@@ -41,7 +41,7 @@ const sampleSteps = [
 ];
 
 const meta: Meta<typeof MultiStepTransactionForm> = {
-  title: "Forms/MultiStepTransactionForm",
+  title: "Core/Forms/MultiStepTransactionForm",
   component: MultiStepTransactionForm,
   tags: ["autodocs"],
   parameters: {

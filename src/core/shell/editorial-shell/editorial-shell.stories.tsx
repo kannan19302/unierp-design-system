@@ -9,7 +9,7 @@ import {
 } from "./editorial-shell";
 
 const meta: Meta<typeof EditorialShell> = {
-  title: "Shell/EditorialShell",
+  title: "Core/Shell/EditorialShell",
   component: EditorialShell,
   tags: ["autodocs"],
   parameters: {

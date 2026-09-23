@@ -4,7 +4,7 @@ import { FileText, ShoppingCart, Users, Settings, Package } from "lucide-react";
 import { WorkspaceTabs, type WorkspaceTabItem } from "./workspace-tabs";
 
 const meta: Meta<typeof WorkspaceTabs> = {
-  title: "Layout/WorkspaceTabs",
+  title: "Core/Layout/WorkspaceTabs",
   component: WorkspaceTabs,
   tags: ["autodocs"],
   parameters: {

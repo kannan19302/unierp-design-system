@@ -14,7 +14,7 @@ import { DatePicker, type DatePickerProps } from "./date-picker";
  * - **Accessible Calendar Trigger**: Integrated calendar icon for immediate visual affordance.
  */
 const meta: Meta<typeof DatePicker> = {
-  title: "Inputs/DatePicker",
+  title: "Core/Inputs/DatePicker",
   component: DatePicker,
   tags: ["autodocs"],
   parameters: {

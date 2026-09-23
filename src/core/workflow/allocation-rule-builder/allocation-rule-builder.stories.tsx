@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AllocationRuleBuilder } from "./allocation-rule-builder";
 
 const meta: Meta<typeof AllocationRuleBuilder> = {
-  title: "Workflow/AllocationRuleBuilder",
+  title: "Core/Workflow/AllocationRuleBuilder",
   component: AllocationRuleBuilder,
   parameters: {
     layout: "padded",

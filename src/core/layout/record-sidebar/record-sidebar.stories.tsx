@@ -4,7 +4,7 @@ import { DescriptionList } from "../../data-display/description-list";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof RecordSidebar> = {
-  title: "Layout/RecordSidebar",
+  title: "Core/Layout/RecordSidebar",
   component: RecordSidebar,
   tags: ["autodocs"],
   parameters: {

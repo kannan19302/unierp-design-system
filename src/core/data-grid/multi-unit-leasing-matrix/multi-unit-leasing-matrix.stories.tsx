@@ -72,7 +72,7 @@ const sampleUnits: CommercialLeaseUnit[] = [
 ];
 
 const meta: Meta<typeof MultiUnitLeasingMatrix> = {
-  title: "Data Grid/MultiUnitLeasingMatrix",
+  title: "Core/Data Grid/MultiUnitLeasingMatrix",
   component: MultiUnitLeasingMatrix,
   parameters: {
     layout: "padded",

@@ -4,7 +4,7 @@ import { NotificationCenter, type NotificationItem } from "./notification-center
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof NotificationCenter> = {
-  title: "Notifications/NotificationCenter",
+  title: "Core/Notifications/NotificationCenter",
   component: NotificationCenter,
   tags: ["autodocs"],
   parameters: {

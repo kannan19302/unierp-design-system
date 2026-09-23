@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WorkspaceGlobalRail, defaultSuites } from "./workspace-global-rail";
 
 const meta: Meta<typeof WorkspaceGlobalRail> = {
-  title: "Navigation/WorkspaceGlobalRail",
+  title: "Core/Navigation/WorkspaceGlobalRail",
   component: WorkspaceGlobalRail,
   parameters: {
     layout: "fullscreen",

@@ -86,7 +86,7 @@ const mockTotes: ToteSlot[] = [
 ];
 
 const meta: Meta<typeof WarehousePickPackWaveConsole> = {
-  title: "Workflow/WarehousePickPackWaveConsole",
+  title: "Core/Workflow/WarehousePickPackWaveConsole",
   component: WarehousePickPackWaveConsole,
   parameters: {
     layout: "padded",

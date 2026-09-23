@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DocumentUploadForm } from "./document-upload-form";
 
 const meta: Meta<typeof DocumentUploadForm> = {
-  title: "Forms/DocumentUploadForm",
+  title: "Core/Forms/DocumentUploadForm",
   component: DocumentUploadForm,
   tags: ["autodocs"],
   parameters: {

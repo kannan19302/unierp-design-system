@@ -8,7 +8,7 @@ const sampleFilters = [
 ];
 
 const meta: Meta<typeof CrossFilterDashboard> = {
-  title: "Dashboard/CrossFilterDashboard",
+  title: "Core/Dashboard/CrossFilterDashboard",
   component: CrossFilterDashboard,
   tags: ["autodocs"],
   parameters: {

@@ -7,7 +7,7 @@ import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof DetailLayout> = {
-  title: "Layout/DetailLayout",
+  title: "Core/Layout/DetailLayout",
   component: DetailLayout,
   tags: ["autodocs"],
   parameters: {

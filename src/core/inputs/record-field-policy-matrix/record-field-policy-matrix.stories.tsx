@@ -8,7 +8,7 @@ import {
 } from "./record-field-policy-matrix";
 
 const meta: Meta<typeof RecordFieldPolicyMatrix> = {
-  title: "Inputs/RecordFieldPolicyMatrix",
+  title: "Core/Inputs/RecordFieldPolicyMatrix",
   component: RecordFieldPolicyMatrix,
   tags: ["autodocs"],
   parameters: {

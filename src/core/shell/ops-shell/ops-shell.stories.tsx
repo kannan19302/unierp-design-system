@@ -20,7 +20,7 @@ const MOCK_DOMAINS: OpsDomain[] = [
 ];
 
 const meta: Meta<typeof OpsShell> = {
-  title: "Shell/OpsShell",
+  title: "Core/Shell/OpsShell",
   component: OpsShell,
   tags: ["autodocs"],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { RepeatableSectionEngine } from "./repeatable-section-engine";
 
 const meta: Meta<typeof RepeatableSectionEngine> = {
-  title: "FormEngine/RepeatableSectionEngine",
+  title: "Core/FormEngine/RepeatableSectionEngine",
   component: RepeatableSectionEngine,
   parameters: { layout: "centered" },
 };

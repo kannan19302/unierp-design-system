@@ -64,7 +64,7 @@ const SettingsDemo = () => {
 };
 
 const meta: Meta<typeof SettingsPage> = {
-  title: "FormEngine/SettingsPage",
+  title: "Core/FormEngine/SettingsPage",
   component: SettingsDemo,
   parameters: { layout: "padded" },
 };

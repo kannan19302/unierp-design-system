@@ -3,7 +3,7 @@ import { ContextMenu } from "./context-menu";
 import { Edit, Trash2, Copy, Share2, Eye, ShieldAlert } from "lucide-react";
 
 const meta: Meta<typeof ContextMenu> = {
-  title: "Overlays/ContextMenu",
+  title: "Core/Overlays/ContextMenu",
   component: ContextMenu,
   tags: ["autodocs"],
   parameters: {

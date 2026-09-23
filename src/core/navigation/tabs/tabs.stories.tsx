@@ -4,7 +4,7 @@ import { Tabs } from "./tabs";
 import { FileText, Shield, Activity } from "lucide-react";
 
 const meta: Meta<typeof Tabs> = {
-  title: "Navigation/Tabs",
+  title: "Core/Navigation/Tabs",
   component: Tabs,
   tags: ["autodocs"],
   parameters: {

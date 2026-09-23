@@ -4,7 +4,7 @@ import { RepeaterFieldGroup } from "./repeater-field-group";
 const lineItemFields = ["SKU / Code", "Description", "Quantity", "Unit Price", "Tax %"];
 
 const meta: Meta<typeof RepeaterFieldGroup> = {
-  title: "Forms/RepeaterFieldGroup",
+  title: "Core/Forms/RepeaterFieldGroup",
   component: RepeaterFieldGroup,
   tags: ["autodocs"],
   parameters: {

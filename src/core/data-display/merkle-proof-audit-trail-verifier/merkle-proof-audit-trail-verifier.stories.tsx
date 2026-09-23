@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MerkleProofAuditTrailVerifier } from "./merkle-proof-audit-trail-verifier";
 
 const meta: Meta<typeof MerkleProofAuditTrailVerifier> = {
-  title: "DataDisplay/MerkleProofAuditTrailVerifier",
+  title: "Core/DataDisplay/MerkleProofAuditTrailVerifier",
   component: MerkleProofAuditTrailVerifier,
   parameters: {
     layout: "centered",

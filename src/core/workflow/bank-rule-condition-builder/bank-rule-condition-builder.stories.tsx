@@ -22,7 +22,7 @@ const mockRule: Partial<BankRule> = {
 };
 
 const meta: Meta<typeof BankRuleConditionBuilder> = {
-  title: "Workflow/BankRuleConditionBuilder",
+  title: "Core/Workflow/BankRuleConditionBuilder",
   component: BankRuleConditionBuilder,
   parameters: {
     layout: "padded",

@@ -14,7 +14,7 @@ import { PercentInput, type PercentInputProps } from "./percent-input";
  * - **Automatic Clamping**: Restricts input to configured minimum and maximum limits.
  */
 const meta: Meta<typeof PercentInput> = {
-  title: "Inputs/PercentInput",
+  title: "Core/Inputs/PercentInput",
   component: PercentInput,
   tags: ["autodocs"],
   parameters: {

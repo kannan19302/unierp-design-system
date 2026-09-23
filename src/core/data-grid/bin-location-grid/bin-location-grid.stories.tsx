@@ -112,7 +112,7 @@ const SAMPLE_BINS: StorageBin[] = [
 ];
 
 const meta: Meta<typeof BinLocationGrid> = {
-  title: "DataGrid/BinLocationGrid",
+  title: "Core/DataGrid/BinLocationGrid",
   component: BinLocationGrid,
   parameters: {
     layout: "padded",

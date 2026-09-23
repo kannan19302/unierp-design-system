@@ -8,7 +8,7 @@ const SAMPLE_DATASETS = [
 ];
 
 const meta: Meta<typeof RadarChart> = {
-  title: "Charts/RadarChart",
+  title: "Core/Charts/RadarChart",
   component: RadarChart,
   tags: ["autodocs"],
   parameters: {

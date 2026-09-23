@@ -52,7 +52,7 @@ const sampleNodes: ClusterNodeSpecification[] = [
 ];
 
 const meta: Meta<typeof ComputeClusterTopologyMap> = {
-  title: "Data Display/ComputeClusterTopologyMap",
+  title: "Core/Data Display/ComputeClusterTopologyMap",
   component: ComputeClusterTopologyMap,
   parameters: {
     layout: "padded",

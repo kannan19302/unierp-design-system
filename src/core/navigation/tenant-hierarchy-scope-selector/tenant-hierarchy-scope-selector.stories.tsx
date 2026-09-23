@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TenantHierarchyScopeSelector } from "./tenant-hierarchy-scope-selector";
 
 const meta: Meta<typeof TenantHierarchyScopeSelector> = {
-  title: "Navigation/TenantHierarchyScopeSelector",
+  title: "Core/Navigation/TenantHierarchyScopeSelector",
   component: TenantHierarchyScopeSelector,
   tags: ["autodocs"],
   parameters: {

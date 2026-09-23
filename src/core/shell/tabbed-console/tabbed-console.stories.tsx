@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TabbedConsole } from "./tabbed-console";
 
 const meta: Meta<typeof TabbedConsole> = {
-  title: "Shell/TabbedConsole",
+  title: "Core/Shell/TabbedConsole",
   component: TabbedConsole,
   tags: ["autodocs"],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { LoadingOverlay } from "./loading-overlay";
 
 const meta: Meta<typeof LoadingOverlay> = {
-  title: "Overlays/LoadingOverlay",
+  title: "Core/Overlays/LoadingOverlay",
   component: LoadingOverlay,
   tags: ["autodocs"],
   parameters: {

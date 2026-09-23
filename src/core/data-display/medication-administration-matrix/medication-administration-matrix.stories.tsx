@@ -54,7 +54,7 @@ const mockOrders: MedicationOrder[] = [
 ];
 
 const meta: Meta<typeof MedicationAdministrationMatrix> = {
-  title: "DataDisplay/MedicationAdministrationMatrix",
+  title: "Core/DataDisplay/MedicationAdministrationMatrix",
   component: MedicationAdministrationMatrix,
   parameters: {
     layout: "padded",

@@ -9,7 +9,7 @@ const sampleFields = [
 ];
 
 const meta: Meta<typeof InlineEditableRecord> = {
-  title: "Forms/InlineEditableRecord",
+  title: "Core/Forms/InlineEditableRecord",
   component: InlineEditableRecord,
   tags: ["autodocs"],
   parameters: {

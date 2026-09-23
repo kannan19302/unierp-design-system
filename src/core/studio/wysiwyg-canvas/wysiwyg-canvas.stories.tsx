@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WysiwygCanvas, type SelectedElementMeta } from "./wysiwyg-canvas";
 
 const meta: Meta<typeof WysiwygCanvas> = {
-  title: "Studio/WysiwygCanvas",
+  title: "Core/Studio/WysiwygCanvas",
   component: WysiwygCanvas,
   tags: ["autodocs"],
   parameters: {

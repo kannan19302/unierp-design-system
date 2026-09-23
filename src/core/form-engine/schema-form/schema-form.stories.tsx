@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SchemaForm, type FormSectionSchema } from "./schema-form";
 
 const meta: Meta<typeof SchemaForm> = {
-  title: "FormEngine/SchemaForm",
+  title: "Core/FormEngine/SchemaForm",
   component: SchemaForm,
   parameters: {
     layout: "padded",

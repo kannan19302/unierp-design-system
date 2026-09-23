@@ -18,7 +18,7 @@ const sampleDays = [
 const sampleLayers: EscalationLayer[] = [
   {
     tier: "tier_1_primary",
-    title: "Tier 1: Primary On-Call",
+    title: "Core/Workflow/Tier 1: Primary On-Call",
     escalationTimeoutMinutes: 5,
   },
   {

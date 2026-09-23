@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DashboardGridLayout } from "./dashboard-grid-layout";
 
 const meta: Meta<typeof DashboardGridLayout> = {
-  title: "Dashboard/DashboardGridLayout",
+  title: "Core/Dashboard/DashboardGridLayout",
   component: DashboardGridLayout,
   tags: ["autodocs"],
   parameters: {

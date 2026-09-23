@@ -63,7 +63,7 @@ const samplePartitions: KafkaPartitionLag[] = [
 ];
 
 const meta: Meta<typeof KafkaConsumerGroupLagMatrix> = {
-  title: "Data Display/KafkaConsumerGroupLagMatrix",
+  title: "Core/Data Display/KafkaConsumerGroupLagMatrix",
   component: KafkaConsumerGroupLagMatrix,
   tags: ["autodocs"],
   parameters: {

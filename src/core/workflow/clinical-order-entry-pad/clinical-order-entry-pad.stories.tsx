@@ -12,7 +12,7 @@ const mockPatient: PatientBannerInfo = {
 };
 
 const meta: Meta<typeof ClinicalOrderEntryPad> = {
-  title: "Workflow/ClinicalOrderEntryPad",
+  title: "Core/Workflow/ClinicalOrderEntryPad",
   component: ClinicalOrderEntryPad,
   parameters: {
     layout: "padded",

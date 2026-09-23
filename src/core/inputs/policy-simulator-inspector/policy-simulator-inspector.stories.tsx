@@ -6,7 +6,7 @@ import {
 } from "./policy-simulator-inspector";
 
 const meta: Meta<typeof PolicySimulatorInspector> = {
-  title: "Inputs/PolicySimulatorInspector",
+  title: "Core/Inputs/PolicySimulatorInspector",
   component: PolicySimulatorInspector,
   tags: ["autodocs"],
   parameters: {

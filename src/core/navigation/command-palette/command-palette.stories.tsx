@@ -4,7 +4,7 @@ import { CommandPalette } from "./command-palette";
 import { FilePlus, Settings, Users, BookOpen, Layers } from "lucide-react";
 
 const meta: Meta<typeof CommandPalette> = {
-  title: "Navigation/CommandPalette",
+  title: "Core/Navigation/CommandPalette",
   component: CommandPalette,
   tags: ["autodocs"],
   parameters: {

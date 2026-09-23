@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CalculatedFieldDisplay } from "./calculated-field-display";
 
 const meta: Meta<typeof CalculatedFieldDisplay> = {
-  title: "FormEngine/CalculatedFieldDisplay",
+  title: "Core/FormEngine/CalculatedFieldDisplay",
   component: CalculatedFieldDisplay,
   parameters: { layout: "centered" },
 };

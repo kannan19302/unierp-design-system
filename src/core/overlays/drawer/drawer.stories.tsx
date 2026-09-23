@@ -3,7 +3,7 @@ import { Drawer } from "./drawer";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof Drawer> = {
-  title: "Overlays/Drawer",
+  title: "Core/Overlays/Drawer",
   component: Drawer,
   parameters: {
     layout: "fullscreen",

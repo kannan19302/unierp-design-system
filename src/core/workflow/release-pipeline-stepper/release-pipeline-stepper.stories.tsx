@@ -6,7 +6,7 @@ import {
 } from "./release-pipeline-stepper";
 
 const meta: Meta<typeof ReleasePipelineStepper> = {
-  title: "Workflow/ReleasePipelineStepper",
+  title: "Core/Workflow/ReleasePipelineStepper",
   component: ReleasePipelineStepper,
   tags: ["autodocs"],
   parameters: {

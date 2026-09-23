@@ -13,7 +13,7 @@ import { NumberStepper } from "./number-stepper";
  * - **Keyboard Stepping**: Native `ArrowUp` and `ArrowDown` keys seamlessly increment and decrement.
  */
 const meta: Meta<typeof NumberStepper> = {
-  title: "Inputs/NumberStepper",
+  title: "Core/Inputs/NumberStepper",
   component: NumberStepper,
   tags: ["autodocs"],
   parameters: {

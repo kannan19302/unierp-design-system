@@ -61,7 +61,7 @@ const SAMPLE_UNITS: LeaseUnitRow[] = [
 ];
 
 const meta: Meta<typeof RentRollFinancialSchedule> = {
-  title: "Data Grid/RentRollFinancialSchedule",
+  title: "Core/Data Grid/RentRollFinancialSchedule",
   component: RentRollFinancialSchedule,
   parameters: {
     layout: "padded",

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FacetedFilterNavigationRail } from "./faceted-filter-navigation-rail";
 
 const meta: Meta<typeof FacetedFilterNavigationRail> = {
-  title: "Navigation/FacetedFilterNavigationRail",
+  title: "Core/Navigation/FacetedFilterNavigationRail",
   component: FacetedFilterNavigationRail,
   tags: ["autodocs"],
   parameters: {

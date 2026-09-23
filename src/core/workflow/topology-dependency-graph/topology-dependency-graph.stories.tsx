@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TopologyDependencyGraph } from "./topology-dependency-graph";
 
 const meta: Meta<typeof TopologyDependencyGraph> = {
-  title: "Workflow/TopologyDependencyGraph",
+  title: "Core/Workflow/TopologyDependencyGraph",
   component: TopologyDependencyGraph,
   parameters: {
     layout: "padded",

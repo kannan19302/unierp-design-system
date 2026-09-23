@@ -64,7 +64,7 @@ const mockApplicant: TenantApplicantProfile = {
 };
 
 const meta: Meta<typeof TenantScreeningScorecard> = {
-  title: "Data Display/TenantScreeningScorecard",
+  title: "Core/Data Display/TenantScreeningScorecard",
   component: TenantScreeningScorecard,
   parameters: {
     layout: "padded",

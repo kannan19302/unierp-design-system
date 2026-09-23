@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FormVersionHistory } from "./form-version-history";
 
 const meta: Meta<typeof FormVersionHistory> = {
-  title: "FormEngine/FormVersionHistory",
+  title: "Core/FormEngine/FormVersionHistory",
   component: FormVersionHistory,
   parameters: { layout: "centered" },
 };

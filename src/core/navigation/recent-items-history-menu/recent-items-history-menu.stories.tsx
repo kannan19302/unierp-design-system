@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { RecentItemsHistoryMenu } from "./recent-items-history-menu";
 
 const meta: Meta<typeof RecentItemsHistoryMenu> = {
-  title: "Navigation/RecentItemsHistoryMenu",
+  title: "Core/Navigation/RecentItemsHistoryMenu",
   component: RecentItemsHistoryMenu,
   tags: ["autodocs"],
   parameters: {

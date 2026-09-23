@@ -23,7 +23,7 @@ const MOCK_GROUPS: PaletteGroup[] = [
 ];
 
 const meta: Meta<typeof StudioPalette> = {
-  title: "Studio/StudioPalette",
+  title: "Core/Studio/StudioPalette",
   component: StudioPalette,
   tags: ["autodocs"],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TrialCountdown } from "./trial-countdown";
 
 const meta: Meta<typeof TrialCountdown> = {
-  title: "Primitives/TrialCountdown",
+  title: "Core/Primitives/TrialCountdown",
   component: TrialCountdown,
   parameters: {
     layout: "centered",

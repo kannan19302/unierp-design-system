@@ -75,7 +75,7 @@ const SAMPLE_SERIES: VitalMetricSeries[] = [
 ];
 
 const meta: Meta<typeof VitalSignsTrendStrip> = {
-  title: "DataDisplay/VitalSignsTrendStrip",
+  title: "Core/DataDisplay/VitalSignsTrendStrip",
   component: VitalSignsTrendStrip,
   parameters: {
     layout: "padded",

@@ -4,7 +4,7 @@ import { Button } from "../../primitives/button";
 import { Copy, Edit, Trash2 } from "lucide-react";
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: "Overlays/DropdownMenu",
+  title: "Core/Overlays/DropdownMenu",
   component: DropdownMenu,
   tags: ["autodocs"],
   parameters: {

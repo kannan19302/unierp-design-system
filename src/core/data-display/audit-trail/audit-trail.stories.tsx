@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ApprovalTimeline, AuditTrailPanel } from "./audit-trail";
 
 const meta: Meta = {
-  title: "Data Display/AuditTrail",
+  title: "Core/Data Display/AuditTrail",
   tags: ["autodocs"],
 };
 

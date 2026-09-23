@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FaqBlock } from "./faq";
 
 const meta: Meta<typeof FaqBlock> = {
-  title: "Blocks/FaqBlock",
+  title: "Core/Blocks/FaqBlock",
   component: FaqBlock,
   parameters: { layout: "fullscreen" },
 };

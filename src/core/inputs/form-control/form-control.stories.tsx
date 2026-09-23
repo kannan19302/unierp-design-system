@@ -15,7 +15,7 @@ import { Search, Mail, Lock, CheckCircle2, AlertCircle } from "lucide-react";
  * - **Autosave Live Region**: Screen-reader polite persistence feedback indicators.
  */
 const meta: Meta<typeof TextField> = {
-  title: "Inputs/FormControl",
+  title: "Core/Inputs/FormControl",
   component: TextField,
   tags: ["autodocs"],
   parameters: {

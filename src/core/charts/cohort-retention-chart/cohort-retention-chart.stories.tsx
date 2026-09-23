@@ -11,7 +11,7 @@ const SAMPLE_COHORTS = [
 ];
 
 const meta: Meta<typeof CohortRetentionChart> = {
-  title: "Charts/CohortRetentionChart",
+  title: "Core/Charts/CohortRetentionChart",
   component: CohortRetentionChart,
   tags: ["autodocs"],
   parameters: {

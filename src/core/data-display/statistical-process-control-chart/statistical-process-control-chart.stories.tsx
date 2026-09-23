@@ -15,7 +15,7 @@ const sampleSubgroups: SpcSubgroupSample[] = [
 ];
 
 const meta: Meta<typeof StatisticalProcessControlChart> = {
-  title: "DataDisplay/StatisticalProcessControlChart",
+  title: "Core/DataDisplay/StatisticalProcessControlChart",
   component: StatisticalProcessControlChart,
   parameters: {
     layout: "padded",

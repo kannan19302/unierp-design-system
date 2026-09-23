@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { HealthScore } from "./health-score";
 
 const meta: Meta<typeof HealthScore> = {
-  title: "Primitives/HealthScore",
+  title: "Core/Primitives/HealthScore",
   component: HealthScore,
   tags: ["autodocs"],
   parameters: {

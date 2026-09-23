@@ -3,7 +3,7 @@ import { ThemeQuickToggle } from "./theme-quick-toggle";
 import { ThemeProvider } from "../theme-provider/theme-provider";
 
 const meta: Meta<typeof ThemeQuickToggle> = {
-  title: "Theme/ThemeQuickToggle",
+  title: "Core/Theme/ThemeQuickToggle",
   component: ThemeQuickToggle,
   parameters: { layout: "centered" },
 };

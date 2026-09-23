@@ -52,7 +52,7 @@ const mockEntries: TrustLedgerEntry[] = [
 ];
 
 const meta: Meta<typeof MatterTrustLedger> = {
-  title: "Data Grid/MatterTrustLedger",
+  title: "Core/Data Grid/MatterTrustLedger",
   component: MatterTrustLedger,
   parameters: {
     layout: "padded",

@@ -26,7 +26,7 @@ const MOCK_PROBLEMS: StudioProblem[] = [
 ];
 
 const meta: Meta<typeof StudioConsole> = {
-  title: "Studio/StudioConsole",
+  title: "Core/Studio/StudioConsole",
   component: StudioConsole,
   tags: ["autodocs"],
   parameters: {

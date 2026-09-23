@@ -9,7 +9,7 @@ const MOCK_SETTINGS: SettingsItem[] = [
 ];
 
 const meta: Meta<typeof SettingsShell> = {
-  title: "Shell/SettingsShell",
+  title: "Core/Shell/SettingsShell",
   component: SettingsShell,
   tags: ["autodocs"],
   parameters: {

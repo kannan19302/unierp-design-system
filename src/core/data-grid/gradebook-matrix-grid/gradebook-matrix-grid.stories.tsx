@@ -64,7 +64,7 @@ const mockStudents: StudentGradeRecord[] = [
 ];
 
 const meta: Meta<typeof GradebookMatrixGrid> = {
-  title: "Data Grid/GradebookMatrixGrid",
+  title: "Core/Data Grid/GradebookMatrixGrid",
   component: GradebookMatrixGrid,
   parameters: {
     layout: "padded",

@@ -45,7 +45,7 @@ const mockEmployees: EmployeeRosterEntry[] = [
 ];
 
 const meta: Meta<typeof ShiftRosterScheduler> = {
-  title: "Data Grid/ShiftRosterScheduler",
+  title: "Core/Data Grid/ShiftRosterScheduler",
   component: ShiftRosterScheduler,
   parameters: {
     layout: "padded",

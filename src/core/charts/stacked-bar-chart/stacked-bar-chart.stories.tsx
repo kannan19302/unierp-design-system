@@ -9,7 +9,7 @@ const SAMPLE_SERIES = [
 ];
 
 const meta: Meta<typeof StackedBarChart> = {
-  title: "Charts/StackedBarChart",
+  title: "Core/Charts/StackedBarChart",
   component: StackedBarChart,
   tags: ["autodocs"],
   parameters: {

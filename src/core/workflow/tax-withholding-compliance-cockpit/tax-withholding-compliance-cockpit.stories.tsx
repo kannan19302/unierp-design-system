@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TaxWithholdingComplianceCockpit } from "./tax-withholding-compliance-cockpit";
 
 const meta: Meta<typeof TaxWithholdingComplianceCockpit> = {
-  title: "Workflow/TaxWithholdingComplianceCockpit",
+  title: "Core/Workflow/TaxWithholdingComplianceCockpit",
   component: TaxWithholdingComplianceCockpit,
   parameters: {
     layout: "centered",

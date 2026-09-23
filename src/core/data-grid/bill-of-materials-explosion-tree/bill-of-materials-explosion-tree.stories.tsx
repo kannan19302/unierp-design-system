@@ -77,7 +77,7 @@ const mockBom: BomNodeItem = {
 };
 
 const meta: Meta<typeof BillOfMaterialsExplosionTree> = {
-  title: "DataGrid/BillOfMaterialsExplosionTree",
+  title: "Core/DataGrid/BillOfMaterialsExplosionTree",
   component: BillOfMaterialsExplosionTree,
   parameters: {
     layout: "padded",

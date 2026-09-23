@@ -12,7 +12,7 @@ import { FeatureRolloutSlider } from "./feature-rollout-slider";
  * - **Emergency Killswitch**: Overrides traffic to 0% with warning color affordances.
  */
 const meta: Meta<typeof FeatureRolloutSlider> = {
-  title: "Inputs/FeatureRolloutSlider",
+  title: "Core/Inputs/FeatureRolloutSlider",
   component: FeatureRolloutSlider,
   parameters: {
     layout: "padded",

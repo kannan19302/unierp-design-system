@@ -6,7 +6,7 @@ import { Badge } from "../../primitives/badge";
 
 
 const meta: Meta<typeof ThemeScope> = {
-  title: "Theme/ThemeScope",
+  title: "Core/Theme/ThemeScope",
   component: ThemeScope,
   parameters: {
     layout: "padded",

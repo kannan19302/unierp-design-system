@@ -31,7 +31,7 @@ const mockMilestones: SlaMilestone[] = [
 ];
 
 const meta: Meta<typeof SlaPerformanceGauge> = {
-  title: "DataDisplay/SlaPerformanceGauge",
+  title: "Core/DataDisplay/SlaPerformanceGauge",
   component: SlaPerformanceGauge,
   parameters: {
     layout: "padded",

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { OmniJumpNavigator } from "./omni-jump-navigator";
 
 const meta: Meta<typeof OmniJumpNavigator> = {
-  title: "Navigation/OmniJumpNavigator",
+  title: "Core/Navigation/OmniJumpNavigator",
   component: OmniJumpNavigator,
   tags: ["autodocs"],
   parameters: {

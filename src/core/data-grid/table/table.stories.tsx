@@ -9,7 +9,7 @@ import { Input, Select } from "../../inputs/form-control";
 import { Pagination } from "../../navigation/pagination";
 
 const meta: Meta<typeof DataTable> = {
-  title: "Data Grid/DataTable",
+  title: "Core/Data Grid/DataTable",
   component: DataTable,
   parameters: { layout: "padded" },
   tags: ["autodocs"],

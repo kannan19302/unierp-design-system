@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TemporalTimelineScrubber } from "./temporal-timeline-scrubber";
 
 const meta: Meta<typeof TemporalTimelineScrubber> = {
-  title: "Navigation/TemporalTimelineScrubber",
+  title: "Core/Navigation/TemporalTimelineScrubber",
   component: TemporalTimelineScrubber,
   tags: ["autodocs"],
   parameters: {

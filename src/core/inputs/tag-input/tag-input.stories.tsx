@@ -11,7 +11,7 @@ import { TagInput } from "./tag-input";
  * - **Accessible Controls**: Each generated chip contains a focused dismiss button with an accessible label.
  */
 const meta: Meta<typeof TagInput> = {
-  title: "Inputs/TagInput",
+  title: "Core/Inputs/TagInput",
   component: TagInput,
   tags: ["autodocs"],
   parameters: {

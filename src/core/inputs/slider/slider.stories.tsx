@@ -14,7 +14,7 @@ import { Slider, type SliderProps } from "./slider";
  * - **Step Snapping**: Granular stepped increments for defined financial percentage thresholds.
  */
 const meta: Meta<typeof Slider> = {
-  title: "Inputs/Slider",
+  title: "Core/Inputs/Slider",
   component: Slider,
   tags: ["autodocs"],
   parameters: {

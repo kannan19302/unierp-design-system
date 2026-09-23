@@ -12,7 +12,7 @@ import { Button } from "../../primitives/button";
 import { DollarSign, ShieldCheck, ArrowUpRight, Scale, Clock, FileText } from "lucide-react";
 
 const meta: Meta = {
-  title: "Screens/FinanceLedgerScreen",
+  title: "Core/Screens/FinanceLedgerScreen",
   parameters: {
     layout: "fullscreen",
   },

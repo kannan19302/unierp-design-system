@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { KanbanBoard, type KanbanColumn, type KanbanItem } from "./kanban-board";
 
 const MOCK_COLUMNS: KanbanColumn[] = [
-  { key: "backlog", title: "Backlog", color: "var(--color-text-tertiary)" },
+  { key: "backlog", title: "Core/Data Grid/Backlog", color: "var(--color-text-tertiary)" },
   { key: "in_progress", title: "In Progress", color: "var(--color-primary, #3b82f6)" },
   { key: "review", title: "Review", color: "var(--color-warning, #f59e0b)" },
   { key: "done", title: "Done", color: "var(--color-success, #10b981)" },

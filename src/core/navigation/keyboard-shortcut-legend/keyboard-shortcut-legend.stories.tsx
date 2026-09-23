@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { KeyboardShortcutLegend } from "./keyboard-shortcut-legend";
 
 const meta: Meta<typeof KeyboardShortcutLegend> = {
-  title: "Navigation/KeyboardShortcutLegend",
+  title: "Core/Navigation/KeyboardShortcutLegend",
   component: KeyboardShortcutLegend,
   tags: ["autodocs"],
   parameters: {

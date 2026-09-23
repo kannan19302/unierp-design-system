@@ -12,7 +12,7 @@ import { FileUpload } from "./file-upload";
  * - **Dropzone Visual Affordance**: Distinct border highlight on file hover.
  */
 const meta: Meta<typeof FileUpload> = {
-  title: "Inputs/FileUpload",
+  title: "Core/Inputs/FileUpload",
   component: FileUpload,
   tags: ["autodocs"],
   parameters: {

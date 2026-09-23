@@ -5,7 +5,7 @@ import { FilePlus } from "lucide-react";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof EmptyState> = {
-  title: "DataDisplay/EmptyState",
+  title: "Core/DataDisplay/EmptyState",
   component: EmptyState,
   tags: ["autodocs"],
 };

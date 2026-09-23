@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Presence } from "./presence";
 
 const meta: Meta<typeof Presence> = {
-  title: "Primitives/Presence",
+  title: "Core/Primitives/Presence",
   component: Presence,
   tags: ["autodocs"],
   parameters: {

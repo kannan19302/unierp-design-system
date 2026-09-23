@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SubTabBar } from "./sub-tab-bar";
 
 const meta: Meta<typeof SubTabBar> = {
-  title: "Navigation/SubTabBar",
+  title: "Core/Navigation/SubTabBar",
   component: SubTabBar,
   tags: ["autodocs"],
   parameters: {

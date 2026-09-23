@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { RecordAnchorNavigationStrip } from "./record-anchor-navigation-strip";
 
 const meta: Meta<typeof RecordAnchorNavigationStrip> = {
-  title: "Navigation/RecordAnchorNavigationStrip",
+  title: "Core/Navigation/RecordAnchorNavigationStrip",
   component: RecordAnchorNavigationStrip,
   tags: ["autodocs"],
   parameters: {

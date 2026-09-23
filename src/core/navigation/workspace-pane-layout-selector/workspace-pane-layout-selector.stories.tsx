@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WorkspacePaneLayoutSelector } from "./workspace-pane-layout-selector";
 
 const meta: Meta<typeof WorkspacePaneLayoutSelector> = {
-  title: "Navigation/WorkspacePaneLayoutSelector",
+  title: "Core/Navigation/WorkspacePaneLayoutSelector",
   component: WorkspacePaneLayoutSelector,
   tags: ["autodocs"],
   parameters: {

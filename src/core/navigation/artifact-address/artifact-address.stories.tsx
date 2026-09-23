@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ArtifactAddress } from "./artifact-address";
 
 const meta: Meta<typeof ArtifactAddress> = {
-  title: "Navigation/ArtifactAddress",
+  title: "Core/Navigation/ArtifactAddress",
   component: ArtifactAddress,
   tags: ["autodocs"],
   parameters: {

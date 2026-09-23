@@ -29,7 +29,7 @@ const MOCK_PLATES: LaunchPlate[] = [
 ];
 
 const meta: Meta<typeof LaunchShell> = {
-  title: "Shell/LaunchShell",
+  title: "Core/Shell/LaunchShell",
   component: LaunchShell,
   tags: ["autodocs"],
   parameters: {

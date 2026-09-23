@@ -12,7 +12,7 @@ const sampleRows = [
 ];
 
 const meta: Meta<typeof FinancialStatementViewer> = {
-  title: "Dashboard/FinancialStatementViewer",
+  title: "Core/Dashboard/FinancialStatementViewer",
   component: FinancialStatementViewer,
   tags: ["autodocs"],
   parameters: {

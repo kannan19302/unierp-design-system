@@ -34,7 +34,7 @@ const sampleSuggestion: StandardizedAddressSuggestion = {
 };
 
 const meta: Meta<typeof EnterpriseCheckoutAddressValidator> = {
-  title: "Forms/EnterpriseCheckoutAddressValidator",
+  title: "Core/Forms/EnterpriseCheckoutAddressValidator",
   component: EnterpriseCheckoutAddressValidator,
   tags: ["autodocs"],
   parameters: {

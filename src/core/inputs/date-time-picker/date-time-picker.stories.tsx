@@ -15,7 +15,7 @@ import { TimePicker } from "./time-picker";
  * - **Accessible Validation**: Full `aria-invalid` and disabled state integration.
  */
 const meta: Meta<typeof DateTimePicker> = {
-  title: "Inputs/DateTimePicker",
+  title: "Core/Inputs/DateTimePicker",
   component: DateTimePicker,
   tags: ["autodocs"],
   parameters: {

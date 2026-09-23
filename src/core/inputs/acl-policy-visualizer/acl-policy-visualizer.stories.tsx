@@ -12,7 +12,7 @@ import { AclPolicyVisualizer } from "./acl-policy-visualizer";
  * - **Dynamic Expansion**: Add new statements and mutate conditions directly in the visualizer.
  */
 const meta: Meta<typeof AclPolicyVisualizer> = {
-  title: "Inputs/AclPolicyVisualizer",
+  title: "Core/Inputs/AclPolicyVisualizer",
   component: AclPolicyVisualizer,
   parameters: {
     layout: "padded",

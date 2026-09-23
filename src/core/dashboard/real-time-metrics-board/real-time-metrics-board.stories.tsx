@@ -18,7 +18,7 @@ const CRITICAL_WIDGETS = [
 ];
 
 const meta: Meta<typeof RealTimeMetricsBoard> = {
-  title: "Dashboard/RealTimeMetricsBoard",
+  title: "Core/Dashboard/RealTimeMetricsBoard",
   component: RealTimeMetricsBoard,
   tags: ["autodocs"],
   parameters: {

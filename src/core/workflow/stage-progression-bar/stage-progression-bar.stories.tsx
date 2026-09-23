@@ -27,7 +27,7 @@ const blockedStages: StageItem[] = [
 ];
 
 const meta: Meta<typeof StageProgressionBar> = {
-  title: "Workflow/StageProgressionBar",
+  title: "Core/Workflow/StageProgressionBar",
   component: StageProgressionBar,
   tags: ["autodocs"],
   parameters: {

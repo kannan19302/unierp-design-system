@@ -4,7 +4,7 @@ import { ConflictResolver, type ConflictFieldDiff } from "./conflict-resolver";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof ConflictResolver> = {
-  title: "FormEngine/ConflictResolver",
+  title: "Core/FormEngine/ConflictResolver",
   component: ConflictResolver,
   parameters: {
     layout: "centered",

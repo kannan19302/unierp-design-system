@@ -52,7 +52,7 @@ const sampleLines: InboundReceivingLine[] = [
 ];
 
 const meta: Meta<typeof InboundReceivingDiscrepancyLog> = {
-  title: "Data Grid/InboundReceivingDiscrepancyLog",
+  title: "Core/Data Grid/InboundReceivingDiscrepancyLog",
   component: InboundReceivingDiscrepancyLog,
   parameters: {
     layout: "padded",

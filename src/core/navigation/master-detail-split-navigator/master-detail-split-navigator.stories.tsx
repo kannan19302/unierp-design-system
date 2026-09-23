@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MasterDetailSplitNavigator } from "./master-detail-split-navigator";
 
 const meta: Meta<typeof MasterDetailSplitNavigator> = {
-  title: "Navigation/MasterDetailSplitNavigator",
+  title: "Core/Navigation/MasterDetailSplitNavigator",
   component: MasterDetailSplitNavigator,
   tags: ["autodocs"],
   parameters: {

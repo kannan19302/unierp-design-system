@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DatabaseQueryExplainPlan } from "./database-query-explain-plan";
 
 const meta: Meta<typeof DatabaseQueryExplainPlan> = {
-  title: "Data Display/DatabaseQueryExplainPlan",
+  title: "Core/Data Display/DatabaseQueryExplainPlan",
   component: DatabaseQueryExplainPlan,
   parameters: {
     layout: "padded",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { LifecycleTracker, type LifecycleStage } from "./lifecycle-tracker";
 
 const meta: Meta<typeof LifecycleTracker> = {
-  title: "Workflow/LifecycleTracker",
+  title: "Core/Workflow/LifecycleTracker",
   component: LifecycleTracker,
   parameters: {
     layout: "padded",

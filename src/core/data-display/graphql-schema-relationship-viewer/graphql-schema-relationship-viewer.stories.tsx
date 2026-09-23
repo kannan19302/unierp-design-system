@@ -78,7 +78,7 @@ const sampleTypes: GraphQLTypeDef[] = [
 ];
 
 const meta: Meta<typeof GraphQLSchemaRelationshipViewer> = {
-  title: "Data Display/GraphQLSchemaRelationshipViewer",
+  title: "Core/Data Display/GraphQLSchemaRelationshipViewer",
   component: GraphQLSchemaRelationshipViewer,
   tags: ["autodocs"],
   parameters: {

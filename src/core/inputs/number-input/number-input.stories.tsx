@@ -14,7 +14,7 @@ import { NumberInput, type NumberInputProps } from "./number-input";
  * - **Accessible Validation**: Binds `aria-invalid` when input fails business validation.
  */
 const meta: Meta<typeof NumberInput> = {
-  title: "Inputs/NumberInput",
+  title: "Core/Inputs/NumberInput",
   component: NumberInput,
   tags: ["autodocs"],
   parameters: {

@@ -4,7 +4,7 @@ import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof InspectorShell> = {
-  title: "Shell/InspectorShell",
+  title: "Core/Shell/InspectorShell",
   component: InspectorShell,
   parameters: {
     layout: "fullscreen",

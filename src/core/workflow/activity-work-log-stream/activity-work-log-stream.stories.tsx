@@ -33,7 +33,7 @@ const SAMPLE_ENTRIES: WorkLogEntry[] = [
 ];
 
 const meta: Meta<typeof ActivityWorkLogStream> = {
-  title: "Workflow/ActivityWorkLogStream",
+  title: "Core/Workflow/ActivityWorkLogStream",
   component: ActivityWorkLogStream,
   parameters: {
     layout: "padded",

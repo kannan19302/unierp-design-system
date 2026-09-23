@@ -60,7 +60,7 @@ const sampleAdjustments: ReserveAdjustmentRecord[] = [
 ];
 
 const meta: Meta<typeof LossReserveAdjustmentLedger> = {
-  title: "Data Grid/LossReserveAdjustmentLedger",
+  title: "Core/Data Grid/LossReserveAdjustmentLedger",
   component: LossReserveAdjustmentLedger,
   parameters: {
     layout: "padded",

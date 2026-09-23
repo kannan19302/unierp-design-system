@@ -13,7 +13,7 @@ import { Button } from "../../primitives/button";
  * - **Auto-Save Status**: Visual feedback for clean, in-flight, or dirty editor state.
  */
 const meta: Meta<typeof StudioToolbar> = {
-  title: "Studio/StudioToolbar",
+  title: "Core/Studio/StudioToolbar",
   component: StudioToolbar,
   parameters: { layout: "fullscreen" },
   tags: ["autodocs"],

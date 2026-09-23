@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PerspectiveModeSwitcher } from "./perspective-mode-switcher";
 
 const meta: Meta<typeof PerspectiveModeSwitcher> = {
-  title: "Navigation/PerspectiveModeSwitcher",
+  title: "Core/Navigation/PerspectiveModeSwitcher",
   component: PerspectiveModeSwitcher,
   tags: ["autodocs"],
   parameters: {

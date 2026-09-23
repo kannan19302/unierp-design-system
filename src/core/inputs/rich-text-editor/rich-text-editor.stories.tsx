@@ -12,7 +12,7 @@ import { RichTextEditor } from "./rich-text-editor";
  * - **Strata DL Design Tokens**: Toolbar styling and textarea padding derive from standard design variables.
  */
 const meta: Meta<typeof RichTextEditor> = {
-  title: "Inputs/RichTextEditor",
+  title: "Core/Inputs/RichTextEditor",
   component: RichTextEditor,
   tags: ["autodocs"],
   parameters: {

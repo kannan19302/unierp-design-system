@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ConditionalFieldGroup } from "./conditional-field-group";
 
 const meta: Meta<typeof ConditionalFieldGroup> = {
-  title: "Forms/ConditionalFieldGroup",
+  title: "Core/Forms/ConditionalFieldGroup",
   component: ConditionalFieldGroup,
   tags: ["autodocs"],
   parameters: {

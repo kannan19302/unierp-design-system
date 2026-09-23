@@ -9,7 +9,7 @@ const sampleKpis = [
 ];
 
 const meta: Meta<typeof OperationalDashboard> = {
-  title: "Dashboard/OperationalDashboard",
+  title: "Core/Dashboard/OperationalDashboard",
   component: OperationalDashboard,
   tags: ["autodocs"],
   parameters: {

@@ -42,7 +42,7 @@ const samplePermissions: Record<string, Record<string, boolean>> = {
 };
 
 const meta: Meta<typeof PermissionMatrixForm> = {
-  title: "Forms/PermissionMatrixForm",
+  title: "Core/Forms/PermissionMatrixForm",
   component: PermissionMatrixForm,
   tags: ["autodocs"],
   parameters: {

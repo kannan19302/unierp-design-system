@@ -41,7 +41,7 @@ const mockRecords = [
 ];
 
 const meta: Meta<typeof SubcontractorComplianceLienTracker> = {
-  title: "Data Grid/SubcontractorComplianceLienTracker",
+  title: "Core/Data Grid/SubcontractorComplianceLienTracker",
   component: SubcontractorComplianceLienTracker,
   parameters: {
     layout: "centered",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ClinicalTrialCohortRandomizer } from "./clinical-trial-cohort-randomizer";
 
 const meta: Meta<typeof ClinicalTrialCohortRandomizer> = {
-  title: "Workflow/ClinicalTrialCohortRandomizer",
+  title: "Core/Workflow/ClinicalTrialCohortRandomizer",
   component: ClinicalTrialCohortRandomizer,
   parameters: {
     layout: "centered",

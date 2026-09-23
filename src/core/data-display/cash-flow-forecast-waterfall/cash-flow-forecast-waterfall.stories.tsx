@@ -40,7 +40,7 @@ const mockSteps: CashFlowStepItem[] = [
 ];
 
 const meta: Meta<typeof CashFlowForecastWaterfall> = {
-  title: "DataDisplay/CashFlowForecastWaterfall",
+  title: "Core/DataDisplay/CashFlowForecastWaterfall",
   component: CashFlowForecastWaterfall,
   parameters: {
     layout: "padded",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BladeNavigationStack } from "./blade-navigation-stack";
 
 const meta: Meta<typeof BladeNavigationStack> = {
-  title: "Navigation/BladeNavigationStack",
+  title: "Core/Navigation/BladeNavigationStack",
   component: BladeNavigationStack,
   tags: ["autodocs"],
   parameters: {

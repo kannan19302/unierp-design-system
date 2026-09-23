@@ -52,7 +52,7 @@ const mockActivities: EmissionActivityLine[] = [
 ];
 
 const meta: Meta<typeof EsgEmissionsCalculator> = {
-  title: "Data Grid/EsgEmissionsCalculator",
+  title: "Core/Data Grid/EsgEmissionsCalculator",
   component: EsgEmissionsCalculator,
   parameters: {
     layout: "padded",

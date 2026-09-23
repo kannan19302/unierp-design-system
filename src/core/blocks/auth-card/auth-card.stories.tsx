@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AuthCard } from "./auth-card";
 
 const meta: Meta<typeof AuthCard> = {
-  title: "Blocks/AuthCard",
+  title: "Core/Blocks/AuthCard",
   component: AuthCard,
   parameters: { layout: "fullscreen" },
 };

@@ -61,7 +61,7 @@ const sampleCategories: CamExpenseItem[] = [
 ];
 
 const meta: Meta<typeof CamExpenseReconciliationLedger> = {
-  title: "Data Grid/CamExpenseReconciliationLedger",
+  title: "Core/Data Grid/CamExpenseReconciliationLedger",
   component: CamExpenseReconciliationLedger,
   parameters: {
     layout: "padded",

@@ -22,7 +22,7 @@ const SAMPLE_ENTRIES = [
 ];
 
 const meta: Meta<typeof ChangelogTimeline> = {
-  title: "Notifications/ChangelogTimeline",
+  title: "Core/Notifications/ChangelogTimeline",
   component: ChangelogTimeline,
   tags: ["autodocs"],
   parameters: {

@@ -66,7 +66,7 @@ const mockTaxLines: TaxLineItem[] = [
 ];
 
 const meta: Meta<typeof TaxEngineBreakdownTable> = {
-  title: "Data Grid/TaxEngineBreakdownTable",
+  title: "Core/Data Grid/TaxEngineBreakdownTable",
   component: TaxEngineBreakdownTable,
   parameters: {
     layout: "padded",

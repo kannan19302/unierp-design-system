@@ -15,7 +15,7 @@ import { SegmentedControl, type SegmentedControlProps } from "./segmented-contro
  * - **Width Adaptability**: Supports content-hugging or container `fullWidth` expansion.
  */
 const meta: Meta<typeof SegmentedControl> = {
-  title: "Inputs/SegmentedControl",
+  title: "Core/Inputs/SegmentedControl",
   component: SegmentedControl,
   tags: ["autodocs"],
   parameters: {

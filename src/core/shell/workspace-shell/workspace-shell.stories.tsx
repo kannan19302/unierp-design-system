@@ -9,7 +9,7 @@ const MOCK_NAV: WorkspaceNavItem[] = [
 ];
 
 const meta: Meta<typeof WorkspaceShell> = {
-  title: "Shell/WorkspaceShell",
+  title: "Core/Shell/WorkspaceShell",
   component: WorkspaceShell,
   tags: ["autodocs"],
   parameters: {

@@ -3,7 +3,7 @@ import { BulkActionBar, ContextualSaveBar } from "./bulk-action-bar";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof BulkActionBar> = {
-  title: "Forms/BulkActionBar",
+  title: "Core/Forms/BulkActionBar",
   component: BulkActionBar,
   tags: ["autodocs"],
   parameters: {

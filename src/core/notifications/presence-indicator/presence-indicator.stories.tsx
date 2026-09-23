@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PresenceIndicator } from "./presence-indicator";
 
 const meta: Meta<typeof PresenceIndicator> = {
-  title: "Notifications/PresenceIndicator",
+  title: "Core/Notifications/PresenceIndicator",
   component: PresenceIndicator,
   tags: ["autodocs"],
   parameters: {

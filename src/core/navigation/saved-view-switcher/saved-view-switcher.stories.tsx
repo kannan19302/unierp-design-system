@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SavedViewSwitcher } from "./saved-view-switcher";
 
 const meta: Meta<typeof SavedViewSwitcher> = {
-  title: "Navigation/SavedViewSwitcher",
+  title: "Core/Navigation/SavedViewSwitcher",
   component: SavedViewSwitcher,
   tags: ["autodocs"],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PortfolioRiskStressTester } from "./portfolio-risk-stress-tester";
 
 const meta: Meta<typeof PortfolioRiskStressTester> = {
-  title: "Data Grid/PortfolioRiskStressTester",
+  title: "Core/Data Grid/PortfolioRiskStressTester",
   component: PortfolioRiskStressTester,
   parameters: {
     layout: "padded",

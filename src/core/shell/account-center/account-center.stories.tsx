@@ -12,7 +12,7 @@ const sampleSections: AccountSection[] = [
 ];
 
 const meta: Meta<typeof AccountCenterShell> = {
-  title: "Shell/AccountCenterShell",
+  title: "Core/Shell/AccountCenterShell",
   component: AccountCenterShell,
   parameters: {
     layout: "fullscreen",

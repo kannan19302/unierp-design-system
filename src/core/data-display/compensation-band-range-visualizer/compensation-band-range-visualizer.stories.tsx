@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CompensationBandRangeVisualizer } from "./compensation-band-range-visualizer";
 
 const meta: Meta<typeof CompensationBandRangeVisualizer> = {
-  title: "Data Display/CompensationBandRangeVisualizer",
+  title: "Core/Data Display/CompensationBandRangeVisualizer",
   component: CompensationBandRangeVisualizer,
   parameters: {
     layout: "padded",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TimeRangeScrubber } from "./time-range-scrubber";
 
 const meta: Meta<typeof TimeRangeScrubber> = {
-  title: "DataDisplay/TimeRangeScrubber",
+  title: "Core/DataDisplay/TimeRangeScrubber",
   component: TimeRangeScrubber,
   parameters: {
     layout: "padded",

@@ -12,7 +12,7 @@ import { SignaturePad } from "./signature-pad";
  * - **WAI-ARIA Pattern**: Accessible canvas role and labeled clear button.
  */
 const meta: Meta<typeof SignaturePad> = {
-  title: "Inputs/SignaturePad",
+  title: "Core/Inputs/SignaturePad",
   component: SignaturePad,
   tags: ["autodocs"],
   parameters: {

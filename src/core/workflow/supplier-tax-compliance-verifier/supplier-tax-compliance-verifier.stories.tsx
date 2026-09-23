@@ -36,7 +36,7 @@ const mockSupplier: SupplierTaxProfile = {
 };
 
 const meta: Meta<typeof SupplierTaxComplianceVerifier> = {
-  title: "Workflow/SupplierTaxComplianceVerifier",
+  title: "Core/Workflow/SupplierTaxComplianceVerifier",
   component: SupplierTaxComplianceVerifier,
   parameters: {
     layout: "padded",

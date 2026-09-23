@@ -5,7 +5,7 @@ import { Button } from "../../primitives/button";
 import type { ShortcutDefinition } from "../../hooks/use-keyboard-shortcuts";
 
 const meta: Meta<typeof ShortcutCheatSheet> = {
-  title: "Overlays/ShortcutCheatSheet",
+  title: "Core/Overlays/ShortcutCheatSheet",
   component: ShortcutCheatSheet,
   tags: ["autodocs"],
   parameters: {

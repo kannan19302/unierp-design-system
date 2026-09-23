@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { RegistrationFlow } from "./registration-flow";
 
 const meta: Meta<typeof RegistrationFlow> = {
-  title: "Blocks/RegistrationFlow",
+  title: "Core/Blocks/RegistrationFlow",
   component: RegistrationFlow,
   parameters: {
     layout: "fullscreen",

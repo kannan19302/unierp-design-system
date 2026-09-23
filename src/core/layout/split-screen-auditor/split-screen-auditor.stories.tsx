@@ -4,7 +4,7 @@ import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof SplitScreenAuditor> = {
-  title: "Layout/SplitScreenAuditor",
+  title: "Core/Layout/SplitScreenAuditor",
   component: SplitScreenAuditor,
   tags: ["autodocs"],
   parameters: {

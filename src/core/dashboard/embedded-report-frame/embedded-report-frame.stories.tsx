@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { EmbeddedReportFrame } from "./embedded-report-frame";
 
 const meta: Meta<typeof EmbeddedReportFrame> = {
-  title: "Dashboard/EmbeddedReportFrame",
+  title: "Core/Dashboard/EmbeddedReportFrame",
   component: EmbeddedReportFrame,
   tags: ["autodocs"],
   parameters: {

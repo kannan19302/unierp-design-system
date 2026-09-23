@@ -10,7 +10,7 @@ const SAMPLE_NODES = [
 ];
 
 const meta: Meta<typeof TreemapChart> = {
-  title: "Charts/TreemapChart",
+  title: "Core/Charts/TreemapChart",
   component: TreemapChart,
   tags: ["autodocs"],
   parameters: {

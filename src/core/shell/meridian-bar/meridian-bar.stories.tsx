@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MeridianBar } from "./meridian-bar";
 
 const meta: Meta<typeof MeridianBar> = {
-  title: "Shell/MeridianBar",
+  title: "Core/Shell/MeridianBar",
   component: MeridianBar,
   tags: ["autodocs"],
   parameters: {

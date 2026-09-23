@@ -15,7 +15,7 @@ import { InlineEdit, type InlineEditProps } from "./inline-edit";
  * - **Validation Feedback**: Inline validation error rendering below the input field.
  */
 const meta: Meta<typeof InlineEdit> = {
-  title: "Inputs/InlineEdit",
+  title: "Core/Inputs/InlineEdit",
   component: InlineEdit,
   tags: ["autodocs"],
   parameters: {

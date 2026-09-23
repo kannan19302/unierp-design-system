@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ProgressNotification } from "./progress-notification";
 
 const meta: Meta<typeof ProgressNotification> = {
-  title: "Notifications/ProgressNotification",
+  title: "Core/Notifications/ProgressNotification",
   component: ProgressNotification,
   tags: ["autodocs"],
   parameters: {

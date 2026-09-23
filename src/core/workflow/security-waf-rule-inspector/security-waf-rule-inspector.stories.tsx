@@ -56,7 +56,7 @@ const sampleEvents: WafSecurityEventItem[] = [
 ];
 
 const meta: Meta<typeof SecurityWafRuleInspector> = {
-  title: "Workflow/SecurityWafRuleInspector",
+  title: "Core/Workflow/SecurityWafRuleInspector",
   component: SecurityWafRuleInspector,
   tags: ["autodocs"],
   parameters: {

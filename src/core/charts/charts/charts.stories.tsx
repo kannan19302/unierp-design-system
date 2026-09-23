@@ -12,7 +12,7 @@ import {
 import { TrendingUp, Users, DollarSign } from "lucide-react";
 
 const meta: Meta<typeof Charts> = {
-  title: "Charts/ChartsSuite",
+  title: "Core/Charts/ChartsSuite",
   component: Charts,
   tags: ["autodocs"],
   parameters: {

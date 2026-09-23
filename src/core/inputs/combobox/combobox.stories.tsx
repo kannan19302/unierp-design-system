@@ -14,7 +14,7 @@ import { ComboBox, type ComboBoxProps } from "./combobox";
  * - **W3C Listbox Semantics**: Implements `role="combobox"` and `role="listbox"`.
  */
 const meta: Meta<typeof ComboBox> = {
-  title: "Inputs/ComboBox",
+  title: "Core/Inputs/ComboBox",
   component: ComboBox,
   tags: ["autodocs"],
   parameters: {

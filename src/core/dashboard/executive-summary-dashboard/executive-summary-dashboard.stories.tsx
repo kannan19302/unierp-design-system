@@ -9,7 +9,7 @@ const sampleMetrics = [
 ];
 
 const meta: Meta<typeof ExecutiveSummaryDashboard> = {
-  title: "Dashboard/ExecutiveSummaryDashboard",
+  title: "Core/Dashboard/ExecutiveSummaryDashboard",
   component: ExecutiveSummaryDashboard,
   tags: ["autodocs"],
   parameters: {

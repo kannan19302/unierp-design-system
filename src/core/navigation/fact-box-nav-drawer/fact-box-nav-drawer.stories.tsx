@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FactBoxNavDrawer } from "./fact-box-nav-drawer";
 
 const meta: Meta<typeof FactBoxNavDrawer> = {
-  title: "Navigation/FactBoxNavDrawer",
+  title: "Core/Navigation/FactBoxNavDrawer",
   component: FactBoxNavDrawer,
   tags: ["autodocs"],
   parameters: {

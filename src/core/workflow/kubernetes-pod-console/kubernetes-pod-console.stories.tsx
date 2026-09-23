@@ -44,7 +44,7 @@ const mockLogs: PodLogEntry[] = [
 ];
 
 const meta: Meta<typeof KubernetesPodConsole> = {
-  title: "Workflow/KubernetesPodConsole",
+  title: "Core/Workflow/KubernetesPodConsole",
   component: KubernetesPodConsole,
   parameters: {
     layout: "padded",

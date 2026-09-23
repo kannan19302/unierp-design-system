@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DataQueryDrawer } from "./data-query-drawer";
 
 const meta: Meta<typeof DataQueryDrawer> = {
-  title: "Studio/DataQueryDrawer",
+  title: "Core/Studio/DataQueryDrawer",
   component: DataQueryDrawer,
   tags: ["autodocs"],
   parameters: {

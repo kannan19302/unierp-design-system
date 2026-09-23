@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PlatformShell } from "./platform-shell";
 
 const meta: Meta<typeof PlatformShell> = {
-  title: "Shell/PlatformShell",
+  title: "Core/Shell/PlatformShell",
   component: PlatformShell,
   parameters: {
     layout: "fullscreen",

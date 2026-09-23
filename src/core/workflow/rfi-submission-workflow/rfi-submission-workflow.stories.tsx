@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { RfiSubmissionWorkflow } from "./rfi-submission-workflow";
 
 const meta: Meta<typeof RfiSubmissionWorkflow> = {
-  title: "Workflow/RfiSubmissionWorkflow",
+  title: "Core/Workflow/RfiSubmissionWorkflow",
   component: RfiSubmissionWorkflow,
   parameters: {
     layout: "padded",

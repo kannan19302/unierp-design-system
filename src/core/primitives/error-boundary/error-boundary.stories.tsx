@@ -5,7 +5,7 @@ import { Button } from "../button";
 import { Badge } from "../badge";
 
 const meta: Meta<typeof ErrorBoundary> = {
-  title: "Primitives/ErrorBoundary",
+  title: "Core/Primitives/ErrorBoundary",
   component: ErrorBoundary,
   parameters: {
     layout: "centered",

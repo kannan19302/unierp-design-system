@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MatrixInventoryVariantPicker } from "./matrix-inventory-variant-picker";
 
 const meta: Meta<typeof MatrixInventoryVariantPicker> = {
-  title: "Data Grid/MatrixInventoryVariantPicker",
+  title: "Core/Data Grid/MatrixInventoryVariantPicker",
   component: MatrixInventoryVariantPicker,
   parameters: {
     layout: "padded",

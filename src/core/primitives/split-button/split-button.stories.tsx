@@ -3,7 +3,7 @@ import { Save, Download, Printer, Share2, Trash2 } from "lucide-react";
 import { SplitButton } from "./split-button";
 
 const meta: Meta<typeof SplitButton> = {
-  title: "Primitives/SplitButton",
+  title: "Core/Primitives/SplitButton",
   component: SplitButton,
   tags: ["autodocs"],
   parameters: {

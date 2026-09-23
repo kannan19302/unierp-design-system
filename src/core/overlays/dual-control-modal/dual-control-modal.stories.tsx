@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DualControlModal } from "./dual-control-modal";
 
 const meta: Meta<typeof DualControlModal> = {
-  title: "Overlays/DualControlModal",
+  title: "Core/Overlays/DualControlModal",
   component: DualControlModal,
   tags: ["autodocs"],
   parameters: {

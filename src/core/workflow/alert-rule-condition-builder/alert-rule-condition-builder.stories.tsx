@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AlertRuleConditionBuilder } from "./alert-rule-condition-builder";
 
 const meta: Meta<typeof AlertRuleConditionBuilder> = {
-  title: "Workflow/AlertRuleConditionBuilder",
+  title: "Core/Workflow/AlertRuleConditionBuilder",
   component: AlertRuleConditionBuilder,
   parameters: {
     layout: "centered",

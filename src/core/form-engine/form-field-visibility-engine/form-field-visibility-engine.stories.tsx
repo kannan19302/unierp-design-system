@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FormFieldVisibilityEngine } from "./form-field-visibility-engine";
 
 const meta: Meta<typeof FormFieldVisibilityEngine> = {
-  title: "FormEngine/FormFieldVisibilityEngine",
+  title: "Core/FormEngine/FormFieldVisibilityEngine",
   component: FormFieldVisibilityEngine,
   parameters: { layout: "centered" },
 };

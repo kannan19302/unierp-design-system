@@ -45,7 +45,7 @@ const sampleCostCenters = [
 ];
 
 const meta: Meta<typeof ServiceCatalogCartCheckout> = {
-  title: "Workflow/ServiceCatalogCartCheckout",
+  title: "Core/Workflow/ServiceCatalogCartCheckout",
   component: ServiceCatalogCartCheckout,
   tags: ["autodocs"],
   parameters: {

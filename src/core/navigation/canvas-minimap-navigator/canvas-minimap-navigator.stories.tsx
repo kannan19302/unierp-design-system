@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CanvasMinimapNavigator } from "./canvas-minimap-navigator";
 
 const meta: Meta<typeof CanvasMinimapNavigator> = {
-  title: "Navigation/CanvasMinimapNavigator",
+  title: "Core/Navigation/CanvasMinimapNavigator",
   component: CanvasMinimapNavigator,
   tags: ["autodocs"],
   parameters: {

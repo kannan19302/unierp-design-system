@@ -58,7 +58,7 @@ const mockAppointments: DockAppointment[] = [
 ];
 
 const meta: Meta<typeof DockDoorScheduler> = {
-  title: "DataGrid/DockDoorScheduler",
+  title: "Core/DataGrid/DockDoorScheduler",
   component: DockDoorScheduler,
   parameters: {
     layout: "padded",

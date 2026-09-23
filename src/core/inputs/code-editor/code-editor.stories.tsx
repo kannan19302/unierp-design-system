@@ -13,7 +13,7 @@ import { MarkdownEditor } from "./markdown-editor";
  * - **Clean Spellcheck State**: Disables browser red underlines on identifier names.
  */
 const meta: Meta<typeof CodeEditor> = {
-  title: "Inputs/CodeEditor",
+  title: "Core/Inputs/CodeEditor",
   component: CodeEditor,
   tags: ["autodocs"],
   parameters: {

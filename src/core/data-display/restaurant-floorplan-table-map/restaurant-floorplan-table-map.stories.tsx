@@ -66,7 +66,7 @@ const sampleTables: DiningTableItem[] = [
 ];
 
 const meta: Meta<typeof RestaurantFloorplanTableMap> = {
-  title: "DataDisplay/RestaurantFloorplanTableMap",
+  title: "Core/DataDisplay/RestaurantFloorplanTableMap",
   component: RestaurantFloorplanTableMap,
   parameters: {
     layout: "padded",

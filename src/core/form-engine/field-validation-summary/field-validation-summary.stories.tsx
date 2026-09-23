@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FieldValidationSummary } from "./field-validation-summary";
 
 const meta: Meta<typeof FieldValidationSummary> = {
-  title: "FormEngine/FieldValidationSummary",
+  title: "Core/FormEngine/FieldValidationSummary",
   component: FieldValidationSummary,
   parameters: { layout: "centered" },
 };

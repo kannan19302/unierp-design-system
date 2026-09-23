@@ -96,7 +96,7 @@ const sampleBomTree = {
 };
 
 const meta: Meta<typeof BillOfMaterialsTreeGrid> = {
-  title: "Data Grid/BillOfMaterialsTreeGrid",
+  title: "Core/Data Grid/BillOfMaterialsTreeGrid",
   component: BillOfMaterialsTreeGrid,
   parameters: {
     layout: "padded",

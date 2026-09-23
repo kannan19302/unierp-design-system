@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ChartTypePicker, type ChartType } from "./chart-type-picker";
 
 const meta: Meta<typeof ChartTypePicker> = {
-  title: "Charts/ChartTypePicker",
+  title: "Core/Charts/ChartTypePicker",
   component: ChartTypePicker,
   tags: ["autodocs"],
   parameters: {

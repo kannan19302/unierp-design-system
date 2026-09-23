@@ -11,7 +11,7 @@ const MOCK_TABS: ModuleTab[] = [
 ];
 
 const meta: Meta<typeof ModuleTabLayout> = {
-  title: "Layout/ModuleTabLayout",
+  title: "Core/Layout/ModuleTabLayout",
   component: ModuleTabLayout,
   tags: ["autodocs"],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AlertThresholdConfigurator } from "./alert-threshold-configurator";
 
 const meta: Meta<typeof AlertThresholdConfigurator> = {
-  title: "Dashboard/AlertThresholdConfigurator",
+  title: "Core/Dashboard/AlertThresholdConfigurator",
   component: AlertThresholdConfigurator,
   tags: ["autodocs"],
   parameters: {

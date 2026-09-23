@@ -35,7 +35,7 @@ const SAMPLE_CATEGORIES = [
 ];
 
 const meta: Meta<typeof CrossFilterFacetPanel> = {
-  title: "DataGrid/CrossFilterFacetPanel",
+  title: "Core/DataGrid/CrossFilterFacetPanel",
   component: CrossFilterFacetPanel,
   parameters: {
     layout: "padded",

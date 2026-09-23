@@ -14,7 +14,7 @@ import { Scheduler, type SchedulerProps, type SchedulerEvent } from "./scheduler
  * - **Interactive Slot Selection**: Clickable hour rows triggering new event booking modals.
  */
 const meta: Meta<typeof Scheduler> = {
-  title: "Inputs/Scheduler",
+  title: "Core/Inputs/Scheduler",
   component: Scheduler,
   tags: ["autodocs"],
   parameters: {

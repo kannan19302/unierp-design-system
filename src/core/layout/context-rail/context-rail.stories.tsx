@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ContextRail } from "./context-rail";
 
 const meta: Meta<typeof ContextRail> = {
-  title: "Layout/ContextRail",
+  title: "Core/Layout/ContextRail",
   component: ContextRail,
   tags: ["autodocs"],
   parameters: {

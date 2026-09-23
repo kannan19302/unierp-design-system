@@ -40,7 +40,7 @@ const HookDemo = () => {
 };
 
 const meta: Meta = {
-  title: "Overlays/OverlayHooks",
+  title: "Core/Overlays/OverlayHooks",
   component: HookDemo,
   parameters: { layout: "centered" },
 };

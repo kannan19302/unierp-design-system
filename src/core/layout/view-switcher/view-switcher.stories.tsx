@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ViewSwitcher, type ViewMode } from "./view-switcher";
 
 const meta: Meta<typeof ViewSwitcher> = {
-  title: "Layout/ViewSwitcher",
+  title: "Core/Layout/ViewSwitcher",
   component: ViewSwitcher,
   tags: ["autodocs"],
   parameters: {

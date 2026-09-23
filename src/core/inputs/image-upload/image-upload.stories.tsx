@@ -12,7 +12,7 @@ import { ImageUpload } from "./image-upload";
  * - **Strata DL Design Tokens**: Uses border radius, subtle hover border accents, and neutral background tokens.
  */
 const meta: Meta<typeof ImageUpload> = {
-  title: "Inputs/ImageUpload",
+  title: "Core/Inputs/ImageUpload",
   component: ImageUpload,
   tags: ["autodocs"],
   parameters: {

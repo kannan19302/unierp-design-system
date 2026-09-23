@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BrandMark } from "./brand-mark";
 
 const meta: Meta<typeof BrandMark> = {
-  title: "Primitives/BrandMark",
+  title: "Core/Primitives/BrandMark",
   component: BrandMark,
   tags: ["autodocs"],
   parameters: {

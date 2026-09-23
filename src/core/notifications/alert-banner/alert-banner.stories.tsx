@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AlertBanner } from "./alert-banner";
 
 const meta: Meta<typeof AlertBanner> = {
-  title: "Notifications/AlertBanner",
+  title: "Core/Notifications/AlertBanner",
   component: AlertBanner,
   tags: ["autodocs"],
   parameters: {

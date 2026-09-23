@@ -4,7 +4,7 @@ import { Button } from "../../primitives/button";
 import { Badge } from "../../primitives/badge";
 
 const meta: Meta<typeof PageHeader> = {
-  title: "Layout/PageHeader",
+  title: "Core/Layout/PageHeader",
   component: PageHeader,
   tags: ["autodocs"],
   parameters: {

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { GuidedFlowStepNavigator } from "./guided-flow-step-navigator";
 
 const meta: Meta<typeof GuidedFlowStepNavigator> = {
-  title: "Navigation/GuidedFlowStepNavigator",
+  title: "Core/Navigation/GuidedFlowStepNavigator",
   component: GuidedFlowStepNavigator,
   tags: ["autodocs"],
   parameters: {

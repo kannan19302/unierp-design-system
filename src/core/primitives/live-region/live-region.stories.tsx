@@ -4,7 +4,7 @@ import { LiveRegion, type LiveRegionProps } from "./live-region";
 import { Button } from "../button";
 
 const meta: Meta<typeof LiveRegion> = {
-  title: "Primitives/LiveRegion",
+  title: "Core/Primitives/LiveRegion",
   component: LiveRegion,
   parameters: {
     layout: "centered",

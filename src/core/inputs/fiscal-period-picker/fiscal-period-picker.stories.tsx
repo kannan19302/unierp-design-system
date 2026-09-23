@@ -14,7 +14,7 @@ import { FiscalPeriodPicker, type FiscalPeriodPickerProps } from "./fiscal-perio
  * - **High Density**: Compact footprint designed for top-level filter bars and ledger cockpits.
  */
 const meta: Meta<typeof FiscalPeriodPicker> = {
-  title: "Inputs/FiscalPeriodPicker",
+  title: "Core/Inputs/FiscalPeriodPicker",
   component: FiscalPeriodPicker,
   tags: ["autodocs"],
   parameters: {

@@ -10,7 +10,7 @@ const sampleItems = [
 ];
 
 const meta: Meta<typeof ComparisonPanel> = {
-  title: "Dashboard/ComparisonPanel",
+  title: "Core/Dashboard/ComparisonPanel",
   component: ComparisonPanel,
   tags: ["autodocs"],
   parameters: {

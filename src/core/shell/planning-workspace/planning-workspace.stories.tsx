@@ -3,7 +3,7 @@ import { PlanningWorkspace } from "./planning-workspace";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof PlanningWorkspace> = {
-  title: "Shell/Floorplans/PlanningWorkspace",
+  title: "Core/Shell/Floorplans/PlanningWorkspace",
   component: PlanningWorkspace,
   tags: ["autodocs"],
   parameters: {

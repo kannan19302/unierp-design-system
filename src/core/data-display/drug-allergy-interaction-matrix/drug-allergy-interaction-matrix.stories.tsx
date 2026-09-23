@@ -48,7 +48,7 @@ const sampleInteractions: DrugAllergyInteractionItem[] = [
 ];
 
 const meta: Meta<typeof DrugAllergyInteractionMatrix> = {
-  title: "Data Display/DrugAllergyInteractionMatrix",
+  title: "Core/Data Display/DrugAllergyInteractionMatrix",
   component: DrugAllergyInteractionMatrix,
   parameters: {
     layout: "padded",

@@ -4,7 +4,7 @@ import { Badge } from "../badge";
 import { Button } from "../button";
 
 const meta: Meta<typeof ProfileCard> = {
-  title: "Primitives/ProfileCard",
+  title: "Core/Primitives/ProfileCard",
   component: ProfileCard,
   parameters: {
     layout: "centered",

@@ -55,7 +55,7 @@ const mockShareClasses: ShareClassEntry[] = [
 ];
 
 const meta: Meta<typeof ShareClassCapTableStructure> = {
-  title: "Data Grid/ShareClassCapTableStructure",
+  title: "Core/Data Grid/ShareClassCapTableStructure",
   component: ShareClassCapTableStructure,
   parameters: {
     layout: "centered",

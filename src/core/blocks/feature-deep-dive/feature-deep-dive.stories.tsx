@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FeatureDeepDive } from "./feature-deep-dive";
 
 const meta: Meta<typeof FeatureDeepDive> = {
-  title: "Blocks/FeatureDeepDive",
+  title: "Core/Blocks/FeatureDeepDive",
   component: FeatureDeepDive,
   parameters: { layout: "centered" },
 };

@@ -28,7 +28,7 @@ const sampleLevels: PickerLevel[] = [
 ];
 
 const meta: Meta<typeof HierarchicalPickerForm> = {
-  title: "Forms/HierarchicalPickerForm",
+  title: "Core/Forms/HierarchicalPickerForm",
   component: HierarchicalPickerForm,
   tags: ["autodocs"],
   parameters: {

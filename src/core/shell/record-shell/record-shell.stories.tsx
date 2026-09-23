@@ -23,7 +23,7 @@ const MOCK_SECTIONS: ObjectSection[] = [
 ];
 
 const meta: Meta<typeof RecordShell> = {
-  title: "Shell/RecordShell",
+  title: "Core/Shell/RecordShell",
   component: RecordShell,
   parameters: {
     layout: "fullscreen",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SplitView } from "./split-view";
 
 const meta: Meta<typeof SplitView> = {
-  title: "DataDisplay/SplitView",
+  title: "Core/DataDisplay/SplitView",
   component: SplitView,
   tags: ["autodocs"],
 };

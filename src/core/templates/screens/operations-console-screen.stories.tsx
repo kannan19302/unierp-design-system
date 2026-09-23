@@ -10,7 +10,7 @@ import { Button } from "../../primitives/button";
 import { Activity, Server, Cpu, HardDrive, RefreshCw } from "lucide-react";
 
 const meta: Meta = {
-  title: "Screens/OperationsConsoleScreen",
+  title: "Core/Screens/OperationsConsoleScreen",
   parameters: {
     layout: "fullscreen",
   },

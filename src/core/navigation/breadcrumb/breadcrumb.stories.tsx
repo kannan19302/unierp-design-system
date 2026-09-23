@@ -3,7 +3,7 @@ import { Breadcrumb } from "./breadcrumb";
 import { Slash } from "lucide-react";
 
 const meta: Meta<typeof Breadcrumb> = {
-  title: "Navigation/Breadcrumb",
+  title: "Core/Navigation/Breadcrumb",
   component: Breadcrumb,
   parameters: {
     a11y: {

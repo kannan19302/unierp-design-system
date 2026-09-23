@@ -12,7 +12,7 @@ import { StudioInspector } from "./studio-inspector";
  * - **WAI-ARIA Pattern**: Complete `tablist` and `tabpanel` semantics with keyboard arrow navigation.
  */
 const meta: Meta<typeof StudioInspector> = {
-  title: "Studio/StudioInspector",
+  title: "Core/Studio/StudioInspector",
   component: StudioInspector,
   parameters: { layout: "padded" },
   tags: ["autodocs"],

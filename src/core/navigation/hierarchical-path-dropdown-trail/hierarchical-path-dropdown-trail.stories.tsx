@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { HierarchicalPathDropdownTrail } from "./hierarchical-path-dropdown-trail";
 
 const meta: Meta<typeof HierarchicalPathDropdownTrail> = {
-  title: "Navigation/HierarchicalPathDropdownTrail",
+  title: "Core/Navigation/HierarchicalPathDropdownTrail",
   component: HierarchicalPathDropdownTrail,
   tags: ["autodocs"],
   parameters: {

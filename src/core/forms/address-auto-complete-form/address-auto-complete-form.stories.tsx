@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AddressAutoCompleteForm } from "./address-auto-complete-form";
 
 const meta: Meta<typeof AddressAutoCompleteForm> = {
-  title: "Forms/AddressAutoCompleteForm",
+  title: "Core/Forms/AddressAutoCompleteForm",
   component: AddressAutoCompleteForm,
   tags: ["autodocs"],
   parameters: {

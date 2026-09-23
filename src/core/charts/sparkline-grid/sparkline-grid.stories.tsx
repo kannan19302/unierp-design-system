@@ -9,7 +9,7 @@ const SAMPLE_ROWS = [
 ];
 
 const meta: Meta<typeof SparklineGrid> = {
-  title: "Charts/SparklineGrid",
+  title: "Core/Charts/SparklineGrid",
   component: SparklineGrid,
   tags: ["autodocs"],
   parameters: {

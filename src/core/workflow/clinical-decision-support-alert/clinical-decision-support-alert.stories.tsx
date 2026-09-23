@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ClinicalDecisionSupportAlert } from "./clinical-decision-support-alert";
 
 const meta: Meta<typeof ClinicalDecisionSupportAlert> = {
-  title: "Workflow/ClinicalDecisionSupportAlert",
+  title: "Core/Workflow/ClinicalDecisionSupportAlert",
   component: ClinicalDecisionSupportAlert,
   parameters: {
     layout: "padded",

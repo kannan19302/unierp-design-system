@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { LookupFieldResolver } from "./lookup-field-resolver";
 
 const meta: Meta<typeof LookupFieldResolver> = {
-  title: "FormEngine/LookupFieldResolver",
+  title: "Core/FormEngine/LookupFieldResolver",
   component: LookupFieldResolver,
   parameters: { layout: "centered" },
 };

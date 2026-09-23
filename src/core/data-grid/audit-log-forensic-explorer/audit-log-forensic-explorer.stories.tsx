@@ -54,7 +54,7 @@ const mockEvents: ForensicEvent[] = [
 ];
 
 const meta: Meta<typeof AuditLogForensicExplorer> = {
-  title: "DataGrid/AuditLogForensicExplorer",
+  title: "Core/DataGrid/AuditLogForensicExplorer",
   component: AuditLogForensicExplorer,
   parameters: {
     layout: "padded",

@@ -40,7 +40,7 @@ const mockMetrics: CanaryMetricComparison[] = [
 ];
 
 const meta: Meta<typeof CanaryRolloutProgressVisualizer> = {
-  title: "Workflow/CanaryRolloutProgressVisualizer",
+  title: "Core/Workflow/CanaryRolloutProgressVisualizer",
   component: CanaryRolloutProgressVisualizer,
   parameters: {
     layout: "padded",

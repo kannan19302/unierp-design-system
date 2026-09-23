@@ -47,7 +47,7 @@ const sampleQuotas: TenantApiQuota[] = [
 ];
 
 const meta: Meta<typeof ApiRateLimitThrottleConsole> = {
-  title: "Data Display/ApiRateLimitThrottleConsole",
+  title: "Core/Data Display/ApiRateLimitThrottleConsole",
   component: ApiRateLimitThrottleConsole,
   parameters: {
     layout: "padded",

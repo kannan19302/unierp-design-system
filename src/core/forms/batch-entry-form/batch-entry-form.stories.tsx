@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BatchEntryForm } from "./batch-entry-form";
 
 const meta: Meta<typeof BatchEntryForm> = {
-  title: "Forms/BatchEntryForm",
+  title: "Core/Forms/BatchEntryForm",
   component: BatchEntryForm,
   tags: ["autodocs"],
   parameters: {

@@ -42,7 +42,7 @@ const DocumentDemo = () => {
 };
 
 const meta: Meta = {
-  title: "Studio/UseStudioDocument",
+  title: "Core/Studio/UseStudioDocument",
   component: DocumentDemo,
   parameters: { layout: "centered" },
 };

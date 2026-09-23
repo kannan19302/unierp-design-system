@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DashboardWidgetToolbar } from "./dashboard-widget-toolbar";
 
 const meta: Meta<typeof DashboardWidgetToolbar> = {
-  title: "Dashboard/DashboardWidgetToolbar",
+  title: "Core/Dashboard/DashboardWidgetToolbar",
   component: DashboardWidgetToolbar,
   tags: ["autodocs"],
   parameters: {

@@ -45,7 +45,7 @@ const SAMPLE_TICKETS: OrderTicket[] = [
 ];
 
 const meta: Meta<typeof OrderTicketRack> = {
-  title: "DataDisplay/OrderTicketRack",
+  title: "Core/DataDisplay/OrderTicketRack",
   component: OrderTicketRack,
   parameters: {
     layout: "padded",

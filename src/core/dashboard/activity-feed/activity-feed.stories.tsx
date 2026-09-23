@@ -36,7 +36,7 @@ const sampleActivities: ActivityItem[] = [
 ];
 
 const meta: Meta<typeof ActivityFeed> = {
-  title: "Dashboard/ActivityFeed",
+  title: "Core/Dashboard/ActivityFeed",
   component: ActivityFeed,
   tags: ["autodocs"],
   parameters: {

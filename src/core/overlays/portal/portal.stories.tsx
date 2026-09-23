@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Portal } from "./portal";
 
 const meta: Meta<typeof Portal> = {
-  title: "Overlays/Portal",
+  title: "Core/Overlays/Portal",
   component: Portal,
   tags: ["autodocs"],
   parameters: {

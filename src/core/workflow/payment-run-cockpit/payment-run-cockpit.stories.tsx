@@ -63,7 +63,7 @@ const mockInvoices: PayableInvoice[] = [
 ];
 
 const meta: Meta<typeof PaymentRunCockpit> = {
-  title: "Workflow/PaymentRunCockpit",
+  title: "Core/Workflow/PaymentRunCockpit",
   component: PaymentRunCockpit,
   parameters: {
     layout: "padded",

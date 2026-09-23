@@ -10,7 +10,7 @@ import {
 import { AuthShell } from "../auth-shell";
 
 const meta: Meta<typeof OnboardingWizard> = {
-  title: "Shell/OnboardingWizard",
+  title: "Core/Shell/OnboardingWizard",
   component: OnboardingWizard,
   tags: ["autodocs"],
   parameters: {

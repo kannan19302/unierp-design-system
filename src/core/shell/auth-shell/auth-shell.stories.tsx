@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AuthShell } from "./auth-shell";
 
 const meta: Meta<typeof AuthShell> = {
-  title: "Shell/AuthShell",
+  title: "Core/Shell/AuthShell",
   component: AuthShell,
   parameters: {
     layout: "fullscreen",

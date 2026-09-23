@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AssessmentRubricMatrix } from "./assessment-rubric-matrix";
 
 const meta: Meta<typeof AssessmentRubricMatrix> = {
-  title: "Data Display/AssessmentRubricMatrix",
+  title: "Core/Data Display/AssessmentRubricMatrix",
   component: AssessmentRubricMatrix,
   parameters: {
     layout: "padded",

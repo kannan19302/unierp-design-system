@@ -16,7 +16,7 @@ const sampleRows = [
 ];
 
 const meta: Meta<typeof DrillDownModal> = {
-  title: "Dashboard/DrillDownModal",
+  title: "Core/Dashboard/DrillDownModal",
   component: DrillDownModal,
   tags: ["autodocs"],
   parameters: {

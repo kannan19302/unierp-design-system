@@ -11,7 +11,7 @@ const SAMPLE_POINTS = [
 ];
 
 const meta: Meta<typeof ScatterPlotChart> = {
-  title: "Charts/ScatterPlotChart",
+  title: "Core/Charts/ScatterPlotChart",
   component: ScatterPlotChart,
   tags: ["autodocs"],
   parameters: {

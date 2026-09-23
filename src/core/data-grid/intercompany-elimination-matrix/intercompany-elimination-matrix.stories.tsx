@@ -54,7 +54,7 @@ const sampleLines: IntercompanyPairLine[] = [
 ];
 
 const meta: Meta<typeof IntercompanyEliminationMatrix> = {
-  title: "Data Grid/IntercompanyEliminationMatrix",
+  title: "Core/Data Grid/IntercompanyEliminationMatrix",
   component: IntercompanyEliminationMatrix,
   parameters: {
     layout: "padded",

@@ -8,7 +8,7 @@ import { PublishDiffDialog } from "./publish-diff-dialog";
  * tenant's data without an explicit accept") is enforced rather than promised.
  */
 const meta: Meta<typeof PublishDiffDialog> = {
-  title: "Studio/PublishDiffDialog",
+  title: "Core/Studio/PublishDiffDialog",
   component: PublishDiffDialog,
   tags: ["autodocs"],
   parameters: {

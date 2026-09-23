@@ -73,7 +73,7 @@ const sampleEmployees: CalibratedEmployee[] = [
 ];
 
 const meta: Meta<typeof NineBoxTalentCalibrationMatrix> = {
-  title: "Data Grid/NineBoxTalentCalibrationMatrix",
+  title: "Core/Data Grid/NineBoxTalentCalibrationMatrix",
   component: NineBoxTalentCalibrationMatrix,
   parameters: {
     layout: "padded",

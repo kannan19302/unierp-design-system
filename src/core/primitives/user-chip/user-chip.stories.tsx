@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { UserChip } from "./user-chip";
 
 const meta: Meta<typeof UserChip> = {
-  title: "Primitives/UserChip",
+  title: "Core/Primitives/UserChip",
   component: UserChip,
   tags: ["autodocs"],
   parameters: {

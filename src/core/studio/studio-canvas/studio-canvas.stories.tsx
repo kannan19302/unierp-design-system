@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StudioCanvas } from "./studio-canvas";
 
 const meta: Meta<typeof StudioCanvas> = {
-  title: "Studio/StudioCanvas",
+  title: "Core/Studio/StudioCanvas",
   component: StudioCanvas,
   tags: ["autodocs"],
   parameters: {

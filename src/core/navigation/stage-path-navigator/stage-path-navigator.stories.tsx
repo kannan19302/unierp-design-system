@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StagePathNavigator } from "./stage-path-navigator";
 
 const meta: Meta<typeof StagePathNavigator> = {
-  title: "Navigation/StagePathNavigator",
+  title: "Core/Navigation/StagePathNavigator",
   component: StagePathNavigator,
   tags: ["autodocs"],
   parameters: {

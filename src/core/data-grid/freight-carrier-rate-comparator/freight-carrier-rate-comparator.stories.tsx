@@ -69,7 +69,7 @@ const sampleQuotes: FreightCarrierQuote[] = [
 ];
 
 const meta: Meta<typeof FreightCarrierRateComparator> = {
-  title: "Data Grid/FreightCarrierRateComparator",
+  title: "Core/Data Grid/FreightCarrierRateComparator",
   component: FreightCarrierRateComparator,
   parameters: {
     layout: "padded",

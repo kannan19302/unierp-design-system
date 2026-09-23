@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { EnterpriseCommandRibbon } from "./enterprise-command-ribbon";
 
 const meta: Meta<typeof EnterpriseCommandRibbon> = {
-  title: "Navigation/EnterpriseCommandRibbon",
+  title: "Core/Navigation/EnterpriseCommandRibbon",
   component: EnterpriseCommandRibbon,
   tags: ["autodocs"],
   parameters: {

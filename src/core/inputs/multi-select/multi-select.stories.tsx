@@ -21,7 +21,7 @@ const sampleOptions = [
  * - **High Density Ready**: Compact styling matching the Strata DL workspace grid.
  */
 const meta: Meta<typeof MultiSelect> = {
-  title: "Inputs/MultiSelect",
+  title: "Core/Inputs/MultiSelect",
   component: MultiSelect,
   tags: ["autodocs"],
   parameters: {

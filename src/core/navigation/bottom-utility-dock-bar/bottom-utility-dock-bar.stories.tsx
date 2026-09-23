@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { BottomUtilityDockBar } from "./bottom-utility-dock-bar";
 
 const meta: Meta<typeof BottomUtilityDockBar> = {
-  title: "Navigation/BottomUtilityDockBar",
+  title: "Core/Navigation/BottomUtilityDockBar",
   component: BottomUtilityDockBar,
   tags: ["autodocs"],
   parameters: {

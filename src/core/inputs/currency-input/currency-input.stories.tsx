@@ -14,7 +14,7 @@ import { CurrencyInput, type CurrencyInputProps } from "./currency-input";
  * - **Negative Balance Validation**: Visual error state for prohibited negative or out-of-bounds debits.
  */
 const meta: Meta<typeof CurrencyInput> = {
-  title: "Inputs/CurrencyInput",
+  title: "Core/Inputs/CurrencyInput",
   component: CurrencyInput,
   tags: ["autodocs"],
   parameters: {

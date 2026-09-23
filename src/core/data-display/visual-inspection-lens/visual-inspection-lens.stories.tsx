@@ -29,7 +29,7 @@ const SAMPLE_PINS: InspectionPin[] = [
 ];
 
 const meta: Meta<typeof VisualInspectionLens> = {
-  title: "DataDisplay/VisualInspectionLens",
+  title: "Core/DataDisplay/VisualInspectionLens",
   component: VisualInspectionLens,
   parameters: {
     layout: "padded",

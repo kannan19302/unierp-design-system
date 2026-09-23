@@ -3,7 +3,7 @@ import { TransactionWorkspace } from "./transaction-workspace";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof TransactionWorkspace> = {
-  title: "Shell/Floorplans/TransactionWorkspace",
+  title: "Core/Shell/Floorplans/TransactionWorkspace",
   component: TransactionWorkspace,
   tags: ["autodocs"],
   parameters: {

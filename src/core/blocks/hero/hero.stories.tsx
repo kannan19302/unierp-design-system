@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { HeroBlock } from "./hero";
 
 const meta: Meta<typeof HeroBlock> = {
-  title: "Blocks/HeroBlock",
+  title: "Core/Blocks/HeroBlock",
   component: HeroBlock,
   parameters: { layout: "fullscreen" },
 };

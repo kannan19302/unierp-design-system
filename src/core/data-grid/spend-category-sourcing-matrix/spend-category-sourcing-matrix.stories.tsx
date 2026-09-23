@@ -48,7 +48,7 @@ const sampleCategories: SpendCategoryItem[] = [
 ];
 
 const meta: Meta<typeof SpendCategorySourcingMatrix> = {
-  title: "Data Grid/SpendCategorySourcingMatrix",
+  title: "Core/Data Grid/SpendCategorySourcingMatrix",
   component: SpendCategorySourcingMatrix,
   parameters: {
     layout: "padded",

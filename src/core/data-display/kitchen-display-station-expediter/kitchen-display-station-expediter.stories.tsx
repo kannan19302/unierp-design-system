@@ -72,7 +72,7 @@ const sampleTickets: KdsTicketOrder[] = [
 ];
 
 const meta: Meta<typeof KitchenDisplayStationExpediter> = {
-  title: "Data Display/KitchenDisplayStationExpediter",
+  title: "Core/Data Display/KitchenDisplayStationExpediter",
   component: KitchenDisplayStationExpediter,
   tags: ["autodocs"],
   parameters: {

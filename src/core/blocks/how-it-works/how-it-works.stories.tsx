@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { HowItWorksBlock } from "./how-it-works";
 
 const meta: Meta<typeof HowItWorksBlock> = {
-  title: "Blocks/HowItWorksBlock",
+  title: "Core/Blocks/HowItWorksBlock",
   component: HowItWorksBlock,
   parameters: { layout: "fullscreen" },
 };

@@ -48,7 +48,7 @@ const mockFrames: StackFrame[] = [
 ];
 
 const meta: Meta<typeof StackTraceInspector> = {
-  title: "DataDisplay/StackTraceInspector",
+  title: "Core/DataDisplay/StackTraceInspector",
   component: StackTraceInspector,
   parameters: {
     layout: "padded",

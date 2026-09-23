@@ -3,7 +3,7 @@ import { Toast, ToastProvider, useToast } from "./toast";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof Toast> = {
-  title: "Overlays/Toast",
+  title: "Core/Overlays/Toast",
   component: Toast,
   tags: ["autodocs"],
   parameters: {

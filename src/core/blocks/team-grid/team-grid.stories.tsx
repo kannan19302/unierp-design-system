@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TeamGrid } from "./team-grid";
 
 const meta: Meta<typeof TeamGrid> = {
-  title: "Blocks/TeamGrid",
+  title: "Core/Blocks/TeamGrid",
   component: TeamGrid,
   parameters: { layout: "centered" },
 };

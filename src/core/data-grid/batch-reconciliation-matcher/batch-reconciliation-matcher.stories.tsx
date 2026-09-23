@@ -89,7 +89,7 @@ const mockLedgerItems: LedgerItem[] = [
 ];
 
 const meta: Meta<typeof BatchReconciliationMatcher> = {
-  title: "DataGrid/BatchReconciliationMatcher",
+  title: "Core/DataGrid/BatchReconciliationMatcher",
   component: BatchReconciliationMatcher,
   parameters: {
     layout: "padded",

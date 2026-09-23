@@ -34,7 +34,7 @@ const MOCK_ENTRIES: ChangeEntry[] = [
 ];
 
 const meta: Meta<typeof ChangeHistory> = {
-  title: "DataGrid/ChangeHistory",
+  title: "Core/DataGrid/ChangeHistory",
   component: ChangeHistory,
   parameters: { layout: "padded" },
   tags: ["autodocs"],

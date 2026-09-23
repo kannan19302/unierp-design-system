@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FormLayoutBuilder } from "./form-layout-builder";
 
 const meta: Meta<typeof FormLayoutBuilder> = {
-  title: "FormEngine/FormLayoutBuilder",
+  title: "Core/FormEngine/FormLayoutBuilder",
   component: FormLayoutBuilder,
   parameters: { layout: "centered" },
 };

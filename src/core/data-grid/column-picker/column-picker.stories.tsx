@@ -24,7 +24,7 @@ const ColumnPickerDemo = () => {
 };
 
 const meta: Meta<typeof ColumnPicker> = {
-  title: "DataGrid/ColumnPicker",
+  title: "Core/DataGrid/ColumnPicker",
   component: ColumnPicker,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

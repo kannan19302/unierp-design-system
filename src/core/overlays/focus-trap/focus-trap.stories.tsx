@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FocusTrap } from "./focus-trap";
 
 const meta: Meta<typeof FocusTrap> = {
-  title: "Overlays/FocusTrap",
+  title: "Core/Overlays/FocusTrap",
   component: FocusTrap,
   tags: ["autodocs"],
   parameters: {

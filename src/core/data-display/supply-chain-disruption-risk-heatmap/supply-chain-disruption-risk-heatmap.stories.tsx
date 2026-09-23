@@ -148,7 +148,7 @@ const sampleCells: LaneRiskCell[] = [
 ];
 
 const meta: Meta<typeof SupplyChainDisruptionRiskHeatmap> = {
-  title: "DataDisplay/SupplyChainDisruptionRiskHeatmap",
+  title: "Core/DataDisplay/SupplyChainDisruptionRiskHeatmap",
   component: SupplyChainDisruptionRiskHeatmap,
   parameters: {
     layout: "padded",

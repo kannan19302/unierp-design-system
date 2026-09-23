@@ -25,7 +25,7 @@ const normalVitals: NewsVitalObservation[] = [
 ];
 
 const meta: Meta<typeof InpatientAcuityScorecard> = {
-  title: "Data Display/InpatientAcuityScorecard",
+  title: "Core/Data Display/InpatientAcuityScorecard",
   component: InpatientAcuityScorecard,
   tags: ["autodocs"],
   parameters: {

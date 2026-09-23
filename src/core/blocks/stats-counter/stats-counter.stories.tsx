@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { StatsCounter } from "./stats-counter";
 
 const meta: Meta<typeof StatsCounter> = {
-  title: "Blocks/StatsCounter",
+  title: "Core/Blocks/StatsCounter",
   component: StatsCounter,
   parameters: { layout: "centered" },
 };
