@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, type ReactNode, type FC } from "react";
+import { useState, forwardRef, type ReactNode } from "react";
 import { Check, ArrowRight, ArrowLeft, Send } from "lucide-react";
 import styles from "./form-wizard.module.css";
 
@@ -22,15 +20,19 @@ export interface FormWizardProps {
   className?: string;
 }
 
-export const FormWizard: FC<FormWizardProps> = ({
-  title,
-  subtitle,
-  steps,
-  onComplete,
-  onCancel,
-  submitLabel = "Complete Setup",
-  className = "",
-}) => {
+export const FormWizard = forwardRef<HTMLDivElement, FormWizardProps>(
+  (
+    {
+      title,
+      subtitle,
+      steps,
+      onComplete,
+      onCancel,
+      submitLabel = "Complete Setup",
+      className = "",
+    },
+    ref
+  ) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,7 +66,7 @@ export const FormWizard: FC<FormWizardProps> = ({
   };
 
   return (
-    <div className={`${styles.container} ${className}`} role="region" aria-label="Multi-step form wizard">
+    <div ref={ref} className={`${styles.container} ${className}`} role="region" aria-label="Multi-step form wizard">
       <div className={styles.header}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
@@ -152,4 +154,6 @@ export const FormWizard: FC<FormWizardProps> = ({
       </div>
     </div>
   );
-};
+});
+
+FormWizard.displayName = "FormWizard";

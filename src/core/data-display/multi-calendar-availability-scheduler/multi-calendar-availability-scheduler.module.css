@@ -310,3 +310,8 @@
   color: var(--color-status-danger-text, #b91c1c);
   margin-top: 0.1rem;
 }
+
+.emptySlotBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

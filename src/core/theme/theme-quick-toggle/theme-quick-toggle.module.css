@@ -16,3 +16,8 @@
 .toggleBtn:hover {
   background: var(--color-surface-elevated);
 }
+
+.toggleBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

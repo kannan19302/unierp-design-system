@@ -4,6 +4,7 @@ import {
   useState,
   useCallback,
   useRef,
+  forwardRef,
   type FormEvent,
   type ReactNode,
 } from "react";
@@ -94,18 +95,22 @@ export interface SchemaFormProps {
  * - Auto-scroll to first invalid input on submission error
  * - Dirty-state tracking
  */
-export function SchemaForm({
-  sections,
-  initialValues = {},
-  onSubmit,
-  onReset,
-  submitLabel = "Save Changes",
-  resetLabel = "Reset",
-  loading = false,
-  headerActions,
-  footerActions,
-  showErrorSummary = true,
-}: SchemaFormProps) {
+export const SchemaForm = forwardRef<HTMLFormElement, SchemaFormProps>(
+  (
+    {
+      sections,
+      initialValues = {},
+      onSubmit,
+      onReset,
+      submitLabel = "Save Changes",
+      resetLabel = "Reset",
+      loading = false,
+      headerActions,
+      footerActions,
+      showErrorSummary = true,
+    },
+    ref
+  ) => {
   // Extract initial values from field schemas
   const defaultVals = sections.flatMap((s) => s.fields).reduce((acc, f) => {
     acc[f.name] = initialValues[f.name] ?? f.defaultValue ?? "";
@@ -205,7 +210,7 @@ export function SchemaForm({
   const errorEntries = Object.entries(errors);
 
   return (
-    <form className={styles.form_container} onSubmit={handleSubmit} noValidate>
+    <form ref={ref} className={styles.form_container} onSubmit={handleSubmit} noValidate>
       {headerActions && <div>{headerActions}</div>}
 
       {showErrorSummary && errorEntries.length > 0 && (
@@ -295,7 +300,9 @@ export function SchemaForm({
       </div>
     </form>
   );
-}
+});
+
+SchemaForm.displayName = "SchemaForm";
 
 function renderFieldInput(
   field: FormFieldSchema,

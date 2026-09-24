@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useMemo, type FC } from "react";
+import { useState, useMemo, forwardRef } from "react";
 import { Paintbrush, CheckCircle2, AlertTriangle, Copy, Check } from "lucide-react";
 import { validateTenantBrandContrast } from "../branding";
 
@@ -21,11 +19,8 @@ export interface ThemeCustomizerProps {
   className?: string;
 }
 
-export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
-  initialConfig,
-  onSave,
-  className = "",
-}) => {
+export const ThemeCustomizer = forwardRef<HTMLDivElement, ThemeCustomizerProps>(
+  ({ initialConfig, onSave, className = "" }, ref) => {
   const DEFAULT_PRIMARY = "#" + "0f766e";
   const DEFAULT_ACCENT = "#" + "3b82f6";
   const WHITE_BG = "#" + "ffffff";
@@ -76,7 +71,7 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
   };
 
   return (
-    <div className={`${styles.container || ""} ${className}`}>
+    <div ref={ref} className={`${styles.container || ""} ${className}`}>
       <div className={styles.header}>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", fontWeight: 600 }}>
           <Paintbrush size={16} style={{ color: config.brandPrimary }} />
@@ -309,4 +304,6 @@ export const ThemeCustomizer: FC<ThemeCustomizerProps> = ({
       </div>
     </div>
   );
-};
+});
+
+ThemeCustomizer.displayName = "ThemeCustomizer";

@@ -198,6 +198,14 @@
   cursor: pointer;
 }
 
+.btn:focus-visible,
+.input:focus-visible,
+.select:focus-visible,
+.checkbox:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .fieldGroup {
   display: flex;
   flex-direction: column;

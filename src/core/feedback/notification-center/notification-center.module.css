@@ -190,3 +190,8 @@
   from { transform: translateX(100%); }
   to { transform: translateX(0); }
 }
+
+.close_btn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

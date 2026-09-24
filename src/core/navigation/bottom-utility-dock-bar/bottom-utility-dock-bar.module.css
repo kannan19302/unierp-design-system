@@ -165,3 +165,8 @@
 .wrapper[data-density="comfortable"] .dockBar {
   block-size: 2.75rem;
 }
+
+.closeBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

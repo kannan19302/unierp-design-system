@@ -143,3 +143,8 @@
   height: var(--density-control-height-comfortable, 40px);
   font-size: var(--type-body, var(--text-base));
 }
+
+.navButton:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

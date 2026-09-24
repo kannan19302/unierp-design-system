@@ -56,3 +56,8 @@
   color: var(--color-brand);
   background: var(--color-surface-sunken);
 }
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

@@ -122,3 +122,8 @@
   border-top: 1px solid var(--surface-1-border, var(--color-border));
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
 }
+
+.closeBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

@@ -157,3 +157,8 @@
   text-decoration: underline;
   background: var(--color-primary-light);
 }
+
+.actionButton:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

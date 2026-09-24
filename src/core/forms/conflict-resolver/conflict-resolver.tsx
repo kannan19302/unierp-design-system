@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, type FC } from "react";
+import { useState, forwardRef } from "react";
 import { AlertTriangle, Check, RefreshCw, X } from "lucide-react";
 import styles from "./conflict-resolver.module.css";
 
@@ -21,15 +19,19 @@ export interface ConflictResolverProps {
   className?: string;
 }
 
-export const ConflictResolver: FC<ConflictResolverProps> = ({
-  open,
-  onClose,
-  entityName = "Record",
-  recordId,
-  conflicts,
-  onResolve,
-  className = "",
-}) => {
+export const ConflictResolver = forwardRef<HTMLDivElement, ConflictResolverProps>(
+  (
+    {
+      open,
+      onClose,
+      entityName = "Record",
+      recordId,
+      conflicts,
+      onResolve,
+      className = "",
+    },
+    ref
+  ) => {
   const [resolutions, setResolutions] = useState<
     Record<string, "client" | "server">
   >(() => {
@@ -65,7 +67,7 @@ export const ConflictResolver: FC<ConflictResolverProps> = ({
   };
 
   return (
-    <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="Concurrency Conflict Detected">
+    <div ref={ref} className={styles.overlay} role="dialog" aria-modal="true" aria-label="Concurrency Conflict Detected">
       <div className={`${styles.dialog} ${className}`.trim()}>
         <div className={styles.header}>
           <div className={styles.headerTitleGroup}>
@@ -175,4 +177,6 @@ export const ConflictResolver: FC<ConflictResolverProps> = ({
       </div>
     </div>
   );
-};
+});
+
+ConflictResolver.displayName = "ConflictResolver";

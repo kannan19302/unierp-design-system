@@ -3,7 +3,7 @@
  * complete settings page: search, categories, dirty-state, dependency-
  * driven visibility, reset-to-default.
  */
-import { useMemo, useState } from "react";
+import { useMemo, useState, forwardRef } from "react";
 import type { ReactNode, ChangeEvent } from "react";
 import { FormField, Input, Textarea, Select } from "../../inputs/form-control";
 import { Switch } from "../../inputs/switch";
@@ -83,72 +83,94 @@ function renderControl(entry: SettingSchemaEntry, value: unknown, onChange: (v: 
   }
 }
 
-export function SettingsPage({ schema, values, onChange, dirtyKeys, onResetToDefault }: SettingsPageProps) {
-  const [query, setQuery] = useState("");
+export const SettingsPage = forwardRef<HTMLDivElement, SettingsPageProps>(
+  ({ schema, values, onChange, dirtyKeys, onResetToDefault }, ref) => {
+    const [query, setQuery] = useState("");
 
-  const visible = useMemo(() => {
-    return schema.filter((entry) => {
-      if (!entry.dependsOn || entry.dependsOn.length === 0) return true;
-      return entry.dependsOn.every((depKey) => Boolean(values[depKey]));
-    });
-  }, [schema, values]);
+    const visible = useMemo(() => {
+      return schema.filter((entry) => {
+        if (!entry.dependsOn || entry.dependsOn.length === 0) return true;
+        return entry.dependsOn.every((depKey) => Boolean(values[depKey]));
+      });
+    }, [schema, values]);
 
-  const filtered = useMemo(() => {
-    if (!query.trim()) return visible;
-    const lower = query.toLowerCase();
-    return visible.filter((e) => e.key.toLowerCase().includes(lower) || e.helpText.toLowerCase().includes(lower));
-  }, [visible, query]);
+    const filtered = useMemo(() => {
+      if (!query.trim()) return visible;
+      const lower = query.toLowerCase();
+      return visible.filter(
+        (e) =>
+          e.key.toLowerCase().includes(lower) ||
+          e.helpText.toLowerCase().includes(lower)
+      );
+    }, [visible, query]);
 
-  const computedDirty = useMemo(() => {
-    if (dirtyKeys) return dirtyKeys;
-    const set = new Set<string>();
-    for (const entry of schema) {
-      if (values[entry.key] !== undefined && values[entry.key] !== entry.defaultValue) {
-        set.add(entry.key);
+    const computedDirty = useMemo(() => {
+      if (dirtyKeys) return dirtyKeys;
+      const set = new Set<string>();
+      for (const entry of schema) {
+        if (
+          values[entry.key] !== undefined &&
+          values[entry.key] !== entry.defaultValue
+        ) {
+          set.add(entry.key);
+        }
       }
-    }
-    return set;
-  }, [schema, values, dirtyKeys]);
+      return set;
+    }, [schema, values, dirtyKeys]);
 
-  const categories = useMemo(() => {
-    const map = new Map<string, SettingSchemaEntry[]>();
-    for (const entry of filtered) {
-      const cat = entry.category || entry.owner || "general";
-      if (!map.has(cat)) map.set(cat, []);
-      map.get(cat)!.push(entry);
-    }
-    return map;
-  }, [filtered]);
+    const categories = useMemo(() => {
+      const map = new Map<string, SettingSchemaEntry[]>();
+      for (const entry of filtered) {
+        const cat = entry.category || entry.owner || "general";
+        if (!map.has(cat)) map.set(cat, []);
+        map.get(cat)!.push(entry);
+      }
+      return map;
+    }, [filtered]);
 
-  return (
-    <div data-testid="settings-page" className={styles.settingsContainer}>
-      <Input
-        type="search"
-        placeholder="Search settings…"
-        value={query}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
-        aria-label="Search settings"
-      />
-      {[...categories.entries()].map(([category, entries]) => (
-        <section key={category} data-testid={`settings-category-${category}`} className={styles.categorySection}>
-          <h3 className={styles.categoryTitle}>{category}</h3>
-          {entries.map((entry) => (
-            <FormField key={entry.key} label={entry.key} htmlFor={entry.key} hint={entry.helpText}>
-              {renderControl(entry, values[entry.key], (v) => onChange(entry.key, v))}
-              {computedDirty.has(entry.key) && (
-                <button
-                  type="button"
-                  data-testid={`reset-${entry.key}`}
-                  onClick={() => onResetToDefault(entry.key)}
-                  className={styles.resetBtn}
-                >
-                  Reset to default
-                </button>
-              )}
-            </FormField>
-          ))}
-        </section>
-      ))}
-    </div>
-  );
-}
+    return (
+      <div ref={ref} data-testid="settings-page" className={styles.settingsContainer}>
+        <Input
+          type="search"
+          placeholder="Search settings…"
+          value={query}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+          aria-label="Search settings"
+        />
+        {[...categories.entries()].map(([category, entries]) => (
+          <section
+            key={category}
+            data-testid={`settings-category-${category}`}
+            className={styles.categorySection}
+          >
+            <h3 className={styles.categoryTitle}>{category}</h3>
+            {entries.map((entry) => (
+              <FormField
+                key={entry.key}
+                label={entry.key}
+                htmlFor={entry.key}
+                hint={entry.helpText}
+              >
+                {renderControl(entry, values[entry.key], (v) =>
+                  onChange(entry.key, v)
+                )}
+                {computedDirty.has(entry.key) && (
+                  <button
+                    type="button"
+                    data-testid={`reset-${entry.key}`}
+                    onClick={() => onResetToDefault(entry.key)}
+                    className={styles.resetBtn}
+                  >
+                    Reset to default
+                  </button>
+                )}
+              </FormField>
+            ))}
+          </section>
+        ))}
+      </div>
+    );
+  }
+);
+
+SettingsPage.displayName = "SettingsPage";

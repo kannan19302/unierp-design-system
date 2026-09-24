@@ -115,3 +115,13 @@
   font-size: var(--type-body, var(--text-base));
   padding-inline: var(--space-3);
 }
+
+.removeBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.clearAllBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

@@ -250,3 +250,13 @@
   padding: var(--space-6, 1.5rem);
   gap: var(--space-6, 1.5rem);
 }
+
+.testBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.saveBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

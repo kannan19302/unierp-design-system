@@ -6,10 +6,13 @@ import styles from "./dynamic-field-renderer.module.css";
 export interface DynamicFieldRendererProps { schema: DynamicField[]; values?: Record<string, unknown>; onChange?: (key: string, value: unknown) => void; }
 export interface DynamicField { key: string; label: string; type: 'text' | 'number' | 'select' | 'date' | 'textarea' | 'checkbox'; options?: string[]; required?: boolean; }
 
-export const DynamicFieldRenderer: React.FC<DynamicFieldRendererProps> = (props) => {
+export const DynamicFieldRenderer = React.forwardRef<
+  HTMLDivElement,
+  DynamicFieldRendererProps
+>((props, ref) => {
   const { schema, values = {}, onChange } = props;
   return (
-    <div className={styles.container} role="form" aria-label="Dynamic field renderer">
+    <div ref={ref} className={styles.container} role="form" aria-label="Dynamic field renderer">
       <div className={styles.content}>
         {schema.map(field => (
           <div key={field.key} className={styles.fieldGroup}>
@@ -31,4 +34,6 @@ export const DynamicFieldRenderer: React.FC<DynamicFieldRendererProps> = (props)
       </div>
     </div>
   );
-};
+});
+
+DynamicFieldRenderer.displayName = "DynamicFieldRenderer";

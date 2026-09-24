@@ -18,15 +18,19 @@ export interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {
   "aria-label"?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({
-  variant = "horizontal",
-  theme = "light",
-  size = "md",
-  showTagline = true,
-  className = "",
-  "aria-label": ariaLabel = "UniERP — Enterprise SAAS Business Platform",
-  ...props
-}) => {
+export const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
+  (
+    {
+      variant = "horizontal",
+      theme = "light",
+      size = "md",
+      showTagline = true,
+      className = "",
+      "aria-label": ariaLabel = "UniERP — Enterprise SAAS Business Platform",
+      ...props
+    },
+    ref
+  ) => {
   const containerClasses = [
     styles.root,
     styles[`variant-${variant}`],
@@ -69,6 +73,7 @@ export const Logo: React.FC<LogoProps> = ({
   if (variant === "favicon") {
     return (
       <div
+        ref={ref}
         className={containerClasses}
         role="img"
         aria-label={ariaLabel}
@@ -82,6 +87,7 @@ export const Logo: React.FC<LogoProps> = ({
   if (variant === "glyph") {
     return (
       <div
+        ref={ref}
         className={containerClasses}
         role="img"
         aria-label={ariaLabel}
@@ -95,6 +101,7 @@ export const Logo: React.FC<LogoProps> = ({
   if (variant === "wordmark") {
     return (
       <div
+        ref={ref}
         className={containerClasses}
         role="img"
         aria-label={ariaLabel}
@@ -115,6 +122,7 @@ export const Logo: React.FC<LogoProps> = ({
   if (variant === "stacked") {
     return (
       <div
+        ref={ref}
         className={containerClasses}
         role="img"
         aria-label={ariaLabel}
@@ -138,6 +146,7 @@ export const Logo: React.FC<LogoProps> = ({
   // Default: Horizontal lockup
   return (
     <div
+      ref={ref}
       className={containerClasses}
       role="img"
       aria-label={ariaLabel}
@@ -156,4 +165,6 @@ export const Logo: React.FC<LogoProps> = ({
       </div>
     </div>
   );
-};
+});
+
+Logo.displayName = "Logo";

@@ -134,3 +134,8 @@
 .diff_new {
   color: var(--color-success);
 }
+
+.diff_toggle:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
