@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { axe } from "vitest-axe";
 import { Toggle } from "./toggle";
 
 describe("Toggle Primitive", () => {
@@ -37,5 +38,17 @@ describe("Toggle Primitive", () => {
     const button = screen.getByRole("button", { name: "Underline" });
     fireEvent.click(button);
     expect(handlePressedChange).not.toHaveBeenCalled();
+  });
+
+  it("has zero accessibility violations across variants and states", async () => {
+    const { container } = render(
+      <div>
+        <Toggle variant="default" aria-label="Toggle pin">Pin</Toggle>
+        <Toggle variant="outline" pressed aria-label="Toggle mute">Mute</Toggle>
+        <Toggle disabled aria-label="Toggle locked">Locked</Toggle>
+      </div>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

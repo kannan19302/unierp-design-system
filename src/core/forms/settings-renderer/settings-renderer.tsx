@@ -41,10 +41,10 @@ function renderControl(entry: SettingSchemaEntry, value: unknown, onChange: (v: 
   const current = value ?? entry.defaultValue;
   switch (entry.type) {
     case "boolean":
-      return <Switch checked={Boolean(current)} onChange={onChange} id={entry.key} />;
+      return <Switch checked={Boolean(current)} onChange={onChange} id={entry.key} aria-label={entry.key} />;
     case "enum":
       return (
-        <Select value={String(current ?? "")} onChange={(e: ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}>
+        <Select id={entry.key} aria-label={entry.key} value={String(current ?? "")} onChange={(e: ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}>
           {(entry.validation?.enumValues ?? []).map((v) => (
             <option key={v} value={v}>{v}</option>
           ))}
@@ -53,6 +53,8 @@ function renderControl(entry: SettingSchemaEntry, value: unknown, onChange: (v: 
     case "number":
       return (
         <Input
+          id={entry.key}
+          aria-label={entry.key}
           type="number"
           value={current === undefined || current === null ? "" : String(current)}
           min={entry.validation?.min}
@@ -63,6 +65,8 @@ function renderControl(entry: SettingSchemaEntry, value: unknown, onChange: (v: 
     case "json":
       return (
         <Textarea
+          id={entry.key}
+          aria-label={entry.key}
           value={current === undefined ? "" : JSON.stringify(current, null, 2)}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
             try {
@@ -75,7 +79,7 @@ function renderControl(entry: SettingSchemaEntry, value: unknown, onChange: (v: 
       );
     case "string":
     default:
-      return <Input type="text" value={current === undefined || current === null ? "" : String(current)} onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)} />;
+      return <Input id={entry.key} aria-label={entry.key} type="text" value={current === undefined || current === null ? "" : String(current)} onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)} />;
   }
 }
 

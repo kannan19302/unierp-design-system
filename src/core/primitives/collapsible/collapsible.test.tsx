@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { axe } from "vitest-axe";
 import {
   Collapsible,
   CollapsibleTrigger,
@@ -40,5 +41,25 @@ describe("Collapsible Primitive", () => {
     );
 
     expect(screen.getByText("Visible Information")).toBeInTheDocument();
+  });
+
+  it("has zero accessibility violations in open and closed states", async () => {
+    const { container, rerender } = render(
+      <Collapsible defaultOpen={false}>
+        <CollapsibleTrigger>Audit Logs</CollapsibleTrigger>
+        <CollapsibleContent>Log stream content</CollapsibleContent>
+      </Collapsible>
+    );
+    let results = await axe(container);
+    expect(results).toHaveNoViolations();
+
+    rerender(
+      <Collapsible defaultOpen={true}>
+        <CollapsibleTrigger>Audit Logs</CollapsibleTrigger>
+        <CollapsibleContent>Log stream content</CollapsibleContent>
+      </Collapsible>
+    );
+    results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

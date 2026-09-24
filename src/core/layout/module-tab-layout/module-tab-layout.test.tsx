@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { Box } from "lucide-react";
 import { ModuleTabLayout, type ModuleTab } from "../module-tab-layout";
 
@@ -47,5 +48,19 @@ describe("ModuleTabLayout dirty state and closable tabs", () => {
     const closeBtn = screen.getByLabelText("Close Transfers tab");
     await userEvent.click(closeBtn);
     expect(onClose).toHaveBeenCalledWith("transfers");
+  });
+
+  it("has zero accessibility violations", async () => {
+    const { container } = render(
+      <ModuleTabLayout
+        tabs={mockTabs}
+        moduleId="inv"
+        moduleLabel="Inventory"
+        moduleIcon={Box}
+        moduleDescription="Manage stock"
+      />,
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { SchemaForm, type FormSectionSchema } from "../schema-form";
 
 const testSections: FormSectionSchema[] = [
@@ -15,6 +16,12 @@ const testSections: FormSectionSchema[] = [
         type: "text",
         required: true,
         placeholder: "Enter company name",
+      },
+      {
+        name: "fiscalYearEnd",
+        label: "Fiscal Year End",
+        type: "date",
+        required: true,
       },
       {
         name: "accountType",
@@ -37,18 +44,26 @@ const testSections: FormSectionSchema[] = [
         type: "currency",
         defaultValue: 5000,
       },
+      {
+        name: "activeSubscription",
+        label: "Active Subscription",
+        type: "switch",
+        defaultValue: true,
+      },
     ],
   },
 ];
 
 describe("SchemaForm", () => {
-  it("renders form sections and visible fields", () => {
+  it("renders form sections and visible fields with accessible labels", () => {
     render(<SchemaForm sections={testSections} onSubmit={vi.fn()} />);
 
     expect(screen.getByText("General Information")).toBeInTheDocument();
     expect(screen.getByLabelText(/Company Name/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Fiscal Year End/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Account Type/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Budget/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Active Subscription/)).toBeInTheDocument();
     // Conditional field should not be visible initially
     expect(screen.queryByLabelText(/Enterprise Tier/)).not.toBeInTheDocument();
   });
@@ -81,14 +96,25 @@ describe("SchemaForm", () => {
     const nameInput = screen.getByLabelText(/Company Name/);
     await userEvent.type(nameInput, "Acme Corp");
 
+    const dateInput = screen.getByLabelText(/Fiscal Year End/);
+    fireEvent.change(dateInput, { target: { value: "2026-12-31" } });
+
     const submitBtn = screen.getByRole("button", { name: "Save Changes" });
     await userEvent.click(submitBtn);
 
     expect(onSubmit).toHaveBeenCalledWith(
       expect.objectContaining({
         companyName: "Acme Corp",
+        fiscalYearEnd: "2026-12-31",
         budget: 5000,
+        activeSubscription: true,
       }),
     );
+  });
+
+  it("has zero accessibility violations", async () => {
+    const { container } = render(<SchemaForm sections={testSections} onSubmit={vi.fn()} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

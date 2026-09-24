@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { NotificationCenter, type NotificationItem } from "../notification-center";
 
 const testNotifications: NotificationItem[] = [
@@ -66,5 +67,13 @@ describe("NotificationCenter", () => {
     const closeBtn = screen.getByLabelText("Close notification drawer");
     await userEvent.click(closeBtn);
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("has zero accessibility violations when open", async () => {
+    const { container } = render(
+      <NotificationCenter isOpen={true} onClose={vi.fn()} notifications={testNotifications} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

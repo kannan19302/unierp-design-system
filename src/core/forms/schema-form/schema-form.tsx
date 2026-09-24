@@ -262,10 +262,12 @@ export function SchemaForm({
 
                   return (
                     <div key={field.name} className={`${styles.field_wrap} ${colClass}`}>
-                      <label htmlFor={`field-${field.name}`} className={styles.field_label}>
-                        <span>{field.label}</span>
-                        {field.required && <span className={styles.field_required}>*</span>}
-                      </label>
+                      {field.type !== "switch" && field.type !== "checkbox" && (
+                        <label htmlFor={`field-${field.name}`} className={styles.field_label}>
+                          <span>{field.label}</span>
+                          {field.required && <span className={styles.field_required}>*</span>}
+                        </label>
+                      )}
 
                       {renderFieldInput(field, val, (v) => handleFieldChange(field.name, v), err, fieldRefs)}
 
@@ -342,6 +344,7 @@ function renderFieldInput(
           value={typeof value === "number" ? value : 0}
           onChange={onChange}
           disabled={field.disabled}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 
@@ -353,6 +356,7 @@ function renderFieldInput(
           value={typeof value === "number" ? value : 0}
           onChange={onChange}
           disabled={field.disabled}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 
@@ -363,6 +367,7 @@ function renderFieldInput(
           value={typeof value === "number" ? value : 0}
           onChange={onChange}
           disabled={field.disabled}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 
@@ -388,60 +393,72 @@ function renderFieldInput(
     case "switch":
       return (
         <Switch
+          id={id}
           checked={!!value}
           onChange={onChange}
           disabled={field.disabled}
           label={field.label}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 
     case "checkbox":
       return (
         <Checkbox
+          id={id}
           checked={!!value}
           onChange={onChange}
           disabled={field.disabled}
           label={field.label}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 
     case "tags":
       return (
         <TagInput
+          id={id}
           tags={Array.isArray(value) ? value : []}
           onChange={onChange}
           placeholder={field.placeholder}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 
     case "multiselect":
       return (
         <MultiSelect
+          id={id}
           options={field.options ?? []}
           value={Array.isArray(value) ? value : []}
           onChange={onChange}
           placeholder={field.placeholder}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 
     case "date":
       return (
         <DatePicker
+          id={id}
           value={typeof value === "string" ? value : value instanceof Date ? value.toISOString().split("T")[0] : ""}
           onChange={(d: any) => onChange(d ? (typeof d === "string" ? d : d.toISOString().split("T")[0]) : "")}
           disabled={field.disabled}
           placeholder={field.placeholder}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 
     case "combobox":
       return (
         <ComboBox
+          id={id}
           options={field.options?.map((o) => ({ value: o.value, label: o.label })) ?? []}
           value={value ?? ""}
           onChange={onChange}
           placeholder={field.placeholder}
           disabled={field.disabled}
+          ref={(el: any) => { fieldRefs.current[field.name] = el; }}
         />
       );
 

@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { axe } from "vitest-axe";
 import { PageHeader } from "../page-header";
 
 /**
@@ -82,5 +83,22 @@ describe("PageHeader", () => {
     // in it is noise for a screen-reader user cycling landmarks.
     rerender(<PageHeader title="Invoices" breadcrumbs={[]} />);
     expect(screen.queryByRole("navigation", { name: /breadcrumb/i })).toBeNull();
+  });
+
+  it("has zero accessibility violations", async () => {
+    const { container } = render(
+      <PageHeader
+        title="INV-2043"
+        description="Invoice detail and line items"
+        breadcrumbs={[
+          { label: "Finance", href: "/finance" },
+          { label: "Invoices", href: "/finance/invoices" },
+          { label: "INV-2043" },
+        ]}
+        actions={<button type="button">Print Invoice</button>}
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

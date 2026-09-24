@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { axe } from "vitest-axe";
 import { StatCardRow } from "../stat-card-row";
 import { ListPageTemplate } from "../list-page-template";
 import { DetailPageTemplate } from "../detail-page-template";
@@ -72,6 +73,18 @@ describe("ListPageTemplate", () => {
       />,
     );
     expect(screen.getByText("Nothing here")).toBeInTheDocument();
+  });
+
+  it("has zero accessibility violations", async () => {
+    const { container } = render(
+      <ListPageTemplate
+        title="Users"
+        columns={columns}
+        data={data}
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });
 

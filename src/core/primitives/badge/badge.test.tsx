@@ -25,5 +25,21 @@ describe("Badge Primitive", () => {
     rerender(<Badge variant="outline">Outline</Badge>);
     expect(screen.getByText("Outline").parentElement?.className).toContain("outline");
   });
+
+  it("has zero accessibility violations across variants", async () => {
+    const { container } = render(
+      <div>
+        <Badge variant="default">Default</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="destructive">Destructive</Badge>
+        <Badge variant="outline">Outline</Badge>
+        <Badge variant="success">Success</Badge>
+        <Badge variant="warning">Warning</Badge>
+        <StatusBadge status="ACTIVE" />
+      </div>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
 });
 

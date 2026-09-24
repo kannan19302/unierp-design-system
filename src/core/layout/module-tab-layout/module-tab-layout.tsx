@@ -233,9 +233,8 @@ export const ModuleTabLayout = forwardRef<HTMLDivElement, ModuleTabLayoutProps>(
     <>
       {/* Tab Bar */}
       <div className={styles.tabBar}>
-        <div
+        <nav
           className={styles.tabScroll}
-          role="tablist"
           aria-label={`${moduleLabel} sections`}
         >
           {orderedTabs.map((tab: any) => {
@@ -268,8 +267,6 @@ export const ModuleTabLayout = forwardRef<HTMLDivElement, ModuleTabLayoutProps>(
                   href={tab.href || `?tab=${tab.id}`}
                   className={`${styles.tab} ${isActive ? styles.tabActive : ""}`}
                   title={tab.description || tab.label}
-                  role="tab"
-                  aria-selected={isActive}
                   aria-current={isActive ? "page" : undefined}
                   onClick={(e: any) => {
                     if (isEditing) e.preventDefault();
@@ -287,42 +284,44 @@ export const ModuleTabLayout = forwardRef<HTMLDivElement, ModuleTabLayoutProps>(
                   {tab.badge !== undefined && (
                     <span className={styles.tabBadge}>{tab.badge}</span>
                   )}
-                  {!isEditing && (
-                    <button
-                      onClick={(e: any) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        togglePin(tab.id);
-                      }}
-                      className={`${styles.pinBtn} ${isPinned(tab.id) ? styles.pinActive : ""}`}
-                      aria-label={isPinned(tab.id) ? "Unpin tab" : "Pin tab"}
-                      aria-pressed={isPinned(tab.id)}
-                    >
-                      <Star size={12} />
-                    </button>
-                  )}
-                  {tab.closable && onCloseTab && !isEditing && (
-                    <button
-                      onClick={(e: any) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        onCloseTab(tab.id);
-                      }}
-                      className={styles.closeBtn}
-                      aria-label={`Close ${tab.label} tab`}
-                      title={`Close ${tab.label}`}
-                    >
-                      <X size={12} />
-                    </button>
-                  )}
                   {isPinned(tab.id) && !isEditing && (
                     <div className={styles.pinIndicator} />
                   )}
                 </Link>
+                {!isEditing && (
+                  <button
+                    type="button"
+                    onClick={(e: any) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      togglePin(tab.id);
+                    }}
+                    className={`${styles.pinBtn} ${isPinned(tab.id) ? styles.pinActive : ""}`}
+                    aria-label={isPinned(tab.id) ? "Unpin tab" : "Pin tab"}
+                    aria-pressed={isPinned(tab.id)}
+                  >
+                    <Star size={12} />
+                  </button>
+                )}
+                {tab.closable && onCloseTab && !isEditing && (
+                  <button
+                    type="button"
+                    onClick={(e: any) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onCloseTab(tab.id);
+                    }}
+                    className={styles.closeBtn}
+                    aria-label={`Close ${tab.label} tab`}
+                    title={`Close ${tab.label}`}
+                  >
+                    <X size={12} />
+                  </button>
+                )}
               </div>
             );
           })}
-        </div>
+        </nav>
 
         {/* Advanced Dropdown */}
         {advancedTabs.length > 0 && (

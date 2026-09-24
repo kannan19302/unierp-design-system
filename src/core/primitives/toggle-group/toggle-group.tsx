@@ -106,7 +106,12 @@ export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
           disabled,
         }}
       >
-        <div ref={ref} role="group" className={rootClass} {...props}>
+        <div
+          ref={ref}
+          role={type === "single" ? "radiogroup" : "group"}
+          className={rootClass}
+          {...props}
+        >
           {children}
         </div>
       </ToggleGroupContext.Provider>
@@ -161,9 +166,8 @@ export const ToggleGroupItem = forwardRef<HTMLButtonElement, ToggleGroupItemProp
       <button
         ref={ref}
         type="button"
-        role="radio"
+        role={ctx.type === "single" ? "radio" : "checkbox"}
         aria-checked={isSelected}
-        aria-pressed={isSelected}
         data-state={isSelected ? "on" : "off"}
         disabled={isDisabled}
         className={itemClass}

@@ -8,6 +8,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { SettingsPage, type SettingSchemaEntry } from "../settings-renderer";
 
 function makeFortySettings(): SettingSchemaEntry[] {
@@ -118,5 +119,14 @@ describe("D14 · SettingsPage — a complete settings page from a schema, zero b
 
     fireEvent.change(screen.getByDisplayValue("light"), { target: { value: "dark" } });
     expect(onChange).toHaveBeenCalledWith("demoapp.theme", "dark");
+  });
+
+  it("has zero accessibility violations", async () => {
+    const schema = makeFortySettings().slice(0, 5);
+    const { container } = render(
+      <SettingsPage schema={schema} values={{}} onChange={vi.fn()} onResetToDefault={vi.fn()} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });
