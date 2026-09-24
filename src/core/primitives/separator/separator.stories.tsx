@@ -51,3 +51,33 @@ export const Semantic: Story = {
     </div>
   ),
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", width: "360px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Horizontal Separator
+        </h4>
+        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+          <div>General Ledger Summary</div>
+          <Separator orientation="horizontal" style={{ margin: "8px 0" }} />
+          <div style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>Fiscal Year 2026 Active</div>
+        </div>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          2. Vertical Separator
+        </h4>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", height: "28px" }}>
+          <span style={{ fontSize: "var(--text-xs)" }}>Entity A</span>
+          <Separator orientation="vertical" />
+          <span style={{ fontSize: "var(--text-xs)" }}>Entity B</span>
+          <Separator orientation="vertical" />
+          <span style={{ fontSize: "var(--text-xs)" }}>Consolidated</span>
+        </div>
+      </div>
+    </div>
+  ),
+};

@@ -18,7 +18,7 @@ const sampleDays = [
 const sampleLayers: EscalationLayer[] = [
   {
     tier: "tier_1_primary",
-    title: "Platforms/DeveloperPlatform/Observability/OnCallRotationScheduleCalendar",
+    title: "Tier 1: Primary On-Call",
     escalationTimeoutMinutes: 5,
   },
   {

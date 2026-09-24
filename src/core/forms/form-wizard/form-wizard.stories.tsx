@@ -4,7 +4,7 @@ import { FormWizard, type WizardStep } from "./form-wizard";
 const sampleSteps: WizardStep[] = [
   {
     id: "step-1",
-    title: "Core/Forms/FormWizard",
+    title: "Organization Profile",
     subtitle: "Legal entity and registration numbers",
     component: (
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", maxWidth: 500 }}>
@@ -69,13 +69,28 @@ const sampleSteps: WizardStep[] = [
 const meta: Meta<typeof FormWizard> = {
   title: "Core/Forms/FormWizard",
   component: FormWizard,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    docs: {
+      description: {
+        component: "Multi-step transaction and onboarding wizard with linear stage progression, step validation, and review summary.",
+      },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof FormWizard>;
+
+export const Default: Story = {
+  args: {
+    title: "Tenant ERP Organization Setup",
+    subtitle: "Configure corporate profile and fiscal defaults in 3 easy steps",
+    steps: sampleSteps,
+    submitLabel: "Deploy Organization Partition",
+  },
+};
 
 export const TenantOnboardingWizard: Story = {
   args: {
@@ -84,4 +99,23 @@ export const TenantOnboardingWizard: Story = {
     steps: sampleSteps,
     submitLabel: "Deploy Organization Partition",
   },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Interactive Step-by-Step Wizard
+        </h4>
+        <FormWizard
+          title="Tenant ERP Organization Setup"
+          subtitle="Configure corporate profile and fiscal defaults in 3 easy steps"
+          steps={sampleSteps}
+          submitLabel="Deploy Organization Partition"
+        />
+      </div>
+    </div>
+  ),
 };

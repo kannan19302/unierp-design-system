@@ -30,3 +30,34 @@ export const Error: Story = {
     actionLabel: "Retry",
   },
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", width: "420px" }}>
+      <div>
+        <FeedbackToast
+          type="success"
+          message="Purchase order #PO-9021 created"
+          description="Sent to finance for approval."
+          actionLabel="View Order"
+        />
+      </div>
+      <div>
+        <FeedbackToast
+          type="error"
+          message="Failed to post journal entry"
+          description="Ledger account 1010-USD has insufficient liquidity."
+          actionLabel="Retry"
+        />
+      </div>
+      <div>
+        <FeedbackToast
+          type="info"
+          message="Background ledger export queued"
+          description="Download link will appear in notification center."
+        />
+      </div>
+    </div>
+  ),
+};

@@ -65,13 +65,14 @@ function checkStoryFile(fullPath, storyFile, context) {
   const storyPath = join(fullPath, storyFile);
   const content = readFileSync(storyPath, "utf8");
 
-  // Check title taxonomy
-  const titleMatch = content.match(/title:\s*["']([^"']+)["']/);
+  // Check title taxonomy on meta or export default object
+  const metaMatch = content.match(/(?:const\s+meta(?::[^{=]+)?\s*=\s*\{[\s\S]*?title:\s*["']([^"']+)["']|export\s+default\s*\{[\s\S]*?title:\s*["']([^"']+)["'])/);
+  const titleMatch = metaMatch || content.match(/title:\s*["']([^"']+)["']/);
   if (!titleMatch) {
     errors.push(`${context}: No Storybook title found in ${storyFile}`);
   } else {
-    const title = titleMatch[1];
-    if (!title.startsWith("Core/") && !title.startsWith("Platforms/")) {
+    const title = titleMatch[1] || titleMatch[2];
+    if (!title || (!title.startsWith("Core/") && !title.startsWith("Platforms/"))) {
       errors.push(
         `${context}: Non-canonical taxonomy "${title}". Must use canonical prefix ("Core/*" or "Platforms/*").`
       );

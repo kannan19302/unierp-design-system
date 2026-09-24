@@ -65,3 +65,57 @@ export const Disabled: Story = {
     </div>
   ),
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", width: "360px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Collapsed State
+        </h4>
+        <Collapsible>
+          <CollapsibleTrigger>
+            <span>Tax Breakdown Details</span>
+            <ChevronDown size={14} />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div>State Sales Tax: 6.25% ($125.00)</div>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          2. Expanded State (defaultOpen)
+        </h4>
+        <Collapsible defaultOpen>
+          <CollapsibleTrigger>
+            <span>Audit Log Metadata</span>
+            <ChevronDown size={14} />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div>Event ID: ev_9918239</div>
+            <div>Actor: admin@acme.com</div>
+            <div>Timestamp: 2026-09-23T08:00:00Z</div>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          3. Disabled State
+        </h4>
+        <Collapsible disabled>
+          <CollapsibleTrigger>
+            <span>Locked Ledger (Closed FY)</span>
+            <ChevronDown size={14} />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div>No modifications allowed</div>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+    </div>
+  ),
+};

@@ -66,3 +66,35 @@ export const FullWidth: Story = {
     placeholder: "Full width invoice line description...",
   },
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "var(--space-4)", width: "640px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Default / Empty
+        </h4>
+        <Input placeholder="Enter username..." />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          2. With Left Search Icon
+        </h4>
+        <Input leftIcon={<Search size={14} />} placeholder="Search ledger accounts..." />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          3. Invalid / Error State
+        </h4>
+        <Input error defaultValue="invalid.entry@domain" />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          4. Disabled State
+        </h4>
+        <Input disabled defaultValue="Locked fiscal identifier" />
+      </div>
+    </div>
+  ),
+};

@@ -100,3 +100,27 @@ export const HiddenScrollbars: Story = {
     </ScrollArea>
   ),
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => {
+    const Vert = VerticalScroll.render as React.ComponentType;
+    const Horiz = HorizontalScroll.render as React.ComponentType;
+    return (
+      <div style={{ display: "flex", gap: "var(--space-6)" }}>
+        <div>
+          <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+            1. Vertical Scroll Area
+          </h4>
+          {Vert && <Vert />}
+        </div>
+        <div>
+          <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+            2. Horizontal Scroll Area
+          </h4>
+          {Horiz && <Horiz />}
+        </div>
+      </div>
+    );
+  },
+};

@@ -6,8 +6,14 @@ import { Button } from "../../primitives/button";
 const meta: Meta<typeof ConflictResolver> = {
   title: "Core/Forms/ConflictResolver",
   component: ConflictResolver,
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component: "Enterprise concurrency conflict resolution modal showing field-by-field diff between client draft and server state.",
+      },
+    },
   },
 };
 
@@ -57,4 +63,25 @@ export const Default: Story = {
       </div>
     );
   },
+};
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Active Conflict Resolution Modal
+        </h4>
+        <ConflictResolver
+          open={true}
+          onClose={() => {}}
+          entityName="Sales Invoice"
+          recordId="INV-2026-9042"
+          conflicts={sampleConflicts}
+          onResolve={() => {}}
+        />
+      </div>
+    </div>
+  ),
 };

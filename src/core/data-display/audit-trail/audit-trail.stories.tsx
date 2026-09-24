@@ -1,12 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ApprovalTimeline, AuditTrailPanel } from "./audit-trail";
 
-const meta: Meta = {
+const meta: Meta<typeof AuditTrailPanel> = {
   title: "Core/DataDisplay/AuditTrail",
+  component: AuditTrailPanel,
+  subcomponents: { ApprovalTimeline: ApprovalTimeline as React.ComponentType<any> },
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "Cryptographic and chronological audit trail verification log and approval workflow timeline.",
+      },
+    },
+  },
 };
 
 export default meta;
+type Story = StoryObj<typeof AuditTrailPanel>;
 
 const sampleSteps = [
   { id: "1", approver: "Sarah Lin", role: "Direct Manager", status: "approved" as const, timestamp: "2026-08-29 09:15", notes: "Budget line verified." },

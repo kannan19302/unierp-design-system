@@ -51,3 +51,35 @@ export const Disabled: Story = {
     defaultValue: "Automated reconciliation comments (read only).",
   },
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "var(--space-4)", width: "640px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Default / Empty
+        </h4>
+        <Textarea placeholder="Enter fiscal notes..." rows={3} />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          2. Filled
+        </h4>
+        <Textarea defaultValue="Vendor confirmed wire details and currency exchange rate lock." rows={3} />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          3. Invalid / Error State
+        </h4>
+        <Textarea error defaultValue="Discrepancy exceeds authorized threshold." rows={3} />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          4. Disabled
+        </h4>
+        <Textarea disabled defaultValue="Automated system comments (locked)." rows={3} />
+      </div>
+    </div>
+  ),
+};

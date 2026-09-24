@@ -48,7 +48,15 @@ const BrandingDemo = () => {
 const meta: Meta = {
   title: "Core/Theme/Branding",
   component: BrandingDemo,
-  parameters: { layout: "centered" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "Validates tenant brand color contrast against background surfaces to enforce WCAG AA/AAA compliance.",
+      },
+    },
+  },
 };
 
 export default meta;
@@ -56,4 +64,36 @@ type Story = StoryObj;
 
 export const Default: Story = {
   render: () => <BrandingDemo />,
+};
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", maxWidth: 500 }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Passing Brand Accent (WCAG AA &ge; 4.5:1)
+        </h4>
+        <div style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)", border: "1px solid var(--color-border-default)", background: "#ffffff" }}>
+          <span style={{ color: "#2563eb", fontWeight: 600 }}>Brand Accent #2563eb on White &mdash; 4.56:1 (Pass)</span>
+        </div>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          2. Failing Contrast (Low Contrast Warning)
+        </h4>
+        <div style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)", border: "1px solid var(--color-danger, #ef4444)", background: "#ffffff" }}>
+          <span style={{ color: "#93c5fd", fontWeight: 600 }}>Brand Accent #93c5fd on White &mdash; 1.62:1 (Fail)</span>
+        </div>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          3. High-Contrast Enterprise Grade (AAA &ge; 7:1)
+        </h4>
+        <div style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)", border: "1px solid var(--color-border-default)", background: "#ffffff" }}>
+          <span style={{ color: "#1e3a8a", fontWeight: 600 }}>Brand Accent #1e3a8a on White &mdash; 9.48:1 (AAA Pass)</span>
+        </div>
+      </div>
+    </div>
+  ),
 };

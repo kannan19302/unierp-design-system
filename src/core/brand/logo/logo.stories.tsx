@@ -112,3 +112,28 @@ export const SizeMatrix: Story = {
     </div>
   ),
 };
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
+          Horizontal & Stacked Lockups
+        </h4>
+        <div style={{ display: "flex", gap: "var(--space-6)", alignItems: "center" }}>
+          <Logo variant="horizontal" size="md" />
+          <Logo variant="stacked" size="md" />
+        </div>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
+          Glyph & Wordmark
+        </h4>
+        <div style={{ display: "flex", gap: "var(--space-6)", alignItems: "center" }}>
+          <Logo variant="glyph" size="md" />
+          <Logo variant="wordmark" size="md" />
+        </div>
+      </div>
+    </div>
+  ),
+};

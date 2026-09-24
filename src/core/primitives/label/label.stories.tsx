@@ -52,3 +52,35 @@ export const Sizes: Story = {
     </div>
   ),
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", width: "320px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-1) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Default & Required
+        </h4>
+        <Label required>Billing Account ID</Label>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-1) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          2. Optional
+        </h4>
+        <Label optional>Tax Exemption Certificate Number</Label>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-1) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          3. Invalid / Error State
+        </h4>
+        <Label error>Fiscal Period (Closed)</Label>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-1) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          4. Disabled
+        </h4>
+        <Label disabled>Read-only System Key</Label>
+      </div>
+    </div>
+  ),
+};

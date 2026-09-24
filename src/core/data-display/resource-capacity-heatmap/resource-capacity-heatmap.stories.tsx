@@ -18,7 +18,7 @@ const SAMPLE_RESOURCES: ResourceRow[] = [
         allocatedHours: 42,
         capacityHours: 40,
         tasks: [
-          { id: "t1", title: "Core/DataDisplay/ResourceCapacityHeatmap", project: "UniERP Core", hours: 26 },
+          { id: "t1", title: "Distributed Subledger Sharding", project: "UniERP Core", hours: 26 },
           { id: "t2", title: "Security Keyring Rotation RFC", project: "Infra", hours: 16 },
         ],
       },

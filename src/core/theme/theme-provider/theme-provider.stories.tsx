@@ -52,7 +52,15 @@ const ThemeViewer = () => {
 const meta: Meta<typeof ThemeProvider> = {
   title: "Core/Theme/ThemeProvider",
   component: ThemeProvider,
-  parameters: { layout: "centered" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "Root context provider that propagates active Strata theme (light/dark/high-contrast) and density tiers across all UI components.",
+      },
+    },
+  },
 };
 
 export default meta;
@@ -63,5 +71,37 @@ export const Default: Story = {
     <ThemeProvider>
       <ThemeViewer />
     </ThemeProvider>
+  ),
+};
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Default Meridian Light Theme
+        </h4>
+        <ThemeProvider initialTheme="meridian">
+          <ThemeViewer />
+        </ThemeProvider>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          2. Dark Mode Theme Context
+        </h4>
+        <ThemeProvider initialTheme="strata-dark">
+          <ThemeViewer />
+        </ThemeProvider>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          3. High-Contrast Enterprise Context
+        </h4>
+        <ThemeProvider initialTheme="high-contrast">
+          <ThemeViewer />
+        </ThemeProvider>
+      </div>
+    </div>
   ),
 };

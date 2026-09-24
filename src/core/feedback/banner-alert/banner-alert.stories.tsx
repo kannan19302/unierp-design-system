@@ -28,3 +28,31 @@ export const Warning: Story = {
     children: "Your invoice draft has not been saved.",
   },
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", width: "540px" }}>
+      <div>
+        <BannerAlert severity="info" title="Informational Notice">
+          Scheduled multi-region ledger sync will occur at 02:00 UTC.
+        </BannerAlert>
+      </div>
+      <div>
+        <BannerAlert severity="success" title="Reconciliation Completed">
+          All 1,420 transaction lines matched across primary and secondary ledgers.
+        </BannerAlert>
+      </div>
+      <div>
+        <BannerAlert severity="warning" title="Approvals Pending">
+          Two disbursements exceed standard manager authorization limits.
+        </BannerAlert>
+      </div>
+      <div>
+        <BannerAlert severity="danger" title="Fiscal Period Closed">
+          FY2026-Q1 is locked. Adjustments require controller override authorization.
+        </BannerAlert>
+      </div>
+    </div>
+  ),
+};

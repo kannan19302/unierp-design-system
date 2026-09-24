@@ -1,11 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { SchemaForm, type FormSectionSchema } from "./schema-form";
 
+/**
+ * `<SchemaForm>` is an enterprise schema-driven form engine supporting 14 dynamic field types,
+ * 12-column responsive layout, collapsible sections, conditional visibility, and inline validation.
+ */
 const meta: Meta<typeof SchemaForm> = {
   title: "Core/Forms/SchemaForm",
   component: SchemaForm,
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
+    docs: {
+      description: {
+        component:
+          "Enterprise schema-driven form engine. Configured via declarative JSON schemas with built-in validation, responsive 12-column grid, collapsible sections, and state management.",
+      },
+    },
   },
 };
 
@@ -94,7 +105,50 @@ export const Default: Story = {
   args: {
     sections: sampleSections,
     onSubmit: async (data) => {
-      alert(`Form submitted with payload:\n${JSON.stringify(data, null, 2)}`);
+      console.log("Form submitted:", data);
     },
   },
+};
+
+export const LoadingState: Story = {
+  args: {
+    sections: sampleSections,
+    loading: true,
+    onSubmit: async () => {},
+  },
+};
+
+export const AllStatesGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)", maxWidth: 900 }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-3)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
+          Standard Multi-Section Enterprise Schema Form
+        </h4>
+        <SchemaForm
+          sections={sampleSections}
+          onSubmit={async (data) => console.log(data)}
+        />
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-3)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
+          Compact Single-Section Form
+        </h4>
+        <SchemaForm
+          sections={[
+            {
+              id: "quickContact",
+              title: "Quick Contact",
+              fields: [
+                { name: "name", label: "Full Name", type: "text", required: true, colSpan: 6 },
+                { name: "email", label: "Email Address", type: "email", required: true, colSpan: 6 },
+              ],
+            },
+          ]}
+          submitLabel="Save Contact"
+          onSubmit={async (data) => console.log(data)}
+        />
+      </div>
+    </div>
+  ),
 };

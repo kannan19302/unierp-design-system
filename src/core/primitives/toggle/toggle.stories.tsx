@@ -58,3 +58,38 @@ export const Disabled: Story = {
     children: "Disabled Toggle",
   },
 };
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Default & Pressed State
+        </h4>
+        <div style={{ display: "flex", gap: "var(--space-2)" }}>
+          <Toggle aria-label="Default unpressed">Unpressed</Toggle>
+          <Toggle defaultPressed aria-label="Default pressed">Pressed</Toggle>
+        </div>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          2. Outline Variant
+        </h4>
+        <div style={{ display: "flex", gap: "var(--space-2)" }}>
+          <Toggle variant="outline" aria-label="Outline unpressed">Outline</Toggle>
+          <Toggle variant="outline" defaultPressed aria-label="Outline pressed">Outline Pressed</Toggle>
+        </div>
+      </div>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          3. Disabled States
+        </h4>
+        <div style={{ display: "flex", gap: "var(--space-2)" }}>
+          <Toggle disabled aria-label="Disabled unpressed">Disabled</Toggle>
+          <Toggle disabled defaultPressed aria-label="Disabled pressed">Disabled Pressed</Toggle>
+        </div>
+      </div>
+    </div>
+  ),
+};

@@ -7,7 +7,7 @@ import {
 const mockRoot: OrgNode = {
   id: "emp-ceo",
   name: "Dr. Evelyn Vance",
-  title: "Platforms/BusinessSuite/HrTalent/OrgChartHierarchyTree",
+  title: "Chief Executive Officer",
   department: "Executive Leadership",
   avatarInitials: "EV",
   email: "evelyn.vance@aerospace.unierp.com",

@@ -42,7 +42,15 @@ const HookDemo = () => {
 const meta: Meta = {
   title: "Core/Overlays/OverlayHooks",
   component: HookDemo,
-  parameters: { layout: "centered" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "Fundamental accessibility and interaction hooks for enterprise overlays: Escape key dismissal, scroll lock, click-outside, and focus management.",
+      },
+    },
+  },
 };
 
 export default meta;
@@ -50,4 +58,18 @@ type Story = StoryObj;
 
 export const Default: Story = {
   render: () => <HookDemo />,
+};
+
+export const AllStatesGallery: Story = {
+  name: "All states gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", width: "400px" }}>
+      <div>
+        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Interactive Hook Harness
+        </h4>
+        <HookDemo />
+      </div>
+    </div>
+  ),
 };
