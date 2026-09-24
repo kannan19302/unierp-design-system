@@ -1,7 +1,11 @@
 # UniERP Strata Design Language: The 10 Pillars of Enterprise Design System Excellence
 
-This document is the authoritative standard for `@kannan19302/ui` in `design-system`.
-For the platform-wide standard across all 31 repositories, refer to [`platform/workspace/.agents/standards/STRATA_DESIGN_SYSTEM_STANDARDS.md`](../../platform/workspace/.agents/standards/STRATA_DESIGN_SYSTEM_STANDARDS.md).
+> Repository implementation guidance. The [Design Platform specification](../../platform/docs/platforms/design-system/README.md)
+> and accepted design ADRs own intended behavior. This file cannot redefine those
+> authorities, prove accessibility, or set product-wide release status.
+
+These component practices apply within `@kannan19302/ui` when they agree with the
+owning specification and the current package implementation.
 
 ---
 
