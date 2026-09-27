@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { Modal } from "./modal";
+import { Modal, Dialog, modalVariants } from "./modal";
 import { ConfirmDialog } from "./confirm-dialog";
 
 describe("Modal Primitive", () => {
@@ -11,7 +11,10 @@ describe("Modal Primitive", () => {
         <p>Reconciliation body</p>
       </Modal>
     );
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+    expect(dialog).toHaveAttribute("data-slot", "modal");
+    expect(dialog).toHaveAttribute("data-size", "md");
     expect(screen.getByText("Reconciliation")).toBeInTheDocument();
     expect(screen.getByText("Reconciliation body")).toBeInTheDocument();
   });
@@ -104,5 +107,17 @@ describe("Modal Primitive", () => {
     expect(
       screen.getByRole("dialog", { name: "Borderless Inspector" }),
     ).toBeInTheDocument();
+  });
+
+  it("supports Dialog alias and cva modalVariants generator", () => {
+    render(
+      <Dialog open={true} onClose={() => {}} title="Shadcn Dialog">
+        Content
+      </Dialog>
+    );
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    const classes = modalVariants({ size: "lg" });
+    expect(classes).toContain("lg");
   });
 });

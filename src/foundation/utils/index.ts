@@ -1,5 +1,6 @@
 // @kannan19302/ui-utils — class & formatting helpers for UI code
-export { cn } from "./cn";
+export { cn, type ClassValue } from "./cn";
+export { cva, type VariantProps, type ConfigVariants, type CvaFunction } from "./cva";
 export {
   formatNumber,
   formatPercent,

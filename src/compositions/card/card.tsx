@@ -1,9 +1,35 @@
 "use client";
 
 import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./card.module.css";
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+/**
+ * Class variance authority definitions for Card.
+ * Compatible with shadcn/ui community standards and Strata Design tokens.
+ */
+export const cardVariants = cva(styles.card, {
+  variants: {
+    padding: {
+      none: styles.p_none,
+      sm: styles.p_sm,
+      md: styles.p_md,
+      lg: styles.p_lg,
+    },
+    hover: {
+      true: styles.hoverable,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    padding: "md",
+    hover: false,
+  },
+});
+
+export interface CardProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cardVariants> {
   children?: ReactNode;
   padding?: "none" | "sm" | "md" | "lg";
   hover?: boolean;
@@ -11,32 +37,39 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Card component providing standard surface elevation, borders, and structured padding.
+ * Follows shadcn/ui and Strata design system standards with full cva, data-slot, and compound sub-components.
  *
  * @maturity stable
  */
-export const Card = forwardRef<HTMLDivElement, CardProps>(({
-  children,
-  padding = "md",
-  hover = false,
-  className = "",
-  style,
-  ...props
-}, ref) => {
-  const cardClass = [
-    styles.card,
-    styles[`p_${padding}`],
-    hover ? styles.hoverable : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  (
+    {
+      children,
+      padding = "md",
+      hover = false,
+      className = "",
+      style,
+      ...props
+    },
+    ref
+  ) => {
+    const cardClass = cardVariants({ padding, hover, className });
 
-  return (
-    <div ref={ref} className={cardClass || undefined} style={style} {...props}>
-      {children}
-    </div>
-  );
-});
+    return (
+      <div
+        ref={ref}
+        data-slot="card"
+        data-padding={padding}
+        data-hover={hover ? "true" : undefined}
+        className={cardClass || undefined}
+        style={style}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 Card.displayName = "Card";
 
@@ -48,6 +81,7 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ children, className = "", ...props }, ref) => (
     <div
       ref={ref}
+      data-slot="card-header"
       className={`${styles.cardHeader || ""} ${className}`.trim()}
       {...props}
     >
@@ -65,6 +99,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ children, className = "", ...props }, ref) => (
     <h3
       ref={ref}
+      data-slot="card-title"
       className={`${styles.cardTitle || ""} ${className}`.trim()}
       {...props}
     >
@@ -82,6 +117,7 @@ export const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionP
   ({ children, className = "", ...props }, ref) => (
     <p
       ref={ref}
+      data-slot="card-description"
       className={`${styles.cardDescription || ""} ${className}`.trim()}
       {...props}
     >
@@ -99,6 +135,7 @@ export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   ({ children, className = "", ...props }, ref) => (
     <div
       ref={ref}
+      data-slot="card-content"
       className={`${styles.cardContent || ""} ${className}`.trim()}
       {...props}
     >
@@ -116,6 +153,7 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   ({ children, className = "", ...props }, ref) => (
     <div
       ref={ref}
+      data-slot="card-footer"
       className={`${styles.cardFooter || ""} ${className}`.trim()}
       {...props}
     >
@@ -124,4 +162,3 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   )
 );
 CardFooter.displayName = "CardFooter";
-

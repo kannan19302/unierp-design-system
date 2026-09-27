@@ -64,13 +64,15 @@
 }
 
 /* ── Variants ── */
-.primary {
+.primary,
+.default {
   background: var(--color-primary);
   color: var(--color-text-inverse);
   border-color: var(--color-primary);
 }
 
-.primary:hover:not(:disabled) {
+.primary:hover:not(:disabled),
+.default:hover:not(:disabled) {
   background: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
 }

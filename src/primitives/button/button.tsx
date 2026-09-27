@@ -7,13 +7,54 @@ import {
   type MouseEvent,
 } from "react";
 import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./button.module.css";
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+/**
+ * Class variance authority definitions for Button.
+ * Compatible with shadcn/ui community standards and Strata Design tokens.
+ */
+export const buttonVariants = cva(styles.button, {
+  variants: {
+    variant: {
+      default: styles.primary,
+      primary: styles.primary,
+      secondary: styles.secondary,
+      outline: styles.outline,
+      ghost: styles.ghost,
+      destructive: styles.destructive,
+      danger: styles.danger,
+      link: styles.link,
+    },
+    size: {
+      default: styles.md,
+      sm: styles.sm,
+      md: styles.md,
+      lg: styles.lg,
+      icon: styles.icon,
+    },
+  },
+  defaultVariants: {
+    variant: "primary",
+    size: "md",
+  },
+});
+
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
   /** Visual style variant */
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "destructive" | "link";
+  variant?:
+    | "primary"
+    | "default"
+    | "secondary"
+    | "outline"
+    | "ghost"
+    | "danger"
+    | "destructive"
+    | "link";
   /** Size of the button */
-  size?: "sm" | "md" | "lg" | "icon";
+  size?: "sm" | "md" | "default" | "lg" | "icon";
   /** Show loading spinner */
   isLoading?: boolean;
   /** Render as child element (for polymorphic Link components) */
@@ -23,8 +64,10 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Icon to show after the label */
   rightIcon?: ReactNode;
 }
+
 /**
  * `<Button>` — Primary enterprise action element supporting multiple variants, loading states, and icons.
+ * Follows shadcn/ui and Strata design system standards with full cva, data-slot, and APG compliance.
  * @maturity stable
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -46,10 +89,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const isDisabled = Boolean(disabled || isLoading);
-
-    const buttonClass = [styles.button, styles[size], styles[variant], className]
-      .filter(Boolean)
-      .join(" ");
+    const buttonClass = buttonVariants({ variant, size, className });
 
     // Handle polymorphic composition via Radix Slot
     if (asChild && isValidElement(children)) {
@@ -68,17 +108,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
       const composedChildren = (
         <>
-          {isLoading && <span className={styles.loader} aria-hidden="true" />}
+          {isLoading && (
+            <span className={styles.loader} data-slot="spinner" aria-hidden="true" />
+          )}
           {!isLoading && leftIcon && (
-            <span className={styles.iconSlot}>{leftIcon}</span>
+            <span className={styles.iconSlot} data-slot="icon">
+              {leftIcon}
+            </span>
           )}
           <span
+            data-slot="label"
             className={`${styles.childrenContainer} ${isLoading ? styles.hiddenText : ""}`}
           >
             {child.props.children}
           </span>
           {!isLoading && rightIcon && (
-            <span className={styles.iconSlot}>{rightIcon}</span>
+            <span className={styles.iconSlot} data-slot="icon">
+              {rightIcon}
+            </span>
           )}
         </>
       );
@@ -86,6 +133,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       return (
         <Slot
           ref={ref}
+          data-slot="button"
+          data-variant={variant}
+          data-size={size}
+          data-loading={isLoading ? "true" : undefined}
           className={buttonClass || undefined}
           aria-disabled={isDisabled ? true : undefined}
           aria-busy={isLoading ? true : undefined}
@@ -106,23 +157,34 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         type={type}
+        data-slot="button"
+        data-variant={variant}
+        data-size={size}
+        data-loading={isLoading ? "true" : undefined}
         className={buttonClass || undefined}
         disabled={isDisabled}
         aria-busy={isLoading ? true : undefined}
         onClick={onClick}
         {...props}
       >
-        {isLoading && <span className={styles.loader} aria-hidden="true" />}
+        {isLoading && (
+          <span className={styles.loader} data-slot="spinner" aria-hidden="true" />
+        )}
         {!isLoading && leftIcon && (
-          <span className={styles.iconSlot}>{leftIcon}</span>
+          <span className={styles.iconSlot} data-slot="icon">
+            {leftIcon}
+          </span>
         )}
         <span
+          data-slot="label"
           className={`${styles.childrenContainer} ${isLoading ? styles.hiddenText : ""}`}
         >
           {children}
         </span>
         {!isLoading && rightIcon && (
-          <span className={styles.iconSlot}>{rightIcon}</span>
+          <span className={styles.iconSlot} data-slot="icon">
+            {rightIcon}
+          </span>
         )}
       </button>
     );

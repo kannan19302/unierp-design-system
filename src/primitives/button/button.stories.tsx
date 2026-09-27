@@ -18,19 +18,19 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "outline", "ghost", "danger", "link"],
+      options: ["primary", "secondary", "outline", "ghost", "destructive", "danger", "link"],
       description: "Visual hierarchy and semantic intent.",
       table: {
-        type: { summary: "primary | secondary | outline | ghost | danger | link" },
+        type: { summary: "primary | secondary | outline | ghost | destructive | danger | link" },
         defaultValue: { summary: "primary" },
       },
     },
     size: {
       control: "select",
-      options: ["sm", "md", "lg"],
+      options: ["sm", "md", "lg", "icon"],
       description: "Ergonomic control height conforming to 4-tier density.",
       table: {
-        type: { summary: "sm | md | lg" },
+        type: { summary: "sm | md | lg | icon" },
         defaultValue: { summary: "md" },
       },
     },
@@ -41,6 +41,10 @@ const meta: Meta<typeof Button> = {
     disabled: {
       control: "boolean",
       description: "Disables click events and applies muted contrast styling.",
+    },
+    asChild: {
+      control: "boolean",
+      description: "Passes styling and event handling down to direct child component.",
     },
   },
 };
@@ -89,6 +93,15 @@ export const Danger: Story = {
   },
 };
 
+export const Destructive: Story = {
+  args: {
+    children: "Delete Resource",
+    variant: "destructive",
+    size: "md",
+    leftIcon: <Trash2 size={14} />,
+  },
+};
+
 export const WithIcons: Story = {
   args: {
     children: "Create Order",
@@ -104,6 +117,23 @@ export const Loading: Story = {
     variant: "primary",
     isLoading: true,
   },
+};
+
+export const IconButton: Story = {
+  args: {
+    size: "icon",
+    variant: "outline",
+    "aria-label": "Delete Item",
+    children: <Trash2 size={14} />,
+  },
+};
+
+export const AsChild: Story = {
+  render: () => (
+    <Button asChild variant="outline">
+      <a href="#link-target">Polymorphic Link Button</a>
+    </Button>
+  ),
 };
 
 export const AnatomyAndComposition = () => (
@@ -126,32 +156,88 @@ export const AllStatesGallery = () => (
   <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
     {/* Row 1: Interactive & Lifecycle States */}
     <div>
-      <div style={{ fontSize: "var(--text-xs)", fontWeight: "var(--weight-semibold)", color: "var(--color-text)", marginBottom: "var(--space-2)" }}>
+      <div
+        style={{
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-semibold)",
+          color: "var(--color-text)",
+          marginBottom: "var(--space-2)",
+        }}
+      >
         Interaction & Lifecycle States
       </div>
       <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center", flexWrap: "wrap" }}>
         <div>
-          <span style={{ fontSize: "var(--text-2xs)", display: "block", color: "var(--color-text-muted)", marginBottom: "var(--space-1)" }}>Default</span>
+          <span
+            style={{
+              fontSize: "var(--text-2xs)",
+              display: "block",
+              color: "var(--color-text-muted)",
+              marginBottom: "var(--space-1)",
+            }}
+          >
+            Default
+          </span>
           <Button variant="primary">Default</Button>
         </div>
         <div>
-          <span style={{ fontSize: "var(--text-2xs)", display: "block", color: "var(--color-text-muted)", marginBottom: "var(--space-1)" }}>With Icons</span>
-          <Button variant="primary" leftIcon={<Plus size={14} />}>New Record</Button>
+          <span
+            style={{
+              fontSize: "var(--text-2xs)",
+              display: "block",
+              color: "var(--color-text-muted)",
+              marginBottom: "var(--space-1)",
+            }}
+          >
+            With Icons
+          </span>
+          <Button variant="primary" leftIcon={<Plus size={14} />}>
+            New Record
+          </Button>
         </div>
         <div>
-          <span style={{ fontSize: "var(--text-2xs)", display: "block", color: "var(--color-text-muted)", marginBottom: "var(--space-1)" }}>Loading / Busy</span>
-          <Button variant="primary" isLoading>Submitting</Button>
+          <span
+            style={{
+              fontSize: "var(--text-2xs)",
+              display: "block",
+              color: "var(--color-text-muted)",
+              marginBottom: "var(--space-1)",
+            }}
+          >
+            Loading / Busy
+          </span>
+          <Button variant="primary" isLoading>
+            Submitting
+          </Button>
         </div>
         <div>
-          <span style={{ fontSize: "var(--text-2xs)", display: "block", color: "var(--color-text-muted)", marginBottom: "var(--space-1)" }}>Disabled</span>
-          <Button variant="primary" disabled>Disabled</Button>
+          <span
+            style={{
+              fontSize: "var(--text-2xs)",
+              display: "block",
+              color: "var(--color-text-muted)",
+              marginBottom: "var(--space-1)",
+            }}
+          >
+            Disabled
+          </span>
+          <Button variant="primary" disabled>
+            Disabled
+          </Button>
         </div>
       </div>
     </div>
 
     {/* Row 2: Visual Hierarchies */}
     <div>
-      <div style={{ fontSize: "var(--text-xs)", fontWeight: "var(--weight-semibold)", color: "var(--color-text)", marginBottom: "var(--space-2)" }}>
+      <div
+        style={{
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-semibold)",
+          color: "var(--color-text)",
+          marginBottom: "var(--space-2)",
+        }}
+      >
         Hierarchy Matrix
       </div>
       <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center", flexWrap: "wrap" }}>
@@ -159,38 +245,34 @@ export const AllStatesGallery = () => (
         <Button variant="secondary">Secondary</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
-        <Button variant="danger">Danger</Button>
+        <Button variant="destructive">Destructive</Button>
         <Button variant="link">Link</Button>
       </div>
     </div>
 
     {/* Row 3: Ergonomic Density Tiers */}
     <div>
-      <div style={{ fontSize: "var(--text-xs)", fontWeight: "var(--weight-semibold)", color: "var(--color-text)", marginBottom: "var(--space-2)" }}>
+      <div
+        style={{
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-semibold)",
+          color: "var(--color-text)",
+          marginBottom: "var(--space-2)",
+        }}
+      >
         Density Tiers (28px Compact, 32px Standard, 40px Comfortable)
       </div>
       <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center" }}>
-        <Button variant="primary" size="sm">Compact (28px)</Button>
-        <Button variant="primary" size="md">Standard (32px)</Button>
-        <Button variant="primary" size="lg">Comfortable (40px)</Button>
+        <Button variant="primary" size="sm">
+          Compact (28px)
+        </Button>
+        <Button variant="primary" size="md">
+          Standard (32px)
+        </Button>
+        <Button variant="primary" size="lg">
+          Comfortable (40px)
+        </Button>
       </div>
     </div>
   </div>
 );
-
-export const Destructive: Story = {
-  args: {
-    children: "Delete Resource",
-    variant: "destructive",
-  },
-};
-
-export const IconButton: Story = {
-  args: {
-    size: "icon",
-    variant: "outline",
-    "aria-label": "Delete Item",
-    children: <Trash2 size={14} />,
-  },
-};
-

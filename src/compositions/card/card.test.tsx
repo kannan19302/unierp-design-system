@@ -9,6 +9,7 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
+  cardVariants,
 } from "./card";
 
 describe("Card Primitive", () => {
@@ -16,6 +17,7 @@ describe("Card Primitive", () => {
     const ref = createRef<HTMLDivElement>();
     render(<Card ref={ref}>Ref Card</Card>);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toHaveAttribute("data-slot", "card");
   });
 
   it("renders card content", () => {
@@ -23,7 +25,7 @@ describe("Card Primitive", () => {
     expect(screen.getByText("Card Body")).toBeInTheDocument();
   });
 
-  it("renders compound card anatomy", () => {
+  it("renders compound card anatomy with data-slot attributes", () => {
     render(
       <Card>
         <CardHeader>
@@ -43,6 +45,18 @@ describe("Card Primitive", () => {
     expect(screen.getByText("Billed to Acme Corporation")).toBeInTheDocument();
     expect(screen.getByText("Amount Due: $12,450.00")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Download PDF" })).toBeInTheDocument();
+
+    expect(document.querySelector("[data-slot='card-header']")).toBeInTheDocument();
+    expect(document.querySelector("[data-slot='card-title']")).toBeInTheDocument();
+    expect(document.querySelector("[data-slot='card-description']")).toBeInTheDocument();
+    expect(document.querySelector("[data-slot='card-content']")).toBeInTheDocument();
+    expect(document.querySelector("[data-slot='card-footer']")).toBeInTheDocument();
+  });
+
+  it("generates correct class names via cardVariants cva helper", () => {
+    const classes = cardVariants({ padding: "lg", hover: true });
+    expect(classes).toContain("p_lg");
+    expect(classes).toContain("hoverable");
   });
 
   it("has zero accessibility violations", async () => {
@@ -51,4 +65,3 @@ describe("Card Primitive", () => {
     expect(results).toHaveNoViolations();
   });
 });
-

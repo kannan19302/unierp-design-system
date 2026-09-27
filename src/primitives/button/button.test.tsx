@@ -1,12 +1,16 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { Button } from "./button";
+import { Button, buttonVariants } from "./button";
 
 describe("Button Primitive", () => {
   it("renders children correctly", () => {
     render(<Button>Click Me</Button>);
-    expect(screen.getByRole("button", { name: /click me/i })).toBeInTheDocument();
+    const button = screen.getByRole("button", { name: /click me/i });
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute("data-slot", "button");
+    expect(button).toHaveAttribute("data-variant", "primary");
+    expect(button).toHaveAttribute("data-size", "md");
   });
 
   it("handles click events", () => {
@@ -22,6 +26,7 @@ describe("Button Primitive", () => {
 
     rerender(<Button isLoading>Loading</Button>);
     expect(screen.getByRole("button")).toBeDisabled();
+    expect(screen.getByRole("button")).toHaveAttribute("data-loading", "true");
   });
 
   it("has zero accessibility violations", async () => {
@@ -39,6 +44,8 @@ describe("Button Primitive", () => {
     const link = screen.getByRole("link", { name: /go to dashboard/i });
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute("href", "/dashboard");
+    expect(link).toHaveAttribute("data-slot", "button");
+    expect(link).toHaveAttribute("data-variant", "secondary");
     expect(link.className).toContain("button");
   });
 
@@ -71,5 +78,13 @@ describe("Button Primitive", () => {
     const btn = screen.getByRole("button", { name: "Delete" });
     expect(btn.className).toContain("destructive");
     expect(btn.className).toContain("icon");
+    expect(btn).toHaveAttribute("data-variant", "destructive");
+    expect(btn).toHaveAttribute("data-size", "icon");
+  });
+
+  it("generates correct class names via buttonVariants cva helper", () => {
+    const classes = buttonVariants({ variant: "outline", size: "sm" });
+    expect(classes).toContain("outline");
+    expect(classes).toContain("sm");
   });
 });

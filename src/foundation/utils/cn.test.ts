@@ -14,4 +14,16 @@ describe("cn utility", () => {
     expect(cn()).toBe("");
     expect(cn(false, null, undefined)).toBe("");
   });
+
+  it("supports conditional objects", () => {
+    expect(cn("btn", { "btn-primary": true, "btn-disabled": false, active: true })).toBe(
+      "btn btn-primary active"
+    );
+  });
+
+  it("supports nested arrays", () => {
+    expect(cn(["btn", ["btn-lg", false, "shadow"]], { rounded: true })).toBe(
+      "btn btn-lg shadow rounded"
+    );
+  });
 });
