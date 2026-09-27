@@ -1,0 +1,60 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design System — Canonical Strata Design Tokens
+   ══════════════════════════════════════════════════════════════
+
+   IMPORT ORDER MATTERS. Files are layered in dependency order:
+
+   1. Primitives   — raw color scales (zinc, blue, red, amber, green, sky, etc.)
+   2. Typography   — font families, scale (10px–32px), line heights, weights
+   3. Spacing      — 4px spatial scale
+   4. Radius       — corner radius scale (sm: 2px, md: 4px, lg: 6px, xl: 8px)
+   5. Borders      — border widths, dividers
+   6. Elevation    — shadows, depth
+   7. Opacity      — opacity scale
+   8. Motion       — easing curves, durations
+   9. Z-Index      — stacking layers
+   10. Focus       — keyboard focus indicators
+   11. Icons       — icon sizing
+   12. Layout      — shell structure dimensions (sidebar, topbar, rails)
+   13. Colors      — semantic color tokens (DEFAULT LIGHT: strata, light)
+   14. Surfaces    — surface hierarchy (uses color tokens)
+   15. Density     — 4-tier density matrix (ultra-compact, compact, standard, comfortable)
+   16. Charts      — data visualization categorical palette
+   17. Studio      — builder canvas neutral scale
+   18. Keyframes   — shared animations
+   19. Themes      — dark and high-contrast overrides (strata-dark, strata-high-contrast)
+   20. Platform    — scope accent system ([data-scope="..."])
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Foundation Primitives ──────────────────────────────────── */
+@import "./primitives.css";
+
+/* ── Structural Tokens ──────────────────────────────────────── */
+@import "./typography.css";
+@import "./spacing.css";
+@import "./radius.css";
+@import "./borders.css";
+@import "./elevation.css";
+@import "./opacity.css";
+@import "./motion.css";
+@import "./z-index.css";
+@import "./focus.css";
+@import "./icons.css";
+@import "./layout.css";
+
+/* ── Semantic Color System (Light Default) ──────────────────── */
+@import "./colors.css";
+
+/* ── Derived Systems ────────────────────────────────────────── */
+@import "./surfaces.css";
+@import "./density.css";
+@import "./charts.css";
+@import "./studio.css";
+@import "./keyframes.css";
+
+/* ── Theme Overrides ────────────────────────────────────────── */
+@import "./themes/strata-dark.css";
+@import "./themes/strata-high-contrast.css";
+
+/* ── Platform Identity ──────────────────────────────────────── */
+@import "./platform-accents.css";

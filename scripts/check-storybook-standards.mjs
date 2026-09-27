@@ -34,26 +34,13 @@ console.log("Phase 2: Checking Enterprise Storybook Standards...");
 const VALID_CATEGORIES = [
   "primitives",
   "inputs",
+  "compositions",
+  "charts",
   "overlays",
   "navigation",
-  "data-display",
-  "data-grid",
-  "forms",
-  "blocks",
-  "layout",
-  "shell",
-  "studio",
-  "charts",
-  "dashboard",
-  "components",
-  "form-engine",
-  "workflow",
-  "filters",
-  "feedback",
-  "patterns",
   "templates",
-  "theme",
-  "brand",
+  "shells",
+  "forms",
 ];
 
 let totalScanned = 0;
@@ -72,9 +59,9 @@ function checkStoryFile(fullPath, storyFile, context) {
     errors.push(`${context}: No Storybook title found in ${storyFile}`);
   } else {
     const title = titleMatch[1] || titleMatch[2];
-    if (!title || (!title.startsWith("Core/") && !title.startsWith("Platforms/"))) {
+    if (!title || !title.startsWith("Core/")) {
       errors.push(
-        `${context}: Non-canonical taxonomy "${title}". Must use canonical prefix ("Core/*" or "Platforms/*").`
+        `${context}: Non-canonical taxonomy "${title}". Must use canonical prefix ("Core/*").`
       );
     }
   }
@@ -86,9 +73,7 @@ function checkStoryFile(fullPath, storyFile, context) {
 }
 
 for (const category of VALID_CATEGORIES) {
-  const catDir = existsSync(join(SRC_DIR, "core", category))
-    ? join(SRC_DIR, "core", category)
-    : join(SRC_DIR, category);
+  const catDir = join(SRC_DIR, category);
   if (!existsSync(catDir)) continue;
 
   const entries = readdirSync(catDir);
@@ -117,38 +102,6 @@ for (const category of VALID_CATEGORIES) {
     }
 
     checkStoryFile(full, storyFile, `${category}/${entry}`);
-  }
-}
-
-// Check Platforms stories
-const platDir = join(SRC_DIR, "platforms");
-if (existsSync(platDir)) {
-  function walkPlatforms(dir, prefix) {
-    for (const entry of readdirSync(dir)) {
-      const full = join(dir, entry);
-      if (!statSync(full).isDirectory() || entry === "applications") continue;
-
-      const subEntries = readdirSync(full, { withFileTypes: true });
-      const hasSubDirs = subEntries.some((e) => e.isDirectory());
-      const files = subEntries.filter((e) => !e.isDirectory()).map((e) => e.name);
-      const hasCssModule = files.some((f) => f.endsWith(".module.css"));
-
-      if (hasSubDirs && !hasCssModule) {
-        walkPlatforms(full, `${prefix}/${entry}`);
-      } else {
-        const storyFile = files.find(
-          (f) => f.endsWith(".stories.tsx") || f.endsWith(".stories.ts")
-        );
-        if (storyFile) {
-          checkStoryFile(full, storyFile, `${prefix}/${entry}`);
-        }
-      }
-    }
-  }
-
-  for (const plat of readdirSync(platDir)) {
-    const p = join(platDir, plat);
-    if (statSync(p).isDirectory()) walkPlatforms(p, `platforms/${plat}`);
   }
 }
 

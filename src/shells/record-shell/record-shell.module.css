@@ -1,0 +1,229 @@
+/* RecordShell — anatomy 3 of eleven (UI_UX_BRIEF §11).
+   Tenant Applications: the ERP itself, eight hours a day.
+
+   NOTE ON CLASS NAMES: underscores, never hyphens. bundle-css-modules.mjs
+   namespaces each class with a trailing \b and a hyphen IS a word boundary. */
+
+.root {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  block-size: 100dvh;
+  min-block-size: 100dvh;
+  overflow: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+.content_pane {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-inline-size: 0;
+}
+
+.paneSwitcher { display: none; }
+.paneButton {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.paneButton[aria-pressed="true"] { border-color: var(--color-primary); font-weight: 600; }
+.paneButton:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+
+/* ── Module rail ── */
+
+.rail {
+  width: var(--sidebar-width);
+  inline-size: var(--sidebar-width);
+  background: var(--color-sidebar-bg);
+  border-inline-end: 1px solid var(--color-sidebar-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-block: auto;
+  transition: inline-size var(--duration-normal) var(--ease-default), width var(--duration-normal) var(--ease-default);
+}
+
+/* Collapses to an ICON RAIL, never to zero.
+   A rail that collapses to nothing takes the module switcher with it, so the
+   only way back is the browser's back button — which is why the control plane's
+   `width: sidebarOpen ? 264 : 0` was the wrong shape. Fitts's Law (§1) also
+   applies: the most frequent target stays on screen. */
+.rail_collapsed {
+  width: var(--sidebar-collapsed-width);
+  inline-size: var(--sidebar-collapsed-width);
+}
+
+/* ── Columns ──
+   The flexible column layout: list → detail → inspector, sliding, never losing
+   context. Taken from Fiori, which is still the best answer in enterprise
+   software to "show me the thing without throwing away where I was".
+
+   Each column scrolls INDEPENDENTLY. One page scrollbar for three columns means
+   scrolling a long invoice also scrolls the list you were choosing from, which
+   is exactly the lost context this anatomy exists to prevent. */
+.columns {
+  display: grid;
+  min-inline-size: 0;
+  block-size: 100%;
+  overflow: hidden;
+}
+
+.cols_1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.cols_2 {
+  grid-template-columns: minmax(var(--list-column-min), 4fr) minmax(0, 6fr);
+}
+
+/* At three columns the LIST compresses and the detail holds its measure. The
+   naive split gives each column a third and makes the record — the thing the
+   user is actually working on — the narrowest of the three. */
+.cols_3 {
+  grid-template-columns: minmax(var(--list-column-min-dense), 3fr) minmax(0, 6fr) minmax(var(--panel-width), 3fr);
+}
+
+.column {
+  min-inline-size: 0;
+  overflow-y: auto;
+  overflow-block: auto;
+  border-inline-end: 1px solid var(--color-border);
+}
+
+.column:last-child {
+  border-inline-end: 0;
+}
+
+.column_inspector {
+  background: var(--color-bg-sunken);
+}
+
+/* ── Object page ──
+   The record surface. Anchor nav down the side, sections stacked, and the
+   Meridian bar pinned above all of it. */
+
+.object {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.object_anchored {
+  grid-template-columns: var(--anchor-nav-width) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+  padding-block: var(--space-5);
+  padding-inline: var(--space-6);
+}
+
+.anchors {
+  position: sticky;
+  inset-block-start: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.anchor {
+  display: block;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  border-inline-start: var(--scope-edge-width) solid transparent;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-xs);
+  border-start-end-radius: var(--radius-sm);
+  border-end-end-radius: var(--radius-sm);
+}
+
+.anchor:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text);
+}
+
+.anchor_active {
+  border-inline-start-color: var(--color-primary);
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+}
+
+.anchor:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-inline-size: 0;
+}
+
+.section {
+  scroll-margin-block-start: var(--space-6);
+}
+
+.section_title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  letter-spacing: normal;
+  margin-block: 0 var(--space-3);
+  margin-inline: 0;
+  color: var(--color-text);
+}
+
+/* ── Responsive ──
+   Below the inspector breakpoint the inspector goes first — a property panel is
+   useless once the record it describes is off screen. The list follows. Neither
+   is removed; both stay reachable, because a breakpoint sets a default and
+   never overrides a person (the same rule §12.3 states for the Studio rails). */
+@media (max-width: 1280px) {
+  .paneSwitcher {
+    display: flex;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    overflow-x: auto;
+  }
+  .cols_3 {
+    grid-template-columns: minmax(var(--list-column-min-dense), 3fr) minmax(0, 7fr);
+  }
+
+  .cols_3 > .column_inspector {
+    display: none;
+  }
+  .cols_3[data-active-pane="inspector"] > .column[data-pane="list"] { display: none; }
+  .cols_3[data-active-pane="inspector"] > .column_inspector { display: block; }
+}
+
+@media (max-width: 900px) {
+  .cols_2,
+  .cols_3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cols_2 > .column, .cols_3 > .column { display: none; }
+  .cols_2 > .column[data-pane="list"], .cols_3 > .column[data-pane="list"] { display: none; }
+  .columns > .column[data-pane="detail"] { display: none; }
+  .columns > .column[data-pane="inspector"] { display: none; }
+  .columns[data-active-pane="list"] > .column[data-pane="list"],
+  .columns[data-active-pane="detail"] > .column[data-pane="detail"],
+  .columns[data-active-pane="inspector"] > .column[data-pane="inspector"] { display: block; }
+
+  .object_anchored {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .anchors {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-inline: auto;
+  }
+}

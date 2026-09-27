@@ -1,0 +1,5 @@
+/* ─────────────────────────────────────────────────
+   Compatibility entry — '@kannan19302/ui/tokens/base.css' resolves here.
+   The canonical token entry is ./index.css.
+   ───────────────────────────────────────────────── */
+@import "./index.css";

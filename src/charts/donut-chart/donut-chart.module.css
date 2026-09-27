@@ -1,0 +1,36 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  transform: rotate(-90deg);
+}
+
+.segment {
+  transition: stroke var(--motion-fast);
+}
+
+.centerText {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.centerValue {
+  font-family: var(--font-sans);
+  font-size: var(--type-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.centerLabel {
+  font-family: var(--font-sans);
+  font-size: var(--type-xs);
+  color: var(--text-muted);
+}

@@ -27,7 +27,7 @@ import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const TOKENS = join(HERE, "..", "src", "core", "tokens");
+const TOKENS = join(HERE, "..", "src", "foundation", "tokens");
 const LEGACY_TOKENS = join(HERE, "..", "src", "tokens");
 const ADAPTER_FLUTTER_DIR = resolve(HERE, "..", "adapters", "flutter", "lib", "src", "tokens");
 const ADAPTER_FLUTTER_FILE = join(ADAPTER_FLUTTER_DIR, "tokens.g.dart");
@@ -59,6 +59,7 @@ const NL = String.fromCharCode(10);
 /* ── read the real themes ───────────────────────────────────────────────── */
 
 function declarations(file, selectorTest) {
+  if (!existsSync(file)) return {};
   const css = readFileSync(file, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
   const out = {};
   const blocks = /([^{}]+)\{([^{}]*)\}/g;
@@ -72,18 +73,39 @@ function declarations(file, selectorTest) {
   return out;
 }
 
+function resolveVars(dict) {
+  const resolved = { ...dict };
+  for (let i = 0; i < 5; i++) {
+    for (const [k, v] of Object.entries(resolved)) {
+      if (typeof v === "string" && v.includes("var(")) {
+        resolved[k] = v.replace(/var\((--[\w-]+)\)/g, (_, name) => resolved[name] || `var(${name})`);
+      }
+    }
+  }
+  return resolved;
+}
+
 function readTheme(theme) {
-  const base = declarations(join(TOKENS, "base.css"), (s) => /:root/.test(s));
-  const chromeFile = existsSync(join(TOKENS, "strata-chrome.css"))
-    ? join(TOKENS, "strata-chrome.css")
-    : join(TOKENS, "meridian-chrome.css");
-  const chrome = declarations(chromeFile, (s) =>
-    s.includes(`[data-theme="${theme}"]`),
-  );
-  const own = declarations(join(TOKENS, "themes", `${theme}.css`), (s) =>
-    s.includes(`[data-theme="${theme}"]`),
-  );
-  return { ...base, ...chrome, ...own };
+  const prim = declarations(join(TOKENS, "primitives.css"), (s) => /:root/.test(s));
+  const spacing = declarations(join(TOKENS, "spacing.css"), (s) => /:root/.test(s));
+  const radius = declarations(join(TOKENS, "radius.css"), (s) => /:root/.test(s));
+  const typo = declarations(join(TOKENS, "typography.css"), (s) => /:root/.test(s));
+  const colors = declarations(join(TOKENS, "colors.css"), (s) => /:root|\[data-theme="strata"\]|\[data-theme="light"\]/.test(s));
+  const surfaces = declarations(join(TOKENS, "surfaces.css"), (s) => /:root|\[data-theme="strata"\]|\[data-theme="light"\]/.test(s));
+
+  let own = {};
+  if (theme === "strata-dark" || theme === "meridian-dark" || theme === "dark") {
+    own = declarations(join(TOKENS, "themes", "strata-dark.css"), (s) =>
+      /\[data-theme="strata-dark"\]|\[data-theme="dark"\]/.test(s)
+    );
+  } else if (theme === "strata-high-contrast" || theme === "high-contrast") {
+    own = declarations(join(TOKENS, "themes", "strata-high-contrast.css"), (s) =>
+      /\[data-theme="strata-high-contrast"\]|\[data-theme="high-contrast"\]/.test(s)
+    );
+  }
+
+  const merged = { ...prim, ...spacing, ...radius, ...typo, ...colors, ...surfaces, ...own };
+  return resolveVars(merged);
 }
 
 /* ── convert ────────────────────────────────────────────────────────────── */

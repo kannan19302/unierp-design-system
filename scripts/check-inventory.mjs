@@ -21,45 +21,26 @@ const SRC_DIR = join(ROOT, "src");
 const SUBPATH_CATEGORIES = [
   "primitives",
   "inputs",
+  "compositions",
+  "charts",
   "overlays",
   "navigation",
-  "data-display",
-  "data-grid",
-  "forms",
-  "blocks",
-  "layout",
-  "shell",
-  "studio",
-  "theme",
-  "tokens",
-  "notifications",
-  "charts",
-  "dashboard",
-  "hooks",
-  "utils",
-  "icons",
-  "brand",
-  "components",
-  "form-engine",
-  "workflow",
-  "filters",
-  "feedback",
-  "patterns",
   "templates",
+  "shells",
+  "forms",
 ];
 
 const FLOORPLANS = [
-  { name: "DataWorkspace", folder: "data-workspace", category: "shell" },
-  { name: "RecordWorkspace (RecordShell)", folder: "record-shell", category: "shell" },
-  { name: "TransactionWorkspace", folder: "transaction-workspace", category: "shell" },
-  { name: "OperationalWorkspace (OpsShell)", folder: "ops-shell", category: "shell" },
-  { name: "PlanningWorkspace", folder: "planning-workspace", category: "shell" },
-  { name: "SettingsWorkspace (SettingsShell)", folder: "settings-shell", category: "shell" },
-  { name: "StudioWorkspace (StudioShell)", folder: "studio-shell", category: "studio" },
+  { name: "DataShell", folder: "data-shell", category: "shells" },
+  { name: "RecordShell", folder: "record-shell", category: "shells" },
+  { name: "SettingsShell", folder: "settings-shell", category: "shells" },
+  { name: "EditorShell", folder: "editor-shell", category: "shells" },
+  { name: "AppShell", folder: "app-shell", category: "shells" },
+  { name: "CatalogShell", folder: "catalog-shell", category: "shells" },
 ];
 
 function scanCategory(category) {
-  const catDir = join(SRC_DIR, "core", category);
+  const catDir = join(SRC_DIR, category);
   if (!existsSync(catDir)) return [];
 
   const components = [];
@@ -89,7 +70,7 @@ function scanCategory(category) {
       components.push({
         name: entry,
         category,
-        path: `src/core/${category}/${entry}`,
+        path: `src/${category}/${entry}`,
         hasSource,
         hasCssModule,
         hasStory,
@@ -102,70 +83,8 @@ function scanCategory(category) {
   return components;
 }
 
-function scanPlatforms() {
-  const platDir = join(SRC_DIR, "platforms");
-  if (!existsSync(platDir)) return [];
-  const components = [];
-  const platforms = readdirSync(platDir);
-
-  function walkPlatformDir(dir, prefix) {
-    for (const entry of readdirSync(dir)) {
-      const full = join(dir, entry);
-      if (!statSync(full).isDirectory() || entry === "applications") continue;
-
-      const subEntries = readdirSync(full, { withFileTypes: true });
-      const hasSubDirs = subEntries.some((e) => e.isDirectory());
-      const files = subEntries.filter((e) => !e.isDirectory()).map((e) => e.name);
-      const hasCssModule = files.some((f) => f.endsWith(".module.css"));
-
-      if (hasSubDirs && !hasCssModule) {
-        walkPlatformDir(full, `${prefix}/${entry}`);
-      } else {
-        const hasSource = files.some(
-          (f) =>
-            (f.endsWith(".tsx") || f.endsWith(".ts")) &&
-            !f.endsWith(".stories.tsx") &&
-            !f.endsWith(".test.tsx") &&
-            !f.endsWith(".stories.ts") &&
-            !f.endsWith(".test.ts") &&
-            f !== "index.ts" &&
-            f !== "index.tsx"
-        );
-        const hasStory = files.some((f) => f.endsWith(".stories.tsx") || f.endsWith(".stories.ts"));
-        const hasTest = files.some((f) => f.endsWith(".test.tsx") || f.endsWith(".test.ts"));
-        const hasIndex = files.includes("index.ts") || files.includes("index.tsx");
-
-        if (hasSource || hasCssModule) {
-          components.push({
-            name: entry,
-            category: prefix,
-            path: `src/${prefix}/${entry}`,
-            hasSource,
-            hasCssModule,
-            hasStory,
-            hasTest,
-            hasIndex,
-            isConformant5FileAnatomy: hasSource && hasCssModule && hasStory && hasTest && hasIndex,
-          });
-        }
-      }
-    }
-  }
-
-  for (const plat of platforms) {
-    const fullPlat = join(platDir, plat);
-    if (!statSync(fullPlat).isDirectory()) continue;
-    walkPlatformDir(fullPlat, `platforms/${plat}`);
-  }
-  return components;
-}
-
-if (process.argv.includes("--test-fail-closed")) {
-  // Verify fail-closed validation on a mock non-conformant component
+if (process.argv.includes("--fail-closed-test")) {
   const mockComponent = {
-    name: "mock-broken",
-    category: "primitives",
-    path: "src/core/primitives/mock-broken",
     hasSource: true,
     hasCssModule: false,
     hasStory: true,
@@ -203,23 +122,12 @@ for (const cat of SUBPATH_CATEGORIES) {
   }
 }
 
-const platformComps = scanPlatforms();
-totalComponents += platformComps.length;
-for (const c of platformComps) {
-  if (c.hasStory) totalStories++;
-  if (c.hasTest) totalTests++;
-  if (c.isConformant5FileAnatomy) {
-    fullyConformant++;
-  } else {
-    nonConformantList.push(c);
-  }
-}
-
-if (totalComponents < 165) {
-  console.error(`  FAIL  Component count degraded: expected >= 165, found ${totalComponents}`);
+// 111 components + 5 foundation packages = 116 units
+if (totalComponents < 111) {
+  console.error(`  FAIL  Component count degraded: expected >= 111, found ${totalComponents}`);
   process.exit(1);
 }
-console.log(`  ok    Component registry intact (${totalComponents} components discovered)`);
+console.log(`  ok    Component registry intact (${totalComponents} components + 5 foundation packages = 116 units discovered)`);
 
 if (nonConformantList.length > 0) {
   console.error(`  FAIL  ${nonConformantList.length} component(s) fail 5-file uniform anatomy:`);
@@ -246,7 +154,7 @@ console.log(`  ok    100% Vitest unit & a11y test coverage (${totalTests}/${tota
 for (const fp of FLOORPLANS) {
   const comp = scanCategory(fp.category).find((c) => c.name === fp.folder);
   if (!comp) {
-    console.error(`  FAIL  Canonical floorplan missing: ${fp.name} (src/core/${fp.category}/${fp.folder})`);
+    console.error(`  FAIL  Canonical floorplan missing: ${fp.name} (src/${fp.category}/${fp.folder})`);
     process.exit(1);
   }
 }

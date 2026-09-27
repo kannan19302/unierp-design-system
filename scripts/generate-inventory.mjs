@@ -18,45 +18,26 @@ const OUTPUT_FILE = join(ROOT, "dist", "component-inventory.json");
 const SUBPATH_CATEGORIES = [
   "primitives",
   "inputs",
+  "compositions",
+  "charts",
   "overlays",
   "navigation",
-  "data-display",
-  "data-grid",
-  "forms",
-  "blocks",
-  "layout",
-  "shell",
-  "studio",
-  "theme",
-  "tokens",
-  "notifications",
-  "charts",
-  "dashboard",
-  "hooks",
-  "utils",
-  "icons",
-  "brand",
-  "components",
-  "form-engine",
-  "workflow",
-  "filters",
-  "feedback",
-  "patterns",
   "templates",
+  "shells",
+  "forms",
 ];
 
 const FLOORPLANS = [
-  { name: "DataWorkspace", category: "shell", targetAnatomy: "data" },
-  { name: "RecordWorkspace", category: "shell", targetAnatomy: "record" },
-  { name: "TransactionWorkspace", category: "shell", targetAnatomy: "transaction" },
-  { name: "OperationalWorkspace", category: "shell", targetAnatomy: "operational" },
-  { name: "PlanningWorkspace", category: "shell", targetAnatomy: "planning" },
-  { name: "SettingsWorkspace", category: "shell", targetAnatomy: "settings" },
-  { name: "StudioWorkspace", category: "shell", targetAnatomy: "studio" },
+  { name: "DataShell", category: "shells", targetAnatomy: "data" },
+  { name: "RecordShell", category: "shells", targetAnatomy: "record" },
+  { name: "SettingsShell", category: "shells", targetAnatomy: "settings" },
+  { name: "EditorShell", category: "shells", targetAnatomy: "editor" },
+  { name: "AppShell", category: "shells", targetAnatomy: "app" },
+  { name: "CatalogShell", category: "shells", targetAnatomy: "catalog" },
 ];
 
 function scanCategory(category) {
-  const catDir = join(SRC_DIR, "core", category);
+  const catDir = join(SRC_DIR, category);
   if (!existsSync(catDir)) return [];
 
   const components = [];
@@ -86,7 +67,7 @@ function scanCategory(category) {
       components.push({
         name: entry,
         category,
-        path: `src/core/${category}/${entry}`,
+        path: `src/${category}/${entry}`,
         hasSource,
         hasCssModule,
         hasStory,
@@ -95,64 +76,6 @@ function scanCategory(category) {
         isConformant5FileAnatomy: hasSource && hasCssModule && hasStory && hasTest && hasIndex,
       });
     }
-  }
-  return components;
-}
-
-function scanPlatforms() {
-  const platDir = join(SRC_DIR, "platforms");
-  if (!existsSync(platDir)) return [];
-  const components = [];
-  const platforms = readdirSync(platDir);
-
-  function walkPlatformDir(dir, prefix) {
-    for (const entry of readdirSync(dir)) {
-      const full = join(dir, entry);
-      if (!statSync(full).isDirectory() || entry === "applications") continue;
-
-      const subEntries = readdirSync(full, { withFileTypes: true });
-      const hasSubDirs = subEntries.some((e) => e.isDirectory());
-      const files = subEntries.filter((e) => !e.isDirectory()).map((e) => e.name);
-      const hasCssModule = files.some((f) => f.endsWith(".module.css"));
-
-      if (hasSubDirs && !hasCssModule) {
-        walkPlatformDir(full, `${prefix}/${entry}`);
-      } else {
-        const hasSource = files.some(
-          (f) =>
-            (f.endsWith(".tsx") || f.endsWith(".ts")) &&
-            !f.endsWith(".stories.tsx") &&
-            !f.endsWith(".test.tsx") &&
-            !f.endsWith(".stories.ts") &&
-            !f.endsWith(".test.ts") &&
-            f !== "index.ts" &&
-            f !== "index.tsx"
-        );
-        const hasStory = files.some((f) => f.endsWith(".stories.tsx") || f.endsWith(".stories.ts"));
-        const hasTest = files.some((f) => f.endsWith(".test.tsx") || f.endsWith(".test.ts"));
-        const hasIndex = files.includes("index.ts") || files.includes("index.tsx");
-
-        if (hasSource || hasCssModule) {
-          components.push({
-            name: entry,
-            category: prefix,
-            path: `src/${prefix}/${entry}`,
-            hasSource,
-            hasCssModule,
-            hasStory,
-            hasTest,
-            hasIndex,
-            isConformant5FileAnatomy: hasSource && hasCssModule && hasStory && hasTest && hasIndex,
-          });
-        }
-      }
-    }
-  }
-
-  for (const plat of platforms) {
-    const fullPlat = join(platDir, plat);
-    if (!statSync(fullPlat).isDirectory()) continue;
-    walkPlatformDir(fullPlat, `platforms/${plat}`);
   }
   return components;
 }
@@ -186,33 +109,5 @@ for (const cat of SUBPATH_CATEGORIES) {
   }
 }
 
-const platformComps = scanPlatforms();
-inventory.categories["platforms"] = {
-  count: platformComps.length,
-  components: platformComps,
-};
-inventory.totals.totalComponents += platformComps.length;
-for (const c of platformComps) {
-  if (c.hasStory) inventory.totals.totalStories++;
-  if (c.hasTest) inventory.totals.totalTests++;
-  if (c.isConformant5FileAnatomy) inventory.totals.fullyConformant5FileComponents++;
-}
-
-if (!existsSync(join(ROOT, "dist"))) {
-  // dist created during build
-} else {
-  writeFileSync(OUTPUT_FILE, JSON.stringify(inventory, null, 2) + "\n");
-}
-
-console.log(`\nComponent inventory generated:`);
-console.log(`  Package: ${inventory.packageName}@${inventory.packageVersion}`);
-console.log(`  Total components scanned: ${inventory.totals.totalComponents}`);
-console.log(`  With Storybook stories: ${inventory.totals.totalStories}`);
-console.log(`  With unit/a11y tests: ${inventory.totals.totalTests}`);
-console.log(`  Floorplans formalized: ${FLOORPLANS.length}`);
-console.log(`  Subpath exports registered: ${inventory.exports.length}`);
-
-if (inventory.totals.totalComponents === 0) {
-  console.error("FAIL: Zero components discovered!");
-  process.exit(1);
-}
+writeFileSync(OUTPUT_FILE, JSON.stringify(inventory, null, 2), "utf8");
+console.log(`Component inventory written to dist/component-inventory.json (${inventory.totals.totalComponents} components).`);

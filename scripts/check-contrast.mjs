@@ -19,7 +19,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-const TOKENS_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "src", "core", "tokens");
+const TOKENS_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "src", "foundation", "tokens");
 
 /* ── colour ─────────────────────────────────────────────────────────────── */
 
@@ -80,10 +80,11 @@ function parseColor(raw) {
  */
 function readTheme(theme) {
   const files = [
+    join(TOKENS_DIR, "primitives.css"),
+    join(TOKENS_DIR, "colors.css"),
+    join(TOKENS_DIR, "surfaces.css"),
+    join(TOKENS_DIR, "platform-accents.css"),
     ...readdirSync(join(TOKENS_DIR, "themes")).map((f) => join(TOKENS_DIR, "themes", f)),
-    join(TOKENS_DIR, "base.css"),
-    join(TOKENS_DIR, "meridian-chrome.css"),
-    join(TOKENS_DIR, "strata-chrome.css"),
   ];
 
   const tokens = {};
@@ -234,9 +235,6 @@ const themes =
         "strata",
         "strata-dark",
         "strata-high-contrast",
-        "meridian",
-        "meridian-dark",
-        "high-contrast",
       ];
 
 let failed = 0;

@@ -1,0 +1,70 @@
+/* ══════════════════════════════════════════════════════════════
+   UniERP Design Language 1.0 — Breadcrumb Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.nav {
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  font-family: var(--font-sans);
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--type-dense, var(--text-sm));
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  min-inline-size: 0;
+}
+
+.link {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+.link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.text {
+  color: var(--surface-text-secondary, var(--color-text-secondary));
+}
+
+.link:focus-visible {
+  outline: var(--border-width-thick) solid var(--color-border-focus);
+  outline-offset: var(--space-0-5);
+}
+
+.current {
+  color: var(--surface-text-primary, var(--color-text));
+  font-weight: var(--weight-semibold);
+}
+
+.separator {
+  display: inline-flex;
+  align-items: center;
+}
+
+.separatorIcon {
+  color: var(--surface-text-secondary, var(--color-text-muted));
+}

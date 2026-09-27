@@ -1,7 +1,5 @@
 import type { Preview } from "@storybook/react";
 import "@kannan19302/ui/tokens/index.css";
-import "@kannan19302/ui/tokens/v2/index.css";
-import "@kannan19302/ui/tokens/v3/index.css";
 import "@kannan19302/ui/styles/fonts.css";
 import "@kannan19302/ui/styles/globals.css";
 
@@ -10,9 +8,6 @@ const THEMES = [
   { value: "strata", title: "Strata (Flagship Light Default)" },
   { value: "strata-dark", title: "Strata Dark (Obsidian Tactical Default)" },
   { value: "strata-high-contrast", title: "Strata High Contrast (WCAG AAA 21:1)" },
-  { value: "meridian", title: "Meridian (Legacy Light)" },
-  { value: "meridian-dark", title: "Meridian Dark (Legacy Dark)" },
-  { value: "high-contrast", title: "Legacy High Contrast" },
 ];
 
 const DENSITIES = [
@@ -40,6 +35,7 @@ const preview: Preview = {
         order: [
           "Core",
           [
+            "Foundation",
             "Theme",
             "Brand",
             "Primitives",

@@ -9,7 +9,8 @@
   "description": "UniERP Design System — Storybook workshop for @kannan19302/ui",
   "scripts": {
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test:e2e": "node tests/e2e/test-all-stories.mjs"
   },
   "dependencies": {
     "@kannan19302/ui": "1.0.15",
