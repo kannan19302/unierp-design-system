@@ -77,8 +77,10 @@ export interface PlatformShellProps {
    * - "standard": edge-to-edge sidebar and main workspace (benchmark: ShadcnBlocks Shell 1)
    * - "inset": sunken outer container with elevated, rounded workspace card (benchmark: ShadcnBlocks Shell 2)
    * - "floating": detached floating sidebar and workspace panels with rounded radii (benchmark: ShadcnBlocks Shell 5)
+   * - "topbar": horizontal navigation beneath the global header
+   * - "dual": sidebar, workspace, and a secondary details panel
    */
-  variant?: "standard" | "inset" | "floating";
+  variant?: "standard" | "inset" | "floating" | "topbar" | "dual";
 
   /** This platform's identity — drives the accent and the header label. */
   platformName: string;
@@ -106,6 +108,11 @@ export interface PlatformShellProps {
   breadcrumbs?: BreadcrumbItem[];
   /** The platform's own nav tree — rendered in the sidebar slot. */
   sidebar?: ReactNode;
+  /** Horizontal application navigation, usually paired with the topbar variant. */
+  topNavigation?: ReactNode;
+  /** Secondary context/details panel, usually paired with the dual variant. */
+  inspector?: ReactNode;
+  inspectorLabel?: string;
   /** e.g. a notification bell, a command-palette trigger. */
   headerActions?: ReactNode;
 
@@ -138,6 +145,8 @@ export const appShellVariants = cva(styles.shellRoot, {
       standard: "",
       inset: styles.variantInset,
       floating: styles.variantFloating,
+      topbar: styles.variantTopbar,
+      dual: styles.variantDual,
     },
     density: {
       "ultra-compact": styles.densityUltraCompact,
@@ -173,6 +182,9 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
   showThemeToggle = true,
   breadcrumbs,
   sidebar,
+  topNavigation,
+  inspector,
+  inspectorLabel = "Details panel",
   headerActions,
   searchSlot,
   appSwitcherSlot,
@@ -187,8 +199,39 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
   const [tenantMenuOpen, setTenantMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const sidebarToggleRef = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const mainId = useId();
   const sidebarId = useId();
+
+  useEffect(() => {
+    if (!sidebarOpen) return;
+    if (window.matchMedia?.("(max-width: 47.9375rem)").matches ?? true) {
+      sidebarRef.current?.querySelector<HTMLElement>("a, button, [tabindex]:not([tabindex='-1'])")?.focus();
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (!(window.matchMedia?.("(max-width: 47.9375rem)").matches ?? true)) return;
+      if (event.key === "Escape") {
+        setSidebarOpen(false);
+        sidebarToggleRef.current?.focus();
+      } else if (event.key === "Tab") {
+        const focusable = sidebarRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'])");
+        if (!focusable?.length) return;
+        const first = focusable.item(0);
+        const last = focusable.item(focusable.length - 1);
+        if (!first || !last) return;
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [sidebarOpen]);
 
   return (
     <div
@@ -224,6 +267,7 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
       >
         {sidebar && (
           <button
+            ref={sidebarToggleRef}
             type="button"
             aria-label="Toggle navigation"
             aria-controls={sidebarId}
@@ -389,11 +433,18 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
         ) : null}
       </header>
 
+      {topNavigation && (
+        <div data-slot="app-shell-top-navigation" className={styles.topNavigation}>
+          {topNavigation}
+        </div>
+      )}
+
       {contextBarSlot}
 
       <div className={styles.bodyContainer}>
         {sidebar && (
           <div
+            ref={sidebarRef}
             id={sidebarId}
             data-slot="app-shell-sidebar"
             className={`unierp-shell-sidebar ${styles.sidebarContainer}`}
@@ -403,7 +454,7 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
           </div>
         )}
         {sidebar && sidebarOpen && (
-          <button type="button" className={styles.sidebarBackdrop} aria-label="Close navigation" onClick={() => setSidebarOpen(false)} />
+          <button type="button" className={styles.sidebarBackdrop} aria-label="Close navigation" onClick={() => { setSidebarOpen(false); sidebarToggleRef.current?.focus(); }} />
         )}
         <main
           id={mainId}
@@ -413,6 +464,11 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
         >
           {children}
         </main>
+        {inspector && (
+          <aside data-slot="app-shell-inspector" className={styles.inspector} aria-label={inspectorLabel}>
+            {inspector}
+          </aside>
+        )}
       </div>
     </div>
   );

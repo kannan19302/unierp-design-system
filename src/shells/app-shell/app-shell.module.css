@@ -62,6 +62,22 @@
 
 .sidebarBackdrop { display: none; }
 
+.topNavigation {
+  flex-shrink: 0;
+  min-inline-size: 0;
+  overflow-x: auto;
+  border-block-end: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+}
+
+.inspector {
+  flex: 0 0 18rem;
+  min-inline-size: 0;
+  overflow: auto;
+  border-inline-start: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+}
+
 @media (min-width: 768px) {
   .sidebarToggle { display: none !important; }
 }
@@ -118,6 +134,14 @@
   box-shadow: var(--shadow-xs);
 }
 
+.variantTopbar .mainArea {
+  background: var(--color-bg-sunken);
+}
+
+.variantDual .mainArea {
+  background: var(--color-bg-sunken);
+}
+
 @media (max-width: 767px) {
   .header {
     flex-wrap: wrap;
@@ -128,6 +152,14 @@
   .bodyContainer, .variantInset .bodyContainer, .variantFloating .bodyContainer {
     padding: 0;
     gap: 0;
+  }
+  .variantDual .bodyContainer { flex-direction: column; overflow: auto; }
+  .variantDual .mainArea { flex: none; overflow: visible; }
+  .inspector {
+    flex: none;
+    overflow: visible;
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--color-border);
   }
   .sidebarContainer {
     position: fixed;

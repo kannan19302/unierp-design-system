@@ -160,6 +160,23 @@ describe("PlatformShell / AppShell", () => {
     expect(screen.getByLabelText("Toggle navigation")).toBeInTheDocument();
   });
 
+  it("moves focus into opened navigation and closes it with Escape", async () => {
+    render(
+      <PlatformShell platformName="X" user={baseUser} sidebar={<nav><button type="button">First destination</button><button type="button">Last destination</button></nav>}>
+        <div>workspace</div>
+      </PlatformShell>,
+    );
+    const toggle = screen.getByRole("button", { name: "Toggle navigation" });
+    await userEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("button", { name: "First destination" })).toHaveFocus();
+    await userEvent.keyboard("{Shift>}{Tab}{/Shift}");
+    expect(screen.getByRole("button", { name: "Last destination" })).toHaveFocus();
+    await userEvent.keyboard("{Escape}");
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    expect(toggle).toHaveFocus();
+  });
+
   it("applies the requested variant attribute (standard, inset, floating)", () => {
     const { container, rerender } = render(
       <PlatformShell platformName="X" user={baseUser} variant="standard">
@@ -181,6 +198,25 @@ describe("PlatformShell / AppShell", () => {
       </PlatformShell>,
     );
     expect(container.firstChild).toHaveAttribute("data-variant", "floating");
+  });
+
+  it("renders horizontal navigation and a labelled details panel in the new layouts", () => {
+    const { container, rerender } = render(
+      <PlatformShell platformName="X" user={baseUser} variant="topbar" topNavigation={<nav aria-label="Module navigation">Modules</nav>}>
+        <div>workspace</div>
+      </PlatformShell>,
+    );
+    expect(container.firstChild).toHaveAttribute("data-variant", "topbar");
+    expect(screen.getByRole("navigation", { name: "Module navigation" })).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="app-shell-top-navigation"]')).toBeInTheDocument();
+
+    rerender(
+      <PlatformShell platformName="X" user={baseUser} variant="dual" sidebar={<nav>Primary</nav>} inspector={<p>Record details</p>} inspectorLabel="Selected record details">
+        <div>workspace</div>
+      </PlatformShell>,
+    );
+    expect(container.firstChild).toHaveAttribute("data-variant", "dual");
+    expect(screen.getByRole("complementary", { name: "Selected record details" })).toHaveTextContent("Record details");
   });
 
   it("has no axe violations in inset variant", async () => {
@@ -270,4 +306,3 @@ describe("PlatformShell / AppShell", () => {
     });
   });
 });
-
