@@ -14,7 +14,7 @@ import { FileUpload, type UploadFileItem } from "./file-upload";
  * - **Staging Queue**: File queue list with progress bars, file sizes, error states, and removal triggers.
  */
 const meta: Meta<typeof FileUpload> = {
-  title: "Core/Inputs/FileUpload",
+  title: "Inputs/FileUpload",
   component: FileUpload,
   tags: ["autodocs"],
   parameters: {

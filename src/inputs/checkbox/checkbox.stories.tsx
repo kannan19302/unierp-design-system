@@ -12,7 +12,7 @@ import { Checkbox, type CheckboxProps } from "./checkbox";
  * - **Keyboard Velocity**: Accessible focus rings and space-key toggle support.
  */
 const meta: Meta<typeof Checkbox> = {
-  title: "Core/Inputs/Checkbox",
+  title: "Inputs/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
   parameters: {

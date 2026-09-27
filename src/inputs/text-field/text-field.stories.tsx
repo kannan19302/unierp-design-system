@@ -3,7 +3,7 @@ import { Search, Mail } from "lucide-react";
 import { Input } from "./text-field";
 
 const meta: Meta<typeof Input> = {
-  title: "Core/Primitives/Input",
+  title: "Inputs/Input",
   component: Input,
   tags: ["autodocs"],
   parameters: {

@@ -271,7 +271,7 @@ const SAMPLE_FILTERS: DataWorkspaceFilter[] = [
 ];
 
 const meta: Meta<typeof DataWorkspace> = {
-  title: "Core/Shell/DataWorkspace",
+  title: "Shells/DataWorkspace",
   component: DataWorkspace,
   tags: ["autodocs"],
   parameters: {

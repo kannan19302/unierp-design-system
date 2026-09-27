@@ -13,7 +13,7 @@ import { Hash, Percent } from "lucide-react";
  * - **Slot Composition**: Prefix and suffix support for units and indicators.
  */
 const meta: Meta<typeof NumberInput> = {
-  title: "Core/Inputs/NumberInput",
+  title: "Inputs/NumberInput",
   component: NumberInput,
   tags: ["autodocs"],
   parameters: {

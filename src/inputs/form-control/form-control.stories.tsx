@@ -29,7 +29,7 @@ import {
  * collapsible sections, and 4-tier density scaling.
  */
 const meta: Meta<typeof TextField> = {
-  title: "Core/Inputs/FormControl",
+  title: "Inputs/FormControl",
   component: TextField,
   tags: ["autodocs"],
   parameters: {

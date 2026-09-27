@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FormLayoutBuilder } from "./form-section";
 
 const meta: Meta<typeof FormLayoutBuilder> = {
-  title: "Core/Forms/FormLayoutBuilder",
+  title: "Forms/FormLayoutBuilder",
   component: FormLayoutBuilder,
   tags: ["autodocs"],
   parameters: {

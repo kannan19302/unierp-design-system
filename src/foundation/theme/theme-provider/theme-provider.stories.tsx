@@ -50,7 +50,7 @@ const ThemeViewer = () => {
 };
 
 const meta: Meta<typeof ThemeProvider> = {
-  title: "Core/Theme/ThemeProvider",
+  title: "Foundation/Theme/ThemeProvider",
   component: ThemeProvider,
   tags: ["autodocs"],
   parameters: {

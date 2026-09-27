@@ -21,7 +21,7 @@ import {
 } from "./editor-shell";
 
 const meta: Meta<typeof EditorialShell> = {
-  title: "Core/Shell/EditorialShell",
+  title: "Shells/EditorialShell",
   component: EditorialShell,
   tags: ["autodocs"],
   parameters: {

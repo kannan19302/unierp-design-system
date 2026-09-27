@@ -11,7 +11,7 @@ const SAMPLE_PRICES = [
 ];
 
 const meta: Meta<typeof CandlestickChart> = {
-  title: "Core/Charts/CandlestickChart",
+  title: "Charts/CandlestickChart",
   component: CandlestickChart,
   tags: ["autodocs"],
   parameters: {

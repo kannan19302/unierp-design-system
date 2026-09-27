@@ -6,7 +6,7 @@ import { MultiStepWizard } from "./wizard-page";
  * with progress indicators, descriptive headers, and integrated step navigation.
  */
 const meta: Meta<typeof MultiStepWizard> = {
-  title: "Core/Layout/MultiStepWizard",
+  title: "Templates/MultiStepWizard",
   component: MultiStepWizard,
   tags: ["autodocs"],
   parameters: {

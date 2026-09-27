@@ -13,7 +13,7 @@ const mockBudgetData = [
 ];
 
 const meta: Meta<typeof SpreadsheetGrid> = {
-  title: "Core/DataGrid/SpreadsheetGrid",
+  title: "Compositions/SpreadsheetGrid",
   component: SpreadsheetGrid,
   tags: ["autodocs"],
   parameters: {

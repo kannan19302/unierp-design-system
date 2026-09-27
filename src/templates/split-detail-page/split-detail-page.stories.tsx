@@ -7,7 +7,7 @@ import { Button } from "../../primitives/button";
  * pairing a scrollable master entity list on the left with a comprehensive detail pane on the right.
  */
 const meta: Meta<typeof SplitMasterDetailTemplate> = {
-  title: "Core/Layout/SplitMasterDetailTemplate",
+  title: "Templates/SplitMasterDetailTemplate",
   component: SplitMasterDetailTemplate,
   parameters: {
     layout: "fullscreen",

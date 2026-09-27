@@ -13,7 +13,7 @@ import { RichTextEditor } from "./rich-text-editor";
  * - **4-Tier Density**: Ultra-compact (60px), Compact (90px), Standard (120px), Comfortable (180px).
  */
 const meta: Meta<typeof RichTextEditor> = {
-  title: "Core/Inputs/RichTextEditor",
+  title: "Inputs/RichTextEditor",
   component: RichTextEditor,
   tags: ["autodocs"],
   parameters: {

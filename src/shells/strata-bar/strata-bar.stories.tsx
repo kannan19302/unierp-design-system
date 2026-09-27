@@ -3,7 +3,7 @@ import { StrataBar } from "./strata-bar";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof StrataBar> = {
-  title: "Core/Shell/StrataBar",
+  title: "Shells/StrataBar",
   component: StrataBar,
   tags: ["autodocs"],
   parameters: {

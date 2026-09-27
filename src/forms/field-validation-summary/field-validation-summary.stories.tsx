@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FieldValidationSummary } from "./field-validation-summary";
 
 const meta: Meta<typeof FieldValidationSummary> = {
-  title: "Core/Forms/FieldValidationSummary",
+  title: "Forms/FieldValidationSummary",
   component: FieldValidationSummary,
   tags: ["autodocs"],
   parameters: {

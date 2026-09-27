@@ -20,7 +20,7 @@ import { Input, Select } from "../../inputs/form-control";
 import { Pagination } from "../../navigation/pagination";
 
 const meta: Meta<typeof DataTable> = {
-  title: "Core/DataGrid/Table",
+  title: "Compositions/Table",
   component: DataTable,
   parameters: { layout: "padded" },
   tags: ["autodocs"],

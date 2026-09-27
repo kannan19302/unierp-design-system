@@ -12,7 +12,7 @@ import { Switch, type SwitchProps } from "./switch";
  * - **Keyboard Velocity**: Full Space/Enter toggle handling and visible focus outlines.
  */
 const meta: Meta<typeof Switch> = {
-  title: "Core/Inputs/Switch",
+  title: "Inputs/Switch",
   component: Switch,
   tags: ["autodocs"],
   parameters: {

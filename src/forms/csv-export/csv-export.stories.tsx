@@ -59,7 +59,7 @@ const CsvDemo = ({ filename = "inventory-export.csv" }: { filename?: string }) =
  * custom export value mappers, and Excel-compatible UTF-8 BOM encoding.
  */
 const meta: Meta = {
-  title: "Core/DataGrid/Csv",
+  title: "Forms/Csv",
   component: CsvDemo,
   tags: ["autodocs"],
   parameters: {

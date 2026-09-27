@@ -43,6 +43,19 @@ const VALID_CATEGORIES = [
   "forms",
 ];
 
+const TIER_NAME_MAP = {
+  charts: 'Charts',
+  compositions: 'Compositions',
+  forms: 'Forms',
+  foundation: 'Foundation',
+  inputs: 'Inputs',
+  navigation: 'Navigation',
+  overlays: 'Overlays',
+  primitives: 'Primitives',
+  shells: 'Shells',
+  templates: 'Templates',
+};
+
 let totalScanned = 0;
 let errors = [];
 let warnings = [];
@@ -59,9 +72,11 @@ function checkStoryFile(fullPath, storyFile, context) {
     errors.push(`${context}: No Storybook title found in ${storyFile}`);
   } else {
     const title = titleMatch[1] || titleMatch[2];
-    if (!title || !title.startsWith("Core/")) {
+    const tierDir = context.split("/")[0];
+    const expectedPrefix = TIER_NAME_MAP[tierDir];
+    if (!title || !title.startsWith(`${expectedPrefix}/`)) {
       errors.push(
-        `${context}: Non-canonical taxonomy "${title}". Must use canonical prefix ("Core/*").`
+        `${context}: Non-canonical taxonomy "${title}". Must use canonical prefix ("${expectedPrefix}/*").`
       );
     }
   }

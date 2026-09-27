@@ -3,7 +3,7 @@ import { ThemeQuickToggle } from "./theme-quick-toggle";
 import { ThemeProvider } from "../theme-provider/theme-provider";
 
 const meta: Meta<typeof ThemeQuickToggle> = {
-  title: "Core/Theme/ThemeQuickToggle",
+  title: "Foundation/Theme/ThemeQuickToggle",
   component: ThemeQuickToggle,
   tags: ["autodocs"],
   parameters: {

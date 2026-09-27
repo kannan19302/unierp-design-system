@@ -5,7 +5,7 @@ import { Button } from "../../primitives/button";
 import { Search } from "lucide-react";
 
 const meta: Meta<typeof PlatformShell> = {
-  title: "Core/Shell/PlatformShell",
+  title: "Shells/PlatformShell",
   component: PlatformShell,
   parameters: {
     layout: "fullscreen",

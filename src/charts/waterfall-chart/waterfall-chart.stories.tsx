@@ -12,7 +12,7 @@ const SAMPLE_DATA = [
 ];
 
 const meta: Meta<typeof WaterfallChart> = {
-  title: "Core/Charts/WaterfallChart",
+  title: "Charts/WaterfallChart",
   component: WaterfallChart,
   tags: ["autodocs"],
   parameters: {

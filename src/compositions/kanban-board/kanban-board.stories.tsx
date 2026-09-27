@@ -47,7 +47,7 @@ const KanbanDemo = () => {
 };
 
 const meta: Meta<typeof KanbanBoard> = {
-  title: "Core/DataGrid/KanbanBoard",
+  title: "Compositions/KanbanBoard",
   component: KanbanBoard,
   parameters: { layout: "fullscreen" },
   tags: ["autodocs"],

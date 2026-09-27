@@ -64,7 +64,7 @@ const mockTasks: GanttTask[] = [
 ];
 
 const meta: Meta<typeof GanttMilestoneScheduler> = {
-  title: "Core/DataDisplay/GanttMilestoneScheduler",
+  title: "Compositions/GanttMilestoneScheduler",
   component: GanttMilestoneScheduler,
   parameters: {
     layout: "padded",

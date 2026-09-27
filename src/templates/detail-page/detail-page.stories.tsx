@@ -4,7 +4,7 @@ import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof DetailPageTemplate> = {
-  title: "Core/Layout/DetailPageTemplate",
+  title: "Templates/DetailPageTemplate",
   component: DetailPageTemplate,
   tags: ["autodocs"],
   parameters: {

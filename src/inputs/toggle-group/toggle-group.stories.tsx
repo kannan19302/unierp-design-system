@@ -3,7 +3,7 @@ import { AlignLeft, AlignCenter, AlignRight, AlignJustify, Bold, Italic, Underli
 import { ToggleGroup, ToggleGroupItem } from "./toggle-group";
 
 const meta: Meta<typeof ToggleGroup> = {
-  title: "Core/Primitives/ToggleGroup",
+  title: "Inputs/ToggleGroup",
   component: ToggleGroup,
   tags: ["autodocs"],
   parameters: {

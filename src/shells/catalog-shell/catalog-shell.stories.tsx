@@ -37,7 +37,7 @@ import {
  * and the separate destination link and action button in each tile.
  */
 const meta: Meta<typeof CatalogShell> = {
-  title: "Core/Shell/CatalogShell",
+  title: "Shells/CatalogShell",
   component: CatalogShell,
   tags: ["autodocs"],
   parameters: {

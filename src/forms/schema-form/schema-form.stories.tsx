@@ -6,7 +6,7 @@ import { SchemaForm, type FormSectionSchema } from "./schema-form";
  * 12-column responsive layout, collapsible sections, conditional visibility, and inline validation.
  */
 const meta: Meta<typeof SchemaForm> = {
-  title: "Core/Forms/SchemaForm",
+  title: "Forms/SchemaForm",
   component: SchemaForm,
   tags: ["autodocs"],
   parameters: {

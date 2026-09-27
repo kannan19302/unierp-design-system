@@ -11,7 +11,7 @@ import { Slider, type SliderProps } from "./slider";
  * - **4-Tier Density**: `ultra-compact` (24px context), `compact` (28px), `standard` (32px), `comfortable` (40px).
  */
 const meta: Meta<typeof Slider> = {
-  title: "Core/Inputs/Slider",
+  title: "Inputs/Slider",
   component: Slider,
   tags: ["autodocs"],
   parameters: {

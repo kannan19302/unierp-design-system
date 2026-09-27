@@ -76,7 +76,7 @@ const ManifestView = ({ heldPermissions }: { heldPermissions: string[] }) => {
  * Platform manifest engine for resolving role-based navigation trees against user permissions.
  */
 const meta: Meta = {
-  title: "Core/Shell/Manifest",
+  title: "Shells/Manifest",
   component: ManifestView,
   tags: ["autodocs"],
   parameters: {

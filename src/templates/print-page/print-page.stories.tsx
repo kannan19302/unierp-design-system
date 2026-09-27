@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { PrintLayout } from "./print-page";
 
 const meta: Meta<typeof PrintLayout> = {
-  title: "Core/Layout/PrintLayout",
+  title: "Templates/PrintLayout",
   component: PrintLayout,
   tags: ["autodocs"],
   parameters: {

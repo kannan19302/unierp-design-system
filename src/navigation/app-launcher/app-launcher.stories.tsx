@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AppLauncherWaffleGrid } from "./app-launcher";
 
 const meta: Meta<typeof AppLauncherWaffleGrid> = {
-  title: "Core/Navigation/AppLauncherWaffleGrid",
+  title: "Navigation/AppLauncherWaffleGrid",
   component: AppLauncherWaffleGrid,
   tags: ["autodocs"],
   parameters: {

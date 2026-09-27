@@ -46,7 +46,7 @@ const BrandingDemo = () => {
 };
 
 const meta: Meta = {
-  title: "Core/Theme/Branding",
+  title: "Foundation/Theme/Branding",
   component: BrandingDemo,
   tags: ["autodocs"],
   parameters: {

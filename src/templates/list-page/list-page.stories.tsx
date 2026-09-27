@@ -4,7 +4,7 @@ import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof ListPageTemplate> = {
-  title: "Core/Layout/ListPageTemplate",
+  title: "Templates/ListPageTemplate",
   component: ListPageTemplate,
   parameters: {
     layout: "fullscreen",

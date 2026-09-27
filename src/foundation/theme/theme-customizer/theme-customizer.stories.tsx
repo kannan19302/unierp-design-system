@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ThemeCustomizer } from "./theme-customizer";
 
 const meta: Meta<typeof ThemeCustomizer> = {
-  title: "Core/Theme/ThemeCustomizer",
+  title: "Foundation/Theme/ThemeCustomizer",
   component: ThemeCustomizer,
   tags: ["autodocs"],
   parameters: {

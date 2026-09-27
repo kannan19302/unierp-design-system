@@ -6,7 +6,7 @@ import { Modal } from "../../overlays/modal";
 import styles from "./sidebar.module.css";
 
 const meta: Meta<typeof SideNav> = {
-  title: "Core/Navigation/Sidenav",
+  title: "Navigation/Sidenav",
   component: SideNav,
   tags: ["autodocs"],
   parameters: {

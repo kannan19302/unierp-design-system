@@ -14,7 +14,7 @@ import { ColorPicker, type ColorPickerProps } from "./color-picker";
  * - **4-Tier Density**: Ultra-compact (24px), Compact (28px), Standard (32px), Comfortable (40px).
  */
 const meta: Meta<typeof ColorPicker> = {
-  title: "Core/Inputs/ColorPicker",
+  title: "Inputs/ColorPicker",
   component: ColorPicker,
   tags: ["autodocs"],
   parameters: {

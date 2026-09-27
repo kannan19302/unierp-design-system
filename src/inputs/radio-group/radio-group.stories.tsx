@@ -12,7 +12,7 @@ import { RadioGroup, type RadioGroupProps, type RadioOption } from "./radio-grou
  * - **Flexible Orientations**: Stacked vertical flow or inline horizontal layout.
  */
 const meta: Meta<typeof RadioGroup> = {
-  title: "Core/Inputs/RadioGroup",
+  title: "Inputs/RadioGroup",
   component: RadioGroup,
   tags: ["autodocs"],
   parameters: {

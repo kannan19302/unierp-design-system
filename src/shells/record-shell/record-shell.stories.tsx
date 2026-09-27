@@ -7,7 +7,7 @@ import { Badge } from "../../primitives/badge";
 import { CheckCircle2, AlertTriangle, FileText, Building2, ShieldCheck, DollarSign } from "lucide-react";
 
 const meta: Meta<typeof RecordShell> = {
-  title: "Core/Shell/RecordShell",
+  title: "Shells/RecordShell",
   component: RecordShell,
   parameters: {
     layout: "fullscreen",

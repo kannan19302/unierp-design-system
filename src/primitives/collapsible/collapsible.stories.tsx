@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "./collapsible";
 
 const meta: Meta<typeof Collapsible> = {
-  title: "Core/Primitives/Collapsible",
+  title: "Primitives/Collapsible",
   component: Collapsible,
   tags: ["autodocs"],
   parameters: {

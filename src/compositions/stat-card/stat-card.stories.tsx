@@ -3,7 +3,7 @@ import { KPIStrip } from "./stat-card";
 import { DollarSign, AlertTriangle, ShieldCheck, Activity } from "lucide-react";
 
 const meta: Meta<typeof KPIStrip> = {
-  title: "Core/DataDisplay/StatCard",
+  title: "Compositions/StatCard",
   component: KPIStrip,
   tags: ["autodocs"],
 };

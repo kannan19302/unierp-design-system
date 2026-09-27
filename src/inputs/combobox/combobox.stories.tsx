@@ -27,7 +27,7 @@ import styles from "./combobox.module.css";
  * - **Tag Management**: Inline tag pills with individual remove controls and batch clear.
  */
 const meta: Meta<typeof ComboBox> = {
-  title: "Core/Inputs/Combobox",
+  title: "Inputs/Combobox",
   component: ComboBox,
   tags: ["autodocs"],
   parameters: {

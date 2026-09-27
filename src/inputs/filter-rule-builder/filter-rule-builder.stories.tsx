@@ -15,7 +15,7 @@ import { FilterRuleBuilder, type FilterRuleItem } from "./filter-rule-builder";
  * - **4-Tier Density Ergonomics**: Ultra-compact (24px) through comfortable (40px) scaling.
  */
 const meta: Meta<typeof FilterRuleBuilder> = {
-  title: "Core/Inputs/FilterRuleBuilder",
+  title: "Inputs/FilterRuleBuilder",
   component: FilterRuleBuilder,
   tags: ["autodocs"],
   parameters: {

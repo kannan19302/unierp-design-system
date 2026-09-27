@@ -51,7 +51,7 @@ const sampleEdges: WorkflowEdge[] = [
 ];
 
 const meta: Meta<typeof WorkflowGraph> = {
-  title: "Core/Workflow/WorkflowGraph",
+  title: "Compositions/WorkflowGraph",
   component: WorkflowGraph,
   tags: ["autodocs"],
   parameters: {

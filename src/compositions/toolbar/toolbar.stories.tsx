@@ -4,7 +4,7 @@ import { Plus, Download, Printer, Trash2, CheckCircle2 } from "lucide-react";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof ActionBar> = {
-  title: "Core/Forms/ActionBar",
+  title: "Compositions/ActionBar",
   component: ActionBar,
   tags: ["autodocs"],
   parameters: {

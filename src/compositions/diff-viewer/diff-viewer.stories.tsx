@@ -14,7 +14,7 @@ In no event shall either party be liable for consequential damages exceeding $50
 Governing Law: This agreement shall be governed by the laws of the State of New York.`;
 
 const meta: Meta<typeof RedlineDiffViewer> = {
-  title: "Core/DataDisplay/RedlineDiffViewer",
+  title: "Compositions/RedlineDiffViewer",
   component: RedlineDiffViewer,
   parameters: {
     layout: "padded",

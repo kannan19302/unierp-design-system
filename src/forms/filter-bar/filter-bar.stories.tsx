@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FilterBar, FilterTag } from "./filter-bar";
 
 const meta: Meta<typeof FilterBar> = {
-  title: "Core/Forms/FilterBar",
+  title: "Forms/FilterBar",
   component: FilterBar,
   tags: ["autodocs"],
   parameters: {

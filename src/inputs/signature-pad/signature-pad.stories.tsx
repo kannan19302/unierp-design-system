@@ -13,7 +13,7 @@ import { SignaturePad } from "./signature-pad";
  * - **Touch & Stylus Support**: Native touch event listeners with coordinate normalization.
  */
 const meta: Meta<typeof SignaturePad> = {
-  title: "Core/Inputs/SignaturePad",
+  title: "Inputs/SignaturePad",
   component: SignaturePad,
   tags: ["autodocs"],
   parameters: {

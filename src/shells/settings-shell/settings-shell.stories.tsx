@@ -20,7 +20,7 @@ const EXTENDED_SETTINGS: SettingsItem[] = [
 ];
 
 const meta: Meta<typeof SettingsShell> = {
-  title: "Core/Shell/SettingsShell",
+  title: "Shells/SettingsShell",
   component: SettingsShell,
   tags: ["autodocs"],
   parameters: {
