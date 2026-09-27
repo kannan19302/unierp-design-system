@@ -20,6 +20,10 @@ const meta: Meta<typeof Tooltip> = {
       control: "select",
       options: ["top", "bottom", "left", "right"],
     },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
   },
 };
 
@@ -30,12 +34,13 @@ export const Default: Story = {
   args: {
     content: "Exports current grid rows to CSV (Alt+E)",
     children: <Button variant="secondary">Export Data</Button>,
+    density: "standard",
   },
 };
 
 export const AnatomyAndComposition: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", padding: "var(--space-6)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", paddingBlock: "var(--space-6)", paddingInline: "var(--space-6)" }}>
       <div style={{ fontSize: "var(--font-size-xs)", color: "var(--color-text-secondary)" }}>
         <strong>Tooltip Anatomy:</strong> Interactive trigger element, aria-describedby linkage, floating portal container, and directional offset positioning.
       </div>
@@ -53,12 +58,12 @@ export const AnatomyAndComposition: Story = {
 
 export const AllStatesGallery: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)", background: "var(--color-bg-sunken)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", background: "var(--color-bg-sunken)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
           1. Top Placement Tooltip
         </h4>
-        <div style={{ padding: "var(--space-4)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
+        <div style={{ paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
           <Tooltip content="Keyboard shortcut: Ctrl+S" side="top">
             <Button variant="secondary" size="sm">Save Draft</Button>
           </Tooltip>
@@ -66,10 +71,10 @@ export const AllStatesGallery: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
           2. Right Placement Tooltip
         </h4>
-        <div style={{ padding: "var(--space-4)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
+        <div style={{ paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
           <Tooltip content="Inspect database schema definitions" side="right">
             <Button variant="outline" size="sm">Schema Inspector</Button>
           </Tooltip>

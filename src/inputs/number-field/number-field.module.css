@@ -8,7 +8,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 100%;
+  inline-size: 100%;
 }
 
 .wrapperDisabled {
@@ -45,9 +45,9 @@
 }
 
 .input {
-  width: 100%;
-  height: var(--density-control-height, 32px);
-  min-height: var(--density-control-height, 32px);
+  inline-size: 100%;
+  block-size: var(--density-control-height, 32px);
+  min-block-size: var(--density-control-height, 32px);
   padding-block: 0;
   padding-inline: var(--density-control-padding-x, var(--space-3, 12px));
   font-family: var(--font-mono, monospace);
@@ -97,8 +97,8 @@
 [data-density="ultra-compact"] .input,
 .input[data-density="ultra-compact"],
 .input.ultra-compact {
-  height: var(--density-control-height, 24px);
-  min-height: var(--density-control-height, 24px);
+  block-size: var(--density-control-height, 24px);
+  min-block-size: var(--density-control-height, 24px);
   padding-inline: var(--density-control-padding-x, var(--space-1-5, 6px));
   font-size: var(--type-micro, 11px);
 }
@@ -107,8 +107,8 @@
 [data-density="compact"] .input,
 .input[data-density="compact"],
 .input.compact {
-  height: var(--density-control-height, 28px);
-  min-height: var(--density-control-height, 28px);
+  block-size: var(--density-control-height, 28px);
+  min-block-size: var(--density-control-height, 28px);
   padding-inline: var(--density-control-padding-x, var(--space-2, 8px));
   font-size: var(--type-dense, 12px);
 }
@@ -117,8 +117,8 @@
 [data-density="standard"] .input,
 .input[data-density="standard"],
 .input.standard {
-  height: var(--density-control-height, 32px);
-  min-height: var(--density-control-height, 32px);
+  block-size: var(--density-control-height, 32px);
+  min-block-size: var(--density-control-height, 32px);
   padding-inline: var(--density-control-padding-x, var(--space-3, 12px));
   font-size: var(--text-sm, 13px);
 }
@@ -127,8 +127,8 @@
 [data-density="comfortable"] .input,
 .input[data-density="comfortable"],
 .input.comfortable {
-  height: var(--density-control-height, 40px);
-  min-height: var(--density-control-height, 40px);
+  block-size: var(--density-control-height, 40px);
+  min-block-size: var(--density-control-height, 40px);
   padding-inline: var(--density-control-padding-x, var(--space-4, 16px));
   font-size: var(--text-base, 14px);
 }

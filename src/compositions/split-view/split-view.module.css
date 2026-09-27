@@ -1,29 +1,48 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — SplitView Styles
+   Strict CSS Logical Properties & 4-Tier Density
    ══════════════════════════════════════════════════════════════ */
 
 .container {
   display: flex;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   overflow: hidden;
   font-family: var(--font-sans);
   box-sizing: border-box;
 }
 
+/* ─── 4-Tier Density ─── */
+.densityUltraCompact .splitter {
+  inline-size: 2px;
+}
+
+.densityCompact .splitter {
+  inline-size: 4px;
+}
+
+.densityStandard .splitter {
+  inline-size: 6px;
+}
+
+.densityComfortable .splitter {
+  inline-size: 8px;
+}
+
 .pane {
   overflow: auto;
-  min-width: 0;
+  min-inline-size: 0;
   box-sizing: border-box;
 }
 
 .splitter {
-  width: var(--space-1, 4px);
+  inline-size: var(--space-1, 4px);
   background: var(--surface-1-border, var(--color-border));
   cursor: col-resize;
   user-select: none;
   flex-shrink: 0;
-  transition: background var(--duration-fast) var(--ease-default);
+  transition: background var(--duration-fast, 150ms) var(--ease-default);
+  box-sizing: border-box;
 }
 
 .splitter:hover,
@@ -36,7 +55,8 @@
   resize: both;
   overflow: auto;
   border: 1px solid var(--surface-1-border, var(--color-border));
-  padding: var(--space-3);
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-3, 12px);
   background: var(--surface-1-bg, var(--color-bg-elevated));
   box-sizing: border-box;
 }

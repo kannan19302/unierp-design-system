@@ -43,4 +43,39 @@ describe("WorkflowGraph Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(
+      <WorkflowGraph nodes={mockNodes} edges={mockEdges} density="ultra-compact" />
+    );
+    const root = container.querySelector('[data-slot="workflow-graph"]');
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<WorkflowGraph nodes={mockNodes} edges={mockEdges} density="compact" />);
+    expect(root).toHaveAttribute("data-density", "compact");
+
+    rerender(<WorkflowGraph nodes={mockNodes} edges={mockEdges} density="standard" />);
+    expect(root).toHaveAttribute("data-density", "standard");
+
+    rerender(<WorkflowGraph nodes={mockNodes} edges={mockEdges} density="comfortable" />);
+    expect(root).toHaveAttribute("data-density", "comfortable");
+  });
+
+  it("renders data-slot annotations on workflow graph elements", () => {
+    const nodesWithAssignee: WorkflowNode[] = [
+      { id: "1", title: "Stage 1", subtitle: "Initial", status: "completed", assignee: "Sarah", duration: "5m", x: 10, y: 10 },
+    ];
+    const { container } = render(<WorkflowGraph nodes={nodesWithAssignee} edges={[]} />);
+
+    expect(container.querySelector('[data-slot="workflow-graph"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-toolbar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-canvas"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-svg-layer"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-node"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-node-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-node-body"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-node-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-node-subtitle"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="workflow-graph-node-assignee"]')).toBeInTheDocument();
+  });
 });

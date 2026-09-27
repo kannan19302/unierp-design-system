@@ -5,6 +5,21 @@ const meta: Meta<typeof TreeView> = {
   title: "Compositions/TreeView",
   component: TreeView,
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata DL 4-tier density scaling",
+    },
+    selectedId: {
+      control: "text",
+      description: "ID of currently selected node",
+    },
+    nodes: {
+      control: "object",
+      description: "Hierarchical tree nodes data array",
+    },
+  },
 };
 
 export default meta;
@@ -44,7 +59,7 @@ export const ChartOfAccounts: Story = {
 
 export const AnatomyAndComposition: Story = {
   render: (args) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: 400 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxInlineSize: 400 }}>
       <h4>Component Anatomy &amp; Composition</h4>
       <TreeView {...args} />
     </div>
@@ -56,7 +71,7 @@ export const AnatomyAndComposition: Story = {
 
 export const AllStatesGallery: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", maxWidth: 500 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", maxInlineSize: 500 }}>
       <div>
         <h4>Standard Hierarchical Tree</h4>
         <TreeView
@@ -84,5 +99,35 @@ export const AllStatesGallery: Story = {
       </div>
     </div>
   ),
+};
+
+export const DensityGallery: Story = {
+  render: () => {
+    const sampleNodes = [
+      {
+        id: "1000",
+        label: "1000 - Assets",
+        children: [
+          { id: "1010", label: "1010 - Cash & Equivalents", badge: "Live" },
+          { id: "1020", label: "1020 - Accounts Receivable" },
+        ],
+      },
+      { id: "2000", label: "2000 - Liabilities", badge: "Audited" },
+    ];
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+
+    return (
+      <div style={{ display: "grid", gap: "var(--space-6)", maxInlineSize: "600px" }}>
+        {densities.map((d) => (
+          <div key={d} style={{ display: "grid", gap: "var(--space-2)" }}>
+            <div style={{ fontWeight: 600, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Density: {d}
+            </div>
+            <TreeView density={d} nodes={sampleNodes} selectedId="1010" />
+          </div>
+        ))}
+      </div>
+    );
+  },
 };
 

@@ -1,4 +1,7 @@
+"use client";
+
 import React, { forwardRef } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./minimap.module.css";
 
 export interface ViewfinderBounds {
@@ -8,7 +11,23 @@ export interface ViewfinderBounds {
   height: number;
 }
 
-export interface CanvasMinimapNavigatorProps extends React.HTMLAttributes<HTMLDivElement> {
+export const minimapVariants = cva(styles.minimapContainer, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export interface CanvasMinimapNavigatorProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof minimapVariants> {
   zoomPercent?: number;
   viewfinder: ViewfinderBounds;
   onPan?: (x: number, y: number) => void;
@@ -16,7 +35,6 @@ export interface CanvasMinimapNavigatorProps extends React.HTMLAttributes<HTMLDi
   onZoomOut?: () => void;
   onZoomReset?: () => void;
   onZoomToFit?: () => void;
-  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
   testId?: string;
 }
@@ -24,6 +42,7 @@ export interface CanvasMinimapNavigatorProps extends React.HTMLAttributes<HTMLDi
 /**
  * CanvasMinimapNavigator provides a floating radar overview and pan/zoom controls
  * for spatial, diagramming, CAD, and whiteboard canvases.
+ * Benchmarked against Figma / Miro minimap and React Flow minimap.
  *
  * @maturity stable
  */
@@ -55,21 +74,24 @@ export const CanvasMinimapNavigator = forwardRef<HTMLDivElement, CanvasMinimapNa
     return (
       <div
         ref={ref}
-        className={`${styles.minimapContainer ?? ""} ${className}`}
+        data-slot="minimap"
         data-density={density}
         data-testid={testId}
         role="region"
         aria-label="Canvas Minimap Radar Navigator"
+        className={minimapVariants({ density, className })}
         {...rest}
       >
         <div
-          className={styles.radarWindow ?? ""}
+          data-slot="minimap-radar"
+          className={styles.radarWindow}
           onClick={handleRadarClick}
           role="region"
           aria-label="Minimap viewport canvas"
         >
           <div
-            className={styles.viewfinder ?? ""}
+            data-slot="minimap-viewfinder"
+            className={styles.viewfinder}
             style={{
               insetInlineStart: `${viewfinder.x}%`,
               insetBlockStart: `${viewfinder.y}%`,
@@ -80,14 +102,22 @@ export const CanvasMinimapNavigator = forwardRef<HTMLDivElement, CanvasMinimapNa
           />
         </div>
 
-        <div className={styles.toolbar ?? ""}>
-          <span className={styles.zoomLabel ?? ""}>{zoomPercent}%</span>
+        <div data-slot="minimap-toolbar" className={styles.toolbar}>
+          <span data-slot="minimap-zoom-label" className={styles.zoomLabel}>
+            {zoomPercent}%
+          </span>
 
-          <div className={styles.actionsGroup ?? ""} role="group" aria-label="Zoom Controls">
+          <div
+            data-slot="minimap-controls"
+            className={styles.actionsGroup}
+            role="group"
+            aria-label="Zoom Controls"
+          >
             {onZoomOut && (
               <button
                 type="button"
-                className={styles.toolBtn ?? ""}
+                data-slot="minimap-tool-button"
+                className={styles.toolBtn}
                 onClick={onZoomOut}
                 aria-label="Zoom out"
               >
@@ -98,7 +128,8 @@ export const CanvasMinimapNavigator = forwardRef<HTMLDivElement, CanvasMinimapNa
             {onZoomReset && (
               <button
                 type="button"
-                className={styles.toolBtn ?? ""}
+                data-slot="minimap-tool-button"
+                className={styles.toolBtn}
                 onClick={onZoomReset}
                 aria-label="Reset zoom to 100%"
               >
@@ -109,7 +140,8 @@ export const CanvasMinimapNavigator = forwardRef<HTMLDivElement, CanvasMinimapNa
             {onZoomIn && (
               <button
                 type="button"
-                className={styles.toolBtn ?? ""}
+                data-slot="minimap-tool-button"
+                className={styles.toolBtn}
                 onClick={onZoomIn}
                 aria-label="Zoom in"
               >
@@ -120,7 +152,8 @@ export const CanvasMinimapNavigator = forwardRef<HTMLDivElement, CanvasMinimapNa
             {onZoomToFit && (
               <button
                 type="button"
-                className={styles.toolBtn ?? ""}
+                data-slot="minimap-tool-button"
+                className={styles.toolBtn}
                 onClick={onZoomToFit}
                 aria-label="Zoom to fit canvas"
               >

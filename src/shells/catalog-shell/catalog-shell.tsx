@@ -8,6 +8,7 @@ import {
   useId,
 } from "react";
 import { Grid, List, X, Star, CheckCircle2, SlidersHorizontal } from "lucide-react";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./catalog-shell.module.css";
 
 export interface CatalogFacetOption {
@@ -62,9 +63,25 @@ export interface CatalogShellProps {
   emptySlot?: ReactNode;
   /** Bottom pagination slot */
   paginationSlot?: ReactNode;
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
   children?: ReactNode;
 }
+
+export const catalogShellVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 /**
  * `<CatalogShell>` — Enterprise marketplace storefront and extension directory floorplan.
@@ -89,6 +106,7 @@ export const CatalogShell = forwardRef<HTMLDivElement, CatalogShellProps>(
       loading = false,
       emptySlot,
       paginationSlot,
+      density = "standard",
       className = "",
       children,
     },
@@ -113,10 +131,15 @@ export const CatalogShell = forwardRef<HTMLDivElement, CatalogShellProps>(
     };
 
     return (
-      <div ref={ref} className={`${styles.container} ${className}`.trim()}>
+      <div
+        ref={ref}
+        data-slot="catalog-shell"
+        data-density={density}
+        className={catalogShellVariants({ density, className })}
+      >
         {/* Storefront Hero */}
         {hero && (
-          <header className={styles.hero}>
+          <header data-slot="catalog-shell-hero" className={styles.hero}>
             {hero.badge && (
               <span className={styles.hero_badge}>{hero.badge}</span>
             )}
@@ -148,7 +171,12 @@ export const CatalogShell = forwardRef<HTMLDivElement, CatalogShellProps>(
                 <SlidersHorizontal size={16} aria-hidden="true" />
                 {mobileFiltersOpen ? "Hide filters" : "Show filters"}
               </button>
-              <aside id={facetsId} className={styles.facet_region} aria-label="Catalog filters">
+              <aside
+                id={facetsId}
+                data-slot="catalog-shell-sidebar"
+                className={styles.facet_region}
+                aria-label="Catalog filters"
+              >
               <div className={styles.facets}>
                 {facets.map((facet) => (
                   <fieldset key={facet.id} className={styles.facet_group}>
@@ -176,13 +204,17 @@ export const CatalogShell = forwardRef<HTMLDivElement, CatalogShellProps>(
             </>
           )}
 
-          <section className={styles.results} aria-label="Catalog results">
+          <section
+            data-slot="catalog-shell-results"
+            className={styles.results}
+            aria-label="Catalog results"
+          >
             {(resultSummary ||
               toolbar ||
               sortSlot ||
               onViewModeChange ||
               activeFilters) && (
-              <div className={styles.results_head}>
+              <div data-slot="catalog-shell-toolbar" className={styles.results_head}>
                 <div className={styles.results_controls}>
                   {resultSummary && (
                     <span className={styles.result_count} aria-live="polite">
@@ -274,7 +306,7 @@ export const CatalogShell = forwardRef<HTMLDivElement, CatalogShellProps>(
             )}
 
             {paginationSlot && (
-              <nav aria-label="Catalog pagination" className={styles.pagination}>
+              <nav data-slot="catalog-shell-pagination" aria-label="Catalog pagination" className={styles.pagination}>
                 {paginationSlot}
               </nav>
             )}

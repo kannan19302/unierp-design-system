@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — Popover Styles
+   Strict CSS Logical Properties
    ══════════════════════════════════════════════════════════════ */
 
 .container {
@@ -15,13 +16,50 @@
 .popover {
   position: fixed;
   z-index: var(--z-popover, 1000);
-  background: var(--surface-1-bg, var(--color-bg-elevated));
-  border: 1px solid var(--surface-1-border, var(--color-border));
-  border-radius: var(--radius-sm, 2px);
+  background: var(--surface-1-bg, var(--color-bg-elevated, #ffffff));
+  border: 1px solid var(--surface-1-border, var(--color-border, #e2e8f0));
+  border-radius: var(--radius-sm, 4px);
   box-shadow: var(--shadow-lg);
-  padding: var(--space-3);
-  min-width: var(--popover-min-width, 200px);
-  max-width: var(--popover-max-width, 360px);
+  min-inline-size: var(--popover-min-width, 200px);
+  max-inline-size: var(--popover-max-width, 360px);
   font-family: var(--font-sans);
   box-sizing: border-box;
+}
+
+/* Densities */
+.densityUltraCompact {
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-2, 8px);
+  font-size: var(--text-xs, 12px);
+}
+
+.densityCompact {
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-2-5, 10px);
+  font-size: var(--text-sm, 13px);
+}
+
+.densityStandard {
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-3, 12px);
+  font-size: var(--type-dense, var(--text-sm, 14px));
+}
+
+.densityComfortable {
+  padding-block: var(--space-4, 16px);
+  padding-inline: var(--space-4, 16px);
+  font-size: var(--text-base, 15px);
+}
+
+/* Sizes */
+.sm {
+  max-inline-size: 240px;
+}
+
+.md {
+  max-inline-size: 360px;
+}
+
+.lg {
+  max-inline-size: 480px;
 }

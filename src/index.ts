@@ -13,3 +13,9 @@ export * from "./navigation";
 export * from "./templates";
 export * from "./shells";
 export * from "./forms";
+
+// Canonical disambiguated root exports
+export {
+  Collapsible,
+  type CollapsibleProps,
+} from "./primitives";

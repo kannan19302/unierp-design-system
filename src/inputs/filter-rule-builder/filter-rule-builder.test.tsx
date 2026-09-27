@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { FilterRuleBuilder } from "./filter-rule-builder";
+import { FilterRuleBuilder, filterRuleBuilderVariants } from "./filter-rule-builder";
 
 describe("FilterRuleBuilder Component", () => {
   it("renders with default rules", () => {
@@ -43,4 +43,25 @@ describe("FilterRuleBuilder Component", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("supports filterRuleBuilderVariants cva and exposes data-slot annotations", () => {
+    expect(typeof filterRuleBuilderVariants).toBe("function");
+    expect(filterRuleBuilderVariants({ density: "compact" })).toBeDefined();
+
+    const { container } = render(<FilterRuleBuilder density="compact" />);
+
+    expect(container.querySelector('[data-slot="filter-rule-builder"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-count"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-list"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-row"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-combinator"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-field"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-operator"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-value"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-remove"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-rule-builder-add"]')).toBeInTheDocument();
+  });
 });
+

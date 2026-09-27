@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { BoxPlotChart } from "./box-plot-chart";
 
@@ -14,7 +15,18 @@ const meta: Meta<typeof BoxPlotChart> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    a11y: { test: "todo" },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    height: {
+      control: "number",
+    },
+    showOutliers: {
+      control: "boolean",
+    },
   },
 };
 
@@ -22,11 +34,16 @@ export default meta;
 type Story = StoryObj<typeof BoxPlotChart>;
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <div style={{ inlineSize: "500px", padding: "var(--space-4)" }}>
-      <BoxPlotChart data={SAMPLE_DATA} />
+      <BoxPlotChart {...args} data={SAMPLE_DATA} />
     </div>
   ),
+  args: {
+    density: "standard",
+    height: 260,
+    showOutliers: true,
+  },
 };
 
 export const AnatomyAndComposition: Story = {
@@ -37,20 +54,32 @@ export const AnatomyAndComposition: Story = {
   ),
 };
 
-export const AllStatesGallery: Story = {
+export const DensityGallery: Story = {
   render: () => (
     <div style={{ inlineSize: "540px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
         <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          With Outliers Displayed
+          Ultra-Compact Density (24px target)
         </h4>
-        <BoxPlotChart data={SAMPLE_DATA} showOutliers={true} />
+        <BoxPlotChart data={SAMPLE_DATA.slice(0, 3)} height={160} density="ultra-compact" />
       </div>
       <div>
         <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Without Outliers
+          Compact Density (28px target)
         </h4>
-        <BoxPlotChart data={SAMPLE_DATA} showOutliers={false} />
+        <BoxPlotChart data={SAMPLE_DATA.slice(0, 3)} height={180} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Standard Density (32px target)
+        </h4>
+        <BoxPlotChart data={SAMPLE_DATA} height={220} density="standard" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Comfortable Density (40px target)
+        </h4>
+        <BoxPlotChart data={SAMPLE_DATA} height={260} density="comfortable" />
       </div>
     </div>
   ),

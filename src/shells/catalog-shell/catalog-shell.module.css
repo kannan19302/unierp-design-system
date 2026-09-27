@@ -13,6 +13,23 @@
   font-family: var(--font-sans);
 }
 
+/* Densities */
+.densityUltraCompact {
+  --catalog-spacing: var(--space-2);
+}
+
+.densityCompact {
+  --catalog-spacing: var(--space-3);
+}
+
+.densityStandard {
+  --catalog-spacing: var(--space-4);
+}
+
+.densityComfortable {
+  --catalog-spacing: var(--space-6);
+}
+
 /* ── Hero Header ── */
 .hero {
   position: relative;
@@ -580,7 +597,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  color: var(--color-warning, #eab308);
+  color: var(--color-warning-text);
   font-weight: 700;
 }
 
@@ -811,7 +828,7 @@
 .permission_scope {
   font-family: var(--font-mono, monospace);
   font-size: var(--text-xs);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   flex-shrink: 0;
 }
 

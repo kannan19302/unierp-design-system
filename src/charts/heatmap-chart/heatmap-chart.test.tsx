@@ -2,7 +2,11 @@ import { describe, it, expect, vi } from "vitest";
 import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
-import { ResourceCapacityHeatmap, ResourceRow } from "./heatmap-chart";
+import {
+  ResourceCapacityHeatmap,
+  HeatmapChart,
+  ResourceRow,
+} from "./heatmap-chart";
 
 const TEST_PERIODS = [
   { key: "p1", label: "Sprint 1" },
@@ -26,7 +30,7 @@ const TEST_RESOURCES: ResourceRow[] = [
   },
 ];
 
-describe("ResourceCapacityHeatmap", () => {
+describe("ResourceCapacityHeatmap / HeatmapChart", () => {
   it("renders team members, heatmap cells, and has zero accessibility violations", async () => {
     const { container } = render(
       <ResourceCapacityHeatmap
@@ -47,7 +51,7 @@ describe("ResourceCapacityHeatmap", () => {
   it("handles cell selection and renders drilldown tasks", () => {
     const handleSelect = vi.fn();
     render(
-      <ResourceCapacityHeatmap
+      <HeatmapChart
         periods={TEST_PERIODS}
         resources={TEST_RESOURCES}
         onSelectCell={handleSelect}
@@ -79,5 +83,34 @@ describe("ResourceCapacityHeatmap", () => {
     );
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
-});
 
+  it("exposes all data-slot anatomy attributes", () => {
+    const { container } = render(
+      <ResourceCapacityHeatmap
+        periods={TEST_PERIODS}
+        resources={TEST_RESOURCES}
+      />
+    );
+
+    expect(container.querySelector('[data-slot="heatmap-chart"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="heatmap-chart-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="heatmap-chart-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="heatmap-chart-table"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="heatmap-chart-cell"]')).toBeInTheDocument();
+  });
+
+  it("renders 4 density scaling tiers properly", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(
+        <ResourceCapacityHeatmap
+          density={density}
+          periods={TEST_PERIODS}
+          resources={TEST_RESOURCES}
+        />
+      );
+      const root = container.querySelector('[data-slot="heatmap-chart"]');
+      expect(root).toHaveAttribute("data-density", density);
+    });
+  });
+});

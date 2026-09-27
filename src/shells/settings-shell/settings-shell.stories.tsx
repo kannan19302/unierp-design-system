@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { SettingsShell, type SettingsItem } from "./settings-shell";
 import { Button } from "../../primitives/button";
@@ -50,6 +50,12 @@ export default meta;
 type Story = StoryObj<typeof SettingsShell>;
 
 function InteractiveSettingsWorkbench({ initialDirty = false }: { initialDirty?: boolean }) {
+  const formId = useId();
+  const entityInputId = `${formId}-entity-id`;
+  const entityHelpId = `${formId}-entity-help`;
+  const acsInputId = `${formId}-acs-url`;
+  const acsHelpId = `${formId}-acs-help`;
+  const enforceSsoId = `${formId}-enforce-sso`;
   const [activeTab, setActiveTab] = useState("sso");
   const [isDirty, setIsDirty] = useState(initialDirty);
   const [isSaving, setIsSaving] = useState(false);
@@ -70,11 +76,6 @@ function InteractiveSettingsWorkbench({ initialDirty = false }: { initialDirty?:
     setAcsUrl("https://idp.acme-corp.internal/saml/sso");
     setEnforceSSO(true);
     setIsDirty(false);
-  };
-
-  const handleChange = (setter: (v: any) => void, val: any) => {
-    setter(val);
-    setIsDirty(true);
   };
 
   return (
@@ -99,13 +100,15 @@ function InteractiveSettingsWorkbench({ initialDirty = false }: { initialDirty?:
 
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
           <div>
-            <label style={{ display: "block", fontSize: "var(--text-xs)", fontWeight: 600, color: "var(--color-text)", marginBlockEnd: "var(--space-1)" }}>
+            <label htmlFor={entityInputId} style={{ display: "block", fontSize: "var(--text-xs)", fontWeight: 600, color: "var(--color-text)", marginBlockEnd: "var(--space-1)" }}>
               SAML Audience URI / Entity ID
             </label>
             <input
+              id={entityInputId}
+              aria-describedby={entityHelpId}
               type="text"
               value={entityId}
-              onChange={(e) => handleChange(setEntityId, e.target.value)}
+              onChange={(e) => { setEntityId(e.target.value); setIsDirty(true); }}
               style={{
                 inlineSize: "100%",
                 paddingBlock: "var(--space-2)",
@@ -118,19 +121,21 @@ function InteractiveSettingsWorkbench({ initialDirty = false }: { initialDirty?:
                 fontFamily: "monospace",
               }}
             />
-            <span style={{ fontSize: "11px", color: "var(--color-text-tertiary)", marginTop: "2px", display: "block" }}>
+            <span id={entityHelpId} style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)", marginTop: "var(--space-1)", display: "block" }}>
               Unique identifier string registered with your IdP service provider catalog.
             </span>
           </div>
 
           <div>
-            <label style={{ display: "block", fontSize: "var(--text-xs)", fontWeight: 600, color: "var(--color-text)", marginBlockEnd: "var(--space-1)" }}>
+            <label htmlFor={acsInputId} style={{ display: "block", fontSize: "var(--text-xs)", fontWeight: 600, color: "var(--color-text)", marginBlockEnd: "var(--space-1)" }}>
               Assertion Consumer Service (ACS) URL
             </label>
             <input
+              id={acsInputId}
+              aria-describedby={acsHelpId}
               type="text"
               value={acsUrl}
-              onChange={(e) => handleChange(setAcsUrl, e.target.value)}
+              onChange={(e) => { setAcsUrl(e.target.value); setIsDirty(true); }}
               style={{
                 inlineSize: "100%",
                 paddingBlock: "var(--space-2)",
@@ -143,7 +148,7 @@ function InteractiveSettingsWorkbench({ initialDirty = false }: { initialDirty?:
                 fontFamily: "monospace",
               }}
             />
-            <span style={{ fontSize: "11px", color: "var(--color-text-tertiary)", marginTop: "2px", display: "block" }}>
+            <span id={acsHelpId} style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)", marginTop: "var(--space-1)", display: "block" }}>
               Secure POST binding endpoint where signed assertions are ingested.
             </span>
           </div>
@@ -151,12 +156,12 @@ function InteractiveSettingsWorkbench({ initialDirty = false }: { initialDirty?:
           <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", paddingBlock: "var(--space-3)", paddingInline: "var(--space-4)", background: "var(--color-bg-sunken)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
             <input
               type="checkbox"
-              id="enforce-sso"
+              id={enforceSsoId}
               checked={enforceSSO}
-              onChange={(e) => handleChange(setEnforceSSO, e.target.checked)}
+              onChange={(e) => { setEnforceSSO(e.target.checked); setIsDirty(true); }}
               style={{ cursor: "pointer", inlineSize: 16, blockSize: 16 }}
             />
-            <label htmlFor="enforce-sso" style={{ fontSize: "var(--text-xs)", color: "var(--color-text)", cursor: "pointer" }}>
+            <label htmlFor={enforceSsoId} style={{ fontSize: "var(--text-xs)", color: "var(--color-text)", cursor: "pointer" }}>
               <strong>Strict Enforcement:</strong> Disallow password fallback and enforce mandatory SSO sign-in for all corporate email domains.
             </label>
           </div>
@@ -180,7 +185,7 @@ export const StateMatrix: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)", padding: "var(--space-4)", background: "var(--color-bg-sunken)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "var(--space-2)", marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
           1. Clean Pristine State (All changes saved)
         </h4>
         <div style={{ blockSize: "360px", border: "1px solid var(--color-border)", overflow: "hidden" }}>
@@ -189,13 +194,41 @@ export const StateMatrix: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "var(--space-2)", marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
           2. Dirty Warning State (Unsaved Changes Warning Band)
         </h4>
         <div style={{ blockSize: "360px", border: "1px solid var(--color-border)", overflow: "hidden" }}>
           <InteractiveSettingsWorkbench initialDirty={true} />
         </div>
       </div>
+    </div>
+  ),
+};
+
+export const DensityGallery: Story = {
+  name: "Density scale comparison",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density} style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
+          <div style={{ padding: "var(--space-2) var(--space-4)", background: "var(--color-bg-sunken)", fontWeight: 600, fontSize: "var(--text-xs)" }}>
+            Density: {density}
+          </div>
+          <div style={{ blockSize: "260px" }}>
+            <SettingsShell
+              density={density}
+              items={EXTENDED_SETTINGS.slice(0, 4)}
+              activeId="sso"
+              dirty
+            >
+              <div style={{ padding: "var(--space-3)" }}>
+                <h3>SSO Settings ({density})</h3>
+                <p>Configured at {density} density scaling.</p>
+              </div>
+            </SettingsShell>
+          </div>
+        </div>
+      ))}
     </div>
   ),
 };
@@ -208,3 +241,4 @@ export const RtlPreview: Story = {
     </div>
   ),
 };
+

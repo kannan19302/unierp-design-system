@@ -8,10 +8,12 @@ import {
   type ReactNode,
   type RefObject,
 } from "react";
-import { cn } from "../../foundation/utils/cn";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./focus-trap.module.css";
 
-export interface FocusTrapProps {
+export const focusTrapVariants = cva(styles.trap, {});
+
+export interface FocusTrapProps extends VariantProps<typeof focusTrapVariants> {
   children: ReactNode;
   active?: boolean;
   initialFocusRef?: RefObject<HTMLElement | null>;
@@ -24,7 +26,8 @@ const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 /**
- * FocusTrap component to constrain keyboard navigation within dialogs and modals.
+ * FocusTrap component to constrain keyboard navigation within dialogs, drawers, and modals.
+ * Benchmarked against focus-trap-react, Radix FocusScope, and APG modal dialog pattern.
  *
  * @maturity stable
  */
@@ -105,7 +108,12 @@ export const FocusTrap = forwardRef<HTMLDivElement, FocusTrapProps>(function Foc
   }, [active, initialFocusRef, onEscape, restoreFocus]);
 
   return (
-    <div ref={rootRef} className={cn(styles.trap, className)}>
+    <div
+      ref={rootRef}
+      data-slot="focus-trap"
+      data-active={active}
+      className={focusTrapVariants({ className })}
+    >
       {children}
     </div>
   );

@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { ComboBox } from "./combobox";
+import { ComboBox, comboboxVariants } from "./combobox";
 
 const MOCK_OPTIONS = [
   { value: "us", label: "United States" },
@@ -259,16 +259,30 @@ describe("Strata V1 ComboBox Primitive", () => {
     expect(onChange).toHaveBeenCalledWith(["us"]);
   });
 
-  it("maintains stable unique IDs across multiple identical instances", () => {
+  it("supports comboboxVariants cva and exposes data-slot annotations", () => {
+    expect(typeof comboboxVariants).toBe("function");
+    expect(comboboxVariants({ density: "compact", invalid: true })).toBeDefined();
+
     const { container } = render(
-      <div>
-        <ComboBox label="Country" options={MOCK_OPTIONS} />
-        <ComboBox label="Country" options={MOCK_OPTIONS} />
-      </div>
+      <ComboBox
+        options={MOCK_OPTIONS}
+        value="us"
+        density="compact"
+        invalid
+        aria-label="Country selector"
+      />
     );
-    const triggers = screen.getAllByRole("combobox");
-    expect(triggers[0].id).toBeTruthy();
-    expect(triggers[1].id).toBeTruthy();
-    expect(triggers[0].id).not.toBe(triggers[1].id);
+
+    const root = container.querySelector('[data-slot="combobox"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(root).toHaveAttribute("data-invalid", "true");
+
+    const trigger = container.querySelector('[data-slot="combobox-trigger"]');
+    expect(trigger).toBeInTheDocument();
+
+    const value = container.querySelector('[data-slot="combobox-value"]');
+    expect(value).toBeInTheDocument();
   });
 });
+

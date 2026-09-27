@@ -19,6 +19,13 @@ const meta: Meta<typeof SplitMasterDetailTemplate> = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+  },
 };
 
 export default meta;
@@ -40,7 +47,7 @@ export const Default: Story = {
         </div>
       </div>
     ),
-    detailHeader: <h3 style={{ margin: 0 }}>Acme Global Logistics</h3>,
+    detailHeader: <h3 style={{ marginBlock: 0, marginInline: 0 }}>Acme Global Logistics</h3>,
     detailBody: (
       <div style={{ padding: "var(--space-4)" }}>
         <p>Comprehensive supplier profile, compliance certifications, and active procurement contracts.</p>
@@ -66,23 +73,23 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)", padding: "var(--space-4)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
           Populated Master Detail Workspace
         </h4>
-        <div style={{ border: "1px solid var(--color-border-subtle)", borderRadius: "var(--radius-md)", height: 320, overflow: "hidden" }}>
+        <div style={{ border: "1px solid var(--color-border-subtle)", borderRadius: "var(--radius-md)", blockSize: 320, overflow: "hidden" }}>
           <SplitMasterDetailTemplate
             masterTitle="Partners (28)"
             masterList={<div style={{ padding: "var(--space-3)" }}>Apex Partners LLC</div>}
-            detailHeader={<h4 style={{ margin: 0 }}>Apex Partners LLC</h4>}
+            detailHeader={<h4 style={{ marginBlock: 0, marginInline: 0 }}>Apex Partners LLC</h4>}
             detailBody={<div style={{ padding: "var(--space-4)" }}>Partner details pane</div>}
           />
         </div>
       </div>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
           Empty Selection State
         </h4>
-        <div style={{ border: "1px solid var(--color-border-subtle)", borderRadius: "var(--radius-md)", height: 240, overflow: "hidden" }}>
+        <div style={{ border: "1px solid var(--color-border-subtle)", borderRadius: "var(--radius-md)", blockSize: 240, overflow: "hidden" }}>
           <SplitMasterDetailTemplate
             masterTitle="Partners (28)"
             isDetailEmpty
@@ -90,6 +97,25 @@ export const AllStatesGallery: Story = {
           />
         </div>
       </div>
+    </div>
+  ),
+};
+
+export const DensityGallery: Story = {
+  name: "Density scale comparison",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density} style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", blockSize: 200, overflow: "hidden" }}>
+          <SplitMasterDetailTemplate
+            density={density}
+            masterTitle={`Master (${density})`}
+            masterList={<div style={{ padding: "var(--space-2)" }}>Record Item</div>}
+            detailHeader={<h4 style={{ marginBlock: 0, marginInline: 0 }}>Detail Heading</h4>}
+            detailBody={<div style={{ padding: "var(--space-2)" }}>Detail pane content at {density} density</div>}
+          />
+        </div>
+      ))}
     </div>
   ),
 };

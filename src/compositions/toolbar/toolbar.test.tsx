@@ -41,4 +41,53 @@ describe("ActionBar Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(
+      <ActionBar primaryAction={{ key: "1", label: "Save" }} density="ultra-compact" />
+    );
+    const root = container.querySelector('[data-slot="toolbar"]');
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<ActionBar primaryAction={{ key: "1", label: "Save" }} density="compact" />);
+    expect(root).toHaveAttribute("data-density", "compact");
+
+    rerender(<ActionBar primaryAction={{ key: "1", label: "Save" }} density="standard" />);
+    expect(root).toHaveAttribute("data-density", "standard");
+
+    rerender(<ActionBar primaryAction={{ key: "1", label: "Save" }} density="comfortable" />);
+    expect(root).toHaveAttribute("data-density", "comfortable");
+  });
+
+  it("renders data-slot annotations in standard and bulk modes", () => {
+    const { container, rerender } = render(
+      <ActionBar
+        leading={<span>Leading</span>}
+        primaryAction={{ key: "save", label: "Save" }}
+        secondaryActions={[{ key: "cancel", label: "Cancel" }]}
+        aiAction={{ key: "ai", label: "AI Suggest" }}
+        overflowActions={[{ key: "more", label: "More" }]}
+      />
+    );
+    expect(container.querySelector('[data-slot="toolbar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-leading"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-actions"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-ai-action"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-secondary-action"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-overflow-action"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-primary-action"]')).toBeInTheDocument();
+
+    rerender(
+      <ActionBar
+        selectedCount={3}
+        onClearSelection={vi.fn()}
+        bulkActions={<button>Archive</button>}
+      />
+    );
+    expect(container.querySelector('[data-slot="toolbar-bulk"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-bulk-left"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-bulk-count"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-bulk-deselect"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="toolbar-bulk-right"]')).toBeInTheDocument();
+  });
 });

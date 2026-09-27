@@ -2,6 +2,7 @@
 
 import { forwardRef, useState, type HTMLAttributes } from "react";
 import { Plus, X } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./filter-rule-builder.module.css";
 
 export interface FilterRuleItem {
@@ -11,7 +12,23 @@ export interface FilterRuleItem {
   value: string;
 }
 
-export interface FilterRuleBuilderProps extends HTMLAttributes<HTMLDivElement> {
+export const filterRuleBuilderVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles["ultra-compact"] || "",
+      compact: styles.compact || "",
+      standard: styles.standard || "",
+      comfortable: styles.comfortable || "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export interface FilterRuleBuilderProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof filterRuleBuilderVariants> {
   rules?: FilterRuleItem[];
   onRulesChange?: (rules: FilterRuleItem[]) => void;
   availableFields?: Array<{ value: string; label: string }>;
@@ -19,6 +36,13 @@ export interface FilterRuleBuilderProps extends HTMLAttributes<HTMLDivElement> {
   density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
+/**
+ * FilterRuleBuilder component providing structured predicate row editing,
+ * WHERE/AND combinator logic, relational operators, and 4-tier density scaling.
+ * Standardized with cva, data-slot, and accessible listbox/region semantics.
+ *
+ * @maturity stable
+ */
 export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderProps>(
   (
     {
@@ -75,32 +99,35 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
     return (
       <div
         ref={ref}
+        data-slot="filter-rule-builder"
         data-density={density}
-        className={`${styles.container} ${density ? styles[density] : ""} ${className}`.trim()}
+        className={`${filterRuleBuilderVariants({ density })} ${className}`.trim()}
         role="region"
         aria-label="Filter Rule Builder"
         {...props}
       >
-        <div className={styles.header}>
-          <span className={styles.title}>Filter Criteria</span>
-          <span className={styles.ruleCount}>
+        <div data-slot="filter-rule-builder-header" className={styles.header}>
+          <span data-slot="filter-rule-builder-title" className={styles.title}>Filter Criteria</span>
+          <span data-slot="filter-rule-builder-count" className={styles.ruleCount}>
             {rules.length} / {maxRules} rules
           </span>
         </div>
 
-        <div className={styles.rulesList} role="list" aria-label="Active rules">
+        <div data-slot="filter-rule-builder-list" className={styles.rulesList} role="list" aria-label="Active rules">
           {rules.map((rule, idx) => (
             <div
               key={rule.id}
+              data-slot="filter-rule-builder-row"
               className={styles.ruleRow}
               role="listitem"
               data-testid={`filter-rule-${idx}`}
             >
-              <span className={styles.combinator}>
+              <span data-slot="filter-rule-builder-combinator" className={styles.combinator}>
                 {idx === 0 ? "WHERE" : "AND"}
               </span>
 
               <select
+                data-slot="filter-rule-builder-field"
                 className={styles.select}
                 value={rule.field}
                 aria-label={`Field for rule ${idx + 1}`}
@@ -116,6 +143,7 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
               </select>
 
               <select
+                data-slot="filter-rule-builder-operator"
                 className={styles.select}
                 value={rule.operator}
                 aria-label={`Operator for rule ${idx + 1}`}
@@ -135,6 +163,7 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
               </select>
 
               <input
+                data-slot="filter-rule-builder-value"
                 type="text"
                 className={styles.input}
                 value={rule.value}
@@ -146,6 +175,7 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
               />
 
               <button
+                data-slot="filter-rule-builder-remove"
                 type="button"
                 className={styles.removeBtn}
                 aria-label={`Remove rule ${idx + 1}`}
@@ -159,6 +189,7 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
 
         {rules.length < maxRules && (
           <button
+            data-slot="filter-rule-builder-add"
             type="button"
             className={styles.addBtn}
             onClick={handleAddRule}
@@ -173,3 +204,4 @@ export const FilterRuleBuilder = forwardRef<HTMLDivElement, FilterRuleBuilderPro
 );
 
 FilterRuleBuilder.displayName = "FilterRuleBuilder";
+

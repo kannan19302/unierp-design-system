@@ -1,27 +1,84 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — StatCard & KPIStrip Styles
+   Strict CSS Logical Properties & 4-Tier Density
    ══════════════════════════════════════════════════════════════ */
 
 .strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--stat-card-min-width, 200px), 1fr));
-  gap: var(--space-3);
-  width: 100%;
+  gap: var(--space-3, 12px);
+  inline-size: 100%;
   font-family: var(--font-sans);
   box-sizing: border-box;
+}
+
+/* ─── 4-Tier Density ─── */
+.densityUltraCompact {
+  gap: var(--space-2, 8px);
+}
+.densityUltraCompact .card {
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-2, 8px);
+}
+.densityUltraCompact .label {
+  font-size: var(--text-2xs, 10px);
+}
+.densityUltraCompact .value {
+  font-size: var(--text-base, 16px);
+}
+
+.densityCompact {
+  gap: var(--space-2-5, 10px);
+}
+.densityCompact .card {
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-3, 12px);
+}
+.densityCompact .label {
+  font-size: var(--type-micro, 11px);
+}
+.densityCompact .value {
+  font-size: var(--text-xl, 20px);
+}
+
+.densityStandard {
+  gap: var(--space-3, 12px);
+}
+.densityStandard .card {
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-4, 16px);
+}
+.densityStandard .label {
+  font-size: var(--type-micro, 11px);
+}
+.densityStandard .value {
+  font-size: var(--type-metric, var(--text-2xl, 24px));
+}
+
+.densityComfortable {
+  gap: var(--space-4, 16px);
+}
+.densityComfortable .card {
+  padding-block: var(--space-4, 16px);
+  padding-inline: var(--space-5, 20px);
+}
+.densityComfortable .label {
+  font-size: var(--text-sm, 14px);
+}
+.densityComfortable .value {
+  font-size: var(--text-3xl, 30px);
 }
 
 .card {
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 1px solid var(--surface-1-border, var(--color-border));
-  border-radius: var(--radius-sm, 2px);
-  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm, 4px);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   box-shadow: var(--shadow-sm);
-  transition: border-color var(--duration-fast) var(--ease-default),
-              box-shadow var(--duration-fast) var(--ease-default);
+  transition: border-color var(--duration-fast, 150ms) var(--ease-default),
+              box-shadow var(--duration-fast, 150ms) var(--ease-default);
 }
 
 .cardClickable {
@@ -42,13 +99,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-2);
-  margin-bottom: var(--space-1);
+  gap: var(--space-2, 8px);
+  margin-block-end: var(--space-1, 4px);
 }
 
 .label {
-  font-size: var(--type-micro, 11px);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-medium, 500);
   color: var(--surface-text-secondary, var(--color-text-secondary));
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -63,13 +119,12 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--space-2);
+  gap: var(--space-2, 8px);
 }
 
 .value {
   font-family: var(--font-sans);
-  font-size: var(--type-metric, var(--text-2xl));
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-bold, 700);
   color: var(--surface-text-primary, var(--color-text));
   font-variant-numeric: tabular-nums lining-nums;
   line-height: 1.1;
@@ -80,7 +135,7 @@
   align-items: center;
   gap: 2px;
   font-size: var(--type-micro, 11px);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-semibold, 600);
   font-variant-numeric: tabular-nums lining-nums;
 }
 
@@ -97,7 +152,7 @@
 }
 
 .subtext {
-  margin-top: var(--space-1);
+  margin-block-start: var(--space-1, 4px);
   font-size: var(--type-micro-dense, 10px);
   color: var(--surface-text-secondary, var(--color-text-muted));
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./radar-chart.module.css";
 
 export interface RadarDataset {
@@ -9,12 +10,28 @@ export interface RadarDataset {
   color?: string;
 }
 
+export const radarChartVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
 export interface RadarChartProps
   extends React.HTMLAttributes<HTMLDivElement> {
   axes: string[];
   datasets: RadarDataset[];
   size?: number;
   showLabels?: boolean;
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 /**
@@ -30,13 +47,14 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(
       datasets,
       size = 240,
       showLabels = true,
+      density = "standard",
       className = "",
       ...rest
     },
     ref
   ) => {
     const center = size / 2;
-    const radius = size / 2 - 30;
+    const radius = Math.max(10, size / 2 - 30);
     const angleStep = axes.length ? (2 * Math.PI) / axes.length : 1;
 
     const getPoint = (index: number, value: number) => ({
@@ -47,12 +65,15 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
+        data-slot="radar-chart"
+        data-density={density}
+        className={radarChartVariants({ density, className })}
         role="img"
         aria-label="Radar chart"
         {...rest}
       >
         <svg
+          data-slot="radar-chart-svg"
           width={size}
           height={size}
           viewBox={`0 0 ${size} ${size}`}
@@ -105,10 +126,15 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(
               );
             })}
         </svg>
-        <div className={styles.legend}>
+        <div data-slot="radar-chart-legend" className={styles.legend}>
           {datasets.map((ds, i) => (
-            <span key={ds.label || i} className={styles.legendItem}>
+            <span
+              key={ds.label || i}
+              data-slot="radar-chart-legend-item"
+              className={styles.legendItem}
+            >
               <span
+                data-slot="radar-chart-legend-dot"
                 className={styles.legendDot}
                 style={{ background: ds.color || "var(--color-brand)" }}
               />

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   GanttMilestoneScheduler,
+  GanttChart,
   GanttTask,
 } from "./gantt-chart";
 
@@ -70,6 +71,25 @@ const meta: Meta<typeof GanttMilestoneScheduler> = {
     layout: "padded",
   },
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+    projectTitle: {
+      control: "text",
+      description: "Project title displayed in header.",
+    },
+    projectCode: {
+      control: "text",
+      description: "Code identifier badge.",
+    },
+    timeframeLabel: {
+      control: "text",
+      description: "Timeframe period label.",
+    },
+  },
 };
 
 export default meta;
@@ -86,11 +106,47 @@ export const Default: Story = {
   },
 };
 
-export const UltraCompact: Story = {
-  args: {
-    ...Default.args,
-    density: "ultra-compact",
-  },
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Ultra-Compact Density (24px row)</h4>
+        <GanttChart
+          projectTitle="Sprint Alpha Fast-Track"
+          projectCode="PRJ-A1"
+          tasks={mockTasks.slice(0, 3)}
+          density="ultra-compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Compact Density (28px row)</h4>
+        <GanttChart
+          projectTitle="Sprint Beta Normal"
+          projectCode="PRJ-B2"
+          tasks={mockTasks.slice(0, 3)}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Standard Density (32px row)</h4>
+        <GanttChart
+          projectTitle="Sprint Gamma Standard"
+          projectCode="PRJ-C3"
+          tasks={mockTasks.slice(0, 3)}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Comfortable Density (40px row)</h4>
+        <GanttChart
+          projectTitle="Sprint Delta Executive"
+          projectCode="PRJ-D4"
+          tasks={mockTasks.slice(0, 3)}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const AnatomyAndComposition: Story = {

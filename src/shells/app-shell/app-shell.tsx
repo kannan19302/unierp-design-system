@@ -22,6 +22,7 @@ import {
 import { Breadcrumb, type BreadcrumbItem } from "../../navigation/breadcrumb";
 import { BrandMark } from "../../primitives/brand-mark";
 import { ThemeQuickToggle } from "../../foundation/theme/theme-quick-toggle";
+import { cva } from "../../foundation/utils/cva";
 
 import styles from "./app-shell.module.css";
 
@@ -125,8 +126,31 @@ export interface PlatformShellProps {
 
   onSignOut?: () => void;
 
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
+
   children: ReactNode;
 }
+
+export const appShellVariants = cva(styles.shellRoot, {
+  variants: {
+    variant: {
+      standard: "",
+      inset: styles.variantInset,
+      floating: styles.variantFloating,
+    },
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    variant: "standard",
+    density: "standard",
+  },
+});
 
 /**
  * `<PlatformShell>` — The shared navigation and workspace frame across all UniERP platforms.
@@ -134,6 +158,7 @@ export interface PlatformShellProps {
  */
 export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
   variant = "standard",
+  density = "standard",
   platformName,
   platformIcon,
   accentColor = "var(--color-primary)",
@@ -165,18 +190,12 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
   const mainId = useId();
   const sidebarId = useId();
 
-  const rootClass = [
-    styles.shellRoot,
-    variant === "inset" && styles.variantInset,
-    variant === "floating" && styles.variantFloating,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <div
       ref={ref}
-      className={rootClass}
+      data-slot="app-shell"
+      data-density={density}
+      className={appShellVariants({ variant, density })}
       data-variant={variant}
       style={
         {
@@ -184,20 +203,19 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
         } as CSSProperties
       }
     >
-      <a href={`#${mainId}`} className={styles.skipLink}>
+      <a href={`#${mainId}`} data-slot="app-shell-skip-link" className={styles.skipLink}>
         Skip to main content
       </a>
 
       {bannerSlot}
 
       <header
+        data-slot="app-shell-header"
         className={styles.header}
         style={{
           display: "flex",
           alignItems: "center",
           gap: "var(--space-4)",
-          blockSize: "var(--header-height)",
-          paddingBlock: 0,
           paddingInline: "var(--space-4)",
           borderBlockEnd: "1px solid var(--color-border)",
           background: "var(--color-bg-elevated)",
@@ -258,7 +276,7 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
 
         {searchSlot}
 
-        <div style={{ flex: 1 }} />
+        <div className={styles.headerSpacer} style={{ flex: 1 }} />
 
         {headerActions}
 
@@ -377,6 +395,7 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
         {sidebar && (
           <div
             id={sidebarId}
+            data-slot="app-shell-sidebar"
             className={`unierp-shell-sidebar ${styles.sidebarContainer}`}
             data-open={sidebarOpen}
           >
@@ -388,6 +407,7 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
         )}
         <main
           id={mainId}
+          data-slot="app-shell-main"
           tabIndex={-1}
           className={styles.mainArea}
         >
@@ -449,7 +469,7 @@ const TenantMenu: FC<{
 }> = ({ tenants, current, onSelect, onClose }) => {
   const ref = useCloseOnOutsideInteraction(onClose);
   return (
-    <div ref={ref} role="menu" style={menuPanelStyle}>
+    <div ref={ref} role="menu" data-slot="app-shell-tenant-menu" style={menuPanelStyle}>
       {tenants.map((t: ShellTenant) => (
         <button
           key={t.id}
@@ -486,7 +506,7 @@ const UserMenu: FC<{
 }> = ({ user, accountCenterUrl, userMenuActions, onSignOut, onClose }) => {
   const ref = useCloseOnOutsideInteraction(onClose);
   return (
-    <div ref={ref} role="menu" style={menuPanelStyle}>
+    <div ref={ref} role="menu" data-slot="app-shell-user-menu" style={menuPanelStyle}>
       <div
         style={{
           paddingBlock: "var(--space-2)",
@@ -562,3 +582,7 @@ const UserMenu: FC<{
 };
 
 export { Search };
+
+// Directory-level alias
+export const AppShell = PlatformShell;
+export type AppShellProps = PlatformShellProps;

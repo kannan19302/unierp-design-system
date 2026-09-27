@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { BulletChart } from "./bullet-chart";
 
@@ -7,7 +8,24 @@ const meta: Meta<typeof BulletChart> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    a11y: { test: "todo" },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    label: {
+      control: "text",
+    },
+    actual: {
+      control: "number",
+    },
+    target: {
+      control: "number",
+    },
+    unit: {
+      control: "text",
+    },
   },
 };
 
@@ -15,9 +33,10 @@ export default meta;
 type Story = StoryObj<typeof BulletChart>;
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <div style={{ inlineSize: "500px", padding: "var(--space-4)" }}>
       <BulletChart
+        {...args}
         label="Revenue"
         actual={275}
         target={300}
@@ -26,6 +45,9 @@ export const Default: Story = {
       />
     </div>
   ),
+  args: {
+    density: "standard",
+  },
 };
 
 export const AnatomyAndComposition: Story = {
@@ -42,28 +64,61 @@ export const AnatomyAndComposition: Story = {
   ),
 };
 
-export const AllStatesGallery: Story = {
+export const DensityGallery: Story = {
   render: () => (
     <div style={{ inlineSize: "520px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
-      <BulletChart
-        label="Revenue"
-        actual={275}
-        target={300}
-        ranges={[150, 225, 350]}
-        unit="K"
-      />
-      <BulletChart
-        label="Customer Satisfaction"
-        actual={4.2}
-        target={4.5}
-        ranges={[3, 4, 5]}
-      />
-      <BulletChart
-        label="New Clients Onboarded"
-        actual={85}
-        target={100}
-        ranges={[50, 75, 120]}
-      />
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Ultra-Compact Density (24px target)
+        </h4>
+        <BulletChart
+          density="ultra-compact"
+          label="Revenue (Ultra-Compact)"
+          actual={275}
+          target={300}
+          ranges={[150, 225, 350]}
+          unit="K"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Compact Density (28px target)
+        </h4>
+        <BulletChart
+          density="compact"
+          label="Revenue (Compact)"
+          actual={275}
+          target={300}
+          ranges={[150, 225, 350]}
+          unit="K"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Standard Density (32px target)
+        </h4>
+        <BulletChart
+          density="standard"
+          label="Revenue (Standard)"
+          actual={275}
+          target={300}
+          ranges={[150, 225, 350]}
+          unit="K"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Comfortable Density (40px target)
+        </h4>
+        <BulletChart
+          density="comfortable"
+          label="Revenue (Comfortable)"
+          actual={275}
+          target={300}
+          ranges={[150, 225, 350]}
+          unit="K"
+        />
+      </div>
     </div>
   ),
 };

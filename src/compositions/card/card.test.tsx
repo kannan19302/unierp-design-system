@@ -12,7 +12,7 @@ import {
   cardVariants,
 } from "./card";
 
-describe("Card Primitive", () => {
+describe("Card Component", () => {
   it("forwards ref to card container", () => {
     const ref = createRef<HTMLDivElement>();
     render(<Card ref={ref}>Ref Card</Card>);
@@ -53,10 +53,20 @@ describe("Card Primitive", () => {
     expect(document.querySelector("[data-slot='card-footer']")).toBeInTheDocument();
   });
 
+  it("supports strict 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(<Card density={density}>Content</Card>);
+      const card = container.querySelector('[data-slot="card"]');
+      expect(card).toHaveAttribute("data-density", density);
+    });
+  });
+
   it("generates correct class names via cardVariants cva helper", () => {
-    const classes = cardVariants({ padding: "lg", hover: true });
+    const classes = cardVariants({ padding: "lg", hover: true, density: "compact" });
     expect(classes).toContain("p_lg");
     expect(classes).toContain("hoverable");
+    expect(classes).toContain("densityCompact");
   });
 
   it("has zero accessibility violations", async () => {

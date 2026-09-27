@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SpreadsheetGrid } from "./data-grid";
+import { SpreadsheetGrid, DataGrid } from "./data-grid";
 
 const mockBudgetColumns = ["Account Code", "Description", "Q1 FY26", "Q2 FY26", "Q3 FY26", "Q4 FY26", "Total FY26"];
 
@@ -19,6 +19,25 @@ const meta: Meta<typeof SpreadsheetGrid> = {
   parameters: {
     layout: "padded",
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling for high-throughput data entry.",
+    },
+    ariaLabel: {
+      control: "text",
+      description: "Accessible ARIA label for screen readers navigating the grid.",
+    },
+    rowCount: {
+      control: "number",
+      description: "Fallback row count if initialData is not supplied.",
+    },
+    colCount: {
+      control: "number",
+      description: "Fallback column count if columns is not supplied.",
+    },
+  },
 };
 
 export default meta;
@@ -36,6 +55,57 @@ export const AnatomyAndComposition: Story = {
   args: {
     ...BudgetForecasting.args,
   },
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Ultra-Compact (24px cells)</h4>
+        <DataGrid
+          columns={["Code", "Item", "Q1", "Q2", "Q3", "Q4"]}
+          initialData={[
+            ["A1", "Item One", "10", "20", "30", "40"],
+            ["A2", "Item Two", "15", "25", "35", "45"],
+          ]}
+          density="ultra-compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Compact (28px cells)</h4>
+        <DataGrid
+          columns={["Code", "Item", "Q1", "Q2", "Q3", "Q4"]}
+          initialData={[
+            ["B1", "Component A", "100", "200", "300", "400"],
+            ["B2", "Component B", "150", "250", "350", "450"],
+          ]}
+          density="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Standard (32px cells)</h4>
+        <DataGrid
+          columns={["Code", "Item", "Q1", "Q2", "Q3", "Q4"]}
+          initialData={[
+            ["C1", "Resource A", "1,000", "2,000", "3,000", "4,000"],
+            ["C2", "Resource B", "1,500", "2,500", "3,500", "4,500"],
+          ]}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Comfortable (40px cells)</h4>
+        <DataGrid
+          columns={["Code", "Item", "Q1", "Q2", "Q3", "Q4"]}
+          initialData={[
+            ["D1", "Module A", "10,000", "20,000", "30,000", "40,000"],
+            ["D2", "Module B", "15,000", "25,000", "35,000", "45,000"],
+          ]}
+          density="comfortable"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const AllStatesGallery: Story = {
@@ -74,17 +144,5 @@ export const GLDistributionMatrix: Story = {
       ["1300-TAX", "Input GST Accrual", "5,000.00", "0.00", "Tax", "PROJ-CORE"],
     ],
     density: "compact",
-  },
-};
-
-export const UltraCompactDensity: Story = {
-  args: {
-    columns: ["Code", "Name", "Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    initialData: [
-      ["A1", "Item One", "10", "20", "30", "40", "50", "60"],
-      ["A2", "Item Two", "15", "25", "35", "45", "55", "65"],
-      ["A3", "Item Three", "12", "22", "32", "42", "52", "62"],
-    ],
-    density: "ultra-compact",
   },
 };

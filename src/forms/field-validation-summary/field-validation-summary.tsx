@@ -1,56 +1,92 @@
 "use client";
 
-import React from "react";
+import { forwardRef, type HTMLAttributes } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./field-validation-summary.module.css";
 
-export interface FieldValidationSummaryProps { errors: ValidationError[]; onErrorClick?: (fieldKey: string) => void; }
-export interface ValidationError { fieldKey: string; fieldLabel: string; message: string; }
+export interface ValidationError {
+  fieldKey: string;
+  fieldLabel: string;
+  message: string;
+}
 
-export const FieldValidationSummary = React.forwardRef<
+export const fieldValidationSummaryVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export type FieldValidationSummaryDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export interface FieldValidationSummaryProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof fieldValidationSummaryVariants> {
+  errors: ValidationError[];
+  onErrorClick?: (fieldKey: string) => void;
+  density?: FieldValidationSummaryDensity;
+  className?: string;
+}
+
+export const FieldValidationSummary = forwardRef<
   HTMLDivElement,
   FieldValidationSummaryProps
->((props, ref) => {
-  const { errors, onErrorClick } = props;
-  if (errors.length === 0) return null;
-  return (
-    <div
-      ref={ref}
-      className={styles.container}
-      role="alert"
-      aria-label="Validation errors"
-      style={{
-        borderColor: "var(--color-error, #ef4444)",
-        background: "var(--color-error-subtle, #fef2f2)",
-      }}
-    >
-      <h4
-        style={{
-          margin: "0 0 var(--space-2)",
-          color: "var(--color-error)",
-          fontSize: "var(--text-sm)",
-        }}
+>(
+  (
+    {
+      errors,
+      onErrorClick,
+      density = "standard",
+      className = "",
+      ...restProps
+    },
+    ref
+  ) => {
+    if (errors.length === 0) return null;
+
+    return (
+      <div
+        ref={ref}
+        data-slot="field-validation-summary"
+        data-density={density}
+        className={fieldValidationSummaryVariants({ density, className })}
+        role="alert"
+        aria-label="Validation errors"
+        {...restProps}
       >
-        ⚠ {errors.length} validation error{errors.length > 1 ? "s" : ""}
-      </h4>
-      <ul style={{ margin: 0, paddingLeft: "var(--space-4)", listStyle: "none" }}>
-        {errors.map((err, i) => (
-          <li
-            key={i}
-            style={{ padding: "var(--space-1) 0", fontSize: "var(--text-sm)" }}
-          >
-            <button
-              type="button"
-              onClick={() => onErrorClick?.(err.fieldKey)}
-              className={styles.errorLink}
-            >
-              {err.fieldLabel}
-            </button>
-            : {err.message}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-});
+        <h4 className={styles.title} data-slot="field-validation-summary-title">
+          <span aria-hidden="true">⚠</span>
+          <span>
+            {errors.length} validation error{errors.length > 1 ? "s" : ""}
+          </span>
+        </h4>
+        <ul className={styles.list} data-slot="field-validation-summary-list">
+          {errors.map((err, i) => (
+            <li key={i} className={styles.item} data-slot="field-validation-summary-item">
+              <button
+                type="button"
+                onClick={() => onErrorClick?.(err.fieldKey)}
+                className={styles.errorLink}
+                data-slot="field-validation-summary-link"
+              >
+                {err.fieldLabel}
+              </button>
+              <span className={styles.errorMessage} data-slot="field-validation-summary-message">
+                : {err.message}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+);
 
 FieldValidationSummary.displayName = "FieldValidationSummary";

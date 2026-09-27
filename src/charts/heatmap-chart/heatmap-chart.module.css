@@ -3,13 +3,35 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  width: 100%;
+  inline-size: 100%;
   background: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   padding: var(--space-4);
   font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* Densities */
+.densityUltraCompact {
+  padding: var(--space-2);
+  gap: var(--space-2);
+}
+
+.densityCompact {
+  padding: var(--space-3);
+  gap: var(--space-3);
+}
+
+.densityStandard {
+  padding: var(--space-4);
+  gap: var(--space-4);
+}
+
+.densityComfortable {
+  padding: var(--space-5);
+  gap: var(--space-5);
 }
 
 /* Header */
@@ -19,8 +41,8 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-3);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-border);
+  padding-block-end: var(--space-3);
+  border-block-end: 1px solid var(--color-border);
 }
 
 .titleGroup {
@@ -32,7 +54,8 @@
 .heatBadge {
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
-  padding: var(--space-0-5) var(--space-1-5);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1-5);
   background: var(--color-brand);
   color: var(--color-text-inverse, #ffffff);
   border-radius: var(--radius-xs);
@@ -53,7 +76,8 @@
   color: var(--color-brand);
   background: var(--color-brand-subtle);
   border-radius: var(--radius-full);
-  padding: var(--space-0-5) var(--space-2);
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-2);
 }
 
 /* Legend */
@@ -72,8 +96,8 @@
 }
 
 .legendDot {
-  width: var(--space-2-5);
-  height: var(--space-2-5);
+  inline-size: var(--space-2-5);
+  block-size: var(--space-2-5);
   border-radius: var(--radius-full);
 }
 
@@ -97,35 +121,38 @@
 /* Table */
 .tableWrapper {
   overflow-x: auto;
+  inline-size: 100%;
 }
 
 .table {
-  width: 100%;
+  inline-size: 100%;
   border-collapse: collapse;
   font-size: var(--text-xs);
 }
 
 .thMember,
 .thRole {
-  text-align: left;
-  padding: var(--space-2);
+  text-align: start;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
   color: var(--color-text-muted);
   font-weight: var(--weight-semibold);
-  border-bottom: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
   white-space: nowrap;
 }
 
 .thPeriod {
   text-align: center;
-  padding: var(--space-2);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
   color: var(--color-text-muted);
   font-weight: var(--weight-semibold);
-  border-bottom: 1px solid var(--color-border);
-  min-width: var(--space-28);
+  border-block-end: 1px solid var(--color-border);
+  min-inline-size: var(--space-28);
 }
 
 .tr {
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-block-end: 1px solid var(--color-border-subtle);
 }
 
 .tr:hover {
@@ -133,8 +160,19 @@
 }
 
 .td {
-  padding: var(--space-1-5) var(--space-2);
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-2);
   vertical-align: middle;
+}
+
+.densityUltraCompact .td {
+  padding-block: var(--space-0-5);
+  padding-inline: var(--space-1);
+}
+
+.densityComfortable .td {
+  padding-block: var(--space-2-5);
+  padding-inline: var(--space-3);
 }
 
 .tdMember {
@@ -148,8 +186,8 @@
 }
 
 .avatar {
-  width: var(--space-6);
-  height: var(--space-6);
+  inline-size: var(--space-6);
+  block-size: var(--space-6);
   border-radius: var(--radius-full);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -159,11 +197,12 @@
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   color: var(--color-text-primary);
+  flex-shrink: 0;
 }
 
 .avatarImg {
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   border-radius: var(--radius-full);
   object-fit: cover;
 }
@@ -183,7 +222,8 @@
 }
 
 .tdHeat {
-  padding: var(--space-1);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1);
 }
 
 .tdHeatEmpty {
@@ -193,18 +233,21 @@
 
 /* Heatmap Button Cell */
 .heatCellBtn {
-  width: 100%;
+  inline-size: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-0-5);
-  padding: var(--space-1) var(--space-1-5);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1-5);
   border: 1px solid transparent;
   border-radius: var(--radius-xs);
   cursor: pointer;
   font-family: var(--font-mono);
   transition: all var(--duration-fast, 150ms) ease;
   outline: none;
+  background: var(--color-surface-subtle);
+  color: var(--color-text-primary);
 }
 
 .heatCellBtn:hover {
@@ -255,7 +298,7 @@
 /* Tfoot */
 .tfootRow {
   background: var(--color-surface-subtle);
-  border-top: 2px solid var(--color-border);
+  border-block-start: 2px solid var(--color-border);
   font-weight: var(--weight-bold);
 }
 
@@ -289,7 +332,8 @@
 
 /* Drill-down Drawer */
 .drilldownCard {
-  padding: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -303,8 +347,8 @@
   align-items: center;
   justify-content: space-between;
   font-size: var(--text-xs);
-  border-bottom: 1px solid var(--color-border-subtle);
-  padding-bottom: var(--space-1-5);
+  border-block-end: 1px solid var(--color-border-subtle);
+  padding-block-end: var(--space-1-5);
 }
 
 .drilldownTitle {
@@ -320,8 +364,10 @@
 
 .taskList {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
@@ -332,7 +378,8 @@
   align-items: center;
   justify-content: space-between;
   font-size: var(--text-xs);
-  padding: var(--space-1) var(--space-1-5);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1-5);
   background: var(--color-surface-elevated);
   border-radius: var(--radius-xs);
 }
@@ -345,7 +392,8 @@
 
 .taskProject {
   color: var(--color-text-muted);
-  margin: 0 var(--space-2);
+  margin-block: 0;
+  margin-inline: var(--space-2);
 }
 
 .taskHours {
@@ -355,7 +403,8 @@
 }
 
 .noTasks {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   font-style: italic;

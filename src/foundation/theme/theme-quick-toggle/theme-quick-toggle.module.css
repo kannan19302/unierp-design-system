@@ -2,8 +2,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: var(--space-8, 32px);
-  width: var(--space-8, 32px);
+  block-size: var(--space-8, 32px);
+  inline-size: var(--space-8, 32px);
   padding: 0;
   background: var(--color-surface-subtle);
   border: 1px solid var(--color-border-default);
@@ -20,4 +20,25 @@
 .toggleBtn:focus-visible {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
+}
+
+/* 4-tier density scaling */
+.densityUltraCompact {
+  block-size: 24px;
+  inline-size: 24px;
+}
+
+.densityCompact {
+  block-size: 28px;
+  inline-size: 28px;
+}
+
+.densityStandard {
+  block-size: 32px;
+  inline-size: 32px;
+}
+
+.densityComfortable {
+  block-size: 40px;
+  inline-size: 40px;
 }

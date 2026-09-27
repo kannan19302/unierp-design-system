@@ -2,7 +2,7 @@ import React from "react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
-import { ErrorBoundary } from "./error-boundary";
+import { ErrorBoundary, errorBoundaryVariants } from "./error-boundary";
 
 function Thrower({ shouldThrow }: { shouldThrow: boolean }) {
   if (shouldThrow) {
@@ -31,7 +31,7 @@ describe("ErrorBoundary Component", () => {
     expect(screen.getByText("Safe Content")).toBeInTheDocument();
   });
 
-  it("catches render errors and renders fallback card", () => {
+  it("catches render errors and renders fallback card with data-slot attributes", () => {
     const onError = vi.fn();
     render(
       <ErrorBoundary onError={onError}>
@@ -39,8 +39,13 @@ describe("ErrorBoundary Component", () => {
       </ErrorBoundary>,
     );
 
-    expect(screen.getByRole("alert")).toBeInTheDocument();
+    const alert = screen.getByRole("alert");
+    expect(alert).toBeInTheDocument();
+    expect(alert).toHaveAttribute("data-slot", "error-boundary");
+    expect(alert).toHaveAttribute("data-variant", "card");
     expect(screen.getByText("Something went wrong")).toBeInTheDocument();
+    expect(document.querySelector("[data-slot='error-boundary-header']")).toBeInTheDocument();
+    expect(document.querySelector("[data-slot='error-boundary-retry']")).toBeInTheDocument();
     expect(onError).toHaveBeenCalled();
   });
 
@@ -66,6 +71,12 @@ describe("ErrorBoundary Component", () => {
 
     fireEvent.click(toggleBtn);
     expect(screen.getByText(/test explosion/i)).toBeInTheDocument();
+    expect(document.querySelector("[data-slot='error-boundary-trace']")).toBeInTheDocument();
+  });
+
+  it("generates correct classes via errorBoundaryVariants cva helper", () => {
+    const classes = errorBoundaryVariants({ variant: "inline" });
+    expect(classes).toContain("inline");
   });
 
   it("has zero accessibility violations in healthy state", async () => {

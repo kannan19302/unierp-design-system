@@ -20,6 +20,10 @@ const meta: Meta<typeof Toast> = {
       control: "select",
       options: ["success", "error", "warning", "info"],
     },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
   },
 };
 
@@ -73,13 +77,14 @@ export const AnatomyAndComposition: Story = {
     variant: "success",
     title: "Transaction Approved",
     description: "Voucher JE-2026-089 committed to general ledger.",
+    density: "standard",
   },
 };
 
 export const AllStatesGallery: Story = {
   name: "All States Gallery",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", width: "360px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", inlineSize: "360px" }}>
       <Toast
         variant="success"
         title="Operation Successful"
@@ -103,4 +108,3 @@ export const AllStatesGallery: Story = {
     </div>
   ),
 };
-

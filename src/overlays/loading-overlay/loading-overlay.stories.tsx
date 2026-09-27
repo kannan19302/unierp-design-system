@@ -12,6 +12,18 @@ const meta: Meta<typeof LoadingOverlay> = {
       },
     },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    blur: {
+      control: "boolean",
+    },
+    visible: {
+      control: "boolean",
+    },
+  },
 };
 
 export default meta;
@@ -21,14 +33,15 @@ export const Default: Story = {
   args: {
     visible: true,
     message: "Calculating general ledger reconciliation...",
+    density: "standard",
   },
   decorators: [
     (Story) => (
       <div
         style={{
           position: "relative",
-          width: 400,
-          height: 240,
+          inlineSize: 400,
+          blockSize: 240,
           border: "1px solid var(--color-border)",
           padding: "var(--space-4)",
           fontFamily: "var(--font-sans)",
@@ -46,16 +59,16 @@ export const AnatomyAndComposition: Story = {
     <div
       style={{
         position: "relative",
-        width: "100%",
-        maxWidth: 500,
-        height: 260,
+        inlineSize: "100%",
+        maxInlineSize: 500,
+        blockSize: 260,
         border: "1px solid var(--color-border)",
         borderRadius: "var(--radius-md)",
         padding: "var(--space-4)",
         fontFamily: "var(--font-sans)",
       }}
     >
-      <h4 style={{ margin: "0 0 var(--space-2) 0", color: "var(--color-text-primary)" }}>
+      <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", color: "var(--color-text-primary)" }}>
         Enterprise Financial Migration
       </h4>
       <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
@@ -75,25 +88,25 @@ export const AllStatesGallery: Story = {
       <div
         style={{
           position: "relative",
-          height: 200,
+          blockSize: 200,
           border: "1px solid var(--color-border)",
           borderRadius: "var(--radius-sm)",
           padding: "var(--space-3)",
         }}
       >
-        <h5 style={{ margin: "0 0 var(--space-2) 0", color: "var(--color-text-primary)" }}>Standard Blur</h5>
+        <h5 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", color: "var(--color-text-primary)" }}>Standard Blur</h5>
         <LoadingOverlay visible={true} blur={true} message="Exporting dataset..." />
       </div>
       <div
         style={{
           position: "relative",
-          height: 200,
+          blockSize: 200,
           border: "1px solid var(--color-border)",
           borderRadius: "var(--radius-sm)",
           padding: "var(--space-3)",
         }}
       >
-        <h5 style={{ margin: "0 0 var(--space-2) 0", color: "var(--color-text-primary)" }}>Clear Overlay (No Blur)</h5>
+        <h5 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", color: "var(--color-text-primary)" }}>Clear Overlay (No Blur)</h5>
         <LoadingOverlay visible={true} blur={false} message="Saving changes..." />
       </div>
     </div>

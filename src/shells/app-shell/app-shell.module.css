@@ -25,8 +25,27 @@
   min-block-size: 100dvh;
 }
 
+/* Densities */
+.densityUltraCompact {
+  --header-height: 40px;
+}
+
+.densityCompact {
+  --header-height: 44px;
+}
+
+.densityStandard {
+  --header-height: 48px;
+}
+
+.densityComfortable {
+  --header-height: 56px;
+}
+
 .header {
   min-inline-size: 0;
+  min-block-size: var(--header-height);
+  padding-block: 0;
   overflow-x: auto;
 }
 
@@ -100,6 +119,12 @@
 }
 
 @media (max-width: 767px) {
+  .header {
+    flex-wrap: wrap;
+    padding-block: var(--space-2);
+    overflow: visible;
+  }
+  .headerSpacer { display: none; }
   .bodyContainer, .variantInset .bodyContainer, .variantFloating .bodyContainer {
     padding: 0;
     gap: 0;
@@ -107,7 +132,7 @@
   .sidebarContainer {
     position: fixed;
     z-index: 21;
-    inset-block-start: var(--header-height);
+    inset-block-start: 0;
     inset-block-end: 0;
     inset-inline-start: 0;
     inline-size: min(18rem, 85vw);

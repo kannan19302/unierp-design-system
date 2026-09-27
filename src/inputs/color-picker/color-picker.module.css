@@ -22,7 +22,7 @@
   gap: var(--space-2);
   padding-block: 0;
   padding-inline: var(--space-2);
-  height: var(--density-control-height-md, 32px);
+  block-size: var(--density-control-height-md, 32px);
   background-color: var(--color-surface);
   border: var(--border-width, 1px) solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -47,32 +47,32 @@
 
 /* 4-Tier Density */
 .wrapper[data-density="ultra-compact"] .triggerButton {
-  height: var(--density-control-height-xs, 24px);
+  block-size: var(--density-control-height-xs, 24px);
   padding-inline: var(--space-1-5, 6px);
   font-size: var(--type-micro);
 }
 
 .wrapper[data-density="compact"] .triggerButton {
-  height: var(--density-control-height-sm, 28px);
+  block-size: var(--density-control-height-sm, 28px);
   padding-inline: var(--space-2);
   font-size: var(--type-caption);
 }
 
 .wrapper[data-density="standard"] .triggerButton {
-  height: var(--density-control-height-md, 32px);
+  block-size: var(--density-control-height-md, 32px);
   padding-inline: var(--space-2);
   font-size: var(--type-caption);
 }
 
 .wrapper[data-density="comfortable"] .triggerButton {
-  height: var(--density-control-height-lg, 40px);
+  block-size: var(--density-control-height-lg, 40px);
   padding-inline: var(--space-3);
   font-size: var(--type-body-sm);
 }
 
 .colorSwatch {
-  width: var(--space-4, 16px);
-  height: var(--space-4, 16px);
+  inline-size: var(--space-4, 16px);
+  block-size: var(--space-4, 16px);
   border-radius: var(--radius-xs, 2px);
   border: var(--border-width, 1px) solid rgb(0 0 0 / 0.15);
   flex-shrink: 0;
@@ -108,7 +108,7 @@
 /* Popover Panel */
 .popover {
   position: absolute;
-  top: 100%;
+  inset-block-start: 100%;
   inset-inline-start: 0;
   margin-block-start: var(--space-1);
   padding: var(--space-3);
@@ -120,7 +120,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  min-width: var(--workbench-nav-width, 220px);
+  min-inline-size: var(--workbench-nav-width, 220px);
   animation: var(--transition-scale, scale-in 100ms ease);
 }
 
@@ -131,8 +131,8 @@
 }
 
 .presetBtn {
-  width: var(--space-6, 24px);
-  height: var(--space-6, 24px);
+  inline-size: var(--space-6, 24px);
+  block-size: var(--space-6, 24px);
   border-radius: var(--radius-sm);
   border: var(--border-width, 1px) solid rgb(0 0 0 / 0.15);
   cursor: pointer;
@@ -172,7 +172,7 @@
 
 .hexInput {
   flex: 1;
-  height: var(--density-control-height-sm, 28px);
+  block-size: var(--density-control-height-sm, 28px);
   padding-block: 0;
   padding-inline: var(--space-2);
   border: var(--border-width, 1px) solid var(--color-border);
@@ -189,8 +189,8 @@
 }
 
 .nativePicker {
-  width: var(--density-control-height-sm, 28px);
-  height: var(--density-control-height-sm, 28px);
+  inline-size: var(--density-control-height-sm, 28px);
+  block-size: var(--density-control-height-sm, 28px);
   padding: 0;
   border: var(--border-width, 1px) solid var(--color-border);
   border-radius: var(--radius-sm);

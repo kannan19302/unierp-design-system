@@ -4,8 +4,8 @@
 
 .skeleton {
   display: block;
-  width: var(--skeleton-w, 100%);
-  height: var(--skeleton-h, 16px);
+  inline-size: var(--skeleton-w, 100%);
+  block-size: var(--skeleton-h, 16px);
   border-radius: var(--skeleton-r, var(--radius-md, 6px));
   background: linear-gradient(
     90deg,
@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2, 8px);
-  width: 100%;
+  inline-size: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -86,7 +86,45 @@ describe("ListPageTemplate", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("annotates slots with data-slot attributes", () => {
+    const { container } = render(
+      <ListPageTemplate
+        title="Users"
+        columns={columns}
+        data={data}
+        searchable
+        filters={[{ key: "role", label: "Role", options: [{ label: "Admin", value: "Admin" }] }]}
+        pagination={{ page: 1, pageSize: 10, total: 2, onPageChange: () => {} }}
+      />,
+    );
+    expect(container.querySelector('[data-slot="list-page"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="list-page-toolbar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="list-page-search-wrap"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="list-page-search-input"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="list-page-filter-select"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="list-page-table-card"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="list-page-table"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="list-page-th"]')).toHaveLength(2);
+    expect(container.querySelectorAll('[data-slot="list-page-td"]')).toHaveLength(4);
+    expect(container.querySelector('[data-slot="list-page-pagination"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="list-page-pagination-actions"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(
+      <ListPageTemplate title="Users" columns={columns} data={data} density="compact" />,
+    );
+    const root = container.querySelector('[data-slot="list-page"]');
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(root?.className).toContain("density_compact");
+
+    rerender(<ListPageTemplate title="Users" columns={columns} data={data} density="ultra-compact" />);
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+    expect(root?.className).toContain("density_ultra_compact");
+  });
 });
+
 
 describe("DetailPageTemplate", () => {
   const tabs = [

@@ -1,9 +1,29 @@
 "use client";
 
 import React, { forwardRef, type FC, useState as _useChartState } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./chart.module.css";
 
-export interface ChartsProps extends React.HTMLAttributes<HTMLDivElement> {
+export const chartsVariants = cva(styles.chartContainer, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export type ChartsDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export interface ChartsProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof chartsVariants> {
+  density?: ChartsDensity;
   children?: React.ReactNode;
 }
 
@@ -13,10 +33,12 @@ export interface ChartsProps extends React.HTMLAttributes<HTMLDivElement> {
  * @maturity stable
  */
 export const Charts = forwardRef<HTMLDivElement, ChartsProps>(
-  ({ className = "", children, ...rest }, ref) => (
+  ({ className = "", density = "standard", children, ...rest }, ref) => (
     <div
       ref={ref}
-      className={`${styles.chartContainer} ${className}`.trim()}
+      data-slot="chart-container"
+      data-density={density}
+      className={chartsVariants({ density, className })}
       {...rest}
     >
       {children}
@@ -28,7 +50,7 @@ Charts.displayName = "Charts";
 
 // ── Chart colour palette — uses CSS token vars from tokens/charts.css ────────
 // B10: No chart hardcodes a colour. All series reference the --chart-N scale.
-//   Themes override --chart-N to ensure contrast in light and dark.
+// Themes override --chart-N to ensure contrast in light and dark.
 export const CHART_PALETTE = [
   "var(--chart-1)",
   "var(--chart-2)",
@@ -44,7 +66,7 @@ export const CHART_PALETTE = [
 
 // ── ChartAccessibleWrapper ─────────────────────────────────────────────────
 // B10: Every chart is keyboard-navigable with a data-table fallback.
-//   Screen readers read the aria-label. Keyboard users can toggle a table.
+// Screen readers read the aria-label. Keyboard users can toggle a table.
 export interface ChartAccessibleWrapperProps {
   /** Accessible description of what the chart shows. */
   label: string;
@@ -64,12 +86,11 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
     <figure
       role="figure"
       aria-label={label}
-      style={{ margin: 0 }}
+      data-slot="chart-accessible-wrapper"
+      style={{ marginBlock: 0, marginInline: 0 }}
     >
       {/* Chart visual */}
-      <div aria-hidden={showTable}>
-        {children}
-      </div>
+      <div aria-hidden={showTable}>{children}</div>
       {tableData && (
         <>
           <button
@@ -81,9 +102,10 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
               background: "none",
               border: "none",
               cursor: "pointer",
-              padding: "var(--space-1) 0",
+              paddingBlock: "var(--space-1)",
+              paddingInline: 0,
               display: "block",
-              marginTop: "var(--space-1)",
+              marginBlockStart: "var(--space-1)",
             }}
             aria-expanded={showTable}
             aria-controls="chart-data-table"
@@ -93,12 +115,25 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
           {showTable && (
             <table
               id="chart-data-table"
-              style={{ borderCollapse: "collapse", fontSize: "var(--text-xs)", marginTop: "var(--space-2)" }}
+              style={{
+                borderCollapse: "collapse",
+                fontSize: "var(--text-xs)",
+                marginBlockStart: "var(--space-2)",
+              }}
             >
               <thead>
                 <tr>
                   {tableData.columns.map((col: any, i: any) => (
-                    <th key={i} scope="col" style={{ padding: "var(--space-1) var(--space-2)", borderBottom: "1px solid var(--color-border)", textAlign: "left" }}>
+                    <th
+                      key={i}
+                      scope="col"
+                      style={{
+                        paddingBlock: "var(--space-1)",
+                        paddingInline: "var(--space-2)",
+                        borderBlockEnd: "1px solid var(--color-border)",
+                        textAlign: "start",
+                      }}
+                    >
                       {col}
                     </th>
                   ))}
@@ -108,7 +143,14 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
                 {tableData.rows.map((row: any, ri: any) => (
                   <tr key={ri}>
                     {row.map((cell: any, ci: any) => (
-                      <td key={ci} style={{ padding: "var(--space-1) var(--space-2)", borderBottom: "1px solid var(--color-border)" }}>
+                      <td
+                        key={ci}
+                        style={{
+                          paddingBlock: "var(--space-1)",
+                          paddingInline: "var(--space-2)",
+                          borderBlockEnd: "1px solid var(--color-border)",
+                        }}
+                      >
                         {cell}
                       </td>
                     ))}
@@ -122,7 +164,6 @@ export const ChartAccessibleWrapper: FC<ChartAccessibleWrapperProps> = ({
     </figure>
   );
 };
-
 
 export interface KPICardProps {
   title: string;
@@ -146,8 +187,10 @@ export const KPICard: React.FC<KPICardProps> = ({
   onClick,
 }: any) => (
   <div
+    data-slot="chart-kpi-card"
     style={{
-      padding: "var(--space-5)",
+      paddingBlock: "var(--space-5)",
+      paddingInline: "var(--space-5)",
       borderRadius: "var(--radius-lg)",
       border: "1px solid var(--color-border)",
       background: "var(--color-bg-elevated)",
@@ -172,7 +215,8 @@ export const KPICard: React.FC<KPICardProps> = ({
       <div style={{ flex: 1 }}>
         <p
           style={{
-            margin: 0,
+            marginBlock: 0,
+            marginInline: 0,
             fontSize: "var(--text-xs)",
             fontWeight: "var(--weight-medium)",
             color: "var(--color-text-secondary)",
@@ -185,9 +229,9 @@ export const KPICard: React.FC<KPICardProps> = ({
         {loading ? (
           <div
             style={{
-              height: 32,
-              width: 80,
-              marginTop: "var(--space-2)",
+              blockSize: 32,
+              inlineSize: 80,
+              marginBlockStart: "var(--space-2)",
               background: "var(--color-bg-sunken)",
               borderRadius: "var(--radius-sm)",
               animation: "shimmer 1.5s infinite",
@@ -196,7 +240,9 @@ export const KPICard: React.FC<KPICardProps> = ({
         ) : (
           <p
             style={{
-              margin: "var(--space-2) 0 0",
+              marginBlockStart: "var(--space-2)",
+              marginBlockEnd: 0,
+              marginInline: 0,
               fontSize: "var(--text-2xl)",
               fontWeight: "var(--weight-bold)",
               color: "var(--color-text)",
@@ -211,7 +257,7 @@ export const KPICard: React.FC<KPICardProps> = ({
               display: "flex",
               alignItems: "center",
               gap: "var(--space-1)",
-              marginTop: "var(--space-2)",
+              marginBlockStart: "var(--space-2)",
             }}
           >
             <span
@@ -240,8 +286,8 @@ export const KPICard: React.FC<KPICardProps> = ({
       {icon && (
         <div
           style={{
-            width: 40,
-            height: 40,
+            inlineSize: 40,
+            blockSize: 40,
             borderRadius: "var(--radius-lg)",
             background: `${color}15`,
             display: "flex",
@@ -281,6 +327,7 @@ export const MiniBarChart: React.FC<MiniBarChartProps> = ({
 
   return (
     <div
+      data-slot="chart-mini-bar"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -292,7 +339,7 @@ export const MiniBarChart: React.FC<MiniBarChartProps> = ({
           display: "flex",
           alignItems: "flex-end",
           gap: "var(--space-1)",
-          height,
+          blockSize: height,
         }}
       >
         {data.map((d: any, i: any) => (
@@ -318,13 +365,13 @@ export const MiniBarChart: React.FC<MiniBarChartProps> = ({
             )}
             <div
               style={{
-                width: "100%",
-                maxWidth: 40,
-                height: `${(d.value / maxVal) * 100}%`,
-                minHeight: 2,
+                inlineSize: "100%",
+                maxInlineSize: 40,
+                blockSize: `${(d.value / maxVal) * 100}%`,
+                minBlockSize: 2,
                 background: d.color || "var(--color-primary)",
                 borderRadius: "var(--radius-sm) var(--radius-sm) 0 0",
-                transition: "height var(--duration-normal) var(--ease-default)",
+                transition: "blockSize var(--duration-normal) var(--ease-default)",
               }}
             />
           </div>
@@ -381,7 +428,10 @@ export const MiniDonutChart: React.FC<MiniDonutChartProps> = ({
   let cumulativeOffset = 0;
 
   return (
-    <div style={{ position: "relative", width: size, height: size }}>
+    <div
+      data-slot="chart-mini-donut"
+      style={{ position: "relative", inlineSize: size, blockSize: size }}
+    >
       <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
         {segments.map((seg: any, i: any) => {
           const segLength = (seg.value / total) * circumference;
@@ -430,7 +480,10 @@ export const MiniDonutChart: React.FC<MiniDonutChartProps> = ({
           )}
           {centerLabel && (
             <span
-              style={{ fontSize: "var(--text-micro, 10px)", color: "var(--color-text-secondary)" }}
+              style={{
+                fontSize: "var(--text-micro, 10px)",
+                color: "var(--color-text-secondary)",
+              }}
             >
               {centerLabel}
             </span>
@@ -470,17 +523,19 @@ export const Sparkline: React.FC<SparklineProps> = ({
   const fillD = fill ? `${pathD} L ${width} ${height} L 0 ${height} Z` : "";
 
   return (
-    <svg width={width} height={height} style={{ display: "block" }}>
-      {fill && <path d={fillD} fill={`${color}`} opacity={0.1} />}
-      <path
-        d={pathD}
-        fill="none"
-        stroke={color}
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <div data-slot="chart-sparkline">
+      <svg width={width} height={height} style={{ display: "block" }}>
+        {fill && <path d={fillD} fill={`${color}`} opacity={0.1} />}
+        <path
+          d={pathD}
+          fill="none"
+          stroke={color}
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
   );
 };
 
@@ -490,19 +545,31 @@ export const LineChart: FC<{ data: number[]; labels?: string[]; width?: number; 
   labels: _labels,
   width = 300,
   height = 150,
-}: any) => <Sparkline data={data} width={width} height={height} fill={false} />;
+}: any) => (
+  <div data-slot="chart-line">
+    <Sparkline data={data} width={width} height={height} fill={false} />
+  </div>
+);
 
 export const AreaChart: FC<{ data: number[]; labels?: string[]; width?: number; height?: number }> = ({
   data,
   labels: _labels,
   width = 300,
   height = 150,
-}: any) => <Sparkline data={data} width={width} height={height} fill={true} />;
+}: any) => (
+  <div data-slot="chart-area">
+    <Sparkline data={data} width={width} height={height} fill={true} />
+  </div>
+);
 
-export const GaugeChart: FC<{ value: number; min?: number; max?: number }> = ({ value, min = 0, max = 100 }: any) => {
+export const GaugeChart: FC<{ value: number; min?: number; max?: number }> = ({
+  value,
+  min = 0,
+  max = 100,
+}: any) => {
   const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
   return (
-    <div style={{ textAlign: "center" }}>
+    <div data-slot="chart-gauge" style={{ textAlign: "center" }}>
       <MiniDonutChart
         segments={[
           { label: "Value", value: pct, color: "var(--color-primary)" },
@@ -514,17 +581,54 @@ export const GaugeChart: FC<{ value: number; min?: number; max?: number }> = ({ 
   );
 };
 
-export const FunnelChart: FC<{ stages: { label: string; value: number }[] }> = ({ stages }: any) => {
+export const FunnelChart: FC<{ stages: { label: string; value: number }[] }> = ({
+  stages,
+}: any) => {
   const max = Math.max(...stages.map((s: any) => s.value), 1);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", width: "100%" }}>
+    <div
+      data-slot="chart-funnel"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--space-2)",
+        inlineSize: "100%",
+      }}
+    >
       {stages.map((s: any, idx: any) => (
-        <div key={idx} style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-          <span style={{ width: "var(--chart-label-width, 80px)", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>{s.label}</span>
-          <div style={{ flex: 1, background: "var(--color-bg-sunken)", height: "var(--chart-bar-height, 20px)", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
-            <div style={{ width: `${(s.value / max) * 100}%`, height: "100%", background: "var(--color-primary)" }} />
+        <div
+          key={idx}
+          style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}
+        >
+          <span
+            style={{
+              inlineSize: "var(--chart-label-width, 80px)",
+              fontSize: "var(--text-xs)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
+            {s.label}
+          </span>
+          <div
+            style={{
+              flex: 1,
+              background: "var(--color-bg-sunken)",
+              blockSize: "var(--chart-bar-height, 20px)",
+              borderRadius: "var(--radius-sm)",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                inlineSize: `${(s.value / max) * 100}%`,
+                blockSize: "100%",
+                background: "var(--color-primary)",
+              }}
+            />
           </div>
-          <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>{s.value}</span>
+          <span style={{ fontSize: "var(--text-xs)", fontWeight: 600 }}>
+            {s.value}
+          </span>
         </div>
       ))}
     </div>
@@ -533,7 +637,10 @@ export const FunnelChart: FC<{ stages: { label: string; value: number }[] }> = (
 
 export const HeatmapChart: FC<{ matrix: number[][] }> = ({ matrix }: any) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+    <div
+      data-slot="chart-heatmap"
+      style={{ display: "flex", flexDirection: "column", gap: "2px" }}
+    >
       {matrix.map((row: any, rIdx: any) => (
         <div key={rIdx} style={{ display: "flex", gap: "2px" }}>
           {row.map((val: any, cIdx: any) => (
@@ -542,11 +649,13 @@ export const HeatmapChart: FC<{ matrix: number[][] }> = ({ matrix }: any) => {
               title={String(val)}
               aria-label={`Value ${val}`}
               style={{
-                width: "var(--chart-cell-size, 20px)",
-                height: "var(--chart-cell-size, 20px)",
+                inlineSize: "var(--chart-cell-size, 20px)",
+                blockSize: "var(--chart-cell-size, 20px)",
                 borderRadius: "2px",
                 // B10: no hardcoded colour — use chart-1 token with opacity
-                background: `color-mix(in srgb, var(--chart-1) ${Math.round(Math.min(1, Math.max(0.1, val)) * 100)}%, transparent)`,
+                background: `color-mix(in srgb, var(--chart-1) ${Math.round(
+                  Math.min(1, Math.max(0.1, val)) * 100
+                )}%, transparent)`,
               }}
             />
           ))}

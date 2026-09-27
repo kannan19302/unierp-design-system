@@ -1,13 +1,15 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — Accordion Styles
+   Strict CSS Logical Properties & 4-Tier Density
    ══════════════════════════════════════════════════════════════ */
 
 .accordion {
   border: 1px solid var(--surface-1-border, var(--color-border));
-  border-radius: var(--radius-sm, 2px);
+  border-radius: var(--radius-sm, 4px);
   overflow: hidden;
   font-family: var(--font-sans);
   background: var(--surface-1-bg, var(--color-bg-elevated));
+  box-sizing: border-box;
 }
 
 .item {
@@ -18,10 +20,68 @@
   border-block-end: none;
 }
 
+/* ─── 4-Tier Density ─── */
+.densityUltraCompact .headerBtn {
+  min-block-size: 1.5rem; /* 24px */
+  padding-block: var(--space-1, 4px);
+  padding-inline: var(--space-2, 8px);
+}
+.densityUltraCompact .title {
+  font-size: var(--text-2xs, 10px);
+}
+.densityUltraCompact .content {
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-2, 8px);
+  font-size: var(--text-2xs, 10px);
+}
+
+.densityCompact .headerBtn {
+  min-block-size: 1.75rem; /* 28px */
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-2-5, 10px);
+}
+.densityCompact .title {
+  font-size: var(--text-xs, 12px);
+}
+.densityCompact .content {
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-2-5, 10px);
+  font-size: var(--text-xs, 12px);
+}
+
+.densityStandard .headerBtn {
+  min-block-size: 2rem; /* 32px */
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-3, 12px);
+}
+.densityStandard .title {
+  font-size: var(--text-sm, 14px);
+}
+.densityStandard .content {
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-3, 12px);
+  font-size: var(--text-sm, 14px);
+}
+
+.densityComfortable .headerBtn {
+  min-block-size: 2.5rem; /* 40px */
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-4, 16px);
+}
+.densityComfortable .title {
+  font-size: var(--text-sm, 14px);
+}
+.densityComfortable .content {
+  padding-block: var(--space-4, 16px);
+  padding-inline: var(--space-4, 16px);
+  font-size: var(--text-sm, 14px);
+}
+
+/* ─── Trigger Header Button ─── */
 .headerBtn {
   inline-size: 100%;
-  padding-block: var(--space-2-5);
-  padding-inline: var(--space-3);
+  padding-block: var(--space-2-5, 10px);
+  padding-inline: var(--space-3, 12px);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border: none;
   text-align: start;
@@ -30,7 +90,9 @@
   align-items: center;
   cursor: pointer;
   outline: none;
-  transition: background var(--duration-fast) var(--ease-default);
+  transition: background var(--duration-fast, 150ms) var(--ease-default);
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 .headerBtn:hover {
@@ -43,50 +105,61 @@
 
 .title {
   font-size: var(--type-dense, var(--text-sm));
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-semibold, 600);
   color: var(--surface-text-primary, var(--color-text));
 }
 
 .chevron {
   color: var(--surface-text-secondary, var(--color-text-muted));
   flex-shrink: 0;
+  transition: transform var(--duration-fast, 150ms) var(--ease-default);
 }
 
 .content {
-  padding-block: var(--space-3);
-  padding-inline: var(--space-3);
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-3, 12px);
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
   background: var(--surface-1-bg, var(--color-bg-elevated));
-  line-height: var(--leading-normal);
+  line-height: var(--leading-normal, 1.5);
+  box-sizing: border-box;
 }
 
-/* ── Collapsible ── */
+/* ─── Collapsible ─── */
 .collapsible {
   font-family: var(--font-sans);
+  box-sizing: border-box;
 }
 
 .collapsibleBtn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1-5);
+  gap: var(--space-1-5, 6px);
   background: none;
   border: none;
   padding-block: 0;
   padding-inline: 0;
   cursor: pointer;
   outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.collapsibleBtn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .collapsibleTitle {
   font-size: var(--type-dense, var(--text-sm));
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-semibold, 600);
   color: var(--surface-text-primary, var(--color-text));
 }
 
 .collapsibleContent {
-  margin-block-start: var(--space-2);
-  padding-inline-start: var(--space-4);
+  margin-block-start: var(--space-2, 8px);
+  padding-inline-start: var(--space-4, 16px);
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
+  box-sizing: border-box;
 }

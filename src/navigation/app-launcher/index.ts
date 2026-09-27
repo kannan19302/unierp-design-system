@@ -1,1 +1,7 @@
-export * from "./app-launcher";
+export {
+  AppLauncherWaffleGrid,
+  appLauncherVariants,
+  defaultAppList,
+  type AppLauncherItem,
+  type AppLauncherWaffleGridProps,
+} from "./app-launcher";

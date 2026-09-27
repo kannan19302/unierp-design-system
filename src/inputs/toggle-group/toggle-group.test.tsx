@@ -25,6 +25,22 @@ describe("ToggleGroup Primitive", () => {
     expect(btnA).toHaveAttribute("aria-checked", "false");
   });
 
+  it("exposes data-slot and cva variants", () => {
+    const { container } = render(
+      <ToggleGroup type="single" variant="outline" size="sm" defaultValue="a" aria-label="Choices">
+        <ToggleGroupItem value="a">A</ToggleGroupItem>
+      </ToggleGroup>
+    );
+
+    const group = container.querySelector('[data-slot="toggle-group"]');
+    expect(group).toBeInTheDocument();
+    expect(group).toHaveAttribute("data-variant", "outline");
+    expect(group).toHaveAttribute("data-size", "sm");
+    const item = container.querySelector('[data-slot="toggle-group-item"]');
+    expect(item).toBeInTheDocument();
+    expect(item).toHaveAttribute("data-state", "on");
+  });
+
   it("handles multiple selection toggle", () => {
     const handleChange = vi.fn();
     render(

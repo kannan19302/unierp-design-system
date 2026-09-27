@@ -40,7 +40,7 @@ export type CvaFunction<T extends VariantSchema> = (
  * Class Variance Authority (`cva`) — builds type-safe variant class generators.
  * Compatible with shadcn/ui community standards and CSS Modules.
  */
-export function cva<T extends VariantSchema>(
+export function cva<T extends VariantSchema = Record<never, never>>(
   base?: ClassValue,
   config?: Config<T>,
 ): CvaFunction<T> {

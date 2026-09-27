@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { CandlestickChart } from "./candlestick-chart";
 
@@ -16,7 +17,21 @@ const meta: Meta<typeof CandlestickChart> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    a11y: { test: "todo" },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    height: {
+      control: "number",
+    },
+    bullColor: {
+      control: "color",
+    },
+    bearColor: {
+      control: "color",
+    },
   },
 };
 
@@ -24,11 +39,15 @@ export default meta;
 type Story = StoryObj<typeof CandlestickChart>;
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <div style={{ inlineSize: "500px", padding: "var(--space-4)" }}>
-      <CandlestickChart data={SAMPLE_PRICES} />
+      <CandlestickChart {...args} data={SAMPLE_PRICES} />
     </div>
   ),
+  args: {
+    density: "standard",
+    height: 280,
+  },
 };
 
 export const AnatomyAndComposition: Story = {
@@ -39,20 +58,32 @@ export const AnatomyAndComposition: Story = {
   ),
 };
 
-export const AllStatesGallery: Story = {
+export const DensityGallery: Story = {
   render: () => (
     <div style={{ inlineSize: "540px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
         <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Standard Market Volatility
+          Ultra-Compact Density (24px target)
         </h4>
-        <CandlestickChart data={SAMPLE_PRICES} />
+        <CandlestickChart data={SAMPLE_PRICES.slice(0, 4)} height={160} density="ultra-compact" />
       </div>
       <div>
         <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Compact Height
+          Compact Density (28px target)
         </h4>
-        <CandlestickChart data={SAMPLE_PRICES} height={200} />
+        <CandlestickChart data={SAMPLE_PRICES.slice(0, 4)} height={180} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Standard Density (32px target)
+        </h4>
+        <CandlestickChart data={SAMPLE_PRICES} height={220} density="standard" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Comfortable Density (40px target)
+        </h4>
+        <CandlestickChart data={SAMPLE_PRICES} height={280} density="comfortable" />
       </div>
     </div>
   ),

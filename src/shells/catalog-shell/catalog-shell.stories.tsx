@@ -157,7 +157,7 @@ const RAW_TILES: CatalogTile[] = [
         style={{
           padding: "var(--space-1-5, 6px) var(--space-3)",
           background: "var(--color-primary)",
-          color: "white",
+          color: "var(--color-primary-text)",
           border: "none",
           borderRadius: "var(--radius-md)",
           fontSize: "var(--text-xs)",
@@ -203,7 +203,7 @@ const RAW_TILES: CatalogTile[] = [
         style={{
           padding: "var(--space-1-5, 6px) var(--space-3)",
           background: "var(--color-primary)",
-          color: "white",
+          color: "var(--color-primary-text)",
           border: "none",
           borderRadius: "var(--radius-md)",
           fontSize: "var(--text-xs)",
@@ -292,7 +292,7 @@ const RAW_TILES: CatalogTile[] = [
         style={{
           padding: "var(--space-1-5, 6px) var(--space-3)",
           background: "var(--color-primary)",
-          color: "white",
+          color: "var(--color-primary-text)",
           border: "none",
           borderRadius: "var(--radius-md)",
           fontSize: "var(--text-xs)",
@@ -338,7 +338,7 @@ const RAW_TILES: CatalogTile[] = [
         style={{
           padding: "var(--space-1-5, 6px) var(--space-3)",
           background: "var(--color-primary)",
-          color: "white",
+          color: "var(--color-primary-text)",
           border: "none",
           borderRadius: "var(--radius-md)",
           fontSize: "var(--text-xs)",
@@ -600,7 +600,7 @@ function InteractiveStorefront() {
             style={{
               padding: "var(--space-1-5, 6px) var(--space-3)",
               background: isInstalled ? "var(--color-bg-sunken)" : "var(--color-primary)",
-              color: isInstalled ? "var(--color-text)" : "white",
+              color: isInstalled ? "var(--color-text)" : "var(--color-primary-text)",
               border: isInstalled ? "1px solid var(--color-border)" : "none",
               borderRadius: "var(--radius-md)",
               fontSize: "var(--text-xs)",
@@ -801,7 +801,7 @@ function InteractiveStorefront() {
                 marginTop: "var(--space-2)",
                 padding: "var(--space-2) var(--space-4)",
                 background: "var(--color-primary)",
-                color: "white",
+                color: "var(--color-primary-text)",
                 border: "none",
                 borderRadius: "var(--radius-md)",
                 fontSize: "var(--text-xs)",
@@ -1033,7 +1033,7 @@ export const ProductDetailListing: Story = {
             style={{
               padding: "var(--space-2-5, 10px) var(--space-4)",
               background: "var(--color-primary)",
-              color: "white",
+              color: "var(--color-primary-text)",
               border: "none",
               borderRadius: "var(--radius-md)",
               fontWeight: 700,
@@ -1138,7 +1138,7 @@ export const RtlPreview: Story = {
                   style={{
                     padding: "var(--space-1-5, 6px) var(--space-3)",
                     background: "var(--color-primary)",
-                    color: "white",
+                    color: "var(--color-primary-text)",
                     border: "none",
                     borderRadius: "var(--radius-md)",
                     fontSize: "var(--text-xs)",

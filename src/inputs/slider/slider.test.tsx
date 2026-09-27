@@ -14,16 +14,22 @@ describe("Strata V1 Slider Primitive", () => {
     expect(onChange).toHaveBeenCalledWith(75);
   });
 
-  it("renders formatted value display when showValue is true", () => {
-    render(
+  it("renders formatted value display when showValue is true and exposes data-slot", () => {
+    const { container } = render(
       <Slider
         value={40}
         showValue
+        density="compact"
         valueFormatter={(v) => `${v}%`}
         aria-label="Progress"
       />
     );
     expect(screen.getByText("40%")).toBeInTheDocument();
+    const root = container.querySelector('[data-slot="slider"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(container.querySelector('[data-slot="slider-input"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="slider-value"]')).toBeInTheDocument();
   });
 
   it("respects min, max, and step attributes", () => {

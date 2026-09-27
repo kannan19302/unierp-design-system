@@ -1,10 +1,40 @@
-"use client";
-
 import { forwardRef, type TextareaHTMLAttributes } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./text-area.module.css";
 
+export const textareaVariants = cva(styles.textarea, {
+  variants: {
+    textareaSize: {
+      sm: styles.sm,
+      md: styles.md,
+      lg: styles.lg,
+    },
+    resize: {
+      none: styles.resize_none,
+      vertical: styles.resize_vertical,
+      horizontal: styles.resize_horizontal,
+      both: styles.resize_both,
+    },
+    fullWidth: {
+      true: styles.fullWidth,
+      false: "",
+    },
+    error: {
+      true: styles.error,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    textareaSize: "md",
+    resize: "vertical",
+    fullWidth: false,
+    error: false,
+  },
+});
+
 export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof textareaVariants> {
   /** Size variant aligned with control density */
   textareaSize?: "sm" | "md" | "lg";
   /** Visual error state or error message flag */
@@ -20,6 +50,7 @@ export interface TextareaProps
  *
  * Provides density-aware typography, configurable resize direction,
  * focus rings, and disabled/error styling.
+ * Standardized with cva, data-slot, and W3C APG multiline textbox pattern.
  *
  * @maturity stable
  * @since 3.0.0
@@ -38,22 +69,17 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref
   ) => {
-    const rootClasses = [
-      styles.textarea,
-      styles[textareaSize],
-      styles[`resize_${resize}`],
-      fullWidth ? styles.fullWidth : "",
-      error ? styles.error : "",
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
+    const rootClasses = `${textareaVariants({ textareaSize, resize, fullWidth, error })} ${className}`.trim();
 
     return (
       <textarea
         ref={ref}
         rows={rows}
         disabled={disabled}
+        data-slot="textarea"
+        data-size={textareaSize}
+        data-error={error ? "true" : undefined}
+        data-resize={resize}
         className={rootClasses}
         aria-invalid={error ? true : undefined}
         {...props}
@@ -63,3 +89,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 
 Textarea.displayName = "Textarea";
+
+/**
+ * `<TextArea>` — Canonical PascalCase alias for Textarea.
+ */
+export const TextArea = Textarea;

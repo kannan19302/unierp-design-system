@@ -20,6 +20,26 @@ describe("DropdownMenu Primitive", () => {
     expect(screen.queryByRole("menu")).not.toBeInTheDocument();
   });
 
+  it("renders data-slot attributes correctly when open", () => {
+    render(
+      <DropdownMenu
+        density="compact"
+        trigger={<button>Options</button>}
+        items={[{ key: "1", label: "Edit", icon: <span>✏️</span>, onClick: () => {} }]}
+      />
+    );
+    expect(document.querySelector('[data-slot="dropdown-menu-container"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="dropdown-menu-trigger"]')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("Options"));
+    const menu = document.querySelector('[data-slot="dropdown-menu"]');
+    expect(menu).toBeInTheDocument();
+    expect(menu).toHaveAttribute("data-density", "compact");
+    expect(document.querySelector('[data-slot="dropdown-menu-item"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="dropdown-menu-item-icon"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="dropdown-menu-item-label"]')).toBeInTheDocument();
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <DropdownMenu

@@ -8,7 +8,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-3, 12px);
-  width: 100%;
+  inline-size: 100%;
   box-sizing: border-box;
 }
 
@@ -18,8 +18,8 @@
 }
 
 .rangeInput {
-  width: 100%;
-  height: var(--slider-track-height, var(--space-1, 4px));
+  inline-size: 100%;
+  block-size: var(--slider-track-height, var(--space-1, 4px));
   border-radius: var(--radius-full, 9999px);
   background: var(--color-bg-sunken);
   border: 1px solid var(--color-border);
@@ -38,7 +38,7 @@
   font-size: var(--type-micro, 11px);
   font-variant-numeric: tabular-nums lining-nums;
   color: var(--color-text);
-  min-width: var(--density-control-height-sm, 28px);
+  min-inline-size: var(--density-control-height-sm, 28px);
   text-align: end;
   flex-shrink: 0;
 }

@@ -17,6 +17,43 @@
   font-family: var(--font-sans, "Inter", sans-serif);
 }
 
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact,
+.container[data-density="ultra-compact"],
+.bulkBar[data-density="ultra-compact"] {
+  min-block-size: 1.5rem; /* 24px */
+  padding-inline: var(--space-2, 6px);
+  gap: var(--space-1-5, 6px);
+  font-size: var(--text-2xs, 11px);
+}
+
+.densityCompact,
+.container[data-density="compact"],
+.bulkBar[data-density="compact"] {
+  min-block-size: 1.75rem; /* 28px */
+  padding-inline: var(--space-2-5, 8px);
+  gap: var(--space-2, 8px);
+  font-size: var(--text-xs, 12px);
+}
+
+.densityStandard,
+.container[data-density="standard"],
+.bulkBar[data-density="standard"] {
+  min-block-size: 2rem; /* 32px */
+  padding-inline: var(--space-3, 12px);
+  gap: var(--space-3, 12px);
+  font-size: var(--text-sm, 14px);
+}
+
+.densityComfortable,
+.container[data-density="comfortable"],
+.bulkBar[data-density="comfortable"] {
+  min-block-size: 2.5rem; /* 40px */
+  padding-inline: var(--space-4, 16px);
+  gap: var(--space-4, 16px);
+  font-size: var(--text-base, 16px);
+}
+
 .leftSection {
   display: flex;
   align-items: center;

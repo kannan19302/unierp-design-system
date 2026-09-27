@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — Breadcrumb Styles
+   Strict CSS Logical Properties
    ══════════════════════════════════════════════════════════════ */
 
 .nav {
@@ -13,51 +14,88 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--space-1-5);
+  gap: var(--space-1-5, 6px);
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: var(--type-dense, var(--text-sm));
-  color: var(--surface-text-secondary, var(--color-text-secondary));
+  font-size: var(--type-dense, var(--text-sm, 14px));
+  color: var(--surface-text-secondary, var(--color-text-secondary, #64748b));
+}
+
+/* Densities */
+.densityUltraCompact .list {
+  gap: var(--space-1, 4px);
+  font-size: var(--text-2xs, 11px);
+}
+.densityUltraCompact .item {
+  gap: var(--space-1, 4px);
+}
+
+.densityCompact .list {
+  gap: var(--space-1-5, 6px);
+  font-size: var(--text-xs, 12px);
+}
+.densityCompact .item {
+  gap: var(--space-1-5, 6px);
+}
+
+.densityStandard .list {
+  gap: var(--space-2, 8px);
+  font-size: var(--type-dense, var(--text-sm, 14px));
+}
+.densityStandard .item {
+  gap: var(--space-1-5, 6px);
+}
+
+.densityComfortable .list {
+  gap: var(--space-2-5, 10px);
+  font-size: var(--text-base, 15px);
+}
+.densityComfortable .item {
+  gap: var(--space-2, 8px);
 }
 
 .item {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1-5);
+  gap: var(--space-1-5, 6px);
   min-inline-size: 0;
 }
 
 .link {
   appearance: none;
-  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--density-touch-target, 24px);
+  padding-block: 0;
+  padding-inline: var(--space-0-5, 2px);
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-sm, 4px);
   background: transparent;
-  color: var(--surface-text-secondary, var(--color-text-secondary));
+  color: var(--surface-text-secondary, var(--color-text-secondary, #64748b));
   text-decoration: none;
   font: inherit;
   cursor: pointer;
-  transition: color var(--duration-fast) var(--ease-default);
+  transition: color var(--duration-fast, 150ms) var(--ease-default);
 }
 
 .link:hover {
-  color: var(--color-primary);
+  color: var(--color-primary, #2563eb);
   text-decoration: underline;
 }
 
 .text {
-  color: var(--surface-text-secondary, var(--color-text-secondary));
+  color: var(--surface-text-secondary, var(--color-text-secondary, #64748b));
 }
 
 .link:focus-visible {
-  outline: var(--border-width-thick) solid var(--color-border-focus);
-  outline-offset: var(--space-0-5);
+  outline: var(--border-width-thick, 2px) solid var(--color-border-focus, #2563eb);
+  outline-offset: var(--space-0-5, 2px);
 }
 
 .current {
-  color: var(--surface-text-primary, var(--color-text));
-  font-weight: var(--weight-semibold);
+  color: var(--surface-text-primary, var(--color-text, #0f172a));
+  font-weight: var(--weight-semibold, 600);
 }
 
 .separator {
@@ -66,5 +104,5 @@
 }
 
 .separatorIcon {
-  color: var(--surface-text-secondary, var(--color-text-muted));
+  color: var(--surface-text-secondary, var(--color-text-muted, #64748b));
 }

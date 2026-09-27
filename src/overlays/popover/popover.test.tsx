@@ -15,6 +15,26 @@ describe("Popover Primitive", () => {
     expect(screen.getByText("Popover details")).toBeInTheDocument();
   });
 
+  it("renders data-slot anatomy correctly", () => {
+    render(
+      <Popover
+        density="compact"
+        size="lg"
+        trigger={<button>Trigger</button>}
+      >
+        <div>Content</div>
+      </Popover>
+    );
+    expect(document.querySelector('[data-slot="popover-container"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="popover-trigger"]')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("Trigger"));
+    const pop = document.querySelector('[data-slot="popover"]');
+    expect(pop).toBeInTheDocument();
+    expect(pop).toHaveAttribute("data-density", "compact");
+    expect(pop).toHaveAttribute("data-size", "lg");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <Popover trigger={<button>Accessible Trigger</button>}>

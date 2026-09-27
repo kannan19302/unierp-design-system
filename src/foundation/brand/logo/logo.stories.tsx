@@ -117,7 +117,7 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
           Horizontal & Stacked Lockups
         </h4>
         <div style={{ display: "flex", gap: "var(--space-6)", alignItems: "center" }}>
@@ -126,7 +126,7 @@ export const AllStatesGallery: Story = {
         </div>
       </div>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
           Glyph & Wordmark
         </h4>
         <div style={{ display: "flex", gap: "var(--space-6)", alignItems: "center" }}>

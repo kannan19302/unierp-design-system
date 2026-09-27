@@ -18,6 +18,13 @@ const meta: Meta<typeof SchemaForm> = {
       },
     },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling mode",
+    },
+  },
 };
 
 export default meta;
@@ -108,6 +115,35 @@ export const Default: Story = {
       console.log("Form submitted:", data);
     },
   },
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)", maxWidth: 900 }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density}>
+          <h5 style={{ marginBlockEnd: "var(--space-2)", textTransform: "capitalize" }}>
+            Density: {density}
+          </h5>
+          <SchemaForm
+            density={density}
+            sections={[
+              {
+                id: `contact-${density}`,
+                title: `${density} Schema Form`,
+                fields: [
+                  { name: "name", label: "Full Name", type: "text", required: true, colSpan: 6 },
+                  { name: "email", label: "Email Address", type: "email", required: true, colSpan: 6 },
+                ],
+              },
+            ]}
+            submitLabel={`Save (${density})`}
+            onSubmit={async () => {}}
+          />
+        </div>
+      ))}
+    </div>
+  ),
 };
 
 export const LoadingState: Story = {

@@ -20,7 +20,7 @@
 .current {
   border-color: currentColor;
   opacity: 0.85;
-  border-right-color: transparent;
+  border-inline-end-color: transparent;
 }
 
 .white {
@@ -35,27 +35,27 @@
 }
 
 .sm {
-  width: var(--spinner-size-sm, 14px);
-  height: var(--spinner-size-sm, 14px);
+  inline-size: var(--spinner-size-sm, 14px);
+  block-size: var(--spinner-size-sm, 14px);
   border-width: var(--spinner-border-sm, 2px);
 }
 
 .md {
-  width: var(--spinner-size-md, 20px);
-  height: var(--spinner-size-md, 20px);
+  inline-size: var(--spinner-size-md, 20px);
+  block-size: var(--spinner-size-md, 20px);
   border-width: var(--spinner-border-md, 2.5px);
 }
 
 .lg {
-  width: var(--spinner-size-lg, 32px);
-  height: var(--spinner-size-lg, 32px);
+  inline-size: var(--spinner-size-lg, 32px);
+  block-size: var(--spinner-size-lg, 32px);
   border-width: var(--spinner-border-lg, 3px);
 }
 
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  inline-size: 1px;
+  block-size: 1px;
   padding: 0;
   margin: -1px;
   overflow: hidden;

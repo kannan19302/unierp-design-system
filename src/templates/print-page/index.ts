@@ -1,1 +1,6 @@
-export * from "./print-page";
+export {
+  PrintLayout,
+  PrintPageTemplate,
+  printLayoutVariants,
+  type PrintLayoutProps,
+} from "./print-page";

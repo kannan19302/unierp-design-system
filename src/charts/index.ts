@@ -1,4 +1,3 @@
-export * from "./chart";
 export * from "./sparkline";
 export * from "./donut-chart";
 export * from "./gauge-chart";
@@ -12,3 +11,21 @@ export * from "./treemap-chart";
 export * from "./candlestick-chart";
 export * from "./box-plot-chart";
 export * from "./bullet-chart";
+export {
+  Charts,
+  type ChartsProps,
+  chartsVariants,
+  type ChartsDensity,
+  CHART_PALETTE,
+  ChartAccessibleWrapper,
+  type ChartAccessibleWrapperProps,
+  KPICard,
+  type KPICardProps,
+  MiniBarChart,
+  type MiniBarChartProps,
+  type BarChartData,
+  MiniDonutChart,
+  type MiniDonutChartProps,
+  LineChart,
+  AreaChart,
+} from "./chart";

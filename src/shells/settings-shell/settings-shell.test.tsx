@@ -127,4 +127,42 @@ describe("SettingsShell", () => {
     );
     expect(await axe(dirty.container)).toHaveNoViolations();
   });
+
+  it("annotates slots with data-slot attributes", () => {
+    const { container } = render(
+      <SettingsShell items={ITEMS} activeId="sso" dirty>
+        <p>Form content</p>
+      </SettingsShell>,
+    );
+
+    expect(container.querySelector('[data-slot="settings-shell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-index"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-search-wrap"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-search-input"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-groups"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-group-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-item"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-detail"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-pane"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-form"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-footer"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-footer-message"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-footer-actions"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-discard-btn"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="settings-shell-save-btn"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(
+      <SettingsShell items={ITEMS} density="compact" />,
+    );
+    const root = container.querySelector('[data-slot="settings-shell"]');
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(root?.className).toContain("density_compact");
+
+    rerender(<SettingsShell items={ITEMS} density="ultra-compact" />);
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+    expect(root?.className).toContain("density_ultra_compact");
+  });
 });
+

@@ -7,7 +7,16 @@ const meta: Meta<typeof Pagination> = {
   component: Pagination,
   tags: ["autodocs"],
   parameters: {
+    layout: "centered",
     a11y: { test: "todo" },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    page: { control: "number" },
+    pageCount: { control: "number" },
   },
 };
 
@@ -18,7 +27,19 @@ export const Default: Story = {
   args: {
     page: 4,
     pageCount: 15,
+    density: "standard",
   },
+};
+
+export const Densities: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <Pagination density="ultra-compact" page={3} pageCount={10} onChange={() => {}} />
+      <Pagination density="compact" page={3} pageCount={10} onChange={() => {}} />
+      <Pagination density="standard" page={3} pageCount={10} onChange={() => {}} />
+      <Pagination density="comfortable" page={3} pageCount={10} onChange={() => {}} />
+    </div>
+  ),
 };
 
 export const AnatomyAndComposition: Story = {

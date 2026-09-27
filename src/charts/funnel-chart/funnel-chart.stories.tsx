@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   FunnelDropoffAnalyzer,
-  FunnelStep,
+  type FunnelStep,
 } from "./funnel-chart";
 
 const mockSteps: FunnelStep[] = [
@@ -74,6 +74,13 @@ const meta: Meta<typeof FunnelDropoffAnalyzer> = {
     layout: "padded",
   },
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling mode",
+    },
+  },
 };
 
 export default meta;
@@ -85,17 +92,25 @@ export const Default: Story = {
   },
 };
 
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density}>
+          <h5 style={{ marginBlockEnd: "var(--space-2)", textTransform: "capitalize" }}>
+            Density: {density}
+          </h5>
+          <FunnelDropoffAnalyzer steps={mockSteps.slice(0, 3)} density={density} />
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 export const SelectedStepInspection: Story = {
   args: {
     steps: mockSteps,
     selectedStepId: "step-3",
-  },
-};
-
-export const UltraCompactDensity: Story = {
-  args: {
-    steps: mockSteps,
-    density: "ultra-compact",
   },
 };
 

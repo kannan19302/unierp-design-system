@@ -1,1 +1,1 @@
-export { AlertBanner, type AlertBannerProps } from "./alert-banner";
+export { AlertBanner, alertBannerVariants, type AlertBannerProps } from "./alert-banner";

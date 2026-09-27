@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef, useId, useState } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./app-launcher.module.css";
 
 export interface AppLauncherItem {
@@ -67,18 +68,33 @@ export const defaultAppList: AppLauncherItem[] = [
   },
 ];
 
+export const appLauncherVariants = cva(styles.wrapper, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "compact",
+  },
+});
+
 export interface AppLauncherWaffleGridProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof appLauncherVariants> {
   isOpenByDefault?: boolean;
   apps?: AppLauncherItem[];
   onLaunchApp?: (appId: string) => void;
   onViewAllApps?: () => void;
-  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 /**
  * AppLauncherWaffleGrid renders a suite application launcher popover matrix
  * for switching between enterprise modules and domain applications.
+ * Benchmarked against Google 9-dots waffle, Salesforce App Launcher, and Microsoft 365 app launcher.
  *
  * @maturity stable
  */
@@ -122,12 +138,14 @@ export const AppLauncherWaffleGrid = forwardRef<
     return (
       <div
         ref={ref}
-        className={`${styles.wrapper} ${className}`.trim()}
+        data-slot="app-launcher"
         data-density={density}
+        className={appLauncherVariants({ density, className })}
         {...rest}
       >
         <button
           type="button"
+          data-slot="app-launcher-waffle-button"
           className={styles.waffleButton}
           onClick={() => setIsOpen((prev) => !prev)}
           aria-expanded={isOpen}
@@ -146,13 +164,17 @@ export const AppLauncherWaffleGrid = forwardRef<
           <div
             role="dialog"
             aria-label="Enterprise Application Launcher"
+            data-slot="app-launcher-flyout"
             className={styles.flyout}
           >
-            <header className={styles.flyoutHeader}>
+            <header data-slot="app-launcher-header" className={styles.flyoutHeader}>
               <div className={styles.titleRow}>
-                <h2 className={styles.title}>App Launcher</h2>
+                <h2 data-slot="app-launcher-title" className={styles.title}>
+                  App Launcher
+                </h2>
                 <button
                   type="button"
+                  data-slot="app-launcher-close"
                   className={styles.waffleButton}
                   onClick={() => setIsOpen(false)}
                   aria-label="Close App Launcher"
@@ -166,13 +188,14 @@ export const AppLauncherWaffleGrid = forwardRef<
                 </button>
               </div>
 
-              <div className={styles.searchBox}>
+              <div data-slot="app-launcher-search" className={styles.searchBox}>
                 <label htmlFor={searchInputId} className={styles.srOnly}>
                   Search applications and modules
                 </label>
                 <input
                   id={searchInputId}
                   type="search"
+                  data-slot="app-launcher-search-input"
                   className={styles.searchInput}
                   placeholder="Search apps or suites..."
                   value={searchQuery}
@@ -182,29 +205,46 @@ export const AppLauncherWaffleGrid = forwardRef<
               </div>
             </header>
 
-            <div className={styles.appScrollArea}>
+            <div data-slot="app-launcher-body" className={styles.appScrollArea}>
               {categories.map((category) => {
                 const categoryApps = filteredApps.filter(
                   (a) => a.category === category
                 );
                 return (
-                  <div key={category} className={styles.categoryGroup}>
+                  <div
+                    key={category}
+                    data-slot="app-launcher-category"
+                    className={styles.categoryGroup}
+                  >
                     <h3 className={styles.categoryTitle}>{category}</h3>
                     <div className={styles.appGrid}>
                       {categoryApps.map((app) => (
                         <button
                           key={app.id}
                           type="button"
+                          data-slot="app-launcher-card"
                           className={styles.appCard}
                           onClick={() => handleLaunch(app.id)}
                           aria-label={`Launch ${app.name}`}
                         >
-                          <div className={styles.appIcon} aria-hidden="true">
+                          <div
+                            data-slot="app-launcher-card-icon"
+                            className={styles.appIcon}
+                            aria-hidden="true"
+                          >
                             {app.shortIcon}
                           </div>
                           <div className={styles.appContent}>
-                            <span className={styles.appName}>{app.name}</span>
-                            <span className={styles.appDesc}>
+                            <span
+                              data-slot="app-launcher-card-name"
+                              className={styles.appName}
+                            >
+                              {app.name}
+                            </span>
+                            <span
+                              data-slot="app-launcher-card-desc"
+                              className={styles.appDesc}
+                            >
                               {app.description}
                             </span>
                           </div>
@@ -229,7 +269,7 @@ export const AppLauncherWaffleGrid = forwardRef<
               )}
             </div>
 
-            <footer className={styles.flyoutFooter}>
+            <footer data-slot="app-launcher-footer" className={styles.flyoutFooter}>
               <span>UniERP Suite Ecosystem</span>
               <button
                 type="button"

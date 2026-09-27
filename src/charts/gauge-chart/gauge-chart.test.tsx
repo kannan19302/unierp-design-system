@@ -2,7 +2,7 @@ import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
-import { SlaPerformanceGauge, type SlaMilestone } from "./gauge-chart";
+import { SlaPerformanceGauge, GaugeChart, type SlaMilestone } from "./gauge-chart";
 
 const testMilestones: SlaMilestone[] = [
   {
@@ -24,7 +24,7 @@ const testMilestones: SlaMilestone[] = [
   },
 ];
 
-describe("SlaPerformanceGauge", () => {
+describe("SlaPerformanceGauge & GaugeChart", () => {
   it("renders SLA commitment tier and milestones correctly", () => {
     render(
       <SlaPerformanceGauge
@@ -40,18 +40,6 @@ describe("SlaPerformanceGauge", () => {
     expect(screen.getAllByText("Resolution SLA").length).toBeGreaterThanOrEqual(1);
   });
 
-  it("has zero accessibility violations", async () => {
-    const { container } = render(
-      <SlaPerformanceGauge
-        ticketRef="INC-88912"
-        milestones={testMilestones}
-      />
-    );
-
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
-  });
-
   it("forwards ref to root element", () => {
     const ref = createRef<HTMLElement>();
     render(
@@ -63,5 +51,55 @@ describe("SlaPerformanceGauge", () => {
     );
     expect(ref.current).toBeInstanceOf(HTMLElement);
   });
-});
 
+  it("renders with data-slot attributes", () => {
+    const { container } = render(
+      <SlaPerformanceGauge
+        ticketRef="INC-88912"
+        milestones={testMilestones}
+      />
+    );
+
+    expect(container.querySelector('[data-slot="gauge-chart"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gauge-chart-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gauge-chart-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gauge-chart-primary-meter"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gauge-chart-progress-track"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gauge-chart-progress-fill"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gauge-chart-milestones"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="gauge-chart-milestone-item"]').length).toBe(2);
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container, unmount } = render(
+        <SlaPerformanceGauge
+          density={density}
+          ticketRef="INC-88912"
+          milestones={testMilestones}
+        />
+      );
+      const root = container.querySelector('[data-slot="gauge-chart"]');
+      expect(root).toHaveAttribute("data-density", density);
+      unmount();
+    });
+  });
+
+  it("works identically with GaugeChart alias", () => {
+    render(<GaugeChart ticketRef="INC-999" milestones={testMilestones} />);
+    expect(screen.getByText("INC-999")).toBeInTheDocument();
+  });
+
+  it("has zero accessibility violations", async () => {
+    const { container } = render(
+      <SlaPerformanceGauge
+        ticketRef="INC-88912"
+        milestones={testMilestones}
+      />
+    );
+
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+});

@@ -6,8 +6,8 @@ const ThemeViewer = () => {
   const { theme, setTheme, density, setDensity } = useTheme();
   return (
     <div style={{ padding: "var(--space-4)", background: "var(--color-surface-elevated)", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border-default)" }}>
-      <h3 style={{ margin: "0 0 var(--space-3) 0" }}>Active Theme Context</h3>
-      <div style={{ display: "flex", gap: "var(--space-2)", marginBottom: "var(--space-3)", flexWrap: "wrap" }}>
+      <h3 style={{ marginBlockEnd: "var(--space-3)", marginBlockStart: 0, marginInline: 0 }}>Active Theme Context</h3>
+      <div style={{ display: "flex", gap: "var(--space-2)", marginBlockEnd: "var(--space-3)", flexWrap: "wrap" }}>
         {THEMES.map((t) => (
           <button
             key={t}
@@ -79,15 +79,15 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
-          1. Default Meridian Light Theme
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+          1. Default Strata Light Theme
         </h4>
-        <ThemeProvider initialTheme="meridian">
+        <ThemeProvider initialTheme="strata">
           <ThemeViewer />
         </ThemeProvider>
       </div>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
           2. Dark Mode Theme Context
         </h4>
         <ThemeProvider initialTheme="strata-dark">
@@ -95,10 +95,10 @@ export const AllStatesGallery: Story = {
         </ThemeProvider>
       </div>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
           3. High-Contrast Enterprise Context
         </h4>
-        <ThemeProvider initialTheme="high-contrast">
+        <ThemeProvider initialTheme="strata-high-contrast">
           <ThemeViewer />
         </ThemeProvider>
       </div>

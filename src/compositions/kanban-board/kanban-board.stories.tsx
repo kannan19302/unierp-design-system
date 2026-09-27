@@ -16,7 +16,7 @@ const INITIAL_CARDS: KanbanItem[] = [
   { id: "c4", columnKey: "done", title: "WCAG AA Contrast Audit", priority: "Low" },
 ];
 
-const KanbanDemo = () => {
+const KanbanDemo = ({ density = "standard" }: { density?: "ultra-compact" | "compact" | "standard" | "comfortable" }) => {
   const [cards, setCards] = useState<KanbanItem[]>(INITIAL_CARDS);
 
   const handleCardMove = (itemId: string, _from: string, to: string) => {
@@ -30,6 +30,7 @@ const KanbanDemo = () => {
       <KanbanBoard
         columns={MOCK_COLUMNS}
         items={cards}
+        density={density}
         onCardMove={handleCardMove}
         renderCard={(item) => (
           <div>
@@ -51,6 +52,13 @@ const meta: Meta<typeof KanbanBoard> = {
   component: KanbanBoard,
   parameters: { layout: "fullscreen" },
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+  },
 };
 
 export default meta;
@@ -62,6 +70,29 @@ export const Default: Story = {
 
 export const AnatomyAndComposition: Story = {
   render: () => <KanbanDemo />,
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Ultra-Compact (200px columns)</h4>
+        <KanbanDemo density="ultra-compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Compact (240px columns)</h4>
+        <KanbanDemo density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Standard (260px columns)</h4>
+        <KanbanDemo density="standard" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Comfortable (300px columns)</h4>
+        <KanbanDemo density="comfortable" />
+      </div>
+    </div>
+  ),
 };
 
 export const AllStatesGallery: Story = {

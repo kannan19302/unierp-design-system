@@ -8,6 +8,7 @@ import {
   type HTMLAttributes,
   type ChangeEvent,
 } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./address-field.module.css";
 
 export interface AddressData {
@@ -19,8 +20,25 @@ export interface AddressData {
   country: string;
 }
 
+export const addressFieldVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export type AddressFieldDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
 export interface AddressAutoCompleteFormProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onSubmit"> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onSubmit">,
+    VariantProps<typeof addressFieldVariants> {
   defaultCountry?: string;
   initialAddress?: Partial<AddressData>;
   suggestions?: string[];
@@ -29,6 +47,7 @@ export interface AddressAutoCompleteFormProps
   title?: string;
   subtitle?: string;
   className?: string;
+  density?: AddressFieldDensity;
 }
 
 /**
@@ -51,6 +70,7 @@ export const AddressAutoCompleteForm = forwardRef<
       title = "Shipping Address",
       subtitle,
       className = "",
+      density = "standard",
       ...restProps
     },
     ref
@@ -93,39 +113,43 @@ export const AddressAutoCompleteForm = forwardRef<
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
+        data-slot="address-field"
+        data-density={density}
+        className={addressFieldVariants({ density, className })}
         role="region"
         aria-label={title}
         {...restProps}
       >
-        <div className={styles.header}>
+        <div className={styles.header} data-slot="address-field-header">
           <div>
-            <h3 className={styles.title}>{title}</h3>
-            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+            <h3 className={styles.title} data-slot="address-field-title">{title}</h3>
+            {subtitle && <p className={styles.subtitle} data-slot="address-field-subtitle">{subtitle}</p>}
           </div>
         </div>
 
-        <form className={styles.content} onSubmit={handleSubmit} noValidate>
-          <div className={styles.fieldGroup}>
-            <label htmlFor={`${idPrefix}-line1`} className={styles.fieldLabel}>
+        <form className={styles.content} data-slot="address-field-form" onSubmit={handleSubmit} noValidate>
+          <div className={styles.fieldGroup} data-slot="address-field-group">
+            <label htmlFor={`${idPrefix}-line1`} className={styles.fieldLabel} data-slot="address-field-label">
               Address Line 1
             </label>
             <input
               id={`${idPrefix}-line1`}
               className={styles.input}
+              data-slot="address-field-input"
               placeholder="Street address, P.O. box, company name"
               value={line1}
               onChange={handleLine1Change}
               required
             />
             {showSuggestions && suggestions.length > 0 && (
-              <ul className={styles.suggestionsList} role="listbox" aria-label="Address suggestions">
+              <ul className={styles.suggestionsList} data-slot="address-field-suggestions" role="listbox" aria-label="Address suggestions">
                 {suggestions.map((s, idx) => (
                   <li
                     key={idx}
                     role="option"
                     aria-selected={false}
                     className={styles.suggestionItem}
+                    data-slot="address-field-suggestion"
                     onClick={() => handleSelectSuggestion(s)}
                   >
                     {s}
@@ -135,13 +159,14 @@ export const AddressAutoCompleteForm = forwardRef<
             )}
           </div>
 
-          <div className={styles.fieldGroup}>
-            <label htmlFor={`${idPrefix}-line2`} className={styles.fieldLabel}>
+          <div className={styles.fieldGroup} data-slot="address-field-group">
+            <label htmlFor={`${idPrefix}-line2`} className={styles.fieldLabel} data-slot="address-field-label">
               Address Line 2 (Optional)
             </label>
             <input
               id={`${idPrefix}-line2`}
               className={styles.input}
+              data-slot="address-field-input"
               placeholder="Apartment, suite, unit, building, floor, etc."
               value={line2}
               onChange={(e) => setLine2(e.target.value)}
@@ -149,13 +174,14 @@ export const AddressAutoCompleteForm = forwardRef<
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "var(--space-3)" }}>
-            <div className={styles.fieldGroup}>
-              <label htmlFor={`${idPrefix}-city`} className={styles.fieldLabel}>
+            <div className={styles.fieldGroup} data-slot="address-field-group">
+              <label htmlFor={`${idPrefix}-city`} className={styles.fieldLabel} data-slot="address-field-label">
                 City
               </label>
               <input
                 id={`${idPrefix}-city`}
                 className={styles.input}
+                data-slot="address-field-input"
                 placeholder="City"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
@@ -163,13 +189,14 @@ export const AddressAutoCompleteForm = forwardRef<
               />
             </div>
 
-            <div className={styles.fieldGroup}>
-              <label htmlFor={`${idPrefix}-state`} className={styles.fieldLabel}>
+            <div className={styles.fieldGroup} data-slot="address-field-group">
+              <label htmlFor={`${idPrefix}-state`} className={styles.fieldLabel} data-slot="address-field-label">
                 State / Province
               </label>
               <input
                 id={`${idPrefix}-state`}
                 className={styles.input}
+                data-slot="address-field-input"
                 placeholder="State / Region"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
@@ -177,13 +204,14 @@ export const AddressAutoCompleteForm = forwardRef<
               />
             </div>
 
-            <div className={styles.fieldGroup}>
-              <label htmlFor={`${idPrefix}-postal`} className={styles.fieldLabel}>
+            <div className={styles.fieldGroup} data-slot="address-field-group">
+              <label htmlFor={`${idPrefix}-postal`} className={styles.fieldLabel} data-slot="address-field-label">
                 Postal Code
               </label>
               <input
                 id={`${idPrefix}-postal`}
                 className={styles.input}
+                data-slot="address-field-input"
                 placeholder="ZIP / Postal"
                 value={postalCode}
                 onChange={(e) => setPostalCode(e.target.value)}
@@ -192,13 +220,14 @@ export const AddressAutoCompleteForm = forwardRef<
             </div>
           </div>
 
-          <div className={styles.fieldGroup}>
-            <label htmlFor={`${idPrefix}-country`} className={styles.fieldLabel}>
+          <div className={styles.fieldGroup} data-slot="address-field-group">
+            <label htmlFor={`${idPrefix}-country`} className={styles.fieldLabel} data-slot="address-field-label">
               Country / Region
             </label>
             <select
               id={`${idPrefix}-country`}
               className={styles.select}
+              data-slot="address-field-select"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
             >
@@ -215,7 +244,7 @@ export const AddressAutoCompleteForm = forwardRef<
           </div>
 
           <div style={{ display: "flex", justifyContent: "flex-end", marginBlockStart: "var(--space-2)" }}>
-            <button type="submit" className={`${styles.btn} ${styles.btnPrimary}`}>
+            <button type="submit" data-slot="address-field-submit" className={`${styles.btn} ${styles.btnPrimary}`}>
               Save Address
             </button>
           </div>
@@ -226,3 +255,6 @@ export const AddressAutoCompleteForm = forwardRef<
 );
 
 AddressAutoCompleteForm.displayName = "AddressAutoCompleteForm";
+
+export const AddressField = AddressAutoCompleteForm;
+export type AddressFieldProps = AddressAutoCompleteFormProps;

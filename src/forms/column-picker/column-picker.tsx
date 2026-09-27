@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { Button } from "../../primitives/button";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./column-picker.module.css";
 
 export interface ColumnPickerOption {
@@ -16,13 +17,32 @@ export interface ColumnPickerOption {
   label: ReactNode;
 }
 
-export interface ColumnPickerProps {
+export const columnPickerVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export type ColumnPickerDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export interface ColumnPickerProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">,
+    VariantProps<typeof columnPickerVariants> {
   options: ColumnPickerOption[];
   /** Keys currently visible */
   visible: string[];
   onChange: (visible: string[]) => void;
   label?: string;
   className?: string;
+  density?: ColumnPickerDensity;
 }
 
 /**
@@ -38,6 +58,8 @@ export const ColumnPicker = forwardRef<HTMLDivElement, ColumnPickerProps>(
       onChange,
       label = "Columns",
       className = "",
+      density = "standard",
+      ...restProps
     },
     ref
   ) => {
@@ -72,17 +94,30 @@ export const ColumnPicker = forwardRef<HTMLDivElement, ColumnPickerProps>(
       onChange(next);
     };
 
+    const buttonSize =
+      density === "ultra-compact"
+        ? "sm"
+        : density === "compact"
+        ? "sm"
+        : density === "comfortable"
+        ? "lg"
+        : "sm";
+
     return (
       <div
         ref={rootRef}
-        className={`${styles.container} ${className}`}
+        data-slot="column-picker"
+        data-density={density}
+        className={columnPickerVariants({ density, className })}
+        {...restProps}
       >
         <Button
           variant="secondary"
-          size="sm"
+          size={buttonSize}
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-haspopup="true"
+          data-slot="column-picker-trigger"
         >
           {label}
         </Button>
@@ -90,18 +125,21 @@ export const ColumnPicker = forwardRef<HTMLDivElement, ColumnPickerProps>(
           <div
             role="menu"
             className={styles.dropdown}
+            data-slot="column-picker-dropdown"
           >
             {options.map((o) => (
               <label
                 key={o.key}
                 className={styles.checkboxItem}
+                data-slot="column-picker-item"
               >
                 <input
                   type="checkbox"
                   checked={visible.includes(o.key)}
                   onChange={() => toggle(o.key)}
+                  data-slot="column-picker-checkbox"
                 />
-                {o.label}
+                <span data-slot="column-picker-label">{o.label}</span>
               </label>
             ))}
           </div>

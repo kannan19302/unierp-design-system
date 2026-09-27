@@ -22,6 +22,11 @@ const meta: Meta<typeof StrataBar> = {
       control: "select",
       options: ["app", "site", "library", "manage"],
     },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
   },
 };
 export default meta;
@@ -79,7 +84,7 @@ export const StateMatrix: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)", background: "var(--color-bg-sunken)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "var(--space-2)", marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
           1. Neutral / Draft State (Manage Scope)
         </h4>
         <StrataBar
@@ -95,7 +100,7 @@ export const StateMatrix: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "var(--space-2)", marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
           2. In Review / Warning State (App Scope)
         </h4>
         <StrataBar
@@ -113,7 +118,7 @@ export const StateMatrix: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "var(--space-2)", marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
           3. Posted / Success State (Library Scope)
         </h4>
         <StrataBar
@@ -130,7 +135,7 @@ export const StateMatrix: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "var(--space-2)", marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
           4. Danger / Failed State (Site Scope)
         </h4>
         <StrataBar
@@ -145,6 +150,32 @@ export const StateMatrix: Story = {
           action={<Button variant="danger" size="sm">Retry Pipeline</Button>}
         />
       </div>
+    </div>
+  ),
+};
+
+export const DensityGallery: Story = {
+  name: "Density scale comparison",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density} style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
+          <div style={{ padding: "var(--space-2) var(--space-4)", background: "var(--color-bg-sunken)", fontWeight: 600, fontSize: "var(--text-xs)" }}>
+            Density: {density}
+          </div>
+          <StrataBar
+            density={density}
+            scope="app"
+            segments={["acme", "finance", `INV-${density}`]}
+            state={{ kind: "success", label: `${density}` }}
+            lifecycle={[
+              { id: "d1", label: "Draft", completed: true },
+              { id: "d2", label: "Review", active: true },
+            ]}
+            action={<Button variant="primary" size="sm">Action</Button>}
+          />
+        </div>
+      ))}
     </div>
   ),
 };
@@ -169,3 +200,4 @@ export const RtlPreview: Story = {
     </div>
   ),
 };
+

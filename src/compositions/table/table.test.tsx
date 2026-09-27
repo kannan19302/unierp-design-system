@@ -238,12 +238,51 @@ describe("DataTable", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("supports 4-tier density scaling on DataTable", () => {
+    const { container, rerender } = render(<DataTable columns={columns} data={data} density="ultra-compact" />);
+    const root = container.querySelector('[data-slot="data-table"]');
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<DataTable columns={columns} data={data} density="compact" />);
+    expect(root).toHaveAttribute("data-density", "compact");
+
+    rerender(<DataTable columns={columns} data={data} density="comfortable" />);
+    expect(root).toHaveAttribute("data-density", "comfortable");
+
+    rerender(<DataTable columns={columns} data={data} density="standard" />);
+    expect(root).toHaveAttribute("data-density", "standard");
+  });
+
+  it("renders data-slot annotations on DataTable sub-elements", () => {
+    const { container } = render(
+      <DataTable
+        columns={columns}
+        data={data}
+        toolbar={<div>Filter</div>}
+        footer={<div>Page 1 of 1</div>}
+        caption="Inventory Items"
+      />
+    );
+    expect(container.querySelector('[data-slot="data-table"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-toolbar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-container"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-table"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-caption"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-header-row"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-header-cell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-body"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-row"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-cell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-table-footer-controls"]')).toBeInTheDocument();
+  });
 });
 
 describe("Composable Table Primitives", () => {
-  it("renders standard composable table structure", () => {
-    render(
-      <Table>
+  it("renders standard composable table structure with data-slots and density", () => {
+    const { container } = render(
+      <Table density="compact">
         <TableCaption>Invoice Line Items</TableCaption>
         <TableHeader>
           <TableRow>
@@ -272,5 +311,15 @@ describe("Composable Table Primitives", () => {
     expect(screen.getByRole("columnheader", { name: "SKU" })).toBeInTheDocument();
     expect(screen.getByRole("cell", { name: "SKU-001" })).toBeInTheDocument();
     expect(screen.getAllByRole("cell", { name: "$5,000.00" })).toHaveLength(2);
+
+    expect(container.querySelector('[data-slot="table-container"]')).toHaveAttribute("data-density", "compact");
+    expect(container.querySelector('[data-slot="table"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="table-caption"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="table-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="table-row"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="table-head"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="table-body"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="table-cell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="table-footer"]')).toBeInTheDocument();
   });
 });

@@ -10,6 +10,12 @@ const meta: Meta<typeof PinnedBookmarksBar> = {
     layout: "padded",
     a11y: { test: "todo" },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+  },
 };
 
 export default meta;

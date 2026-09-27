@@ -1,5 +1,3 @@
-"use client";
-
 import {
   useState,
   forwardRef,
@@ -12,12 +10,26 @@ import {
   type FC,
 } from "react";
 import { AlertCircle, ChevronDown } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./form-control.module.css";
+
+export const formControlVariants = cva(styles.control, {
+  variants: {
+    invalid: {
+      true: styles.invalid,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    invalid: false,
+  },
+});
 
 /**
  * @maturity stable
  * @since 1.0.0
  * Strata DL FormField container — accessible label, required asterisk, hint text, and error binding.
+ * Standardized with cva, data-slot, and W3C APG form group pattern.
  */
 export interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
   label?: ReactNode;
@@ -39,27 +51,40 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(({
   children,
   ...props
 }, ref) => (
-  <div ref={ref} className={`${styles.fieldContainer} ${className}`.trim()} {...props}>
+  <div
+    ref={ref}
+    data-slot="form-field"
+    data-invalid={error ? "true" : undefined}
+    className={`${styles.fieldContainer} ${className}`.trim()}
+    {...props}
+  >
     {label && (
-      <label htmlFor={htmlFor} className={styles.label}>
+      <label htmlFor={htmlFor} data-slot="form-label" className={styles.label}>
         {label}
-        {required && <span className={styles.requiredStar}> *</span>}
+        {required && <span data-slot="form-required" className={styles.requiredStar}> *</span>}
       </label>
     )}
     {children}
     {error ? (
-      <span className={styles.errorMsg} role="alert">
+      <span data-slot="form-message" className={styles.errorMsg} role="alert">
         <AlertCircle size={12} aria-hidden="true" />
         <span>{error}</span>
       </span>
     ) : hint ? (
-      <span className={styles.hintMsg}>{hint}</span>
+      <span data-slot="form-hint" className={styles.hintMsg}>{hint}</span>
     ) : null}
   </div>
 ));
 FormField.displayName = "FormField";
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+/**
+ * `<FormControl>` — Canonical alias for FormField.
+ */
+export const FormControl = FormField;
+
+export interface InputProps
+  extends InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof formControlVariants> {
   invalid?: boolean;
   prefixIcon?: ReactNode;
   suffixIcon?: ReactNode;
@@ -67,21 +92,20 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ invalid, prefixIcon, suffixIcon, className = "", ...props }, ref) => {
-    const inputClass = [styles.control, invalid && styles.invalid, className]
-      .filter(Boolean)
-      .join(" ");
+    const inputClass = `${formControlVariants({ invalid })} ${className}`.trim();
 
     if (prefixIcon || suffixIcon) {
       return (
-        <div className={styles.inputWrapper}>
-          {prefixIcon && <span className={styles.prefixSlot}>{prefixIcon}</span>}
+        <div data-slot="form-control-wrapper" className={styles.inputWrapper}>
+          {prefixIcon && <span data-slot="form-control-prefix" className={styles.prefixSlot}>{prefixIcon}</span>}
           <input
             ref={ref}
             aria-invalid={invalid || undefined}
+            data-slot="form-control"
             className={inputClass}
             {...props}
           />
-          {suffixIcon && <span className={styles.suffixSlot}>{suffixIcon}</span>}
+          {suffixIcon && <span data-slot="form-control-suffix" className={styles.suffixSlot}>{suffixIcon}</span>}
         </div>
       );
     }
@@ -90,6 +114,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         ref={ref}
         aria-invalid={invalid || undefined}
+        data-slot="form-control"
         className={inputClass}
         {...props}
       />
@@ -99,16 +124,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 Input.displayName = "Input";
 
 export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof formControlVariants> {
   invalid?: boolean;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ invalid, className = "", ...props }, ref) => {
     const textareaClass = [
-      styles.control,
+      formControlVariants({ invalid }),
       styles.textarea,
-      invalid && styles.invalid,
       className,
     ]
       .filter(Boolean)
@@ -118,6 +143,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       <textarea
         ref={ref}
         aria-invalid={invalid || undefined}
+        data-slot="form-control"
         className={textareaClass}
         {...props}
       />
@@ -126,26 +152,28 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 Textarea.displayName = "Textarea";
 
-export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectProps
+  extends SelectHTMLAttributes<HTMLSelectElement>,
+    VariantProps<typeof formControlVariants> {
   invalid?: boolean;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ invalid, className = "", children, ...props }, ref) => {
     const selectClass = [
-      styles.control,
+      formControlVariants({ invalid }),
       styles.select,
-      invalid && styles.invalid,
       className,
     ]
       .filter(Boolean)
       .join(" ");
 
     return (
-      <div className={styles.selectWrapper}>
+      <div data-slot="form-select-wrapper" className={styles.selectWrapper}>
         <select
           ref={ref}
           aria-invalid={invalid || undefined}
+          data-slot="form-control"
           className={selectClass}
           {...props}
         >
@@ -206,7 +234,12 @@ export const FormSection = forwardRef<HTMLDivElement, FormSectionProps>(({
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div ref={ref} className={`${styles.section} ${className}`.trim()} {...props}>
+    <div
+      ref={ref}
+      data-slot="form-section"
+      className={`${styles.section} ${className}`.trim()}
+      {...props}
+    >
       <div
         className={`${styles.sectionHeader} ${collapsible ? styles.sectionHeaderClickable : ""}`}
         onClick={() => collapsible && setOpen((o) => !o)}
@@ -251,6 +284,7 @@ export const AutosaveIndicator: FC<AutosaveIndicatorProps> = ({
 
   return (
     <span
+      data-slot="autosave-indicator"
       className={`${styles.autosave} ${className}`.trim()}
       style={{ color: config.color }}
       aria-live="polite"

@@ -5,12 +5,17 @@ import path from "node:path";
 
 const storybookRoot = path.resolve(import.meta.dirname, "../..");
 const designRoot = path.resolve(storybookRoot, "..");
-const evidenceDir = path.resolve(designRoot, "docs/evidence/strata-shell-browser");
+const evidenceDir = process.env.SHELL_EVIDENCE_DIR
+  ? path.resolve(process.env.SHELL_EVIDENCE_DIR)
+  : path.resolve(designRoot, "docs/evidence/strata-shell-browser-current");
 const index = JSON.parse(readFileSync(path.join(storybookRoot, "storybook-static/index.json"), "utf8"));
-const stories = Object.values(index.entries)
-  .filter((entry) => entry.type === "story" && entry.importPath?.includes("/core/shell/"))
+const allStories = Object.values(index.entries)
+  .filter((entry) => entry.type === "story" && entry.importPath?.includes("/shells/"))
   .sort((a, b) => a.importPath.localeCompare(b.importPath) || a.id.localeCompare(b.id));
-const shellName = (story) => story.importPath.split("/core/shell/")[1].split("/")[0];
+const shellName = (story) => story.importPath.split("/shells/")[1].split("/")[0];
+const requestedShell = process.argv.find((arg) => arg.startsWith("--shell="))?.slice("--shell=".length);
+const stories = requestedShell ? allStories.filter((story) => shellName(story) === requestedShell) : allStories;
+if (stories.length === 0) throw new Error(`Shell validator discovered zero Storybook stories${requestedShell ? ` for ${requestedShell}` : ""}`);
 const themes = ["strata", "strata-dark", "strata-high-contrast"];
 const densities = ["ultra-compact", "compact", "standard", "comfortable"];
 const viewports = [
@@ -18,24 +23,29 @@ const viewports = [
   { name: "tablet", width: 768, height: 1024 },
   { name: "desktop", width: 1440, height: 900 },
 ];
-const isSmoke = process.argv.includes("--smoke");
-const baseURL = process.env.SHELL_STORYBOOK_URL || "http://127.0.0.1:6007";
+const isMobileSmoke = process.argv.includes("--mobile-smoke");
+const isSmoke = process.argv.includes("--smoke") || isMobileSmoke;
+const baseURL = process.env.SHELL_STORYBOOK_URL || "http://127.0.0.1:6006";
 const axePackage = readdirSync(path.join(storybookRoot, "node_modules/.pnpm"))
   .find((name) => name.startsWith("axe-core@"));
 const axePath = axePackage
   ? path.join(storybookRoot, "node_modules/.pnpm", axePackage, "node_modules/axe-core/axe.min.js")
   : undefined;
+if (!axePath || !existsSync(axePath)) throw new Error("Shell validator cannot run axe: axe-core is unavailable");
 const primary = [...new Set(stories.map(shellName))].map((shell) =>
-  stories.find((story) => shellName(story) === shell && story.id.endsWith("--default")) ??
-  stories.find((story) => shellName(story) === shell),
+  stories.find((story) => shellName(story) === shell && story.id.endsWith("--default")),
 );
+const expectedShellCount = requestedShell ? 1 : 8;
+if (primary.length !== expectedShellCount || primary.some((story) => !story)) {
+  throw new Error(`Shell validator expected ${expectedShellCount} shell(s) with default stories; found ${primary.filter(Boolean).length}`);
+}
 
 function scenario(story, theme, density, viewport, accessibility, screenshot) {
   return { story, shell: shellName(story), theme, density, viewport, accessibility, screenshot };
 }
 
 const scenarios = isSmoke
-  ? [scenario(primary[0], "strata", "standard", viewports[2], true, true)]
+  ? [scenario(primary[0], "strata", "standard", isMobileSmoke ? viewports[0] : viewports[2], true, true)]
   : [
       ...stories.map((story) =>
         scenario(story, "strata", "standard", viewports[2], true, primary.includes(story)),
@@ -93,7 +103,7 @@ async function worker() {
       if (state.width > state.viewport + 2) row.errors.push(`document overflows ${state.width - state.viewport}px`);
       if (state.errorPanel) row.errors.push(`story error: ${state.errorPanel}`);
       if (errors.length) row.errors.push(...errors);
-      if (accessibility && axePath) {
+      if (accessibility) {
         await page.addScriptTag({ path: axePath });
         const axeResult = await page.evaluate(async () =>
           window.axe.run("#storybook-root", {
@@ -104,7 +114,11 @@ async function worker() {
           id: violation.id,
           impact: violation.impact,
           nodes: violation.nodes.length,
-          targets: violation.nodes.map((node) => node.target.join(" ")).slice(0, 5),
+          targets: violation.nodes.map((node) => ({
+            selector: node.target.join(" "),
+            html: node.html,
+            checks: node.any.map((check) => ({ message: check.message, data: check.data })),
+          })).slice(0, 10),
         })) };
         if (row.axe.violations.length) row.errors.push(`axe: ${row.axe.violations.map((v) => v.id).join(", ")}`);
       }
@@ -144,7 +158,7 @@ const report = {
   failures: results.filter((row) => row.errors.length),
   results,
 };
-const reportPath = path.join(evidenceDir, isSmoke ? "smoke.json" : "matrix.json");
+const reportPath = path.join(evidenceDir, isMobileSmoke ? "mobile-smoke.json" : isSmoke ? "smoke.json" : requestedShell ? `matrix-${requestedShell}.json` : "matrix.json");
 writeFileSync(reportPath, JSON.stringify(report, null, 2));
 process.stdout.write(`Shell browser validation: ${report.scenarioCount} scenarios, ${report.failures.length} failures; ${reportPath}\n`);
 if (report.failures.length) process.exitCode = 1;

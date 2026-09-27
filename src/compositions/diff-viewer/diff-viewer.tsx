@@ -15,7 +15,25 @@ import {
   Columns,
   List,
 } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./diff-viewer.module.css";
+
+export const diffViewerVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "compact",
+  },
+});
+
+export const redlineDiffViewerVariants = diffViewerVariants;
+export type DiffViewerVariantProps = VariantProps<typeof diffViewerVariants>;
 
 export type DiffViewMode = "split" | "unified";
 export type RedlineDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
@@ -31,7 +49,9 @@ export interface DiffLine {
   revContent?: string;
 }
 
-export interface RedlineDiffViewerProps {
+export interface RedlineDiffViewerProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    DiffViewerVariantProps {
   /** Original base document or contract clause text */
   originalText: string;
   /** Revised text containing proposed redlines */
@@ -46,11 +66,12 @@ export interface RedlineDiffViewerProps {
   onRejectChange?: (changeId: string) => void;
   /** Density scale */
   density?: RedlineDensity;
-  className?: string;
 }
 
+export type DiffViewerProps = RedlineDiffViewerProps;
+
 /**
- * `<RedlineDiffViewer>` — High-precision contract redline and text revision inspector.
+ * `<RedlineDiffViewer>` / `<DiffViewer>` — High-precision contract redline and text revision inspector.
  * Benchmarked against Ironclad CLM (#114), GitHub Primer (#9), and GitLab Pajamas (#10).
  *
  * @maturity stable
@@ -66,6 +87,7 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
       onRejectChange,
       density = "compact",
       className = "",
+      ...rest
     },
     ref
   ) {
@@ -151,22 +173,24 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
   return (
     <div
       ref={ref}
-      className={`${styles.container} ${className}`.trim()}
+      data-slot="diff-viewer"
       data-density={density}
+      className={`${diffViewerVariants({ density })}${className ? ` ${className}` : ""}`.trim()}
       role="region"
       aria-label="Redline Diff Viewer"
+      {...rest}
     >
       {/* ── Header Toolbar ── */}
-      <div className={styles.toolbar}>
-        <div className={styles.titleGroup}>
+      <div className={styles.toolbar} data-slot="diff-viewer-toolbar">
+        <div className={styles.titleGroup} data-slot="diff-viewer-title-group">
           <FileCode size={15} className={styles.titleIcon} aria-hidden="true" />
-          <h3 className={styles.title}>{documentTitle}</h3>
-          <span className={styles.changeBadge}>
+          <h3 className={styles.title} data-slot="diff-viewer-title">{documentTitle}</h3>
+          <span className={styles.changeBadge} data-slot="diff-viewer-badge">
             {changedLines.length} {changedLines.length === 1 ? "change" : "changes"}
           </span>
         </div>
 
-        <div className={styles.navGroup}>
+        <div className={styles.navGroup} data-slot="diff-viewer-nav">
           <button
             type="button"
             className={styles.iconBtn}
@@ -194,8 +218,8 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
           </button>
         </div>
 
-        <div className={styles.actionsGroup}>
-          <div className={styles.modeToggleGroup}>
+        <div className={styles.actionsGroup} data-slot="diff-viewer-actions">
+          <div className={styles.modeToggleGroup} data-slot="diff-viewer-mode-toggle">
             <button
               type="button"
               className={`${styles.modeBtn} ${viewMode === "split" ? styles.modeBtnActive : ""}`}
@@ -219,7 +243,7 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
           </div>
 
           {activeChange && (
-            <div className={styles.decisionActions}>
+            <div className={styles.decisionActions} data-slot="diff-viewer-decision-actions">
               <button
                 type="button"
                 className={styles.acceptBtn}
@@ -245,13 +269,13 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
 
       {/* ── Diff Canvas ── */}
       {viewMode === "split" ? (
-        <div className={styles.splitGrid}>
+        <div className={styles.splitGrid} data-slot="diff-viewer-split">
           {/* Left: Original */}
-          <div className={styles.pane}>
-            <div className={styles.paneHeader}>Original Document</div>
-            <div className={styles.diffTableWrap}>
-              <table className={styles.diffTable}>
-                <tbody>
+          <div className={styles.pane} data-slot="diff-viewer-pane">
+            <div className={styles.paneHeader} data-slot="diff-viewer-pane-header">Original Document</div>
+            <div className={styles.diffTableWrap} data-slot="diff-viewer-table-wrap">
+              <table className={styles.diffTable} data-slot="diff-viewer-table">
+                <tbody data-slot="diff-viewer-body">
                   {diffLines.map((line, idx) => {
                     const isFocus = activeChange && activeChange.id === line.id;
                     const isRemoved = line.type === "removed" || line.type === "modified";
@@ -262,12 +286,13 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
                         className={`${styles.lineRow} ${isRemoved ? styles.rowRemoved : ""} ${
                           isFocus ? styles.rowActive : ""
                         }`}
+                        data-slot="diff-viewer-row"
                       >
-                        <td className={styles.lineNum}>{line.origLineNumber ?? ""}</td>
-                        <td className={styles.diffSign}>
+                        <td className={styles.lineNum} data-slot="diff-viewer-line-num">{line.origLineNumber ?? ""}</td>
+                        <td className={styles.diffSign} data-slot="diff-viewer-sign">
                           {isRemoved ? "-" : " "}
                         </td>
-                        <td className={styles.lineContent}>
+                        <td className={styles.lineContent} data-slot="diff-viewer-content">
                           <span className={isRemoved ? styles.delText : undefined}>
                             {line.origContent ?? " "}
                           </span>
@@ -281,11 +306,11 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
           </div>
 
           {/* Right: Revised */}
-          <div className={styles.pane}>
-            <div className={styles.paneHeader}>Revised with Redlines</div>
-            <div className={styles.diffTableWrap}>
-              <table className={styles.diffTable}>
-                <tbody>
+          <div className={styles.pane} data-slot="diff-viewer-pane">
+            <div className={styles.paneHeader} data-slot="diff-viewer-pane-header">Revised with Redlines</div>
+            <div className={styles.diffTableWrap} data-slot="diff-viewer-table-wrap">
+              <table className={styles.diffTable} data-slot="diff-viewer-table">
+                <tbody data-slot="diff-viewer-body">
                   {diffLines.map((line, idx) => {
                     const isFocus = activeChange && activeChange.id === line.id;
                     const isAdded = line.type === "added" || line.type === "modified";
@@ -296,12 +321,13 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
                         className={`${styles.lineRow} ${isAdded ? styles.rowAdded : ""} ${
                           isFocus ? styles.rowActive : ""
                         }`}
+                        data-slot="diff-viewer-row"
                       >
-                        <td className={styles.lineNum}>{line.revLineNumber ?? ""}</td>
-                        <td className={styles.diffSign}>
+                        <td className={styles.lineNum} data-slot="diff-viewer-line-num">{line.revLineNumber ?? ""}</td>
+                        <td className={styles.diffSign} data-slot="diff-viewer-sign">
                           {isAdded ? "+" : " "}
                         </td>
-                        <td className={styles.lineContent}>
+                        <td className={styles.lineContent} data-slot="diff-viewer-content">
                           <span className={isAdded ? styles.insText : undefined}>
                             {line.revContent ?? " "}
                           </span>
@@ -316,9 +342,9 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
         </div>
       ) : (
         /* Unified View */
-        <div className={styles.unifiedTableWrap}>
-          <table className={styles.diffTable}>
-            <tbody>
+        <div className={styles.unifiedTableWrap} data-slot="diff-viewer-unified">
+          <table className={styles.diffTable} data-slot="diff-viewer-table">
+            <tbody data-slot="diff-viewer-body">
               {diffLines.map((line, idx) => {
                 const isFocus = activeChange && activeChange.id === line.id;
 
@@ -327,11 +353,12 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
                     <tr
                       key={`uni-${line.id}-${idx}`}
                       className={`${styles.lineRow} ${isFocus ? styles.rowActive : ""}`}
+                      data-slot="diff-viewer-row"
                     >
-                      <td className={styles.lineNum}>{line.origLineNumber}</td>
-                      <td className={styles.lineNum}>{line.revLineNumber}</td>
-                      <td className={styles.diffSign}> </td>
-                      <td className={styles.lineContent}>{line.origContent}</td>
+                      <td className={styles.lineNum} data-slot="diff-viewer-line-num">{line.origLineNumber}</td>
+                      <td className={styles.lineNum} data-slot="diff-viewer-line-num">{line.revLineNumber}</td>
+                      <td className={styles.diffSign} data-slot="diff-viewer-sign"> </td>
+                      <td className={styles.lineContent} data-slot="diff-viewer-content">{line.origContent}</td>
                     </tr>
                   );
                 }
@@ -344,11 +371,12 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
                         className={`${styles.lineRow} ${styles.rowRemoved} ${
                           isFocus ? styles.rowActive : ""
                         }`}
+                        data-slot="diff-viewer-row"
                       >
-                        <td className={styles.lineNum}>{line.origLineNumber}</td>
-                        <td className={styles.lineNum}> </td>
-                        <td className={styles.diffSign}>-</td>
-                        <td className={styles.lineContent}>
+                        <td className={styles.lineNum} data-slot="diff-viewer-line-num">{line.origLineNumber}</td>
+                        <td className={styles.lineNum} data-slot="diff-viewer-line-num"> </td>
+                        <td className={styles.diffSign} data-slot="diff-viewer-sign">-</td>
+                        <td className={styles.lineContent} data-slot="diff-viewer-content">
                           <span className={styles.delText}>{line.origContent}</span>
                         </td>
                       </tr>
@@ -357,11 +385,12 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
                         className={`${styles.lineRow} ${styles.rowAdded} ${
                           isFocus ? styles.rowActive : ""
                         }`}
+                        data-slot="diff-viewer-row"
                       >
-                        <td className={styles.lineNum}> </td>
-                        <td className={styles.lineNum}>{line.revLineNumber}</td>
-                        <td className={styles.diffSign}>+</td>
-                        <td className={styles.lineContent}>
+                        <td className={styles.lineNum} data-slot="diff-viewer-line-num"> </td>
+                        <td className={styles.lineNum} data-slot="diff-viewer-line-num">{line.revLineNumber}</td>
+                        <td className={styles.diffSign} data-slot="diff-viewer-sign">+</td>
+                        <td className={styles.lineContent} data-slot="diff-viewer-content">
                           <span className={styles.insText}>{line.revContent}</span>
                         </td>
                       </tr>
@@ -376,11 +405,12 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
                       className={`${styles.lineRow} ${styles.rowRemoved} ${
                         isFocus ? styles.rowActive : ""
                       }`}
+                      data-slot="diff-viewer-row"
                     >
-                      <td className={styles.lineNum}>{line.origLineNumber}</td>
-                      <td className={styles.lineNum}> </td>
-                      <td className={styles.diffSign}>-</td>
-                      <td className={styles.lineContent}>
+                      <td className={styles.lineNum} data-slot="diff-viewer-line-num">{line.origLineNumber}</td>
+                      <td className={styles.lineNum} data-slot="diff-viewer-line-num"> </td>
+                      <td className={styles.diffSign} data-slot="diff-viewer-sign">-</td>
+                      <td className={styles.lineContent} data-slot="diff-viewer-content">
                         <span className={styles.delText}>{line.origContent}</span>
                       </td>
                     </tr>
@@ -393,11 +423,12 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
                     className={`${styles.lineRow} ${styles.rowAdded} ${
                       isFocus ? styles.rowActive : ""
                     }`}
+                    data-slot="diff-viewer-row"
                   >
-                    <td className={styles.lineNum}> </td>
-                    <td className={styles.lineNum}>{line.revLineNumber}</td>
-                    <td className={styles.diffSign}>+</td>
-                    <td className={styles.lineContent}>
+                    <td className={styles.lineNum} data-slot="diff-viewer-line-num"> </td>
+                    <td className={styles.lineNum} data-slot="diff-viewer-line-num">{line.revLineNumber}</td>
+                    <td className={styles.diffSign} data-slot="diff-viewer-sign">+</td>
+                    <td className={styles.lineContent} data-slot="diff-viewer-content">
                       <span className={styles.insText}>{line.revContent}</span>
                     </td>
                   </tr>
@@ -413,3 +444,4 @@ export const RedlineDiffViewer = forwardRef<HTMLDivElement, RedlineDiffViewerPro
 
 RedlineDiffViewer.displayName = "RedlineDiffViewer";
 
+export const DiffViewer = RedlineDiffViewer;

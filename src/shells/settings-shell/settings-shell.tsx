@@ -2,6 +2,7 @@
 
 import { useMemo, useState, forwardRef, type ReactNode } from "react";
 import { Search } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./settings-shell.module.css";
 
 /**
@@ -26,6 +27,22 @@ import styles from "./settings-shell.module.css";
  * blocking, validation and persistence; a footer alone cannot prevent exit.
  */
 
+type ShellDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export const settingsShellVariants = cva(styles.root, {
+  variants: {
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
 export interface SettingsItem {
   id: string;
   label: string;
@@ -39,7 +56,7 @@ export interface SettingsItem {
   keywords?: string[];
 }
 
-export interface SettingsShellProps {
+export interface SettingsShellProps extends VariantProps<typeof settingsShellVariants> {
   items: SettingsItem[];
   activeId?: string;
   /** Rendered in the right pane. Always a form. */
@@ -54,7 +71,7 @@ export interface SettingsShellProps {
   footer?: ReactNode;
   searchLabel?: string;
   /** Density scale */
-  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
+  density?: ShellDensity;
   className?: string;
 }
 
@@ -73,7 +90,7 @@ export const SettingsShell = forwardRef<HTMLDivElement, SettingsShellProps>(({
   saving = false,
   footer,
   searchLabel = "Search settings",
-  density,
+  density = "standard",
   className = "",
 }, ref) => {
   const [query, setQuery] = useState("");
@@ -104,14 +121,16 @@ export const SettingsShell = forwardRef<HTMLDivElement, SettingsShellProps>(({
   return (
     <div
       ref={ref}
-      className={`${styles.root} ${className}`.trim()}
+      data-slot="settings-shell"
       data-floorplan="settings-shell"
       data-density={density}
+      className={`${settingsShellVariants({ density })} ${className}`.trim()}
     >
-      <nav className={styles.index} aria-label="Settings">
-        <div className={styles.search_wrap}>
+      <nav data-slot="settings-shell-index" className={styles.index} aria-label="Settings">
+        <div data-slot="settings-shell-search-wrap" className={styles.search_wrap}>
           <Search className={styles.search_icon} aria-hidden="true" />
           <input
+            data-slot="settings-shell-search-input"
             type="search"
             className={styles.search}
             value={query}
@@ -123,18 +142,19 @@ export const SettingsShell = forwardRef<HTMLDivElement, SettingsShellProps>(({
         </div>
 
         {matchCount === 0 ? (
-          <p className={styles.empty} role="status">
+          <p data-slot="settings-shell-empty" className={styles.empty} role="status">
             {`Nothing matches “${query}”. Try a shorter word.`}
           </p>
         ) : (
-          <ul className={styles.groups}>
+          <ul data-slot="settings-shell-groups" className={styles.groups}>
             {groups.map(([group, list]) => (
               <li key={group || "_"}>
-                {group && <p className={styles.group_label}>{group}</p>}
+                {group && <p data-slot="settings-shell-group-label" className={styles.group_label}>{group}</p>}
                 <ul className={styles.groupItems}>
                   {list.map((item) => (
                     <li key={item.id}>
                       <a
+                        data-slot="settings-shell-item"
                         href={item.href}
                         className={`${styles.item} ${item.id === activeId ? styles.item_active : ""}`.trim()}
                         aria-current={item.id === activeId ? "page" : undefined}
@@ -150,24 +170,26 @@ export const SettingsShell = forwardRef<HTMLDivElement, SettingsShellProps>(({
         )}
       </nav>
 
-      <div className={styles.detail}>
-        <div className={styles.pane}>
-          <div className={styles.form}>{children}</div>
+      <div data-slot="settings-shell-detail" className={styles.detail}>
+        <div data-slot="settings-shell-pane" className={styles.pane}>
+          <div data-slot="settings-shell-form" className={styles.form}>{children}</div>
         </div>
 
         {footer ?? (
           <div
+            data-slot="settings-shell-footer"
             className={`${styles.footer} ${dirty ? styles.footer_dirty : ""}`.trim()}
             data-dirty={dirty ? "true" : "false"}
           >
-            <span className={styles.footer_msg}>
+            <span data-slot="settings-shell-footer-message" className={styles.footer_msg}>
               {/* aria-live so the state change is announced, not only coloured.
                   Colour is never the sole carrier of meaning (§3.5). */}
               <span aria-live="polite">{dirty ? dirtyMessage : "All changes saved."}</span>
             </span>
 
-            <span className={styles.footer_actions}>
+            <span data-slot="settings-shell-footer-actions" className={styles.footer_actions}>
               <button
+                data-slot="settings-shell-discard-btn"
                 type="button"
                 className={styles.btn}
                 onClick={onDiscard}
@@ -177,6 +199,7 @@ export const SettingsShell = forwardRef<HTMLDivElement, SettingsShellProps>(({
               </button>
               {/* Order is always [Cancel] [Confirm] — §7. */}
               <button
+                data-slot="settings-shell-save-btn"
                 type="button"
                 className={`${styles.btn} ${styles.btn_primary}`}
                 onClick={onSave}
@@ -193,3 +216,4 @@ export const SettingsShell = forwardRef<HTMLDivElement, SettingsShellProps>(({
 });
 
 SettingsShell.displayName = "SettingsShell";
+

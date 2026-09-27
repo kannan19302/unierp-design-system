@@ -13,6 +13,7 @@ describe("ThemeScope", () => {
 
     const child = screen.getByTestId("child");
     const container = child.parentElement;
+    expect(container).toHaveAttribute("data-slot", "theme-scope");
     expect(container).toHaveAttribute("data-theme", "strata-dark");
     expect(container).toHaveAttribute("data-density", "compact");
     expect(container).toHaveAttribute("data-platform", "developer");

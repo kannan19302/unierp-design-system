@@ -8,6 +8,8 @@ describe("Separator Primitive", () => {
     const { container } = render(<Separator orientation="horizontal" />);
     const div = container.querySelector("div");
     expect(div).toHaveAttribute("aria-hidden", "true");
+    expect(div).toHaveAttribute("data-slot", "separator");
+    expect(div).toHaveAttribute("data-orientation", "horizontal");
     expect(div?.className).toContain("horizontal");
   });
 
@@ -18,6 +20,7 @@ describe("Separator Primitive", () => {
     const div = container.querySelector("div");
     expect(div).toHaveAttribute("role", "separator");
     expect(div).toHaveAttribute("aria-orientation", "vertical");
+    expect(div).toHaveAttribute("data-slot", "separator");
     expect(div?.className).toContain("vertical");
   });
 

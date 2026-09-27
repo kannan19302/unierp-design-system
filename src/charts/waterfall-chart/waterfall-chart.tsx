@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./waterfall-chart.module.css";
 
 export interface WaterfallDataPoint {
@@ -8,6 +9,20 @@ export interface WaterfallDataPoint {
   value: number;
   isTotal?: boolean;
 }
+
+export const waterfallChartVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 export interface WaterfallChartProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -17,6 +32,8 @@ export interface WaterfallChartProps
   positiveColor?: string;
   negativeColor?: string;
   totalColor?: string;
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 /**
@@ -34,6 +51,7 @@ export const WaterfallChart = forwardRef<HTMLDivElement, WaterfallChartProps>(
       positiveColor = "var(--color-success)",
       negativeColor = "var(--color-error)",
       totalColor = "var(--color-brand)",
+      density = "standard",
       className = "",
       style,
       ...rest
@@ -46,13 +64,15 @@ export const WaterfallChart = forwardRef<HTMLDivElement, WaterfallChartProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
-        style={{ height, ...style }}
+        data-slot="waterfall-chart"
+        data-density={density}
+        className={waterfallChartVariants({ density, className })}
+        style={{ blockSize: height, ...style }}
         role="img"
         aria-label="Waterfall chart"
         {...rest}
       >
-        <div className={styles.bars}>
+        <div data-slot="waterfall-chart-bars" className={styles.bars}>
           {data.map((d, i) => {
             const isTotal = d.isTotal;
             const barHeight =
@@ -64,21 +84,32 @@ export const WaterfallChart = forwardRef<HTMLDivElement, WaterfallChartProps>(
               : negativeColor;
 
             return (
-              <div key={d.label || i} className={styles.barGroup}>
-                <div className={styles.barValue} style={{ color }}>
+              <div
+                key={d.label || i}
+                data-slot="waterfall-chart-bar-group"
+                className={styles.barGroup}
+              >
+                <div
+                  data-slot="waterfall-chart-bar-value"
+                  className={styles.barValue}
+                  style={{ color }}
+                >
                   {d.value >= 0 ? "+" : ""}
                   {d.value.toLocaleString()}
                 </div>
                 <div
+                  data-slot="waterfall-chart-bar"
                   className={styles.bar}
                   style={{
-                    height: Math.max(4, barHeight),
+                    blockSize: Math.max(4, barHeight),
                     background: color,
                     opacity: isTotal ? 1 : 0.85,
                   }}
                   title={`${d.label}: ${d.value}`}
                 />
-                <div className={styles.barLabel}>{d.label}</div>
+                <div data-slot="waterfall-chart-bar-label" className={styles.barLabel}>
+                  {d.label}
+                </div>
               </div>
             );
           })}

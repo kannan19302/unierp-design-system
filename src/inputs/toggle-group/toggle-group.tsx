@@ -1,5 +1,3 @@
-"use client";
-
 import {
   createContext,
   useContext,
@@ -10,7 +8,38 @@ import {
   type ReactNode,
   type MouseEvent,
 } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./toggle-group.module.css";
+
+export const toggleGroupVariants = cva(styles.group, {
+  variants: {
+    variant: {
+      default: styles.default,
+      outline: styles.outline,
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+export const toggleGroupItemVariants = cva(styles.item, {
+  variants: {
+    size: {
+      sm: styles.sm,
+      md: styles.md,
+      lg: styles.lg,
+    },
+    variant: {
+      default: "",
+      outline: styles.outline,
+    },
+  },
+  defaultVariants: {
+    size: "md",
+    variant: "default",
+  },
+});
 
 interface ToggleGroupContextValue {
   type: "single" | "multiple";
@@ -23,7 +52,9 @@ interface ToggleGroupContextValue {
 
 const ToggleGroupContext = createContext<ToggleGroupContextValue | null>(null);
 
-export interface ToggleGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange"> {
+export interface ToggleGroupProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange">,
+    VariantProps<typeof toggleGroupVariants> {
   /** Selection mode */
   type?: "single" | "multiple";
   /** Controlled value (string for single, string[] for multiple) */
@@ -45,6 +76,7 @@ export interface ToggleGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "
  * `<ToggleGroup>` — Composable group container for mutually exclusive or multiple toggle options.
  *
  * Adheres to Strata DL 3.0 / shadcn compound component pattern.
+ * Standardized with cva, data-slot, and W3C APG radiogroup/toolbar pattern.
  *
  * @maturity stable
  * @since 3.0.0
@@ -87,13 +119,7 @@ export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
       }
     };
 
-    const rootClass = [
-      styles.group,
-      styles[variant],
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
+    const rootClass = `${toggleGroupVariants({ variant })} ${className}`.trim();
 
     return (
       <ToggleGroupContext.Provider
@@ -109,6 +135,10 @@ export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
         <div
           ref={ref}
           role={type === "single" ? "radiogroup" : "group"}
+          data-slot="toggle-group"
+          data-type={type}
+          data-variant={variant}
+          data-size={size}
           className={rootClass}
           {...props}
         >
@@ -122,7 +152,8 @@ export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
 ToggleGroup.displayName = "ToggleGroup";
 
 export interface ToggleGroupItemProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof toggleGroupItemVariants> {
   /** Value identifying this item */
   value: string;
   /** Child content (icon or label) */
@@ -153,9 +184,7 @@ export const ToggleGroupItem = forwardRef<HTMLButtonElement, ToggleGroupItemProp
     };
 
     const itemClass = [
-      styles.item,
-      styles[ctx.variant],
-      styles[ctx.size],
+      toggleGroupItemVariants({ size: ctx.size, variant: ctx.variant }),
       isSelected ? styles.selected : "",
       className,
     ]
@@ -168,6 +197,7 @@ export const ToggleGroupItem = forwardRef<HTMLButtonElement, ToggleGroupItemProp
         type="button"
         role={ctx.type === "single" ? "radio" : "checkbox"}
         aria-checked={isSelected}
+        data-slot="toggle-group-item"
         data-state={isSelected ? "on" : "off"}
         disabled={isDisabled}
         className={itemClass}
@@ -181,3 +211,6 @@ export const ToggleGroupItem = forwardRef<HTMLButtonElement, ToggleGroupItemProp
 );
 
 ToggleGroupItem.displayName = "ToggleGroupItem";
+
+// Compound component pattern attachment
+(ToggleGroup as any).Item = ToggleGroupItem;

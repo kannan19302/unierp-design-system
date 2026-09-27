@@ -2,13 +2,33 @@
 
 import { useState, useRef, useEffect, useId, forwardRef, useImperativeHandle, type ChangeEvent } from "react";
 import { Check, Palette } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import { cn } from "../../foundation/utils/cn";
 import { DEFAULT_COLOR_PRESETS } from "../../foundation/tokens/color-presets";
 import styles from "./color-picker.module.css";
 
 export type ColorPickerDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
 
-export interface ColorPickerProps {
+export const colorPickerVariants = cva(styles.wrapper, {
+  variants: {
+    density: {
+      "ultra-compact": styles["ultra-compact"] || "",
+      compact: styles.compact || "",
+      standard: styles.standard || "",
+      comfortable: styles.comfortable || "",
+    },
+    disabled: {
+      true: styles.disabled,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+    disabled: false,
+  },
+});
+
+export interface ColorPickerProps extends VariantProps<typeof colorPickerVariants> {
   value: string; // Hex color string, e.g. "#0e6b75"
   onChange: (color: string) => void;
   label?: string;
@@ -62,6 +82,7 @@ export function getContrastRatio(hex: string, backgroundHex = "#ffffff"): number
 /**
  * ColorPicker component supporting preset swatches, native HTML color picker, hex text input,
  * 4-tier density scaling, and live WCAG AA/AAA contrast ratio validation against resolved background.
+ * Standardized with cva, data-slot, and accessible dialog popover semantics.
  *
  * @maturity stable
  */
@@ -132,11 +153,14 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(({
   return (
     <div
       ref={containerRef}
-      className={cn(styles.wrapper, disabled && styles.disabled, className)}
+      data-slot="color-picker"
       data-density={density}
+      data-disabled={disabled ? "true" : undefined}
+      data-invalid={invalid || Boolean(error) ? "true" : undefined}
+      className={cn(colorPickerVariants({ density, disabled: !!disabled }), className)}
     >
       {label && (
-        <label className={styles.label} htmlFor={btnId}>
+        <label data-slot="color-picker-label" className={styles.label} htmlFor={btnId}>
           {label}
           {required && <span className={styles.requiredIndicator} aria-hidden="true"> *</span>}
         </label>
@@ -144,6 +168,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(({
 
       <button
         id={btnId}
+        data-slot="color-picker-trigger"
         type="button"
         className={cn(styles.triggerButton, (invalid || error) && styles.invalid)}
         onClick={() => !disabled && setIsOpen(!isOpen)}
@@ -155,28 +180,30 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(({
         aria-label={label ? `${label}: ${value}` : `Choose color: ${value}`}
       >
         <span
+          data-slot="color-picker-swatch"
           className={styles.colorSwatch}
           style={{ backgroundColor: isValidHex(value) ? value : "transparent" }}
           aria-hidden="true"
         />
-        <span className={styles.hexCode}>{value}</span>
-        <Palette size={14} className={styles.paletteIcon} aria-hidden="true" />
+        <span data-slot="color-picker-hex-display" className={styles.hexCode}>{value}</span>
+        <Palette size={14} data-slot="color-picker-icon" className={styles.paletteIcon} aria-hidden="true" />
       </button>
 
       {error && (
-        <span id={errorId} className={styles.errorMessage} role="alert">
+        <span id={errorId} data-slot="color-picker-error" className={styles.errorMessage} role="alert">
           {error}
         </span>
       )}
 
       {isOpen && (
-        <div role="dialog" aria-label="Color selection panel" className={styles.popover}>
-          <div className={styles.presetsGrid}>
+        <div data-slot="color-picker-popover" role="dialog" aria-label="Color selection panel" className={styles.popover}>
+          <div data-slot="color-picker-presets" className={styles.presetsGrid}>
             {presetColors.map((color: string) => {
               const isSelected = color.toLowerCase() === value.toLowerCase();
               return (
                 <button
                   key={color}
+                  data-slot="color-picker-preset"
                   type="button"
                   className={cn(styles.presetBtn, isSelected && styles.presetSelected)}
                   style={{ backgroundColor: color }}
@@ -192,12 +219,13 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(({
             })}
           </div>
 
-          <div className={styles.inputSection}>
+          <div data-slot="color-picker-inputs" className={styles.inputSection}>
             <label className={styles.inputLabel} htmlFor={hexInputId}>
               Hex
             </label>
             <input
               id={hexInputId}
+              data-slot="color-picker-hex-input"
               type="text"
               className={styles.hexInput}
               value={draftHex}
@@ -207,6 +235,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(({
             />
             <input
               type="color"
+              data-slot="color-picker-native"
               className={styles.nativePicker}
               value={isValidHex(value) ? value : (DEFAULT_COLOR_PRESETS[0] ?? "#000000")}
               onChange={(e) => {
@@ -218,7 +247,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(({
           </div>
 
           {showContrastPreview && isValidHex(draftHex) && (
-            <div className={styles.contrastSection}>
+            <div data-slot="color-picker-contrast" className={styles.contrastSection}>
               <span className={styles.contrastTitle}>WCAG Contrast:</span>
               <span className={styles.contrastValue} data-testid="contrast-ratio">{contrastRatio}:1</span>
               <span
@@ -239,3 +268,4 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(({
 });
 
 ColorPicker.displayName = "ColorPicker";
+

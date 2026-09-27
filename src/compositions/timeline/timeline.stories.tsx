@@ -5,6 +5,17 @@ const meta: Meta<typeof Timeline> = {
   title: "Compositions/Timeline",
   component: Timeline,
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata DL 4-tier density scaling",
+    },
+    items: {
+      control: "object",
+      description: "Array of chronological timeline events and audit records",
+    },
+  },
 };
 
 export default meta;
@@ -73,7 +84,7 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
       <div>
-        <h4 style={{ marginBottom: "8px" }}>Complete and Current States</h4>
+        <h4 style={{ marginBlockEnd: "8px" }}>Complete and Current States</h4>
         <Timeline
           items={[
             { id: "1", title: "Signed", timestamp: "Yesterday", status: "complete" },
@@ -83,7 +94,7 @@ export const AllStatesGallery: Story = {
         />
       </div>
       <div>
-        <h4 style={{ marginBottom: "8px" }}>Danger State</h4>
+        <h4 style={{ marginBlockEnd: "8px" }}>Danger State</h4>
         <Timeline
           items={[
             { id: "1", title: "Attempt Failed", timestamp: "12:00", status: "danger" },
@@ -92,5 +103,29 @@ export const AllStatesGallery: Story = {
       </div>
     </div>
   ),
+};
+
+export const DensityGallery: Story = {
+  render: () => {
+    const sampleItems = [
+      { id: "1", title: "Audit Log Committed", timestamp: "10:30 UTC", status: "complete" as const },
+      { id: "2", title: "Compliance Review", timestamp: "11:15 UTC", status: "current" as const },
+      { id: "3", title: "Ledger Finalization", timestamp: "12:00 UTC", status: "pending" as const },
+    ];
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+
+    return (
+      <div style={{ display: "grid", gap: "var(--space-6)" }}>
+        {densities.map((d) => (
+          <div key={d} style={{ display: "grid", gap: "var(--space-2)" }}>
+            <div style={{ fontWeight: 600, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Density: {d}
+            </div>
+            <Timeline density={d} items={sampleItems} />
+          </div>
+        ))}
+      </div>
+    );
+  },
 };
 

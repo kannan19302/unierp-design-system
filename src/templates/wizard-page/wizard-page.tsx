@@ -1,5 +1,20 @@
 import { forwardRef, useState, type HTMLAttributes, type ReactNode } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./wizard-page.module.css";
+
+export const wizardPageVariants = cva(styles.wizard, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 export interface WizardStep {
   id: string;
@@ -8,7 +23,9 @@ export interface WizardStep {
   isOptional?: boolean;
 }
 
-export interface MultiStepWizardProps extends HTMLAttributes<HTMLDivElement> {
+export interface MultiStepWizardProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof wizardPageVariants> {
   steps?: WizardStep[];
   currentStep?: number;
   onStepChange?: (stepIndex: number) => void;
@@ -28,6 +45,7 @@ export const MultiStepWizard = forwardRef<HTMLDivElement, MultiStepWizardProps>(
       onStepChange,
       onComplete,
       children,
+      density = "standard",
       className = "",
       ...props
     },
@@ -57,13 +75,19 @@ export const MultiStepWizard = forwardRef<HTMLDivElement, MultiStepWizardProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.wizard} ${className}`}
+        className={`${wizardPageVariants({ density })} ${className}`}
+        data-slot="wizard-page"
+        data-density={density}
         role="region"
         aria-label="Multi-step wizard form"
         {...props}
       >
-        <nav className={styles.stepper} aria-label="Wizard Steps">
-          <ol className={styles.stepList}>
+        <nav
+          className={styles.stepper}
+          data-slot="wizard-page-stepper"
+          aria-label="Wizard Steps"
+        >
+          <ol className={styles.stepList} data-slot="wizard-page-step-list">
             {steps.map((step, idx) => {
               const isCompleted = idx < activeStep;
               const isCurrent = idx === activeStep;
@@ -73,15 +97,32 @@ export const MultiStepWizard = forwardRef<HTMLDivElement, MultiStepWizardProps>(
                   className={`${styles.stepItem} ${
                     isCurrent ? styles.current : isCompleted ? styles.completed : ""
                   }`}
+                  data-slot="wizard-page-step-item"
                   aria-current={isCurrent ? "step" : undefined}
                 >
-                  <div className={styles.stepIndicator}>
+                  <div
+                    className={styles.stepIndicator}
+                    data-slot="wizard-page-step-indicator"
+                  >
                     {isCompleted ? "✓" : idx + 1}
                   </div>
-                  <div className={styles.stepDetails}>
-                    <span className={styles.stepTitle}>{step.title}</span>
+                  <div
+                    className={styles.stepDetails}
+                    data-slot="wizard-page-step-details"
+                  >
+                    <span
+                      className={styles.stepTitle}
+                      data-slot="wizard-page-step-title"
+                    >
+                      {step.title}
+                    </span>
                     {step.description && (
-                      <span className={styles.stepDesc}>{step.description}</span>
+                      <span
+                        className={styles.stepDesc}
+                        data-slot="wizard-page-step-desc"
+                      >
+                        {step.description}
+                      </span>
                     )}
                   </div>
                 </li>
@@ -90,18 +131,22 @@ export const MultiStepWizard = forwardRef<HTMLDivElement, MultiStepWizardProps>(
           </ol>
         </nav>
 
-        <div className={styles.contentArea}>
+        <div className={styles.contentArea} data-slot="wizard-page-content-area">
           {children || (
-            <div className={styles.stepPlaceholder}>
+            <div
+              className={styles.stepPlaceholder}
+              data-slot="wizard-page-step-placeholder"
+            >
               Step {activeStep + 1}: {steps[activeStep]?.title} content
             </div>
           )}
         </div>
 
-        <div className={styles.actionBar}>
+        <div className={styles.actionBar} data-slot="wizard-page-action-bar">
           <button
             type="button"
             className={styles.backBtn}
+            data-slot="wizard-page-back-button"
             onClick={handleBack}
             disabled={activeStep === 0}
           >
@@ -111,6 +156,7 @@ export const MultiStepWizard = forwardRef<HTMLDivElement, MultiStepWizardProps>(
           <button
             type="button"
             className={styles.nextBtn}
+            data-slot="wizard-page-next-button"
             onClick={handleNext}
           >
             {activeStep === steps.length - 1 ? "Complete Transaction" : "Continue"}
@@ -122,3 +168,5 @@ export const MultiStepWizard = forwardRef<HTMLDivElement, MultiStepWizardProps>(
 );
 
 MultiStepWizard.displayName = "MultiStepWizard";
+
+export const WizardPageTemplate = MultiStepWizard;

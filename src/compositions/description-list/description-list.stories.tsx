@@ -9,6 +9,12 @@ const meta: Meta<typeof DescriptionList> = {
     columns: {
       control: "select",
       options: [1, 2, 3],
+      description: "Number of grid column pairs.",
+    },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
     },
   },
 };
@@ -16,17 +22,20 @@ const meta: Meta<typeof DescriptionList> = {
 export default meta;
 type Story = StoryObj<typeof DescriptionList>;
 
+const sampleItems = [
+  { label: "Entity Legal Name", value: "Acme Holdings International LLC" },
+  { label: "Tax Identification", value: "US-EIN-98-1234567" },
+  { label: "Base Ledger Currency", value: "USD ($)" },
+  { label: "Current Fiscal Year", value: "FY2026 (Open)" },
+  { label: "Audit Standard", value: "IFRS-9 / GAAP Compliant" },
+  { label: "Last Reconciled", value: "2026-08-28 23:59:59" },
+];
+
 export const Default: Story = {
   args: {
     columns: 2,
-    items: [
-      { label: "Entity Legal Name", value: "Acme Holdings International LLC" },
-      { label: "Tax Identification", value: "US-EIN-98-1234567" },
-      { label: "Base Ledger Currency", value: "USD ($)" },
-      { label: "Current Fiscal Year", value: "FY2026 (Open)" },
-      { label: "Audit Standard", value: "IFRS-9 / GAAP Compliant" },
-      { label: "Last Reconciled", value: "2026-08-28 23:59:59" },
-    ],
+    density: "standard",
+    items: sampleItems,
   },
 };
 
@@ -34,6 +43,37 @@ export const AnatomyAndComposition: Story = {
   args: {
     ...Default.args,
   },
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>
+          Ultra-Compact Density (10px font)
+        </h4>
+        <DescriptionList columns={2} density="ultra-compact" items={sampleItems.slice(0, 4)} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>
+          Compact Density (11px / 12px)
+        </h4>
+        <DescriptionList columns={2} density="compact" items={sampleItems.slice(0, 4)} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>
+          Standard Density (12px / 14px)
+        </h4>
+        <DescriptionList columns={2} density="standard" items={sampleItems.slice(0, 4)} />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0 }}>
+          Comfortable Density (14px / 16px)
+        </h4>
+        <DescriptionList columns={2} density="comfortable" items={sampleItems.slice(0, 4)} />
+      </div>
+    </div>
+  ),
 };
 
 export const AllStatesGallery: Story = {

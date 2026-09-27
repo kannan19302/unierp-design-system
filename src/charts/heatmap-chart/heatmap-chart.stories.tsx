@@ -1,5 +1,6 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { ResourceCapacityHeatmap, ResourceRow } from "./heatmap-chart";
+import { ResourceCapacityHeatmap, HeatmapChart, ResourceRow } from "./heatmap-chart";
 
 const SAMPLE_PERIODS = [
   { key: "sprint-34", label: "Sprint 34 (Sep 1–14)" },
@@ -48,7 +49,7 @@ const SAMPLE_RESOURCES: ResourceRow[] = [
       },
       {
         periodKey: "sprint-35",
-        allocatedHours: 48, // Overloaded
+        allocatedHours: 48,
         capacityHours: 40,
         tasks: [
           { id: "t5", title: "PostgreSQL 17 Multi-Region Migration", project: "Database Ops", hours: 32 },
@@ -64,30 +65,40 @@ const SAMPLE_RESOURCES: ResourceRow[] = [
   },
 ];
 
-const meta: Meta<typeof ResourceCapacityHeatmap> = {
-  title: "Charts/ResourceCapacityHeatmap",
-  component: ResourceCapacityHeatmap,
+const meta: Meta<typeof HeatmapChart> = {
+  title: "Charts/HeatmapChart",
+  component: HeatmapChart,
   parameters: {
     layout: "padded",
   },
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    title: {
+      control: "text",
+    },
+  },
 };
 
 export default meta;
-type Story = StoryObj<typeof ResourceCapacityHeatmap>;
+type Story = StoryObj<typeof HeatmapChart>;
 
 export const Default: Story = {
   args: {
     title: "Engineering Squad Alpha — Capacity Allocation",
     periods: SAMPLE_PERIODS,
     resources: SAMPLE_RESOURCES,
+    density: "standard",
   },
 };
 
 export const AnatomyAndComposition: Story = {
   render: (args) => (
     <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-      <ResourceCapacityHeatmap {...args} />
+      <HeatmapChart {...args} />
     </div>
   ),
   args: {
@@ -97,11 +108,20 @@ export const AnatomyAndComposition: Story = {
   },
 };
 
-export const AllStatesGallery: Story = {
+export const DensityGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
       <div>
-        <h4 style={{ marginBottom: "8px" }}>Compact Density</h4>
+        <h4 style={{ marginBlockEnd: "8px" }}>Ultra-Compact Density (24px target)</h4>
+        <ResourceCapacityHeatmap
+          title="Team Workload (Ultra-Compact)"
+          periods={SAMPLE_PERIODS}
+          resources={SAMPLE_RESOURCES}
+          density="ultra-compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "8px" }}>Compact Density (28px target)</h4>
         <ResourceCapacityHeatmap
           title="Team Workload (Compact)"
           periods={SAMPLE_PERIODS}
@@ -110,7 +130,16 @@ export const AllStatesGallery: Story = {
         />
       </div>
       <div>
-        <h4 style={{ marginBottom: "8px" }}>Comfortable Density</h4>
+        <h4 style={{ marginBlockEnd: "8px" }}>Standard Density (32px target)</h4>
+        <ResourceCapacityHeatmap
+          title="Team Workload (Standard)"
+          periods={SAMPLE_PERIODS}
+          resources={SAMPLE_RESOURCES}
+          density="standard"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "8px" }}>Comfortable Density (40px target)</h4>
         <ResourceCapacityHeatmap
           title="Team Workload (Comfortable)"
           periods={SAMPLE_PERIODS}
@@ -121,4 +150,3 @@ export const AllStatesGallery: Story = {
     </div>
   ),
 };
-

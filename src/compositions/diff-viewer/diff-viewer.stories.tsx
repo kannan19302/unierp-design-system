@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { RedlineDiffViewer } from "./diff-viewer";
+import { RedlineDiffViewer, DiffViewer } from "./diff-viewer";
 
 const sampleOriginal = `Section 4.1 Indemnification.
 The Service Provider agrees to defend, indemnify, and hold harmless the Customer
@@ -24,10 +24,16 @@ const meta: Meta<typeof RedlineDiffViewer> = {
     defaultViewMode: {
       control: "select",
       options: ["split", "unified"],
+      description: "Default display mode: split side-by-side or unified stacked.",
     },
     density: {
       control: "select",
       options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+    documentTitle: {
+      control: "text",
+      description: "Title shown in the toolbar.",
     },
   },
 };
@@ -55,19 +61,52 @@ export const UnifiedInlineMarkup: Story = {
   },
 };
 
-export const UltraCompactDensity: Story = {
-  args: {
-    originalText: sampleOriginal,
-    revisedText: sampleRevised,
-    defaultViewMode: "split",
-    documentTitle: "High-Throughput Audit Review",
-    density: "ultra-compact",
-  },
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Ultra-Compact (24px line height)</h4>
+        <DiffViewer
+          originalText={sampleOriginal}
+          revisedText={sampleRevised}
+          density="ultra-compact"
+          documentTitle="Ultra-Compact Audit Diff"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Compact (28px line height)</h4>
+        <DiffViewer
+          originalText={sampleOriginal}
+          revisedText={sampleRevised}
+          density="compact"
+          documentTitle="Compact Standard Diff"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Standard (32px line height)</h4>
+        <DiffViewer
+          originalText={sampleOriginal}
+          revisedText={sampleRevised}
+          density="standard"
+          documentTitle="Standard Legal Review Diff"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Comfortable (40px line height)</h4>
+        <DiffViewer
+          originalText={sampleOriginal}
+          revisedText={sampleRevised}
+          density="comfortable"
+          documentTitle="Comfortable Executive Diff"
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const AnatomyAndComposition: Story = {
   render: (args) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <RedlineDiffViewer {...args} />
     </div>
   ),
@@ -80,9 +119,9 @@ export const AnatomyAndComposition: Story = {
 
 export const AllStatesGallery: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
-        <h4 style={{ marginBottom: "8px" }}>Split View Mode</h4>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Split View Mode</h4>
         <RedlineDiffViewer
           originalText={sampleOriginal}
           revisedText={sampleRevised}
@@ -90,7 +129,7 @@ export const AllStatesGallery: Story = {
         />
       </div>
       <div>
-        <h4 style={{ marginBottom: "8px" }}>Unified View Mode</h4>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Unified View Mode</h4>
         <RedlineDiffViewer
           originalText={sampleOriginal}
           revisedText={sampleRevised}
@@ -100,4 +139,3 @@ export const AllStatesGallery: Story = {
     </div>
   ),
 };
-

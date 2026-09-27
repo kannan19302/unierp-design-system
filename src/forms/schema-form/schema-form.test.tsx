@@ -143,4 +143,28 @@ describe("SchemaForm", () => {
     await userEvent.click(screen.getByRole("button", { name: "Company Name is required" }));
     expect(screen.getByRole("textbox", { name: /Company Name/ })).toHaveFocus();
   });
+
+  it("renders with data-slot attributes", () => {
+    const { container } = render(<SchemaForm sections={testSections} onSubmit={vi.fn()} />);
+    expect(container.querySelector('[data-slot="schema-form"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="schema-form-section"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="schema-form-section-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="schema-form-section-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="schema-form-grid"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="schema-form-field"]').length).toBeGreaterThan(0);
+    expect(container.querySelector('[data-slot="schema-form-actions"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="schema-form-submit"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container, unmount } = render(
+        <SchemaForm density={density} sections={testSections} onSubmit={vi.fn()} />
+      );
+      const root = container.querySelector('[data-slot="schema-form"]');
+      expect(root).toHaveAttribute("data-density", density);
+      unmount();
+    });
+  });
 });

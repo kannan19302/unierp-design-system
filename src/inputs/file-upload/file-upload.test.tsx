@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { FileUpload } from "./file-upload";
+import { FileUpload, fileUploadVariants } from "./file-upload";
 
 describe("FileUpload Primitive", () => {
   it("renders upload callout text", () => {
@@ -129,4 +129,33 @@ describe("FileUpload Primitive", () => {
     expect(dropzone2Desc).toContain(err2.id);
     expect(dropzone2Desc).not.toContain(desc1.id);
   });
+
+  it("supports fileUploadVariants cva and exposes data-slot annotations", () => {
+    expect(typeof fileUploadVariants).toBe("function");
+    expect(fileUploadVariants({ density: "compact", disabled: true })).toBeDefined();
+
+    const { container } = render(
+      <FileUpload
+        label="Receipt Upload"
+        description="PDF or PNG"
+        error="File too big"
+        files={[{ name: "doc.pdf", size: 1024, status: "uploading", progress: 50 }]}
+        onFileRemove={() => {}}
+      />,
+    );
+
+    expect(container.querySelector('[data-slot="file-upload"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-description"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-dropzone"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-icon"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-text"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-subtext"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-error"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-list"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-item"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-progress"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="file-upload-remove"]')).toBeInTheDocument();
+  });
 });
+

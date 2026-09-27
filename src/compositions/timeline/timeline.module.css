@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — Timeline Styles
+   UniERP Strata DL 2.0 — Timeline Styles
    ══════════════════════════════════════════════════════════════ */
 
 .container {
@@ -7,24 +7,76 @@
   flex-direction: column;
   position: relative;
   font-family: var(--font-sans);
-  padding-left: var(--space-2);
+  padding-inline-start: var(--space-2);
+  --timeline-node-size: 16px;
+  --timeline-line-top: 18px;
+  --timeline-line-left: 7px;
+  --timeline-gap: var(--space-3);
+  --timeline-item-padding: var(--space-4);
+  --timeline-title-size: var(--type-dense, var(--text-sm));
+  --timeline-meta-size: var(--type-micro, 11px);
+}
+
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact,
+.container[data-density="ultra-compact"] {
+  --timeline-node-size: 12px;
+  --timeline-line-top: 14px;
+  --timeline-line-left: 5px;
+  --timeline-gap: var(--space-1-5, 6px);
+  --timeline-item-padding: var(--space-2, 6px);
+  --timeline-title-size: var(--text-2xs, 11px);
+  --timeline-meta-size: 10px;
+}
+
+.densityCompact,
+.container[data-density="compact"] {
+  --timeline-node-size: 14px;
+  --timeline-line-top: 16px;
+  --timeline-line-left: 6px;
+  --timeline-gap: var(--space-2, 8px);
+  --timeline-item-padding: var(--space-3, 10px);
+  --timeline-title-size: var(--text-xs, 12px);
+  --timeline-meta-size: var(--type-micro, 11px);
+}
+
+.densityStandard,
+.container[data-density="standard"] {
+  --timeline-node-size: 16px;
+  --timeline-line-top: 18px;
+  --timeline-line-left: 7px;
+  --timeline-gap: var(--space-3, 12px);
+  --timeline-item-padding: var(--space-4, 16px);
+  --timeline-title-size: var(--type-dense, var(--text-sm));
+  --timeline-meta-size: var(--type-micro, 11px);
+}
+
+.densityComfortable,
+.container[data-density="comfortable"] {
+  --timeline-node-size: 20px;
+  --timeline-line-top: 22px;
+  --timeline-line-left: 9px;
+  --timeline-gap: var(--space-4, 16px);
+  --timeline-item-padding: var(--space-5, 20px);
+  --timeline-title-size: var(--text-base, 16px);
+  --timeline-meta-size: var(--text-xs, 12px);
 }
 
 .item {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
-  padding-bottom: var(--space-4);
+  gap: var(--timeline-gap);
+  padding-block-end: var(--timeline-item-padding);
 }
 
 .item:last-child {
-  padding-bottom: 0;
+  padding-block-end: 0;
 }
 
 .node {
-  width: var(--timeline-node-size, 16px);
-  height: var(--timeline-node-size, 16px);
+  inline-size: var(--timeline-node-size);
+  block-size: var(--timeline-node-size);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -32,7 +84,7 @@
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border: 2px solid var(--surface-1-border, var(--color-border));
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-block-start: 2px;
   z-index: 1;
 }
 
@@ -72,8 +124,10 @@
 }
 
 .dot {
-  width: var(--size-dot-sm, 6px);
-  height: var(--size-dot-sm, 6px);
+  inline-size: calc(var(--timeline-node-size) * 0.375);
+  block-size: calc(var(--timeline-node-size) * 0.375);
+  min-inline-size: 4px;
+  min-block-size: 4px;
   border-radius: 50%;
 }
 
@@ -85,17 +139,17 @@
 
 .line {
   position: absolute;
-  top: var(--timeline-line-top, 18px);
-  left: var(--timeline-line-left, 7px);
-  bottom: 0;
-  width: 2px;
+  inset-block-start: var(--timeline-line-top);
+  inset-inline-start: var(--timeline-line-left);
+  inset-block-end: 0;
+  inline-size: 2px;
   background: var(--surface-1-border, var(--color-border));
   z-index: 0;
 }
 
 .content {
   flex: 1;
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 .header {
@@ -106,21 +160,21 @@
 }
 
 .title {
-  font-size: var(--type-dense, var(--text-sm));
+  font-size: var(--timeline-title-size);
   font-weight: var(--weight-semibold);
   color: var(--surface-text-primary, var(--color-text));
 }
 
 .timestamp {
-  font-size: var(--type-micro, 11px);
+  font-size: var(--timeline-meta-size);
   color: var(--surface-text-secondary, var(--color-text-muted));
   font-variant-numeric: tabular-nums lining-nums;
   white-space: nowrap;
 }
 
 .description {
-  font-size: var(--type-micro, 11px);
+  font-size: var(--timeline-meta-size);
   color: var(--surface-text-secondary, var(--color-text-secondary));
-  margin-top: 2px;
+  margin-block-start: 2px;
   line-height: var(--leading-normal);
 }

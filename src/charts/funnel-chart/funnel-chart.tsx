@@ -1,4 +1,7 @@
+"use client";
+
 import { forwardRef, useId, useState } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./funnel-chart.module.css";
 
 export interface FunnelStep {
@@ -14,7 +17,28 @@ export interface FunnelStep {
   medianTimeToConvert?: string; // "3m 42s"
 }
 
-export interface FunnelDropoffAnalyzerProps {
+export const funnelDropoffAnalyzerVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "compact",
+  },
+});
+
+export const funnelChartVariants = funnelDropoffAnalyzerVariants;
+
+export type FunnelDropoffAnalyzerDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+export type FunnelChartDensity = FunnelDropoffAnalyzerDensity;
+
+export interface FunnelDropoffAnalyzerProps
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof funnelDropoffAnalyzerVariants> {
   funnelName?: string;
   timeRangeLabel?: string;
   steps: FunnelStep[];
@@ -23,7 +47,7 @@ export interface FunnelDropoffAnalyzerProps {
   segments?: string[];
   activeSegment?: string;
   onSegmentChange?: (segment: string) => void;
-  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
+  density?: FunnelDropoffAnalyzerDensity;
   className?: string;
 }
 
@@ -43,6 +67,7 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
   onSegmentChange,
   density = "compact",
   className = "",
+  ...restProps
 }, ref) => {
   const headingId = useId();
   const [internalSelectedId, setInternalSelectedId] = useState<string | undefined>(
@@ -63,16 +88,17 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
   const overallEndToEndPct =
     initialCount > 0 ? ((finalCount / initialCount) * 100).toFixed(1) : "0.0";
 
-
   return (
     <section
       ref={ref}
-      className={`${styles.container} ${styles[density]} ${className}`}
-      aria-labelledby={headingId}
+      data-slot="funnel-chart"
       data-density={density}
+      className={funnelDropoffAnalyzerVariants({ density, className })}
+      aria-labelledby={headingId}
+      {...restProps}
     >
       {/* Header & Controls */}
-      <header className={styles.header}>
+      <header className={styles.header} data-slot="funnel-chart-header">
         <div className={styles.titleGroup}>
           <div className={styles.iconTag} aria-hidden="true">
             📉
@@ -84,7 +110,7 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
                 End-to-End Conversion: <strong>{overallEndToEndPct}%</strong>
               </span>
             </div>
-            <h2 id={headingId} className={styles.title}>
+            <h2 id={headingId} className={styles.title} data-slot="funnel-chart-title">
               {funnelName}
             </h2>
           </div>
@@ -101,6 +127,7 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
               value={activeSegment}
               onChange={(e) => onSegmentChange?.(e.target.value)}
               className={styles.segmentSelect}
+              data-slot="funnel-chart-segment-select"
             >
               {segments.map((seg) => (
                 <option key={seg} value={seg}>
@@ -113,7 +140,7 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
       </header>
 
       {/* Visual Funnel Step Bars */}
-      <div className={styles.funnelFlow}>
+      <div className={styles.funnelFlow} data-slot="funnel-chart-flow">
         {steps.map((step, idx) => {
           const isSelected = step.id === activeId;
           const barWidthPct = Math.max(8, (step.count / initialCount) * 100);
@@ -122,6 +149,7 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
             <div key={step.id} className={styles.stepWrapper}>
               <div
                 className={`${styles.stepBarCard} ${isSelected ? styles.selectedCard : ""}`}
+                data-slot="funnel-chart-step"
               >
                 <div className={styles.stepHeader}>
                   <span className={styles.stepNum}>#{step.stepNumber}</span>
@@ -141,7 +169,7 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
                 <div className={styles.barTrack}>
                   <div
                     className={styles.barFill}
-                    style={{ width: `${barWidthPct}%` }}
+                    style={{ inlineSize: `${barWidthPct}%` }}
                     aria-hidden="true"
                   />
                 </div>
@@ -165,14 +193,13 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
 
               {/* Dropoff connector between steps */}
               {idx < steps.length - 1 && (
-                <div className={styles.connector}>
+                <div className={styles.connector} data-slot="funnel-chart-connector">
                   <span className={styles.dropoffBadge}>
                     ↓ -{new Intl.NumberFormat("en-US").format(step.dropoffCount)} (
                     {step.dropoffPct.toFixed(1)}% drop)
                   </span>
                 </div>
               )}
-
             </div>
           );
         })}
@@ -180,7 +207,7 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
 
       {/* Active Step Diagnostic Inspector */}
       {activeStep && (
-        <div className={styles.diagnosticPane}>
+        <div className={styles.diagnosticPane} data-slot="funnel-chart-diagnostics">
           <h3 className={styles.paneTitle}>Step Bottleneck Inspection</h3>
           <div className={styles.diagnosticGrid}>
             <div className={styles.diagCard}>
@@ -214,3 +241,6 @@ export const FunnelDropoffAnalyzer = forwardRef<HTMLElement, FunnelDropoffAnalyz
 });
 
 FunnelDropoffAnalyzer.displayName = "FunnelDropoffAnalyzer";
+
+export const FunnelChart = FunnelDropoffAnalyzer;
+export type FunnelChartProps = FunnelDropoffAnalyzerProps;

@@ -27,6 +27,27 @@ describe("PinnedBookmarksBar", () => {
     expect(handleSelect).toHaveBeenCalledWith(sampleBookmarks[1]);
   });
 
+  it("renders data-slot anatomy correctly", () => {
+    render(
+      <PinnedBookmarksBar
+        bookmarks={sampleBookmarks}
+        density="compact"
+        onRemove={() => {}}
+        onAddCurrent={() => {}}
+      />
+    );
+    const bar = document.querySelector('[data-slot="bookmarks-bar"]');
+    expect(bar).toBeInTheDocument();
+    expect(bar).toHaveAttribute("data-density", "compact");
+    expect(document.querySelector('[data-slot="bookmarks-bar-icon"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="bookmarks-bar-list"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="bookmarks-bar-item"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="bookmarks-bar-button"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="bookmarks-bar-hotkey"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="bookmarks-bar-remove"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="bookmarks-bar-add"]')).toBeInTheDocument();
+  });
+
   it("forwards ref to the navigation element", () => {
     const ref = createRef<HTMLElement>();
     render(

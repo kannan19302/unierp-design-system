@@ -1,6 +1,23 @@
 import { forwardRef, useCallback, useState, type ReactNode } from "react";
 import { Check, Copy } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./strata-bar.module.css";
+
+export type ShellDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export const strataBarVariants = cva(styles.root, {
+  variants: {
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 export type StrataState =
   | "neutral"
@@ -46,7 +63,7 @@ export interface LifecycleStep {
   completed?: boolean;
 }
 
-export interface StrataBarProps {
+export interface StrataBarProps extends VariantProps<typeof strataBarVariants> {
   /**
    * Plain segment hierarchy, e.g. ["acme", "finance", "invoices", "INV-2043"].
    * Joined with "/" and rendered in Inter. The terminal segment is emphasized.
@@ -79,6 +96,10 @@ export interface StrataBarProps {
    * Exactly one primary next action, rendered at the far right.
    */
   action?: ReactNode;
+  /**
+   * Strata 4-tier density scaling.
+   */
+  density?: ShellDensity;
   className?: string;
 }
 
@@ -94,6 +115,7 @@ export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
   lifecycle,
   activeUsers,
   action,
+  density = "standard",
   className,
 }, ref) => {
   const [copied, setCopied] = useState(false);
@@ -120,14 +142,16 @@ export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
     <header
       ref={ref}
       aria-label="Operational Context Bar"
-      className={`${styles.root} ${scope ? styles.scoped : ""} ${className ?? ""}`}
+      data-slot="strata-bar"
+      data-density={density}
+      className={`${strataBarVariants({ density })} ${scope ? styles.scoped : ""} ${className ?? ""}`.trim()}
       style={scopeStyle}
     >
-      <div className={styles.identity}>
+      <div data-slot="strata-bar-identity" className={styles.identity}>
         {address ? (
           address
         ) : segments && segments.length > 0 ? (
-          <div className={styles.segments}>
+          <div data-slot="strata-bar-segments" className={styles.segments}>
             {segments.map((s, i) => {
               const isTerminal = i === segments.length - 1;
               return (
@@ -143,6 +167,7 @@ export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
         {copyText && (
           <button
             type="button"
+            data-slot="strata-bar-copy-btn"
             className={styles.copy_btn}
             onClick={handleCopy}
             aria-label={copied ? "Copied address" : "Copy address"}
@@ -153,12 +178,13 @@ export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
         )}
       </div>
 
-      <div className={styles.center}>
+      <div data-slot="strata-bar-center" className={styles.center}>
         {lifecycle && lifecycle.length > 0 && (
-          <ol className={styles.lifecycle_path} aria-label="Lifecycle progress">
+          <ol data-slot="strata-bar-lifecycle" className={styles.lifecycle_path} aria-label="Lifecycle progress">
             {lifecycle.map((step) => (
               <li
                 key={step.id}
+                data-slot="strata-bar-path-step"
                 className={`${styles.path_step} ${step.active ? styles.path_step_active : ""}`}
                 aria-current={step.active ? "step" : undefined}
               >
@@ -170,6 +196,7 @@ export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
 
         {state && (
           <span
+            data-slot="strata-bar-state-pill"
             className={styles.state_pill}
             style={{
               backgroundColor: STATE_TOKENS[state.kind].bg,
@@ -177,6 +204,7 @@ export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
             }}
           >
             <span
+              data-slot="strata-bar-state-dot"
               className={styles.state_dot}
               style={{ backgroundColor: STATE_TOKENS[state.kind].dot }}
               aria-hidden
@@ -186,9 +214,9 @@ export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
         )}
       </div>
 
-      <div className={styles.right}>
+      <div data-slot="strata-bar-right" className={styles.right}>
         {activeUsers && activeUsers.length > 0 && (
-          <div className={styles.avatars} aria-label={`${activeUsers.length} active viewers`}>
+          <div data-slot="strata-bar-avatars" className={styles.avatars} aria-label={`${activeUsers.length} active viewers`}>
             {activeUsers.slice(0, 3).map((initials, idx) => (
               <div key={idx} className={styles.avatar_circle} title={initials}>
                 {initials}
@@ -198,10 +226,11 @@ export const StrataBar = forwardRef<HTMLElement, StrataBarProps>(({
           </div>
         )}
 
-        {action && <div className={styles.action}>{action}</div>}
+        {action && <div data-slot="strata-bar-action" className={styles.action}>{action}</div>}
       </div>
     </header>
   );
 });
 
 StrataBar.displayName = "StrataBar";
+

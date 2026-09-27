@@ -12,6 +12,25 @@ const meta: Meta<typeof SideNav> = {
   parameters: {
     a11y: { test: "error" },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata density tier for the sidebar navigation.",
+    },
+    collapsed: {
+      control: "boolean",
+      description: "Whether the sidebar is collapsed into an icon rail.",
+    },
+    searchable: {
+      control: "boolean",
+      description: "Enables interactive fast filtering across navigation items.",
+    },
+    allowFavorites: {
+      control: "boolean",
+      description: "Enables pin-to-top star actions for items.",
+    },
+  },
 };
 
 export default meta;

@@ -38,3 +38,12 @@
 .erpAccent {
   color: var(--color-primary);
 }
+
+.variantDefault {
+  /* standard brand coloration */
+}
+
+.variantMonochrome {
+  filter: grayscale(1);
+  opacity: 0.9;
+}

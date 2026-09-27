@@ -1,10 +1,57 @@
 /* ══════════════════════════════════════════════════════════════
-   UniERP Design Language 1.0 — TreeView Styles
+   UniERP Strata DL 2.0 — TreeView Styles
    ══════════════════════════════════════════════════════════════ */
 
 .tree {
   font-family: var(--font-sans);
   user-select: none;
+  --tree-row-height: 2rem; /* 32px standard */
+  --tree-indent-step: 16px;
+  --tree-icon-size: 16px;
+  --tree-toggle-size: 14px;
+  --tree-label-size: var(--type-dense, var(--text-sm));
+  --tree-badge-size: 10px;
+}
+
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact,
+.tree[data-density="ultra-compact"] {
+  --tree-row-height: 1.5rem; /* 24px */
+  --tree-indent-step: 12px;
+  --tree-icon-size: 12px;
+  --tree-toggle-size: 12px;
+  --tree-label-size: var(--text-2xs, 11px);
+  --tree-badge-size: 9px;
+}
+
+.densityCompact,
+.tree[data-density="compact"] {
+  --tree-row-height: 1.75rem; /* 28px */
+  --tree-indent-step: 14px;
+  --tree-icon-size: 14px;
+  --tree-toggle-size: 13px;
+  --tree-label-size: var(--text-xs, 12px);
+  --tree-badge-size: 9px;
+}
+
+.densityStandard,
+.tree[data-density="standard"] {
+  --tree-row-height: 2rem; /* 32px */
+  --tree-indent-step: 16px;
+  --tree-icon-size: 16px;
+  --tree-toggle-size: 14px;
+  --tree-label-size: var(--type-dense, var(--text-sm));
+  --tree-badge-size: 10px;
+}
+
+.densityComfortable,
+.tree[data-density="comfortable"] {
+  --tree-row-height: 2.5rem; /* 40px */
+  --tree-indent-step: 20px;
+  --tree-icon-size: 18px;
+  --tree-toggle-size: 16px;
+  --tree-label-size: var(--text-base, 16px);
+  --tree-badge-size: 11px;
 }
 
 .nodeWrapper {
@@ -16,10 +63,11 @@
   display: flex;
   align-items: center;
   gap: var(--space-1-5);
-  padding: 2px var(--space-2);
+  padding-block: 2px;
+  padding-inline: var(--space-2);
   border-radius: var(--radius-xs, 2px);
   cursor: pointer;
-  height: var(--density-control-height-sm, 24px);
+  block-size: var(--tree-row-height);
   box-sizing: border-box;
   transition: background var(--duration-fast) var(--ease-default);
 }
@@ -38,9 +86,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--size-icon-sm, 14px);
-  height: var(--size-icon-sm, 14px);
-  padding: 0;
+  inline-size: var(--tree-toggle-size);
+  block-size: var(--tree-toggle-size);
+  padding-block: 0;
+  padding-inline: 0;
   background: none;
   border: none;
   cursor: pointer;
@@ -50,7 +99,7 @@
 }
 
 .indentSpacer {
-  width: var(--size-indent-step, 14px);
+  inline-size: var(--tree-indent-step);
   flex-shrink: 0;
 }
 
@@ -66,7 +115,7 @@
 }
 
 .label {
-  font-size: var(--type-micro, 11px);
+  font-size: var(--tree-label-size);
   color: var(--surface-text-primary, var(--color-text));
   white-space: nowrap;
   overflow: hidden;
@@ -75,11 +124,12 @@
 }
 
 .badge {
-  font-size: var(--type-micro, 9px);
+  font-size: var(--tree-badge-size);
   font-weight: var(--weight-bold);
   background: var(--surface-1-border, var(--color-border));
   color: var(--surface-text-secondary, var(--color-text-muted));
-  padding: 0 var(--space-1, 4px);
+  padding-block: 0;
+  padding-inline: var(--space-1, 4px);
   border-radius: var(--radius-full);
 }
 

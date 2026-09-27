@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { axe } from "vitest-axe";
-import { ColorPicker, getContrastRatio } from "./color-picker";
+import { ColorPicker, colorPickerVariants, getContrastRatio } from "./color-picker";
 
 describe("ColorPicker Component", () => {
   it("renders trigger button with initial hex code", () => {
@@ -122,4 +122,33 @@ describe("ColorPicker Component", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("supports colorPickerVariants cva and exposes data-slot annotations", () => {
+    expect(typeof colorPickerVariants).toBe("function");
+    expect(colorPickerVariants({ density: "compact", disabled: true })).toBeDefined();
+
+    const { container } = render(
+      <ColorPicker label="Brand Accent" value="#0e6b75" onChange={() => {}} />,
+    );
+
+    const root = container.querySelector('[data-slot="color-picker"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-density", "standard");
+
+    expect(container.querySelector('[data-slot="color-picker-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="color-picker-trigger"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="color-picker-swatch"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="color-picker-hex-display"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="color-picker-icon"]')).toBeInTheDocument();
+
+    // Open popover
+    fireEvent.click(container.querySelector('[data-slot="color-picker-trigger"]')!);
+    expect(document.querySelector('[data-slot="color-picker-popover"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="color-picker-presets"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="color-picker-inputs"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="color-picker-hex-input"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="color-picker-native"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="color-picker-contrast"]')).toBeInTheDocument();
+  });
 });
+

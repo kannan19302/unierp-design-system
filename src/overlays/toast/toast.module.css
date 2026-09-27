@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — Toast Notification Styles
+   Strict CSS Logical Properties
    ══════════════════════════════════════════════════════════════ */
 
 @keyframes toastSlideIn {
@@ -26,13 +27,13 @@
 
 .container {
   position: fixed;
-  top: var(--space-4);
-  right: var(--space-4);
+  inset-block-start: var(--space-4, 16px);
+  inset-inline-end: var(--space-4, 16px);
   z-index: var(--z-toast, 500);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  max-width: min(92vw, var(--toast-max-width, 360px));
+  gap: var(--space-2, 8px);
+  max-inline-size: min(92vw, var(--toast-max-width, 360px));
   pointer-events: none;
   box-sizing: border-box;
 }
@@ -40,16 +41,66 @@
 .item {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-2-5);
-  padding: var(--space-3);
-  border-radius: var(--radius-sm, 2px);
-  background: var(--surface-1-bg, var(--color-bg-elevated));
-  border: 1px solid var(--surface-1-border, var(--color-border));
+  gap: var(--space-2-5, 10px);
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-3, 12px);
+  border-radius: var(--radius-sm, 4px);
+  background: var(--surface-1-bg, var(--color-bg-elevated, #ffffff));
+  border: 1px solid var(--surface-1-border, var(--color-border, #e2e8f0));
   box-shadow: var(--shadow-lg);
   pointer-events: auto;
   animation: toastSlideIn 200ms var(--ease-spring) forwards;
   font-family: var(--font-sans);
   box-sizing: border-box;
+}
+
+/* Densities */
+.densityUltraCompact {
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-2, 8px);
+  gap: var(--space-1-5, 6px);
+}
+.densityUltraCompact .title {
+  font-size: var(--text-xs, 12px);
+}
+.densityUltraCompact .description {
+  font-size: var(--text-2xs, 11px);
+}
+
+.densityCompact {
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-2-5, 10px);
+  gap: var(--space-2, 8px);
+}
+.densityCompact .title {
+  font-size: var(--text-sm, 13px);
+}
+.densityCompact .description {
+  font-size: var(--text-xs, 12px);
+}
+
+.densityStandard {
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-3, 12px);
+  gap: var(--space-2-5, 10px);
+}
+.densityStandard .title {
+  font-size: var(--type-dense, var(--text-sm, 14px));
+}
+.densityStandard .description {
+  font-size: var(--type-caption, var(--text-xs, 12px));
+}
+
+.densityComfortable {
+  padding-block: var(--space-4, 16px);
+  padding-inline: var(--space-4, 16px);
+  gap: var(--space-3, 12px);
+}
+.densityComfortable .title {
+  font-size: var(--text-base, 15px);
+}
+.densityComfortable .description {
+  font-size: var(--text-sm, 13px);
 }
 
 .leaving {
@@ -58,26 +109,26 @@
 
 .icon {
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-block-start: 1px;
 }
 
 .content {
   flex: 1;
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 .title {
-  font-size: var(--type-dense, var(--text-sm));
-  font-weight: var(--weight-semibold);
-  color: var(--surface-text-primary, var(--color-text));
-  line-height: var(--leading-tight);
+  font-size: var(--type-dense, var(--text-sm, 14px));
+  font-weight: var(--weight-semibold, 600);
+  color: var(--surface-text-primary, var(--color-text, #0f172a));
+  line-height: var(--leading-tight, 1.25);
 }
 
 .description {
-  font-size: var(--type-caption, var(--text-xs));
-  color: var(--surface-text-secondary, var(--color-text-muted));
-  margin-top: 2px;
-  line-height: var(--leading-normal);
+  font-size: var(--type-caption, var(--text-xs, 12px));
+  color: var(--surface-text-secondary, var(--color-text-muted, #64748b));
+  margin-block-start: 2px;
+  line-height: var(--leading-normal, 1.5);
 }
 
 .dismissBtn {
@@ -88,17 +139,22 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  color: var(--surface-text-secondary, var(--color-text-muted));
-  margin-top: 1px;
+  color: var(--surface-text-secondary, var(--color-text-muted, #64748b));
+  margin-block-start: 1px;
 }
 
 .dismissBtn:hover {
-  color: var(--surface-text-primary, var(--color-text));
+  color: var(--surface-text-primary, var(--color-text, #0f172a));
+}
+
+.dismissBtn:focus-visible {
+  outline: 2px solid var(--color-focus-ring, #2563eb);
+  outline-offset: 2px;
 }
 
 /* ── Variants ── */
 .success {
-  border-left: var(--scope-edge-width, 3px) solid var(--color-success, #15803d);
+  border-inline-start: var(--scope-edge-width, 3px) solid var(--color-success, #15803d);
 }
 
 .success .icon {
@@ -106,7 +162,7 @@
 }
 
 .error {
-  border-left: var(--scope-edge-width, 3px) solid var(--color-danger, #ef4444);
+  border-inline-start: var(--scope-edge-width, 3px) solid var(--color-danger, #ef4444);
 }
 
 .error .icon {
@@ -114,7 +170,7 @@
 }
 
 .warning {
-  border-left: var(--scope-edge-width, 3px) solid var(--color-warning, #b45309);
+  border-inline-start: var(--scope-edge-width, 3px) solid var(--color-warning, #b45309);
 }
 
 .warning .icon {
@@ -122,14 +178,9 @@
 }
 
 .info {
-  border-left: var(--scope-edge-width, 3px) solid var(--color-primary);
+  border-inline-start: var(--scope-edge-width, 3px) solid var(--color-primary, #0284c7);
 }
 
 .info .icon {
-  color: var(--color-primary);
-}
-
-.dismissBtn:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: 2px;
+  color: var(--color-primary, #0284c7);
 }

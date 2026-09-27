@@ -10,6 +10,12 @@ import styles from "./card.module.css";
  */
 export const cardVariants = cva(styles.card, {
   variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
     padding: {
       none: styles.p_none,
       sm: styles.p_sm,
@@ -22,15 +28,19 @@ export const cardVariants = cva(styles.card, {
     },
   },
   defaultVariants: {
+    density: "standard",
     padding: "md",
     hover: false,
   },
 });
 
+export type CardVariantProps = VariantProps<typeof cardVariants>;
+
 export interface CardProps
   extends HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardVariants> {
+    CardVariantProps {
   children?: ReactNode;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   padding?: "none" | "sm" | "md" | "lg";
   hover?: boolean;
 }
@@ -45,6 +55,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
   (
     {
       children,
+      density = "standard",
       padding = "md",
       hover = false,
       className = "",
@@ -53,12 +64,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     },
     ref
   ) => {
-    const cardClass = cardVariants({ padding, hover, className });
+    const cardClass = cardVariants({ density, padding, hover, className });
 
     return (
       <div
         ref={ref}
         data-slot="card"
+        data-density={density}
         data-padding={padding}
         data-hover={hover ? "true" : undefined}
         className={cardClass || undefined}

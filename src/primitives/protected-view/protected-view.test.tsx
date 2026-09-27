@@ -42,6 +42,65 @@ describe("ProtectedComponent Primitive", () => {
     expect(screen.getByText("Invoice Creator")).toBeInTheDocument();
   });
 
+  it("exposes data-slot and handles AccessDeniedCard with cva", () => {
+    const { container } = render(
+      <PermissionContext.Provider value={{ permissions: [], resolvedAccess: null }}>
+        <ProtectedComponent permission="admin.billing" showAccessDenied />
+      </PermissionContext.Provider>
+    );
+
+    const card = container.querySelector('[data-slot="access-denied-card"]');
+    expect(card).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="access-denied-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="access-denied-badge"]')).toBeInTheDocument();
+  });
+
+  it("handles ProtectedField FLS hidden and readonly states", () => {
+    const { container, rerender } = render(
+      <PermissionContext.Provider
+        value={{
+          permissions: [],
+          resolvedAccess: {
+            endpoints: [],
+            pages: [],
+            components: [],
+            fields: { Account: { ssn: "hidden" } },
+            recordFilters: {},
+          },
+        }}
+      >
+        <ProtectedField entity="Account" field="ssn">
+          <span>123-45-6789</span>
+        </ProtectedField>
+      </PermissionContext.Provider>
+    );
+
+    expect(container.querySelector('[data-slot="protected-field-mask"]')).toBeInTheDocument();
+    expect(screen.getByText("REDACTED BY POLICY")).toBeInTheDocument();
+
+    rerender(
+      <PermissionContext.Provider
+        value={{
+          permissions: [],
+          resolvedAccess: {
+            endpoints: [],
+            pages: [],
+            components: [],
+            fields: { Account: { ssn: "readonly" } },
+            recordFilters: {},
+          },
+        }}
+      >
+        <ProtectedField entity="Account" field="ssn">
+          <span>123-45-6789</span>
+        </ProtectedField>
+      </PermissionContext.Provider>
+    );
+
+    expect(container.querySelector('[data-slot="protected-field"]')).toBeInTheDocument();
+    expect(screen.getByText("FLS: READ-ONLY")).toBeInTheDocument();
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <PermissionContext.Provider value={{ permissions: ["*"], resolvedAccess: null }}>

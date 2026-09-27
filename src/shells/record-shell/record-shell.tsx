@@ -1,13 +1,30 @@
 "use client";
 
 import { forwardRef, useState, type ReactNode } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./record-shell.module.css";
 
 /**
  * `<RecordShell>` — Three-column flexible layout (List → Detail → Inspector) with independent scrolling columns.
  * @maturity stable
  */
-export interface RecordShellProps {
+type ShellDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export const recordShellVariants = cva(styles.root, {
+  variants: {
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export interface RecordShellProps extends VariantProps<typeof recordShellVariants> {
   /** The module rail — nav for the 45 modules. Rendered by the app. */
   rail?: ReactNode;
   railCollapsed?: boolean;
@@ -27,7 +44,7 @@ export interface RecordShellProps {
   activePane?: "list" | "detail" | "inspector";
   onPaneChange?: (pane: "list" | "detail" | "inspector") => void;
   /** Density scale */
-  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
+  density?: ShellDensity;
   className?: string;
   children?: ReactNode;
 }
@@ -41,7 +58,7 @@ export const RecordShell = forwardRef<HTMLDivElement, RecordShellProps>(({
   inspector,
   activePane,
   onPaneChange,
-  density,
+  density = "standard",
   className = "",
   children,
 }, ref) => {
@@ -66,12 +83,14 @@ export const RecordShell = forwardRef<HTMLDivElement, RecordShellProps>(({
   return (
     <div
       ref={ref}
-      className={`${styles.root} ${className}`.trim()}
+      data-slot="record-shell"
       data-floorplan="record-shell"
       data-density={density}
+      className={`${recordShellVariants({ density })} ${className}`.trim()}
     >
       {rail && (
         <nav
+          data-slot="record-shell-rail"
           className={`${styles.rail} ${railCollapsed ? styles.rail_collapsed : ""}`.trim()}
           aria-label="Modules"
         >
@@ -79,25 +98,35 @@ export const RecordShell = forwardRef<HTMLDivElement, RecordShellProps>(({
         </nav>
       )}
 
-      <div className={styles.content_pane}>
+      <div data-slot="record-shell-content-pane" className={styles.content_pane}>
         {bar}
         {paneOptions.length > 1 && (
-          <div className={styles.paneSwitcher} role="group" aria-label="Record panes">
+          <div data-slot="record-shell-pane-switcher" className={styles.paneSwitcher} role="group" aria-label="Record panes">
             {paneOptions.map((pane) => (
-              <button key={pane} type="button" className={styles.paneButton} aria-pressed={selectedPane === pane} onClick={() => {
-                if (activePane === undefined) setLocalPane(pane);
-                onPaneChange?.(pane);
-              }}>{pane === "list" ? "List" : pane === "detail" ? "Record" : "Inspector"}</button>
+              <button
+                key={pane}
+                type="button"
+                data-slot="record-shell-pane-button"
+                className={styles.paneButton}
+                aria-pressed={selectedPane === pane}
+                onClick={() => {
+                  if (activePane === undefined) setLocalPane(pane);
+                  onPaneChange?.(pane);
+                }}
+              >
+                {pane === "list" ? "List" : pane === "detail" ? "Record" : "Inspector"}
+              </button>
             ))}
           </div>
         )}
-        <div className={`${styles.columns} ${colsClass}`} data-columns={count} data-active-pane={selectedPane}>
-          {list && <section className={styles.column} data-pane="list">{list}</section>}
+        <div data-slot="record-shell-columns" className={`${styles.columns} ${colsClass}`} data-columns={count} data-active-pane={selectedPane}>
+          {list && <section data-slot="record-shell-column" className={styles.column} data-pane="list">{list}</section>}
           {(detail ?? children) && (
-            <section className={styles.column} data-pane="detail">{detail ?? children}</section>
+            <section data-slot="record-shell-column" className={styles.column} data-pane="detail">{detail ?? children}</section>
           )}
           {inspector && (
             <aside
+              data-slot="record-shell-inspector"
               className={`${styles.column} ${styles.column_inspector}`}
               data-pane="inspector"
               aria-label="Inspector"
@@ -121,10 +150,25 @@ export interface ObjectSection {
   children?: ReactNode;
 }
 
-export interface ObjectPageProps {
+export const objectPageVariants = cva(styles.object, {
+  variants: {
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export interface ObjectPageProps extends VariantProps<typeof objectPageVariants> {
   sections: ObjectSection[];
   /** The section currently in view — the app owns scroll-spy. */
   activeId?: string;
+  density?: ShellDensity;
   className?: string;
 }
 
@@ -135,15 +179,22 @@ export interface ObjectPageProps {
 export const ObjectPage = forwardRef<HTMLDivElement, ObjectPageProps>(({
   sections,
   activeId,
+  density = "standard",
   className = "",
 }, ref) => (
-  <div ref={ref} className={`${styles.object} ${styles.object_anchored} ${className}`.trim()}>
-    <nav aria-label="Sections">
-      <ul className={styles.anchors}>
+  <div
+    ref={ref}
+    data-slot="record-shell-object-page"
+    data-density={density}
+    className={`${objectPageVariants({ density })} ${styles.object_anchored} ${className}`.trim()}
+  >
+    <nav data-slot="record-shell-object-nav" aria-label="Sections">
+      <ul data-slot="record-shell-object-anchors" className={styles.anchors}>
         {sections.map((s) => (
           <li key={s.id}>
             <a
               href={`#${s.id}`}
+              data-slot="record-shell-object-anchor"
               className={`${styles.anchor} ${s.id === activeId ? styles.anchor_active : ""}`.trim()}
               aria-current={s.id === activeId ? "true" : undefined}
             >
@@ -154,10 +205,16 @@ export const ObjectPage = forwardRef<HTMLDivElement, ObjectPageProps>(({
       </ul>
     </nav>
 
-    <div className={styles.sections}>
+    <div data-slot="record-shell-object-sections" className={styles.sections}>
       {sections.map((s) => (
-        <section key={s.id} id={s.id} className={styles.section} aria-labelledby={`${s.id}-h`}>
-          <h2 id={`${s.id}-h`} className={styles.section_title}>
+        <section
+          key={s.id}
+          id={s.id}
+          data-slot="record-shell-object-section"
+          className={styles.section}
+          aria-labelledby={`${s.id}-h`}
+        >
+          <h2 id={`${s.id}-h`} data-slot="record-shell-section-title" className={styles.section_title}>
             {s.label}
           </h2>
           {s.children}
@@ -168,3 +225,4 @@ export const ObjectPage = forwardRef<HTMLDivElement, ObjectPageProps>(({
 ));
 
 ObjectPage.displayName = "ObjectPage";
+

@@ -1,9 +1,39 @@
 "use client";
 
 import { forwardRef, type LabelHTMLAttributes, type ReactNode } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./label.module.css";
 
-export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+/**
+ * Class variance authority definitions for Label.
+ * Standardized across Radix UI / shadcn enterprise benchmark.
+ */
+export const labelVariants = cva(styles.label, {
+  variants: {
+    size: {
+      sm: styles.sm,
+      md: styles.md,
+      lg: styles.lg,
+    },
+    disabled: {
+      true: styles.disabled,
+      false: "",
+    },
+    error: {
+      true: styles.error,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+    disabled: false,
+    error: false,
+  },
+});
+
+export interface LabelProps
+  extends LabelHTMLAttributes<HTMLLabelElement>,
+    VariantProps<typeof labelVariants> {
   /** Label text or rich node content */
   children: ReactNode;
   /** Mark field as mandatory with an indicator asterisk */
@@ -22,9 +52,7 @@ export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 
 /**
  * `<Label>` — Accessible form field label primitive adhering to Strata DL 3.0.
- *
- * Provides standard font weighting, required/optional indicators,
- * density responsiveness, and disabled state styling.
+ * Standardized with cva, data-slot, and Radix/shadcn benchmark.
  *
  * @maturity stable
  * @since 3.0.0
@@ -43,26 +71,26 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
     },
     ref
   ) => {
-    const rootClass = [
-      styles.label,
-      styles[size],
-      disabled ? styles.disabled : "",
-      error ? styles.error : "",
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
+    const rootClass = labelVariants({ size, disabled, error, className });
 
     return (
-      <label ref={ref} className={rootClass} {...props}>
+      <label
+        ref={ref}
+        data-slot="label"
+        data-size={size}
+        data-disabled={disabled ? "true" : undefined}
+        data-error={error ? "true" : undefined}
+        className={rootClass}
+        {...props}
+      >
         {children}
         {required && (
-          <span className={styles.required} aria-hidden="true">
+          <span data-slot="label-asterisk" className={styles.required} aria-hidden="true">
             *
           </span>
         )}
         {optional && (
-          <span className={styles.optional}>
+          <span data-slot="label-optional" className={styles.optional}>
             (optional)
           </span>
         )}

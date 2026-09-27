@@ -35,6 +35,29 @@ describe("CanvasMinimapNavigator", () => {
     expect(handleZoomToFit).toHaveBeenCalled();
   });
 
+  it("renders data-slot anatomy correctly", () => {
+    render(
+      <CanvasMinimapNavigator
+        density="compact"
+        zoomPercent={120}
+        viewfinder={{ x: 10, y: 10, width: 40, height: 40 }}
+        onZoomIn={() => {}}
+        onZoomOut={() => {}}
+        onZoomReset={() => {}}
+        onZoomToFit={() => {}}
+      />
+    );
+    const minimap = document.querySelector('[data-slot="minimap"]');
+    expect(minimap).toBeInTheDocument();
+    expect(minimap).toHaveAttribute("data-density", "compact");
+    expect(document.querySelector('[data-slot="minimap-radar"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="minimap-viewfinder"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="minimap-toolbar"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="minimap-zoom-label"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="minimap-controls"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="minimap-tool-button"]')).toBeInTheDocument();
+  });
+
   it("forwards ref to the root container", () => {
     const ref = createRef<HTMLDivElement>();
     render(

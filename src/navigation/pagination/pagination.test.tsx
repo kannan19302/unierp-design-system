@@ -14,6 +14,24 @@ describe("Pagination Primitive", () => {
     expect(onChange).toHaveBeenCalledWith(4);
   });
 
+  it("renders data-slot anatomy correctly", () => {
+    render(
+      <Pagination
+        density="compact"
+        page={4}
+        pageCount={8}
+        onChange={() => {}}
+      />
+    );
+    const nav = document.querySelector('[data-slot="pagination"]');
+    expect(nav).toBeInTheDocument();
+    expect(nav).toHaveAttribute("data-density", "compact");
+    expect(document.querySelector('[data-slot="pagination-previous"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="pagination-next"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="pagination-button"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="pagination-ellipsis"]')).toBeInTheDocument();
+  });
+
   it("forwards ref to the navigation element", () => {
     const ref = createRef<HTMLElement>();
     render(<Pagination ref={ref} page={3} pageCount={10} onChange={() => {}} />);

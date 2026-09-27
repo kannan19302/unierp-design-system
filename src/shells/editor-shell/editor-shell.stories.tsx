@@ -24,6 +24,13 @@ const meta: Meta<typeof EditorialShell> = {
   title: "Shells/EditorialShell",
   component: EditorialShell,
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+  },
   parameters: {
     layout: "fullscreen",
     a11y: {
@@ -518,3 +525,32 @@ export const RtlPreview: Story = {
     </div>
   ),
 };
+
+/**
+ * 4. Density Scaling Gallery
+ */
+export const DensityGallery: Story = {
+  name: "Density scale comparison",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density} style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
+          <div style={{ padding: "var(--space-2) var(--space-4)", background: "var(--color-bg-sunken)", fontWeight: 600, fontSize: "var(--text-xs)" }}>
+            Density: {density}
+          </div>
+          <EditorialShell
+            density={density}
+            brand={<strong>UniERP Enterprise</strong>}
+            actions={<button type="button" style={{ padding: "4px 8px" }}>Action</button>}
+          >
+            <EditorialBand density={density} tone="base">
+              <BandTitle>{density.toUpperCase()} Horizon</BandTitle>
+              <Lede>Content measured and scaled at {density} density.</Lede>
+            </EditorialBand>
+          </EditorialShell>
+        </div>
+      ))}
+    </div>
+  ),
+};
+

@@ -14,6 +14,11 @@ const meta: Meta<typeof AddressAutoCompleteForm> = {
     },
   },
   argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling mode",
+    },
     defaultCountry: {
       control: { type: "select" },
       options: ["US", "CA", "GB", "DE", "FR", "IN", "AU", "SG", "JP"],
@@ -71,6 +76,33 @@ export const AnatomyAndComposition: Story = {
           "500 Oracle Way, Austin, TX 78741",
         ]}
       />
+    </div>
+  ),
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ inlineSize: "38rem", display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density}>
+          <h5 style={{ marginBlockEnd: "var(--space-2)", textTransform: "capitalize" }}>
+            Density: {density}
+          </h5>
+          <AddressAutoCompleteForm
+            density={density}
+            title={`${density} Address Form`}
+            subtitle={`Visualized under ${density} spacing mode`}
+            defaultCountry="US"
+            initialAddress={{
+              line1: "1 Market St",
+              city: "San Francisco",
+              state: "CA",
+              postalCode: "94105",
+              country: "US",
+            }}
+          />
+        </div>
+      ))}
     </div>
   ),
 };

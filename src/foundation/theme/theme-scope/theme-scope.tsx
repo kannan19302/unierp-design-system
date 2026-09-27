@@ -3,9 +3,8 @@
 import { forwardRef, type CSSProperties, type ElementType, type ReactNode } from "react";
 import type { DensityName, PlatformName, ThemeName } from "../../tokens";
 
-
 export interface ThemeScopeProps {
-  /** Optional theme override for this sub-tree (e.g. 'meridian', 'meridian-dark') */
+  /** Optional theme override for this sub-tree (e.g. 'strata', 'strata-dark', 'meridian') */
   theme?: ThemeName;
   /** Optional density override for this sub-tree (e.g. 'compact', 'standard', 'comfortable') */
   density?: DensityName;
@@ -48,6 +47,7 @@ export const ThemeScope = forwardRef<HTMLElement, ThemeScopeProps>(
     return (
       <Component
         ref={ref}
+        data-slot="theme-scope"
         data-theme={theme}
         data-density={density}
         data-platform={platform}

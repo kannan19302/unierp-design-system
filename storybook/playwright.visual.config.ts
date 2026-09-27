@@ -12,7 +12,8 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
-  snapshotPathTemplate: '../unierp-workspace/scripts/ci/visual-baselines/{arg}{ext}',
+  snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+  updateSnapshots: 'none',
   projects: [
     {
       name: 'chromium',

@@ -1,1 +1,17 @@
-export { Accordion, type AccordionProps, type AccordionItem, Disclosure, type DisclosureProps } from "./accordion";
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  accordionVariants,
+  Collapsible,
+  Disclosure,
+  type AccordionProps,
+  type AccordionItem as AccordionItemType,
+  type AccordionCompoundItemProps,
+  type AccordionTriggerProps,
+  type AccordionContentProps,
+  type AccordionVariantProps,
+  type CollapsibleProps,
+  type DisclosureProps,
+} from "./accordion";

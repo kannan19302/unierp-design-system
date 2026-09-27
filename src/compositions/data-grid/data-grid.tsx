@@ -5,8 +5,25 @@ import {
   type KeyboardEvent,
   type ChangeEvent,
 } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./data-grid.module.css";
 
+export const dataGridVariants = cva(styles.root, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "compact",
+  },
+});
+
+export const spreadsheetGridVariants = dataGridVariants;
+export type DataGridVariantProps = VariantProps<typeof dataGridVariants>;
 export type SpreadsheetDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
 
 export interface CellPosition {
@@ -14,7 +31,9 @@ export interface CellPosition {
   colIndex: number;
 }
 
-export interface SpreadsheetGridProps {
+export interface SpreadsheetGridProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">,
+    DataGridVariantProps {
   /** Column definitions (headers) */
   columns?: string[];
   /** 2D matrix of data rows */
@@ -29,8 +48,9 @@ export interface SpreadsheetGridProps {
   density?: SpreadsheetDensity;
   /** Accessible label */
   ariaLabel?: string;
-  className?: string;
 }
+
+export type DataGridProps = SpreadsheetGridProps;
 
 function getColumnLetter(colIndex: number): string {
   let temp = colIndex;
@@ -43,7 +63,7 @@ function getColumnLetter(colIndex: number): string {
 }
 
 /**
- * `<SpreadsheetGrid>` — Inspired by Handsontable (#47), AG Grid Enterprise (#46), and Palantir Blueprint (#16).
+ * `<SpreadsheetGrid>` / `<DataGrid>` — Inspired by Handsontable (#47), AG Grid Enterprise (#46), and Palantir Blueprint (#16).
  * High-density keyboard-driven matrix grid with coordinate headers (A..Z, 1..N), formula bar, and cell editing.
  *
  * @maturity stable
@@ -57,6 +77,7 @@ export const SpreadsheetGrid = forwardRef<HTMLDivElement, SpreadsheetGridProps>(
   density = "compact",
   ariaLabel = "Financial Ledger Spreadsheet Grid",
   className = "",
+  ...rest
 }, ref) => {
   const actualCols = columns ?? Array.from({ length: colCount }, (_, i) => getColumnLetter(i));
   const numCols = actualCols.length;
@@ -177,21 +198,28 @@ export const SpreadsheetGrid = forwardRef<HTMLDivElement, SpreadsheetGridProps>(
   return (
     <div
       ref={ref}
-      className={`${styles.root} ${className}`.trim()}
+      className={`${dataGridVariants({ density })}${className ? ` ${className}` : ""}`.trim()}
+      data-slot="data-grid"
       data-density={density}
       data-floorplan="spreadsheet-grid"
+      {...rest}
     >
       {/* ── Formula Bar ── */}
-      <div className={styles.formulaBar}>
-        <div className={styles.coordPill} aria-label={`Selected Cell: ${selectedCoord}`}>
+      <div className={styles.formulaBar} data-slot="data-grid-formula-bar">
+        <div
+          className={styles.coordPill}
+          data-slot="data-grid-coord"
+          aria-label={`Selected Cell: ${selectedCoord}`}
+        >
           {selectedCoord}
         </div>
-        <div className={styles.fxSymbol} aria-hidden="true">
+        <div className={styles.fxSymbol} data-slot="data-grid-fx" aria-hidden="true">
           fx
         </div>
         <input
           type="text"
           className={styles.formulaInput}
+          data-slot="data-grid-formula-input"
           value={editingCell ? editValue : activeCellValue}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             if (editingCell) {
@@ -215,23 +243,30 @@ export const SpreadsheetGrid = forwardRef<HTMLDivElement, SpreadsheetGridProps>(
       </div>
 
       {/* ── Table Grid ── */}
-      <div className={styles.tableScroll}>
+      <div className={styles.tableScroll} data-slot="data-grid-table-container">
         <table
           className={styles.table}
+          data-slot="data-grid-table"
           role="grid"
           aria-label={ariaLabel}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
-          <thead>
-            <tr role="row">
-              <th className={styles.cornerHeader} role="columnheader" aria-label="Row Numbers Corner">
+          <thead data-slot="data-grid-head">
+            <tr role="row" data-slot="data-grid-header-row">
+              <th
+                className={styles.cornerHeader}
+                data-slot="data-grid-corner-header"
+                role="columnheader"
+                aria-label="Row Numbers Corner"
+              >
                 <span className={styles.srOnly}>Row Index</span>
               </th>
               {actualCols.map((colName, cIdx) => (
                 <th
                   key={cIdx}
                   className={`${styles.colHeader} ${selectedCell.colIndex === cIdx ? styles.headerActive : ""}`}
+                  data-slot="data-grid-col-header"
                   role="columnheader"
                 >
                   {colName}
@@ -239,11 +274,12 @@ export const SpreadsheetGrid = forwardRef<HTMLDivElement, SpreadsheetGridProps>(
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody data-slot="data-grid-body">
             {Array.from({ length: numRows }, (_, rIdx) => (
-              <tr key={rIdx} role="row">
+              <tr key={rIdx} role="row" data-slot="data-grid-row">
                 <th
                   className={`${styles.rowHeader} ${selectedCell.rowIndex === rIdx ? styles.headerActive : ""}`}
+                  data-slot="data-grid-row-header"
                   role="rowheader"
                 >
                   {rIdx + 1}
@@ -259,6 +295,7 @@ export const SpreadsheetGrid = forwardRef<HTMLDivElement, SpreadsheetGridProps>(
                     <td
                       key={cIdx}
                       className={`${styles.cell} ${isSelected ? styles.cellSelected : ""}`}
+                      data-slot="data-grid-cell"
                       role="gridcell"
                       aria-selected={isSelected}
                       onClick={() => handleCellClick(rIdx, cIdx)}
@@ -269,13 +306,16 @@ export const SpreadsheetGrid = forwardRef<HTMLDivElement, SpreadsheetGridProps>(
                           ref={inputRef}
                           type="text"
                           className={styles.cellInput}
+                          data-slot="data-grid-cell-input"
                           value={editValue}
                           onChange={(e) => setEditValue(e.target.value)}
                           onBlur={commitEdit}
                           aria-label={`Editing Cell ${getColumnLetter(cIdx)}${rIdx + 1}`}
                         />
                       ) : (
-                        <span className={styles.cellContent}>{cellVal}</span>
+                        <span className={styles.cellContent} data-slot="data-grid-cell-content">
+                          {cellVal}
+                        </span>
                       )}
                     </td>
                   );
@@ -291,3 +331,4 @@ export const SpreadsheetGrid = forwardRef<HTMLDivElement, SpreadsheetGridProps>(
 
 SpreadsheetGrid.displayName = "SpreadsheetGrid";
 
+export const DataGrid = SpreadsheetGrid;

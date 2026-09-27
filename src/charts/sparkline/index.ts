@@ -1,1 +1,8 @@
-export { SparklineGrid, type SparklineGridProps } from "./sparkline";
+export {
+  SparklineGrid,
+  type SparklineGridProps,
+  type SparklineGridRow,
+  Sparkline,
+  sparklineGridVariants,
+  type SparklineGridDensity,
+} from "./sparkline";

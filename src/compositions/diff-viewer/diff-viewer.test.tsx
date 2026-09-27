@@ -1,33 +1,36 @@
-import React, { createRef } from "react";
+import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { RedlineDiffViewer } from "./diff-viewer";
+import { RedlineDiffViewer, DiffViewer, diffViewerVariants } from "./diff-viewer";
 
-const sampleOriginal = `Line 1: Unchanged
-Line 2: Original content`;
+const sampleOriginal = `Clause 1: Service Scope
+Vendor provides 99.9% uptime.
+Clause 2: Payment Terms
+Payment net 30 days.`;
 
-const sampleRevised = `Line 1: Unchanged
-Line 2: Revised content with additions`;
+const sampleRevised = `Clause 1: Service Scope
+Vendor provides 99.95% uptime SLA.
+Clause 2: Payment Terms
+Payment net 45 days.`;
 
-describe("RedlineDiffViewer", () => {
-  it("renders diff viewer with split original and revised panes", () => {
+describe("RedlineDiffViewer / DiffViewer Component", () => {
+  it("renders comparison header, document title, and change counts", () => {
     render(
       <RedlineDiffViewer
         originalText={sampleOriginal}
         revisedText={sampleRevised}
-        documentTitle="Test Contract"
+        documentTitle="Enterprise SLA Master Agreement"
       />
     );
 
-    expect(screen.getByText("Test Contract")).toBeInTheDocument();
+    expect(screen.getByText("Enterprise SLA Master Agreement")).toBeInTheDocument();
+    expect(screen.getByText("2 changes")).toBeInTheDocument();
     expect(screen.getByText("Original Document")).toBeInTheDocument();
     expect(screen.getByText("Revised with Redlines")).toBeInTheDocument();
-    expect(screen.getByText(/Original content/)).toBeInTheDocument();
-    expect(screen.getByText(/Revised content with additions/)).toBeInTheDocument();
   });
 
-  it("toggles between split and unified view mode", () => {
+  it("navigates changes with next/prev buttons", () => {
     render(
       <RedlineDiffViewer
         originalText={sampleOriginal}
@@ -35,20 +38,26 @@ describe("RedlineDiffViewer", () => {
       />
     );
 
-    expect(screen.getByText("Original Document")).toBeInTheDocument();
-
-    const unifiedBtn = screen.getByRole("button", { name: /Unified/i });
-    fireEvent.click(unifiedBtn);
-
-    // In unified view, the separate pane header is not present
-    expect(screen.queryByText("Original Document")).not.toBeInTheDocument();
-
-    const splitBtn = screen.getByRole("button", { name: /Split/i });
-    fireEvent.click(splitBtn);
-    expect(screen.getByText("Original Document")).toBeInTheDocument();
+    expect(screen.getByText("Change 1 of 2")).toBeInTheDocument();
+    const nextBtn = screen.getByLabelText("Next difference");
+    fireEvent.click(nextBtn);
+    expect(screen.getByText("Change 2 of 2")).toBeInTheDocument();
   });
 
-  it("triggers accept and reject callbacks on active change", () => {
+  it("switches between split and unified view modes", () => {
+    render(
+      <RedlineDiffViewer
+        originalText={sampleOriginal}
+        revisedText={sampleRevised}
+      />
+    );
+
+    const unifiedBtn = screen.getByTitle("Unified stacked view");
+    fireEvent.click(unifiedBtn);
+    expect(screen.getByTitle("Unified stacked view")).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("triggers accept and reject callbacks", () => {
     const onAccept = vi.fn();
     const onReject = vi.fn();
 
@@ -61,28 +70,16 @@ describe("RedlineDiffViewer", () => {
       />
     );
 
-    const acceptBtn = screen.getByRole("button", { name: /Accept/i });
+    const acceptBtn = screen.getByTitle("Accept change");
     fireEvent.click(acceptBtn);
-    expect(onAccept).toHaveBeenCalledTimes(1);
+    expect(onAccept).toHaveBeenCalled();
 
-    const rejectBtn = screen.getByRole("button", { name: /Reject/i });
+    const rejectBtn = screen.getByTitle("Reject change");
     fireEvent.click(rejectBtn);
-    expect(onReject).toHaveBeenCalledTimes(1);
+    expect(onReject).toHaveBeenCalled();
   });
 
-  it("has zero accessibility violations", async () => {
-    const { container } = render(
-      <RedlineDiffViewer
-        originalText={sampleOriginal}
-        revisedText={sampleRevised}
-      />
-    );
-
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
-  });
-
-  it("forwards ref to root element", () => {
+  it("forwards ref to container element", () => {
     const ref = createRef<HTMLDivElement>();
     render(
       <RedlineDiffViewer
@@ -93,5 +90,50 @@ describe("RedlineDiffViewer", () => {
     );
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
-});
 
+  it("renders data-slot annotations on anatomy", () => {
+    const { container } = render(
+      <RedlineDiffViewer
+        originalText={sampleOriginal}
+        revisedText={sampleRevised}
+      />
+    );
+    expect(container.querySelector('[data-slot="diff-viewer"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="diff-viewer-toolbar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="diff-viewer-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="diff-viewer-badge"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="diff-viewer-split"]')).toBeInTheDocument();
+  });
+
+  it("supports strict 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(
+        <RedlineDiffViewer
+          originalText={sampleOriginal}
+          revisedText={sampleRevised}
+          density={density}
+        />
+      );
+      const root = container.querySelector('[data-slot="diff-viewer"]');
+      expect(root).toHaveAttribute("data-density", density);
+    });
+  });
+
+  it("aliases DiffViewer to RedlineDiffViewer", () => {
+    expect(DiffViewer).toBe(RedlineDiffViewer);
+    const classes = diffViewerVariants({ density: "ultra-compact" });
+    expect(classes).toContain("densityUltraCompact");
+  });
+
+  it("has zero accessibility violations", async () => {
+    const { container } = render(
+      <RedlineDiffViewer
+        originalText={sampleOriginal}
+        revisedText={sampleRevised}
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+});

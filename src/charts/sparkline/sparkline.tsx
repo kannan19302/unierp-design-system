@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./sparkline.module.css";
 
 export interface SparklineGridRow {
@@ -10,10 +11,28 @@ export interface SparklineGridRow {
   change?: number;
 }
 
+export const sparklineGridVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export type SparklineGridDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
 export interface SparklineGridProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof sparklineGridVariants> {
   rows: SparklineGridRow[];
   columns?: string[];
+  density?: SparklineGridDensity;
 }
 
 /**
@@ -27,6 +46,7 @@ export const SparklineGrid = forwardRef<HTMLDivElement, SparklineGridProps>(
     {
       rows,
       columns = ["Metric", "Trend", "Current", "Change"],
+      density = "standard",
       className = "",
       ...rest
     },
@@ -34,8 +54,8 @@ export const SparklineGrid = forwardRef<HTMLDivElement, SparklineGridProps>(
   ) => {
     const MiniSparkline = ({ data }: { data: number[] }) => {
       if (data.length < 2) return null;
-      const w = 80;
-      const h = 20;
+      const w = density === "ultra-compact" ? 60 : density === "compact" ? 70 : density === "comfortable" ? 100 : 80;
+      const h = density === "ultra-compact" ? 14 : density === "compact" ? 16 : density === "comfortable" ? 24 : 20;
       const mn = Math.min(...data);
       const mx = Math.max(...data);
       const r = mx - mn || 1;
@@ -49,7 +69,7 @@ export const SparklineGrid = forwardRef<HTMLDivElement, SparklineGridProps>(
         .join(" ");
       const isUp = (data[data.length - 1] ?? 0) >= (data[0] ?? 0);
       return (
-        <svg width={w} height={h} aria-hidden="true">
+        <svg width={w} height={h} aria-hidden="true" data-slot="sparkline-mini-chart">
           <polyline
             points={pts}
             fill="none"
@@ -67,14 +87,16 @@ export const SparklineGrid = forwardRef<HTMLDivElement, SparklineGridProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
+        data-slot="sparkline-grid"
+        data-density={density}
+        className={sparklineGridVariants({ density, className })}
         {...rest}
       >
-        <table className={styles.table} aria-label="Sparkline grid">
+        <table className={styles.table} data-slot="sparkline-table" aria-label="Sparkline grid">
           <thead>
             <tr>
               {columns.map((c, i) => (
-                <th key={i} scope="col" className={styles.th}>
+                <th key={i} scope="col" className={styles.th} data-slot="sparkline-header-cell">
                   {c}
                 </th>
               ))}
@@ -82,13 +104,13 @@ export const SparklineGrid = forwardRef<HTMLDivElement, SparklineGridProps>(
           </thead>
           <tbody>
             {rows.map((row, ri) => (
-              <tr key={ri} className={styles.row}>
-                <td className={styles.td}>{row.label}</td>
-                <td className={styles.tdChart}>
+              <tr key={ri} className={styles.row} data-slot="sparkline-row">
+                <td className={styles.td} data-slot="sparkline-cell">{row.label}</td>
+                <td className={styles.tdChart} data-slot="sparkline-chart-cell">
                   <MiniSparkline data={row.values} />
                 </td>
-                <td className={styles.tdNum}>{row.current}</td>
-                <td className={styles.tdChange}>
+                <td className={styles.tdNum} data-slot="sparkline-num-cell">{row.current}</td>
+                <td className={styles.tdChange} data-slot="sparkline-change-cell">
                   {row.change !== undefined && (
                     <span
                       style={{
@@ -112,3 +134,5 @@ export const SparklineGrid = forwardRef<HTMLDivElement, SparklineGridProps>(
 );
 
 SparklineGrid.displayName = "SparklineGrid";
+
+export const Sparkline = SparklineGrid;

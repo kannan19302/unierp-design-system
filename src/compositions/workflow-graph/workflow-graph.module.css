@@ -17,10 +17,44 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-3) var(--space-4);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
   background: var(--color-surface-subtle);
   border-block-end: 1px solid var(--color-border);
   font-size: var(--text-sm);
+}
+
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact,
+.container[data-density="ultra-compact"] {
+  --workflow-node-width: 170px;
+  --workflow-canvas-min-height: 280px;
+  --workflow-grid-size: 16px;
+  --workflow-font-size: var(--text-2xs, 11px);
+}
+
+.densityCompact,
+.container[data-density="compact"] {
+  --workflow-node-width: 195px;
+  --workflow-canvas-min-height: 320px;
+  --workflow-grid-size: 18px;
+  --workflow-font-size: var(--text-xs, 12px);
+}
+
+.densityStandard,
+.container[data-density="standard"] {
+  --workflow-node-width: 220px;
+  --workflow-canvas-min-height: 380px;
+  --workflow-grid-size: 20px;
+  --workflow-font-size: var(--text-sm, 14px);
+}
+
+.densityComfortable,
+.container[data-density="comfortable"] {
+  --workflow-node-width: 260px;
+  --workflow-canvas-min-height: 440px;
+  --workflow-grid-size: 24px;
+  --workflow-font-size: var(--text-base, 16px);
 }
 
 .canvas {
@@ -31,7 +65,8 @@
   background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
   background-size: var(--workflow-grid-size, 20px) var(--workflow-grid-size, 20px);
   background-color: var(--color-surface);
-  padding: var(--space-6);
+  padding-block: var(--space-6);
+  padding-inline: var(--space-6);
 }
 
 .svgLayer {
@@ -71,7 +106,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-2) var(--space-3);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
   border-block-end: 1px solid var(--color-border-subtle);
   font-size: var(--text-xs);
   font-weight: 600;
@@ -81,7 +117,8 @@
 }
 
 .nodeBody {
-  padding: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -89,9 +126,10 @@
 }
 
 .nodeTitle {
-  font-size: var(--text-sm);
+  font-size: var(--workflow-font-size, var(--text-sm));
   font-weight: 600;
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   color: var(--color-text-primary);
 }
 

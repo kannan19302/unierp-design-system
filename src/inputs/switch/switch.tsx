@@ -1,5 +1,3 @@
-"use client";
-
 import {
   useState,
   useId,
@@ -8,9 +6,31 @@ import {
   type ReactNode,
   type KeyboardEvent,
 } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./switch.module.css";
 
-export interface SwitchProps extends Omit<HTMLAttributes<HTMLLabelElement>, "onChange"> {
+export const switchVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles["ultra-compact"],
+      compact: styles.compact,
+      standard: styles.standard,
+      comfortable: styles.comfortable,
+    },
+    disabled: {
+      true: styles.disabledContainer,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+    disabled: false,
+  },
+});
+
+export interface SwitchProps
+  extends Omit<HTMLAttributes<HTMLLabelElement>, "onChange">,
+    VariantProps<typeof switchVariants> {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -31,6 +51,7 @@ export interface SwitchProps extends Omit<HTMLAttributes<HTMLLabelElement>, "onC
  * @since 1.0.0
  * Strata V1 Switch primitive — accessible binary toggle switch adhering to W3C ARIA switch pattern,
  * supporting 4-tier density scaling, micro-animations, and high-contrast focus indicators.
+ * Standardized with cva, data-slot, and W3C APG switch pattern.
  */
 export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
   (
@@ -41,7 +62,7 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
       disabled = false,
       label,
       description,
-      density,
+      density = "standard",
       id: customId,
       name,
       value,
@@ -77,7 +98,7 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
       }
     };
 
-    const densityClass = density ? styles[density] : "";
+    const containerClass = `${switchVariants({ density, disabled })} ${className}`.trim();
     const switchTrackClass = [
       styles.track,
       checked ? styles.checked : "",
@@ -90,15 +111,11 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
       <label
         ref={ref}
         htmlFor={id}
+        data-slot="switch"
+        data-state={checked ? "checked" : "unchecked"}
         data-density={density}
-        className={[
-          styles.container,
-          densityClass,
-          disabled ? styles.disabledContainer : "",
-          className,
-        ]
-          .filter(Boolean)
-          .join(" ")}
+        data-disabled={disabled ? "true" : undefined}
+        className={containerClass}
         {...props}
       >
         <div
@@ -112,19 +129,21 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
           tabIndex={disabled ? -1 : 0}
           onClick={toggle}
           onKeyDown={handleKeyDown}
+          data-slot="switch-track"
+          data-state={checked ? "checked" : "unchecked"}
           className={switchTrackClass}
         >
-          <span className={styles.thumb} aria-hidden="true" />
+          <span data-slot="switch-thumb" className={styles.thumb} aria-hidden="true" />
         </div>
         {(label !== undefined || description !== undefined) && (
-          <div className={styles.labelCol}>
+          <div data-slot="switch-label-wrapper" className={styles.labelCol}>
             {label !== undefined && (
-              <span id={labelId} className={styles.labelText}>
+              <span id={labelId} data-slot="switch-label" className={styles.labelText}>
                 {label}
               </span>
             )}
             {description !== undefined && (
-              <span id={descId} className={styles.descriptionText}>
+              <span id={descId} data-slot="switch-description" className={styles.descriptionText}>
                 {description}
               </span>
             )}

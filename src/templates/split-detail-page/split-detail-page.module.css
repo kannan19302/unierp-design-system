@@ -27,7 +27,8 @@
 }
 
 .masterTitle {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   font-size: var(--type-sm-size, 0.875rem);
   font-weight: 600;
   color: var(--color-text-primary, #0f172a);
@@ -63,4 +64,69 @@
   min-block-size: var(--sidebar-width, 240px);
   color: var(--color-text-muted, #64748b);
   font-size: var(--density-compact-size, 0.8125rem);
+}
+
+/* 4-tier density scaling */
+.densityUltraCompact .masterHeader {
+  padding: var(--spacing-3xs, 4px) var(--spacing-2xs, 8px);
+}
+
+.densityUltraCompact .masterList {
+  padding: var(--spacing-3xs, 4px);
+}
+
+.densityUltraCompact .detailHeader {
+  padding: var(--spacing-2xs, 8px);
+}
+
+.densityUltraCompact .detailBody {
+  padding: var(--spacing-2xs, 8px);
+}
+
+.densityCompact .masterHeader {
+  padding: var(--spacing-2xs, 8px) var(--spacing-xs, 12px);
+}
+
+.densityCompact .masterList {
+  padding: var(--spacing-2xs, 6px);
+}
+
+.densityCompact .detailHeader {
+  padding: var(--spacing-xs, 12px);
+}
+
+.densityCompact .detailBody {
+  padding: var(--spacing-xs, 12px);
+}
+
+.densityStandard .masterHeader {
+  padding: var(--spacing-sm, 12px) var(--spacing-md, 16px);
+}
+
+.densityStandard .masterList {
+  padding: var(--spacing-xs, 8px);
+}
+
+.densityStandard .detailHeader {
+  padding: var(--spacing-md, 16px);
+}
+
+.densityStandard .detailBody {
+  padding: var(--spacing-md, 16px);
+}
+
+.densityComfortable .masterHeader {
+  padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
+}
+
+.densityComfortable .masterList {
+  padding: var(--spacing-sm, 12px);
+}
+
+.densityComfortable .detailHeader {
+  padding: var(--spacing-lg, 24px);
+}
+
+.densityComfortable .detailBody {
+  padding: var(--spacing-lg, 24px);
 }

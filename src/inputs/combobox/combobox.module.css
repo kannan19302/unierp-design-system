@@ -6,7 +6,7 @@
 
 .container {
   position: relative;
-  width: 100%;
+  inline-size: 100%;
   font-family: var(--font-sans);
   box-sizing: border-box;
 }
@@ -16,8 +16,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  min-height: var(--density-control-height, 32px);
+  inline-size: 100%;
+  min-block-size: var(--density-control-height, 32px);
   padding-block: var(--space-0-5, 2px);
   padding-inline: var(--space-2-5, 10px);
   background: var(--color-bg-elevated);
@@ -130,7 +130,7 @@
 }
 
 .tagLabel {
-  max-width: var(--combobox-tag-max-width, 140px);
+  max-inline-size: var(--combobox-tag-max-width, 140px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -214,7 +214,7 @@
 /* ── Dropdown Popover ─────────────────────────────────────── */
 .dropdown {
   position: absolute;
-  top: calc(100% + var(--space-1, 4px));
+  inset-block-start: calc(100% + var(--space-1, 4px));
   inset-inline-start: 0;
   inset-inline-end: 0;
   background: var(--color-bg-elevated);
@@ -237,7 +237,7 @@
   gap: var(--space-1-5);
   padding-block: var(--space-1-5);
   padding-inline: var(--space-2);
-  border-bottom: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
   background: var(--color-bg-sunken);
 }
 
@@ -248,7 +248,7 @@
 
 .searchInput {
   flex: 1;
-  height: var(--space-6, 24px);
+  block-size: var(--space-6, 24px);
   padding: 0;
   font-family: var(--font-sans);
   font-size: var(--type-dense, var(--text-sm));
@@ -283,7 +283,7 @@
   margin: 0;
   padding-block: var(--space-1);
   padding-inline: 0;
-  max-height: var(--combobox-list-max-height, 220px);
+  max-block-size: var(--combobox-list-max-height, 220px);
   overflow-y: auto;
 }
 
@@ -368,8 +368,8 @@
 [data-density="ultra-compact"] .trigger,
 .container[data-density="ultra-compact"] .trigger,
 .container.ultra-compact .trigger {
-  min-height: var(--density-control-height, 24px);
-  height: var(--density-control-height, 24px);
+  min-block-size: var(--density-control-height, 24px);
+  block-size: var(--density-control-height, 24px);
   padding-inline: var(--density-control-padding-x, var(--space-1-5, 6px));
   padding-block: 0;
   font-size: var(--type-micro, 11px);
@@ -388,8 +388,8 @@
 [data-density="compact"] .trigger,
 .container[data-density="compact"] .trigger,
 .container.compact .trigger {
-  min-height: var(--density-control-height, 28px);
-  height: var(--density-control-height, 28px);
+  min-block-size: var(--density-control-height, 28px);
+  block-size: var(--density-control-height, 28px);
   padding-inline: var(--density-control-padding-x, var(--space-2, 8px));
   padding-block: 0;
   font-size: var(--type-dense, 12px);
@@ -408,7 +408,7 @@
 [data-density="standard"] .trigger,
 .container[data-density="standard"] .trigger,
 .container.standard .trigger {
-  min-height: var(--density-control-height, 32px);
+  min-block-size: var(--density-control-height, 32px);
   padding-inline: var(--density-control-padding-x, var(--space-3, 12px));
   font-size: var(--text-sm, 13px);
 }
@@ -417,8 +417,8 @@
 [data-density="comfortable"] .trigger,
 .container[data-density="comfortable"] .trigger,
 .container.comfortable .trigger {
-  min-height: var(--density-control-height, 40px);
-  height: var(--density-control-height, 40px);
+  min-block-size: var(--density-control-height, 40px);
+  block-size: var(--density-control-height, 40px);
   padding-inline: var(--density-control-padding-x, var(--space-4, 16px));
   font-size: var(--text-base, 14px);
 }

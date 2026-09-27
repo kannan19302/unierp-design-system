@@ -1,16 +1,57 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — DescriptionList Styles
+   Strict CSS Logical Properties & 4-Tier Density
    ══════════════════════════════════════════════════════════════ */
 
 .list {
   display: grid;
-  gap: var(--space-2) var(--space-4);
   font-family: var(--font-sans);
   margin-block: 0;
   margin-inline: 0;
   padding-block: 0;
   padding-inline: 0;
   box-sizing: border-box;
+}
+
+/* ─── 4-Tier Density ─── */
+.densityUltraCompact {
+  gap: var(--space-1, 4px) var(--space-2, 8px);
+}
+.densityUltraCompact .label {
+  font-size: var(--text-2xs, 10px);
+}
+.densityUltraCompact .value {
+  font-size: var(--text-2xs, 10px);
+}
+
+.densityCompact {
+  gap: var(--space-1-5, 6px) var(--space-3, 12px);
+}
+.densityCompact .label {
+  font-size: var(--type-micro, 11px);
+}
+.densityCompact .value {
+  font-size: var(--text-xs, 12px);
+}
+
+.densityStandard {
+  gap: var(--space-2, 8px) var(--space-4, 16px);
+}
+.densityStandard .label {
+  font-size: var(--text-xs, 12px);
+}
+.densityStandard .value {
+  font-size: var(--type-dense, var(--text-sm, 14px));
+}
+
+.densityComfortable {
+  gap: var(--space-3, 12px) var(--space-5, 20px);
+}
+.densityComfortable .label {
+  font-size: var(--text-sm, 14px);
+}
+.densityComfortable .value {
+  font-size: var(--text-base, 16px);
 }
 
 .cols_1 {
@@ -30,8 +71,7 @@
 }
 
 .label {
-  font-size: var(--type-micro, 11px);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-medium, 500);
   color: var(--surface-text-secondary, var(--color-text-secondary));
   margin-block: 0;
   margin-inline: 0;
@@ -40,7 +80,6 @@
 }
 
 .value {
-  font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
   margin-block: 0;
   margin-inline: 0;

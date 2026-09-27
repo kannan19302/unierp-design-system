@@ -12,8 +12,22 @@ import React, {
 import { Search, Command, X } from "lucide-react";
 import { Portal } from "../../primitives/portal";
 import { FocusTrap } from "../../overlays/focus-trap";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import { useScrollLock } from "../overlay-hooks";
 import styles from "./command-palette.module.css";
+
+export const commandPaletteVariants = cva(styles.dialog, {
+  variants: {
+    size: {
+      sm: styles.sm,
+      md: styles.md,
+      lg: styles.lg,
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
 
 export interface CommandItem {
   id: string;
@@ -24,7 +38,9 @@ export interface CommandItem {
   onSelect: () => void;
 }
 
-export interface CommandPaletteProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CommandPaletteProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof commandPaletteVariants> {
   open: boolean;
   onClose: () => void;
   items: CommandItem[];
@@ -35,6 +51,7 @@ export interface CommandPaletteProps extends React.HTMLAttributes<HTMLDivElement
 /**
  * CommandPalette provides a global keyboard-first command search and dispatch dialog
  * for routes, actions, and administrative entities.
+ * Benchmarked against cmdk, Raycast, and Salesforce Global Search.
  *
  * @maturity stable
  */
@@ -44,6 +61,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
       open,
       onClose,
       items,
+      size = "md",
       placeholder = "Search routes, records, or executive commands...",
       className = "",
       ...rest
@@ -88,42 +106,55 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
     }, [open, activeOptionId]);
 
     const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.nativeEvent.isComposing) return;
-        if (e.key === "ArrowDown") {
-          e.preventDefault();
-          setSelectedIndex((activeIndex + 1) % (filtered.length || 1));
-        } else if (e.key === "ArrowUp") {
-          e.preventDefault();
-          setSelectedIndex((activeIndex - 1 + (filtered.length || 1)) % (filtered.length || 1));
-        } else if (e.key === "Enter" && filtered[activeIndex]) {
-          e.preventDefault();
-          filtered[activeIndex]!.onSelect();
-          close();
-        }
+      if (e.nativeEvent.isComposing) return;
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setSelectedIndex((activeIndex + 1) % (filtered.length || 1));
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setSelectedIndex((activeIndex - 1 + (filtered.length || 1)) % (filtered.length || 1));
+      } else if (e.key === "Enter" && filtered[activeIndex]) {
+        e.preventDefault();
+        filtered[activeIndex]!.onSelect();
+        close();
+      }
     };
 
     if (!open) return null;
 
     return (
       <Portal>
-        <div className={styles.backdrop} onClick={onClose} aria-hidden="true" />
-        <div className={styles.wrapper}>
+        <div
+          data-slot="command-palette-backdrop"
+          className={styles.backdrop}
+          onClick={onClose}
+          aria-hidden="true"
+        />
+        <div data-slot="command-palette-wrapper" className={styles.wrapper}>
           <FocusTrap active={open} initialFocusRef={inputRef} onEscape={close}>
             <div
               ref={ref}
               role="dialog"
               aria-modal="true"
               aria-label="Command Palette"
-              className={`${styles.dialog} ${className}`.trim()}
+              data-slot="command-palette"
+              data-size={size}
+              className={commandPaletteVariants({ size, className })}
               tabIndex={-1}
               {...rest}
             >
-              <div className={styles.searchBar}>
-                <Search size={18} className={styles.searchIcon} aria-hidden="true" />
+              <div data-slot="command-palette-search" className={styles.searchBar}>
+                <Search
+                  size={18}
+                  data-slot="command-palette-search-icon"
+                  className={styles.searchIcon}
+                  aria-hidden="true"
+                />
                 <input
                   ref={inputRef}
                   type="text"
                   role="combobox"
+                  data-slot="command-palette-input"
                   aria-label="Search commands"
                   aria-autocomplete="list"
                   aria-controls={listId}
@@ -137,6 +168,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                 />
                 <button
                   type="button"
+                  data-slot="command-palette-close"
                   onClick={onClose}
                   aria-label="Close command palette"
                   className={styles.closeBtn}
@@ -145,9 +177,17 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                 </button>
               </div>
 
-              <div id={listId} className={styles.list} role="listbox" aria-label="Command results">
+              <div
+                id={listId}
+                data-slot="command-palette-list"
+                className={styles.list}
+                role="listbox"
+                aria-label="Command results"
+              >
                 {filtered.length === 0 ? (
-                  <div className={styles.empty} role="status">No matching commands or records found.</div>
+                  <div className={styles.empty} role="status">
+                    No matching commands or records found.
+                  </div>
                 ) : (
                   filtered.map((item, idx) => {
                     const active = idx === activeIndex;
@@ -158,6 +198,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                         role="option"
                         aria-selected={active}
                         key={item.id}
+                        data-slot="command-palette-item"
                         onClick={() => {
                           item.onSelect();
                           onClose();
@@ -171,7 +212,9 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                         </span>
                         <span className={styles.itemMeta}>
                           <span className={styles.itemTitle}>{item.title}</span>
-                          {item.subtitle && <span className={styles.itemSubtitle}>{item.subtitle}</span>}
+                          {item.subtitle && (
+                            <span className={styles.itemSubtitle}>{item.subtitle}</span>
+                          )}
                         </span>
                         <span className={styles.itemCategory}>{item.category}</span>
                       </button>
@@ -179,9 +222,18 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
                   })
                 )}
               </div>
-              <div className={styles.footer} aria-live="polite">
-                <span>{filtered.length} {filtered.length === 1 ? "result" : "results"}</span>
-                <span><kbd>↑</kbd><kbd>↓</kbd> Navigate <kbd>Enter</kbd> Open <kbd>Esc</kbd> Close</span>
+              <div
+                data-slot="command-palette-footer"
+                className={styles.footer}
+                aria-live="polite"
+              >
+                <span>
+                  {filtered.length} {filtered.length === 1 ? "result" : "results"}
+                </span>
+                <span>
+                  <kbd>↑</kbd>
+                  <kbd>↓</kbd> Navigate <kbd>Enter</kbd> Open <kbd>Esc</kbd> Close
+                </span>
               </div>
             </div>
           </FocusTrap>

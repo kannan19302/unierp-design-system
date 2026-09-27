@@ -1,4 +1,5 @@
 import React, { useState, useId, useMemo } from "react";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./heatmap-chart.module.css";
 
 export interface CapacityPeriod {
@@ -29,6 +30,20 @@ export interface ResourceRow {
   cells: CapacityCellData[];
 }
 
+export const heatmapVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
 export interface ResourceCapacityHeatmapProps {
   /** Title of the capacity heatmap */
   title?: string;
@@ -38,8 +53,8 @@ export interface ResourceCapacityHeatmapProps {
   resources: ResourceRow[];
   /** Callback fired when a cell is clicked */
   onSelectCell?: (resource: ResourceRow, cell: CapacityCellData) => void;
-  /** Density level */
-  density?: "compact" | "comfortable";
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   /** Optional custom CSS class */
   className?: string;
 }
@@ -58,7 +73,7 @@ export const ResourceCapacityHeatmap = React.forwardRef<
     periods,
     resources,
     onSelectCell,
-    density = "compact",
+    density = "standard",
     className,
   },
   ref
@@ -118,24 +133,31 @@ export const ResourceCapacityHeatmap = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={`${styles.container} ${className ?? ""}`}
+      data-slot="heatmap-chart"
+      className={heatmapVariants({ density, className })}
       data-density={density}
       aria-labelledby={`${heatmapId}-title`}
     >
       {/* Header Bar */}
-      <div className={styles.header}>
-        <div className={styles.titleGroup}>
-          <span className={styles.heatBadge}>CAPACITY</span>
-          <h3 id={`${heatmapId}-title`} className={styles.title}>
+      <div data-slot="heatmap-chart-header" className={styles.header}>
+        <div data-slot="heatmap-chart-title-group" className={styles.titleGroup}>
+          <span data-slot="heatmap-chart-badge" className={styles.heatBadge}>
+            CAPACITY
+          </span>
+          <h3 id={`${heatmapId}-title`} data-slot="heatmap-chart-title" className={styles.title}>
             {title}
           </h3>
-          <span className={styles.resourceCountPill}>
+          <span data-slot="heatmap-chart-pill" className={styles.resourceCountPill}>
             {resources.length} Team Members ({periods.length} Sprints)
           </span>
         </div>
 
         {/* Legend */}
-        <div className={styles.legendGroup} aria-label="Capacity utilization color legend">
+        <div
+          data-slot="heatmap-chart-legend"
+          className={styles.legendGroup}
+          aria-label="Capacity utilization color legend"
+        >
           <span className={styles.legendItem}>
             <span className={`${styles.legendDot} ${styles.dotLow}`} /> &lt;60%
           </span>
@@ -152,12 +174,20 @@ export const ResourceCapacityHeatmap = React.forwardRef<
       </div>
 
       {/* Main Heatmap Matrix Table */}
-      <div className={styles.tableWrapper}>
-        <table className={styles.table} aria-label="Resource capacity heatmap matrix">
+      <div data-slot="heatmap-chart-table-wrapper" className={styles.tableWrapper}>
+        <table
+          data-slot="heatmap-chart-table"
+          className={styles.table}
+          aria-label="Resource capacity heatmap matrix"
+        >
           <thead>
             <tr>
-              <th scope="col" className={styles.thMember}>Team Member</th>
-              <th scope="col" className={styles.thRole}>Role / Dept</th>
+              <th scope="col" className={styles.thMember}>
+                Team Member
+              </th>
+              <th scope="col" className={styles.thRole}>
+                Role / Dept
+              </th>
               {periods.map((period) => (
                 <th key={period.key} scope="col" className={styles.thPeriod}>
                   {period.label}
@@ -204,6 +234,7 @@ export const ResourceCapacityHeatmap = React.forwardRef<
                     <td key={period.key} className={styles.tdHeat}>
                       <button
                         type="button"
+                        data-slot="heatmap-chart-cell"
                         className={`${styles.heatCellBtn} ${heatClass} ${
                           isSelected ? styles.heatCellSelected : ""
                         }`}
@@ -252,7 +283,12 @@ export const ResourceCapacityHeatmap = React.forwardRef<
 
       {/* Selected Cell Drill-Down Drawer */}
       {activeDrilldown && (
-        <div className={styles.drilldownCard} role="region" aria-label="Selected workload drilldown">
+        <div
+          data-slot="heatmap-chart-drilldown"
+          className={styles.drilldownCard}
+          role="region"
+          aria-label="Selected workload drilldown"
+        >
           <div className={styles.drilldownHeader}>
             <div className={styles.drilldownTitle}>
               <strong>{activeDrilldown.resource.name}</strong> • {activeDrilldown.period.label}
@@ -283,3 +319,6 @@ export const ResourceCapacityHeatmap = React.forwardRef<
 
 ResourceCapacityHeatmap.displayName = "ResourceCapacityHeatmap";
 
+// Directory-level alias
+export const HeatmapChart = ResourceCapacityHeatmap;
+export type HeatmapChartProps = ResourceCapacityHeatmapProps;

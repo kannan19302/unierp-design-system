@@ -41,8 +41,15 @@ describe("Strata V1 Checkbox Primitive", () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  it("renders with aria-invalid when invalid", () => {
-    render(<Checkbox label="Required Terms" invalid />);
+  it("renders with aria-invalid when invalid and exposes data-slot", () => {
+    const { container } = render(<Checkbox label="Required Terms" invalid density="compact" indeterminate />);
+    const root = container.querySelector('[data-slot="checkbox"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-state", "indeterminate");
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(root).toHaveAttribute("data-invalid", "true");
+    expect(container.querySelector('[data-slot="checkbox-indicator"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="checkbox-label"]')).toBeInTheDocument();
     expect(screen.getByRole("checkbox")).toHaveAttribute("aria-invalid", "true");
   });
 

@@ -15,6 +15,12 @@ const meta: Meta<typeof NotificationCenter> = {
       },
     },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+  },
 };
 
 export default meta;
@@ -58,7 +64,7 @@ export const InteractiveDrawer: Story = {
     const [notifications, setNotifications] = useState(sampleNotifications);
 
     return (
-      <div style={{ padding: "40px", textAlign: "center" }}>
+      <div style={{ paddingBlock: "40px", paddingInline: "40px", textAlign: "center" }}>
         <Button variant="primary" onClick={() => setOpen(true)}>
           Open Notification Drawer
         </Button>
@@ -83,7 +89,7 @@ export const InteractiveDrawer: Story = {
 
 export const AnatomyAndComposition: Story = {
   render: () => (
-    <div style={{ position: "relative", minHeight: "500px", width: "100%" }}>
+    <div style={{ position: "relative", minBlockSize: "500px", inlineSize: "100%" }}>
       <NotificationCenter
         isOpen={true}
         onClose={() => {}}
@@ -96,7 +102,7 @@ export const AnatomyAndComposition: Story = {
 export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
-      <div style={{ position: "relative", minHeight: "450px" }}>
+      <div style={{ position: "relative", minBlockSize: "450px" }}>
         <NotificationCenter
           isOpen={true}
           onClose={() => {}}

@@ -16,6 +16,75 @@
   flex-wrap: wrap;
 }
 
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact,
+.filterBar[data-density="ultra-compact"] {
+  padding-block: 2px;
+  padding-inline: var(--space-2);
+  gap: var(--space-1);
+}
+.densityUltraCompact .filterLabel,
+.filterBar[data-density="ultra-compact"] .filterLabel {
+  font-size: var(--text-2xs, 10px);
+}
+.densityUltraCompact .tag,
+.filterBar[data-density="ultra-compact"] .tag {
+  padding-block: 0;
+  padding-inline: var(--space-1-5);
+  font-size: var(--text-2xs, 10px);
+}
+
+.densityCompact,
+.filterBar[data-density="compact"] {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2-5);
+  gap: var(--space-1-5);
+}
+.densityCompact .filterLabel,
+.filterBar[data-density="compact"] .filterLabel {
+  font-size: var(--type-micro, 11px);
+}
+.densityCompact .tag,
+.filterBar[data-density="compact"] .tag {
+  padding-block: 1px;
+  padding-inline: var(--space-2);
+  font-size: var(--type-micro, 11px);
+}
+
+.densityStandard,
+.filterBar[data-density="standard"] {
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-3);
+  gap: var(--space-2);
+}
+.densityStandard .filterLabel,
+.filterBar[data-density="standard"] .filterLabel {
+  font-size: var(--type-micro, 11px);
+}
+.densityStandard .tag,
+.filterBar[data-density="standard"] .tag {
+  padding-block: 2px;
+  padding-inline: var(--space-2);
+  font-size: var(--text-xs, 12px);
+}
+
+.densityComfortable,
+.filterBar[data-density="comfortable"] {
+  padding-block: var(--space-2-5);
+  padding-inline: var(--space-4);
+  gap: var(--space-3);
+}
+.densityComfortable .filterLabel,
+.filterBar[data-density="comfortable"] .filterLabel {
+  font-size: var(--text-xs, 12px);
+}
+.densityComfortable .tag,
+.filterBar[data-density="comfortable"] .tag {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  font-size: var(--text-sm, 14px);
+}
+
 .filterLabel {
   display: inline-flex;
   align-items: center;

@@ -43,6 +43,44 @@ describe("ColumnPicker Primitive", () => {
     expect(onChange).toHaveBeenCalledWith(["id", "total"]);
   });
 
+  it("renders with data-slot attributes", () => {
+    const { container } = render(
+      <ColumnPicker
+        options={MOCK_OPTIONS}
+        visible={["id", "name"]}
+        onChange={() => {}}
+      />
+    );
+
+    expect(container.querySelector('[data-slot="column-picker"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="column-picker-trigger"]')).toBeInTheDocument();
+
+    const button = screen.getByRole("button", { name: /columns/i });
+    fireEvent.click(button);
+
+    expect(container.querySelector('[data-slot="column-picker-dropdown"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="column-picker-item"]').length).toBe(3);
+    expect(container.querySelectorAll('[data-slot="column-picker-checkbox"]').length).toBe(3);
+    expect(container.querySelectorAll('[data-slot="column-picker-label"]').length).toBe(3);
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container, unmount } = render(
+        <ColumnPicker
+          density={density}
+          options={MOCK_OPTIONS}
+          visible={["id"]}
+          onChange={() => {}}
+        />
+      );
+      const root = container.querySelector('[data-slot="column-picker"]');
+      expect(root).toHaveAttribute("data-density", density);
+      unmount();
+    });
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <ColumnPicker

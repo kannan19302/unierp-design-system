@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — EmptyState & SixStates Styles
+   Strict CSS Logical Properties & 4-Tier Density
    ══════════════════════════════════════════════════════════════ */
 
 .container {
@@ -8,45 +9,120 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-block: var(--space-8);
-  padding-inline: var(--space-4);
+  padding-block: var(--space-8, 32px);
+  padding-inline: var(--space-4, 16px);
   font-family: var(--font-sans);
   box-sizing: border-box;
+}
+
+/* ─── 4-Tier Density ─── */
+.densityUltraCompact {
+  padding-block: var(--space-4, 16px);
+  padding-inline: var(--space-2, 8px);
+}
+.densityUltraCompact .iconWell {
+  inline-size: 1.75rem; /* 28px */
+  block-size: 1.75rem;
+  margin-block-end: var(--space-1-5, 6px);
+}
+.densityUltraCompact .title {
+  font-size: var(--text-xs, 11px);
+}
+.densityUltraCompact .description {
+  font-size: var(--text-2xs, 10px);
+}
+.densityUltraCompact .actionWrap {
+  margin-block-start: var(--space-2, 8px);
+}
+
+.densityCompact {
+  padding-block: var(--space-6, 24px);
+  padding-inline: var(--space-3, 12px);
+}
+.densityCompact .iconWell {
+  inline-size: 2.25rem; /* 36px */
+  block-size: 2.25rem;
+  margin-block-end: var(--space-2, 8px);
+}
+.densityCompact .title {
+  font-size: var(--text-xs, 12px);
+}
+.densityCompact .description {
+  font-size: var(--type-micro, 11px);
+}
+.densityCompact .actionWrap {
+  margin-block-start: var(--space-3, 12px);
+}
+
+.densityStandard {
+  padding-block: var(--space-8, 32px);
+  padding-inline: var(--space-4, 16px);
+}
+.densityStandard .iconWell {
+  inline-size: var(--space-11, 44px);
+  block-size: var(--space-11, 44px);
+  margin-block-end: var(--space-3, 12px);
+}
+.densityStandard .title {
+  font-size: var(--type-dense, var(--text-sm, 14px));
+}
+.densityStandard .description {
+  font-size: var(--type-caption, var(--text-xs, 12px));
+}
+.densityStandard .actionWrap {
+  margin-block-start: var(--space-4, 16px);
+}
+
+.densityComfortable {
+  padding-block: var(--space-12, 48px);
+  padding-inline: var(--space-6, 24px);
+}
+.densityComfortable .iconWell {
+  inline-size: 3.5rem; /* 56px */
+  block-size: 3.5rem;
+  margin-block-end: var(--space-4, 16px);
+}
+.densityComfortable .title {
+  font-size: var(--text-base, 16px);
+}
+.densityComfortable .description {
+  font-size: var(--text-sm, 14px);
+}
+.densityComfortable .actionWrap {
+  margin-block-start: var(--space-6, 24px);
 }
 
 .iconWell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  inline-size: var(--space-11, 44px);
-  block-size: var(--space-11, 44px);
-  border-radius: var(--radius-sm, 2px);
+  border-radius: var(--radius-sm, 4px);
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   border: 1px solid var(--surface-1-border, var(--color-border));
-  margin-block-end: var(--space-3);
   color: var(--surface-text-secondary, var(--color-text-secondary));
+  box-sizing: border-box;
 }
 
 .title {
   margin-block: 0;
   margin-inline: 0;
-  font-size: var(--type-dense, var(--text-sm));
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-bold, 700);
   color: var(--surface-text-primary, var(--color-text));
 }
 
 .description {
-  margin-block-start: var(--space-1);
+  margin-block-start: var(--space-1, 4px);
   margin-block-end: 0;
   margin-inline: 0;
-  font-size: var(--type-caption, var(--text-xs));
   color: var(--surface-text-secondary, var(--color-text-muted));
   max-inline-size: var(--empty-state-max-width, 320px);
-  line-height: var(--leading-normal);
+  line-height: var(--leading-normal, 1.5);
 }
 
 .actionWrap {
-  margin-block-start: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Six States helpers ── */
@@ -55,14 +131,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-block: var(--space-10);
-  padding-inline: var(--space-4);
-  gap: var(--space-3);
+  padding-block: var(--space-10, 40px);
+  padding-inline: var(--space-4, 16px);
+  gap: var(--space-3, 12px);
   font-family: var(--font-sans);
+  box-sizing: border-box;
 }
 
 .loadingMessage {
-  font-size: var(--type-dense, var(--text-sm));
+  font-size: var(--type-dense, var(--text-sm, 14px));
   color: var(--surface-text-secondary, var(--color-text-secondary));
 }
 

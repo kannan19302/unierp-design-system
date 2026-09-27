@@ -16,6 +16,11 @@ const meta: Meta<typeof DetailPageTemplate> = {
     },
   },
   argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
     tabs: { control: false },
     actions: { control: false },
     meta: { control: false },
@@ -32,7 +37,7 @@ const TABS = [
     label: "Overview",
     content: (
       <div style={{ padding: "16px", background: "var(--color-bg-surface)", border: "1px solid var(--color-border-default)", borderRadius: "var(--radius-md)" }}>
-        <h4 style={{ margin: "0 0 8px 0" }}>Enterprise Profile Overview</h4>
+        <h4 style={{ marginBlockEnd: "8px", marginBlockStart: 0, marginInline: 0 }}>Enterprise Profile Overview</h4>
         <p style={{ margin: 0, color: "var(--color-text-secondary)" }}>
           Primary account data, enterprise credit terms, billing cycles, and legal jurisdiction details.
         </p>
@@ -45,7 +50,7 @@ const TABS = [
     count: 12,
     content: (
       <div style={{ padding: "16px", background: "var(--color-bg-surface)", border: "1px solid var(--color-border-default)", borderRadius: "var(--radius-md)" }}>
-        <h4 style={{ margin: "0 0 8px 0" }}>Audit Activity Stream</h4>
+        <h4 style={{ marginBlockEnd: "8px", marginBlockStart: 0, marginInline: 0 }}>Audit Activity Stream</h4>
         <p style={{ margin: 0, color: "var(--color-text-secondary)" }}>
           12 ledger modifications and reconciliation sign-offs recorded in the current billing period.
         </p>
@@ -57,7 +62,7 @@ const TABS = [
     label: "Settings",
     content: (
       <div style={{ padding: "16px", background: "var(--color-bg-surface)", border: "1px solid var(--color-border-default)", borderRadius: "var(--radius-md)" }}>
-        <h4 style={{ margin: "0 0 8px 0" }}>Entity Configuration</h4>
+        <h4 style={{ marginBlockEnd: "8px", marginBlockStart: 0, marginInline: 0 }}>Entity Configuration</h4>
         <p style={{ margin: 0, color: "var(--color-text-secondary)" }}>
           Tax exemption IDs, auto-sweep threshold preferences, and notification routing webhooks.
         </p>
@@ -68,7 +73,7 @@ const TABS = [
 
 export const AnatomyAndComposition: Story = {
   render: (args) => (
-    <div style={{ padding: "24px", background: "var(--color-bg-subtle)", minBlockSize: "100vh" }}>
+    <div style={{ padding: "24px", background: "var(--color-bg-subtle)", minBlockSize: "100dvh" }}>
       <DetailPageTemplate {...args} />
     </div>
   ),
@@ -92,7 +97,7 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "40px", padding: "24px", background: "var(--color-bg-subtle)" }}>
       <div>
-        <h3 style={{ margin: "0 0 16px 0", color: "var(--color-text-primary)" }}>Standard Active State with Context Rail</h3>
+        <h3 style={{ marginBlockEnd: "16px", marginBlockStart: 0, marginInline: 0, color: "var(--color-text-primary)" }}>Standard Active State with Context Rail</h3>
         <DetailPageTemplate
           title="Invoice #INV-2026-901"
           subtitle="Issued to Horizon Holdings LLC"
@@ -111,7 +116,7 @@ export const AllStatesGallery: Story = {
       </div>
 
       <div>
-        <h3 style={{ margin: "0 0 16px 0", color: "var(--color-text-primary)" }}>Loading / Shimmer Skeleton State</h3>
+        <h3 style={{ marginBlockEnd: "16px", marginBlockStart: 0, marginInline: 0, color: "var(--color-text-primary)" }}>Loading / Shimmer Skeleton State</h3>
         <DetailPageTemplate
           title="Synchronizing Ledger..."
           subtitle="Fetching multi-currency exchange rates"
@@ -123,7 +128,33 @@ export const AllStatesGallery: Story = {
   ),
 };
 
+export const DensityGallery: Story = {
+  name: "Density scale comparison",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density} style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: "var(--space-4)" }}>
+          <div style={{ fontWeight: 600, fontSize: "var(--text-xs)", marginBlockEnd: "var(--space-2)" }}>
+            Density: {density}
+          </div>
+          <DetailPageTemplate
+            density={density}
+            title={`Customer Detail (${density})`}
+            subtitle="Tier 1 SLA account"
+            backLabel="Back"
+            onBack={() => {}}
+            meta={<Badge variant="success">Active</Badge>}
+            actions={<Button size="sm">Edit</Button>}
+            tabs={TABS.slice(0, 2)}
+          />
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 export const Default: Story = {
   ...AnatomyAndComposition,
 };
+
 

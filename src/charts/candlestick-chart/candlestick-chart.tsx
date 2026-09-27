@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./candlestick-chart.module.css";
 
 export interface CandlestickDataPoint {
@@ -11,12 +12,28 @@ export interface CandlestickDataPoint {
   close: number;
 }
 
+export const candlestickChartVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
 export interface CandlestickChartProps
   extends React.HTMLAttributes<HTMLDivElement> {
   data: CandlestickDataPoint[];
   height?: number;
   bullColor?: string;
   bearColor?: string;
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 /**
@@ -35,6 +52,7 @@ export const CandlestickChart = forwardRef<
       height = 280,
       bullColor = "var(--color-success)",
       bearColor = "var(--color-error)",
+      density = "standard",
       className = "",
       ...rest
     },
@@ -53,12 +71,15 @@ export const CandlestickChart = forwardRef<
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
+        data-slot="candlestick-chart"
+        data-density={density}
+        className={candlestickChartVariants({ density, className })}
         role="img"
         aria-label="Candlestick chart"
         {...rest}
       >
         <svg
+          data-slot="candlestick-chart-svg"
           width="100%"
           height={height}
           viewBox={`0 0 ${svgWidth} ${height}`}
@@ -74,8 +95,9 @@ export const CandlestickChart = forwardRef<
             const x = 20 + i * (barWidth + 4);
             const cx = x + barWidth / 2;
             return (
-              <g key={d.date || i}>
+              <g data-slot="candlestick-chart-candle" key={d.date || i}>
                 <line
+                  data-slot="candlestick-chart-wick"
                   x1={cx}
                   y1={yScale(d.high)}
                   x2={cx}
@@ -84,6 +106,7 @@ export const CandlestickChart = forwardRef<
                   strokeWidth={1}
                 />
                 <rect
+                  data-slot="candlestick-chart-body"
                   x={x}
                   y={bodyTop}
                   width={barWidth}

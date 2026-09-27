@@ -20,6 +20,10 @@ const meta: Meta<typeof Popover> = {
       control: "select",
       options: ["left", "center", "right"],
     },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
   },
 };
 
@@ -31,7 +35,7 @@ export const Default: Story = {
     trigger: <Button variant="secondary">Filter Ledger</Button>,
     children: (
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)" }}>Quick Filters</h4>
+        <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)" }}>Quick Filters</h4>
         <p style={{ margin: 0, fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
           Toggle active fiscal periods and voucher types.
         </p>
@@ -52,13 +56,13 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "var(--space-6)", padding: "var(--space-8)" }}>
       <div>
-        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Default Left-Aligned Popover</h4>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-text-secondary)" }}>Default Left-Aligned Popover</h4>
         <Popover
           trigger={<Button variant="outline">Ledger Info ℹ️</Button>}
         >
           <div style={{ padding: "var(--space-2)" }}>
             <strong>GL Account 1010</strong>
-            <p style={{ fontSize: "var(--text-xs)", margin: "var(--space-1) 0 0", color: "var(--color-text-secondary)" }}>
+            <p style={{ fontSize: "var(--text-xs)", marginBlockStart: "var(--space-1)", marginBlockEnd: 0, color: "var(--color-text-secondary)" }}>
               Operating Checking Account (Primary Cash).
             </p>
           </div>
@@ -66,14 +70,14 @@ export const AllStatesGallery: Story = {
       </div>
 
       <div>
-        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Right-Aligned Popover</h4>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-text-secondary)" }}>Right-Aligned Popover</h4>
         <Popover
           align="right"
           trigger={<Button variant="outline">Settings ⚙️</Button>}
         >
           <div style={{ padding: "var(--space-2)" }}>
             <strong>Display Density</strong>
-            <p style={{ fontSize: "var(--text-xs)", margin: "var(--space-1) 0 0", color: "var(--color-text-secondary)" }}>
+            <p style={{ fontSize: "var(--text-xs)", marginBlockStart: "var(--space-1)", marginBlockEnd: 0, color: "var(--color-text-secondary)" }}>
               Switch between compact and comfortable grid spacing.
             </p>
           </div>
@@ -82,4 +86,3 @@ export const AllStatesGallery: Story = {
     </div>
   ),
 };
-

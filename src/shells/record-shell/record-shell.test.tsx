@@ -84,6 +84,24 @@ describe("RecordShell", () => {
     expect(root).toBeInTheDocument();
     expect(root).toHaveAttribute("data-density", "compact");
   });
+
+  it("annotates slots with data-slot attributes", () => {
+    const { container } = render(
+      <RecordShell
+        rail={<p>rail</p>}
+        bar={<p>bar</p>}
+        list={<p>list</p>}
+        detail={<p>detail</p>}
+        inspector={<p>inspector</p>}
+      />,
+    );
+    expect(container.querySelector('[data-slot="record-shell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="record-shell-rail"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="record-shell-content-pane"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="record-shell-columns"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="record-shell-column"]')).toHaveLength(2);
+    expect(container.querySelector('[data-slot="record-shell-inspector"]')).toBeInTheDocument();
+  });
 });
 
 describe("ObjectPage", () => {
@@ -127,4 +145,26 @@ describe("ObjectPage", () => {
     );
     expect(await axe(container)).toHaveNoViolations();
   });
+
+  it("annotates ObjectPage slots with data-slot attributes and supports density", () => {
+    const { container, rerender } = render(
+      <ObjectPage sections={SECTIONS} activeId="summary" density="compact" />,
+    );
+    expect(container.querySelector('[data-slot="record-shell-object-page"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="record-shell-object-nav"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="record-shell-object-anchors"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="record-shell-object-anchor"]')).toHaveLength(3);
+    expect(container.querySelector('[data-slot="record-shell-object-sections"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="record-shell-object-section"]')).toHaveLength(3);
+    expect(container.querySelectorAll('[data-slot="record-shell-section-title"]')).toHaveLength(3);
+
+    const root = container.querySelector('[data-slot="record-shell-object-page"]');
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(root?.className).toContain("density_compact");
+
+    rerender(<ObjectPage sections={SECTIONS} density="ultra-compact" />);
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+    expect(root?.className).toContain("density_ultra_compact");
+  });
 });
+

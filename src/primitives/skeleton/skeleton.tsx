@@ -1,7 +1,21 @@
 import { forwardRef, type CSSProperties, type FC } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./skeleton.module.css";
 
-export interface SkeletonProps {
+export const skeletonVariants = cva(styles.skeleton, {
+  variants: {
+    shape: {
+      rectangle: "",
+      circle: styles.circle,
+    },
+  },
+  defaultVariants: {
+    shape: "rectangle",
+  },
+});
+
+export interface SkeletonProps
+  extends VariantProps<typeof skeletonVariants> {
   width?: string | number;
   height?: string | number;
   radius?: string;
@@ -12,6 +26,7 @@ export interface SkeletonProps {
 
 /**
  * `<Skeleton>` — Animated placeholder element simulating content loading geometry.
+ * Standardized with cva, data-slot, and prefers-reduced-motion fallback.
  * @maturity stable
  */
 export const Skeleton = forwardRef<HTMLSpanElement, SkeletonProps>(({
@@ -24,19 +39,16 @@ export const Skeleton = forwardRef<HTMLSpanElement, SkeletonProps>(({
 }, ref) => {
   const w = typeof width === "number" ? `${width}px` : width;
   const h = typeof height === "number" ? `${height}px` : height;
+  const shape = circle ? "circle" : "rectangle";
 
-  const skeletonClass = [
-    styles.skeleton,
-    circle ? styles.circle : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const skeletonClass = `${skeletonVariants({ shape })} ${className}`.trim();
 
   return (
     <span
       ref={ref}
       aria-hidden="true"
+      data-slot="skeleton"
+      data-circle={circle ? "true" : undefined}
       className={skeletonClass}
       style={
         {
@@ -61,7 +73,7 @@ export const SkeletonText: FC<SkeletonTextProps> = ({
   lines = 3,
   className = "",
 }) => (
-  <span className={`${styles.textContainer} ${className}`.trim()}>
+  <span data-slot="skeleton-text" className={`${styles.textContainer} ${className}`.trim()}>
     {Array.from({ length: lines }).map((_, i) => (
       <Skeleton
         key={i}

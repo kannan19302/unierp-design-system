@@ -1,4 +1,7 @@
+"use client";
+
 import React, { forwardRef } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./bookmarks-bar.module.css";
 
 export interface PinnedBookmark {
@@ -9,13 +12,28 @@ export interface PinnedBookmark {
   isActive?: boolean;
 }
 
-export interface PinnedBookmarksBarProps extends Omit<React.HTMLAttributes<HTMLElement>, "onSelect"> {
+export const bookmarksBarVariants = cva(styles.bookmarksBar, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export interface PinnedBookmarksBarProps
+  extends Omit<React.HTMLAttributes<HTMLElement>, "onSelect">,
+    VariantProps<typeof bookmarksBarVariants> {
   bookmarks: PinnedBookmark[];
   activeId?: string;
   onSelect?: (bookmark: PinnedBookmark) => void;
   onRemove?: (id: string) => void;
   onAddCurrent?: () => void;
-  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
   testId?: string;
 }
@@ -23,6 +41,7 @@ export interface PinnedBookmarksBarProps extends Omit<React.HTMLAttributes<HTMLE
 /**
  * PinnedBookmarksBar provides a browser-like persistent bookmark ribbon
  * for jumping to pinned workspace dashboards, records, and queries with keyboard hotkeys.
+ * Benchmarked against Chrome/Edge Bookmarks Bar and Salesforce Navigation Tabs.
  *
  * @maturity stable
  */
@@ -44,27 +63,39 @@ export const PinnedBookmarksBar = forwardRef<HTMLElement, PinnedBookmarksBarProp
     return (
       <nav
         ref={ref}
-        className={`${styles.bookmarksBar ?? ""} ${className}`}
+        data-slot="bookmarks-bar"
         data-density={density}
         data-testid={testId}
         aria-label="Pinned Bookmarks"
+        className={bookmarksBarVariants({ density, className })}
         {...rest}
       >
-        <div className={styles.leftSection ?? ""}>
-          <span className={styles.starIcon ?? ""} aria-hidden="true">
+        <div className={styles.leftSection}>
+          <span
+            data-slot="bookmarks-bar-icon"
+            className={styles.starIcon}
+            aria-hidden="true"
+          >
             ★
           </span>
-          <ul className={styles.bookmarksList ?? ""} role="list">
+          <ul
+            data-slot="bookmarks-bar-list"
+            className={styles.bookmarksList}
+            role="list"
+          >
             {bookmarks.map((b) => {
               const isSelected = activeId === b.id || b.isActive;
               return (
                 <li
                   key={b.id}
-                  className={`${styles.bookmarkItem ?? ""} ${isSelected ? (styles.bookmarkActive ?? "") : ""}`}
+                  data-slot="bookmarks-bar-item"
+                  data-active={isSelected}
+                  className={`${styles.bookmarkItem} ${isSelected ? styles.bookmarkActive : ""}`}
                 >
                   <button
                     type="button"
-                    className={styles.bookmarkBtn ?? ""}
+                    data-slot="bookmarks-bar-button"
+                    className={styles.bookmarkBtn}
                     onClick={() => onSelect?.(b)}
                     aria-label={b.label}
                     aria-current={isSelected ? "page" : undefined}
@@ -72,7 +103,11 @@ export const PinnedBookmarksBar = forwardRef<HTMLElement, PinnedBookmarksBarProp
                     {b.icon && <span aria-hidden="true">{b.icon}</span>}
                     <span>{b.label}</span>
                     {typeof b.hotkeyNumber === "number" && (
-                      <span className={styles.hotkeyBadge ?? ""} aria-label={`Shortcut Ctrl plus ${b.hotkeyNumber}`}>
+                      <span
+                        data-slot="bookmarks-bar-hotkey"
+                        className={styles.hotkeyBadge}
+                        aria-label={`Shortcut Ctrl plus ${b.hotkeyNumber}`}
+                      >
                         ^{b.hotkeyNumber}
                       </span>
                     )}
@@ -81,7 +116,8 @@ export const PinnedBookmarksBar = forwardRef<HTMLElement, PinnedBookmarksBarProp
                   {onRemove && (
                     <button
                       type="button"
-                      className={styles.removeBtn ?? ""}
+                      data-slot="bookmarks-bar-remove"
+                      className={styles.removeBtn}
                       onClick={(e) => {
                         e.stopPropagation();
                         onRemove(b.id);
@@ -100,7 +136,8 @@ export const PinnedBookmarksBar = forwardRef<HTMLElement, PinnedBookmarksBarProp
         {onAddCurrent && (
           <button
             type="button"
-            className={styles.addBtn ?? ""}
+            data-slot="bookmarks-bar-add"
+            className={styles.addBtn}
             onClick={onAddCurrent}
             aria-label="Pin current page"
           >

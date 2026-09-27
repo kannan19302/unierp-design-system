@@ -1,7 +1,24 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./view-switcher.module.css";
+
+export const viewSwitcherVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export type ViewSwitcherVariantProps = VariantProps<typeof viewSwitcherVariants>;
 
 export type ViewMode = "list" | "chart" | "kanban" | "grid";
 
@@ -15,18 +32,21 @@ export interface ViewSwitcherProps extends Omit<React.HTMLAttributes<HTMLDivElem
   activeView: ViewMode;
   onViewChange: (view: ViewMode) => void;
   availableViews?: ViewMode[];
+  options?: ViewOption[];
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   className?: string;
+  testId?: string;
 }
 
 const iconStyle: React.CSSProperties = {
   flexShrink: 0,
   display: "block",
+  inlineSize: "14px",
+  blockSize: "14px",
 };
 
 const ListIcon = () => (
   <svg
-    width="14"
-    height="14"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -47,8 +67,6 @@ const ListIcon = () => (
 
 const BarChartIcon = () => (
   <svg
-    width="14"
-    height="14"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -66,8 +84,6 @@ const BarChartIcon = () => (
 
 const KanbanIcon = () => (
   <svg
-    width="14"
-    height="14"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -85,8 +101,6 @@ const KanbanIcon = () => (
 
 const GridIcon = () => (
   <svg
-    width="14"
-    height="14"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -129,32 +143,54 @@ export const ViewSwitcher = forwardRef<HTMLDivElement, ViewSwitcherProps>(
       activeView,
       onViewChange,
       availableViews = ["list", "chart"],
+      options,
+      density = "standard",
       className = "",
+      testId = "view-switcher",
       ...restProps
     },
     ref
   ) => {
+    // If custom options provided, use them; otherwise use availableViews mapping
+    const resolvedViews: ViewOption[] = options
+      ? options
+      : availableViews.map((mode) => ({
+          mode,
+          label: VIEW_LABELS[mode] ?? mode,
+          icon: VIEW_ICONS[mode] ?? null,
+        }));
+
     return (
       <div
         ref={ref}
         role="group"
         aria-label="View Switcher"
-        className={`${styles.container} ${className}`.trim()}
+        data-slot="view-switcher"
+        data-active-view={activeView}
+        data-density={density}
+        data-testid={testId}
+        className={`${viewSwitcherVariants({ density })} ${className}`.trim()}
         {...restProps}
       >
-        {availableViews.map((mode) => {
-          const isActive = mode === activeView;
+        {resolvedViews.map((opt) => {
+          const isActive = opt.mode === activeView;
           return (
             <button
-              key={mode}
+              key={opt.mode}
               type="button"
-              onClick={() => onViewChange(mode)}
-              title={VIEW_LABELS[mode]}
+              onClick={() => onViewChange(opt.mode)}
+              title={opt.label}
               aria-pressed={isActive}
+              data-slot="view-switcher-button"
+              data-view-mode={opt.mode}
               className={`${styles.viewBtn} ${isActive ? styles.viewBtnActive : ""}`}
             >
-              {VIEW_ICONS[mode]}
-              <span>{VIEW_LABELS[mode]}</span>
+              <span className={styles.icon} data-slot="view-switcher-icon" aria-hidden="true">
+                {opt.icon}
+              </span>
+              <span className={styles.label} data-slot="view-switcher-label">
+                {opt.label}
+              </span>
             </button>
           );
         })}

@@ -1,9 +1,33 @@
 "use client";
 
 import { forwardRef, type ReactNode } from "react";
+import { Info, AlertTriangle, AlertCircle, CheckCircle2, X } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./alert-banner.module.css";
 
-export interface AlertBannerProps {
+export const alertBannerVariants = cva(styles.container, {
+  variants: {
+    variant: {
+      info: styles.variantInfo,
+      warning: styles.variantWarning,
+      error: styles.variantError,
+      success: styles.variantSuccess,
+    },
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    variant: "info",
+    density: "standard",
+  },
+});
+
+export interface AlertBannerProps
+  extends Omit<VariantProps<typeof alertBannerVariants>, "variant"> {
   variant?: "info" | "warning" | "error" | "success" | "danger";
   /** Alias for variant (BannerAlert compatibility) */
   severity?: "info" | "warning" | "error" | "success" | "danger";
@@ -18,6 +42,7 @@ export interface AlertBannerProps {
 
 /**
  * AlertBanner component for critical system notices and dismissible alerts.
+ * Benchmarked against Radix Callout, Salesforce SLDS Scoped Notification, and IBM Carbon Inline Notification.
  *
  * @maturity stable
  */
@@ -25,6 +50,7 @@ export const AlertBanner = forwardRef<HTMLDivElement, AlertBannerProps>(function
   {
     variant = "info",
     severity,
+    density = "standard",
     title,
     message,
     children,
@@ -32,51 +58,50 @@ export const AlertBanner = forwardRef<HTMLDivElement, AlertBannerProps>(function
     onDismiss,
     action,
     className = "",
+    ...props
   },
   ref
 ) {
-  const activeVariant = (severity === "danger" ? "error" : severity) ?? (variant === "danger" ? "error" : variant) ?? "info";
-  const colors = {
-    info: "var(--color-info)",
-    warning: "var(--color-warning)",
-    error: "var(--color-error)",
-    success: "var(--color-success)",
+  const activeVariant: "info" | "warning" | "error" | "success" =
+    (severity === "danger" ? "error" : severity) ?? (variant === "danger" ? "error" : variant) ?? "info";
+
+  const icons = {
+    info: <Info size={18} aria-hidden="true" />,
+    warning: <AlertTriangle size={18} aria-hidden="true" />,
+    error: <AlertCircle size={18} aria-hidden="true" />,
+    success: <CheckCircle2 size={18} aria-hidden="true" />,
   };
-  const icons = { info: "ℹ", warning: "⚠", error: "✕", success: "✓" };
 
   return (
     <div
       ref={ref}
-      className={`${styles.container} ${className}`.trim()}
       role="alert"
-      style={{
-        borderColor: colors[activeVariant],
-        borderInlineStartWidth: 4,
-        display: "flex",
-        alignItems: "flex-start",
-        gap: "var(--space-3)",
-      }}
+      data-slot="alert-banner"
+      data-variant={activeVariant}
+      data-density={density}
+      className={alertBannerVariants({ variant: activeVariant, density, className })}
+      {...props}
     >
-      <span style={{ color: colors[activeVariant], fontSize: "var(--text-lg)", flexShrink: 0 }}>
+      <span data-slot="alert-banner-icon" className={styles.icon}>
         {icons[activeVariant]}
       </span>
-      <div style={{ flex: 1, minInlineSize: 0 }}>
+      <div data-slot="alert-banner-content" className={styles.content}>
         {title && (
-          <div style={{ fontWeight: "var(--weight-semibold, 600)", fontSize: "var(--text-sm)" }}>
+          <div data-slot="alert-banner-title" className={styles.title}>
             {title}
           </div>
         )}
         {(message || children) && (
-          <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)", marginBlockStart: "var(--space-1)" }}>
+          <div data-slot="alert-banner-message" className={styles.message}>
             {message ?? children}
           </div>
         )}
         {action && (
           <button
             type="button"
-            className={styles.btn}
+            data-slot="alert-banner-action"
+            className={styles.actionBtn}
             onClick={action.onClick}
-            style={{ marginBlockStart: "var(--space-2)" }}
           >
             {action.label}
           </button>
@@ -85,19 +110,12 @@ export const AlertBanner = forwardRef<HTMLDivElement, AlertBannerProps>(function
       {dismissible && (
         <button
           type="button"
+          data-slot="alert-banner-dismiss"
+          className={styles.dismissBtn}
           onClick={onDismiss}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "var(--color-text-tertiary)",
-            fontSize: "var(--text-lg)",
-            padding: 0,
-            lineHeight: 1,
-          }}
           aria-label="Dismiss alert"
         >
-          ×
+          <X size={16} aria-hidden="true" />
         </button>
       )}
     </div>

@@ -63,21 +63,21 @@
 
 /* ── Sizes ── */
 .sm {
-  height: var(--density-control-height-sm, 28px);
+  block-size: var(--density-control-height-sm, 28px);
   padding-inline: var(--space-2, 8px);
   font-size: var(--type-xs, 12px);
   border-radius: var(--radius-sm, 4px);
 }
 
 .md {
-  height: var(--density-control-height, 32px);
+  block-size: var(--density-control-height, 32px);
   padding-inline: var(--space-3, 12px);
   font-size: var(--type-sm, 13px);
   border-radius: var(--radius, 6px);
 }
 
 .lg {
-  height: var(--density-row-height, 40px);
+  block-size: var(--density-row-height, 40px);
   padding-inline: var(--space-3-5, 14px);
   font-size: var(--type-base, 14px);
   border-radius: var(--radius-md, 8px);

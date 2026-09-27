@@ -12,6 +12,27 @@
   box-sizing: border-box;
 }
 
+/* 4-tier density scaling */
+.densityUltraCompact {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+}
+
+.densityCompact {
+  padding-block: var(--space-4);
+  padding-inline: var(--space-4);
+}
+
+.densityStandard {
+  padding-block: var(--space-6);
+  padding-inline: var(--space-6);
+}
+
+.densityComfortable {
+  padding-block: var(--space-8);
+  padding-inline: var(--space-8);
+}
+
 @media print {
   .printContainer {
     padding-block: 0;
@@ -20,4 +41,3 @@
     margin-inline: 0;
   }
 }
-

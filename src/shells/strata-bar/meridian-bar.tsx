@@ -1,8 +1,24 @@
-"use client";
-
 import { useCallback, useState, forwardRef, type ReactNode } from "react";
 import { Check, Copy } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./meridian-bar.module.css";
+
+type ShellDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export const meridianBarVariants = cva(styles.root, {
+  variants: {
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
 
 /**
  * `<MeridianBar>` — the signature of the UniERP design language, and the one
@@ -134,7 +150,7 @@ export type MeridianAction =
       disabledReason: string;
     };
 
-export interface MeridianBarProps {
+export interface MeridianBarProps extends VariantProps<typeof meridianBarVariants> {
   /** A rendered address — e.g. `<ArtifactAddress …/>`. Wins over `segments`. */
   address?: ReactNode;
   /** The general form: plain path segments, last one treated as the leaf. */
@@ -147,6 +163,7 @@ export interface MeridianBarProps {
 
   /** Tints the leading edge. Omit on surfaces that have no scope axis. */
   scope?: MeridianScope;
+  density?: ShellDensity;
   className?: string;
   /** Extra controls between state and the primary verb. Use sparingly. */
   children?: ReactNode;
@@ -168,6 +185,7 @@ export const MeridianBar = forwardRef<HTMLDivElement, MeridianBarProps>(({
   state,
   action,
   scope,
+  density = "standard",
   className = "",
   children,
 }, ref) => {
@@ -193,15 +211,17 @@ export const MeridianBar = forwardRef<HTMLDivElement, MeridianBarProps>(({
   return (
     <div
       ref={ref}
-      className={`${styles.root} ${scope ? styles.scoped : ""} ${className}`.trim()}
+      data-slot="meridian-bar"
+      data-density={density}
+      className={`${meridianBarVariants({ density })} ${scope ? styles.scoped : ""} ${className}`.trim()}
       style={rootStyle}
       data-meridian-bar=""
     >
       {/* 1 — where am I */}
-      <div className={styles.identity}>
+      <div data-slot="meridian-bar-identity" className={styles.identity}>
         {address ?? (
           segments && segments.length > 0 ? (
-            <span className={styles.segments}>
+            <span data-slot="meridian-bar-segments" className={styles.segments}>
               {segments.map((seg, i) => {
                 const isLeaf = i === segments.length - 1;
                 return (
@@ -230,6 +250,7 @@ export const MeridianBar = forwardRef<HTMLDivElement, MeridianBarProps>(({
         {copyable && segments && segments.length > 0 && (
           <button
             type="button"
+            data-slot="meridian-bar-copy-btn"
             className={styles.copy}
             onClick={copy}
             // The confirmation is in WORDS, not only in the icon swap — the
@@ -249,6 +270,7 @@ export const MeridianBar = forwardRef<HTMLDivElement, MeridianBarProps>(({
       {/* 2 — what state. Absent, not empty, when nothing is pending. */}
       {state && (
         <span
+          data-slot="meridian-bar-state"
           className={styles.state}
           style={
             {
@@ -264,11 +286,11 @@ export const MeridianBar = forwardRef<HTMLDivElement, MeridianBarProps>(({
       )}
 
       {/* 3 — what next */}
-      <div className={styles.action_slot}>
+      <div data-slot="meridian-bar-action-slot" className={styles.action_slot}>
         {children}
         {action &&
           (action.href && !action.disabled ? (
-            <a className={styles.verb} href={action.href}>
+            <a data-slot="meridian-bar-verb" className={styles.verb} href={action.href}>
               {action.label}
             </a>
           ) : (
@@ -280,6 +302,7 @@ export const MeridianBar = forwardRef<HTMLDivElement, MeridianBarProps>(({
               )}
               <button
                 type="button"
+                data-slot="meridian-bar-verb"
                 className={styles.verb}
                 onClick={action.onClick}
                 disabled={action.disabled}
@@ -302,3 +325,4 @@ export const MeridianBar = forwardRef<HTMLDivElement, MeridianBarProps>(({
 });
 
 MeridianBar.displayName = "MeridianBar";
+

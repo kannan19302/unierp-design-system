@@ -195,3 +195,49 @@
     padding-inline: var(--space-4);
   }
 }
+
+/* Density Scaling */
+.density_ultra_compact .masthead {
+  min-height: var(--masthead-height, var(--space-10, 40px));
+  min-block-size: var(--masthead-height, var(--space-10, 40px));
+  padding-block: var(--space-2);
+}
+
+.density_compact .masthead {
+  min-height: var(--masthead-height, var(--space-12, 48px));
+  min-block-size: var(--masthead-height, var(--space-12, 48px));
+  padding-block: var(--space-3);
+}
+
+.density_standard .masthead {
+  min-height: var(--masthead-height, var(--space-16, 64px));
+  min-block-size: var(--masthead-height, var(--space-16, 64px));
+  padding-block: var(--space-4);
+}
+
+.density_comfortable .masthead {
+  min-height: var(--masthead-height, 80px);
+  min-block-size: 80px;
+  padding-block: var(--space-6);
+}
+
+.density_ultra_compact.band,
+.density_ultra_compact .band {
+  padding-block: var(--space-8);
+}
+
+.density_compact.band,
+.density_compact .band {
+  padding-block: var(--space-12);
+}
+
+.density_standard.band,
+.density_standard .band {
+  padding-block: var(--space-16);
+}
+
+.density_comfortable.band,
+.density_comfortable .band {
+  padding-block: var(--space-24);
+}
+

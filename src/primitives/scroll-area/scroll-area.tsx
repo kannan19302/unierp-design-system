@@ -6,9 +6,30 @@ import {
   type ReactNode,
   type CSSProperties,
 } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./scroll-area.module.css";
 
-export interface ScrollAreaProps extends HTMLAttributes<HTMLDivElement> {
+export const scrollAreaVariants = cva(styles.scrollArea, {
+  variants: {
+    orientation: {
+      vertical: styles.vertical,
+      horizontal: styles.horizontal,
+      both: styles.both,
+    },
+    hideScrollbar: {
+      true: styles.hideScrollbar,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    orientation: "vertical",
+    hideScrollbar: false,
+  },
+});
+
+export interface ScrollAreaProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof scrollAreaVariants> {
   /** Maximum block size / height of the scroll viewport */
   maxHeight?: string | number;
   /** Maximum inline size / width of the scroll viewport */
@@ -49,14 +70,7 @@ export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
       ...(maxWidth ? { maxInlineSize: maxWidth } : {}),
     };
 
-    const rootClasses = [
-      styles.scrollArea,
-      styles[orientation],
-      hideScrollbar ? styles.hideScrollbar : "",
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
+    const rootClasses = `${scrollAreaVariants({ orientation, hideScrollbar })} ${className}`.trim();
 
     return (
       <div
@@ -64,11 +78,13 @@ export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
         tabIndex={0}
         role="region"
         aria-label="Scrollable content"
+        data-slot="scroll-area"
+        data-orientation={orientation}
         className={rootClasses}
         style={rootStyle}
         {...props}
       >
-        <div className={styles.viewport}>{children}</div>
+        <div data-slot="scroll-area-viewport" className={styles.viewport}>{children}</div>
       </div>
     );
   }
@@ -88,6 +104,8 @@ export const ScrollBar = forwardRef<HTMLDivElement, ScrollBarProps>(
     <div
       ref={ref}
       aria-hidden="true"
+      data-slot="scroll-bar"
+      data-orientation={orientation}
       className={`${styles.scrollbar} ${styles[`bar_${orientation}`]} ${className}`.trim()}
       {...props}
     />

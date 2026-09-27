@@ -36,8 +36,8 @@
   background: transparent;
   border: none;
   border-radius: var(--radius-full, 9999px);
-  width: var(--space-3-5, 14px);
-  height: var(--space-3-5, 14px);
+  inline-size: var(--space-3-5, 14px);
+  block-size: var(--space-3-5, 14px);
   padding: 0;
   cursor: pointer;
   color: inherit;

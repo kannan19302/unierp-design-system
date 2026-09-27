@@ -1,12 +1,13 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — LoadingOverlay Styles
+   Strict CSS Logical Properties
    ══════════════════════════════════════════════════════════════ */
 
 .overlay {
   position: absolute;
   inset: 0;
   z-index: var(--z-modal-backdrop, 999);
-  background: var(--surface-overlay, rgba(0, 0, 0, 0.35));
+  background: var(--surface-overlay, rgba(15, 23, 42, 0.35));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,17 +22,56 @@
 .dialog {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  padding-block: var(--space-3);
-  padding-inline: var(--space-5);
-  background: var(--surface-1-bg, var(--color-bg-elevated));
-  border: 1px solid var(--surface-1-border, var(--color-border));
-  border-radius: var(--radius-sm, 2px);
+  gap: var(--space-3, 12px);
+  background: var(--surface-1-bg, var(--color-bg-elevated, #ffffff));
+  border: 1px solid var(--surface-1-border, var(--color-border, #e2e8f0));
+  border-radius: var(--radius-sm, 4px);
   box-shadow: var(--shadow-lg);
 }
 
+/* Densities */
+.densityUltraCompact .dialog {
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-3, 12px);
+  gap: var(--space-2, 8px);
+}
+
+.densityUltraCompact .message {
+  font-size: var(--text-xs, 12px);
+}
+
+.densityCompact .dialog {
+  padding-block: var(--space-2, 8px);
+  padding-inline: var(--space-4, 16px);
+  gap: var(--space-2-5, 10px);
+}
+
+.densityCompact .message {
+  font-size: var(--text-sm, 13px);
+}
+
+.densityStandard .dialog {
+  padding-block: var(--space-3, 12px);
+  padding-inline: var(--space-5, 20px);
+  gap: var(--space-3, 12px);
+}
+
+.densityStandard .message {
+  font-size: var(--type-dense, var(--text-sm, 14px));
+}
+
+.densityComfortable .dialog {
+  padding-block: var(--space-4, 16px);
+  padding-inline: var(--space-6, 24px);
+  gap: var(--space-4, 16px);
+}
+
+.densityComfortable .message {
+  font-size: var(--text-base, 16px);
+}
+
 .message {
-  font-size: var(--type-dense, var(--text-sm));
-  font-weight: var(--weight-medium);
-  color: var(--surface-text-primary, var(--color-text));
+  font-size: var(--type-dense, var(--text-sm, 14px));
+  font-weight: var(--weight-medium, 500);
+  color: var(--surface-text-primary, var(--color-text, #0f172a));
 }

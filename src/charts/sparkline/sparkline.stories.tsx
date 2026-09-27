@@ -14,7 +14,13 @@ const meta: Meta<typeof SparklineGrid> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    a11y: { test: "todo" },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling mode",
+    },
   },
 };
 
@@ -29,9 +35,28 @@ export const Default: Story = {
   ),
 };
 
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ inlineSize: "580px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density}>
+          <h5 style={{ marginBlockEnd: "var(--space-2)", textTransform: "capitalize" }}>
+            Density: {density}
+          </h5>
+          <SparklineGrid density={density} rows={SAMPLE_ROWS.slice(0, 2)} />
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 export const AnatomyAndComposition: Story = {
   render: () => (
     <div style={{ inlineSize: "600px", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <h4>Sparkline Grid Anatomy</h4>
+      <p style={{ color: "var(--color-text-secondary)", fontSize: "var(--text-sm)", margin: 0 }}>
+        Dense tabular metric ledger pairing current numeric values with inline SVG trendlines and directional changes.
+      </p>
       <SparklineGrid
         rows={SAMPLE_ROWS}
         columns={["KPI Indicator", "30-Day Trend", "Current", "Delta"]}
@@ -44,15 +69,11 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ inlineSize: "600px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
-        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Standard Telemetry Grid
-        </h4>
+        <h5 style={{ marginBlockEnd: "var(--space-2)" }}>Standard Telemetry Grid</h5>
         <SparklineGrid rows={SAMPLE_ROWS} />
       </div>
       <div>
-        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Single Row Compact
-        </h4>
+        <h5 style={{ marginBlockEnd: "var(--space-2)" }}>Single Row Compact</h5>
         <SparklineGrid rows={[SAMPLE_ROWS[0]]} />
       </div>
     </div>

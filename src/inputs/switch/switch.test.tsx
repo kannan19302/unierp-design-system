@@ -15,6 +15,17 @@ describe("Strata V1 Switch Primitive", () => {
     expect(onChange).toHaveBeenCalledWith(true);
   });
 
+  it("exposes data-slot and cva variants", () => {
+    const { container } = render(<Switch label="Sound" density="compact" checked />);
+    const root = container.querySelector('[data-slot="switch"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-state", "checked");
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(container.querySelector('[data-slot="switch-track"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="switch-thumb"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="switch-label"]')).toBeInTheDocument();
+  });
+
   it("toggles via keyboard Space and Enter keys", () => {
     const onChange = vi.fn();
     render(<Switch label="Auto-Renew" defaultChecked={false} onChange={onChange} />);

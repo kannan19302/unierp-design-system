@@ -1,6 +1,29 @@
-import { forwardRef, type ReactNode } from "react";
+"use client";
+
+import {
+  forwardRef,
+  type ReactNode,
+  type HTMLAttributes,
+  type AnchorHTMLAttributes,
+} from "react";
 import { ChevronRight } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
+import { cn } from "../../foundation/utils/cn";
 import styles from "./breadcrumb.module.css";
+
+export const breadcrumbVariants = cva(styles.nav, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 export interface BreadcrumbItem {
   key?: string;
@@ -9,8 +32,11 @@ export interface BreadcrumbItem {
   onClick?: () => void;
 }
 
-export interface BreadcrumbProps {
-  items: BreadcrumbItem[];
+export interface BreadcrumbProps
+  extends HTMLAttributes<HTMLElement>,
+    VariantProps<typeof breadcrumbVariants> {
+  items?: BreadcrumbItem[];
+  children?: ReactNode;
   separator?: ReactNode;
   className?: string;
   /** Distinguishes multiple breadcrumb landmarks on the same page. */
@@ -19,53 +45,147 @@ export interface BreadcrumbProps {
 
 /**
  * `<Breadcrumb>` — Accessible hierarchical breadcrumb trail with WAI-ARIA nav and current-page semantics.
+ * Benchmarked against Radix / shadcn Breadcrumb, Carbon Breadcrumb, and SLDS Breadcrumb.
+ *
  * @maturity stable
  */
-export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(({
-  items,
-  separator = <ChevronRight size={12} className={styles.separatorIcon} aria-hidden="true" />,
-  className = "",
-  "aria-label": ariaLabel = "Breadcrumb",
-}, ref) => {
-  return (
-    <nav ref={ref} aria-label={ariaLabel} className={`${styles.nav} ${className}`.trim()}>
-      <ol className={styles.list}>
-        {items.map((item, index) => {
-          const isLast = index === items.length - 1;
-          return (
-            <li key={item.key || index} className={styles.item}>
-              {isLast && !item.href && !item.onClick ? (
-                <span className={`${styles.text} ${styles.current}`} aria-current="page">
-                  {item.label}
-                </span>
-              ) : item.href ? (
-                <a
-                  href={item.href}
-                  onClick={(e) => {
-                    if (item.onClick) {
-                      e.preventDefault();
-                      item.onClick();
-                    }
-                  }}
-                  className={`${styles.link} ${isLast ? styles.current : ""}`.trim()}
-                  aria-current={isLast ? "page" : undefined}
-                >
-                  {item.label}
-                </a>
-              ) : item.onClick ? (
-                <button type="button" onClick={item.onClick} className={`${styles.link} ${isLast ? styles.current : ""}`.trim()} aria-current={isLast ? "page" : undefined}>
-                  {item.label}
-                </button>
-              ) : (
-                <span className={styles.text}>{item.label}</span>
-              )}
-              {!isLast && <span className={styles.separator} aria-hidden="true">{separator}</span>}
-            </li>
-          );
-        })}
-      </ol>
-    </nav>
-  );
-});
+export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
+  (
+    {
+      items,
+      children,
+      separator = <ChevronRight size={12} className={styles.separatorIcon} aria-hidden="true" />,
+      density = "standard",
+      className = "",
+      "aria-label": ariaLabel = "Breadcrumb",
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <nav
+        ref={ref}
+        aria-label={ariaLabel}
+        data-slot="breadcrumb"
+        data-density={density}
+        className={breadcrumbVariants({ density, className })}
+        {...props}
+      >
+        {items ? (
+          <ol data-slot="breadcrumb-list" className={styles.list}>
+            {items.map((item, index) => {
+              const isLast = index === items.length - 1;
+              return (
+                <li key={item.key || index} data-slot="breadcrumb-item" className={styles.item}>
+                  {isLast && !item.href && !item.onClick ? (
+                    <span
+                      data-slot="breadcrumb-page"
+                      className={`${styles.text} ${styles.current}`}
+                      aria-current="page"
+                    >
+                      {item.label}
+                    </span>
+                  ) : item.href ? (
+                    <a
+                      href={item.href}
+                      data-slot="breadcrumb-link"
+                      onClick={(e) => {
+                        if (item.onClick) {
+                          e.preventDefault();
+                          item.onClick();
+                        }
+                      }}
+                      className={`${styles.link} ${isLast ? styles.current : ""}`.trim()}
+                      aria-current={isLast ? "page" : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  ) : item.onClick ? (
+                    <button
+                      type="button"
+                      data-slot="breadcrumb-link"
+                      onClick={item.onClick}
+                      className={`${styles.link} ${isLast ? styles.current : ""}`.trim()}
+                      aria-current={isLast ? "page" : undefined}
+                    >
+                      {item.label}
+                    </button>
+                  ) : (
+                    <span data-slot="breadcrumb-page" className={styles.text}>
+                      {item.label}
+                    </span>
+                  )}
+                  {!isLast && (
+                    <span data-slot="breadcrumb-separator" className={styles.separator} aria-hidden="true">
+                      {separator}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <ol data-slot="breadcrumb-list" className={styles.list}>
+            {children}
+          </ol>
+        )}
+      </nav>
+    );
+  }
+);
 
 Breadcrumb.displayName = "Breadcrumb";
+
+/** Sub-components for compound composition */
+export const BreadcrumbList = forwardRef<HTMLOListElement, HTMLAttributes<HTMLOListElement>>(
+  ({ className, ...props }, ref) => (
+    <ol ref={ref} data-slot="breadcrumb-list" className={cn(styles.list, className)} {...props} />
+  )
+);
+BreadcrumbList.displayName = "BreadcrumbList";
+
+export const BreadcrumbItem = forwardRef<HTMLLIElement, HTMLAttributes<HTMLLIElement>>(
+  ({ className, ...props }, ref) => (
+    <li ref={ref} data-slot="breadcrumb-item" className={cn(styles.item, className)} {...props} />
+  )
+);
+BreadcrumbItem.displayName = "BreadcrumbItem";
+
+export const BreadcrumbLink = forwardRef<HTMLAnchorElement, AnchorHTMLAttributes<HTMLAnchorElement>>(
+  ({ className, ...props }, ref) => (
+    <a ref={ref} data-slot="breadcrumb-link" className={cn(styles.link, className)} {...props} />
+  )
+);
+BreadcrumbLink.displayName = "BreadcrumbLink";
+
+export const BreadcrumbPage = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      role="link"
+      aria-disabled="true"
+      aria-current="page"
+      data-slot="breadcrumb-page"
+      className={cn(styles.text, styles.current, className)}
+      {...props}
+    />
+  )
+);
+BreadcrumbPage.displayName = "BreadcrumbPage";
+
+export const BreadcrumbSeparator = ({
+  children,
+  className,
+  ...props
+}: HTMLAttributes<HTMLSpanElement>) => (
+  <span
+    role="presentation"
+    aria-hidden="true"
+    data-slot="breadcrumb-separator"
+    className={cn(styles.separator, className)}
+    {...props}
+  >
+    {children ?? <ChevronRight size={12} className={styles.separatorIcon} />}
+  </span>
+);
+BreadcrumbSeparator.displayName = "BreadcrumbSeparator";

@@ -20,12 +20,16 @@ describe("Strata V1 FormControl Primitive", () => {
     expect(label).toBeInTheDocument();
   });
 
-  it("shows error alert message and sets aria-invalid", () => {
-    render(<TextField label="Invoice ID" error="Invoice ID is invalid" />);
+  it("shows error alert message and sets aria-invalid and data-slot", () => {
+    const { container } = render(<TextField label="Invoice ID" error="Invoice ID is invalid" />);
     const alert = screen.getByRole("alert");
     expect(alert).toHaveTextContent("Invoice ID is invalid");
     const input = screen.getByLabelText("Invoice ID");
     expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(container.querySelector('[data-slot="form-field"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="form-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="form-message"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="form-control"]')).toBeInTheDocument();
   });
 
   it("renders input slots correctly", () => {

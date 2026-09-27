@@ -1,10 +1,29 @@
 "use client";
 
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import { Breadcrumb, type BreadcrumbItem } from "../../navigation/breadcrumb";
 import styles from "./page-header.module.css";
 
-export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+type ShellDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export const pageHeaderVariants = cva(styles.pageHeader, {
+  variants: {
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export interface PageHeaderProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "title">,
+    VariantProps<typeof pageHeaderVariants> {
   title: ReactNode;
   subtitle?: ReactNode;
   description?: ReactNode;
@@ -12,6 +31,7 @@ export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, "t
   badge?: ReactNode;
   actions?: ReactNode;
   tabs?: ReactNode;
+  density?: ShellDensity;
   className?: string;
 }
 
@@ -31,6 +51,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
       badge,
       actions,
       tabs,
+      density = "standard",
       className = "",
       ...props
     },
@@ -40,29 +61,32 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.pageHeader} ${tabs ? styles.withTabs : ""} ${className}`.trim()}
+        data-slot="page-header"
+        data-density={density}
+        className={`${pageHeaderVariants({ density })} ${tabs ? styles.withTabs : ""} ${className}`.trim()}
         {...props}
       >
-        <div className={styles.topRow}>
-          <div className={styles.titleArea}>
+        <div data-slot="page-header-top-row" className={styles.topRow}>
+          <div data-slot="page-header-title-area" className={styles.titleArea}>
             {breadcrumbs && breadcrumbs.length > 0 && (
-              <div className={styles.breadcrumbWrap}>
+              <div data-slot="page-header-breadcrumb" className={styles.breadcrumbWrap}>
                 <Breadcrumb items={breadcrumbs} />
               </div>
             )}
-            <div className={styles.titleRow}>
-              <h1 className={styles.title}>{title}</h1>
-              {badge}
+            <div data-slot="page-header-title-row" className={styles.titleRow}>
+              <h1 data-slot="page-header-title" className={styles.title}>{title}</h1>
+              {badge && <div data-slot="page-header-badge">{badge}</div>}
             </div>
-            {sub && <div className={styles.subtitle}>{sub}</div>}
+            {sub && <div data-slot="page-header-subtitle" className={styles.subtitle}>{sub}</div>}
           </div>
-          {actions && <div className={styles.actions}>{actions}</div>}
+          {actions && <div data-slot="page-header-actions" className={styles.actions}>{actions}</div>}
         </div>
-        {tabs && <div className={styles.tabsArea}>{tabs}</div>}
+        {tabs && <div data-slot="page-header-tabs" className={styles.tabsArea}>{tabs}</div>}
       </div>
     );
   }
 );
 
 PageHeader.displayName = "PageHeader";
+
 

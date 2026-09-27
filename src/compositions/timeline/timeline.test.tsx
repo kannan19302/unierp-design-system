@@ -40,5 +40,42 @@ describe("Timeline Primitive", () => {
     );
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
+
+  it("supports 4-tier density scaling", () => {
+    const items = [{ id: "1", title: "Audit Log", timestamp: "12:00" }];
+    const { container, rerender } = render(<Timeline items={items} density="ultra-compact" />);
+    const root = container.querySelector('[data-slot="timeline"]');
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+
+    rerender(<Timeline items={items} density="compact" />);
+    expect(root).toHaveAttribute("data-density", "compact");
+
+    rerender(<Timeline items={items} density="standard" />);
+    expect(root).toHaveAttribute("data-density", "standard");
+
+    rerender(<Timeline items={items} density="comfortable" />);
+    expect(root).toHaveAttribute("data-density", "comfortable");
+  });
+
+  it("renders data-slot annotations on timeline sub-elements", () => {
+    const { container } = render(
+      <Timeline
+        items={[
+          { id: "1", title: "Created", timestamp: "09:00", description: "Initial creation" },
+          { id: "2", title: "Approved", timestamp: "10:00" },
+        ]}
+      />
+    );
+    expect(container.querySelector('[data-slot="timeline"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-item"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-node"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-dot"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-line"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-content"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-timestamp"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="timeline-description"]')).toBeInTheDocument();
+  });
 });
 

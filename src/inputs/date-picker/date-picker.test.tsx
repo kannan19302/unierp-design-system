@@ -6,8 +6,11 @@ import { DatePicker } from "./date-picker";
 describe("DatePicker Primitive", () => {
   it("handles date change event", () => {
     const onChange = vi.fn();
-    render(<DatePicker value="2026-01-01" onChange={onChange} aria-label="Invoice Date" />);
+    const { container } = render(<DatePicker value="2026-01-01" onChange={onChange} aria-label="Invoice Date" />);
     const input = screen.getByLabelText("Invoice Date");
+    expect(container.querySelector('[data-slot="date-picker"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="date-picker-wrapper"]')).toBeInTheDocument();
+    expect(input).toHaveAttribute("data-slot", "date-picker-input");
     fireEvent.change(input, { target: { value: "2026-05-15" } });
     expect(onChange).toHaveBeenCalledWith("2026-05-15");
   });

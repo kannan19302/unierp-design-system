@@ -7,7 +7,7 @@
   flex-direction: column;
   gap: var(--space-1);
   font-family: var(--font-sans);
-  width: 100%;
+  inline-size: 100%;
 }
 
 .label {
@@ -25,7 +25,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1);
-  min-height: var(--density-control-height, 32px);
+  min-block-size: var(--density-control-height, 32px);
   padding-block: 2px;
   padding-inline: var(--density-control-padding-x, var(--space-3));
   font-family: var(--font-sans);
@@ -33,7 +33,7 @@
   border: 1px solid var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 2px);
   box-sizing: border-box;
-  width: 100%;
+  inline-size: 100%;
   transition: border-color var(--duration-fast) var(--ease-default),
               box-shadow var(--duration-fast) var(--ease-default);
 }
@@ -96,8 +96,8 @@
 
 .inputField {
   flex: 1;
-  min-width: var(--tag-input-min-width, 80px);
-  height: var(--density-badge-height, 24px);
+  min-inline-size: var(--tag-input-min-width, 80px);
+  block-size: var(--density-badge-height, 24px);
   border: none;
   background: transparent;
   outline: none;
@@ -115,7 +115,7 @@
 /* 4-Tier Density */
 .container[data-density="ultra-compact"],
 :global([data-density="ultra-compact"]) .container {
-  min-height: var(--density-control-height-ultra-compact, 24px);
+  min-block-size: var(--density-control-height-ultra-compact, 24px);
 }
 .container[data-density="ultra-compact"] .inputField,
 :global([data-density="ultra-compact"]) .container .inputField {
@@ -124,7 +124,7 @@
 
 .container[data-density="compact"],
 :global([data-density="compact"]) .container {
-  min-height: var(--density-control-height-compact, 28px);
+  min-block-size: var(--density-control-height-compact, 28px);
 }
 .container[data-density="compact"] .inputField,
 :global([data-density="compact"]) .container .inputField {
@@ -133,7 +133,7 @@
 
 .container[data-density="standard"],
 :global([data-density="standard"]) .container {
-  min-height: var(--density-control-height-standard, 32px);
+  min-block-size: var(--density-control-height-standard, 32px);
 }
 .container[data-density="standard"] .inputField,
 :global([data-density="standard"]) .container .inputField {
@@ -142,7 +142,7 @@
 
 .container[data-density="comfortable"],
 :global([data-density="comfortable"]) .container {
-  min-height: var(--density-control-height-comfortable, 40px);
+  min-block-size: var(--density-control-height-comfortable, 40px);
 }
 .container[data-density="comfortable"] .inputField,
 :global([data-density="comfortable"]) .container .inputField {

@@ -23,16 +23,16 @@
 .hiddenInput {
   position: absolute;
   opacity: 0;
-  width: 0;
-  height: 0;
+  inline-size: 0;
+  block-size: 0;
   margin: 0;
 }
 
 .box {
-  width: var(--checkbox-size, 16px);
-  height: var(--checkbox-size, 16px);
-  min-width: var(--checkbox-size, 16px);
-  min-height: var(--checkbox-size, 16px);
+  inline-size: var(--checkbox-size, 16px);
+  block-size: var(--checkbox-size, 16px);
+  min-inline-size: var(--checkbox-size, 16px);
+  min-block-size: var(--checkbox-size, 16px);
   border-radius: var(--radius-xs, 2px);
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);

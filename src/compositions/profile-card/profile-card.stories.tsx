@@ -83,6 +83,11 @@ The **ProfileCard** primitive encapsulates the visual representation of an enter
         defaultValue: { summary: "compact" },
       },
     },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
   },
 };
 
@@ -246,6 +251,57 @@ export const AnatomyAndComposition: Story = {
   ),
 };
 
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", inlineSize: "440px", maxInlineSize: "100%" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Ultra-Compact (24px avatar)</h4>
+        <ProfileCard
+          name="Marcus Vance"
+          email="marcus.v@acme.corp"
+          role="Auditor"
+          status="online"
+          density="ultra-compact"
+          variant="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Compact (28px avatar)</h4>
+        <ProfileCard
+          name="Marcus Vance"
+          email="marcus.v@acme.corp"
+          role="Auditor"
+          status="online"
+          density="compact"
+          variant="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Standard (36px avatar)</h4>
+        <ProfileCard
+          name="Marcus Vance"
+          email="marcus.v@acme.corp"
+          role="Auditor"
+          status="online"
+          density="standard"
+          variant="compact"
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Comfortable (44px avatar)</h4>
+        <ProfileCard
+          name="Marcus Vance"
+          email="marcus.v@acme.corp"
+          role="Auditor"
+          status="online"
+          density="comfortable"
+          variant="compact"
+        />
+      </div>
+    </div>
+  ),
+};
+
 export const AllStatesGallery: Story = {
   parameters: {
     docs: {
@@ -255,14 +311,14 @@ export const AllStatesGallery: Story = {
     },
   },
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", width: 440 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", inlineSize: "440px", maxInlineSize: "100%" }}>
       <div>
         <div
           style={{
             fontSize: "var(--text-xs)",
             fontWeight: "var(--weight-semibold)",
             color: "var(--color-text-secondary)",
-            marginBottom: "var(--space-2)",
+            marginBlockEnd: "var(--space-2)",
           }}
         >
           1. Compact Cards Across Presence States (Online, Away, Busy, Offline)
@@ -299,7 +355,7 @@ export const AllStatesGallery: Story = {
             fontSize: "var(--text-xs)",
             fontWeight: "var(--weight-semibold)",
             color: "var(--color-text-secondary)",
-            marginBottom: "var(--space-2)",
+            marginBlockEnd: "var(--space-2)",
           }}
         >
           2. Full Variant with Role, Tenant, and Action Controls
@@ -312,7 +368,7 @@ export const AllStatesGallery: Story = {
           status="online"
           variant="full"
           actions={
-            <div style={{ display: "flex", gap: "var(--space-2)", width: "100%" }}>
+            <div style={{ display: "flex", gap: "var(--space-2)", inlineSize: "100%" }}>
               <Button variant="outline" size="sm" style={{ flex: 1 }}>
                 Switch Tenant
               </Button>
@@ -326,3 +382,4 @@ export const AllStatesGallery: Story = {
     </div>
   ),
 };
+

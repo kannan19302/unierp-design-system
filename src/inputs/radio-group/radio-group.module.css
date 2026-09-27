@@ -37,16 +37,16 @@
 .hiddenInput {
   position: absolute;
   opacity: 0;
-  width: 0;
-  height: 0;
+  inline-size: 0;
+  block-size: 0;
   margin: 0;
 }
 
 .radio {
-  width: var(--radio-size, 16px);
-  height: var(--radio-size, 16px);
-  min-width: var(--radio-size, 16px);
-  min-height: var(--radio-size, 16px);
+  inline-size: var(--radio-size, 16px);
+  block-size: var(--radio-size, 16px);
+  min-inline-size: var(--radio-size, 16px);
+  min-block-size: var(--radio-size, 16px);
   border-radius: var(--radius-full, 9999px);
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
@@ -74,8 +74,8 @@
 }
 
 .dot {
-  width: var(--radio-dot-size, 8px);
-  height: var(--radio-dot-size, 8px);
+  inline-size: var(--radio-dot-size, 8px);
+  block-size: var(--radio-dot-size, 8px);
   border-radius: var(--radius-full, 9999px);
   background: var(--color-primary);
 }

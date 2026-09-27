@@ -1,0 +1,1679 @@
+{
+  "kind": "Strata component standardization inventory",
+  "generatedAtUtc": "2026-09-27T08:47:09Z",
+  "sourceRevision": "234ec47c8ae7bb328adf1ee7ba54c64c70c6ae45",
+  "sourceScope": "src/{primitives,inputs,compositions,charts,overlays,navigation,templates,shells,forms} one-level component directories",
+  "generationCommand": "PowerShell Get-ChildItem -Directory per tier; inspect co-located story and test files",
+  "componentCount": 111,
+  "claimedFoundationUnitCount": 5,
+  "foundationUnitIdentities": "UNRESOLVED",
+  "totalClaimedUnits": 116,
+  "items": [
+    {
+      "id": "primitives/avatar",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/avatar",
+      "stories": [
+        "avatar.stories.tsx"
+      ],
+      "tests": [
+        "avatar.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/badge",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/badge",
+      "stories": [
+        "badge.stories.tsx"
+      ],
+      "tests": [
+        "badge.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/brand-mark",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/brand-mark",
+      "stories": [
+        "brand-mark.stories.tsx"
+      ],
+      "tests": [
+        "brand-mark.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/button",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/button",
+      "stories": [
+        "button.stories.tsx"
+      ],
+      "tests": [
+        "button.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/collapsible",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/collapsible",
+      "stories": [
+        "collapsible.stories.tsx"
+      ],
+      "tests": [
+        "collapsible.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/error-boundary",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/error-boundary",
+      "stories": [
+        "error-boundary.stories.tsx"
+      ],
+      "tests": [
+        "error-boundary.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/label",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/label",
+      "stories": [
+        "label.stories.tsx"
+      ],
+      "tests": [
+        "label.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/live-region",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/live-region",
+      "stories": [
+        "live-region.stories.tsx"
+      ],
+      "tests": [
+        "live-region.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/portal",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/portal",
+      "stories": [
+        "portal.stories.tsx"
+      ],
+      "tests": [
+        "portal.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/progress",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/progress",
+      "stories": [
+        "progress.stories.tsx"
+      ],
+      "tests": [
+        "progress.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/protected-view",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/protected-view",
+      "stories": [
+        "protected-view.stories.tsx"
+      ],
+      "tests": [
+        "protected-view.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/scroll-area",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/scroll-area",
+      "stories": [
+        "scroll-area.stories.tsx"
+      ],
+      "tests": [
+        "scroll-area.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/separator",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/separator",
+      "stories": [
+        "separator.stories.tsx"
+      ],
+      "tests": [
+        "separator.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/skeleton",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/skeleton",
+      "stories": [
+        "skeleton.stories.tsx"
+      ],
+      "tests": [
+        "skeleton.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/spinner",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/spinner",
+      "stories": [
+        "spinner.stories.tsx"
+      ],
+      "tests": [
+        "spinner.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/tag",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/tag",
+      "stories": [
+        "tag.stories.tsx"
+      ],
+      "tests": [
+        "tag.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "primitives/visually-hidden",
+      "tier": "primitives",
+      "sourceDirectory": "src/primitives/visually-hidden",
+      "stories": [
+        "visually-hidden.stories.tsx"
+      ],
+      "tests": [
+        "visually-hidden.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/calendar",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/calendar",
+      "stories": [
+        "calendar.stories.tsx"
+      ],
+      "tests": [
+        "calendar.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/checkbox",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/checkbox",
+      "stories": [
+        "checkbox.stories.tsx"
+      ],
+      "tests": [
+        "checkbox.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/code-editor",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/code-editor",
+      "stories": [
+        "code-editor.stories.tsx"
+      ],
+      "tests": [
+        "code-editor.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/color-picker",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/color-picker",
+      "stories": [
+        "color-picker.stories.tsx"
+      ],
+      "tests": [
+        "color-picker.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/combobox",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/combobox",
+      "stories": [
+        "combobox.stories.tsx"
+      ],
+      "tests": [
+        "combobox.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/date-picker",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/date-picker",
+      "stories": [
+        "date-picker.stories.tsx"
+      ],
+      "tests": [
+        "date-picker.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/file-upload",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/file-upload",
+      "stories": [
+        "file-upload.stories.tsx"
+      ],
+      "tests": [
+        "file-upload.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/filter-rule-builder",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/filter-rule-builder",
+      "stories": [
+        "filter-rule-builder.stories.tsx"
+      ],
+      "tests": [
+        "filter-rule-builder.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/form-control",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/form-control",
+      "stories": [
+        "form-control.stories.tsx"
+      ],
+      "tests": [
+        "form-control.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/number-field",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/number-field",
+      "stories": [
+        "number-field.stories.tsx"
+      ],
+      "tests": [
+        "number-field.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/radio-group",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/radio-group",
+      "stories": [
+        "radio-group.stories.tsx"
+      ],
+      "tests": [
+        "radio-group.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/rich-text-editor",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/rich-text-editor",
+      "stories": [
+        "rich-text-editor.stories.tsx"
+      ],
+      "tests": [
+        "rich-text-editor.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/select",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/select",
+      "stories": [
+        "select.stories.tsx"
+      ],
+      "tests": [
+        "select.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/signature-pad",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/signature-pad",
+      "stories": [
+        "signature-pad.stories.tsx"
+      ],
+      "tests": [
+        "signature-pad.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/slider",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/slider",
+      "stories": [
+        "slider.stories.tsx"
+      ],
+      "tests": [
+        "slider.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/switch",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/switch",
+      "stories": [
+        "switch.stories.tsx"
+      ],
+      "tests": [
+        "switch.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/text-area",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/text-area",
+      "stories": [
+        "text-area.stories.tsx"
+      ],
+      "tests": [
+        "text-area.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/text-field",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/text-field",
+      "stories": [
+        "text-field.stories.tsx"
+      ],
+      "tests": [
+        "text-field.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "inputs/toggle-group",
+      "tier": "inputs",
+      "sourceDirectory": "src/inputs/toggle-group",
+      "stories": [
+        "toggle-group.stories.tsx"
+      ],
+      "tests": [
+        "toggle-group.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/accordion",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/accordion",
+      "stories": [
+        "accordion.stories.tsx"
+      ],
+      "tests": [
+        "accordion.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/approval-chain",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/approval-chain",
+      "stories": [
+        "approval-chain.stories.tsx"
+      ],
+      "tests": [
+        "approval-chain.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/card",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/card",
+      "stories": [
+        "card.stories.tsx"
+      ],
+      "tests": [
+        "card.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/data-grid",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/data-grid",
+      "stories": [
+        "data-grid.stories.tsx"
+      ],
+      "tests": [
+        "data-grid.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/description-list",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/description-list",
+      "stories": [
+        "description-list.stories.tsx"
+      ],
+      "tests": [
+        "description-list.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/diff-viewer",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/diff-viewer",
+      "stories": [
+        "diff-viewer.stories.tsx"
+      ],
+      "tests": [
+        "diff-viewer.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/empty-state",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/empty-state",
+      "stories": [
+        "empty-state.stories.tsx"
+      ],
+      "tests": [
+        "empty-state.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/gantt-chart",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/gantt-chart",
+      "stories": [
+        "gantt-chart.stories.tsx"
+      ],
+      "tests": [
+        "gantt-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/kanban-board",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/kanban-board",
+      "stories": [
+        "kanban-board.stories.tsx"
+      ],
+      "tests": [
+        "kanban-board.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/profile-card",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/profile-card",
+      "stories": [
+        "profile-card.stories.tsx"
+      ],
+      "tests": [
+        "profile-card.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/split-view",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/split-view",
+      "stories": [
+        "split-view.stories.tsx"
+      ],
+      "tests": [
+        "split-view.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/stat-card",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/stat-card",
+      "stories": [
+        "stat-card.stories.tsx"
+      ],
+      "tests": [
+        "stat-card.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/stepper",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/stepper",
+      "stories": [
+        "stepper.stories.tsx"
+      ],
+      "tests": [
+        "stepper.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/table",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/table",
+      "stories": [
+        "table.stories.tsx"
+      ],
+      "tests": [
+        "table.test.tsx",
+        "use-excel-clipboard.test.ts"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/timeline",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/timeline",
+      "stories": [
+        "timeline.stories.tsx"
+      ],
+      "tests": [
+        "timeline.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/toolbar",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/toolbar",
+      "stories": [
+        "toolbar.stories.tsx"
+      ],
+      "tests": [
+        "toolbar.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/tree-view",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/tree-view",
+      "stories": [
+        "tree-view.stories.tsx"
+      ],
+      "tests": [
+        "tree-view.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "compositions/workflow-graph",
+      "tier": "compositions",
+      "sourceDirectory": "src/compositions/workflow-graph",
+      "stories": [
+        "workflow-graph.stories.tsx"
+      ],
+      "tests": [
+        "workflow-graph.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/box-plot-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/box-plot-chart",
+      "stories": [
+        "box-plot-chart.stories.tsx"
+      ],
+      "tests": [
+        "box-plot-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/bullet-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/bullet-chart",
+      "stories": [
+        "bullet-chart.stories.tsx"
+      ],
+      "tests": [
+        "bullet-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/candlestick-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/candlestick-chart",
+      "stories": [
+        "candlestick-chart.stories.tsx"
+      ],
+      "tests": [
+        "candlestick-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/chart",
+      "stories": [
+        "chart.stories.tsx"
+      ],
+      "tests": [
+        "chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/donut-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/donut-chart",
+      "stories": [
+        "donut-chart.stories.tsx"
+      ],
+      "tests": [
+        "donut-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/funnel-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/funnel-chart",
+      "stories": [
+        "funnel-chart.stories.tsx"
+      ],
+      "tests": [
+        "funnel-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/gauge-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/gauge-chart",
+      "stories": [
+        "gauge-chart.stories.tsx"
+      ],
+      "tests": [
+        "gauge-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/heatmap-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/heatmap-chart",
+      "stories": [
+        "heatmap-chart.stories.tsx"
+      ],
+      "tests": [
+        "heatmap-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/radar-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/radar-chart",
+      "stories": [
+        "radar-chart.stories.tsx"
+      ],
+      "tests": [
+        "radar-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/sankey-diagram",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/sankey-diagram",
+      "stories": [
+        "sankey-diagram.stories.tsx"
+      ],
+      "tests": [
+        "sankey-diagram.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/scatter-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/scatter-chart",
+      "stories": [
+        "scatter-chart.stories.tsx"
+      ],
+      "tests": [
+        "scatter-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/sparkline",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/sparkline",
+      "stories": [
+        "sparkline.stories.tsx"
+      ],
+      "tests": [
+        "sparkline.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/treemap-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/treemap-chart",
+      "stories": [
+        "treemap-chart.stories.tsx"
+      ],
+      "tests": [
+        "treemap-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "charts/waterfall-chart",
+      "tier": "charts",
+      "sourceDirectory": "src/charts/waterfall-chart",
+      "stories": [
+        "waterfall-chart.stories.tsx"
+      ],
+      "tests": [
+        "waterfall-chart.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/alert-banner",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/alert-banner",
+      "stories": [
+        "alert-banner.stories.tsx"
+      ],
+      "tests": [
+        "alert-banner.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/command-palette",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/command-palette",
+      "stories": [
+        "command-palette.stories.tsx"
+      ],
+      "tests": [
+        "command-palette.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/drawer",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/drawer",
+      "stories": [
+        "drawer.stories.tsx"
+      ],
+      "tests": [
+        "drawer.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/dropdown-menu",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/dropdown-menu",
+      "stories": [
+        "dropdown-menu.stories.tsx"
+      ],
+      "tests": [
+        "dropdown-menu.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/focus-trap",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/focus-trap",
+      "stories": [
+        "focus-trap.stories.tsx"
+      ],
+      "tests": [
+        "focus-trap.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/loading-overlay",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/loading-overlay",
+      "stories": [
+        "loading-overlay.stories.tsx"
+      ],
+      "tests": [
+        "loading-overlay.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/modal",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/modal",
+      "stories": [
+        "modal.stories.tsx"
+      ],
+      "tests": [
+        "modal.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/notification-center",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/notification-center",
+      "stories": [
+        "notification-center.stories.tsx"
+      ],
+      "tests": [
+        "notification-center.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/popover",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/popover",
+      "stories": [
+        "popover.stories.tsx"
+      ],
+      "tests": [
+        "popover.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/toast",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/toast",
+      "stories": [
+        "toast.stories.tsx"
+      ],
+      "tests": [
+        "toast.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "overlays/tooltip",
+      "tier": "overlays",
+      "sourceDirectory": "src/overlays/tooltip",
+      "stories": [
+        "tooltip.stories.tsx"
+      ],
+      "tests": [
+        "tooltip.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/app-launcher",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/app-launcher",
+      "stories": [
+        "app-launcher.stories.tsx"
+      ],
+      "tests": [
+        "app-launcher.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/bookmarks-bar",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/bookmarks-bar",
+      "stories": [
+        "bookmarks-bar.stories.tsx"
+      ],
+      "tests": [
+        "bookmarks-bar.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/breadcrumb",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/breadcrumb",
+      "stories": [
+        "breadcrumb.stories.tsx"
+      ],
+      "tests": [
+        "breadcrumb.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/minimap",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/minimap",
+      "stories": [
+        "minimap.stories.tsx"
+      ],
+      "tests": [
+        "minimap.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/pagination",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/pagination",
+      "stories": [
+        "pagination.stories.tsx"
+      ],
+      "tests": [
+        "pagination.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/sidebar",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/sidebar",
+      "stories": [
+        "sidebar.stories.tsx"
+      ],
+      "tests": [
+        "sidebar.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/status-bar",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/status-bar",
+      "stories": [
+        "status-bar.stories.tsx"
+      ],
+      "tests": [
+        "status-bar.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/tabs",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/tabs",
+      "stories": [
+        "tabs.stories.tsx"
+      ],
+      "tests": [
+        "tabs.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "navigation/view-switcher",
+      "tier": "navigation",
+      "sourceDirectory": "src/navigation/view-switcher",
+      "stories": [
+        "view-switcher.stories.tsx"
+      ],
+      "tests": [
+        "view-switcher.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "templates/dashboard-page",
+      "tier": "templates",
+      "sourceDirectory": "src/templates/dashboard-page",
+      "stories": [
+        "dashboard-page.stories.tsx"
+      ],
+      "tests": [
+        "dashboard-page.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "templates/detail-page",
+      "tier": "templates",
+      "sourceDirectory": "src/templates/detail-page",
+      "stories": [
+        "detail-page.stories.tsx"
+      ],
+      "tests": [
+        "detail-page.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "templates/list-page",
+      "tier": "templates",
+      "sourceDirectory": "src/templates/list-page",
+      "stories": [
+        "list-page.stories.tsx"
+      ],
+      "tests": [
+        "list-page.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "templates/page-header",
+      "tier": "templates",
+      "sourceDirectory": "src/templates/page-header",
+      "stories": [
+        "page-header.stories.tsx"
+      ],
+      "tests": [
+        "page-header.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "templates/print-page",
+      "tier": "templates",
+      "sourceDirectory": "src/templates/print-page",
+      "stories": [
+        "print-page.stories.tsx"
+      ],
+      "tests": [
+        "print-page.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "templates/split-detail-page",
+      "tier": "templates",
+      "sourceDirectory": "src/templates/split-detail-page",
+      "stories": [
+        "split-detail-page.stories.tsx"
+      ],
+      "tests": [
+        "split-detail-page.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "templates/wizard-page",
+      "tier": "templates",
+      "sourceDirectory": "src/templates/wizard-page",
+      "stories": [
+        "wizard-page.stories.tsx"
+      ],
+      "tests": [
+        "wizard-page.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "shells/app-shell",
+      "tier": "shells",
+      "sourceDirectory": "src/shells/app-shell",
+      "stories": [
+        "app-shell.stories.tsx"
+      ],
+      "tests": [
+        "app-shell.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "shells/catalog-shell",
+      "tier": "shells",
+      "sourceDirectory": "src/shells/catalog-shell",
+      "stories": [
+        "catalog-shell.stories.tsx"
+      ],
+      "tests": [
+        "catalog-shell.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "shells/data-shell",
+      "tier": "shells",
+      "sourceDirectory": "src/shells/data-shell",
+      "stories": [
+        "data-shell.stories.tsx"
+      ],
+      "tests": [
+        "data-shell.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "shells/editor-shell",
+      "tier": "shells",
+      "sourceDirectory": "src/shells/editor-shell",
+      "stories": [
+        "editor-shell.stories.tsx"
+      ],
+      "tests": [
+        "editor-shell.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "shells/manifest",
+      "tier": "shells",
+      "sourceDirectory": "src/shells/manifest",
+      "stories": [
+        "manifest.stories.tsx"
+      ],
+      "tests": [
+        "manifest.test.ts"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "shells/record-shell",
+      "tier": "shells",
+      "sourceDirectory": "src/shells/record-shell",
+      "stories": [
+        "record-shell.stories.tsx"
+      ],
+      "tests": [
+        "record-shell.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "shells/settings-shell",
+      "tier": "shells",
+      "sourceDirectory": "src/shells/settings-shell",
+      "stories": [
+        "settings-shell.stories.tsx"
+      ],
+      "tests": [
+        "settings-shell.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "shells/strata-bar",
+      "tier": "shells",
+      "sourceDirectory": "src/shells/strata-bar",
+      "stories": [
+        "strata-bar.stories.tsx"
+      ],
+      "tests": [
+        "strata-bar.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "forms/address-field",
+      "tier": "forms",
+      "sourceDirectory": "src/forms/address-field",
+      "stories": [
+        "address-field.stories.tsx"
+      ],
+      "tests": [
+        "address-field.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "forms/column-picker",
+      "tier": "forms",
+      "sourceDirectory": "src/forms/column-picker",
+      "stories": [
+        "column-picker.stories.tsx"
+      ],
+      "tests": [
+        "column-picker.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "forms/csv-export",
+      "tier": "forms",
+      "sourceDirectory": "src/forms/csv-export",
+      "stories": [
+        "csv-export.stories.tsx"
+      ],
+      "tests": [
+        "csv-export.test.ts"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "forms/field-validation-summary",
+      "tier": "forms",
+      "sourceDirectory": "src/forms/field-validation-summary",
+      "stories": [
+        "field-validation-summary.stories.tsx"
+      ],
+      "tests": [
+        "field-validation-summary.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "forms/filter-bar",
+      "tier": "forms",
+      "sourceDirectory": "src/forms/filter-bar",
+      "stories": [
+        "filter-bar.stories.tsx"
+      ],
+      "tests": [
+        "filter-bar.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "forms/form-section",
+      "tier": "forms",
+      "sourceDirectory": "src/forms/form-section",
+      "stories": [
+        "form-section.stories.tsx"
+      ],
+      "tests": [
+        "form-section.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "forms/inline-editable-record",
+      "tier": "forms",
+      "sourceDirectory": "src/forms/inline-editable-record",
+      "stories": [
+        "inline-editable-record.stories.tsx"
+      ],
+      "tests": [
+        "inline-editable-record.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    },
+    {
+      "id": "forms/schema-form",
+      "tier": "forms",
+      "sourceDirectory": "src/forms/schema-form",
+      "stories": [
+        "schema-form.stories.tsx"
+      ],
+      "tests": [
+        "schema-form.test.tsx"
+      ],
+      "researchBenchmark": "NOT VERIFIED",
+      "implementation": "NOT VERIFIED",
+      "storybookDocs": "NOT VERIFIED",
+      "testsStatus": "NOT VERIFIED"
+    }
+  ]
+}

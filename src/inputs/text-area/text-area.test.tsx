@@ -16,10 +16,14 @@ describe("Textarea Primitive", () => {
     expect(textarea.value).toBe("Reconciliation approved");
   });
 
-  it("sets aria-invalid on error state", () => {
-    render(<Textarea error placeholder="Error state" aria-label="Error state" />);
+  it("sets aria-invalid on error state and exposes data-slot", () => {
+    const { container } = render(<Textarea error textareaSize="lg" resize="none" placeholder="Error state" aria-label="Error state" />);
     const textarea = screen.getByPlaceholderText("Error state");
     expect(textarea).toHaveAttribute("aria-invalid", "true");
+    expect(textarea).toHaveAttribute("data-slot", "textarea");
+    expect(textarea).toHaveAttribute("data-size", "lg");
+    expect(textarea).toHaveAttribute("data-resize", "none");
+    expect(textarea).toHaveAttribute("data-error", "true");
   });
 
   it("forwards ref to HTMLTextAreaElement", () => {

@@ -5,6 +5,59 @@
   justify-content: center;
 }
 
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact,
+.container[data-density="ultra-compact"] {
+  --donut-size: 80px;
+}
+.densityUltraCompact .centerValue,
+.container[data-density="ultra-compact"] .centerValue {
+  font-size: var(--text-xs, 12px);
+}
+.densityUltraCompact .centerLabel,
+.container[data-density="ultra-compact"] .centerLabel {
+  font-size: var(--text-2xs, 9px);
+}
+
+.densityCompact,
+.container[data-density="compact"] {
+  --donut-size: 110px;
+}
+.densityCompact .centerValue,
+.container[data-density="compact"] .centerValue {
+  font-size: var(--text-sm, 14px);
+}
+.densityCompact .centerLabel,
+.container[data-density="compact"] .centerLabel {
+  font-size: var(--text-xs, 10px);
+}
+
+.densityStandard,
+.container[data-density="standard"] {
+  --donut-size: 140px;
+}
+.densityStandard .centerValue,
+.container[data-density="standard"] .centerValue {
+  font-size: var(--type-lg, 18px);
+}
+.densityStandard .centerLabel,
+.container[data-density="standard"] .centerLabel {
+  font-size: var(--type-xs, 12px);
+}
+
+.densityComfortable,
+.container[data-density="comfortable"] {
+  --donut-size: 180px;
+}
+.densityComfortable .centerValue,
+.container[data-density="comfortable"] .centerValue {
+  font-size: var(--text-2xl, 24px);
+}
+.densityComfortable .centerLabel,
+.container[data-density="comfortable"] .centerLabel {
+  font-size: var(--text-sm, 14px);
+}
+
 .svg {
   transform: rotate(-90deg);
 }
@@ -24,13 +77,11 @@
 
 .centerValue {
   font-family: var(--font-sans);
-  font-size: var(--type-lg);
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .centerLabel {
   font-family: var(--font-sans);
-  font-size: var(--type-xs);
   color: var(--text-muted);
 }

@@ -19,7 +19,7 @@
   justify-content: space-between;
   padding: var(--space-3) var(--space-4);
   background: var(--color-surface-subtle);
-  border-bottom: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
 }
 
 .body {
@@ -62,8 +62,8 @@
 }
 
 .colorPicker {
-  width: var(--density-control-height, 36px);
-  height: var(--density-control-height, 36px);
+  inline-size: var(--density-control-height, 36px);
+  block-size: var(--density-control-height, 36px);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -71,7 +71,7 @@
 }
 
 .hexInput {
-  height: var(--density-control-height, 36px);
+  block-size: var(--density-control-height, 36px);
   padding: 0 var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -79,7 +79,7 @@
   font-size: var(--text-sm);
   background: var(--color-surface);
   color: var(--color-text-primary);
-  width: var(--color-input-width, 120px);
+  inline-size: var(--color-input-width, 120px);
 }
 
 .contrastBadge {

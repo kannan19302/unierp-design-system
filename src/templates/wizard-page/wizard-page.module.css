@@ -20,8 +20,10 @@
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
   gap: var(--spacing-md, 16px);
 }
 
@@ -147,4 +149,145 @@
 .nextBtn:focus-visible {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
+}
+
+/* 4-tier density scaling */
+.densityUltraCompact {
+  gap: var(--spacing-xs, 8px);
+  padding: var(--spacing-sm, 12px);
+}
+.densityUltraCompact .stepper {
+  padding-block-end: var(--spacing-xs, 8px);
+}
+.densityUltraCompact .stepIndicator {
+  inline-size: 20px;
+  block-size: 20px;
+  font-size: 10px;
+}
+.densityUltraCompact .stepTitle {
+  font-size: 11px;
+}
+.densityUltraCompact .stepDesc {
+  font-size: 9px;
+}
+.densityUltraCompact .contentArea {
+  min-block-size: 100px;
+  padding-block: 8px;
+}
+.densityUltraCompact .stepPlaceholder {
+  min-block-size: 90px;
+}
+.densityUltraCompact .actionBar {
+  padding-block-start: 8px;
+}
+.densityUltraCompact .backBtn,
+.densityUltraCompact .nextBtn {
+  min-block-size: 24px;
+  padding-inline: 10px;
+  font-size: 11px;
+}
+
+.densityCompact {
+  gap: var(--spacing-sm, 12px);
+  padding: var(--spacing-md, 16px);
+}
+.densityCompact .stepper {
+  padding-block-end: var(--spacing-sm, 12px);
+}
+.densityCompact .stepIndicator {
+  inline-size: 24px;
+  block-size: 24px;
+  font-size: 11px;
+}
+.densityCompact .stepTitle {
+  font-size: 12px;
+}
+.densityCompact .stepDesc {
+  font-size: 10px;
+}
+.densityCompact .contentArea {
+  min-block-size: 130px;
+  padding-block: 12px;
+}
+.densityCompact .stepPlaceholder {
+  min-block-size: 110px;
+}
+.densityCompact .actionBar {
+  padding-block-start: 12px;
+}
+.densityCompact .backBtn,
+.densityCompact .nextBtn {
+  min-block-size: 28px;
+  padding-inline: 12px;
+  font-size: 12px;
+}
+
+.densityStandard {
+  gap: var(--spacing-md, 16px);
+  padding: var(--spacing-lg, 20px);
+}
+.densityStandard .stepper {
+  padding-block-end: var(--spacing-md, 16px);
+}
+.densityStandard .stepIndicator {
+  inline-size: 28px;
+  block-size: 28px;
+  font-size: 12px;
+}
+.densityStandard .stepTitle {
+  font-size: 13px;
+}
+.densityStandard .stepDesc {
+  font-size: 11px;
+}
+.densityStandard .contentArea {
+  min-block-size: 160px;
+  padding-block: 16px;
+}
+.densityStandard .stepPlaceholder {
+  min-block-size: 140px;
+}
+.densityStandard .actionBar {
+  padding-block-start: 16px;
+}
+.densityStandard .backBtn,
+.densityStandard .nextBtn {
+  min-block-size: 32px;
+  padding-inline: 14px;
+  font-size: 13px;
+}
+
+.densityComfortable {
+  gap: var(--spacing-lg, 20px);
+  padding: var(--spacing-xl, 24px);
+}
+.densityComfortable .stepper {
+  padding-block-end: var(--spacing-lg, 20px);
+}
+.densityComfortable .stepIndicator {
+  inline-size: 36px;
+  block-size: 36px;
+  font-size: 14px;
+}
+.densityComfortable .stepTitle {
+  font-size: 15px;
+}
+.densityComfortable .stepDesc {
+  font-size: 13px;
+}
+.densityComfortable .contentArea {
+  min-block-size: 200px;
+  padding-block: 20px;
+}
+.densityComfortable .stepPlaceholder {
+  min-block-size: 180px;
+}
+.densityComfortable .actionBar {
+  padding-block-start: 20px;
+}
+.densityComfortable .backBtn,
+.densityComfortable .nextBtn {
+  min-block-size: 40px;
+  padding-inline: 18px;
+  font-size: 14px;
 }

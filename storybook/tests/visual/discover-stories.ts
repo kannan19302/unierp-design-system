@@ -1,8 +1,9 @@
 import { globSync } from 'glob';
 import path from 'path';
 import { readFileSync } from 'fs';
+import ts from 'typescript';
 
-const STORIES_ROOT = path.resolve(process.cwd(), '../design-system/src');
+const STORIES_ROOT = path.resolve(__dirname, '../../../src');
 
 export interface StoryInfo {
   id: string;
@@ -12,9 +13,10 @@ export interface StoryInfo {
 }
 
 export function discoverStories(): StoryInfo[] {
-  console.log(`Looking for stories in: ${STORIES_ROOT}`);
   const storyFiles = globSync('**/*.stories.@(ts|tsx)', { cwd: STORIES_ROOT, absolute: true });
-  console.log(`Found ${storyFiles.length} story files`);
+  if (storyFiles.length === 0) {
+    throw new Error(`Storybook visual discovery found zero story files in ${STORIES_ROOT}`);
+  }
   
   const stories: StoryInfo[] = [];
   
@@ -22,48 +24,70 @@ export function discoverStories(): StoryInfo[] {
     const content = readFileSync(filePath, 'utf-8');
     const relativePath = path.relative(STORIES_ROOT, filePath);
     
-    // Parse story exports to get story IDs and titles
-    const exportMatches = content.matchAll(/export\s+(?:const|var|let)\s+(\w+)\s*=/g);
-    const titleMatch = content.match(/title:\s*['"]([^'"]+)['"]/);
-    
-    const title = titleMatch?.[1] || path.basename(filePath, '.stories.tsx');
+    // Parse CSF exports with TypeScript so typed StoryObj declarations are included.
+    const source = ts.createSourceFile(filePath, content, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+    const storyNames = source.statements
+      .filter((statement): statement is ts.VariableStatement =>
+        ts.isVariableStatement(statement) &&
+        Boolean(statement.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)))
+      .flatMap((statement) => statement.declarationList.declarations)
+      .filter((declaration) => ts.isIdentifier(declaration.name))
+      .map((declaration) => declaration.name.getText(source))
+      .filter((name) => name !== 'meta' && !name.startsWith('_'));
+    const metaDeclaration = source.statements
+      .filter(ts.isVariableStatement)
+      .flatMap((statement) => statement.declarationList.declarations)
+      .find((declaration) => ts.isIdentifier(declaration.name) && declaration.name.text === 'meta');
+    const titleProperty = metaDeclaration?.initializer && ts.isObjectLiteralExpression(metaDeclaration.initializer)
+      ? metaDeclaration.initializer.properties.find((property) =>
+          ts.isPropertyAssignment(property) && property.name.getText(source) === 'title')
+      : undefined;
+    const title = titleProperty && ts.isPropertyAssignment(titleProperty) && ts.isStringLiteral(titleProperty.initializer)
+      ? titleProperty.initializer.text
+      : undefined;
+    if (!title) {
+      throw new Error(`Storybook visual discovery could not read the meta title in ${relativePath}`);
+    }
     const component = path.dirname(relativePath).split(path.sep).pop() || 'unknown';
     
     // Find named exports (individual stories)
-    let hasNamedExports = false;
-    for (const match of exportMatches) {
-      const storyName = match[1];
-      if (!storyName.startsWith('_') && storyName !== 'meta') {
-        hasNamedExports = true;
-        stories.push({
-          id: `${title}--${storyName}`,
-          title,
-          filePath: relativePath,
-          component,
-        });
-      }
+    if (storyNames.length === 0) {
+      throw new Error(`Storybook visual discovery found no CSF story exports in ${relativePath}`);
     }
-    
-    // Also add the primary story if no named exports
-    if (!hasNamedExports) {
+    for (const storyName of storyNames) {
       stories.push({
-        id: title,
+        id: `${toStorybookId(title)}--${toStorybookId(storyName, true)}`,
         title,
         filePath: relativePath,
         component,
       });
     }
   }
-  
+
+  if (stories.length === 0) {
+    throw new Error(`Storybook visual discovery found zero story exports in ${STORIES_ROOT}`);
+  }
+  if (new Set(stories.map((story) => story.id)).size !== stories.length) {
+    throw new Error('Storybook visual discovery found duplicate story IDs');
+  }
   return stories;
 }
 
-export const THEMES = ['meridian', 'meridian-dark', 'high-contrast'];
-export const DENSITIES = ['compact', 'standard', 'comfortable'];
-export const MODES = ['light', 'dark'];
+function toStorybookId(value: string, isExportName = false): string {
+  return (isExportName
+    ? value
+        .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2')
+        .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+        .replace(/([A-Za-z])([0-9])/g, '$1-$2')
+    : value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
 
-export function generateStoryUrl(storyId: string, theme: string, density: string, mode: string): string {
-  // Convert "Components/Badge--Default" to "components-badge--default"
-  const formattedId = storyId.toLowerCase().replace(/[^a-z0-9\-]+/g, '-');
-  return `/iframe.html?id=${formattedId}&viewMode=story&globals=theme:${theme},density:${density},mode:${mode}`;
+export const THEMES = ['strata', 'strata-dark', 'strata-high-contrast'];
+export const DENSITIES = ['ultra-compact', 'compact', 'standard', 'comfortable'];
+
+export function generateStoryUrl(storyId: string, theme: string, density: string): string {
+  return `/iframe.html?id=${encodeURIComponent(storyId)}&viewMode=story&globals=${encodeURIComponent(`theme:${theme},density:${density}`)}`;
 }

@@ -2,12 +2,12 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { PlatformShell } from "./app-shell";
+import { PlatformShell, AppShell } from "./app-shell";
 
 const baseUser = { name: "Ada Lovelace", email: "ada@acme.test" };
 const baseTenant = { id: "t1", name: "Acme Corp" };
 
-describe("PlatformShell", () => {
+describe("PlatformShell / AppShell", () => {
   it("renders the platform name and children", () => {
     render(
       <PlatformShell platformName="Tenant Applications" user={baseUser}>
@@ -224,6 +224,50 @@ describe("PlatformShell", () => {
       </PlatformShell>,
     );
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("renders via AppShell alias", () => {
+    render(
+      <AppShell platformName="Tenant Applications" user={baseUser}>
+        <div>app shell alias content</div>
+      </AppShell>,
+    );
+    expect(screen.getByText("Tenant Applications")).toBeInTheDocument();
+    expect(screen.getByText("app shell alias content")).toBeInTheDocument();
+  });
+
+  it("exposes all data-slot anatomy attributes", () => {
+    const { container } = render(
+      <PlatformShell
+        platformName="Tenant Applications"
+        user={baseUser}
+        sidebar={<div>sidebar content</div>}
+      >
+        <div>content</div>
+      </PlatformShell>,
+    );
+    expect(container.querySelector('[data-slot="app-shell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="app-shell-skip-link"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="app-shell-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="app-shell-sidebar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="app-shell-main"]')).toBeInTheDocument();
+  });
+
+  it("renders 4 density scaling tiers properly", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(
+        <PlatformShell
+          density={density}
+          platformName="Tenant Applications"
+          user={baseUser}
+        >
+          <div>content</div>
+        </PlatformShell>,
+      );
+      const root = container.querySelector('[data-slot="app-shell"]');
+      expect(root).toHaveAttribute("data-density", density);
+    });
   });
 });
 

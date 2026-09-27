@@ -14,6 +14,11 @@ const meta: Meta<typeof FilterBar> = {
     },
   },
   argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling mode",
+    },
     onClearAll: {
       action: "filtersCleared",
       description: "Callback invoked to purge all active filter criteria",
@@ -38,6 +43,25 @@ export const Default: Story = {
       </>
     ),
   },
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density}>
+          <h5 style={{ marginBlockEnd: "var(--space-2)", textTransform: "capitalize" }}>
+            Density: {density}
+          </h5>
+          <FilterBar density={density} onClearAll={() => {}}>
+            <FilterTag density={density} label="Department" value="Engineering" onRemove={() => {}} />
+            <FilterTag density={density} label="Role" value="Lead" onRemove={() => {}} />
+            <FilterTag density={density} label="Status" value="Active" onRemove={() => {}} />
+          </FilterBar>
+        </div>
+      ))}
+    </div>
+  ),
 };
 
 export const AnatomyAndComposition: Story = {

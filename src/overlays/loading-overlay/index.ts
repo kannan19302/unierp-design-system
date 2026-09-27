@@ -1,1 +1,5 @@
-export * from "./loading-overlay";
+export {
+  LoadingOverlay,
+  loadingOverlayVariants,
+  type LoadingOverlayProps,
+} from "./loading-overlay";

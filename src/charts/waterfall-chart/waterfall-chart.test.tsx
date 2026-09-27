@@ -10,15 +10,43 @@ const SAMPLE_DATA = [
 ];
 
 describe("WaterfallChart", () => {
-  it("renders without crashing", () => {
+  it("renders without crashing and displays data labels", () => {
     render(<WaterfallChart data={SAMPLE_DATA} />);
     expect(screen.getByRole("img", { name: /waterfall chart/i })).toBeInTheDocument();
+    expect(screen.getByText("Starting Cash")).toBeInTheDocument();
+    expect(screen.getByText("Revenue")).toBeInTheDocument();
   });
 
   it("forwards ref to root element", () => {
     const ref = createRef<HTMLDivElement>();
     render(<WaterfallChart ref={ref} data={SAMPLE_DATA} />);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it("exposes all data-slot anatomy attributes", () => {
+    const { container } = render(
+      <WaterfallChart data={SAMPLE_DATA} />
+    );
+    expect(container.querySelector('[data-slot="waterfall-chart"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="waterfall-chart-bars"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="waterfall-chart-bar-group"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="waterfall-chart-bar-value"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="waterfall-chart-bar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="waterfall-chart-bar-label"]')).toBeInTheDocument();
+  });
+
+  it("renders 4 density scaling tiers properly", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(
+        <WaterfallChart
+          density={density}
+          data={SAMPLE_DATA}
+        />
+      );
+      const root = container.querySelector('[data-slot="waterfall-chart"]');
+      expect(root).toHaveAttribute("data-density", density);
+    });
   });
 
   it("has zero accessibility violations", async () => {

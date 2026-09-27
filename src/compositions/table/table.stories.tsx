@@ -24,6 +24,33 @@ const meta: Meta<typeof DataTable> = {
   component: DataTable,
   parameters: { layout: "padded" },
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata DL 4-tier density scaling (24px, 28px, 32px, 40px)",
+    },
+    loading: {
+      control: "boolean",
+      description: "Displays animated skeleton loading rows",
+    },
+    virtualized: {
+      control: "boolean",
+      description: "Window rows inside a fixed-height scroll container for large datasets",
+    },
+    maxHeight: {
+      control: "number",
+      description: "Maximum height of virtualized scroll container in pixels",
+    },
+    rowHeight: {
+      control: "number",
+      description: "Explicit row height in pixels overriding density default",
+    },
+    keyboardNav: {
+      control: "boolean",
+      description: "Enable Excel-style arrow navigation and F2 cell editing",
+    },
+  },
 };
 
 export default meta;
@@ -328,7 +355,7 @@ export const WithColumnPicker: StoryObj = {
 
 export const ComposableTable: StoryObj = {
   render: () => (
-    <div style={{ maxWidth: "600px" }}>
+    <div style={{ maxInlineSize: "600px" }}>
       <Table>
         <TableCaption>A composable list of recent enterprise payment runs.</TableCaption>
         <TableHeader>
@@ -362,4 +389,30 @@ export const ComposableTable: StoryObj = {
       </Table>
     </div>
   ),
+};
+
+export const DensityGallery: StoryObj = {
+  render: () => {
+    const sampleData = data.slice(0, 3);
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+
+    return (
+      <div style={{ display: "grid", gap: "var(--space-6)" }}>
+        {densities.map((d) => (
+          <div key={d} style={{ display: "grid", gap: "var(--space-2)" }}>
+            <div style={{ fontWeight: 600, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Density: {d} ({d === "ultra-compact" ? "24px" : d === "compact" ? "28px" : d === "standard" ? "32px" : "40px"})
+            </div>
+            <DataTable
+              density={d}
+              columns={columns}
+              data={sampleData}
+              rowKey={(r) => r.id}
+              aria-label={`Invoices ${d}`}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  },
 };

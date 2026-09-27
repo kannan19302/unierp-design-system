@@ -10,6 +10,15 @@ const meta: Meta<typeof CanvasMinimapNavigator> = {
     layout: "centered",
     a11y: { test: "todo" },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    zoomPercent: {
+      control: "number",
+    },
+  },
 };
 
 export default meta;

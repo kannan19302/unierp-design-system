@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1-5, 6px);
-  width: 100%;
+  inline-size: 100%;
 }
 
 .labelRow {
@@ -38,7 +38,7 @@
   overflow: hidden;
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
   box-sizing: border-box;
-  width: 100%;
+  inline-size: 100%;
   display: flex;
   flex-direction: column;
   transition: border-color var(--duration-fast) var(--ease-default);
@@ -158,7 +158,7 @@
   border-inline-end: var(--border-width, 1px) solid var(--color-border);
   user-select: none;
   text-align: end;
-  min-width: var(--space-6, 24px);
+  min-inline-size: var(--space-6, 24px);
 }
 
 .lineNumber {
@@ -169,8 +169,8 @@
 }
 
 .textarea {
-  width: 100%;
-  min-height: var(--code-editor-min-height, 140px);
+  inline-size: 100%;
+  min-block-size: var(--code-editor-min-height, 140px);
   padding-block: var(--space-3);
   padding-inline: var(--space-3);
   background: transparent;
@@ -185,8 +185,8 @@
 }
 
 .markdownPreview {
-  width: 100%;
-  min-height: var(--code-editor-min-height, 140px);
+  inline-size: 100%;
+  min-block-size: var(--code-editor-min-height, 140px);
   padding-block: var(--space-3);
   padding-inline: var(--space-3);
   background: var(--color-surface, #ffffff);
@@ -218,7 +218,7 @@
 /* 4-Tier Density */
 .wrapper[data-density="ultra-compact"] .textarea,
 .wrapper[data-density="ultra-compact"] .markdownPreview {
-  min-height: var(--code-editor-min-height-xs, 72px);
+  min-block-size: var(--code-editor-min-height-xs, 72px);
   padding-block: var(--space-1-5, 6px);
   padding-inline: var(--space-2);
   font-size: var(--type-micro);
@@ -226,19 +226,19 @@
 
 .wrapper[data-density="compact"] .textarea,
 .wrapper[data-density="compact"] .markdownPreview {
-  min-height: var(--code-editor-min-height-sm, 100px);
+  min-block-size: var(--code-editor-min-height-sm, 100px);
   padding-block: var(--space-2);
   padding-inline: var(--space-2-5, 10px);
 }
 
 .wrapper[data-density="standard"] .textarea,
 .wrapper[data-density="standard"] .markdownPreview {
-  min-height: var(--code-editor-min-height, 140px);
+  min-block-size: var(--code-editor-min-height, 140px);
 }
 
 .wrapper[data-density="comfortable"] .textarea,
 .wrapper[data-density="comfortable"] .markdownPreview {
-  min-height: var(--code-editor-min-height-lg, 220px);
+  min-block-size: var(--code-editor-min-height-lg, 220px);
   padding-block: var(--space-4);
   padding-inline: var(--space-4);
   font-size: var(--type-body-sm);

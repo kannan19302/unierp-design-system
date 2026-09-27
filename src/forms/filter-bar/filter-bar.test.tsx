@@ -43,9 +43,44 @@ describe("FilterBar Primitive", () => {
     expect(tagRef.current).toBeInstanceOf(HTMLSpanElement);
   });
 
+  it("renders with data-slot attributes", () => {
+    const { container } = render(
+      <FilterBar onClearAll={() => {}}>
+        <FilterTag label="Region" value="US-East" onRemove={() => {}} />
+      </FilterBar>
+    );
+
+    expect(container.querySelector('[data-slot="filter-bar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-bar-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-bar-icon"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-bar-content"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-bar-clear"]')).toBeInTheDocument();
+
+    expect(container.querySelector('[data-slot="filter-tag"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-tag-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-tag-value"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="filter-tag-remove"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container, unmount } = render(
+        <FilterBar density={density}>
+          <FilterTag density={density} label="Role" value="Admin" />
+        </FilterBar>
+      );
+      const bar = container.querySelector('[data-slot="filter-bar"]');
+      const tag = container.querySelector('[data-slot="filter-tag"]');
+      expect(bar).toHaveAttribute("data-density", density);
+      expect(tag).toHaveAttribute("data-density", density);
+      unmount();
+    });
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
-      <FilterBar>
+      <FilterBar onClearAll={() => {}}>
         <FilterTag label="Period" value="2026" onRemove={() => {}} />
       </FilterBar>
     );

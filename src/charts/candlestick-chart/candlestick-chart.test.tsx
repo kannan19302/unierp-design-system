@@ -23,6 +23,31 @@ describe("CandlestickChart", () => {
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
+  it("exposes all data-slot anatomy attributes", () => {
+    const { container } = render(
+      <CandlestickChart data={SAMPLE_PRICES} />
+    );
+    expect(container.querySelector('[data-slot="candlestick-chart"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="candlestick-chart-svg"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="candlestick-chart-candle"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="candlestick-chart-wick"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="candlestick-chart-body"]')).toBeInTheDocument();
+  });
+
+  it("renders 4 density scaling tiers properly", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(
+        <CandlestickChart
+          density={density}
+          data={SAMPLE_PRICES}
+        />
+      );
+      const root = container.querySelector('[data-slot="candlestick-chart"]');
+      expect(root).toHaveAttribute("data-density", density);
+    });
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<CandlestickChart data={SAMPLE_PRICES} />);
     const results = await axe(container);

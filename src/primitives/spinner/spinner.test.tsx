@@ -5,8 +5,12 @@ import { Spinner } from "./spinner";
 
 describe("Spinner Primitive", () => {
   it("renders with role status and accessible label", () => {
-    render(<Spinner size="md" />);
-    expect(screen.getByRole("status")).toBeInTheDocument();
+    render(<Spinner size="md" variant="primary" />);
+    const el = screen.getByRole("status");
+    expect(el).toBeInTheDocument();
+    expect(el).toHaveAttribute("data-slot", "spinner");
+    expect(el).toHaveAttribute("data-size", "md");
+    expect(el).toHaveAttribute("data-variant", "primary");
   });
 
   it("has zero accessibility violations", async () => {

@@ -11,8 +11,25 @@ import {
 } from "lucide-react";
 import { Badge } from "../../primitives/badge";
 import { Button } from "../../primitives/button";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 
 import styles from "./approval-chain.module.css";
+
+export const approvalChainVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export type ApprovalChainVariantProps = VariantProps<typeof approvalChainVariants>;
 
 export type ApprovalStatus =
   | "approved"
@@ -43,7 +60,9 @@ export interface ApprovalStep {
   canApprove?: boolean;
 }
 
-export interface ApprovalChainProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ApprovalChainProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    ApprovalChainVariantProps {
   steps: ApprovalStep[];
   onApprove?: (stepId: string) => void;
   onReject?: (stepId: string) => void;
@@ -60,6 +79,7 @@ export interface ApprovalChainProps extends React.HTMLAttributes<HTMLDivElement>
  * - SLA timers and overdue warnings
  * - Approver identity badges with decision timestamps and comments
  * - Inline authorization action dispatchers (`Approve`, `Reject`, `Delegate`)
+ * - Strict 4-tier density scaling and semantic anatomy data-slots
  *
  * @maturity stable
  */
@@ -71,6 +91,7 @@ export const ApprovalChain = forwardRef<HTMLDivElement, ApprovalChainProps>(
       onReject,
       onDelegate,
       loading = false,
+      density = "standard",
       className,
       ...rest
     },
@@ -79,10 +100,12 @@ export const ApprovalChain = forwardRef<HTMLDivElement, ApprovalChainProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.container}${className ? ` ${className}` : ""}`}
+        data-slot="approval-chain"
+        data-density={density}
+        className={`${approvalChainVariants({ density })}${className ? ` ${className}` : ""}`}
         {...rest}
       >
-        <div className={styles.chain}>
+        <div className={styles.chain} data-slot="approval-chain-list">
           {steps.map((step, idx) => {
             const isLast = idx === steps.length - 1;
             const approvedCount = step.approvers.filter(
@@ -102,11 +125,15 @@ export const ApprovalChain = forwardRef<HTMLDivElement, ApprovalChainProps>(
             return (
               <div
                 key={step.id}
+                data-slot="approval-chain-step"
+                data-status={step.status}
                 className={`${styles.step} ${stepStatusClass}`}
               >
-                {!isLast && <div className={styles.step_line} />}
+                {!isLast && (
+                  <div className={styles.step_line} data-slot="approval-chain-line" />
+                )}
 
-                <div className={styles.step_icon_wrap}>
+                <div className={styles.step_icon_wrap} data-slot="approval-chain-icon">
                   {step.status === "approved" && <CheckCircle2 size={18} />}
                   {step.status === "rejected" && <XCircle size={18} />}
                   {step.status === "pending" && <Clock size={18} />}
@@ -114,11 +141,14 @@ export const ApprovalChain = forwardRef<HTMLDivElement, ApprovalChainProps>(
                   {step.status === "skipped" && <AlertTriangle size={18} />}
                 </div>
 
-                <div className={styles.step_body}>
-                  <div className={styles.step_header}>
-                    <h4 className={styles.step_title}>{step.title}</h4>
-                    <div className={styles.step_meta}>
+                <div className={styles.step_body} data-slot="approval-chain-body">
+                  <div className={styles.step_header} data-slot="approval-chain-header">
+                    <h4 className={styles.step_title} data-slot="approval-chain-title">
+                      {step.title}
+                    </h4>
+                    <div className={styles.step_meta} data-slot="approval-chain-meta">
                       <Badge
+                        data-slot="approval-chain-badge"
                         variant={
                           step.status === "approved"
                             ? "success"
@@ -147,6 +177,7 @@ export const ApprovalChain = forwardRef<HTMLDivElement, ApprovalChainProps>(
 
                   {step.description && (
                     <p
+                      data-slot="approval-chain-description"
                       style={{
                         margin: 0,
                         fontSize: "var(--type-label)",
@@ -157,9 +188,13 @@ export const ApprovalChain = forwardRef<HTMLDivElement, ApprovalChainProps>(
                     </p>
                   )}
 
-                  <div className={styles.approvers_list}>
+                  <div className={styles.approvers_list} data-slot="approval-chain-approvers">
                     {step.approvers.map((approver) => (
-                      <div key={approver.id} className={styles.approver_chip}>
+                      <div
+                        key={approver.id}
+                        className={styles.approver_chip}
+                        data-slot="approval-chain-approver"
+                      >
                         <UserCheck
                           size={13}
                           style={{ color: "var(--color-text-secondary)" }}
@@ -187,13 +222,13 @@ export const ApprovalChain = forwardRef<HTMLDivElement, ApprovalChainProps>(
                   </div>
 
                   {step.approvers.some((a) => a.comment) && (
-                    <div className={styles.step_comment}>
+                    <div className={styles.step_comment} data-slot="approval-chain-comment">
                       {step.approvers.find((a) => a.comment)?.comment}
                     </div>
                   )}
 
                   {step.canApprove && (
-                    <div className={styles.step_actions}>
+                    <div className={styles.step_actions} data-slot="approval-chain-actions">
                       {onApprove && (
                         <Button
                           variant="primary"

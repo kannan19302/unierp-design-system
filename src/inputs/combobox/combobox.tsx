@@ -11,7 +11,32 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import { ChevronDown, Check, X, Search, Loader2 } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./combobox.module.css";
+
+export const comboboxVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles["ultra-compact"] || "",
+      compact: styles.compact || "",
+      standard: styles.standard || "",
+      comfortable: styles.comfortable || "",
+    },
+    invalid: {
+      true: styles.invalid,
+      false: "",
+    },
+    disabled: {
+      true: styles.disabled,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+    invalid: false,
+    disabled: false,
+  },
+});
 
 export interface ComboBoxOption {
   value: string;
@@ -29,7 +54,9 @@ export interface ComboBoxOption {
  * combobox semantics, 4-tier density scaling, single/multi-selection tag pills,
  * clear action, keyboard velocity, and accessible states.
  */
-export interface ComboBoxProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface ComboBoxProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange">,
+    VariantProps<typeof comboboxVariants> {
   id?: string;
   options: ComboBoxOption[];
   value?: string | string[];
@@ -276,7 +303,6 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
       }
     };
 
-    const densityClass = density ? styles[density] : "";
     const activeOptionId =
       isOpen && filteredOptions[highlightedIndex]
         ? `${id}-opt-${highlightedIndex}`
@@ -289,23 +315,24 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
           if (typeof ref === "function") ref(node);
           else if (ref) (ref as any).current = node;
         }}
+        data-slot="combobox"
+        data-density={density}
+        data-disabled={disabled ? "true" : undefined}
+        data-invalid={invalid ? "true" : undefined}
         className={[
-          styles.container,
-          densityClass,
-          disabled ? styles.disabled : "",
+          comboboxVariants({ density, invalid: !!invalid, disabled: !!disabled }),
           readOnly ? styles.readOnly : "",
-          invalid ? styles.invalid : "",
           isOpen ? styles.open : "",
           className,
         ]
           .filter(Boolean)
           .join(" ")}
-        data-density={density}
         {...props}
       >
         <div
           ref={triggerRef}
           id={id}
+          data-slot="combobox-trigger"
           role="combobox"
           aria-expanded={isOpen}
           aria-haspopup="listbox"
@@ -321,7 +348,7 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
           onKeyDown={handleTriggerKeyDown}
           className={styles.trigger}
         >
-          <div className={styles.valueContainer}>
+          <div data-slot="combobox-value" className={styles.valueContainer}>
             {selectedOptions.length === 0 ? (
               <span className={styles.placeholder}>{placeholder}</span>
             ) : multiple ? (
@@ -329,12 +356,13 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
                 {selectedOptions.map((opt) => {
                   const Icon = opt.icon;
                   return (
-                    <span key={opt.value} className={styles.tag}>
+                    <span key={opt.value} data-slot="combobox-tag" className={styles.tag}>
                       {Icon && <Icon size={12} className={styles.tagIcon} />}
                       <span className={styles.tagLabel}>{opt.label}</span>
                       {!disabled && !readOnly && (
                         <button
                           type="button"
+                          data-slot="combobox-tag-remove"
                           className={styles.tagRemoveBtn}
                           onClick={(e) => handleRemoveTag(e, opt.value)}
                           onKeyDown={(e) => {
@@ -368,7 +396,7 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
             )}
           </div>
 
-          <div className={styles.actions}>
+          <div data-slot="combobox-actions" className={styles.actions}>
             {loading ? (
               <Loader2 size={14} className={styles.spinner} aria-label="Loading options" />
             ) : (
@@ -376,6 +404,7 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
                 {clearable && selectedOptions.length > 0 && !disabled && !readOnly && (
                   <button
                     type="button"
+                    data-slot="combobox-clear"
                     onClick={handleClear}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
@@ -402,13 +431,15 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
 
         {isOpen && (
           <div
+            data-slot="combobox-dropdown"
             className={styles.dropdown}
             onKeyDown={handleDropdownKeyDown}
           >
-            <div className={styles.searchWrapper}>
+            <div data-slot="combobox-search" className={styles.searchWrapper}>
               <Search size={14} className={styles.searchIcon} aria-hidden="true" />
               <input
                 ref={searchInputRef}
+                data-slot="combobox-search-input"
                 type="text"
                 role="searchbox"
                 value={search}
@@ -427,6 +458,7 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
               {search.length > 0 && (
                 <button
                   type="button"
+                  data-slot="combobox-search-clear"
                   onClick={() => setSearch("")}
                   aria-label="Clear search query"
                   className={styles.searchClearBtn}
@@ -439,13 +471,14 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
             <div
               ref={optionsListRef}
               id={listboxId}
+              data-slot="combobox-options"
               role="listbox"
               aria-label={ariaLabel || placeholder || "Options"}
               aria-multiselectable={multiple}
               className={styles.optionsList}
             >
               {filteredOptions.length === 0 ? (
-                <div className={styles.noOptions} role="status">
+                <div data-slot="combobox-empty" className={styles.noOptions} role="status">
                   No matching options
                 </div>
               ) : (
@@ -458,6 +491,7 @@ export const ComboBox = forwardRef<HTMLDivElement, ComboBoxProps>(
                     <div
                       key={opt.value}
                       id={`${id}-opt-${idx}`}
+                      data-slot="combobox-option"
                       role="option"
                       aria-selected={isSelected}
                       aria-disabled={opt.disabled}

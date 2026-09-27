@@ -1,1 +1,5 @@
-export { FocusTrap, type FocusTrapProps } from "./focus-trap";
+export {
+  FocusTrap,
+  focusTrapVariants,
+  type FocusTrapProps,
+} from "./focus-trap";

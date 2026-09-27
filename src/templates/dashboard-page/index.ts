@@ -1,1 +1,6 @@
-export { DashboardGridLayout, type DashboardGridLayoutProps } from "./dashboard-page";
+export {
+  DashboardGridLayout,
+  DashboardPageTemplate,
+  dashboardGridVariants,
+  type DashboardGridLayoutProps,
+} from "./dashboard-page";

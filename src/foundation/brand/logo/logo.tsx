@@ -31,110 +31,140 @@ export const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
     },
     ref
   ) => {
-  const containerClasses = [
-    styles.root,
-    styles[`variant-${variant}`],
-    styles[`theme-${theme}`],
-    styles[`size-${size}`],
-    className
-  ]
-    .filter(Boolean)
-    .join(" ");
+    const containerClasses = [
+      styles.root,
+      styles[`variant-${variant}`],
+      styles[`theme-${theme}`],
+      styles[`size-${size}`],
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  // Color tokens based on theme
-  const brandCobalt = theme === "monochrome" ? "currentColor" : "var(--color-primary, var(--color-brand, #2563eb))";
-  const uStrokeColor = theme === "monochrome" ? "var(--color-bg, #ffffff)" : "var(--color-white, #ffffff)";
-  const accentPrismColor = theme === "monochrome" ? "currentColor" : "var(--color-brand-cyan, #38bdf8)";
-  const wordmarkColor = theme === "dark" ? "var(--color-text-inverse, #ffffff)" : theme === "monochrome" ? "currentColor" : "var(--color-text-primary, var(--color-text, #0f172a))";
-  const taglineTextColor = theme === "dark" ? "var(--color-brand-cyan, #38bdf8)" : theme === "monochrome" ? "currentColor" : "var(--color-primary, var(--color-brand, #2563eb))";
+    // Color tokens based on theme
+    const brandCobalt = theme === "monochrome" ? "currentColor" : "var(--color-primary, var(--color-brand, #2563eb))";
+    const uStrokeColor = theme === "monochrome" ? "var(--color-bg, #ffffff)" : "var(--color-white, #ffffff)";
+    const accentPrismColor = theme === "monochrome" ? "currentColor" : "var(--color-brand-cyan, #38bdf8)";
+    const wordmarkColor = theme === "dark" ? "var(--color-text-inverse, #ffffff)" : theme === "monochrome" ? "currentColor" : "var(--color-text-primary, var(--color-text, #0f172a))";
+    const taglineTextColor = theme === "dark" ? "var(--color-brand-cyan, #38bdf8)" : theme === "monochrome" ? "currentColor" : "var(--color-primary, var(--color-brand, #2563eb))";
 
-  const renderGlyph = (glyphSize: number) => (
-    <svg
-      className={styles.glyph}
-      width={glyphSize}
-      height={glyphSize}
-      viewBox="0 0 100 100"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <rect width="100" height="100" rx="30" fill={brandCobalt} />
-      <path
-        d="M36 32V58C36 66.284 42.716 73 51 73C59.284 73 66 66.284 66 58V50"
-        stroke={uStrokeColor}
-        strokeWidth="15"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="66" cy="33" r="8" fill={accentPrismColor} />
-    </svg>
-  );
-
-  if (variant === "favicon") {
-    return (
-      <div
-        ref={ref}
-        className={containerClasses}
-        role="img"
-        aria-label={ariaLabel}
-        {...props}
+    const renderGlyph = (glyphSize: number) => (
+      <svg
+        className={styles.glyph}
+        data-slot="logo-glyph"
+        width={glyphSize}
+        height={glyphSize}
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
       >
-        {renderGlyph(32)}
-      </div>
+        <rect width="100" height="100" rx="30" fill={brandCobalt} />
+        <path
+          d="M36 32V58C36 66.284 42.716 73 51 73C59.284 73 66 66.284 66 58V50"
+          stroke={uStrokeColor}
+          strokeWidth="15"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="66" cy="33" r="8" fill={accentPrismColor} />
+      </svg>
     );
-  }
 
-  if (variant === "glyph") {
+    if (variant === "favicon") {
+      return (
+        <div
+          ref={ref}
+          className={containerClasses}
+          data-slot="logo"
+          role="img"
+          aria-label={ariaLabel}
+          {...props}
+        >
+          {renderGlyph(32)}
+        </div>
+      );
+    }
+
+    if (variant === "glyph") {
+      return (
+        <div
+          ref={ref}
+          className={containerClasses}
+          data-slot="logo"
+          role="img"
+          aria-label={ariaLabel}
+          {...props}
+        >
+          {renderGlyph(36)}
+        </div>
+      );
+    }
+
+    if (variant === "wordmark") {
+      return (
+        <div
+          ref={ref}
+          className={containerClasses}
+          data-slot="logo"
+          role="img"
+          aria-label={ariaLabel}
+          {...props}
+        >
+          <span className={styles.wordmark} data-slot="logo-wordmark" style={{ color: wordmarkColor }}>
+            UniERP
+          </span>
+          {showTagline && (
+            <span className={styles.tagline} data-slot="logo-tagline" style={{ color: taglineTextColor }}>
+              ENTERPRISE SAAS BUSINESS PLATFORM
+            </span>
+          )}
+        </div>
+      );
+    }
+
+    if (variant === "stacked") {
+      return (
+        <div
+          ref={ref}
+          className={containerClasses}
+          data-slot="logo"
+          role="img"
+          aria-label={ariaLabel}
+          {...props}
+        >
+          {renderGlyph(48)}
+          <div className={styles.textStack}>
+            <span className={styles.wordmark} data-slot="logo-wordmark" style={{ color: wordmarkColor }}>
+              UniERP
+            </span>
+            {showTagline && (
+              <span className={styles.tagline} data-slot="logo-tagline" style={{ color: taglineTextColor }}>
+                ENTERPRISE SAAS BUSINESS PLATFORM
+              </span>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // Default: Horizontal lockup
     return (
       <div
         ref={ref}
         className={containerClasses}
+        data-slot="logo"
         role="img"
         aria-label={ariaLabel}
         {...props}
       >
         {renderGlyph(36)}
-      </div>
-    );
-  }
-
-  if (variant === "wordmark") {
-    return (
-      <div
-        ref={ref}
-        className={containerClasses}
-        role="img"
-        aria-label={ariaLabel}
-        {...props}
-      >
-        <span className={styles.wordmark} style={{ color: wordmarkColor }}>
-          UniERP
-        </span>
-        {showTagline && (
-          <span className={styles.tagline} style={{ color: taglineTextColor }}>
-            ENTERPRISE SAAS BUSINESS PLATFORM
-          </span>
-        )}
-      </div>
-    );
-  }
-
-  if (variant === "stacked") {
-    return (
-      <div
-        ref={ref}
-        className={containerClasses}
-        role="img"
-        aria-label={ariaLabel}
-        {...props}
-      >
-        {renderGlyph(48)}
-        <div className={styles.textStack}>
-          <span className={styles.wordmark} style={{ color: wordmarkColor }}>
+        <div className={styles.horizontalStack}>
+          <span className={styles.wordmark} data-slot="logo-wordmark" style={{ color: wordmarkColor }}>
             UniERP
           </span>
           {showTagline && (
-            <span className={styles.tagline} style={{ color: taglineTextColor }}>
+            <span className={styles.tagline} data-slot="logo-tagline" style={{ color: taglineTextColor }}>
               ENTERPRISE SAAS BUSINESS PLATFORM
             </span>
           )}
@@ -142,29 +172,6 @@ export const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
       </div>
     );
   }
-
-  // Default: Horizontal lockup
-  return (
-    <div
-      ref={ref}
-      className={containerClasses}
-      role="img"
-      aria-label={ariaLabel}
-      {...props}
-    >
-      {renderGlyph(36)}
-      <div className={styles.horizontalStack}>
-        <span className={styles.wordmark} style={{ color: wordmarkColor }}>
-          UniERP
-        </span>
-        {showTagline && (
-          <span className={styles.tagline} style={{ color: taglineTextColor }}>
-            ENTERPRISE SAAS BUSINESS PLATFORM
-          </span>
-        )}
-      </div>
-    </div>
-  );
-});
+);
 
 Logo.displayName = "Logo";

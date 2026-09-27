@@ -253,4 +253,39 @@ describe("CatalogListing", () => {
     );
     expect(await axe(container)).toHaveNoViolations();
   });
+
+  it("exposes all data-slot anatomy attributes", () => {
+    const facets: CatalogFacet[] = [
+      { id: "cat", legend: "Category", options: [{ id: "pay", label: "Payments", count: 12 }] },
+    ];
+    const { container } = render(
+      <CatalogShell
+        hero={{ title: "App Store" }}
+        facets={facets}
+        resultSummary="12 items"
+        paginationSlot={<div>pagination</div>}
+      >
+        <div>results</div>
+      </CatalogShell>,
+    );
+    expect(container.querySelector('[data-slot="catalog-shell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="catalog-shell-hero"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="catalog-shell-sidebar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="catalog-shell-toolbar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="catalog-shell-results"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="catalog-shell-pagination"]')).toBeInTheDocument();
+  });
+
+  it("renders 4 density scaling tiers properly", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(
+        <CatalogShell density={density}>
+          <div>content</div>
+        </CatalogShell>,
+      );
+      const root = container.querySelector('[data-slot="catalog-shell"]');
+      expect(root).toHaveAttribute("data-density", density);
+    });
+  });
 });

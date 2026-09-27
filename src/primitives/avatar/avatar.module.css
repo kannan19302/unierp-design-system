@@ -49,8 +49,8 @@
 
 .presenceIndicator {
   position: absolute;
-  bottom: -1px;
-  right: -1px;
+  inset-block-end: -1px;
+  inset-inline-end: -1px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,7 +97,7 @@
 .avatarGroup > * {
   border: 2px solid var(--color-bg-surface, var(--color-bg));
   border-radius: var(--radius-full, 9999px);
-  margin-left: calc(-1 * var(--space-2, 8px));
+  margin-inline-start: calc(-1 * var(--space-2, 8px));
   position: relative;
   transition: transform var(--duration-fast, 150ms) var(--ease-default);
 }
@@ -108,7 +108,7 @@
 }
 
 .avatarGroup > *:first-child {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 .excessBadge {

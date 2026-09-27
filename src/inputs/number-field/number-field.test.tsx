@@ -30,10 +30,11 @@ describe("Strata V1 NumberInput Primitive", () => {
     expect(onChange).toHaveBeenCalledWith(5);
   });
 
-  it("renders slots correctly", () => {
-    render(
+  it("renders slots correctly and exposes data-slot", () => {
+    const { container } = render(
       <NumberInput
         value={15}
+        density="compact"
         prefix={<span data-testid="prefix">#</span>}
         suffix={<span data-testid="suffix">units</span>}
         aria-label="Stock"
@@ -41,6 +42,12 @@ describe("Strata V1 NumberInput Primitive", () => {
     );
     expect(screen.getByTestId("prefix")).toBeInTheDocument();
     expect(screen.getByTestId("suffix")).toBeInTheDocument();
+    const root = container.querySelector('[data-slot="number-field"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(container.querySelector('[data-slot="number-field-input"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="number-field-prefix"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="number-field-suffix"]')).toBeInTheDocument();
   });
 
   it("renders invalid state with aria-invalid", () => {

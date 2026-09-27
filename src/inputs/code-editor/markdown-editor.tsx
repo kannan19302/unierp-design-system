@@ -46,10 +46,16 @@ export const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProp
     const combinedDescribedBy = [descId, errorId].filter(Boolean).join(" ") || undefined;
 
     return (
-      <div className={cn(styles.wrapper, className)} data-density={density}>
+      <div
+        data-slot="markdown-editor"
+        data-density={density}
+        data-disabled={disabled ? "true" : undefined}
+        data-invalid={invalid || Boolean(error) ? "true" : undefined}
+        className={cn(styles.wrapper, className)}
+      >
         {label && (
-          <div className={styles.labelRow}>
-            <label htmlFor={inputId} className={styles.label}>
+          <div data-slot="markdown-editor-label-row" className={styles.labelRow}>
+            <label htmlFor={inputId} data-slot="markdown-editor-label" className={styles.label}>
               {label}
               {required && <span className={styles.requiredIndicator} aria-hidden="true"> *</span>}
             </label>
@@ -57,27 +63,29 @@ export const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProp
         )}
 
         {description && (
-          <div id={descId} className={styles.description}>
+          <div id={descId} data-slot="markdown-editor-description" className={styles.description}>
             {description}
           </div>
         )}
 
         <div
+          data-slot="markdown-editor-container"
           className={cn(
             styles.container,
             disabled && styles.disabled,
             (invalid || error) && styles.containerError,
           )}
         >
-          <div className={styles.header}>
-            <div className={styles.langSection}>
+          <div data-slot="markdown-editor-header" className={styles.header}>
+            <div data-slot="markdown-editor-lang" className={styles.langSection}>
               <FileText size={13} className={styles.codeIcon} aria-hidden="true" />
               <span className={styles.langTag}>markdown</span>
             </div>
 
-            <div className={styles.viewToggleGroup}>
+            <div data-slot="markdown-editor-toggle-group" className={styles.viewToggleGroup}>
               <button
                 type="button"
+                data-slot="markdown-editor-write-btn"
                 className={cn(styles.toggleBtn, viewMode === "edit" && styles.toggleActive)}
                 onClick={() => setViewMode("edit")}
                 aria-pressed={viewMode === "edit"}
@@ -87,6 +95,7 @@ export const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProp
               </button>
               <button
                 type="button"
+                data-slot="markdown-editor-preview-btn"
                 className={cn(styles.toggleBtn, viewMode === "preview" && styles.toggleActive)}
                 onClick={() => setViewMode("preview")}
                 aria-pressed={viewMode === "preview"}
@@ -97,11 +106,12 @@ export const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProp
             </div>
           </div>
 
-          <div className={styles.editorBody}>
+          <div data-slot="markdown-editor-body" className={styles.editorBody}>
             {viewMode === "edit" ? (
               <textarea
                 ref={ref}
                 id={inputId}
+                data-slot="markdown-editor-textarea"
                 value={value}
                 disabled={disabled}
                 onChange={(e) => onChange?.(e.target.value)}
@@ -113,7 +123,12 @@ export const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProp
                 {...props}
               />
             ) : (
-              <div className={styles.markdownPreview} tabIndex={0} aria-label="Markdown preview">
+              <div
+                data-slot="markdown-editor-preview"
+                className={styles.markdownPreview}
+                tabIndex={0}
+                aria-label="Markdown preview"
+              >
                 {value ? (
                   <pre className={styles.previewPre}>{value}</pre>
                 ) : (
@@ -125,7 +140,7 @@ export const MarkdownEditor = forwardRef<HTMLTextAreaElement, MarkdownEditorProp
         </div>
 
         {error && (
-          <span id={errorId} className={styles.errorMessage} role="alert">
+          <span id={errorId} data-slot="markdown-editor-error" className={styles.errorMessage} role="alert">
             {error}
           </span>
         )}

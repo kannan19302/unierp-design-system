@@ -1,4 +1,5 @@
 import React, { useId } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./gauge-chart.module.css";
 
 export type SlaStageType = "first_response" | "workaround" | "resolution";
@@ -14,7 +15,28 @@ export interface SlaMilestone {
   penaltyAmount?: number;
 }
 
-export interface SlaPerformanceGaugeProps {
+export const slaPerformanceGaugeVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "compact",
+  },
+});
+
+export const gaugeChartVariants = slaPerformanceGaugeVariants;
+
+export type SlaPerformanceGaugeDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+export type GaugeChartDensity = SlaPerformanceGaugeDensity;
+
+export interface SlaPerformanceGaugeProps
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof slaPerformanceGaugeVariants> {
   /** Ticket or incident ID */
   ticketRef?: string;
   /** Service commitment tier label */
@@ -26,7 +48,7 @@ export interface SlaPerformanceGaugeProps {
   /** Currency code for penalty amounts */
   currency?: string;
   /** Density setting */
-  density?: "compact" | "comfortable";
+  density?: SlaPerformanceGaugeDensity;
   /** Custom class */
   className?: string;
 }
@@ -48,6 +70,7 @@ export const SlaPerformanceGauge = React.forwardRef<
     currency = "USD",
     density = "compact",
     className = "",
+    ...restProps
   },
   ref
 ) {
@@ -106,12 +129,14 @@ export const SlaPerformanceGauge = React.forwardRef<
   return (
     <section
       ref={ref}
-      className={`${styles.container} ${styles[density]} ${className}`}
-      aria-labelledby={headingId}
+      data-slot="gauge-chart"
       data-density={density}
+      className={slaPerformanceGaugeVariants({ density, className })}
+      aria-labelledby={headingId}
+      {...restProps}
     >
       {/* Header */}
-      <header className={styles.header}>
+      <header className={styles.header} data-slot="gauge-chart-header">
         <div className={styles.titleGroup}>
           <div className={styles.iconTag} aria-hidden="true">
             ⏱️
@@ -123,7 +148,7 @@ export const SlaPerformanceGauge = React.forwardRef<
                 <span className={styles.businessPill}>24/7 MISSION-CRITICAL CLOCK</span>
               )}
             </div>
-            <h2 id={headingId} className={styles.title}>{commitmentTier}</h2>
+            <h2 id={headingId} className={styles.title} data-slot="gauge-chart-title">{commitmentTier}</h2>
           </div>
         </div>
 
@@ -142,7 +167,7 @@ export const SlaPerformanceGauge = React.forwardRef<
 
       {/* Primary Milestone Progress Meter */}
       {primaryMilestone && (
-        <div className={styles.primaryMeterBox}>
+        <div className={styles.primaryMeterBox} data-slot="gauge-chart-primary-meter">
           <div className={styles.meterHeader}>
             <div>
               <span className={styles.meterSub}>Active SLA Target:</span>
@@ -164,6 +189,7 @@ export const SlaPerformanceGauge = React.forwardRef<
           {/* Progress Track */}
           <div
             className={styles.progressTrack}
+            data-slot="gauge-chart-progress-track"
             role="progressbar"
             aria-valuenow={percentElapsed}
             aria-valuemin={0}
@@ -178,7 +204,8 @@ export const SlaPerformanceGauge = React.forwardRef<
                   ? styles.fillWarn
                   : styles.fillOk
               }`}
-              style={{ width: `${percentElapsed}%` }}
+              data-slot="gauge-chart-progress-fill"
+              style={{ inlineSize: `${percentElapsed}%` }}
             />
           </div>
 
@@ -190,14 +217,14 @@ export const SlaPerformanceGauge = React.forwardRef<
       )}
 
       {/* Milestones Hierarchy List */}
-      <div className={styles.milestonesSection}>
+      <div className={styles.milestonesSection} data-slot="gauge-chart-milestones">
         <h4 className={styles.sectionTitle}>SLA Target Commitments</h4>
         <ul className={styles.milestoneList}>
           {milestones.map((m) => {
             const isBreached = m.status === "breached";
 
             return (
-              <li key={m.id} className={styles.milestoneRow}>
+              <li key={m.id} className={styles.milestoneRow} data-slot="gauge-chart-milestone-item">
                 <div className={styles.milestoneInfo}>
                   <span className={styles.milestoneName}>{m.name}</span>
                   <span className={styles.milestoneTarget}>
@@ -226,3 +253,5 @@ export const SlaPerformanceGauge = React.forwardRef<
 
 SlaPerformanceGauge.displayName = "SlaPerformanceGauge";
 
+export const GaugeChart = SlaPerformanceGauge;
+export type GaugeChartProps = SlaPerformanceGaugeProps;

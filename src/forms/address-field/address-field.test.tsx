@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { AddressAutoCompleteForm } from "./address-field";
+import { AddressAutoCompleteForm, AddressField } from "./address-field";
 
 describe("AddressAutoCompleteForm", () => {
   it("renders form fields and handles submit", () => {
@@ -52,6 +52,41 @@ describe("AddressAutoCompleteForm", () => {
     render(<AddressAutoCompleteForm ref={ref} />);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
     expect(ref.current).toHaveAttribute("role", "region");
+  });
+
+  it("renders with data-slot attributes", () => {
+    const { container } = render(
+      <AddressAutoCompleteForm
+        title="Warehouse Location"
+        subtitle="Primary storage facility"
+        suggestions={["100 Main St"]}
+      />
+    );
+    expect(container.querySelector('[data-slot="address-field"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="address-field-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="address-field-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="address-field-subtitle"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="address-field-form"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="address-field-group"]').length).toBeGreaterThan(0);
+    expect(container.querySelectorAll('[data-slot="address-field-label"]').length).toBeGreaterThan(0);
+    expect(container.querySelectorAll('[data-slot="address-field-input"]').length).toBeGreaterThan(0);
+    expect(container.querySelector('[data-slot="address-field-select"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="address-field-submit"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { unmount } = render(<AddressAutoCompleteForm density={density} title={`Address ${density}`} />);
+      const el = screen.getByRole("region", { name: `Address ${density}` });
+      expect(el).toHaveAttribute("data-density", density);
+      unmount();
+    });
+  });
+
+  it("exports AddressField alias which behaves identically", () => {
+    render(<AddressField title="Alias Test" />);
+    expect(screen.getByRole("region", { name: "Alias Test" })).toBeInTheDocument();
   });
 
   it("has zero accessibility violations", async () => {

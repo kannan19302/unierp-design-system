@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { SankeyDiagram } from "./sankey-diagram";
 
@@ -22,7 +23,15 @@ const meta: Meta<typeof SankeyDiagram> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    a11y: { test: "todo" },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    height: {
+      control: "number",
+    },
   },
 };
 
@@ -30,11 +39,15 @@ export default meta;
 type Story = StoryObj<typeof SankeyDiagram>;
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <div style={{ inlineSize: "550px", padding: "var(--space-4)" }}>
-      <SankeyDiagram nodes={SAMPLE_NODES} links={SAMPLE_LINKS} />
+      <SankeyDiagram {...args} nodes={SAMPLE_NODES} links={SAMPLE_LINKS} />
     </div>
   ),
+  args: {
+    density: "standard",
+    height: 300,
+  },
 };
 
 export const AnatomyAndComposition: Story = {
@@ -45,23 +58,51 @@ export const AnatomyAndComposition: Story = {
   ),
 };
 
-export const AllStatesGallery: Story = {
+export const DensityGallery: Story = {
   render: () => (
     <div style={{ inlineSize: "600px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
         <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Marketing Attribution Flow
-        </h4>
-        <SankeyDiagram nodes={SAMPLE_NODES} links={SAMPLE_LINKS} />
-      </div>
-      <div>
-        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Compact Pipeline
+          Ultra-Compact Density (24px target)
         </h4>
         <SankeyDiagram
+          density="ultra-compact"
           nodes={SAMPLE_NODES.slice(0, 4)}
           links={SAMPLE_LINKS.slice(0, 2)}
           height={200}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Compact Density (28px target)
+        </h4>
+        <SankeyDiagram
+          density="compact"
+          nodes={SAMPLE_NODES.slice(0, 4)}
+          links={SAMPLE_LINKS.slice(0, 2)}
+          height={220}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Standard Density (32px target)
+        </h4>
+        <SankeyDiagram
+          density="standard"
+          nodes={SAMPLE_NODES.slice(0, 4)}
+          links={SAMPLE_LINKS.slice(0, 2)}
+          height={250}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Comfortable Density (40px target)
+        </h4>
+        <SankeyDiagram
+          density="comfortable"
+          nodes={SAMPLE_NODES}
+          links={SAMPLE_LINKS}
+          height={300}
         />
       </div>
     </div>

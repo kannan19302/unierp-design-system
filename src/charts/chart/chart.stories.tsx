@@ -17,8 +17,12 @@ const meta: Meta<typeof Charts> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    a11y: {
-      test: "todo",
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling mode",
     },
   },
 };
@@ -51,6 +55,24 @@ export const Default: Story = {
         icon={<TrendingUp size={20} />}
       />
     </Charts>
+  ),
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", inlineSize: "38rem" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density}>
+          <h5 style={{ marginBlockEnd: "var(--space-2)", textTransform: "capitalize" }}>
+            Density: {density}
+          </h5>
+          <Charts density={density} style={{ display: "flex", gap: "var(--space-3)" }}>
+            <KPICard title={`${density} KPI`} value="$84,200" change={4.2} />
+            <KPICard title="Conversion" value="3.8%" change={-0.5} />
+          </Charts>
+        </div>
+      ))}
+    </div>
   ),
 };
 

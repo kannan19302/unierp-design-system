@@ -7,9 +7,13 @@ describe("Calendar Input", () => {
   it("renders calendar and triggers onSelectDate", () => {
     const handleSelect = vi.fn();
     const date = new Date(2026, 7, 15);
-    render(<Calendar selectedDate={date} onSelectDate={handleSelect} />);
+    const { container } = render(<Calendar selectedDate={date} onSelectDate={handleSelect} />);
     expect(screen.getByRole("region", { name: "Calendar" })).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="calendar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="calendar-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="calendar-grid"]')).toBeInTheDocument();
     const dayBtn = screen.getByRole("button", { name: new Date(2026, 7, 20).toDateString() });
+    expect(dayBtn).toHaveAttribute("data-slot", "calendar-day");
     fireEvent.click(dayBtn);
     expect(handleSelect).toHaveBeenCalled();
   });

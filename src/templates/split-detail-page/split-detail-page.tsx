@@ -1,7 +1,24 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./split-detail-page.module.css";
 
-export interface SplitMasterDetailTemplateProps extends HTMLAttributes<HTMLDivElement> {
+export const splitMasterDetailVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export interface SplitMasterDetailTemplateProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof splitMasterDetailVariants> {
   masterTitle?: string;
   masterToolbar?: ReactNode;
   masterList?: ReactNode;
@@ -21,6 +38,7 @@ export const SplitMasterDetailTemplate = forwardRef<HTMLDivElement, SplitMasterD
       detailBody,
       isDetailEmpty = false,
       emptyDetailMessage = "Select an item from the list to view details",
+      density = "standard",
       className = "",
       ...props
     },
@@ -29,26 +47,52 @@ export const SplitMasterDetailTemplate = forwardRef<HTMLDivElement, SplitMasterD
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`}
+        className={`${splitMasterDetailVariants({ density })} ${className}`}
+        data-slot="split-detail-page"
+        data-density={density}
         role="region"
         aria-label="Master Detail Workspace"
         {...props}
       >
-        <section className={styles.masterPane} aria-label="Master List Pane">
-          <div className={styles.masterHeader}>
-            <h2 className={styles.masterTitle}>{masterTitle}</h2>
-            {masterToolbar && <div className={styles.masterToolbar}>{masterToolbar}</div>}
+        <section
+          className={styles.masterPane}
+          data-slot="split-detail-page-master-pane"
+          aria-label="Master List Pane"
+        >
+          <div className={styles.masterHeader} data-slot="split-detail-page-master-header">
+            <h2 className={styles.masterTitle} data-slot="split-detail-page-master-title">
+              {masterTitle}
+            </h2>
+            {masterToolbar && (
+              <div className={styles.masterToolbar} data-slot="split-detail-page-master-toolbar">
+                {masterToolbar}
+              </div>
+            )}
           </div>
-          <div className={styles.masterList}>{masterList}</div>
+          <div className={styles.masterList} data-slot="split-detail-page-master-list">
+            {masterList}
+          </div>
         </section>
 
-        <section className={styles.detailPane} aria-label="Detail Record Pane">
+        <section
+          className={styles.detailPane}
+          data-slot="split-detail-page-detail-pane"
+          aria-label="Detail Record Pane"
+        >
           {isDetailEmpty ? (
-            <div className={styles.emptyState}>{emptyDetailMessage}</div>
+            <div className={styles.emptyState} data-slot="split-detail-page-empty-state">
+              {emptyDetailMessage}
+            </div>
           ) : (
             <>
-              {detailHeader && <div className={styles.detailHeader}>{detailHeader}</div>}
-              <div className={styles.detailBody}>{detailBody}</div>
+              {detailHeader && (
+                <div className={styles.detailHeader} data-slot="split-detail-page-detail-header">
+                  {detailHeader}
+                </div>
+              )}
+              <div className={styles.detailBody} data-slot="split-detail-page-detail-body">
+                {detailBody}
+              </div>
             </>
           )}
         </section>
@@ -58,3 +102,5 @@ export const SplitMasterDetailTemplate = forwardRef<HTMLDivElement, SplitMasterD
 );
 
 SplitMasterDetailTemplate.displayName = "SplitMasterDetailTemplate";
+
+export const SplitDetailPageTemplate = SplitMasterDetailTemplate;

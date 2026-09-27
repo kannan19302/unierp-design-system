@@ -1,7 +1,22 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./bullet-chart.module.css";
+
+export const bulletChartVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 export interface BulletChartProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,6 +26,8 @@ export interface BulletChartProps
   ranges: [number, number, number];
   maxValue?: number;
   unit?: string;
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 /**
@@ -27,6 +44,7 @@ export const BulletChart = forwardRef<HTMLDivElement, BulletChartProps>(
       ranges,
       maxValue: mv,
       unit = "",
+      density = "standard",
       className = "",
       ...rest
     },
@@ -43,16 +61,21 @@ export const BulletChart = forwardRef<HTMLDivElement, BulletChartProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
+        data-slot="bullet-chart"
+        data-density={density}
+        className={bulletChartVariants({ density, className })}
         role="img"
         aria-label={`${label} bullet chart`}
         {...rest}
       >
-        <div className={styles.label}>{label}</div>
-        <div className={styles.track}>
+        <div data-slot="bullet-chart-label" className={styles.label}>
+          {label}
+        </div>
+        <div data-slot="bullet-chart-track" className={styles.track}>
           {ranges.map((r, i) => (
             <div
               key={i}
+              data-slot="bullet-chart-range"
               className={styles.range}
               style={{
                 inlineSize: `${pct(r)}%`,
@@ -61,15 +84,17 @@ export const BulletChart = forwardRef<HTMLDivElement, BulletChartProps>(
             />
           ))}
           <div
+            data-slot="bullet-chart-actual"
             className={styles.actual}
             style={{ inlineSize: `${pct(actual)}%` }}
           />
           <div
+            data-slot="bullet-chart-marker"
             className={styles.marker}
             style={{ insetInlineStart: `${pct(target)}%` }}
           />
         </div>
-        <div className={styles.values}>
+        <div data-slot="bullet-chart-values" className={styles.values}>
           <span>
             Actual: {actual.toLocaleString()}
             {unit}

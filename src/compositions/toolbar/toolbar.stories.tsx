@@ -16,6 +16,11 @@ const meta: Meta<typeof ActionBar> = {
     },
   },
   argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata DL 4-tier density scaling",
+    },
     selectedCount: {
       control: "number",
       description: "Number of currently selected records triggering bulk mode",
@@ -139,6 +144,31 @@ export const AllStatesGallery: Story = {
             }
           />
         </div>
+      </div>
+    );
+  },
+};
+
+export const DensityGallery: Story = {
+  render: () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+
+    return (
+      <div style={{ display: "grid", gap: "var(--space-6)" }}>
+        {densities.map((d) => (
+          <div key={d} style={{ display: "grid", gap: "var(--space-2)" }}>
+            <div style={{ fontWeight: 600, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Density: {d}
+            </div>
+            <ActionBar
+              density={d}
+              leading={<span>Batch #{d.toUpperCase()}</span>}
+              primaryAction={{ key: "save", label: "Save Record" }}
+              secondaryActions={[{ key: "export", label: "Export" }]}
+              aiAction={{ key: "ai", label: "Copilot" }}
+            />
+          </div>
+        ))}
       </div>
     );
   },

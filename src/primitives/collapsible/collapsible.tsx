@@ -11,6 +11,8 @@ import {
   type ReactNode,
   type MouseEvent,
 } from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./collapsible.module.css";
 
 interface CollapsibleContextValue {
@@ -22,8 +24,15 @@ interface CollapsibleContextValue {
 
 const CollapsibleContext = createContext<CollapsibleContextValue | null>(null);
 
+/**
+ * Class variance authority definitions for Collapsible.
+ * Compatible with shadcn/ui community standards and Strata Design tokens.
+ */
+export const collapsibleVariants = cva(styles.collapsible);
+
 export interface CollapsibleProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange"> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange">,
+    VariantProps<typeof collapsibleVariants> {
   /** Controlled open state */
   open?: boolean;
   /** Initial state for uncontrolled usage */
@@ -54,7 +63,7 @@ export const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
       className = "",
       ...props
     },
-    ref
+    ref,
   ) => {
     const isControlled = controlledOpen !== undefined;
     const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
@@ -79,6 +88,7 @@ export const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
       >
         <div
           ref={ref}
+          data-slot="collapsible"
           data-state={isOpen ? "open" : "closed"}
           className={`${styles.collapsible} ${className}`.trim()}
           {...props}
@@ -87,13 +97,14 @@ export const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
         </div>
       </CollapsibleContext.Provider>
     );
-  }
+  },
 );
 
 Collapsible.displayName = "Collapsible";
 
 export interface CollapsibleTriggerProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
+  asChild?: boolean;
   children: ReactNode;
 }
 
@@ -101,7 +112,7 @@ export interface CollapsibleTriggerProps
  * `<CollapsibleTrigger>` — Interactive button that toggles the open state.
  */
 export const CollapsibleTrigger = forwardRef<HTMLButtonElement, CollapsibleTriggerProps>(
-  ({ children, disabled: buttonDisabled, className = "", onClick, ...props }, ref) => {
+  ({ children, asChild = false, disabled: buttonDisabled, className = "", onClick, ...props }, ref) => {
     const ctx = useContext(CollapsibleContext);
     if (!ctx) {
       throw new Error("CollapsibleTrigger must be used within Collapsible");
@@ -115,10 +126,13 @@ export const CollapsibleTrigger = forwardRef<HTMLButtonElement, CollapsibleTrigg
       onClick?.(e);
     };
 
+    const Comp = asChild ? Slot : "button";
+
     return (
-      <button
+      <Comp
         ref={ref}
-        type="button"
+        type={asChild ? undefined : "button"}
+        data-slot="collapsible-trigger"
         aria-expanded={ctx.open}
         aria-controls={ctx.contentId}
         data-state={ctx.open ? "open" : "closed"}
@@ -128,9 +142,9 @@ export const CollapsibleTrigger = forwardRef<HTMLButtonElement, CollapsibleTrigg
         {...props}
       >
         {children}
-      </button>
+      </Comp>
     );
-  }
+  },
 );
 
 CollapsibleTrigger.displayName = "CollapsibleTrigger";
@@ -157,6 +171,7 @@ export const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentP
       <div
         ref={ref}
         id={ctx.contentId}
+        data-slot="collapsible-content"
         data-state={ctx.open ? "open" : "closed"}
         className={`${styles.content} ${className}`.trim()}
         {...props}
@@ -164,7 +179,7 @@ export const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentP
         {children}
       </div>
     );
-  }
+  },
 );
 
 CollapsibleContent.displayName = "CollapsibleContent";

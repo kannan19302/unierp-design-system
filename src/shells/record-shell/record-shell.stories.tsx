@@ -301,7 +301,7 @@ function InteractiveRecordExperience({ initialCollapsed = false }: { initialColl
             </div>
           </div>
 
-          <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+          <div style={{ marginBlockStart: "auto", display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
             <Button variant="primary" style={{ inlineSize: "100%" }}>Authorize Payment</Button>
             <Button variant="secondary" style={{ inlineSize: "100%" }}>Flag Dispute</Button>
           </div>
@@ -330,7 +330,7 @@ export const StateMatrix: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)", padding: "var(--space-4)", background: "var(--color-bg-sunken)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "var(--space-2)", marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
           1. Three-Column Populated Layout (List + Detail + Inspector)
         </h4>
         <div style={{ blockSize: "420px", border: "1px solid var(--color-border)", overflow: "hidden" }}>
@@ -339,7 +339,7 @@ export const StateMatrix: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "var(--space-2)", marginInline: 0, fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
           2. Two-Column Streamlined Layout (List + Detail, No Inspector)
         </h4>
         <div style={{ blockSize: "360px", border: "1px solid var(--color-border)", overflow: "hidden" }}>
@@ -354,6 +354,38 @@ export const StateMatrix: Story = {
   ),
 };
 
+export const DensityGallery: Story = {
+  name: "Density scale comparison",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density} style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
+          <div style={{ padding: "var(--space-2) var(--space-4)", background: "var(--color-bg-sunken)", fontWeight: 600, fontSize: "var(--text-xs)" }}>
+            Density: {density}
+          </div>
+          <div style={{ blockSize: "260px" }}>
+            <RecordShell
+              density={density}
+              bar={<MeridianBar density={density} segments={[{ label: "tenant" }, { label: "records" }]} />}
+              list={<div style={{ padding: "var(--space-3)" }}>List ({density})</div>}
+              detail={
+                <ObjectPage
+                  density={density}
+                  sections={[
+                    { id: "s1", label: "Overview", children: <p>Section content for {density}</p> },
+                    { id: "s2", label: "Audit", children: <p>Audit entries</p> },
+                  ]}
+                  activeId="s1"
+                />
+              }
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 export const RtlPreview: Story = {
   name: "RTL Preview",
   render: () => (
@@ -362,3 +394,4 @@ export const RtlPreview: Story = {
     </div>
   ),
 };
+

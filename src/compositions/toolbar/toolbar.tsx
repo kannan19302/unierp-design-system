@@ -3,7 +3,24 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { Sparkles, MoreHorizontal, X } from "lucide-react";
 import { Button } from "../../primitives/button";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./toolbar.module.css";
+
+export type ToolbarDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export const toolbarVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 export interface ActionItem {
   key: string;
@@ -14,7 +31,9 @@ export interface ActionItem {
   variant?: "primary" | "secondary" | "danger" | "ghost" | "ai";
 }
 
-export interface ActionBarProps extends HTMLAttributes<HTMLDivElement> {
+export interface ActionBarProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof toolbarVariants> {
   primaryAction?: ActionItem;
   secondaryActions?: ActionItem[];
   aiAction?: ActionItem;
@@ -23,6 +42,7 @@ export interface ActionBarProps extends HTMLAttributes<HTMLDivElement> {
   selectedCount?: number;
   bulkActions?: ReactNode;
   onClearSelection?: () => void;
+  density?: ToolbarDensity;
   className?: string;
 }
 
@@ -43,6 +63,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
       selectedCount = 0,
       bulkActions,
       onClearSelection,
+      density = "standard",
       className = "",
       ...restProps
     },
@@ -52,19 +73,22 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
       return (
         <div
           ref={ref}
-          className={`${styles.bulkBar} ${className}`.trim()}
+          className={`${styles.bulkBar} ${styles[`density${density.charAt(0).toUpperCase() + density.slice(1).replace(/-([a-z])/g, (_, c) => c.toUpperCase())}`] || ""} ${className}`.trim()}
           role="toolbar"
           aria-label="Bulk actions"
+          data-slot="toolbar-bulk"
+          data-density={density}
           {...restProps}
         >
-          <div className={styles.bulkLeft}>
-            <span className={styles.bulkCount}>{selectedCount} selected</span>
+          <div className={styles.bulkLeft} data-slot="toolbar-bulk-left">
+            <span className={styles.bulkCount} data-slot="toolbar-bulk-count">{selectedCount} selected</span>
             {onClearSelection && (
               <Button
                 size="sm"
                 variant="ghost"
                 onClick={onClearSelection}
                 aria-label="Clear selection"
+                data-slot="toolbar-bulk-deselect"
               >
                 <X size={14} aria-hidden="true" />
                 <span>Deselect</span>
@@ -72,7 +96,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
             )}
           </div>
 
-          <div className={styles.bulkRight}>{bulkActions}</div>
+          <div className={styles.bulkRight} data-slot="toolbar-bulk-right">{bulkActions}</div>
         </div>
       );
     }
@@ -80,20 +104,23 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
+        className={`${toolbarVariants({ density })} ${className}`.trim()}
         role="toolbar"
         aria-label="Action bar"
+        data-slot="toolbar"
+        data-density={density}
         {...restProps}
       >
-        <div className={styles.leftSection}>{leading}</div>
+        <div className={styles.leftSection} data-slot="toolbar-leading">{leading}</div>
 
-        <div className={styles.rightSection}>
+        <div className={styles.rightSection} data-slot="toolbar-actions">
           {aiAction && (
             <button
               type="button"
               className={styles.aiActionBtn}
               onClick={aiAction.onClick}
               disabled={aiAction.disabled}
+              data-slot="toolbar-ai-action"
             >
               {aiAction.icon ?? <Sparkles size={14} aria-hidden="true" />}
               <span>{aiAction.label}</span>
@@ -113,6 +140,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
               }
               onClick={action.onClick}
               disabled={action.disabled}
+              data-slot="toolbar-secondary-action"
             >
               {action.icon}
               <span>{action.label}</span>
@@ -125,6 +153,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
               variant="ghost"
               aria-label="More actions"
               title="More actions"
+              data-slot="toolbar-overflow-action"
             >
               <MoreHorizontal size={16} aria-hidden="true" />
             </Button>
@@ -136,6 +165,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
               variant="primary"
               onClick={primaryAction.onClick}
               disabled={primaryAction.disabled}
+              data-slot="toolbar-primary-action"
             >
               {primaryAction.icon}
               <span>{primaryAction.label}</span>
@@ -148,3 +178,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
 );
 
 ActionBar.displayName = "ActionBar";
+
+export const Toolbar = ActionBar;
+Toolbar.displayName = "Toolbar";
+export type ToolbarProps = ActionBarProps;

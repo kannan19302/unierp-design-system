@@ -6,6 +6,91 @@
   background: var(--color-surface-elevated);
 }
 
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact .table,
+.container[data-density="ultra-compact"] .table {
+  font-size: var(--text-2xs, 10px);
+}
+.densityUltraCompact .th,
+.container[data-density="ultra-compact"] .th {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1-5);
+}
+.densityUltraCompact .td,
+.container[data-density="ultra-compact"] .td,
+.densityUltraCompact .tdNum,
+.container[data-density="ultra-compact"] .tdNum,
+.densityUltraCompact .tdChart,
+.container[data-density="ultra-compact"] .tdChart,
+.densityUltraCompact .tdChange,
+.container[data-density="ultra-compact"] .tdChange {
+  padding-block: 2px;
+  padding-inline: var(--space-1-5);
+}
+
+.densityCompact .table,
+.container[data-density="compact"] .table {
+  font-size: var(--text-xs, 11px);
+}
+.densityCompact .th,
+.container[data-density="compact"] .th {
+  padding-block: var(--space-1-5);
+  padding-inline: var(--space-2);
+}
+.densityCompact .td,
+.container[data-density="compact"] .td,
+.densityCompact .tdNum,
+.container[data-density="compact"] .tdNum,
+.densityCompact .tdChart,
+.container[data-density="compact"] .tdChart,
+.densityCompact .tdChange,
+.container[data-density="compact"] .tdChange {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+}
+
+.densityStandard .table,
+.container[data-density="standard"] .table {
+  font-size: var(--text-xs, 12px);
+}
+.densityStandard .th,
+.container[data-density="standard"] .th {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+}
+.densityStandard .td,
+.container[data-density="standard"] .td,
+.densityStandard .tdNum,
+.container[data-density="standard"] .tdNum,
+.densityStandard .tdChart,
+.container[data-density="standard"] .tdChart,
+.densityStandard .tdChange,
+.container[data-density="standard"] .tdChange {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+}
+
+.densityComfortable .table,
+.container[data-density="comfortable"] .table {
+  font-size: var(--text-sm, 14px);
+}
+.densityComfortable .th,
+.container[data-density="comfortable"] .th {
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+}
+.densityComfortable .td,
+.container[data-density="comfortable"] .td,
+.densityComfortable .tdNum,
+.container[data-density="comfortable"] .tdNum,
+.densityComfortable .tdChart,
+.container[data-density="comfortable"] .tdChart,
+.densityComfortable .tdChange,
+.container[data-density="comfortable"] .tdChange {
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+}
+
 .table {
   inline-size: 100%;
   border-collapse: collapse;

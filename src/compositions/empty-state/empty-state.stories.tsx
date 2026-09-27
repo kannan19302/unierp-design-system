@@ -8,6 +8,21 @@ const meta: Meta<typeof EmptyState> = {
   title: "Compositions/EmptyState",
   component: EmptyState,
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+    title: {
+      control: "text",
+      description: "Primary headline describing empty state condition.",
+    },
+    description: {
+      control: "text",
+      description: "Secondary explanatory copy or guidance.",
+    },
+  },
 };
 
 export default meta;
@@ -15,6 +30,7 @@ type Story = StoryObj<typeof EmptyState>;
 
 export const Default: Story = {
   args: {
+    density: "standard",
     icon: <FilePlus size={20} />,
     title: "No General Ledger Vouchers",
     description: "Create your first journal voucher or import initial opening balances.",
@@ -26,6 +42,53 @@ export const AnatomyAndComposition: Story = {
   args: {
     ...Default.args,
   },
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Ultra-Compact (16px padding / 28px icon)</h4>
+        <EmptyState
+          density="ultra-compact"
+          icon={<FilePlus size={16} />}
+          title="No Items"
+          description="Empty table cell partition."
+          action={<Button variant="primary" size="xs">Add</Button>}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Compact (24px padding / 36px icon)</h4>
+        <EmptyState
+          density="compact"
+          icon={<FilePlus size={18} />}
+          title="No Records Found"
+          description="Adjust your search filters."
+          action={<Button variant="primary" size="sm">Reset</Button>}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Standard (32px padding / 44px icon)</h4>
+        <EmptyState
+          density="standard"
+          icon={<FilePlus size={20} />}
+          title="No General Ledger Vouchers"
+          description="Create your first journal voucher."
+          action={<Button variant="primary" size="sm">Create Voucher</Button>}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Comfortable (48px padding / 56px icon)</h4>
+        <EmptyState
+          density="comfortable"
+          icon={<FilePlus size={24} />}
+          title="Get Started With Invoicing"
+          description="Issue invoices, track billing statuses, and connect automated payment gateways."
+          action={<Button variant="primary" size="md">Launch Invoicing</Button>}
+        />
+      </div>
+    </div>
+  ),
 };
 
 export const AllStatesGallery: Story = {

@@ -14,7 +14,17 @@ const meta: Meta<typeof InlineEditableRecord> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    a11y: { test: "todo" },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling mode",
+    },
+    onSave: {
+      action: "recordSaved",
+      description: "Callback invoked when saving modified record field",
+    },
   },
 };
 
@@ -23,15 +33,34 @@ type Story = StoryObj<typeof InlineEditableRecord>;
 
 export const Default: Story = {
   render: () => (
-    <div style={{ inlineSize: 600, paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)" }}>
+    <div style={{ inlineSize: "38rem", padding: "var(--space-4)" }}>
       <InlineEditableRecord fields={sampleFields} />
+    </div>
+  ),
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", inlineSize: "38rem" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density}>
+          <h5 style={{ marginBlockEnd: "var(--space-2)", textTransform: "capitalize" }}>
+            Density: {density}
+          </h5>
+          <InlineEditableRecord density={density} fields={sampleFields} />
+        </div>
+      ))}
     </div>
   ),
 };
 
 export const AnatomyAndComposition: Story = {
   render: () => (
-    <div style={{ inlineSize: 600, display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+    <div style={{ inlineSize: "38rem", display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <h4>Inline Record Anatomy</h4>
+      <p style={{ color: "var(--color-text-secondary)", fontSize: "var(--text-sm)", margin: 0 }}>
+        High-density key-value ledger rows with quick inline editing triggers, committing mutations without leaving context.
+      </p>
       <InlineEditableRecord
         fields={[
           { key: "taxId", label: "Tax ID / VAT", value: "US-987654321", editable: true },
@@ -45,17 +74,13 @@ export const AnatomyAndComposition: Story = {
 
 export const AllStatesGallery: Story = {
   render: () => (
-    <div style={{ inlineSize: 600, display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+    <div style={{ inlineSize: "38rem", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
-        <h4 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-text-secondary)" }}>
-          Mixed Read-Only and Editable
-        </h4>
+        <h5 style={{ marginBlockEnd: "var(--space-2)" }}>Mixed Read-Only and Editable</h5>
         <InlineEditableRecord fields={sampleFields} />
       </div>
       <div>
-        <h4 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-text-secondary)" }}>
-          All Read-Only (Non-editable)
-        </h4>
+        <h5 style={{ marginBlockEnd: "var(--space-2)" }}>All Read-Only (Non-editable)</h5>
         <InlineEditableRecord
           fields={[
             { key: "created", label: "Created Date", value: "2026-01-15", editable: false },

@@ -1,1 +1,7 @@
-export { InlineEditableRecord, type InlineEditableRecordProps } from "./inline-editable-record";
+export {
+  InlineEditableRecord,
+  type InlineEditableRecordProps,
+  type RecordField,
+  inlineEditableRecordVariants,
+  type InlineEditableRecordDensity,
+} from "./inline-editable-record";

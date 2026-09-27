@@ -1,8 +1,25 @@
 "use client";
 
-import { forwardRef, useState } from "react";
+import { forwardRef, useState, type HTMLAttributes } from "react";
 import { CheckCircle2, Clock, AlertCircle, PlayCircle, User } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./workflow-graph.module.css";
+
+export type WorkflowGraphDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+export const workflowGraphVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 export type WorkflowNodeStatus =
   | "pending"
@@ -30,18 +47,32 @@ export interface WorkflowEdge {
   animated?: boolean;
 }
 
-export interface WorkflowGraphProps {
+export interface WorkflowGraphProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "children">,
+    VariantProps<typeof workflowGraphVariants> {
   nodes: WorkflowNode[];
   edges: WorkflowEdge[];
   selectedNodeId?: string;
   onNodeSelect?: (node: WorkflowNode) => void;
   width?: number | string;
   height?: number;
+  density?: WorkflowGraphDensity;
   className?: string;
 }
 
-const NODE_WIDTH = 220;
-const NODE_HEIGHT = 100;
+const getNodeDimensions = (density: WorkflowGraphDensity) => {
+  switch (density) {
+    case "ultra-compact":
+      return { width: 170, height: 80 };
+    case "compact":
+      return { width: 195, height: 90 };
+    case "comfortable":
+      return { width: 260, height: 110 };
+    case "standard":
+    default:
+      return { width: 220, height: 100 };
+  }
+};
 
 /**
  * WorkflowGraph renders directed acyclic graphs representing business process workflows and state transitions.
@@ -57,11 +88,14 @@ export const WorkflowGraph = forwardRef<HTMLDivElement, WorkflowGraphProps>(
       onNodeSelect,
       width = "100%",
       height = 420,
+      density = "standard",
       className = "",
+      ...props
     },
     ref
   ) => {
     const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId);
+    const { width: nodeWidth, height: nodeHeight } = getNodeDimensions(density);
 
     const handleSelect = (node: WorkflowNode) => {
       setSelectedId(node.id);
@@ -85,8 +119,14 @@ export const WorkflowGraph = forwardRef<HTMLDivElement, WorkflowGraphProps>(
     const nodeMap = new Map(nodes.map((n) => [n.id, n]));
 
     return (
-      <div ref={ref} className={`${styles.container} ${className}`}>
-        <div className={styles.toolbar}>
+      <div
+        ref={ref}
+        className={`${workflowGraphVariants({ density })} ${className}`.trim()}
+        data-slot="workflow-graph"
+        data-density={density}
+        {...props}
+      >
+        <div className={styles.toolbar} data-slot="workflow-graph-toolbar">
           <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", fontWeight: 600 }}>
             <span>Workflow Execution Graph</span>
             <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
@@ -95,9 +135,9 @@ export const WorkflowGraph = forwardRef<HTMLDivElement, WorkflowGraphProps>(
           </div>
         </div>
 
-        <div className={styles.canvas} style={{ inlineSize: width, minBlockSize: height }}>
+        <div className={styles.canvas} style={{ inlineSize: width, minBlockSize: height }} data-slot="workflow-graph-canvas">
           {/* SVG Bezier Connection Lines */}
-          <svg className={styles.svgLayer} width="100%" height="100%">
+          <svg className={styles.svgLayer} width="100%" height="100%" data-slot="workflow-graph-svg-layer">
             <defs>
               <marker
                 id="arrowhead"
@@ -116,10 +156,10 @@ export const WorkflowGraph = forwardRef<HTMLDivElement, WorkflowGraphProps>(
               const target = nodeMap.get(edge.to);
               if (!source || !target) return null;
 
-              const startX = source.x + NODE_WIDTH;
-              const startY = source.y + NODE_HEIGHT / 2;
+              const startX = source.x + nodeWidth;
+              const startY = source.y + nodeHeight / 2;
               const endX = target.x;
-              const endY = target.y + NODE_HEIGHT / 2;
+              const endY = target.y + nodeHeight / 2;
 
               const deltaX = Math.abs(endX - startX) / 2;
               const pathData = `M ${startX} ${startY} C ${startX + deltaX} ${startY}, ${endX - deltaX} ${endY}, ${endX} ${endY}`;
@@ -172,8 +212,9 @@ export const WorkflowGraph = forwardRef<HTMLDivElement, WorkflowGraphProps>(
                 role="button"
                 tabIndex={0}
                 aria-label={`Workflow stage ${node.title}, status ${node.status}`}
+                data-slot="workflow-graph-node"
               >
-                <div className={styles.nodeHeader}>
+                <div className={styles.nodeHeader} data-slot="workflow-graph-node-header">
                   <div style={{ display: "flex", alignItems: "center", gap: "var(--space-1)" }}>
                     {getStatusIcon(node.status)}
                     <span style={{ textTransform: "capitalize" }}>{node.status}</span>
@@ -181,9 +222,9 @@ export const WorkflowGraph = forwardRef<HTMLDivElement, WorkflowGraphProps>(
                   {node.duration && <span>{node.duration}</span>}
                 </div>
 
-                <div className={styles.nodeBody}>
-                  <h5 className={styles.nodeTitle}>{node.title}</h5>
-                  {node.subtitle && <span className={styles.nodeSubtitle}>{node.subtitle}</span>}
+                <div className={styles.nodeBody} data-slot="workflow-graph-node-body">
+                  <h5 className={styles.nodeTitle} data-slot="workflow-graph-node-title">{node.title}</h5>
+                  {node.subtitle && <span className={styles.nodeSubtitle} data-slot="workflow-graph-node-subtitle">{node.subtitle}</span>}
                   {node.assignee && (
                     <div
                       style={{
@@ -193,6 +234,7 @@ export const WorkflowGraph = forwardRef<HTMLDivElement, WorkflowGraphProps>(
                         color: "var(--color-text-secondary)",
                         marginBlockStart: "var(--space-1)",
                       }}
+                      data-slot="workflow-graph-node-assignee"
                     >
                       <User size={12} />
                       <span>{node.assignee}</span>

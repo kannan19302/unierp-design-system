@@ -7,6 +7,8 @@ import { join } from "node:path";
 import {
   EditorialShell,
   EditorialBand,
+  EditorShell,
+  EditorBand,
   Eyebrow,
   HeroTitle,
   BandTitle,
@@ -109,4 +111,59 @@ describe("EditorialShell", () => {
     );
     expect(await axe(container)).toHaveNoViolations();
   });
+
+  it("annotates slots with data-slot attributes", () => {
+    const { container } = render(
+      <EditorialShell
+        brand={<span>Logo</span>}
+        actions={<button type="button">Action</button>}
+        footer={<p>Footer</p>}
+      >
+        <EditorialBand tone="sunken" layout="editorial">
+          <Eyebrow>Overline</Eyebrow>
+          <HeroTitle>Main Title</HeroTitle>
+          <BandTitle>Sub Title</BandTitle>
+          <Lede>Lead paragraph text.</Lede>
+        </EditorialBand>
+      </EditorialShell>,
+    );
+
+    expect(container.querySelector('[data-slot="editor-shell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-skip-link"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-masthead"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-main"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-footer"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-band"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-band-inner"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-eyebrow"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-hero-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-band-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="editor-shell-lede"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(
+      <EditorialShell density="compact">
+        <EditorialBand density="compact">Test</EditorialBand>
+      </EditorialShell>,
+    );
+
+    const root = container.querySelector('[data-slot="editor-shell"]');
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(root?.className).toContain("density_compact");
+
+    rerender(
+      <EditorialShell density="ultra-compact">
+        <EditorialBand density="ultra-compact">Test</EditorialBand>
+      </EditorialShell>,
+    );
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+    expect(root?.className).toContain("density_ultra_compact");
+  });
+
+  it("exports directory-aligned EditorShell and EditorBand aliases", () => {
+    expect(EditorShell).toBe(EditorialShell);
+    expect(EditorBand).toBe(EditorialBand);
+  });
 });
+

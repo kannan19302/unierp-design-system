@@ -16,6 +16,12 @@ const meta: Meta<typeof DropdownMenu> = {
       },
     },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+  },
 };
 
 export default meta;
@@ -24,6 +30,7 @@ type Story = StoryObj<typeof DropdownMenu>;
 export const Default: Story = {
   args: {
     trigger: <Button variant="outline">Row Actions</Button>,
+    density: "standard",
     items: [
       { key: "edit", label: "Edit Entry", icon: <Edit size={14} />, onClick: () => alert("Edit") },
       { key: "clone", label: "Clone Line", icon: <Copy size={14} />, onClick: () => alert("Clone") },
@@ -39,12 +46,51 @@ export const AnatomyAndComposition: Story = {
   },
 };
 
+export const Densities: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--space-4)", padding: "var(--space-6)" }}>
+      <DropdownMenu
+        density="ultra-compact"
+        trigger={<Button variant="outline" size="sm">Ultra-compact</Button>}
+        items={[
+          { key: "1", label: "Inspect Line" },
+          { key: "2", label: "Reconcile" },
+        ]}
+      />
+      <DropdownMenu
+        density="compact"
+        trigger={<Button variant="outline" size="sm">Compact</Button>}
+        items={[
+          { key: "1", label: "Inspect Line" },
+          { key: "2", label: "Reconcile" },
+        ]}
+      />
+      <DropdownMenu
+        density="standard"
+        trigger={<Button variant="outline">Standard</Button>}
+        items={[
+          { key: "1", label: "Inspect Line" },
+          { key: "2", label: "Reconcile" },
+        ]}
+      />
+      <DropdownMenu
+        density="comfortable"
+        trigger={<Button variant="outline" size="lg">Comfortable</Button>}
+        items={[
+          { key: "1", label: "Inspect Line" },
+          { key: "2", label: "Reconcile" },
+        ]}
+      />
+    </div>
+  ),
+};
+
 export const AllStatesGallery: Story = {
   name: "All States Gallery",
   render: () => (
     <div style={{ display: "flex", gap: "var(--space-6)", padding: "var(--space-8)" }}>
       <div>
-        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Standard Actions Menu</h4>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-text-secondary)" }}>Standard Actions Menu</h4>
         <DropdownMenu
           trigger={<Button variant="outline">Options ▾</Button>}
           items={[
@@ -56,7 +102,7 @@ export const AllStatesGallery: Story = {
       </div>
 
       <div>
-        <h4 style={{ marginBottom: "var(--space-2)", color: "var(--color-text-secondary)" }}>Disabled Items Menu</h4>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", color: "var(--color-text-secondary)" }}>Disabled Items Menu</h4>
         <DropdownMenu
           trigger={<Button variant="outline">Permissions ▾</Button>}
           items={[
@@ -68,4 +114,3 @@ export const AllStatesGallery: Story = {
     </div>
   ),
 };
-

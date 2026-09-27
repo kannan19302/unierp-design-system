@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { toCsv, exportToCsv } from "./csv-export";
-import styles from "./csv-export.module.css";
-import { Button } from "../../primitives/button";
+import { CsvExportPanel, CsvExportButton } from "./csv-export";
 
 const sampleColumns = [
   { key: "sku", header: "SKU" },
@@ -16,96 +14,125 @@ const sampleRows = [
   { sku: "SKU-003", item: "Aluminum Bracket, 90-degree", qty: 420, price: "$18.00" },
 ];
 
-const CsvDemo = ({ filename = "inventory-export.csv" }: { filename?: string }) => {
-  const rawCsv = toCsv(sampleColumns, sampleRows);
-
-  return (
-    <div className={styles.csvContainer} style={{ maxWidth: 640 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <div>
-          <h4 style={{ margin: 0 }}>CSV Serialization Engine</h4>
-          <p style={{ margin: "var(--space-1) 0 0", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
-            Generates RFC-4180 compliant CSV with Excel BOM header and quote escaping.
-          </p>
-        </div>
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => exportToCsv(sampleColumns, sampleRows, filename)}
-        >
-          Export CSV
-        </Button>
-      </div>
-      <pre
-        style={{
-          margin: 0,
-          padding: "var(--space-3)",
-          background: "var(--color-surface-sunken)",
-          border: "1px solid var(--color-border-subtle)",
-          borderRadius: "var(--radius-sm)",
-          fontSize: "var(--text-xs)",
-          fontFamily: "var(--font-mono)",
-          overflowX: "auto",
-        }}
-      >
-        {rawCsv}
-      </pre>
-    </div>
-  );
-};
-
 /**
  * CSV serialization and export engine for tabular data, supporting RFC-4180 escaping,
  * custom export value mappers, and Excel-compatible UTF-8 BOM encoding.
  */
-const meta: Meta = {
-  title: "Forms/Csv",
-  component: CsvDemo,
+const meta: Meta<typeof CsvExportPanel> = {
+  title: "Forms/CsvExport",
+  component: CsvExportPanel,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
     docs: {
       description: {
         component:
-          "CSV serialization utility component providing RFC-4180 escaping, BOM encoding, and client-side triggerable downloads.",
+          "CSV serialization utility and UI components providing RFC-4180 escaping, BOM encoding, density scaling, and client-side triggerable downloads.",
       },
+    },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling mode",
+    },
+    title: {
+      control: "text",
+      description: "Header title of the export panel",
+    },
+    description: {
+      control: "text",
+      description: "Explanatory description of the export operation",
+    },
+    filename: {
+      control: "text",
+      description: "Target download filename",
+    },
+    showPreview: {
+      control: "boolean",
+      description: "Whether to render live raw CSV preview",
     },
   },
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<typeof CsvExportPanel>;
 
 export const Default: Story = {
-  render: () => <CsvDemo />,
+  render: () => (
+    <div style={{ inlineSize: "38rem" }}>
+      <CsvExportPanel
+        columns={sampleColumns}
+        rows={sampleRows}
+        filename="inventory-export.csv"
+        title="CSV Serialization Engine"
+        description="Generates RFC-4180 compliant CSV with Excel BOM header and quote escaping."
+      />
+    </div>
+  ),
+};
+
+export const DensityGallery: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", inlineSize: "38rem" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density}>
+          <h5 style={{ marginBlockEnd: "var(--space-2)", textTransform: "capitalize" }}>
+            Density: {density}
+          </h5>
+          <CsvExportPanel
+            density={density}
+            columns={sampleColumns}
+            rows={sampleRows}
+            title={`${density} CSV Panel`}
+            description={`Rendered in ${density} density scaling`}
+          />
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const AnatomyAndComposition: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", inlineSize: "38rem" }}>
+      <h3>Standalone Button & Panel Anatomy</h3>
+      <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+        <span>Quick Trigger:</span>
+        <CsvExportButton columns={sampleColumns} rows={sampleRows} filename="quick.csv">
+          Direct Download
+        </CsvExportButton>
+      </div>
+      <CsvExportPanel
+        columns={sampleColumns}
+        rows={sampleRows}
+        title="Embedded Export Container"
+        description="Includes header, trigger action, and live monospace preview block."
+      />
+    </div>
+  ),
 };
 
 export const AllStatesGallery: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", width: 640 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)", inlineSize: "38rem" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
-          Standard Dataset
-        </h4>
-        <CsvDemo filename="standard-export.csv" />
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Full Dataset with Preview</h4>
+        <CsvExportPanel
+          columns={sampleColumns}
+          rows={sampleRows}
+          filename="full-export.csv"
+        />
       </div>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-fg-muted)" }}>
-          Empty Table Export Preview
-        </h4>
-        <pre
-          style={{
-            margin: 0,
-            padding: "var(--space-3)",
-            background: "var(--color-surface-sunken)",
-            border: "1px solid var(--color-border-subtle)",
-            borderRadius: "var(--radius-sm)",
-            fontSize: "var(--text-xs)",
-            fontFamily: "var(--font-mono)",
-          }}
-        >
-          {toCsv(sampleColumns, [])}
-        </pre>
+        <h4 style={{ marginBlockEnd: "var(--space-2)" }}>Empty Dataset</h4>
+        <CsvExportPanel
+          columns={sampleColumns}
+          rows={[]}
+          title="Empty Table Export"
+          description="Exports header row only when dataset is empty"
+        />
       </div>
     </div>
   ),

@@ -8,7 +8,13 @@ const meta: Meta<typeof CommandPalette> = {
   component: CommandPalette,
   tags: ["autodocs"],
   parameters: {
-    a11y: { test: "todo" },
+    layout: "centered",
+  },
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+    },
   },
 };
 
@@ -26,6 +32,23 @@ const sampleItems = [
 export const Default: Story = {
   args: {
     open: true,
+    size: "md",
+    items: sampleItems,
+  },
+};
+
+export const Small: Story = {
+  args: {
+    open: true,
+    size: "sm",
+    items: sampleItems.slice(0, 3),
+  },
+};
+
+export const Large: Story = {
+  args: {
+    open: true,
+    size: "lg",
     items: sampleItems,
   },
 };
@@ -39,18 +62,6 @@ export const AnatomyAndComposition: Story = {
         onClose={() => {}}
         items={sampleItems}
         placeholder="Type a command or jump target..."
-      />
-    </div>
-  ),
-};
-
-export const AllStatesGallery: Story = {
-  render: () => (
-    <div>
-      <CommandPalette
-        open={true}
-        onClose={() => {}}
-        items={sampleItems.slice(0, 3)}
       />
     </div>
   ),

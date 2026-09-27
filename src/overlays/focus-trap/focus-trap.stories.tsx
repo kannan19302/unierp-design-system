@@ -23,12 +23,13 @@ function InteractiveFocusTrapDemo() {
   const [trapped, setTrapped] = useState(false);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 400, fontFamily: "var(--font-sans)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 16, maxInlineSize: 400, fontFamily: "var(--font-sans)" }}>
       <button
         type="button"
         onClick={() => setTrapped(true)}
         style={{
-          padding: "var(--space-2) var(--space-4)",
+          paddingBlock: "var(--space-2)",
+          paddingInline: "var(--space-4)",
           background: "var(--color-brand)",
           color: "var(--color-white)",
           border: "none",
@@ -43,7 +44,8 @@ function InteractiveFocusTrapDemo() {
         <FocusTrap onEscape={() => setTrapped(false)}>
           <div
             style={{
-              padding: 24,
+              paddingBlock: "var(--space-6, 24px)",
+              paddingInline: "var(--space-6, 24px)",
               border: "1px solid var(--color-border)",
               borderRadius: "var(--radius-md)",
               backgroundColor: "var(--color-surface)",
@@ -60,7 +62,8 @@ function InteractiveFocusTrapDemo() {
               type="text"
               placeholder="First trapped input"
               style={{
-                padding: "var(--space-2)",
+                paddingBlock: "var(--space-2)",
+                paddingInline: "var(--space-2)",
                 border: "1px solid var(--color-border)",
                 borderRadius: "var(--radius-sm)",
               }}
@@ -69,7 +72,8 @@ function InteractiveFocusTrapDemo() {
               type="text"
               placeholder="Second trapped input"
               style={{
-                padding: "var(--space-2)",
+                paddingBlock: "var(--space-2)",
+                paddingInline: "var(--space-2)",
                 border: "1px solid var(--color-border)",
                 borderRadius: "var(--radius-sm)",
               }}
@@ -79,7 +83,8 @@ function InteractiveFocusTrapDemo() {
                 type="button"
                 onClick={() => setTrapped(false)}
                 style={{
-                  padding: "var(--space-1-5) var(--space-3)",
+                  paddingBlock: "var(--space-1-5)",
+                  paddingInline: "var(--space-3)",
                   border: "1px solid var(--color-border)",
                   borderRadius: "var(--radius-sm)",
                   cursor: "pointer",
@@ -95,7 +100,8 @@ function InteractiveFocusTrapDemo() {
       <button
         type="button"
         style={{
-          padding: "var(--space-2) var(--space-4)",
+          paddingBlock: "var(--space-2)",
+          paddingInline: "var(--space-4)",
           border: "1px solid var(--color-border)",
           borderRadius: "var(--radius-sm)",
         }}
@@ -116,7 +122,8 @@ export const AnatomyAndComposition: Story = {
       <FocusTrap active={false}>
         <div
           style={{
-            padding: "var(--space-4)",
+            paddingBlock: "var(--space-4)",
+            paddingInline: "var(--space-4)",
             border: "1px dashed var(--color-border)",
             borderRadius: "var(--radius-md)",
             background: "var(--color-bg-sunken)",
@@ -134,21 +141,21 @@ export const AnatomyAndComposition: Story = {
 export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)", fontFamily: "var(--font-sans)" }}>
-      <div style={{ padding: "var(--space-4)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
-        <h5 style={{ margin: "0 0 var(--space-2) 0", color: "var(--color-text-primary)" }}>Active State</h5>
+      <div style={{ paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
+        <h5 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", color: "var(--color-text-primary)" }}>Active State</h5>
         <FocusTrap active={false}>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-            <input type="text" placeholder="Active Field A" style={{ padding: "var(--space-1-5)" }} />
-            <button type="button" style={{ padding: "var(--space-1-5)" }}>Action Inside</button>
+            <input type="text" placeholder="Active Field A" style={{ paddingBlock: "var(--space-1-5)", paddingInline: "var(--space-1-5)" }} />
+            <button type="button" style={{ paddingBlock: "var(--space-1-5)", paddingInline: "var(--space-1-5)" }}>Action Inside</button>
           </div>
         </FocusTrap>
       </div>
-      <div style={{ padding: "var(--space-4)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", opacity: 0.7 }}>
-        <h5 style={{ margin: "0 0 var(--space-2) 0", color: "var(--color-text-primary)" }}>Passive State</h5>
+      <div style={{ paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", opacity: 0.7 }}>
+        <h5 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", color: "var(--color-text-primary)" }}>Passive State</h5>
         <FocusTrap active={false}>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-            <input type="text" placeholder="Passive Field B" disabled style={{ padding: "var(--space-1-5)" }} />
-            <button type="button" disabled style={{ padding: "var(--space-1-5)" }}>Action Disabled</button>
+            <input type="text" placeholder="Passive Field B" disabled style={{ paddingBlock: "var(--space-1-5)", paddingInline: "var(--space-1-5)" }} />
+            <button type="button" disabled style={{ paddingBlock: "var(--space-1-5)", paddingInline: "var(--space-1-5)" }}>Action Disabled</button>
           </div>
         </FocusTrap>
       </div>

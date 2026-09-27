@@ -68,4 +68,34 @@ describe("CodeEditor Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("supports codeEditorVariants cva and exposes data-slot annotations", () => {
+    const { container } = render(
+      <CodeEditor
+        label="TypeScript Code"
+        description="Write script"
+        value="const a = 1;"
+        showLineNumbers
+        error="Syntax error"
+        invalid
+      />,
+    );
+
+    expect(container.querySelector('[data-slot="code-editor"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-description"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-container"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-lang"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-copy"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-body"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-line-numbers"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-textarea"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="code-editor-error"]')).toBeInTheDocument();
+  });
+
+  it("exposes Markdown compound component", () => {
+    expect((CodeEditor as any).Markdown).toBe(MarkdownEditor);
+  });
 });
+

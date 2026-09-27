@@ -227,3 +227,59 @@
     overflow-inline: auto;
   }
 }
+
+/* ── Density Scaling ── */
+.density_ultra_compact.object_anchored,
+.density_ultra_compact .object_anchored {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  gap: var(--space-3);
+}
+
+.density_ultra_compact .sections {
+  gap: var(--space-4);
+}
+
+.density_ultra_compact .anchor {
+  padding-block: 2px;
+  padding-inline: var(--space-1);
+}
+
+.density_compact.object_anchored,
+.density_compact .object_anchored {
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  gap: var(--space-4);
+}
+
+.density_compact .sections {
+  gap: var(--space-6);
+}
+
+.density_compact .anchor {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+}
+
+.density_standard.object_anchored,
+.density_standard .object_anchored {
+  padding-block: var(--space-5);
+  padding-inline: var(--space-6);
+  gap: var(--space-6);
+}
+
+.density_standard .sections {
+  gap: var(--space-8);
+}
+
+.density_comfortable.object_anchored,
+.density_comfortable .object_anchored {
+  padding-block: var(--space-8);
+  padding-inline: var(--space-8);
+  gap: var(--space-8);
+}
+
+.density_comfortable .sections {
+  gap: var(--space-12);
+}
+

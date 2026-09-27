@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — Modal Styles
+   Strict CSS Logical Properties
    ══════════════════════════════════════════════════════════════ */
 
 @keyframes modalFadeIn {
@@ -28,13 +29,13 @@
   z-index: var(--z-overlay, 200);
   background: var(--surface-overlay, rgba(0, 0, 0, 0.45));
   backdrop-filter: blur(2px);
-  animation: modalFadeIn var(--duration-fast) var(--ease-out) forwards;
+  animation: modalFadeIn var(--duration-fast, 150ms) var(--ease-out) forwards;
 }
 
 .dialog {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
   border: 1px solid var(--surface-1-border, var(--color-border));
@@ -42,14 +43,14 @@
   background: var(--surface-1-bg, var(--color-bg-elevated));
   border-radius: var(--radius-sm, 2px);
   box-shadow: var(--shadow-xl);
-  max-width: calc(100vw - var(--space-8));
-  max-height: 90vh;
-  min-height: 0;
+  max-inline-size: calc(100vw - var(--space-8));
+  max-block-size: 90vh;
+  min-block-size: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   box-sizing: border-box;
-  animation: modalSlideUp var(--duration-normal) var(--ease-spring) forwards;
+  animation: modalSlideUp var(--duration-normal, 200ms) var(--ease-spring) forwards;
   outline: none;
   z-index: var(--z-modal, 10000);
   font-family: var(--font-sans);
@@ -57,19 +58,19 @@
 
 /* ── Sizes ── */
 .sm {
-  width: var(--modal-width-sm, 420px);
+  inline-size: var(--modal-width-sm, 420px);
 }
 
 .md {
-  width: var(--modal-width-md, 560px);
+  inline-size: var(--modal-width-md, 560px);
 }
 
 .lg {
-  width: var(--modal-width-lg, 760px);
+  inline-size: var(--modal-width-lg, 760px);
 }
 
 .xl {
-  width: var(--modal-width-xl, 960px);
+  inline-size: var(--modal-width-xl, 960px);
 }
 
 /* ── Header ── */
@@ -78,8 +79,9 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: var(--space-4) var(--space-5);
-  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
+  padding-block: var(--space-4);
+  padding-inline: var(--space-5);
+  border-block-end: 1px solid var(--surface-1-border, var(--color-border));
   background: var(--surface-1-bg, var(--color-bg-elevated));
 }
 
@@ -92,7 +94,8 @@
 }
 
 .description {
-  margin: var(--space-1) 0 0;
+  margin-block-start: var(--space-1);
+  margin-block-end: 0;
   font-size: var(--type-caption, var(--text-xs));
   color: var(--surface-text-secondary, var(--color-text-muted));
 }
@@ -124,10 +127,11 @@
 
 /* ── Body ── */
 .body {
-  padding: var(--space-5);
+  padding-block: var(--space-5);
+  padding-inline: var(--space-5);
   overflow-y: auto;
   flex: 1;
-  min-height: 0;
+  min-block-size: 0;
   font-size: var(--type-dense, var(--text-sm));
   color: var(--surface-text-primary, var(--color-text));
   line-height: var(--leading-normal);
@@ -138,8 +142,9 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
-  border-top: 1px solid var(--surface-1-border, var(--color-border));
+  padding-block: var(--space-3);
+  padding-inline: var(--space-5);
+  border-block-start: 1px solid var(--surface-1-border, var(--color-border));
   background: var(--surface-sunken-bg, var(--color-bg-sunken));
 }
 

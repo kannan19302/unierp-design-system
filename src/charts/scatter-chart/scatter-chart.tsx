@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./scatter-chart.module.css";
 
 export interface ScatterDataPoint {
@@ -11,6 +12,20 @@ export interface ScatterDataPoint {
   size?: number;
 }
 
+export const scatterChartVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
 export interface ScatterPlotChartProps
   extends React.HTMLAttributes<HTMLDivElement> {
   data: ScatterDataPoint[];
@@ -18,6 +33,8 @@ export interface ScatterPlotChartProps
   xLabel?: string;
   yLabel?: string;
   showTrendLine?: boolean;
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 /**
@@ -37,6 +54,7 @@ export const ScatterPlotChart = forwardRef<
       xLabel = "X",
       yLabel = "Y",
       showTrendLine = false,
+      density = "standard",
       className = "",
       ...rest
     },
@@ -61,12 +79,15 @@ export const ScatterPlotChart = forwardRef<
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
+        data-slot="scatter-chart"
+        data-density={density}
+        className={scatterChartVariants({ density, className })}
         role="img"
         aria-label="Scatter plot chart"
         {...rest}
       >
         <svg
+          data-slot="scatter-chart-svg"
           width="100%"
           height={height}
           viewBox={`0 0 ${w} ${height}`}
@@ -74,6 +95,7 @@ export const ScatterPlotChart = forwardRef<
           aria-hidden="true"
         >
           <line
+            data-slot="scatter-chart-axis"
             x1={pad}
             y1={height - pad}
             x2={w - 10}
@@ -82,6 +104,7 @@ export const ScatterPlotChart = forwardRef<
             strokeWidth={1}
           />
           <line
+            data-slot="scatter-chart-axis"
             x1={pad}
             y1={10}
             x2={pad}
@@ -90,6 +113,7 @@ export const ScatterPlotChart = forwardRef<
             strokeWidth={1}
           />
           <text
+            data-slot="scatter-chart-label"
             x={10}
             y={height / 2}
             transform={`rotate(-90, 10, ${height / 2})`}
@@ -100,6 +124,7 @@ export const ScatterPlotChart = forwardRef<
             {yLabel}
           </text>
           <text
+            data-slot="scatter-chart-label"
             x={w / 2}
             y={height - 5}
             textAnchor="middle"
@@ -113,6 +138,7 @@ export const ScatterPlotChart = forwardRef<
             return (
               <circle
                 key={d.label || i}
+                data-slot="scatter-chart-point"
                 cx={sx(d.x)}
                 cy={sy(d.y)}
                 r={d.size || 5}
@@ -132,3 +158,7 @@ export const ScatterPlotChart = forwardRef<
 );
 
 ScatterPlotChart.displayName = "ScatterPlotChart";
+
+// Directory-level alias
+export const ScatterChart = ScatterPlotChart;
+export type ScatterChartProps = ScatterPlotChartProps;

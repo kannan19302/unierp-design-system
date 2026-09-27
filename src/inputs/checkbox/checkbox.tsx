@@ -1,10 +1,34 @@
-"use client";
-
 import { useState, useId, forwardRef, type ReactNode, type ChangeEvent } from "react";
 import { Check, Minus } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./checkbox.module.css";
 
-export interface CheckboxProps {
+export const checkboxVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles["ultra-compact"],
+      compact: styles.compact,
+      standard: styles.standard,
+      comfortable: styles.comfortable,
+    },
+    disabled: {
+      true: styles.disabledContainer,
+      false: "",
+    },
+    invalid: {
+      true: styles.invalidContainer,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+    disabled: false,
+    invalid: false,
+  },
+});
+
+export interface CheckboxProps
+  extends VariantProps<typeof checkboxVariants> {
   checked?: boolean;
   defaultChecked?: boolean;
   indeterminate?: boolean;
@@ -27,6 +51,7 @@ export interface CheckboxProps {
  * @since 1.0.0
  * Strata V1 Checkbox primitive — supports checked, unchecked, tri-state indeterminate,
  * 4-tier density scaling, assistive descriptions, and high-contrast focus rings.
+ * Standardized with cva, data-slot, and W3C APG checkbox pattern.
  */
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
@@ -39,7 +64,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       invalid = false,
       label,
       description,
-      density,
+      density = "standard",
       id: customId,
       name,
       value,
@@ -65,7 +90,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       onChange?.(next);
     };
 
-    const densityClass = density ? styles[density] : "";
+    const containerClass = `${checkboxVariants({ density, disabled, invalid })} ${className}`.trim();
     const boxClass = [
       styles.box,
       checked ? styles.checked : "",
@@ -76,19 +101,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       .filter(Boolean)
       .join(" ");
 
+    const state = indeterminate ? "indeterminate" : checked ? "checked" : "unchecked";
+
     return (
       <label
         htmlFor={id}
+        data-slot="checkbox"
         data-density={density}
-        className={[
-          styles.container,
-          densityClass,
-          disabled ? styles.disabledContainer : "",
-          invalid ? styles.invalidContainer : "",
-          className,
-        ]
-          .filter(Boolean)
-          .join(" ")}
+        data-state={state}
+        data-disabled={disabled ? "true" : undefined}
+        data-invalid={invalid ? "true" : undefined}
+        className={containerClass}
       >
         <input
           ref={ref}
@@ -102,9 +125,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy}
           onChange={handleChange}
+          data-slot="checkbox-input"
           className={styles.hiddenInput}
         />
-        <div className={boxClass} aria-hidden="true">
+        <div data-slot="checkbox-indicator" className={boxClass} aria-hidden="true">
           {indeterminate ? (
             <Minus size={11} strokeWidth={3} className={styles.icon} />
           ) : checked ? (
@@ -112,10 +136,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           ) : null}
         </div>
         {(label || description) && (
-          <div className={styles.labelCol}>
-            {label && <span className={styles.labelText}>{label}</span>}
+          <div data-slot="checkbox-label-wrapper" className={styles.labelCol}>
+            {label && <span data-slot="checkbox-label" className={styles.labelText}>{label}</span>}
             {description && (
-              <span id={descId} className={styles.descriptionText}>
+              <span id={descId} data-slot="checkbox-description" className={styles.descriptionText}>
                 {description}
               </span>
             )}

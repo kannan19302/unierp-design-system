@@ -17,6 +17,23 @@ describe("AppLauncherWaffleGrid", () => {
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
+  it("renders data-slot anatomy correctly", () => {
+    render(<AppLauncherWaffleGrid isOpenByDefault={true} density="compact" />);
+    const launcher = document.querySelector('[data-slot="app-launcher"]');
+    expect(launcher).toBeInTheDocument();
+    expect(launcher).toHaveAttribute("data-density", "compact");
+    expect(document.querySelector('[data-slot="app-launcher-waffle-button"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-flyout"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-header"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-title"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-search"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-search-input"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-body"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-category"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-card"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="app-launcher-footer"]')).toBeInTheDocument();
+  });
+
   it("opens and closes flyout on button click", () => {
     render(<AppLauncherWaffleGrid />);
     const toggleButton = screen.getByRole("button", { name: /App Launcher/i });

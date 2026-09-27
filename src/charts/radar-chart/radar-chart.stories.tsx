@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { RadarChart } from "./radar-chart";
 
@@ -13,7 +14,18 @@ const meta: Meta<typeof RadarChart> = {
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    a11y: { test: "todo" },
+  },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    size: {
+      control: "number",
+    },
+    showLabels: {
+      control: "boolean",
+    },
   },
 };
 
@@ -21,11 +33,16 @@ export default meta;
 type Story = StoryObj<typeof RadarChart>;
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <div style={{ inlineSize: "360px", padding: "var(--space-4)" }}>
-      <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} />
+      <RadarChart {...args} axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} />
     </div>
   ),
+  args: {
+    density: "standard",
+    size: 240,
+    showLabels: true,
+  },
 };
 
 export const AnatomyAndComposition: Story = {
@@ -36,20 +53,32 @@ export const AnatomyAndComposition: Story = {
   ),
 };
 
-export const AllStatesGallery: Story = {
+export const DensityGallery: Story = {
   render: () => (
-    <div style={{ inlineSize: "380px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+    <div style={{ inlineSize: "400px", display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
         <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Dual Model Comparison
+          Ultra-Compact Density (24px target)
         </h4>
-        <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} />
+        <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} size={200} density="ultra-compact" />
       </div>
       <div>
         <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
-          Single Dataset Focus
+          Compact Density (28px target)
         </h4>
-        <RadarChart axes={SAMPLE_AXES} datasets={[SAMPLE_DATASETS[0]]} />
+        <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} size={220} density="compact" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Standard Density (32px target)
+        </h4>
+        <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} size={240} density="standard" />
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Comfortable Density (40px target)
+        </h4>
+        <RadarChart axes={SAMPLE_AXES} datasets={SAMPLE_DATASETS} size={260} density="comfortable" />
       </div>
     </div>
   ),

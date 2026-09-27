@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1-5, 6px);
-  width: 100%;
+  inline-size: 100%;
 }
 
 .labelRow {
@@ -38,7 +38,7 @@
   overflow: hidden;
   background: var(--surface-1-bg, var(--color-bg-elevated));
   box-sizing: border-box;
-  width: 100%;
+  inline-size: 100%;
   display: flex;
   flex-direction: column;
   transition: border-color var(--duration-fast) var(--ease-default);
@@ -73,8 +73,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--density-control-height-compact, 24px);
-  height: var(--density-control-height-compact, 24px);
+  inline-size: var(--density-control-height-compact, 24px);
+  block-size: var(--density-control-height-compact, 24px);
   background: none;
   border: none;
   border-radius: var(--radius-xs, 2px);
@@ -89,16 +89,16 @@
 }
 
 .divider {
-  width: var(--border-width, 1px);
-  height: var(--size-divider-sm, 14px);
+  inline-size: var(--border-width, 1px);
+  block-size: var(--size-divider-sm, 14px);
   background: var(--surface-1-border, var(--color-border));
   margin-block: 0;
   margin-inline: var(--space-1);
 }
 
 .textarea {
-  width: 100%;
-  min-height: var(--editor-min-height, 120px);
+  inline-size: 100%;
+  min-block-size: var(--editor-min-height, 120px);
   padding-block: var(--space-3);
   padding-inline: var(--space-3);
   border: none;
@@ -126,34 +126,34 @@
 }
 
 .wrapper[data-density="ultra-compact"] .toolBtn {
-  width: var(--space-5, 20px);
-  height: var(--space-5, 20px);
+  inline-size: var(--space-5, 20px);
+  block-size: var(--space-5, 20px);
 }
 
 .wrapper[data-density="ultra-compact"] .textarea {
-  min-height: var(--editor-min-height-xs, 60px);
+  min-block-size: var(--editor-min-height-xs, 60px);
   padding-block: var(--space-1-5, 6px);
   padding-inline: var(--space-2);
   font-size: var(--type-micro);
 }
 
 .wrapper[data-density="compact"] .textarea {
-  min-height: var(--editor-min-height-sm, 90px);
+  min-block-size: var(--editor-min-height-sm, 90px);
   padding-block: var(--space-2);
   padding-inline: var(--space-2-5, 10px);
 }
 
 .wrapper[data-density="standard"] .textarea {
-  min-height: var(--editor-min-height, 120px);
+  min-block-size: var(--editor-min-height, 120px);
 }
 
 .wrapper[data-density="comfortable"] .toolBtn {
-  width: var(--space-7, 28px);
-  height: var(--space-7, 28px);
+  inline-size: var(--space-7, 28px);
+  block-size: var(--space-7, 28px);
 }
 
 .wrapper[data-density="comfortable"] .textarea {
-  min-height: var(--editor-min-height-lg, 180px);
+  min-block-size: var(--editor-min-height-lg, 180px);
   padding-block: var(--space-4);
   padding-inline: var(--space-4);
   font-size: var(--type-body-sm);

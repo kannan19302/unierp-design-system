@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { axe } from "vitest-axe";
-import { DataWorkspace } from "./data-shell";
+import { DataWorkspace, DataShell } from "./data-shell";
 
 const COLUMNS = [
   { key: "id", header: "ID" },
@@ -229,5 +229,34 @@ describe("DataWorkspace", () => {
     const dismissBtn = screen.getByRole("button", { name: "Remove filter Status" });
     fireEvent.click(dismissBtn);
     expect(onFilterChange).toHaveBeenCalledWith({ status: "" });
+  });
+
+  it("renders via DataShell alias", () => {
+    render(<DataShell columns={COLUMNS} data={DATA} title="Alias DataShell" />);
+    expect(screen.getByRole("heading", { name: "Alias DataShell" })).toBeInTheDocument();
+  });
+
+  it("exposes all data-slot anatomy attributes", () => {
+    const { container } = render(
+      <DataWorkspace
+        columns={COLUMNS}
+        data={DATA}
+        title="Test Title"
+        segments={["Admin", "Users"]}
+        pagination={{
+          page: 1,
+          pageSize: 10,
+          total: 20,
+          onPageChange: vi.fn(),
+        }}
+      />
+    );
+    expect(container.querySelector('[data-slot="data-shell"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-shell-context-bar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-shell-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-shell-toolbar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-shell-table-wrapper"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-shell-table"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-shell-pagination"]')).toBeInTheDocument();
   });
 });

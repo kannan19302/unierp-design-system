@@ -2,8 +2,26 @@
 
 import React, { useState, forwardRef, type ReactNode, type ChangeEvent, type HTMLAttributes } from "react";
 import { Search } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import { PageHeader } from "../page-header";
 import styles from "./list-page.module.css";
+
+export type TemplateDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+type ShellDensity = TemplateDensity;
+
+export const listPageVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 export interface ListColumn<T = Record<string, unknown>> {
   key: string;
@@ -27,7 +45,8 @@ export interface ListPaginationProps {
 }
 
 export interface ListPageTemplateProps<T = Record<string, unknown>>
-  extends HTMLAttributes<HTMLDivElement> {
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof listPageVariants> {
   title?: string;
   subtitle?: string;
   actions?: ReactNode;
@@ -43,19 +62,22 @@ export interface ListPageTemplateProps<T = Record<string, unknown>>
   emptyDescription?: string;
   /** Extra content between header and table (charts, tabs, etc.) */
   above?: ReactNode;
+  /** Strata 4-tier density scaling. */
+  density?: ShellDensity;
 }
 
 function Th({ children, width }: { children: ReactNode; width?: string }) {
   return (
-    <th className={styles.th} style={{ width }}>
+    <th data-slot="list-page-th" className={styles.th} style={{ width }}>
       {children}
     </th>
   );
 }
 
 function Td({ children }: { children: ReactNode }) {
-  return <td className={styles.td}>{children}</td>;
+  return <td data-slot="list-page-td" className={styles.td}>{children}</td>;
 }
+
 
 const SkeletonRow: React.FC<{ cols: number }> = ({ cols }) => (
   <tr>
@@ -91,6 +113,7 @@ function ListPageTemplateInner<T = Record<string, unknown>>(
     emptyTitle = "No results",
     emptyDescription = "Try adjusting your search or filters.",
     above,
+    density = "standard",
     className = "",
     ...props
   }: ListPageTemplateProps<T>,
@@ -120,22 +143,25 @@ function ListPageTemplateInner<T = Record<string, unknown>>(
   return (
     <div
       ref={ref}
-      className={`${styles.container} ${className}`.trim()}
+      data-slot="list-page"
+      data-density={density}
+      className={`${listPageVariants({ density })} ${className}`.trim()}
       {...props}
     >
       {title && (
-        <PageHeader title={title} description={subtitle} actions={actions} />
+        <PageHeader density={density} title={title} description={subtitle} actions={actions} />
       )}
 
       {above}
 
       {/* Toolbar */}
       {(searchable || filters?.length) && (
-        <div className={styles.toolbar}>
+        <div data-slot="list-page-toolbar" className={styles.toolbar}>
           {searchable && (
-            <div className={styles.searchWrap}>
+            <div data-slot="list-page-search-wrap" className={styles.searchWrap}>
               <Search size={16} className={styles.searchIcon} aria-hidden="true" />
               <input
+                data-slot="list-page-search-input"
                 type="search"
                 value={search}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -149,6 +175,7 @@ function ListPageTemplateInner<T = Record<string, unknown>>(
           {filters?.map((f) => (
             <select
               key={f.key}
+              data-slot="list-page-filter-select"
               value={filterValues[f.key] ?? ""}
               onChange={(e) => handleFilterChange(f.key, e.target.value)}
               aria-label={f.label}
@@ -166,9 +193,9 @@ function ListPageTemplateInner<T = Record<string, unknown>>(
       )}
 
       {/* Table */}
-      <div className={styles.tableCard}>
+      <div data-slot="list-page-table-card" className={styles.tableCard}>
         <div className={styles.tableOverflow}>
-          <table className={styles.table}>
+          <table data-slot="list-page-table" className={styles.table}>
             <thead>
               <tr>
                 {columns.map((col) => (
@@ -185,7 +212,7 @@ function ListPageTemplateInner<T = Record<string, unknown>>(
                 ))
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={columns.length} className={styles.emptyState}>
+                  <td colSpan={columns.length} data-slot="list-page-empty" className={styles.emptyState}>
                     <div className={styles.emptyTitle}>{emptyTitle}</div>
                     <div>{emptyDescription}</div>
                   </td>
@@ -216,13 +243,13 @@ function ListPageTemplateInner<T = Record<string, unknown>>(
 
         {/* Pagination */}
         {pagination && (
-          <div className={styles.pagination}>
+          <div data-slot="list-page-pagination" className={styles.pagination}>
             <span>
               {pagination.total === 0
                 ? "No results"
                 : `Showing ${(pagination.page - 1) * pagination.pageSize + 1}–${Math.min(pagination.page * pagination.pageSize, pagination.total)} of ${pagination.total}`}
             </span>
-            <div className={styles.paginationActions}>
+            <div data-slot="list-page-pagination-actions" className={styles.paginationActions}>
               <button
                 type="button"
                 onClick={() => pagination.onPageChange(pagination.page - 1)}

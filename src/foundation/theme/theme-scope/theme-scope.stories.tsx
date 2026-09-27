@@ -4,7 +4,6 @@ import { Button } from "../../../primitives/button";
 import { Card } from "../../../compositions/card";
 import { Badge } from "../../../primitives/badge";
 
-
 const meta: Meta<typeof ThemeScope> = {
   title: "Foundation/Theme/ThemeScope",
   component: ThemeScope,
@@ -17,6 +16,18 @@ const meta: Meta<typeof ThemeScope> = {
       },
     },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+    platform: {
+      control: "select",
+      options: ["apps", "tenant-admin", "platform-admin", "developer", "ops", "marketing", "marketplace", "website"],
+      description: "Platform brand accent.",
+    },
+  },
 };
 
 export default meta;
@@ -26,11 +37,11 @@ export const Default: Story = {
   render: () => (
     <ThemeScope platform="tenant-admin" density="standard">
       <Card>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-2)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBlockEnd: "var(--space-2)" }}>
           <h4 style={{ margin: 0, fontSize: "var(--text-base)" }}>Tenant Administration Sub-Tree</h4>
           <Badge variant="primary">Platform Accent</Badge>
         </div>
-        <p style={{ margin: "0 0 var(--space-3) 0", fontSize: "var(--type-body, 13px)" }}>
+        <p style={{ marginBlockEnd: "var(--space-3)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--type-body, 13px)" }}>
           Components inside this scope inherit tenant-admin emerald accents and standard 32px density.
         </p>
         <Button variant="primary">Scoped Action Button</Button>
@@ -44,7 +55,7 @@ export const DensityComparison: Story = {
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-4)" }}>
       <ThemeScope density="compact">
         <Card>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-2)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBlockEnd: "var(--space-2)" }}>
             <h4 style={{ margin: 0, fontSize: "var(--text-base)" }}>Compact Density</h4>
             <Badge variant="primary">30px controls</Badge>
           </div>
@@ -57,7 +68,7 @@ export const DensityComparison: Story = {
 
       <ThemeScope density="standard">
         <Card>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-2)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBlockEnd: "var(--space-2)" }}>
             <h4 style={{ margin: 0, fontSize: "var(--text-base)" }}>Standard Density</h4>
             <Badge variant="default">36px controls</Badge>
           </div>
@@ -70,7 +81,7 @@ export const DensityComparison: Story = {
 
       <ThemeScope density="comfortable">
         <Card>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-2)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBlockEnd: "var(--space-2)" }}>
             <h4 style={{ margin: 0, fontSize: "var(--text-base)" }}>Comfortable Density</h4>
             <Badge variant="success">42px controls</Badge>
           </div>
@@ -91,11 +102,11 @@ export const PlatformAccentsComparison: Story = {
         (platform) => (
           <ThemeScope key={platform} platform={platform}>
             <Card>
-              <div style={{ marginBottom: "var(--space-2)" }}>
+              <div style={{ marginBlockEnd: "var(--space-2)" }}>
                 <h4 style={{ margin: 0, fontSize: "var(--text-base)", textTransform: "capitalize" }}>{platform}</h4>
               </div>
               <div>
-                <Button variant="primary" style={{ width: "100%" }}>
+                <Button variant="primary" style={{ inlineSize: "100%" }}>
                   Accent Action
                 </Button>
               </div>
@@ -115,11 +126,11 @@ export const AllStatesGallery: Story = {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
         <div>
-          <h3 style={{ margin: "0 0 var(--space-3) 0", fontSize: "var(--text-sm)" }}>1. Density Spectrum</h3>
+          <h3 style={{ marginBlockEnd: "var(--space-3)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-sm)" }}>1. Density Spectrum</h3>
           {DensityView && <DensityView />}
         </div>
         <div>
-          <h3 style={{ margin: "0 0 var(--space-3) 0", fontSize: "var(--text-sm)" }}>2. Platform Accents Spectrum</h3>
+          <h3 style={{ marginBlockEnd: "var(--space-3)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-sm)" }}>2. Platform Accents Spectrum</h3>
           {AccentsView && <AccentsView />}
         </div>
       </div>

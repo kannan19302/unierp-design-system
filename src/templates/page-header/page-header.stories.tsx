@@ -7,6 +7,13 @@ const meta: Meta<typeof PageHeader> = {
   title: "Templates/PageHeader",
   component: PageHeader,
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+  },
   parameters: {
     a11y: {
       config: {
@@ -43,7 +50,7 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px", padding: "16px" }}>
       <div>
-        <h4 style={{ margin: "0 0 8px 0", color: "var(--color-text-primary)" }}>Full Header with Breadcrumbs & Badge</h4>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "8px", marginInline: 0, color: "var(--color-text-primary)" }}>Full Header with Breadcrumbs & Badge</h4>
         <PageHeader
           title="Purchase Order #PO-2026-891"
           subtitle="Vendor: Apex Industrial Components LLC"
@@ -63,7 +70,7 @@ export const AllStatesGallery: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 8px 0", color: "var(--color-text-primary)" }}>Minimal Header (Title & Description only)</h4>
+        <h4 style={{ marginBlockStart: 0, marginBlockEnd: "8px", marginInline: 0, color: "var(--color-text-primary)" }}>Minimal Header (Title & Description only)</h4>
         <PageHeader
           title="Tax Configuration"
           description="Jurisdiction rules, VAT/GST schedules, and withholding rates."
@@ -73,7 +80,31 @@ export const AllStatesGallery: Story = {
   ),
 };
 
+export const DensityGallery: Story = {
+  name: "Density scale comparison",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
+      {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+        <div key={density} style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: "var(--space-4)" }}>
+          <div style={{ fontWeight: 600, fontSize: "var(--text-xs)", marginBlockEnd: "var(--space-2)" }}>
+            Density: {density}
+          </div>
+          <PageHeader
+            density={density}
+            title={`Invoice Header (${density})`}
+            subtitle="Configured at specified density scale"
+            badge={<Badge variant="info">Active</Badge>}
+            breadcrumbs={[{ label: "Billing", href: "#" }, { label: "Invoices" }]}
+            actions={<Button size="sm">Action</Button>}
+          />
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 export const Default: Story = {
   ...AnatomyAndComposition,
 };
+
 

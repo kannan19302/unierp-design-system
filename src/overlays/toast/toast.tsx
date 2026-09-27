@@ -14,9 +14,31 @@ import {
 } from "react";
 import { CheckCircle2, AlertCircle, Info, XCircle, X } from "lucide-react";
 import { Portal } from "../../primitives/portal";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./toast.module.css";
 
 export type ToastVariant = "success" | "error" | "warning" | "info";
+
+export const toastVariants = cva(styles.item, {
+  variants: {
+    variant: {
+      success: styles.success,
+      error: styles.error,
+      warning: styles.warning,
+      info: styles.info,
+    },
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    variant: "info",
+    density: "standard",
+  },
+});
 
 export interface ToastOptions {
   title?: string;
@@ -51,7 +73,10 @@ const VARIANT_ICONS = {
   info: Info,
 };
 
-export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const ToastProvider: FC<{ children: ReactNode; density?: "ultra-compact" | "compact" | "standard" | "comfortable" }> = ({
+  children,
+  density = "standard",
+}) => {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
@@ -114,7 +139,12 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
     <ToastContext.Provider value={api}>
       {children}
       <Portal>
-        <div role="region" aria-label="Notifications" className={styles.container}>
+        <div
+          role="region"
+          aria-label="Notifications"
+          data-slot="toast-container"
+          className={styles.container}
+        >
           {toasts.map((t) => {
             const Icon = VARIANT_ICONS[t.variant];
             return (
@@ -122,21 +152,27 @@ export const ToastProvider: FC<{ children: ReactNode }> = ({ children }) => {
                 key={t.id}
                 role="status"
                 aria-live="polite"
-                className={`${styles.item} ${styles[t.variant]} ${
+                data-slot="toast"
+                data-variant={t.variant}
+                data-density={density}
+                className={`${toastVariants({ variant: t.variant, density })} ${
                   t.leaving ? styles.leaving : ""
                 }`}
               >
-                <Icon size={16} className={styles.icon} aria-hidden="true" />
-                <div className={styles.content}>
-                  {t.title && <div className={styles.title}>{t.title}</div>}
+                <Icon size={16} data-slot="toast-icon" className={styles.icon} aria-hidden="true" />
+                <div data-slot="toast-content" className={styles.content}>
+                  {t.title && <div data-slot="toast-title" className={styles.title}>{t.title}</div>}
                   {t.description && (
-                    <div className={styles.description}>{t.description}</div>
+                    <div data-slot="toast-description" className={styles.description}>
+                      {t.description}
+                    </div>
                   )}
                 </div>
                 <button
                   type="button"
                   onClick={() => dismiss(t.id)}
                   aria-label="Dismiss notification"
+                  data-slot="toast-dismiss"
                   className={styles.dismissBtn}
                 >
                   <X size={12} aria-hidden="true" />
@@ -164,50 +200,68 @@ export function useToast(): ToastApi {
   return ctx || NOOP_TOAST;
 }
 
-export interface ToastProps {
+export interface ToastProps
+  extends Omit<VariantProps<typeof toastVariants>, "variant"> {
   title?: string;
   description?: string;
   variant?: ToastVariant;
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   onDismiss?: () => void;
   className?: string;
 }
 
 /**
  * `<Toast>` — Individual notification alert pill with status icon and dismiss control.
+ * Benchmarked against Sonner, Radix Toast, and SLDS Toast.
+ *
  * @maturity stable
  */
-export const Toast = forwardRef<HTMLDivElement, ToastProps>(({
-  title,
-  description,
-  variant = "info",
-  onDismiss,
-  className = "",
-}, ref) => {
-  const Icon = VARIANT_ICONS[variant];
-  return (
-    <div
-      ref={ref}
-      role="status"
-      aria-live="polite"
-      className={`${styles.item} ${styles[variant]} ${className}`.trim()}
-    >
-      <Icon size={16} className={styles.icon} aria-hidden="true" />
-      <div className={styles.content}>
-        {title && <div className={styles.title}>{title}</div>}
-        {description && <div className={styles.description}>{description}</div>}
+export const Toast = forwardRef<HTMLDivElement, ToastProps>(
+  (
+    {
+      title,
+      description,
+      variant = "info",
+      density = "standard",
+      onDismiss,
+      className = "",
+    },
+    ref
+  ) => {
+    const Icon = VARIANT_ICONS[variant];
+    return (
+      <div
+        ref={ref}
+        role="status"
+        aria-live="polite"
+        data-slot="toast"
+        data-variant={variant}
+        data-density={density}
+        className={toastVariants({ variant, density, className })}
+      >
+        <Icon size={16} data-slot="toast-icon" className={styles.icon} aria-hidden="true" />
+        <div data-slot="toast-content" className={styles.content}>
+          {title && <div data-slot="toast-title" className={styles.title}>{title}</div>}
+          {description && (
+            <div data-slot="toast-description" className={styles.description}>
+              {description}
+            </div>
+          )}
+        </div>
+        {onDismiss && (
+          <button
+            type="button"
+            onClick={onDismiss}
+            aria-label="Dismiss notification"
+            data-slot="toast-dismiss"
+            className={styles.dismissBtn}
+          >
+            <X size={12} aria-hidden="true" />
+          </button>
+        )}
       </div>
-      {onDismiss && (
-        <button
-          type="button"
-          onClick={onDismiss}
-          aria-label="Dismiss notification"
-          className={styles.dismissBtn}
-        >
-          <X size={12} aria-hidden="true" />
-        </button>
-      )}
-    </div>
-  );
-});
+    );
+  }
+);
 
 Toast.displayName = "Toast";

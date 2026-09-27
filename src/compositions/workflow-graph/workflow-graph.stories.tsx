@@ -57,6 +57,25 @@ const meta: Meta<typeof WorkflowGraph> = {
   parameters: {
     layout: "padded",
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata DL 4-tier density scaling",
+    },
+    nodes: {
+      control: "object",
+      description: "Array of workflow graph nodes",
+    },
+    edges: {
+      control: "object",
+      description: "Array of directed bezier edges connecting nodes",
+    },
+    height: {
+      control: "number",
+      description: "Canvas minimum block size in pixels",
+    },
+  },
 };
 
 export default meta;
@@ -98,4 +117,35 @@ export const AllStatesGallery: Story = {
       </div>
     </div>
   ),
+};
+
+export const DensityGallery: Story = {
+  render: () => {
+    const linearNodes: WorkflowNode[] = [
+      { id: "n1", title: "Validation", status: "completed", x: 20, y: 40 },
+      { id: "n2", title: "Execution", status: "running", x: 280, y: 40 },
+    ];
+    const linearEdges: WorkflowEdge[] = [
+      { id: "e1", from: "n1", to: "n2", label: "Valid" },
+    ];
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+
+    return (
+      <div style={{ display: "grid", gap: "var(--space-6)" }}>
+        {densities.map((d) => (
+          <div key={d} style={{ display: "grid", gap: "var(--space-2)" }}>
+            <div style={{ fontWeight: 600, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Density: {d}
+            </div>
+            <WorkflowGraph
+              density={d}
+              nodes={linearNodes}
+              edges={linearEdges}
+              height={180}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  },
 };

@@ -5,6 +5,7 @@ import { Search, X, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 import { MeridianBar, type MeridianSegment, type MeridianAction, type MeridianState } from "../strata-bar";
 import { StrataBar } from "../strata-bar";
 import { PageHeader } from "../../templates/page-header";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./data-shell.module.css";
 
 export interface DataWorkspaceColumn<T = Record<string, unknown>> {
@@ -89,6 +90,21 @@ export interface DataWorkspaceProps<T = Record<string, unknown>> {
   above?: ReactNode;
   className?: string;
 }
+
+export const dataShellVariants = cva(styles.root, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      default: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
 
 function DataWorkspaceInner<T = Record<string, unknown>>(
   {
@@ -362,40 +378,43 @@ function DataWorkspaceInner<T = Record<string, unknown>>(
   return (
     <div
       ref={ref}
-      className={`${styles.root} ${className}`.trim()}
+      data-slot="data-shell"
+      className={dataShellVariants({ density, className })}
       data-floorplan="data-workspace"
       data-density={density === "default" ? "standard" : density}
     >
       {/* Context Boundary */}
       {segments && segments.length > 0 && (
-        typeof segments[0] === "string" ? (
-          <StrataBar
-            segments={segments as readonly string[]}
-            state={
-              state
-                ? {
-                    kind: (state.tone as "neutral" | "success" | "warning" | "danger" | "info") || "neutral",
-                    label: state.label,
-                  }
-                : undefined
-            }
-            action={strataAction}
-            className={styles.meridianBar}
-          />
-        ) : (
-          <MeridianBar
-            segments={segments as MeridianSegment[]}
-            state={state}
-            action={action}
-            copyable
-            className={styles.meridianBar}
-          />
-        )
+        <div data-slot="data-shell-context-bar">
+          {typeof segments[0] === "string" ? (
+            <StrataBar
+              segments={segments as readonly string[]}
+              state={
+                state
+                  ? {
+                      kind: (state.tone as "neutral" | "success" | "warning" | "danger" | "info") || "neutral",
+                      label: state.label,
+                    }
+                  : undefined
+              }
+              action={strataAction}
+              className={styles.meridianBar}
+            />
+          ) : (
+            <MeridianBar
+              segments={segments as MeridianSegment[]}
+              state={state}
+              action={action}
+              copyable
+              className={styles.meridianBar}
+            />
+          )}
+        </div>
       )}
 
       {/* Page Title & Actions */}
       {title && (
-        <div className={styles.headerWrap}>
+        <div data-slot="data-shell-header" className={styles.headerWrap}>
           <PageHeader title={title} description={subtitle} actions={actions} />
         </div>
       )}
@@ -408,7 +427,7 @@ function DataWorkspaceInner<T = Record<string, unknown>>(
 
       {/* Toolbar & Filter Bar */}
       {(searchable || (filters && filters.length > 0) || (effectiveSelectedCount > 0 && bulkActions) || toolbarActions) && (
-        <div className={styles.toolbar}>
+        <div data-slot="data-shell-toolbar" className={styles.toolbar}>
           {effectiveSelectedCount > 0 && bulkActions ? (
             <div className={styles.bulkWrap}>
               <span className={styles.bulkCount}>{effectiveSelectedCount} selected</span>
@@ -494,9 +513,9 @@ function DataWorkspaceInner<T = Record<string, unknown>>(
       )}
 
       {/* Data Table Surface */}
-      <div className={styles.tableCard}>
+      <div data-slot="data-shell-table-wrapper" className={styles.tableCard}>
         <div className={styles.tableOverflow} role="region" aria-label={`${title ?? "Records"} table`} tabIndex={0} aria-busy={loading}>
-          <table className={styles.table}>
+          <table data-slot="data-shell-table" className={styles.table}>
             <caption className={styles.visuallyHidden}>{title ?? "Records"}</caption>
             <thead>
               <tr>
@@ -621,7 +640,7 @@ function DataWorkspaceInner<T = Record<string, unknown>>(
 
         {/* Synchronized Pagination */}
         {pagination && (
-          <div className={styles.pagination}>
+          <div data-slot="data-shell-pagination" className={styles.pagination}>
             <span className={styles.paginationText}>
               {pagination.total === 0
                 ? "No records"
@@ -669,4 +688,8 @@ export const DataWorkspace = forwardRef(DataWorkspaceInner) as <T = Record<strin
 ) => React.ReactElement;
 
 (DataWorkspace as any).displayName = "DataWorkspace";
+
+// Directory-level alias
+export const DataShell = DataWorkspace;
+export type DataShellProps<T = Record<string, unknown>> = DataWorkspaceProps<T>;
 

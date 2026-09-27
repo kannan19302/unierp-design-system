@@ -1,9 +1,24 @@
 "use client";
 
 import { forwardRef, type HTMLAttributes } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./separator.module.css";
 
-export interface SeparatorProps extends HTMLAttributes<HTMLDivElement> {
+export const separatorVariants = cva(styles.separator, {
+  variants: {
+    orientation: {
+      horizontal: styles.horizontal,
+      vertical: styles.vertical,
+    },
+  },
+  defaultVariants: {
+    orientation: "horizontal",
+  },
+});
+
+export interface SeparatorProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof separatorVariants> {
   /** Orientation of the divider */
   orientation?: "horizontal" | "vertical";
   /** Whether the element is purely visual or semantic to assistive technology */
@@ -12,8 +27,7 @@ export interface SeparatorProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * `<Separator>` — Visual or semantic divider primitive adhering to Strata DL 3.0.
- *
- * Provides horizontal or vertical line separators with accessible ARIA semantics.
+ * Standardized with cva, data-slot, and W3C APG separator pattern.
  *
  * @maturity stable
  * @since 3.0.0
@@ -28,13 +42,7 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
     },
     ref
   ) => {
-    const rootClass = [
-      styles.separator,
-      styles[orientation],
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
+    const rootClass = `${separatorVariants({ orientation })} ${className}`.trim();
 
     const ariaProps = decorative
       ? { "aria-hidden": true }
@@ -43,6 +51,8 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
     return (
       <div
         ref={ref}
+        data-slot="separator"
+        data-orientation={orientation}
         className={rootClass}
         {...ariaProps}
         {...props}

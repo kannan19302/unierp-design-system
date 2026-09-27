@@ -11,6 +11,7 @@ import {
   type ChangeEvent,
 } from "react";
 import { RotateCcw, PenTool, Type } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import { cn } from "../../foundation/utils/cn";
 import styles from "./signature-pad.module.css";
 
@@ -18,7 +19,26 @@ export type SignaturePadDensity = "ultra-compact" | "compact" | "standard" | "co
 
 export type SignatureMode = "draw" | "type";
 
-export interface SignaturePadProps {
+export const signaturePadVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles["ultra-compact"] || "",
+      compact: styles.compact || "",
+      standard: styles.standard || "",
+      comfortable: styles.comfortable || "",
+    },
+    disabled: {
+      true: styles.disabled,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+    disabled: false,
+  },
+});
+
+export interface SignaturePadProps extends VariantProps<typeof signaturePadVariants> {
   id?: string;
   onSave?: (dataUrl: string) => void;
   width?: number;
@@ -43,6 +63,7 @@ const DENSITY_DIMENSIONS: Record<SignaturePadDensity, { width: number; height: n
 /**
  * SignaturePad provides an HTML5 canvas drawing surface for electronic signatures,
  * along with an accessible keyboard-usable typed signature alternative.
+ * Standardized with cva, data-slot, and accessible signature capture semantics.
  *
  * @maturity stable
  */
@@ -206,12 +227,15 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
 
   return (
     <div
-      className={cn(styles.container, disabled && styles.disabled, className)}
+      data-slot="signature-pad"
       data-density={density}
+      data-disabled={disabled ? "true" : undefined}
+      data-invalid={invalid || Boolean(error) ? "true" : undefined}
+      className={cn(signaturePadVariants({ density, disabled: !!disabled }), className)}
     >
       {label && (
-        <div className={styles.labelRow}>
-          <span className={styles.label}>
+        <div data-slot="signature-pad-label-row" className={styles.labelRow}>
+          <span data-slot="signature-pad-label" className={styles.label}>
             {label}
             {required && <span className={styles.requiredIndicator} aria-hidden="true"> *</span>}
           </span>
@@ -219,14 +243,15 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
       )}
 
       {description && (
-        <div id={descId} className={styles.description}>
+        <div id={descId} data-slot="signature-pad-description" className={styles.description}>
           {description}
         </div>
       )}
 
-      <div className={styles.modeTabs} role="tablist" aria-label="Signature input mode">
+      <div data-slot="signature-pad-mode-tabs" className={styles.modeTabs} role="tablist" aria-label="Signature input mode">
         <button
           type="button"
+          data-slot="signature-pad-tab-draw"
           role="tab"
           aria-selected={mode === "draw"}
           aria-controls={`${inputId}-draw-panel`}
@@ -239,6 +264,7 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
         </button>
         <button
           type="button"
+          data-slot="signature-pad-tab-type"
           role="tab"
           aria-selected={mode === "type"}
           aria-controls={`${inputId}-type-panel`}
@@ -253,6 +279,7 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
 
       <div
         id={`${inputId}-draw-panel`}
+        data-slot="signature-pad-draw-panel"
         role="tabpanel"
         aria-hidden={mode !== "draw"}
         style={{ display: mode === "draw" ? "inline-flex" : "none" }}
@@ -261,6 +288,7 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
         <canvas
           ref={canvasRef}
           id={inputId}
+          data-slot="signature-pad-canvas"
           width={width}
           height={height}
           onMouseDown={handleMouseDown}
@@ -275,14 +303,15 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
           aria-invalid={invalid || Boolean(error) ? "true" : undefined}
           aria-describedby={combinedDescribedBy}
         />
-        <div className={styles.baselineGuide} aria-hidden="true" />
+        <div data-slot="signature-pad-baseline" className={styles.baselineGuide} aria-hidden="true" />
       </div>
 
       {mode === "type" && (
         <div
           id={`${inputId}-type-panel`}
+          data-slot="signature-pad-type-panel"
           role="tabpanel"
-          style={{ width: `${width}px` }}
+          style={{ inlineSize: `${width}px` }}
           className={cn(styles.canvasWrapper, styles.typeContainer, (invalid || error) && styles.canvasError)}
         >
           <label htmlFor={`${inputId}-type-input`} className={styles.label}>
@@ -290,6 +319,7 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
           </label>
           <input
             id={`${inputId}-type-input`}
+            data-slot="signature-pad-type-input"
             type="text"
             value={typedSignature}
             onChange={handleTypedChange}
@@ -299,7 +329,7 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
             aria-describedby={combinedDescribedBy}
             className={styles.typedInput}
           />
-          <div className={styles.typedPreviewBox} aria-hidden="true">
+          <div data-slot="signature-pad-type-preview" className={styles.typedPreviewBox} aria-hidden="true">
             <span className={styles.typedPreview}>
               {typedSignature.trim() ? typedSignature : "Signature Preview"}
             </span>
@@ -307,7 +337,7 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
         </div>
       )}
 
-      <div className={styles.footer} style={{ maxWidth: `${width}px` }}>
+      <div data-slot="signature-pad-footer" className={styles.footer} style={{ maxInlineSize: `${width}px` }}>
         <div className={styles.hintSection}>
           <PenTool size={12} className={styles.hintIcon} aria-hidden="true" />
           <span className={styles.hint}>
@@ -317,6 +347,7 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
 
         <button
           type="button"
+          data-slot="signature-pad-clear"
           onClick={clear}
           disabled={disabled || !hasContent}
           className={styles.clearBtn}
@@ -328,7 +359,7 @@ export const SignaturePad = forwardRef<HTMLCanvasElement, SignaturePadProps>(({
       </div>
 
       {error && (
-        <span id={errorId} className={styles.errorMessage} role="alert">
+        <span id={errorId} data-slot="signature-pad-error" className={styles.errorMessage} role="alert">
           {error}
         </span>
       )}

@@ -14,17 +14,24 @@ const meta: Meta<typeof ThemeQuickToggle> = {
       },
     },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling.",
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof ThemeQuickToggle>;
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <ThemeProvider>
       <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", padding: "var(--space-4)", background: "var(--color-surface-elevated)", borderRadius: "var(--radius-md)" }}>
         <span>Toggle Theme:</span>
-        <ThemeQuickToggle />
+        <ThemeQuickToggle {...args} />
       </div>
     </ThemeProvider>
   ),
@@ -35,10 +42,10 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
           1. Light Mode Context
         </h4>
-        <ThemeProvider initialTheme="meridian">
+        <ThemeProvider initialTheme="strata">
           <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", padding: "var(--space-3)", border: "1px solid var(--color-border-default)", borderRadius: "var(--radius-sm)" }}>
             <span style={{ fontSize: "var(--text-xs)" }}>Active Light Theme:</span>
             <ThemeQuickToggle />
@@ -46,7 +53,7 @@ export const AllStatesGallery: Story = {
         </ThemeProvider>
       </div>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
           2. Dark Mode Context
         </h4>
         <ThemeProvider initialTheme="strata-dark">
@@ -57,5 +64,21 @@ export const AllStatesGallery: Story = {
         </ThemeProvider>
       </div>
     </div>
+  ),
+};
+
+export const DensityGallery: Story = {
+  name: "Density scale comparison",
+  render: () => (
+    <ThemeProvider>
+      <div style={{ display: "flex", gap: "var(--space-4)", alignItems: "center", padding: "var(--space-4)" }}>
+        {(["ultra-compact", "compact", "standard", "comfortable"] as const).map((density) => (
+          <div key={density} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--space-2)" }}>
+            <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>{density}</span>
+            <ThemeQuickToggle density={density} />
+          </div>
+        ))}
+      </div>
+    </ThemeProvider>
   ),
 };

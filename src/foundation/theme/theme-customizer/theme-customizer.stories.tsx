@@ -35,7 +35,7 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)" }}>Default Enterprise Theme Preset</h4>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-sm)" }}>Default Enterprise Theme Preset</h4>
         <ThemeCustomizer
           initialConfig={{
             tenantName: "Acme Enterprise Corp",
@@ -47,7 +47,7 @@ export const AllStatesGallery: Story = {
         />
       </div>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-sm)" }}>High-Contrast Trading & Ledger Preset</h4>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", marginBlockStart: 0, marginInline: 0, fontSize: "var(--text-sm)" }}>High-Contrast Trading & Ledger Preset</h4>
         <ThemeCustomizer
           initialConfig={{
             tenantName: "Quantitative Capital Partners",

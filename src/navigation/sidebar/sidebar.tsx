@@ -18,8 +18,30 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
 } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import { DropdownMenu } from "../../overlays/dropdown-menu";
 import styles from "./sidebar.module.css";
+
+export const sideNavVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+    collapsed: {
+      true: styles.collapsed,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+    collapsed: false,
+  },
+});
+
+export type SideNavVariants = VariantProps<typeof sideNavVariants>;
 
 export interface SideNavAction {
   icon: ReactNode;
@@ -68,6 +90,7 @@ export interface SideNavSearchResult {
 }
 
 export interface SideNavProps extends React.HTMLAttributes<HTMLElement> {
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
   items?: SideNavItem[];
   sections?: SideNavSection[];
   header?: ReactNode;
@@ -102,6 +125,7 @@ export interface SideNavProps extends React.HTMLAttributes<HTMLElement> {
 export const SideNav = forwardRef<HTMLElement, SideNavProps>(
   (
     {
+      density = "standard",
       items,
       sections: propSections,
       header,
@@ -270,13 +294,6 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     const hasChildren = item.items && item.items.length > 0;
     const itemTitle = typeof item.label === "string" ? item.label : undefined;
     const isExpanded = lowerQuery ? true : (expandedItems[item.key] ?? item.defaultExpanded ?? true);
-    const itemContent = (
-      <>
-        {item.icon && <span className={styles.icon} aria-hidden="true">{item.icon}</span>}
-        {!collapsed && <span className={styles.label}>{item.label}</span>}
-        {!collapsed && item.badge && <span className={styles.badge}>{item.badge}</span>}
-      </>
-    );
 
     const itemAriaLabel =
       (isStarredSection && itemTitle ? `Starred: ${itemTitle}` : undefined) ??
@@ -285,7 +302,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       (collapsed ? itemTitle : undefined);
 
     return (
-      <div key={item.key} className={styles.itemWrapper}>
+      <div key={item.key} className={styles.itemWrapper} data-slot="side-nav-item">
         <div
           className={`${styles.itemRow} ${item.active ? styles.active : ""} ${
             depth > 0 ? styles.nestedItem : ""
@@ -296,15 +313,21 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             <a href={item.href} onClick={item.onClick} className={styles.itemBtn}
               title={collapsed ? itemTitle : undefined}
               aria-label={itemAriaLabel}
-              aria-current={item.active ? "page" : undefined}>
-              {itemContent}
+              aria-current={item.active ? "page" : undefined}
+              data-slot="side-nav-item-button">
+              {item.icon && <span className={styles.icon} data-slot="side-nav-item-icon" aria-hidden="true">{item.icon}</span>}
+              {!collapsed && <span className={styles.label} data-slot="side-nav-item-label">{item.label}</span>}
+              {!collapsed && item.badge && <span className={styles.badge} data-slot="side-nav-item-badge">{item.badge}</span>}
             </a>
           ) : (
             <button type="button" disabled={item.disabled} onClick={item.onClick}
               className={styles.itemBtn} title={collapsed ? itemTitle : undefined}
               aria-label={itemAriaLabel}
-              aria-current={item.active ? "page" : undefined}>
-              {itemContent}
+              aria-current={item.active ? "page" : undefined}
+              data-slot="side-nav-item-button">
+              {item.icon && <span className={styles.icon} data-slot="side-nav-item-icon" aria-hidden="true">{item.icon}</span>}
+              {!collapsed && <span className={styles.label} data-slot="side-nav-item-label">{item.label}</span>}
+              {!collapsed && item.badge && <span className={styles.badge} data-slot="side-nav-item-badge">{item.badge}</span>}
             </button>
           )}
 
@@ -312,6 +335,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             <button type="button" className={styles.itemExpandBtn}
               aria-label={`${isExpanded ? "Collapse" : "Expand"} ${itemTitle ?? "navigation"} items`}
               aria-expanded={isExpanded}
+              data-slot="side-nav-item-expand"
               onClick={() => setExpandedItems((previous) => ({ ...previous, [item.key]: !isExpanded }))}>
               <ChevronDown size={14} className={`${styles.chevron} ${isExpanded ? "" : styles.chevronCollapsed}`} aria-hidden="true" />
             </button>
@@ -328,6 +352,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
               }}
               title={item.quickAction.label}
               aria-label={item.quickAction.label}
+              data-slot="side-nav-item-quick-action"
             >
               {item.quickAction.icon}
             </button>
@@ -370,13 +395,14 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
     <aside
       ref={ref}
       aria-label="Side Navigation"
+      data-slot="side-nav"
       data-collapsed={collapsed ? "true" : "false"}
       data-testid={testId}
-      className={`${styles.container} ${collapsed ? styles.collapsed : ""} ${className}`.trim()}
+      className={`${sideNavVariants({ density, collapsed })} ${className}`.trim()}
       {...rest}
     >
       {/* Header Area */}
-      <div className={styles.headerRow}>
+      <div className={styles.headerRow} data-slot="side-nav-header">
         {header && <div className={styles.header}>{header}</div>}
         {onToggleCollapse && (
           <button
@@ -385,6 +411,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
             className={styles.collapseToggleBtn}
             aria-label={collapsed ? "Expand sidebar ([)" : "Collapse sidebar ([)"}
             title={collapsed ? "Expand sidebar ([)" : "Collapse sidebar ([)"}
+            data-slot="side-nav-collapse-button"
           >
             {collapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
           </button>
@@ -393,7 +420,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
 
       {/* Search Input */}
       {searchable && (
-        <div className={styles.searchWrapper}>
+        <div className={styles.searchWrapper} data-slot="side-nav-search">
           {collapsed && onToggleCollapse ? (
             <button type="button" className={styles.collapsedSearchBtn}
               aria-label="Expand sidebar and search"
@@ -414,6 +441,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
                 placeholder={searchPlaceholder}
                 className={styles.searchInput}
                 aria-label={searchAriaLabel ?? "Search navigation"}
+                data-slot="side-nav-search-input"
               />
               {query ? (
                 <button
@@ -436,6 +464,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       <nav
         className={styles.nav}
         aria-label={navigationLabel}
+        data-slot="side-nav-content"
         onKeyDown={(e) => {
           if (e.key === "Escape") {
             onEscape?.();
@@ -463,13 +492,13 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
           <>
             {/* Starred / Pinned Section (Atlassian Style) */}
             {favoritedItems.length > 0 && !collapsed && (
-              <div className={styles.sectionGroup} data-section="starred">
+              <div className={styles.sectionGroup} data-section="starred" data-slot="side-nav-section">
                 <div className={styles.sectionHeaderStatic}>
                   <Star size={12} className={styles.starHeaderIcon} aria-hidden="true" />
-                  <span className={styles.sectionTitle}>Starred</span>
-                  <span className={styles.sectionCount}>{favoritedItems.length}</span>
+                  <span className={styles.sectionTitle} data-slot="side-nav-section-title">Starred</span>
+                  <span className={styles.sectionCount} data-slot="side-nav-section-count">{favoritedItems.length}</span>
                 </div>
-                <div className={styles.sectionBody}>
+                <div className={styles.sectionBody} data-slot="side-nav-section-body">
                   {favoritedItems.map((fav) => renderItem(fav, 0, true))}
                 </div>
               </div>
@@ -482,9 +511,9 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
               const isSecCollapsed = Boolean(collapsedSections[secKey]);
 
               return (
-                <div key={secKey} className={styles.sectionGroup}>
+                <div key={secKey} className={styles.sectionGroup} data-slot="side-nav-section">
                   {section.title && !collapsed && (
-                    <div className={styles.sectionHeaderRow}>
+                    <div className={styles.sectionHeaderRow} data-slot="side-nav-section-header">
                       {isCollapsible ? <button
                         type="button" onClick={() => toggleSection(secKey)}
                         className={`${styles.sectionHeaderBtn} ${styles.interactive}`}
@@ -499,14 +528,14 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
                           />
                         )}
                         {section.icon && <span className={styles.sectionIcon}>{section.icon}</span>}
-                        <span className={styles.sectionTitle}>{section.title}</span>
+                        <span className={styles.sectionTitle} data-slot="side-nav-section-title">{section.title}</span>
                         {section.badge ? (
-                          <span className={styles.sectionBadge}>{section.badge}</span>
-                        ) : <span className={styles.sectionCount}>{section.items.length}</span>}
+                          <span className={styles.sectionBadge} data-slot="side-nav-section-badge">{section.badge}</span>
+                        ) : <span className={styles.sectionCount} data-slot="side-nav-section-count">{section.items.length}</span>}
                       </button> : <div className={styles.sectionHeaderBtn}>
                         {section.icon && <span className={styles.sectionIcon}>{section.icon}</span>}
-                        <span className={styles.sectionTitle}>{section.title}</span>
-                        {section.badge && <span className={styles.sectionBadge}>{section.badge}</span>}
+                        <span className={styles.sectionTitle} data-slot="side-nav-section-title">{section.title}</span>
+                        {section.badge && <span className={styles.sectionBadge} data-slot="side-nav-section-badge">{section.badge}</span>}
                       </div>}
 
                       {section.quickAction && (
@@ -531,7 +560,7 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
                   )}
 
                   {(!isSecCollapsed || collapsed) && (
-                    <div className={styles.sectionBody}>
+                    <div className={styles.sectionBody} data-slot="side-nav-section-body">
                       {section.items.map((item) => renderItem(item))}
                     </div>
                   )}
@@ -565,10 +594,14 @@ export const SideNav = forwardRef<HTMLElement, SideNavProps>(
       </nav>
 
       {/* Footer Area */}
-      {footer && <div className={styles.footer}>{footer}</div>}
+      {footer && <div className={styles.footer} data-slot="side-nav-footer">{footer}</div>}
     </aside>
   );
 }
 );
 
 SideNav.displayName = "SideNav";
+
+export const Sidebar = SideNav;
+export type SidebarProps = SideNavProps;
+

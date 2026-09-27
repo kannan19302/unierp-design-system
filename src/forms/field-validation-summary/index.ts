@@ -1,1 +1,7 @@
-export { FieldValidationSummary, type FieldValidationSummaryProps } from "./field-validation-summary";
+export {
+  FieldValidationSummary,
+  type FieldValidationSummaryProps,
+  fieldValidationSummaryVariants,
+  type FieldValidationSummaryDensity,
+  type ValidationError,
+} from "./field-validation-summary";

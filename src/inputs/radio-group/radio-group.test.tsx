@@ -10,10 +10,16 @@ const OPTIONS = [
 ];
 
 describe("Strata V1 RadioGroup Primitive", () => {
-  it("renders options with labels and hints", () => {
-    render(<RadioGroup options={OPTIONS} value="a" />);
+  it("renders options with labels and hints and exposes data-slot", () => {
+    const { container } = render(<RadioGroup options={OPTIONS} value="a" density="compact" orientation="horizontal" />);
     expect(screen.getByText("Option A")).toBeInTheDocument();
     expect(screen.getByText("Hint A")).toBeInTheDocument();
+    const group = container.querySelector('[data-slot="radio-group"]');
+    expect(group).toBeInTheDocument();
+    expect(group).toHaveAttribute("data-orientation", "horizontal");
+    expect(group).toHaveAttribute("data-density", "compact");
+    expect(container.querySelector('[data-slot="radio-group-item"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="radio-group-indicator"]')).toBeInTheDocument();
   });
 
   it("selects an option on change", () => {

@@ -16,6 +16,12 @@ const meta: Meta<typeof Breadcrumb> = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+  },
 };
 
 export default meta;
@@ -23,6 +29,7 @@ type Story = StoryObj<typeof Breadcrumb>;
 
 export const Default: Story = {
   args: {
+    density: "standard",
     items: [
       { label: "Finance", href: "#" },
       { label: "General Ledger", href: "#" },
@@ -30,6 +37,29 @@ export const Default: Story = {
       { label: "JV-2026-0048" },
     ],
   },
+};
+
+export const Densities: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+      <Breadcrumb
+        density="ultra-compact"
+        items={[{ label: "Root", href: "#" }, { label: "Ultra-compact" }]}
+      />
+      <Breadcrumb
+        density="compact"
+        items={[{ label: "Root", href: "#" }, { label: "Compact" }]}
+      />
+      <Breadcrumb
+        density="standard"
+        items={[{ label: "Root", href: "#" }, { label: "Standard" }]}
+      />
+      <Breadcrumb
+        density="comfortable"
+        items={[{ label: "Root", href: "#" }, { label: "Comfortable" }]}
+      />
+    </div>
+  ),
 };
 
 export const CallbackAncestor: Story = {
@@ -46,7 +76,7 @@ export const CallbackAncestor: Story = {
 
 export const AnatomyAndComposition: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", padding: "var(--space-4)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)" }}>
       <div style={{ fontSize: "var(--font-size-xs)", color: "var(--color-text-secondary)" }}>
         <strong>Breadcrumb Anatomy:</strong> &lt;nav&gt; landmark with ordered list &lt;ol&gt;, interactive ancestor &lt;a&gt; links with focus rings, accessible SVG separators, and unlinked current terminal segment with aria-current="page".
       </div>
@@ -64,12 +94,12 @@ export const AnatomyAndComposition: Story = {
 
 export const AllStatesGallery: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)", background: "var(--color-bg-sunken)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", paddingBlock: "var(--space-4)", paddingInline: "var(--space-4)", background: "var(--color-bg-sunken)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
           1. Default Chevron Separator
         </h4>
-        <div style={{ padding: "var(--space-3)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
+        <div style={{ paddingBlock: "var(--space-3)", paddingInline: "var(--space-3)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
           <Breadcrumb
             aria-label="Shipment breadcrumb"
             items={[
@@ -83,10 +113,10 @@ export const AllStatesGallery: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
           2. Slash Separator Variant
         </h4>
-        <div style={{ padding: "var(--space-3)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
+        <div style={{ paddingBlock: "var(--space-3)", paddingInline: "var(--space-3)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
           <Breadcrumb
             aria-label="Security breadcrumb"
             separator={<Slash size={10} style={{ transform: "rotate(-20deg)", color: "var(--color-text-tertiary)" }} />}
@@ -100,10 +130,10 @@ export const AllStatesGallery: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
           3. Single Item (Root Destination)
         </h4>
-        <div style={{ padding: "var(--space-3)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
+        <div style={{ paddingBlock: "var(--space-3)", paddingInline: "var(--space-3)", background: "var(--color-bg-surface)", borderRadius: "var(--radius-md)" }}>
           <Breadcrumb
             aria-label="Dashboard breadcrumb"
             items={[{ label: "Global Dashboard" }]}

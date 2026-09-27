@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef } from "react";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./sankey-diagram.module.css";
 
 export interface SankeyNode {
@@ -15,12 +16,28 @@ export interface SankeyLink {
   value: number;
 }
 
+export const sankeyDiagramVariants = cva(styles.container, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
 export interface SankeyDiagramProps
   extends React.HTMLAttributes<HTMLDivElement> {
   nodes: SankeyNode[];
   links: SankeyLink[];
   height?: number;
   nodeWidth?: number;
+  /** 4-tier density scaling */
+  density?: "ultra-compact" | "compact" | "standard" | "comfortable";
 }
 
 /**
@@ -35,6 +52,7 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
       links,
       height = 300,
       nodeWidth: _nodeWidth = 20,
+      density = "standard",
       className = "",
       style,
       ...rest
@@ -50,14 +68,16 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
     return (
       <div
         ref={ref}
-        className={`${styles.container} ${className}`.trim()}
-        style={{ height, ...style }}
+        data-slot="sankey-diagram"
+        data-density={density}
+        className={sankeyDiagramVariants({ density, className })}
+        style={{ blockSize: height, ...style }}
         role="img"
         aria-label="Sankey diagram"
         {...rest}
       >
-        <div className={styles.columns}>
-          <div className={styles.nodeColumn}>
+        <div data-slot="sankey-diagram-columns" className={styles.columns}>
+          <div data-slot="sankey-diagram-node-column" className={styles.nodeColumn}>
             {sourceNodes.map((id) => {
               const node = nodes.find((n) => n.id === id);
               const nodeTotal = links
@@ -67,30 +87,32 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
               return (
                 <div
                   key={id}
+                  data-slot="sankey-diagram-node"
                   className={styles.node}
                   style={{
-                    height: Math.max(24, barH),
+                    blockSize: Math.max(24, barH),
                     background: node?.color || "var(--color-brand)",
                   }}
                 >
-                  <span className={styles.nodeLabel}>
+                  <span data-slot="sankey-diagram-node-label" className={styles.nodeLabel}>
                     {node?.label || id}
                   </span>
-                  <span className={styles.nodeValue}>
+                  <span data-slot="sankey-diagram-node-value" className={styles.nodeValue}>
                     {nodeTotal.toLocaleString()}
                   </span>
                 </div>
               );
             })}
           </div>
-          <div className={styles.flowArea}>
+          <div data-slot="sankey-diagram-flow-area" className={styles.flowArea}>
             <div className={styles.flowPlaceholder}>
               {links.map((l, i) => (
                 <div
                   key={i}
+                  data-slot="sankey-diagram-flow-band"
                   className={styles.flowBand}
                   style={{
-                    height: Math.max(
+                    blockSize: Math.max(
                       4,
                       (l.value / totalValue) * (height - 40)
                     ),
@@ -104,7 +126,7 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
               ))}
             </div>
           </div>
-          <div className={styles.nodeColumn}>
+          <div data-slot="sankey-diagram-node-column" className={styles.nodeColumn}>
             {targetNodes.map((id) => {
               const node = nodes.find((n) => n.id === id);
               const nodeTotal = links
@@ -114,16 +136,17 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(
               return (
                 <div
                   key={id}
+                  data-slot="sankey-diagram-node"
                   className={styles.node}
                   style={{
-                    height: Math.max(24, barH),
+                    blockSize: Math.max(24, barH),
                     background: node?.color || "var(--color-info)",
                   }}
                 >
-                  <span className={styles.nodeLabel}>
+                  <span data-slot="sankey-diagram-node-label" className={styles.nodeLabel}>
                     {node?.label || id}
                   </span>
-                  <span className={styles.nodeValue}>
+                  <span data-slot="sankey-diagram-node-value" className={styles.nodeValue}>
                     {nodeTotal.toLocaleString()}
                   </span>
                 </div>

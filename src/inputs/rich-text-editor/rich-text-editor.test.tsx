@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { RichTextEditor } from "./rich-text-editor";
+import { RichTextEditor, richTextEditorVariants } from "./rich-text-editor";
 import { sanitizeHtml } from "./sanitize-html";
 
 describe("RichTextEditor Primitive", () => {
@@ -56,4 +56,30 @@ describe("RichTextEditor Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("supports richTextEditorVariants cva and exposes data-slot annotations", () => {
+    expect(typeof richTextEditorVariants).toBe("function");
+    expect(richTextEditorVariants({ density: "compact", disabled: true })).toBeDefined();
+
+    const { container } = render(
+      <RichTextEditor
+        label="Meeting Notes"
+        description="Write action items"
+        value="Discussion items"
+        error="Required notes"
+        invalid
+      />,
+    );
+
+    expect(container.querySelector('[data-slot="rich-text-editor"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="rich-text-editor-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="rich-text-editor-description"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="rich-text-editor-container"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="rich-text-editor-toolbar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="rich-text-editor-tool-btn"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="rich-text-editor-divider"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="rich-text-editor-textarea"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="rich-text-editor-error"]')).toBeInTheDocument();
+  });
 });
+

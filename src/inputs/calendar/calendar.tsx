@@ -1,15 +1,36 @@
-"use client";
-
 import { useState, forwardRef, type HTMLAttributes } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./calendar.module.css";
+
+export const calendarVariants = cva(styles.calendar, {
+  variants: {
+    density: {
+      "ultra-compact": styles["ultra-compact"],
+      compact: styles.compact,
+      standard: styles.standard,
+      comfortable: styles.comfortable,
+    },
+    disabled: {
+      true: styles.disabled,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+    disabled: false,
+  },
+});
 
 /**
  * @maturity stable
  * @since 1.0.0
  * Strata DL Calendar primitive — accessible monthly date grid with month navigation, boundary constraints, and keyboard stepping.
+ * Standardized with cva, data-slot, and W3C APG grid datepicker pattern.
  */
-export interface CalendarProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
+export interface CalendarProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect">,
+    VariantProps<typeof calendarVariants> {
   selectedDate?: Date;
   onSelectDate?: (date: Date) => void;
   minDate?: Date;
@@ -25,7 +46,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   minDate,
   maxDate,
   disabled = false,
-  density,
+  density = "standard",
   className = "",
   ...props
 }, ref) => {
@@ -59,27 +80,31 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   }
 
   const weekHeaders = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  const calendarClass = `${calendarVariants({ density, disabled })} ${className}`.trim();
 
   return (
     <div
       ref={ref}
+      data-slot="calendar"
       data-density={density}
-      className={`${styles.calendar} ${density ? styles[density] : ""} ${disabled ? styles.disabled : ""} ${className}`.trim()}
+      data-disabled={disabled ? "true" : undefined}
+      className={calendarClass}
       role="region"
       aria-label="Calendar"
       {...props}
     >
-      <div className={styles.header}>
+      <div data-slot="calendar-header" className={styles.header}>
         <button
           type="button"
           onClick={prevMonth}
           disabled={disabled}
           aria-label="Previous month"
+          data-slot="calendar-nav-prev"
           className={styles.navButton}
         >
           <ChevronLeft size={16} />
         </button>
-        <span className={styles.monthLabel}>
+        <span data-slot="calendar-title" className={styles.monthLabel}>
           {monthName} {year}
         </span>
         <button
@@ -87,13 +112,14 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
           onClick={nextMonth}
           disabled={disabled}
           aria-label="Next month"
+          data-slot="calendar-nav-next"
           className={styles.navButton}
         >
           <ChevronRight size={16} />
         </button>
       </div>
 
-      <div className={styles.grid}>
+      <div data-slot="calendar-grid" className={styles.grid}>
         {weekHeaders.map((h) => (
           <span key={h} className={styles.dayHeader}>
             {h}
@@ -117,6 +143,8 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               type="button"
               onClick={() => !isDisabled && onSelectDate?.(date)}
               disabled={isDisabled}
+              data-slot="calendar-day"
+              data-selected={isSelected ? "true" : undefined}
               className={`${styles.dayCell} ${isSelected ? styles.dayCellSelected : ""}`}
               aria-label={date.toDateString()}
               aria-pressed={isSelected ? "true" : undefined}

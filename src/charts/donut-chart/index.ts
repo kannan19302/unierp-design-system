@@ -1,1 +1,7 @@
-export { DonutChart, type DonutChartProps } from "./donut-chart";
+export {
+  DonutChart,
+  type DonutChartProps,
+  type DonutSegment,
+  donutChartVariants,
+  type DonutChartDensity,
+} from "./donut-chart";

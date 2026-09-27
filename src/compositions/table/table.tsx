@@ -19,7 +19,50 @@ import {
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, ChevronRight } from "lucide-react";
 import { Skeleton } from "../../primitives/skeleton";
 import { EmptyState } from "../../compositions/empty-state";
+import { cva } from "../../foundation/utils/cva";
 import styles from "./table.module.css";
+
+export type TableDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
+
+/**
+ * Density token mapping for virtualized rows and high-throughput layout calculations.
+ * Consumes `--density-row-height`, `--density-control-height`, and `--type-sm-size`.
+ */
+export const DENSITY_TOKENS = {
+  "ultra-compact": "var(--density-row-height-xs, 24px)",
+  compact: "var(--density-row-height-sm, 28px)",
+  standard: "var(--density-row-height, 32px)",
+  comfortable: "var(--density-row-height, 40px)",
+} as const;
+
+export const dataTableVariants = cva(styles.root, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export const tableVariants = cva(styles.table, {
+  variants: {
+    density: {
+      "ultra-compact": styles.densityUltraCompact,
+      compact: styles.densityCompact,
+      standard: styles.densityStandard,
+      comfortable: styles.densityComfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
 export type ColumnAlign = "left" | "right" | "center";
 export type ColumnPin = "left" | "right";
 
@@ -48,7 +91,7 @@ export interface AggregateSummary<T> {
     | ((rows: T[]) => ReactNode);
 }
 
-export interface DataTableProps<T> {
+export interface DataTableProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   columns: Column<T>[];
   data: T[];
   loading?: boolean;
@@ -68,7 +111,7 @@ export interface DataTableProps<T> {
   bulkActions?: (selectedKeys: string[]) => ReactNode;
   /** Window rows inside a fixed-height scroll container (large datasets) */
   virtualized?: boolean;
-  /** Fixed row height in px used for windowing math (default 36 standard / 44 comfortable) */
+  /** Fixed row height in px used for windowing math (defaults to density-based height: 24, 28, 32, 40) */
   rowHeight?: number;
   /** Scroll container height in px when virtualized (default 480) */
   maxHeight?: number;
@@ -95,6 +138,8 @@ export interface DataTableProps<T> {
   footer?: ReactNode;
   /** Accessible label for each selectable row. */
   rowLabel?: (row: T, index: number) => string;
+  /** Strata DL density scaling: ultra-compact (24px), compact (28px), standard (32px), comfortable (40px) */
+  density?: TableDensity;
 }
 
 const OVERSCAN = 8;
@@ -145,7 +190,7 @@ function DataTableInner<T>(
     onSelectionChange,
     bulkActions,
     virtualized,
-    rowHeight = 36,
+    rowHeight,
     maxHeight = 480,
     groupBy,
     aggregates: _aggregates,
@@ -158,9 +203,22 @@ function DataTableInner<T>(
     toolbar,
     footer,
     rowLabel,
+    density = "standard",
+    className = "",
+    style,
+    ...props
   }: DataTableProps<T>,
   ref: ForwardedRef<HTMLDivElement>
 ) {
+  const defaultRowHeight =
+    density === "ultra-compact"
+      ? 24
+      : density === "compact"
+      ? 28
+      : density === "comfortable"
+      ? 40
+      : 32;
+  const effectiveRowHeight = rowHeight ?? defaultRowHeight;
   const get = (row: T, key: string) =>
     (row as Record<string, unknown>)[key] as ReactNode;
   const keyOf = useCallback(
@@ -287,7 +345,7 @@ function DataTableInner<T>(
   }, [data, groupBy, collapsedGroups]);
 
   // ── Windowing Math (virtualized datasets) ──
-  const windowing = !!virtualized && !loading && flatItems.length * rowHeight > maxHeight;
+  const windowing = !!virtualized && !loading && flatItems.length * effectiveRowHeight > maxHeight;
   const [scrollTop, setScrollTop] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const onScroll = windowing
@@ -295,17 +353,17 @@ function DataTableInner<T>(
     : undefined;
 
   const startIndex = windowing
-    ? Math.max(0, Math.floor(scrollTop / rowHeight) - OVERSCAN)
+    ? Math.max(0, Math.floor(scrollTop / effectiveRowHeight) - OVERSCAN)
     : 0;
   const endIndex = windowing
     ? Math.min(
         flatItems.length,
-        Math.ceil((scrollTop + maxHeight) / rowHeight) + OVERSCAN,
+        Math.ceil((scrollTop + maxHeight) / effectiveRowHeight) + OVERSCAN,
       )
     : flatItems.length;
 
-  const topSpacer = startIndex * rowHeight;
-  const bottomSpacer = (flatItems.length - endIndex) * rowHeight;
+  const topSpacer = startIndex * effectiveRowHeight;
+  const bottomSpacer = (flatItems.length - endIndex) * effectiveRowHeight;
   const visibleItems = windowing ? flatItems.slice(startIndex, endIndex) : flatItems;
   const colSpan = columns.length + (selectable ? 1 : 0);
 
@@ -352,8 +410,8 @@ function DataTableInner<T>(
 
   const syncScrollToRow = (targetRowIdx: number) => {
     if (!scrollRef.current || !windowing) return;
-    const rowTop = targetRowIdx * rowHeight;
-    const rowBottom = rowTop + rowHeight;
+    const rowTop = targetRowIdx * effectiveRowHeight;
+    const rowBottom = rowTop + effectiveRowHeight;
     const currentScrollTop = scrollRef.current.scrollTop;
     if (rowTop < currentScrollTop) {
       scrollRef.current.scrollTop = rowTop;
@@ -458,12 +516,14 @@ function DataTableInner<T>(
         key={`grp-${groupVal}-${absIndex}`}
         onClick={() => toggleGroup(groupVal)}
         className={styles.groupRow}
-        style={windowing ? ({ "--data-row-height": `${rowHeight}px` } as CSSProperties) : undefined}
+        data-slot="data-table-group-row"
+        style={windowing ? ({ "--data-row-height": `${effectiveRowHeight}px` } as CSSProperties) : undefined}
       >
-        <td colSpan={colSpan} className={styles.groupCell}>
+        <td colSpan={colSpan} className={styles.groupCell} data-slot="data-table-group-cell">
           <button
             type="button"
             className={styles.groupToggle}
+            data-slot="data-table-group-toggle"
             aria-expanded={!isCollapsed}
             onClick={(event) => {
               event.stopPropagation();
@@ -499,12 +559,14 @@ function DataTableInner<T>(
         tabIndex={onRowClick ? 0 : undefined}
         data-clickable={onRowClick ? "true" : undefined}
         className={styles.dataRow}
-        style={windowing ? ({ "--data-row-height": `${rowHeight}px` } as CSSProperties) : undefined}
+        data-slot="data-table-row"
+        style={windowing ? ({ "--data-row-height": `${effectiveRowHeight}px` } as CSSProperties) : undefined}
       >
         {selectable && (
           <td
             className={`${styles.cell} ${styles.selectionCell}`}
             onClick={(event) => event.stopPropagation()}
+            data-slot="data-table-selection-cell"
           >
             <input
               type="checkbox"
@@ -540,6 +602,7 @@ function DataTableInner<T>(
               }}
               className={`${styles.cell} ${isPinnedLeft || isPinnedRight ? styles.pinnedCell : ""} ${isLastLeft ? styles.pinnedLeftEdge : ""} ${isFirstRight ? styles.pinnedRightEdge : ""}`}
               tabIndex={keyboardNav ? 0 : undefined}
+              data-slot="data-table-cell"
               onFocus={() => setActiveCell({ row: absIndex, col: colIdx })}
               onDoubleClick={() => {
                 const isEditable = typeof c.editable === "function" ? c.editable(row) : c.editable;
@@ -554,10 +617,10 @@ function DataTableInner<T>(
                 }
               }}
               style={{
-                textAlign: c.align || "left",
+                textAlign: c.align === "right" ? "end" : c.align === "center" ? "center" : "start",
                 position: isPinnedLeft || isPinnedRight ? "sticky" : undefined,
-                left: leftOffset,
-                right: rightOffset,
+                insetInlineStart: leftOffset,
+                insetInlineEnd: rightOffset,
                 zIndex: isPinnedLeft || isPinnedRight ? 1 : undefined,
               }}
               data-active={isCellFocused ? "true" : undefined}
@@ -577,6 +640,7 @@ function DataTableInner<T>(
                     commitCellEdit(key, c.key, editValue);
                   }}
                   className={styles.cellEditor}
+                  data-slot="data-table-cell-editor"
                 />
               ) : c.render ? (
                 c.render(row, sourceIndex)
@@ -596,13 +660,15 @@ function DataTableInner<T>(
       tabIndex={0}
       className={styles.table}
       aria-label={caption ? undefined : ariaLabel ?? "Data table"}
+      data-slot="data-table-table"
     >
-      {caption && <caption className={styles.caption}>{caption}</caption>}
-      <thead>
-        <tr className={styles.headerRow}>
+      {caption && <caption className={styles.caption} data-slot="data-table-caption">{caption}</caption>}
+      <thead data-slot="data-table-header">
+        <tr className={styles.headerRow} data-slot="data-table-header-row">
           {selectable && (
             <th
               className={`${styles.headerCell} ${styles.selectionCell}`}
+              data-slot="data-table-header-cell"
             >
               <input
                 type="checkbox"
@@ -635,13 +701,14 @@ function DataTableInner<T>(
                       : "descending"
                     : undefined
                 }
+                data-slot="data-table-header-cell"
                 style={{
-                  textAlign: c.align || "left",
-                  width: c.width,
-                  minWidth: c.minWidth,
+                  textAlign: c.align === "right" ? "end" : c.align === "center" ? "center" : "start",
+                  inlineSize: c.width,
+                  minInlineSize: c.minWidth,
                   position: isPinnedLeft || isPinnedRight ? "sticky" : undefined,
-                  left: leftOffset,
-                  right: rightOffset,
+                  insetInlineStart: leftOffset,
+                  insetInlineEnd: rightOffset,
                   zIndex: isPinnedLeft || isPinnedRight ? 3 : 2,
                 }}
               >
@@ -649,6 +716,7 @@ function DataTableInner<T>(
                   <button
                     type="button"
                     className={styles.sortButton}
+                    data-slot="data-table-sort-button"
                     data-align={c.align ?? "left"}
                     onClick={() => handleSort(c)}
                   >
@@ -663,7 +731,7 @@ function DataTableInner<T>(
                     </span>
                   </button>
                 ) : (
-                  <span className={styles.headerContent} data-align={c.align ?? "left"}>
+                  <span className={styles.headerContent} data-slot="data-table-header-content" data-align={c.align ?? "left"}>
                   {c.header}
                   </span>
                 )}
@@ -672,33 +740,33 @@ function DataTableInner<T>(
           })}
         </tr>
       </thead>
-      <tbody>
+      <tbody data-slot="data-table-body">
         {loading ? (
           Array.from({ length: skeletonRows }).map((_, i) => (
-            <tr key={`skel-${i}`} className={styles.dataRow}>
+            <tr key={`skel-${i}`} className={styles.dataRow} data-slot="data-table-row">
               {selectable && (
-                <td className={`${styles.cell} ${styles.selectionCell}`}>
+                <td className={`${styles.cell} ${styles.selectionCell}`} data-slot="data-table-cell">
                   <Skeleton width={16} height={16} radius="sm" />
                 </td>
               )}
               {columns.map((c) => (
-                <td key={c.key} className={styles.cell}>
+                <td key={c.key} className={styles.cell} data-slot="data-table-cell">
                   <Skeleton width={`${50 + (i * 13) % 40}%`} height={16} />
                 </td>
               ))}
             </tr>
           ))
         ) : flatItems.length === 0 ? (
-          <tr>
-            <td colSpan={colSpan} className={styles.emptyCell}>
+          <tr data-slot="data-table-row">
+            <td colSpan={colSpan} className={styles.emptyCell} data-slot="data-table-cell">
               <EmptyState title={emptyTitle} description={emptyMessage} icon={emptyIcon} />
             </td>
           </tr>
         ) : (
           <>
             {windowing && topSpacer > 0 && (
-              <tr>
-                <td colSpan={colSpan} className={styles.spacerCell} style={{ height: topSpacer }} />
+              <tr data-slot="data-table-spacer-row">
+                <td colSpan={colSpan} className={styles.spacerCell} style={{ blockSize: topSpacer }} data-slot="data-table-spacer-cell" />
               </tr>
             )}
             {visibleItems.map((item, idx) => {
@@ -709,8 +777,8 @@ function DataTableInner<T>(
               return renderRow(item.row, absIndex, item.rowIndex);
             })}
             {windowing && bottomSpacer > 0 && (
-              <tr>
-                <td colSpan={colSpan} className={styles.spacerCell} style={{ height: bottomSpacer }} />
+              <tr data-slot="data-table-spacer-row">
+                <td colSpan={colSpan} className={styles.spacerCell} style={{ blockSize: bottomSpacer }} data-slot="data-table-spacer-cell" />
               </tr>
             )}
           </>
@@ -719,15 +787,16 @@ function DataTableInner<T>(
 
       {/* Summary Footer */}
       {summaryRow && (
-        <tfoot>
-          <tr className={styles.summaryRow}>
-            {selectable && <td className={styles.cell} />}
+        <tfoot data-slot="data-table-footer">
+          <tr className={styles.summaryRow} data-slot="data-table-footer-row">
+            {selectable && <td className={styles.cell} data-slot="data-table-cell" />}
             {columns.map((c) => (
               <td
                 key={`summary-${c.key}`}
                 className={styles.cell}
+                data-slot="data-table-cell"
                 style={{
-                  textAlign: c.align || "left",
+                  textAlign: c.align === "right" ? "end" : c.align === "center" ? "center" : "start",
                 }}
               >
                 {typeof summaryRow === "object" && summaryRow !== null && c.key in summaryRow
@@ -744,12 +813,18 @@ function DataTableInner<T>(
   return (
     <div
       ref={ref}
-      className={styles.root}
+      className={`${dataTableVariants({ density })} ${className}`.trim()}
+      data-slot="data-table"
+      data-density={density}
       aria-busy={loading ? true : undefined}
-      style={{ "--data-table-row-height": "var(--density-row-height)" } as CSSProperties}
+      style={{
+        "--data-table-row-height": `${effectiveRowHeight}px`,
+        ...style,
+      } as CSSProperties}
+      {...props}
     >
       {toolbar && (
-        <div className={styles.toolbar} role="toolbar" aria-label="Table controls">
+        <div className={styles.toolbar} role="toolbar" aria-label="Table controls" data-slot="data-table-toolbar">
           {toolbar}
         </div>
       )}
@@ -758,11 +833,12 @@ function DataTableInner<T>(
           role="toolbar"
           aria-label="Bulk actions"
           className={styles.bulkToolbar}
+          data-slot="data-table-bulk-toolbar"
         >
-          <span className={styles.selectionStatus} role="status" aria-live="polite">
+          <span className={styles.selectionStatus} role="status" aria-live="polite" data-slot="data-table-selection-status">
             {selected.size} selected
           </span>
-          <div className={styles.bulkActions}>{bulkActions([...selected])}</div>
+          <div className={styles.bulkActions} data-slot="data-table-bulk-actions">{bulkActions([...selected])}</div>
         </div>
       )}
 
@@ -786,6 +862,7 @@ function DataTableInner<T>(
           role="region"
           aria-label={`${ariaLabel ?? "Data table"} scroll area`}
           tabIndex={0}
+          data-slot="data-table-container"
           style={{
             maxBlockSize: maxHeight,
           }}
@@ -793,11 +870,11 @@ function DataTableInner<T>(
           {table}
         </div>
       ) : (
-        <div className={styles.tableContainer} role="region" aria-label={`${ariaLabel ?? "Data table"} scroll area`} tabIndex={0}>
+        <div className={styles.tableContainer} role="region" aria-label={`${ariaLabel ?? "Data table"} scroll area`} tabIndex={0} data-slot="data-table-container">
           {table}
         </div>
       )}
-      {footer && <div className={styles.footer}>{footer}</div>}
+      {footer && <div className={styles.footer} data-slot="data-table-footer-controls">{footer}</div>}
     </div>
   );
 }
@@ -824,15 +901,17 @@ export const DataTable = forwardRef(DataTableInner) as <T>(
 
 (DataTable as unknown as { displayName: string }).displayName = "DataTable";
 
-export interface TableProps extends HTMLAttributes<HTMLTableElement> {}
+export interface TableProps extends HTMLAttributes<HTMLTableElement> {
+  density?: TableDensity;
+}
 
 /**
  * `<Table>` — Composable HTML table container adhering to Strata DL 3.0 / shadcn pattern.
  */
 export const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ className = "", ...props }, ref) => (
-    <div className={styles.tableContainer}>
-      <table ref={ref} className={`${styles.table} ${className}`.trim()} {...props} />
+  ({ className = "", density = "standard", ...props }, ref) => (
+    <div className={styles.tableContainer} data-slot="table-container" data-density={density}>
+      <table ref={ref} className={`${tableVariants({ density })} ${className}`.trim()} data-slot="table" {...props} />
     </div>
   )
 );
@@ -842,7 +921,7 @@ export interface TableHeaderProps extends HTMLAttributes<HTMLTableSectionElement
 
 export const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(
   ({ className = "", ...props }, ref) => (
-    <thead ref={ref} className={`${styles.headerRow} ${className}`.trim()} {...props} />
+    <thead ref={ref} className={`${styles.headerRow} ${className}`.trim()} data-slot="table-header" {...props} />
   )
 );
 TableHeader.displayName = "TableHeader";
@@ -851,7 +930,7 @@ export interface TableBodyProps extends HTMLAttributes<HTMLTableSectionElement> 
 
 export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
   ({ className = "", ...props }, ref) => (
-    <tbody ref={ref} className={className || undefined} {...props} />
+    <tbody ref={ref} className={className || undefined} data-slot="table-body" {...props} />
   )
 );
 TableBody.displayName = "TableBody";
@@ -860,7 +939,7 @@ export interface TableFooterProps extends HTMLAttributes<HTMLTableSectionElement
 
 export const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(
   ({ className = "", ...props }, ref) => (
-    <tfoot ref={ref} className={`${styles.summaryRow} ${className}`.trim()} {...props} />
+    <tfoot ref={ref} className={`${styles.summaryRow} ${className}`.trim()} data-slot="table-footer" {...props} />
   )
 );
 TableFooter.displayName = "TableFooter";
@@ -869,7 +948,7 @@ export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {}
 
 export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
   ({ className = "", ...props }, ref) => (
-    <tr ref={ref} className={`${styles.dataRow} ${className}`.trim()} {...props} />
+    <tr ref={ref} className={`${styles.dataRow} ${className}`.trim()} data-slot="table-row" {...props} />
   )
 );
 TableRow.displayName = "TableRow";
@@ -878,7 +957,7 @@ export interface TableHeadProps extends ThHTMLAttributes<HTMLTableCellElement> {
 
 export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(
   ({ className = "", ...props }, ref) => (
-    <th ref={ref} className={`${styles.headerCell} ${className}`.trim()} {...props} />
+    <th ref={ref} className={`${styles.headerCell} ${className}`.trim()} data-slot="table-head" {...props} />
   )
 );
 TableHead.displayName = "TableHead";
@@ -887,7 +966,7 @@ export interface TableCellProps extends TdHTMLAttributes<HTMLTableCellElement> {
 
 export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
   ({ className = "", ...props }, ref) => (
-    <td ref={ref} className={`${styles.cell} ${className}`.trim()} {...props} />
+    <td ref={ref} className={`${styles.cell} ${className}`.trim()} data-slot="table-cell" {...props} />
   )
 );
 TableCell.displayName = "TableCell";
@@ -896,7 +975,7 @@ export interface TableCaptionProps extends HTMLAttributes<HTMLTableCaptionElemen
 
 export const TableCaption = forwardRef<HTMLTableCaptionElement, TableCaptionProps>(
   ({ className = "", ...props }, ref) => (
-    <caption ref={ref} className={`${styles.caption} ${className}`.trim()} {...props} />
+    <caption ref={ref} className={`${styles.caption} ${className}`.trim()} data-slot="table-caption" {...props} />
   )
 );
 TableCaption.displayName = "TableCaption";

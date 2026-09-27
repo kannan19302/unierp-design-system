@@ -118,4 +118,24 @@ describe("CommandPalette Primitive", () => {
     fireEvent.keyDown(screen.getByRole("combobox"), { key: "Enter" });
     expect(select).toHaveBeenCalledTimes(1);
   });
+
+  it("renders anatomy data-slot attributes correctly", () => {
+    render(
+      <CommandPalette
+        open
+        onClose={() => {}}
+        size="lg"
+        items={[{ id: "1", category: "Test", title: "Item 1", onSelect: () => {} }]}
+      />
+    );
+    expect(document.querySelector('[data-slot="command-palette-backdrop"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="command-palette-wrapper"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="command-palette"]')).toHaveAttribute("data-size", "lg");
+    expect(document.querySelector('[data-slot="command-palette-search"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="command-palette-input"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="command-palette-close"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="command-palette-list"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="command-palette-item"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="command-palette-footer"]')).toBeInTheDocument();
+  });
 });

@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Strata Design Language 2.0 — Spreadsheet Grid Styles
-   Inspired by Handsontable (#47) & AG Grid Enterprise (#46)
+   Strict CSS Logical Properties & 4-Tier Density
    ══════════════════════════════════════════════════════════════ */
 
 .root {
@@ -9,10 +9,11 @@
   inline-size: 100%;
   block-size: 100%;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-md, 6px);
   background-color: var(--color-surface, var(--color-bg-elevated));
   overflow: hidden;
   font-family: var(--font-sans);
+  box-sizing: border-box;
 }
 
 .srOnly {
@@ -33,13 +34,14 @@
 .formulaBar {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding-block: var(--space-1);
-  padding-inline: var(--space-2);
+  gap: var(--space-2, 8px);
+  padding-block: var(--space-1, 4px);
+  padding-inline: var(--space-2, 8px);
   background-color: var(--color-bg-subtle, var(--color-bg));
   border-block-end: 1px solid var(--color-border);
   min-block-size: var(--density-row-height, 32px);
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .coordPill {
@@ -47,15 +49,15 @@
   align-items: center;
   justify-content: center;
   padding-block: 0;
-  padding-inline: var(--space-2);
+  padding-inline: var(--space-2, 8px);
   block-size: var(--space-6, 24px);
   min-inline-size: var(--space-12, 48px);
-  background-color: var(--color-surface);
+  background-color: var(--color-surface, #fff);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-sm, 4px);
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--weight-bold, 700);
   color: var(--color-primary);
   text-align: center;
 }
@@ -63,8 +65,8 @@
 .fxSymbol {
   font-family: var(--font-mono);
   font-style: italic;
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--weight-bold, 700);
   color: var(--color-text-muted);
   user-select: none;
 }
@@ -73,13 +75,14 @@
   flex: 1;
   block-size: var(--space-6, 24px);
   padding-block: 0;
-  padding-inline: var(--space-2);
+  padding-inline: var(--space-2, 8px);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-surface);
+  border-radius: var(--radius-sm, 4px);
+  background-color: var(--color-surface, #fff);
   color: var(--color-text-primary, var(--color-text));
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-size: var(--text-xs, 12px);
+  box-sizing: border-box;
 }
 
 .formulaInput:focus {
@@ -92,6 +95,7 @@
   flex: 1;
   overflow: auto;
   position: relative;
+  box-sizing: border-box;
 }
 
 .table {
@@ -99,7 +103,8 @@
   inline-size: max-content;
   min-inline-size: 100%;
   user-select: none;
-  font-size: var(--text-xs);
+  font-size: var(--text-xs, 12px);
+  box-sizing: border-box;
 }
 
 .table:focus {
@@ -119,35 +124,37 @@
 
 .colHeader {
   min-inline-size: var(--space-20, 80px);
-  padding-block: var(--space-1);
-  padding-inline: var(--space-2);
+  padding-block: var(--space-1, 4px);
+  padding-inline: var(--space-2, 8px);
   background-color: var(--color-bg-subtle, var(--color-bg));
   border-block-end: 1px solid var(--color-border);
   border-inline-end: 1px solid var(--color-border);
   color: var(--color-text-muted);
   font-size: var(--text-2xs, 10px);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-bold, 700);
   text-align: center;
   position: sticky;
   inset-block-start: 0;
   z-index: 2;
+  box-sizing: border-box;
 }
 
 .rowHeader {
   inline-size: var(--space-10, 40px);
-  padding-block: var(--space-1);
-  padding-inline: var(--space-1);
+  padding-block: var(--space-1, 4px);
+  padding-inline: var(--space-1, 4px);
   background-color: var(--color-bg-subtle, var(--color-bg));
   border-block-end: 1px solid var(--color-border);
   border-inline-end: 1px solid var(--color-border);
   color: var(--color-text-muted);
   font-family: var(--font-mono);
   font-size: var(--text-2xs, 10px);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-medium, 500);
   text-align: center;
   position: sticky;
   inset-inline-start: 0;
   z-index: 1;
+  box-sizing: border-box;
 }
 
 .headerActive {
@@ -159,12 +166,13 @@
   min-inline-size: var(--space-20, 80px);
   block-size: var(--density-row-height, 28px);
   padding-block: 0;
-  padding-inline: var(--space-2);
+  padding-inline: var(--space-2, 8px);
   border-block-end: 1px solid var(--color-border);
   border-inline-end: 1px solid var(--color-border);
   color: var(--color-text-primary, var(--color-text));
   position: relative;
   cursor: cell;
+  box-sizing: border-box;
 }
 
 .cellContent {
@@ -191,10 +199,10 @@
   block-size: 100%;
   border: 2px solid var(--color-primary);
   padding-block: 0;
-  padding-inline: var(--space-2);
+  padding-inline: var(--space-2, 8px);
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  background-color: var(--color-surface);
+  font-size: var(--text-xs, 12px);
+  background-color: var(--color-surface, #fff);
   color: var(--color-text-primary, var(--color-text));
   box-sizing: border-box;
   z-index: 2;
@@ -205,27 +213,45 @@
 }
 
 /* ── 4-Tier Density ── */
+.densityUltraCompact .formulaBar,
 .root[data-density="ultra-compact"] .formulaBar {
-  min-block-size: var(--density-row-height);
+  min-block-size: 1.5rem; /* 24px */
   padding-block: var(--space-0-5, 2px);
-  padding-inline: var(--space-1);
+  padding-inline: var(--space-1, 4px);
 }
-
+.densityUltraCompact .cell,
 .root[data-density="ultra-compact"] .cell {
-  block-size: var(--density-row-height);
+  block-size: 1.5rem; /* 24px */
   font-size: var(--text-2xs, 10px);
 }
 
+.densityCompact .formulaBar,
+.root[data-density="compact"] .formulaBar {
+  min-block-size: 1.75rem; /* 28px */
+}
+.densityCompact .cell,
 .root[data-density="compact"] .cell {
-  block-size: var(--density-row-height);
+  block-size: 1.75rem; /* 28px */
+  font-size: var(--text-xs, 12px);
 }
 
+.densityStandard .formulaBar,
+.root[data-density="standard"] .formulaBar {
+  min-block-size: 2rem; /* 32px */
+}
+.densityStandard .cell,
 .root[data-density="standard"] .cell {
-  block-size: var(--density-row-height);
+  block-size: 2rem; /* 32px */
+  font-size: var(--text-sm, 14px);
 }
 
+.densityComfortable .formulaBar,
+.root[data-density="comfortable"] .formulaBar {
+  min-block-size: 2.5rem; /* 40px */
+}
+.densityComfortable .cell,
 .root[data-density="comfortable"] .cell {
-  block-size: var(--density-row-height);
-  padding-block: 0;
-  padding-inline: var(--space-3);
+  block-size: 2.5rem; /* 40px */
+  font-size: var(--text-sm, 14px);
+  padding-inline: var(--space-3, 12px);
 }

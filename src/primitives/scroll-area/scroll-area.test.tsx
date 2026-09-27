@@ -16,16 +16,17 @@ describe("ScrollArea Primitive", () => {
     expect(screen.getByText("Scrollable content item")).toBeInTheDocument();
   });
 
-  it("applies orientation and hideScrollbar styles", () => {
+  it("exposes data-slot and cva variants", () => {
     const { container } = render(
       <ScrollArea orientation="horizontal" hideScrollbar>
         <div>Item</div>
       </ScrollArea>
     );
 
-    const root = container.querySelector("div");
-    expect(root?.className).toContain("horizontal");
-    expect(root?.className).toContain("hideScrollbar");
+    const root = container.querySelector('[data-slot="scroll-area"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-orientation", "horizontal");
+    expect(container.querySelector('[data-slot="scroll-area-viewport"]')).toBeInTheDocument();
   });
 
   it("has zero accessibility violations", async () => {

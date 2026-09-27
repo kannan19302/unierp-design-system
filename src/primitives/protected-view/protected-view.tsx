@@ -3,7 +3,19 @@
 import { type FC, type ReactNode, createContext, useContext, forwardRef } from "react";
 import { ShieldAlert, Lock } from "lucide-react";
 import { cn } from "../../foundation/utils/cn";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./protected-view.module.css";
+
+export const accessDeniedVariants = cva(styles.accessDeniedCard, {
+  variants: {
+    variant: {
+      default: "",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 export type FieldAccessLevel = "hidden" | "readonly" | "editable";
 
@@ -44,7 +56,8 @@ export const useFieldAccess = (
   return resolvedAccess.fields?.[entity]?.[field] || "editable";
 };
 
-export interface AccessDeniedCardProps {
+export interface AccessDeniedCardProps
+  extends VariantProps<typeof accessDeniedVariants> {
   permission: string;
   title?: string;
   description?: string;
@@ -67,20 +80,21 @@ export const AccessDeniedCard = forwardRef<HTMLDivElement, AccessDeniedCardProps
       <div
         ref={ref}
         role="alert"
-        className={cn(styles.accessDeniedCard, className)}
+        data-slot="access-denied-card"
+        className={cn(accessDeniedVariants({}), className)}
       >
-        <div className={styles.accessDeniedHeader}>
-          <div className={styles.lockIconContainer} aria-hidden="true">
+        <div data-slot="access-denied-header" className={styles.accessDeniedHeader}>
+          <div data-slot="access-denied-icon" className={styles.lockIconContainer} aria-hidden="true">
             <ShieldAlert size={18} />
           </div>
-          <div className={styles.accessDeniedInfo}>
-            <div className={styles.accessDeniedTitleRow}>
-              <h4 className={styles.accessDeniedTitle}>{title}</h4>
-              <span className={styles.scopeBadge}>Scope: {permission}</span>
+          <div data-slot="access-denied-info" className={styles.accessDeniedInfo}>
+            <div data-slot="access-denied-title-row" className={styles.accessDeniedTitleRow}>
+              <h4 data-slot="access-denied-title" className={styles.accessDeniedTitle}>{title}</h4>
+              <span data-slot="access-denied-badge" className={styles.scopeBadge}>Scope: {permission}</span>
             </div>
-            <p className={styles.accessDeniedDescription}>{description}</p>
+            <p data-slot="access-denied-desc" className={styles.accessDeniedDescription}>{description}</p>
             {onRequestAccess && (
-              <div className={styles.accessDeniedFooter}>
+              <div data-slot="access-denied-footer" className={styles.accessDeniedFooter}>
                 <button
                   type="button"
                   onClick={onRequestAccess}
@@ -129,7 +143,7 @@ export const ProtectedComponent: FC<ProtectedComponentProps> = ({
 }) => {
   const hasAccess = usePermission(permission);
   if (hasAccess) {
-    return <>{children}</>;
+    return <div data-slot="protected-view" style={{ display: "contents" }}>{children}</div>;
   }
 
   if (fallback !== null && fallback !== undefined) {
@@ -148,6 +162,11 @@ export const ProtectedComponent: FC<ProtectedComponentProps> = ({
   return null;
 };
 
+/**
+ * `<ProtectedView>` — Canonical element export alias for ProtectedComponent.
+ */
+export const ProtectedView = ProtectedComponent;
+
 export interface ProtectedFieldProps {
   entity: string;
   field: string;
@@ -164,7 +183,7 @@ export const ProtectedField = forwardRef<HTMLDivElement, ProtectedFieldProps>(({
   const access = useFieldAccess(entity, field);
   if (access === "hidden") {
     return (
-      <div ref={ref} className={styles.redactedMask} aria-label="Field value hidden by security policy">
+      <div ref={ref} data-slot="protected-field-mask" className={styles.redactedMask} aria-label="Field value hidden by security policy">
         <Lock size={12} aria-hidden="true" />
         <span>REDACTED BY POLICY</span>
       </div>
@@ -173,7 +192,7 @@ export const ProtectedField = forwardRef<HTMLDivElement, ProtectedFieldProps>(({
 
   if (access === "readonly") {
     return (
-      <div ref={ref} className={styles.fieldLockWrapper}>
+      <div ref={ref} data-slot="protected-field" className={styles.fieldLockWrapper}>
         {showLockIndicator && (
           <span className={styles.flsBadge}>
             <Lock size={10} aria-hidden="true" />
@@ -185,7 +204,7 @@ export const ProtectedField = forwardRef<HTMLDivElement, ProtectedFieldProps>(({
     );
   }
 
-  return <div ref={ref}>{children}</div>;
+  return <div ref={ref} data-slot="protected-field">{children}</div>;
 });
 
 ProtectedField.displayName = "ProtectedField";

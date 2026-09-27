@@ -1,5 +1,3 @@
-"use client";
-
 import {
   forwardRef,
   type InputHTMLAttributes,
@@ -9,15 +7,38 @@ import {
   useEffect,
   useId,
 } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./number-field.module.css";
+
+export const numberFieldVariants = cva(styles.input, {
+  variants: {
+    density: {
+      "ultra-compact": styles["ultra-compact"],
+      compact: styles.compact,
+      standard: styles.standard,
+      comfortable: styles.comfortable,
+    },
+    invalid: {
+      true: styles.invalid,
+      false: "",
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+    invalid: false,
+  },
+});
 
 /**
  * @maturity stable
  * @since 1.0.0
  * Strata V1 NumberInput primitive — high-precision numerical field with tabular-nums
  * alignment, 4-tier density scaling, automatic min/max clamping, and prefix/suffix slotting.
+ * Standardized with cva, data-slot, and W3C APG spinbutton/textbox pattern.
  */
-export interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "prefix"> {
+export interface NumberInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "prefix">,
+    VariantProps<typeof numberFieldVariants> {
   id?: string;
   value?: number | string;
   onChange?: (val: number | undefined) => void;
@@ -50,7 +71,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       invalid = false,
       prefix,
       suffix,
-      density,
+      density = "standard",
       "aria-label": ariaLabel = "Number input",
       className = "",
       ...props
@@ -98,23 +119,18 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       }
     };
 
-    const densityClass = density ? styles[density] : "";
-    const inputClass = [
-      styles.input,
-      invalid ? styles.invalid : "",
-      densityClass,
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
+    const inputClasses = `${numberFieldVariants({ density, invalid })} ${className}`.trim();
 
     if (prefix || suffix) {
       return (
         <div
+          data-slot="number-field"
           data-density={density}
-          className={[styles.wrapper, densityClass, disabled ? styles.wrapperDisabled : ""].filter(Boolean).join(" ")}
+          data-disabled={disabled ? "true" : undefined}
+          data-invalid={invalid ? "true" : undefined}
+          className={[styles.wrapper, density ? styles[density] : "", disabled ? styles.wrapperDisabled : ""].filter(Boolean).join(" ")}
         >
-          {prefix && <span className={styles.prefixSlot}>{prefix}</span>}
+          {prefix && <span data-slot="number-field-prefix" className={styles.prefixSlot}>{prefix}</span>}
           <input
             ref={ref}
             id={inputId}
@@ -130,10 +146,11 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
             aria-invalid={invalid ? "true" : undefined}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={inputClass}
+            data-slot="number-field-input"
+            className={inputClasses}
             {...props}
           />
-          {suffix && <span className={styles.suffixSlot}>{suffix}</span>}
+          {suffix && <span data-slot="number-field-suffix" className={styles.suffixSlot}>{suffix}</span>}
         </div>
       );
     }
@@ -152,10 +169,13 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         placeholder={placeholder}
         aria-label={ariaLabel}
         aria-invalid={invalid ? "true" : undefined}
+        data-slot="number-field"
         data-density={density}
+        data-disabled={disabled ? "true" : undefined}
+        data-invalid={invalid ? "true" : undefined}
         onChange={handleChange}
         onBlur={handleBlur}
-        className={inputClass}
+        className={inputClasses}
         {...props}
       />
     );
@@ -163,3 +183,8 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 );
 
 NumberInput.displayName = "NumberInput";
+
+/**
+ * `<NumberField>` — Canonical PascalCase alias for NumberInput.
+ */
+export const NumberField = NumberInput;

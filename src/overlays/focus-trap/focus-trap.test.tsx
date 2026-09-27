@@ -15,10 +15,21 @@ describe("FocusTrap Component", () => {
             <button type="button">Trapped Second</button>
           </div>
         </FocusTrap>
-      </div>,
+      </div>
     );
 
     expect(document.activeElement).toBe(screen.getByRole("button", { name: "Trapped First" }));
+  });
+
+  it("renders data-slot attribute accurately", () => {
+    render(
+      <FocusTrap active={true}>
+        <button type="button">Inside</button>
+      </FocusTrap>
+    );
+    const trap = document.querySelector('[data-slot="focus-trap"]');
+    expect(trap).toBeInTheDocument();
+    expect(trap).toHaveAttribute("data-active", "true");
   });
 
   it("calls onEscape when Escape key is pressed", () => {
@@ -28,7 +39,7 @@ describe("FocusTrap Component", () => {
         <div>
           <button type="button">Inside</button>
         </div>
-      </FocusTrap>,
+      </FocusTrap>
     );
 
     fireEvent.keyDown(document, { key: "Escape" });
@@ -41,7 +52,7 @@ describe("FocusTrap Component", () => {
         <div>
           <button type="button">Accessible Button</button>
         </div>
-      </FocusTrap>,
+      </FocusTrap>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

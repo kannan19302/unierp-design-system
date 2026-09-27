@@ -13,6 +13,16 @@ const meta: Meta<typeof AlertBanner> = {
       },
     },
   },
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["info", "warning", "error", "success"],
+    },
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+  },
 };
 
 export default meta;
@@ -20,7 +30,7 @@ type Story = StoryObj<typeof AlertBanner>;
 
 export const Default: Story = {
   render: () => (
-    <div style={{ width: 600, padding: "var(--space-4)" }}>
+    <div style={{ inlineSize: 600, padding: "var(--space-4)" }}>
       <AlertBanner
         variant="warning"
         title="Scheduled Maintenance"
@@ -31,14 +41,32 @@ export const Default: Story = {
   ),
 };
 
-export const AnatomyAndComposition: Story = {
+export const Densities: Story = {
   render: () => (
-    <div style={{ width: 600, display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+    <div style={{ inlineSize: 600, display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
       <AlertBanner
+        density="ultra-compact"
         variant="info"
-        title="Security Compliance Refresh"
-        message="SOC-2 Type II audit logs have been generated and archived for Q3."
-        action={{ label: "View Audit Log", onClick: () => {} }}
+        title="Ultra-compact (24px target)"
+        message="Density optimized for high-throughput ERP workspace toolbars."
+      />
+      <AlertBanner
+        density="compact"
+        variant="info"
+        title="Compact (28px target)"
+        message="Dense desktop table inline notification."
+      />
+      <AlertBanner
+        density="standard"
+        variant="info"
+        title="Standard (32px target)"
+        message="Balanced density for standard transactional pages."
+      />
+      <AlertBanner
+        density="comfortable"
+        variant="info"
+        title="Comfortable (40px target)"
+        message="Spacious layout for onboarding and settings overviews."
       />
     </div>
   ),
@@ -46,7 +74,7 @@ export const AnatomyAndComposition: Story = {
 
 export const AllStatesGallery: Story = {
   render: () => (
-    <div style={{ width: 600, display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+    <div style={{ inlineSize: 600, display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
       <AlertBanner
         variant="info"
         title="Information Notice"

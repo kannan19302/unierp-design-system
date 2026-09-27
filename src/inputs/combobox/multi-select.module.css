@@ -7,7 +7,7 @@
   flex-direction: column;
   gap: var(--space-1);
   font-family: var(--font-sans);
-  width: 100%;
+  inline-size: 100%;
 }
 
 .label {
@@ -22,7 +22,7 @@
 
 .container {
   position: relative;
-  width: 100%;
+  inline-size: 100%;
   font-family: var(--font-sans);
   box-sizing: border-box;
 }
@@ -31,7 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: var(--density-control-height, 32px);
+  min-block-size: var(--density-control-height, 32px);
   padding-block: 2px;
   padding-inline: var(--density-control-padding-x, var(--space-3));
   background: var(--surface-1-bg, var(--color-bg-elevated));
@@ -121,7 +121,7 @@
 
 .dropdown {
   position: absolute;
-  top: calc(100% + var(--space-1, 4px));
+  inset-block-start: calc(100% + var(--space-1, 4px));
   inset-inline-start: 0;
   inset-inline-end: 0;
   background: var(--surface-1-bg, var(--color-bg-elevated));
@@ -132,7 +132,7 @@
   margin: 0;
   padding-block: var(--space-1);
   padding-inline: 0;
-  max-height: var(--select-menu-max-height, 220px);
+  max-block-size: var(--select-menu-max-height, 220px);
   overflow-y: auto;
   z-index: var(--z-dropdown, 100);
 }
@@ -187,7 +187,7 @@
 /* 4-Tier Density */
 .trigger[data-density="ultra-compact"],
 :global([data-density="ultra-compact"]) .trigger {
-  min-height: var(--density-control-height-ultra-compact, 24px);
+  min-block-size: var(--density-control-height-ultra-compact, 24px);
 }
 .trigger[data-density="ultra-compact"] .placeholder,
 :global([data-density="ultra-compact"]) .trigger .placeholder {
@@ -196,7 +196,7 @@
 
 .trigger[data-density="compact"],
 :global([data-density="compact"]) .trigger {
-  min-height: var(--density-control-height-compact, 28px);
+  min-block-size: var(--density-control-height-compact, 28px);
 }
 .trigger[data-density="compact"] .placeholder,
 :global([data-density="compact"]) .trigger .placeholder {
@@ -205,7 +205,7 @@
 
 .trigger[data-density="standard"],
 :global([data-density="standard"]) .trigger {
-  min-height: var(--density-control-height-standard, 32px);
+  min-block-size: var(--density-control-height-standard, 32px);
 }
 .trigger[data-density="standard"] .placeholder,
 :global([data-density="standard"]) .trigger .placeholder {
@@ -214,7 +214,7 @@
 
 .trigger[data-density="comfortable"],
 :global([data-density="comfortable"]) .trigger {
-  min-height: var(--density-control-height-comfortable, 40px);
+  min-block-size: var(--density-control-height-comfortable, 40px);
 }
 .trigger[data-density="comfortable"] .placeholder,
 :global([data-density="comfortable"]) .trigger .placeholder {

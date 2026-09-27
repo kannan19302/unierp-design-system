@@ -2,7 +2,80 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  width: 100%;
+  inline-size: 100%;
+}
+
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact,
+.form_container[data-density="ultra-compact"] {
+  gap: var(--space-3);
+}
+.densityUltraCompact .section,
+.form_container[data-density="ultra-compact"] .section {
+  padding: var(--space-2);
+  gap: var(--space-2);
+}
+.densityUltraCompact .grid,
+.form_container[data-density="ultra-compact"] .grid {
+  gap: var(--space-2);
+}
+.densityUltraCompact .field_label,
+.form_container[data-density="ultra-compact"] .field_label {
+  font-size: var(--text-2xs, 10px);
+}
+
+.densityCompact,
+.form_container[data-density="compact"] {
+  gap: var(--space-4);
+}
+.densityCompact .section,
+.form_container[data-density="compact"] .section {
+  padding: var(--space-3);
+  gap: var(--space-3);
+}
+.densityCompact .grid,
+.form_container[data-density="compact"] .grid {
+  gap: var(--space-3);
+}
+.densityCompact .field_label,
+.form_container[data-density="compact"] .field_label {
+  font-size: var(--text-xs, 11px);
+}
+
+.densityStandard,
+.form_container[data-density="standard"] {
+  gap: var(--space-6);
+}
+.densityStandard .section,
+.form_container[data-density="standard"] .section {
+  padding: var(--space-5);
+  gap: var(--space-4);
+}
+.densityStandard .grid,
+.form_container[data-density="standard"] .grid {
+  gap: var(--space-4);
+}
+.densityStandard .field_label,
+.form_container[data-density="standard"] .field_label {
+  font-size: var(--text-xs, 12px);
+}
+
+.densityComfortable,
+.form_container[data-density="comfortable"] {
+  gap: var(--space-8);
+}
+.densityComfortable .section,
+.form_container[data-density="comfortable"] .section {
+  padding: var(--space-6);
+  gap: var(--space-5);
+}
+.densityComfortable .grid,
+.form_container[data-density="comfortable"] .grid {
+  gap: var(--space-5);
+}
+.densityComfortable .field_label,
+.form_container[data-density="comfortable"] .field_label {
+  font-size: var(--text-sm, 14px);
 }
 
 .error_summary {
@@ -28,7 +101,8 @@
 }
 
 .error_summary_list {
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   padding-inline-start: var(--space-5);
   font-size: var(--type-label, var(--text-xs));
   color: var(--color-text-secondary);
@@ -39,7 +113,8 @@
 }
 
 .error_summary_button {
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
   border: 0;
   background: transparent;
   color: inherit;
@@ -73,9 +148,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--surface-1-border, var(--color-border));
-  padding-bottom: var(--space-3);
-  margin-bottom: var(--space-2);
+  border-block-end: 1px solid var(--surface-1-border, var(--color-border));
+  padding-block-end: var(--space-3);
+  margin-block-end: var(--space-2);
 }
 
 .section_title_wrap {
@@ -87,7 +162,8 @@
 .section_title {
   font-size: var(--type-h3, var(--text-base));
   font-weight: var(--weight-semibold, 600);
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
   color: var(--color-text);
 }
 
@@ -96,8 +172,9 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
-  width: 100%;
-  padding: 0;
+  inline-size: 100%;
+  padding-block: 0;
+  padding-inline: 0;
   border: 0;
   background: transparent;
   color: inherit;
@@ -109,7 +186,8 @@
 .section_description {
   font-size: var(--type-label, var(--text-xs));
   color: var(--color-text-secondary);
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
 }
 
 .grid {
@@ -125,7 +203,7 @@
 .field_wrap {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1\.5);
+  gap: var(--space-1-5);
 }
 
 .col_12 { grid-column: span 12; }
@@ -141,7 +219,7 @@
 .col_2 { grid-column: span 2; }
 .col_1 { grid-column: span 1; }
 
-@media (max-width: 768px) {
+@media (max-inline-size: 768px) {
   .col_12, .col_11, .col_10, .col_9, .col_8, .col_7, .col_6, .col_5, .col_4, .col_3, .col_2, .col_1 {
     grid-column: span 12;
   }
@@ -168,7 +246,7 @@
 .field_error {
   font-size: var(--type-micro, 11px);
   color: var(--color-danger, #ef4444);
-  margin-top: var(--space-0\.5);
+  margin-block-start: var(--space-0-5);
 }
 
 .actions_bar {
@@ -176,6 +254,6 @@
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-3);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--surface-1-border, var(--color-border));
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--surface-1-border, var(--color-border));
 }

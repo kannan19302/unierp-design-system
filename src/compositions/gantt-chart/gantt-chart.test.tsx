@@ -1,10 +1,12 @@
 import React, { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { axe } from "vitest-axe";
 import {
   GanttMilestoneScheduler,
+  GanttChart,
   GanttTask,
+  ganttChartVariants,
 } from "./gantt-chart";
 
 const sampleTasks: GanttTask[] = [
@@ -33,7 +35,7 @@ const sampleTasks: GanttTask[] = [
   },
 ];
 
-describe("GanttMilestoneScheduler", () => {
+describe("GanttMilestoneScheduler / GanttChart Component", () => {
   it("renders project title, WBS tasks and timeline bars", () => {
     render(
       <GanttMilestoneScheduler
@@ -64,11 +66,41 @@ describe("GanttMilestoneScheduler", () => {
     expect(screen.queryByText("Milestone Alpha Sign-off")).not.toBeInTheDocument();
   });
 
-
   it("forwards ref to the root element", () => {
     const ref = createRef<HTMLElement>();
     render(<GanttMilestoneScheduler ref={ref} tasks={sampleTasks} />);
     expect(ref.current).toBeInstanceOf(HTMLElement);
+    expect(ref.current).toHaveAttribute("data-slot", "gantt-chart");
+  });
+
+  it("renders data-slot annotations on anatomy", () => {
+    const { container } = render(
+      <GanttMilestoneScheduler tasks={sampleTasks} />
+    );
+    expect(container.querySelector('[data-slot="gantt-chart"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gantt-chart-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gantt-chart-grid"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gantt-chart-wbs-pane"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gantt-chart-timeline-pane"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="gantt-chart-bars"]')).toBeInTheDocument();
+  });
+
+  it("supports strict 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(
+        <GanttMilestoneScheduler tasks={sampleTasks} density={density} />
+      );
+      const root = container.querySelector('[data-slot="gantt-chart"]');
+      expect(root).toHaveAttribute("data-density", density);
+    });
+
+    const classes = ganttChartVariants({ density: "ultra-compact" });
+    expect(classes).toContain("densityUltraCompact");
+  });
+
+  it("aliases GanttChart to GanttMilestoneScheduler", () => {
+    expect(GanttChart).toBe(GanttMilestoneScheduler);
   });
 
   it("has zero accessibility violations", async () => {

@@ -71,7 +71,11 @@ export const ThemeCustomizer = forwardRef<HTMLDivElement, ThemeCustomizerProps>(
   };
 
   return (
-    <div ref={ref} className={`${styles.container || ""} ${className}`}>
+    <div
+      ref={ref}
+      className={`${styles.container || ""} ${className}`}
+      data-slot="theme-customizer"
+    >
       <div className={styles.header}>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", fontWeight: 600 }}>
           <Paintbrush size={16} style={{ color: config.brandPrimary }} />
@@ -103,7 +107,7 @@ export const ThemeCustomizer = forwardRef<HTMLDivElement, ThemeCustomizerProps>(
             <input
               type="text"
               className={styles.hexInput}
-              style={{ width: "100%" }}
+              style={{ inlineSize: "100%" }}
               value={config.tenantName}
               onChange={(e) => setConfig({ ...config, tenantName: e.target.value })}
               aria-label="Tenant Organization Name"
@@ -167,7 +171,7 @@ export const ThemeCustomizer = forwardRef<HTMLDivElement, ThemeCustomizerProps>(
             <label className={styles.label}>Border Radius Scale</label>
             <select
               className={styles.hexInput}
-              style={{ width: "100%" }}
+              style={{ inlineSize: "100%" }}
               value={config.radius}
               onChange={(e) => setConfig({ ...config, radius: e.target.value as any })}
               aria-label="Border radius scale"
@@ -184,7 +188,7 @@ export const ThemeCustomizer = forwardRef<HTMLDivElement, ThemeCustomizerProps>(
             <label className={styles.label}>Default Density</label>
             <select
               className={styles.hexInput}
-              style={{ width: "100%" }}
+              style={{ inlineSize: "100%" }}
               value={config.density}
               onChange={(e) => setConfig({ ...config, density: e.target.value as any })}
               aria-label="Default UI density"
@@ -275,7 +279,7 @@ export const ThemeCustomizer = forwardRef<HTMLDivElement, ThemeCustomizerProps>(
           </div>
 
           <div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-1)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBlockEnd: "var(--space-1)" }}>
               <span style={{ fontSize: "var(--text-xs)", fontWeight: 600, color: "var(--color-text-secondary)" }}>
                 Exported CSS Variables
               </span>

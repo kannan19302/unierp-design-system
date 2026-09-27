@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { NotificationCenter, type NotificationItem } from "../notification-center";
+import { NotificationCenter, type NotificationItem } from "./notification-center";
 
 const testNotifications: NotificationItem[] = [
   {
@@ -43,6 +43,30 @@ describe("NotificationCenter", () => {
     expect(screen.getByText("New Approval Required")).toBeInTheDocument();
     expect(screen.getByText("Security Update")).toBeInTheDocument();
     expect(screen.getByText("urgent")).toBeInTheDocument();
+  });
+
+  it("supports open prop alias and renders data-slot anatomy", () => {
+    render(
+      <NotificationCenter
+        open={true}
+        density="compact"
+        onClose={vi.fn()}
+        notifications={testNotifications}
+        onClearAll={vi.fn()}
+      />
+    );
+
+    expect(document.querySelector('[data-slot="notification-center-backdrop"]')).toBeInTheDocument();
+    const nc = document.querySelector('[data-slot="notification-center"]');
+    expect(nc).toBeInTheDocument();
+    expect(nc).toHaveAttribute("data-density", "compact");
+    expect(document.querySelector('[data-slot="notification-center-header"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="notification-center-title"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="notification-center-close"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="notification-center-tabs"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="notification-center-list"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="notification-center-item"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="notification-center-footer"]')).toBeInTheDocument();
   });
 
   it("filters by category tabs", async () => {

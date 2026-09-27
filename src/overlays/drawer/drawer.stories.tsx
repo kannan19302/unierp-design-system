@@ -44,7 +44,7 @@ export const RightInspector: Story = {
       </div>
     ),
     footer: (
-      <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", inlineSize: "100%" }}>
         <Button variant="primary">Save Changes</Button>
       </div>
     ),
@@ -63,7 +63,7 @@ export const LeftNavigation: Story = {
 
 export const AnatomyAndComposition: Story = {
   render: () => (
-    <div style={{ height: "450px", position: "relative" }}>
+    <div style={{ blockSize: "450px", position: "relative" }}>
       <Drawer
         open={true}
         onClose={() => {}}
@@ -71,7 +71,7 @@ export const AnatomyAndComposition: Story = {
         side="right"
         size="md"
         footer={
-          <div style={{ display: "flex", gap: "var(--space-2)", justifyContent: "flex-end", width: "100%" }}>
+          <div style={{ display: "flex", gap: "var(--space-2)", justifyContent: "flex-end", inlineSize: "100%" }}>
             <Button variant="secondary">Cancel</Button>
             <Button variant="primary">Apply Query</Button>
           </div>
@@ -94,10 +94,10 @@ export const AllStatesGallery: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)", padding: "var(--space-4)" }}>
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
           1. Right Side Inspector Drawer
         </h4>
-        <div style={{ height: "250px", position: "relative" }}>
+        <div style={{ blockSize: "250px", position: "relative" }}>
           <Drawer
             open={true}
             onClose={() => {}}
@@ -111,10 +111,10 @@ export const AllStatesGallery: Story = {
       </div>
 
       <div>
-        <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
+        <h4 style={{ marginBlock: 0, marginBlockEnd: "var(--space-2)", fontSize: "var(--font-size-sm)", color: "var(--color-text-secondary)" }}>
           2. Left Side Navigation Drawer
         </h4>
-        <div style={{ height: "250px", position: "relative" }}>
+        <div style={{ blockSize: "250px", position: "relative" }}>
           <Drawer
             open={true}
             onClose={() => {}}

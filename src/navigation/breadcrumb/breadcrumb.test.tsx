@@ -20,6 +20,26 @@ describe("Breadcrumb Primitive", () => {
     expect(screen.getByText("1000 - Cash")).toHaveAttribute("aria-current", "page");
   });
 
+  it("renders data-slot anatomy correctly", () => {
+    render(
+      <Breadcrumb
+        density="compact"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Ledger" },
+        ]}
+      />
+    );
+    const nav = document.querySelector('[data-slot="breadcrumb"]');
+    expect(nav).toBeInTheDocument();
+    expect(nav).toHaveAttribute("data-density", "compact");
+    expect(document.querySelector('[data-slot="breadcrumb-list"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="breadcrumb-item"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="breadcrumb-link"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="breadcrumb-page"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-slot="breadcrumb-separator"]')).toBeInTheDocument();
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <Breadcrumb

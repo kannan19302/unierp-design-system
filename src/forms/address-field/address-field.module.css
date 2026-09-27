@@ -9,6 +9,35 @@
   font-family: var(--font-sans, "Inter", sans-serif);
 }
 
+/* ── 4-Tier Density Scaling ── */
+.densityUltraCompact,
+.container[data-density="ultra-compact"] {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-2);
+  font-size: var(--text-2xs, 11px);
+}
+
+.densityCompact,
+.container[data-density="compact"] {
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
+  font-size: var(--text-xs, 12px);
+}
+
+.densityStandard,
+.container[data-density="standard"] {
+  padding-block: var(--space-4);
+  padding-inline: var(--space-4);
+  font-size: var(--text-sm, 14px);
+}
+
+.densityComfortable,
+.container[data-density="comfortable"] {
+  padding-block: var(--space-5);
+  padding-inline: var(--space-5);
+  font-size: var(--text-base, 16px);
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -20,7 +49,8 @@
   font-size: var(--text-base);
   font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
-  margin: 0;
+  margin-block: 0;
+  margin-inline: 0;
 }
 
 .subtitle {
@@ -128,8 +158,10 @@
 
 .suggestionsList {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-md);
   background: var(--color-surface-elevated);

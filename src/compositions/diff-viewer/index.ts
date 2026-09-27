@@ -1,6 +1,8 @@
-export { RedlineDiffViewer } from "./diff-viewer";
+export { RedlineDiffViewer, DiffViewer, diffViewerVariants, redlineDiffViewerVariants } from "./diff-viewer";
 export type {
   RedlineDiffViewerProps,
+  DiffViewerProps,
+  DiffViewerVariantProps,
   DiffViewMode,
   RedlineDensity,
   DiffLine,

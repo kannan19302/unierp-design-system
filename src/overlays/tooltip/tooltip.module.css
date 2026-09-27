@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    UniERP Design Language 1.0 — Tooltip Styles
+   Strict CSS Logical Properties
    ══════════════════════════════════════════════════════════════ */
 
 .container {
@@ -16,14 +17,53 @@
   z-index: var(--z-tooltip, 99999);
   background: var(--surface-tooltip-bg, #0f172a);
   color: var(--surface-tooltip-fg, #f8fafc);
-  padding: 2px var(--space-2);
-  border-radius: var(--radius-xs, 2px);
+  border-radius: var(--radius-xs, 4px);
   font-family: var(--font-sans);
-  font-size: var(--type-micro, 11px);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-medium, 500);
   pointer-events: none;
   white-space: nowrap;
-  transform: translateX(-50%);
   box-shadow: var(--shadow-sm);
   box-sizing: border-box;
+}
+
+/* Densities */
+.densityUltraCompact {
+  padding-block: var(--space-0-5, 2px);
+  padding-inline: var(--space-1-5, 6px);
+  font-size: var(--text-2xs, 10px);
+}
+
+.densityCompact {
+  padding-block: var(--space-1, 4px);
+  padding-inline: var(--space-2, 8px);
+  font-size: var(--type-micro, 11px);
+}
+
+.densityStandard {
+  padding-block: var(--space-1, 4px);
+  padding-inline: var(--space-2-5, 10px);
+  font-size: var(--type-micro, 11px);
+}
+
+.densityComfortable {
+  padding-block: var(--space-1-5, 6px);
+  padding-inline: var(--space-3, 12px);
+  font-size: var(--text-xs, 12px);
+}
+
+/* Sides */
+.top {
+  transform: translateX(-50%);
+}
+
+.bottom {
+  transform: translateX(-50%);
+}
+
+.left {
+  transform: translateX(-100%);
+}
+
+.right {
+  transform: translateX(0);
 }

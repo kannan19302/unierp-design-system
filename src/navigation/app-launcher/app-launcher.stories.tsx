@@ -11,6 +11,15 @@ const meta: Meta<typeof AppLauncherWaffleGrid> = {
       test: "todo",
     },
   },
+  argTypes: {
+    density: {
+      control: "select",
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+    },
+    isOpenByDefault: {
+      control: "boolean",
+    },
+  },
 };
 
 export default meta;
@@ -28,6 +37,17 @@ export const OpenByDefault: Story = {
     isOpenByDefault: true,
     density: "compact",
   },
+};
+
+export const Densities: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "var(--space-4)", alignItems: "center", padding: "var(--space-4)" }}>
+      <AppLauncherWaffleGrid density="ultra-compact" />
+      <AppLauncherWaffleGrid density="compact" />
+      <AppLauncherWaffleGrid density="standard" />
+      <AppLauncherWaffleGrid density="comfortable" />
+    </div>
+  ),
 };
 
 export const AnatomyAndComposition: Story = {

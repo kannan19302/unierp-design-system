@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useId, type FC, type ReactNode } from "react";
+import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./editor-shell.module.css";
 
 /**
@@ -31,18 +32,30 @@ import styles from "./editor-shell.module.css";
  */
 
 export type BandTone = "base" | "sunken" | "ink" | "signal";
+type ShellDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
 
-// `string | undefined` because tsconfig.base.json sets noUncheckedIndexedAccess
-// and a CSS-module lookup is an index access. The values are only ever
-// interpolated into a className string, where undefined is harmless.
-const BAND_CLASS: Record<BandTone, string | undefined> = {
-  base: styles.band_base,
-  sunken: styles.band_sunken,
-  ink: styles.band_ink,
-  signal: styles.band_signal,
-};
+export const editorialBandVariants = cva(styles.band, {
+  variants: {
+    tone: {
+      base: styles.band_base,
+      sunken: styles.band_sunken,
+      ink: styles.band_ink,
+      signal: styles.band_signal,
+    },
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    tone: "base",
+    density: "standard",
+  },
+});
 
-export interface EditorialBandProps {
+export interface EditorialBandProps extends VariantProps<typeof editorialBandVariants> {
   /**
    * The ground this band sits on. Alternate them down the page — two adjacent
    * bands on the same tone read as one band with a gap in it.
@@ -57,6 +70,7 @@ export interface EditorialBandProps {
    * `centred` is the plain bounded column for long-form copy.
    */
   layout?: "centred" | "editorial";
+  density?: ShellDensity;
   id?: string;
   className?: string;
   children?: ReactNode;
@@ -69,6 +83,7 @@ export interface EditorialBandProps {
 export const EditorialBand = forwardRef<HTMLElement, EditorialBandProps>(({
   tone = "base",
   layout = "centred",
+  density = "standard",
   id,
   className = "",
   children,
@@ -76,10 +91,15 @@ export const EditorialBand = forwardRef<HTMLElement, EditorialBandProps>(({
   <section
     ref={ref}
     id={id}
-    className={`${styles.band} ${BAND_CLASS[tone]} ${className}`.trim()}
+    data-slot="editor-shell-band"
     data-band-tone={tone}
+    data-density={density}
+    className={`${editorialBandVariants({ tone, density })} ${className}`.trim()}
   >
-    <div className={layout === "editorial" ? styles.inner_editorial : styles.inner}>
+    <div
+      data-slot="editor-shell-band-inner"
+      className={layout === "editorial" ? styles.inner_editorial : styles.inner}
+    >
       {children}
     </div>
   </section>
@@ -87,12 +107,27 @@ export const EditorialBand = forwardRef<HTMLElement, EditorialBandProps>(({
 
 EditorialBand.displayName = "EditorialBand";
 
-export interface EditorialShellProps {
+export const editorialShellVariants = cva(styles.root, {
+  variants: {
+    density: {
+      "ultra-compact": styles.density_ultra_compact,
+      compact: styles.density_compact,
+      standard: styles.density_standard,
+      comfortable: styles.density_comfortable,
+    },
+  },
+  defaultVariants: {
+    density: "standard",
+  },
+});
+
+export interface EditorialShellProps extends VariantProps<typeof editorialShellVariants> {
   /** The masthead's left side — wordmark, primary nav. */
   brand?: ReactNode;
   /** The masthead's right side — sign in, the one call to action. */
   actions?: ReactNode;
   footer?: ReactNode;
+  density?: ShellDensity;
   className?: string;
   children?: ReactNode;
 }
@@ -105,27 +140,38 @@ export const EditorialShell = forwardRef<HTMLDivElement, EditorialShellProps>(({
   brand,
   actions,
   footer,
+  density = "standard",
   className = "",
   children,
 }, ref) => {
   const mainId = useId();
-  return <div ref={ref} className={`${styles.root} ${className}`.trim()}>
-    <a href={`#${mainId}`} className={styles.skip_link}>Skip to content</a>
-    {(brand || actions) && (
-      <header className={styles.masthead}>
-        <div>{brand}</div>
-        <div>{actions}</div>
-      </header>
-    )}
+  return (
+    <div
+      ref={ref}
+      data-slot="editor-shell"
+      data-density={density}
+      className={`${editorialShellVariants({ density })} ${className}`.trim()}
+    >
+      <a href={`#${mainId}`} data-slot="editor-shell-skip-link" className={styles.skip_link}>
+        Skip to content
+      </a>
+      {(brand || actions) && (
+        <header data-slot="editor-shell-masthead" className={styles.masthead}>
+          <div>{brand}</div>
+          <div>{actions}</div>
+        </header>
+      )}
 
-    <main id={mainId} className={styles.main} tabIndex={-1}>{children}</main>
+      <main data-slot="editor-shell-main" id={mainId} className={styles.main} tabIndex={-1}>
+        {children}
+      </main>
 
-    {footer && <footer className={styles.footer}>{footer}</footer>}
-  </div>;
+      {footer && <footer data-slot="editor-shell-footer" className={styles.footer}>{footer}</footer>}
+    </div>
+  );
 });
 
 EditorialShell.displayName = "EditorialShell";
-
 
 /* ── Type primitives ──
    Exported separately because a marketing page composes them directly rather
@@ -136,19 +182,26 @@ EditorialShell.displayName = "EditorialShell";
 export const Eyebrow: FC<{ children?: ReactNode; className?: string }> = ({
   children,
   className = "",
-}) => <p className={`${styles.eyebrow} ${className}`.trim()}>{children}</p>;
+}) => <p data-slot="editor-shell-eyebrow" className={`${styles.eyebrow} ${className}`.trim()}>{children}</p>;
 
 export const HeroTitle: FC<{ children?: ReactNode; className?: string }> = ({
   children,
   className = "",
-}) => <h1 className={`${styles.hero} ${className}`.trim()}>{children}</h1>;
+}) => <h1 data-slot="editor-shell-hero-title" className={`${styles.hero} ${className}`.trim()}>{children}</h1>;
 
 export const BandTitle: FC<{ children?: ReactNode; className?: string }> = ({
   children,
   className = "",
-}) => <h2 className={`${styles.title} ${className}`.trim()}>{children}</h2>;
+}) => <h2 data-slot="editor-shell-band-title" className={`${styles.title} ${className}`.trim()}>{children}</h2>;
 
 export const Lede: FC<{ children?: ReactNode; className?: string }> = ({
   children,
   className = "",
-}) => <p className={`${styles.lede} ${styles.measure} ${className}`.trim()}>{children}</p>;
+}) => <p data-slot="editor-shell-lede" className={`${styles.lede} ${styles.measure} ${className}`.trim()}>{children}</p>;
+
+/* ── Directory aligned alias exports ── */
+export const EditorShell = EditorialShell;
+export type EditorShellProps = EditorialShellProps;
+export const EditorBand = EditorialBand;
+export type EditorBandProps = EditorialBandProps;
+

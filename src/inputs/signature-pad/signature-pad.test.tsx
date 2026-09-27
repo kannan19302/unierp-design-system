@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import { axe } from "vitest-axe";
-import { SignaturePad } from "./signature-pad";
+import { SignaturePad, signaturePadVariants } from "./signature-pad";
 
 describe("SignaturePad Primitive", () => {
   beforeAll(() => {
@@ -85,4 +85,33 @@ describe("SignaturePad Primitive", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("supports signaturePadVariants cva and exposes data-slot annotations", () => {
+    expect(typeof signaturePadVariants).toBe("function");
+    expect(signaturePadVariants({ density: "compact", disabled: true })).toBeDefined();
+
+    const { container } = render(
+      <SignaturePad
+        label="Authorizing Officer"
+        description="Sign below"
+        error="Required signature"
+        invalid
+      />,
+    );
+
+    expect(container.querySelector('[data-slot="signature-pad"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-label-row"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-description"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-mode-tabs"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-tab-draw"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-tab-type"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-draw-panel"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-canvas"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-baseline"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-footer"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-clear"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="signature-pad-error"]')).toBeInTheDocument();
+  });
 });
+

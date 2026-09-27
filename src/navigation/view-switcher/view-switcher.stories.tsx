@@ -20,6 +20,11 @@ const meta: Meta<typeof ViewSwitcher> = {
       options: ["list", "chart", "kanban", "grid"],
       description: "The currently active layout view mode",
     },
+    density: {
+      control: { type: "select" },
+      options: ["ultra-compact", "compact", "standard", "comfortable"],
+      description: "Strata 4-tier density scaling",
+    },
     onViewChange: {
       action: "viewChanged",
       description: "Callback invoked when a view button is selected",
@@ -54,6 +59,31 @@ export const Default: Story = {
           }}
         >
           Active Layout: <strong>{view.toUpperCase()}</strong>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const DensityGallery: Story = {
+  render: () => {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)", padding: "var(--space-4)" }}>
+        <div>
+          <p style={{ marginBlockEnd: "var(--space-1)", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>Ultra-compact (24px)</p>
+          <ViewSwitcher activeView="list" onViewChange={() => {}} density="ultra-compact" availableViews={["list", "chart", "kanban", "grid"]} />
+        </div>
+        <div>
+          <p style={{ marginBlockEnd: "var(--space-1)", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>Compact (28px)</p>
+          <ViewSwitcher activeView="chart" onViewChange={() => {}} density="compact" availableViews={["list", "chart", "kanban", "grid"]} />
+        </div>
+        <div>
+          <p style={{ marginBlockEnd: "var(--space-1)", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>Standard (32px)</p>
+          <ViewSwitcher activeView="kanban" onViewChange={() => {}} density="standard" availableViews={["list", "chart", "kanban", "grid"]} />
+        </div>
+        <div>
+          <p style={{ marginBlockEnd: "var(--space-1)", fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>Comfortable (40px)</p>
+          <ViewSwitcher activeView="grid" onViewChange={() => {}} density="comfortable" availableViews={["list", "chart", "kanban", "grid"]} />
         </div>
       </div>
     );

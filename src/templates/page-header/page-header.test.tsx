@@ -101,4 +101,41 @@ describe("PageHeader", () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  it("annotates slots with data-slot attributes", () => {
+    const { container } = render(
+      <PageHeader
+        title="INV-2043"
+        subtitle="Pending invoices"
+        badge={<span>Active</span>}
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Invoices" }]}
+        actions={<button type="button">Action</button>}
+        tabs={<div>Tabs</div>}
+      />,
+    );
+    expect(container.querySelector('[data-slot="page-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-top-row"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-title-area"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-breadcrumb"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-title-row"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-badge"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-subtitle"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-actions"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="page-header-tabs"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const { container, rerender } = render(
+      <PageHeader title="Invoices" density="compact" />,
+    );
+    const root = container.querySelector('[data-slot="page-header"]');
+    expect(root).toHaveAttribute("data-density", "compact");
+    expect(root?.className).toContain("density_compact");
+
+    rerender(<PageHeader title="Invoices" density="ultra-compact" />);
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+    expect(root?.className).toContain("density_ultra_compact");
+  });
 });
+

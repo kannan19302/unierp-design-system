@@ -52,6 +52,11 @@ storybook-static/
 **/.turbo
 **/coverage
 
-#Test screenshots
-audit-screenshots
+# Test screenshots and visual regression artifacts
+audit-screenshots/
 docs/evidence/strata-shell-browser/
+docs/evidence/strata-shell-browser-current/
+**/__screenshots__/
+**/*-snapshots/
+test-results/
+playwright-report/

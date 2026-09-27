@@ -13,7 +13,7 @@
   border-radius: var(--radius-md, 6px);
   font-family: var(--font-sans);
   box-sizing: border-box;
-  width: 100%;
+  inline-size: 100%;
 }
 
 .header {
@@ -58,14 +58,14 @@
   font-size: var(--type-micro, 11px);
   font-weight: var(--weight-bold, 700);
   color: var(--color-primary);
-  min-width: var(--space-12, 48px);
+  min-inline-size: var(--space-12, 48px);
   text-align: center;
 }
 
 .select,
 .input {
   font-size: var(--type-dense, var(--text-sm));
-  height: var(--density-control-height-compact, 28px);
+  block-size: var(--density-control-height-compact, 28px);
   padding-block: 0;
   padding-inline: var(--density-control-padding-x, var(--space-3));
   border: 1px solid var(--surface-1-border, var(--color-border));
@@ -92,8 +92,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--density-control-height-compact, 28px);
-  height: var(--density-control-height-compact, 28px);
+  inline-size: var(--density-control-height-compact, 28px);
+  block-size: var(--density-control-height-compact, 28px);
   border: none;
   background: transparent;
   color: var(--surface-text-secondary, var(--color-text-muted));
@@ -116,7 +116,7 @@
   margin-block-start: var(--space-1);
   padding-block: 0;
   padding-inline: var(--space-3);
-  height: var(--density-control-height-compact, 28px);
+  block-size: var(--density-control-height-compact, 28px);
   background-color: transparent;
   border: 1px dashed var(--surface-1-border, var(--color-border));
   border-radius: var(--radius-sm, 4px);
@@ -142,7 +142,7 @@
 :global([data-density="ultra-compact"]) .container .input,
 :global([data-density="ultra-compact"]) .container .removeBtn,
 :global([data-density="ultra-compact"]) .container .addBtn {
-  height: var(--density-control-height-ultra-compact, 24px);
+  block-size: var(--density-control-height-ultra-compact, 24px);
   font-size: var(--type-micro, 11px);
 }
 
@@ -154,7 +154,7 @@
 :global([data-density="compact"]) .container .input,
 :global([data-density="compact"]) .container .removeBtn,
 :global([data-density="compact"]) .container .addBtn {
-  height: var(--density-control-height-compact, 28px);
+  block-size: var(--density-control-height-compact, 28px);
   font-size: var(--type-dense, var(--text-sm));
 }
 
@@ -166,7 +166,7 @@
 :global([data-density="standard"]) .container .input,
 :global([data-density="standard"]) .container .removeBtn,
 :global([data-density="standard"]) .container .addBtn {
-  height: var(--density-control-height-standard, 32px);
+  block-size: var(--density-control-height-standard, 32px);
   font-size: var(--type-dense, var(--text-sm));
 }
 
@@ -178,6 +178,6 @@
 :global([data-density="comfortable"]) .container .input,
 :global([data-density="comfortable"]) .container .removeBtn,
 :global([data-density="comfortable"]) .container .addBtn {
-  height: var(--density-control-height-comfortable, 40px);
+  block-size: var(--density-control-height-comfortable, 40px);
   font-size: var(--type-body, var(--text-base));
 }

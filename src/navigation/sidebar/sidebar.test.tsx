@@ -265,6 +265,58 @@ describe("SideNav Primitive", () => {
     expect(ref.current).toBeInstanceOf(HTMLElement);
   });
 
+  it("applies data-slot annotations throughout component anatomy", () => {
+    const { container } = render(
+      <SideNav
+        header={<div>Header</div>}
+        footer={<div>Footer</div>}
+        searchable
+        onToggleCollapse={() => {}}
+        sections={[
+          {
+            id: "sec1",
+            title: "Main",
+            items: [
+              { key: "1", label: "Item 1", badge: "New" },
+            ],
+          },
+        ]}
+      />
+    );
+
+    expect(container.querySelector('[data-slot="side-nav"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-collapse-button"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-search"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-search-input"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-content"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-section"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-section-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-section-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-section-body"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-item"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-item-button"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-item-label"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-item-badge"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="side-nav-footer"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const { rerender, container } = render(
+      <SideNav density="ultra-compact" items={[{ key: "1", label: "Item" }]} />
+    );
+    expect(container.querySelector('[data-slot="side-nav"]')?.className).toContain("densityUltraCompact");
+
+    rerender(<SideNav density="compact" items={[{ key: "1", label: "Item" }]} />);
+    expect(container.querySelector('[data-slot="side-nav"]')?.className).toContain("densityCompact");
+
+    rerender(<SideNav density="standard" items={[{ key: "1", label: "Item" }]} />);
+    expect(container.querySelector('[data-slot="side-nav"]')?.className).toContain("densityStandard");
+
+    rerender(<SideNav density="comfortable" items={[{ key: "1", label: "Item" }]} />);
+    expect(container.querySelector('[data-slot="side-nav"]')?.className).toContain("densityComfortable");
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(
       <SideNav
@@ -284,4 +336,5 @@ describe("SideNav Primitive", () => {
     expect(results).toHaveNoViolations();
   });
 });
+
 

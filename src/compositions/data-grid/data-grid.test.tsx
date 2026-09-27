@@ -2,7 +2,7 @@ import { createRef } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { SpreadsheetGrid } from "./data-grid";
+import { SpreadsheetGrid, DataGrid, dataGridVariants } from "./data-grid";
 
 const mockColumns = ["Col A", "Col B", "Col C"];
 const mockData = [
@@ -10,7 +10,7 @@ const mockData = [
   ["400", "500", "600"],
 ];
 
-describe("SpreadsheetGrid Component", () => {
+describe("DataGrid / SpreadsheetGrid Component", () => {
   it("renders headers, rows, and formula coordinate bar", () => {
     render(<SpreadsheetGrid columns={mockColumns} initialData={mockData} />);
 
@@ -64,6 +64,37 @@ describe("SpreadsheetGrid Component", () => {
     const ref = createRef<HTMLDivElement>();
     render(<SpreadsheetGrid ref={ref} columns={mockColumns} initialData={mockData} />);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it("applies data-slot annotations throughout anatomy", () => {
+    const { container } = render(<SpreadsheetGrid columns={mockColumns} initialData={mockData} />);
+    expect(container.querySelector('[data-slot="data-grid"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-formula-bar"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-coord"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-fx"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-formula-input"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-table-container"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-table"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-head"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-body"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="data-grid-cell"]')).toBeInTheDocument();
+  });
+
+  it("supports strict 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container } = render(
+        <SpreadsheetGrid columns={mockColumns} initialData={mockData} density={density} />
+      );
+      const root = container.querySelector('[data-slot="data-grid"]');
+      expect(root).toHaveAttribute("data-density", density);
+    });
+  });
+
+  it("aliases DataGrid to SpreadsheetGrid", () => {
+    expect(DataGrid).toBe(SpreadsheetGrid);
+    const classes = dataGridVariants({ density: "ultra-compact" });
+    expect(classes).toContain("densityUltraCompact");
   });
 
   it("has zero accessibility violations", async () => {

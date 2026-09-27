@@ -4,7 +4,8 @@ import { axe } from "vitest-axe";
 import React from "react";
 import {
   FunnelDropoffAnalyzer,
-  FunnelStep,
+  FunnelChart,
+  type FunnelStep,
 } from "./funnel-chart";
 
 const mockSteps: FunnelStep[] = [
@@ -33,7 +34,7 @@ const mockSteps: FunnelStep[] = [
   },
 ];
 
-describe("FunnelDropoffAnalyzer", () => {
+describe("FunnelDropoffAnalyzer & FunnelChart", () => {
   it("forwards ref to container element", () => {
     const ref = React.createRef<HTMLElement>();
     render(<FunnelDropoffAnalyzer ref={ref} steps={mockSteps} />);
@@ -72,6 +73,35 @@ describe("FunnelDropoffAnalyzer", () => {
     const select = screen.getByRole("combobox", { name: /Cohort Segment:/i });
     fireEvent.change(select, { target: { value: "Organic Search" } });
     expect(onSegmentChange).toHaveBeenCalledWith("Organic Search");
+  });
+
+  it("renders with data-slot attributes", () => {
+    const { container } = render(<FunnelDropoffAnalyzer steps={mockSteps} />);
+    expect(container.querySelector('[data-slot="funnel-chart"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="funnel-chart-header"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="funnel-chart-title"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="funnel-chart-segment-select"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="funnel-chart-flow"]')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-slot="funnel-chart-step"]').length).toBe(2);
+    expect(container.querySelector('[data-slot="funnel-chart-connector"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="funnel-chart-diagnostics"]')).toBeInTheDocument();
+  });
+
+  it("supports 4-tier density scaling", () => {
+    const densities = ["ultra-compact", "compact", "standard", "comfortable"] as const;
+    densities.forEach((density) => {
+      const { container, unmount } = render(
+        <FunnelDropoffAnalyzer density={density} steps={mockSteps} />
+      );
+      const root = container.querySelector('[data-slot="funnel-chart"]');
+      expect(root).toHaveAttribute("data-density", density);
+      unmount();
+    });
+  });
+
+  it("works with FunnelChart alias", () => {
+    render(<FunnelChart steps={mockSteps} funnelName="Alias Funnel" />);
+    expect(screen.getByText("Alias Funnel")).toBeInTheDocument();
   });
 
   it("passes automated accessibility (axe) checks", async () => {

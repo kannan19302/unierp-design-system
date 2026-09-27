@@ -24,6 +24,16 @@ describe("Progress Primitive", () => {
     expect(screen.getByText("85%")).toBeInTheDocument();
   });
 
+  it("exposes data-slot and cva variants", () => {
+    const { container } = render(<Progress value={50} variant="danger" size="lg" label="Capacity" />);
+    const root = container.querySelector('[data-slot="progress"]');
+    expect(root).toBeInTheDocument();
+    expect(root).toHaveAttribute("data-variant", "danger");
+    expect(root).toHaveAttribute("data-size", "lg");
+    expect(container.querySelector('[data-slot="progress-track"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="progress-indicator"]')).toBeInTheDocument();
+  });
+
   it("has zero accessibility violations", async () => {
     const { container } = render(<Progress value={75} max={100} label="Task" />);
     const results = await axe(container);

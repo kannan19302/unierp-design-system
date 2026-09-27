@@ -55,7 +55,7 @@ function InteractiveSidebar({ activeItem = "Tenants", onItemClick }: { activeIte
       }}
       aria-label="Platform Sidebar Navigation"
     >
-      <div style={{ fontSize: "11px", fontWeight: 700, color: "var(--color-text-tertiary)", textTransform: "uppercase", letterSpacing: "0.06em", paddingInline: "var(--space-2)" }}>
+      <div style={{ fontSize: "var(--text-2xs)", fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.06em", paddingInline: "var(--space-2)" }}>
         Platform Administration
       </div>
       <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "2px" }}>
@@ -76,7 +76,7 @@ function InteractiveSidebar({ activeItem = "Tenants", onItemClick }: { activeIte
                   border: "none",
                   borderRadius: "var(--radius-md)",
                   background: isActive ? "var(--color-primary)" : "transparent",
-                  color: isActive ? "var(--color-text-inverse, #ffffff)" : "var(--color-text)",
+                  color: isActive ? "var(--color-primary-text)" : "var(--color-text)",
                   fontWeight: isActive ? 600 : 500,
                   fontSize: "var(--text-xs)",
                   cursor: "pointer",
@@ -88,12 +88,12 @@ function InteractiveSidebar({ activeItem = "Tenants", onItemClick }: { activeIte
                 {item.count && (
                   <span
                     style={{
-                      fontSize: "10px",
+                      fontSize: "var(--text-2xs)",
                       paddingBlock: "1px",
                       paddingInline: "var(--space-1-5, var(--space-1))",
                       borderRadius: "var(--radius-full, 999px)",
-                      background: isActive ? "rgba(255,255,255,0.25)" : "var(--color-bg-elevated)",
-                      color: isActive ? "#ffffff" : "var(--color-text-secondary)",
+                      background: isActive ? "transparent" : "var(--color-bg-elevated)",
+                      color: isActive ? "inherit" : "var(--color-text-secondary)",
                     }}
                   >
                     {item.count}
@@ -130,10 +130,10 @@ function WorkspaceDashboard() {
       {/* KPI Cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "var(--space-4)" }}>
         {[
-          { label: "Active Enterprise Tenants", value: "48", badge: "+4 this month", tone: "var(--color-status-success, #16a34a)" },
-          { label: "Contracted Monthly ARR", value: "$1.84M", badge: "99.2% collected", tone: "var(--color-status-success, #16a34a)" },
-          { label: "P99 Gateway Latency", value: "14.2 ms", badge: "Optimal", tone: "var(--color-primary, #2563eb)" },
-          { label: "Isolation Review", value: "Pending", badge: "Evidence required", tone: "var(--color-primary, #2563eb)" },
+          { label: "Active Enterprise Tenants", value: "48", badge: "+4 this month", tone: "var(--color-success-text)" },
+          { label: "Contracted Monthly ARR", value: "$1.84M", badge: "99.2% collected", tone: "var(--color-success-text)" },
+          { label: "P99 Gateway Latency", value: "14.2 ms", badge: "Optimal", tone: "var(--color-primary)" },
+          { label: "Isolation Review", value: "Pending", badge: "Evidence required", tone: "var(--color-primary)" },
         ].map((card, idx) => (
           <div
             key={idx}
@@ -152,7 +152,7 @@ function WorkspaceDashboard() {
             <span style={{ fontSize: "var(--text-2xl)", fontWeight: 700, color: "var(--color-text)", fontVariantNumeric: "tabular-nums" }}>
               {card.value}
             </span>
-            <span style={{ fontSize: "11px", fontWeight: 600, color: card.tone }}>{card.badge}</span>
+            <span style={{ fontSize: "var(--text-2xs)", fontWeight: 600, color: card.tone }}>{card.badge}</span>
           </div>
         ))}
       </div>
@@ -186,11 +186,11 @@ function WorkspaceDashboard() {
               { id: "t-300", name: "Acme Asia-Pacific Hub", realm: "AP-South-1", status: "Provisioning" },
             ].map((row) => (
               <tr key={row.id} style={{ borderBlockEnd: "1px solid var(--color-border)" }}>
-                <td style={{ paddingBlock: "var(--space-2-5)", paddingInline: "var(--space-4)", fontFamily: "monospace" }}>{row.id}</td>
+                <td style={{ paddingBlock: "var(--space-2-5)", paddingInline: "var(--space-4)", fontFamily: "var(--font-mono)" }}>{row.id}</td>
                 <td style={{ paddingBlock: "var(--space-2-5)", paddingInline: "var(--space-4)", fontWeight: 600 }}>{row.name}</td>
                 <td style={{ paddingBlock: "var(--space-2-5)", paddingInline: "var(--space-4)" }}>{row.realm}</td>
                 <td style={{ paddingBlock: "var(--space-2-5)", paddingInline: "var(--space-4)" }}>
-                  <span style={{ paddingBlock: "2px", paddingInline: "var(--space-2)", borderRadius: "var(--radius-full, 999px)", background: row.status === "Active" ? "rgba(22, 163, 74, 0.12)" : "rgba(234, 179, 8, 0.12)", color: row.status === "Active" ? "var(--color-status-success, #16a34a)" : "var(--color-status-warning, #ca8a04)", fontWeight: 600, fontSize: "10px" }}>
+                  <span style={{ paddingBlock: "var(--space-0-5)", paddingInline: "var(--space-2)", borderRadius: "var(--radius-full)", background: row.status === "Active" ? "var(--color-success-light)" : "var(--color-warning-light)", color: row.status === "Active" ? "var(--color-success-text)" : "var(--color-warning-text)", fontWeight: 600, fontSize: "var(--text-2xs)" }}>
                     {row.status}
                   </span>
                 </td>
@@ -311,6 +311,46 @@ export const RtlPreview: Story = {
   render: () => (
     <div dir="rtl" style={{ blockSize: "100dvh" }}>
       <InteractivePlatformShell />
+    </div>
+  ),
+};
+
+export const DensityGallery: Story = {
+  name: "Density Gallery",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)", padding: "var(--space-4)", background: "var(--color-bg-sunken)" }}>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Ultra-Compact Density (24px target)
+        </h4>
+        <div style={{ blockSize: "360px", border: "1px solid var(--color-border)", overflow: "hidden" }}>
+          <InteractivePlatformShell density="ultra-compact" />
+        </div>
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Compact Density (28px target)
+        </h4>
+        <div style={{ blockSize: "360px", border: "1px solid var(--color-border)", overflow: "hidden" }}>
+          <InteractivePlatformShell density="compact" />
+        </div>
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Standard Density (32px target)
+        </h4>
+        <div style={{ blockSize: "360px", border: "1px solid var(--color-border)", overflow: "hidden" }}>
+          <InteractivePlatformShell density="standard" />
+        </div>
+      </div>
+      <div>
+        <h4 style={{ marginBlockEnd: "var(--space-2)", fontSize: "var(--text-sm)", color: "var(--color-text-secondary)" }}>
+          Comfortable Density (40px target)
+        </h4>
+        <div style={{ blockSize: "360px", border: "1px solid var(--color-border)", overflow: "hidden" }}>
+          <InteractivePlatformShell density="comfortable" />
+        </div>
+      </div>
     </div>
   ),
 };
