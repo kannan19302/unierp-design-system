@@ -14,10 +14,12 @@ import {
 } from "./table";
 import { ColumnPicker } from "../../forms/column-picker";
 import { exportToCsv } from "../../forms/csv-export";
-import { Search, Download } from "lucide-react";
+import { Search, Download, MoreHorizontal } from "lucide-react";
 import { Button } from "../../primitives/button";
 import { Input, Select } from "../../inputs/form-control";
 import { Pagination } from "../../navigation/pagination";
+import { DropdownMenu } from "../../overlays/dropdown-menu";
+import styles from "./table.module.css";
 
 const meta: Meta<typeof DataTable> = {
   title: "Compositions/Table",
@@ -50,6 +52,10 @@ const meta: Meta<typeof DataTable> = {
       control: "boolean",
       description: "Enable Excel-style arrow navigation and F2 cell editing",
     },
+    mobileAlternative: {
+      control: false,
+      description: "Caller-owned presentation displayed in narrow containers instead of the scrollable table",
+    },
   },
 };
 
@@ -61,7 +67,7 @@ const columns: Column<{
   status: string;
   amount: number;
 }>[] = [
-  { key: "id", header: "ID", width: "80px" },
+  { key: "id", header: "ID", width: "96px" },
   { key: "name", header: "Name" },
   { key: "status", header: "Status" },
   {
@@ -85,19 +91,120 @@ export const EnterpriseWorkbench: StoryObj = {
     const [page, setPage] = useState(1);
     const [status, setStatus] = useState("");
     const [selected, setSelected] = useState<string[]>([]);
+    const [selectedAction, setSelectedAction] = useState("");
+    const workbenchColumns: Column<(typeof data)[number]>[] = [
+      ...columns,
+      {
+        key: "actions",
+        header: "Actions",
+        width: "80px",
+        align: "center",
+        render: (row) => (
+          <DropdownMenu
+            density="standard"
+            trigger={
+              <Button
+                variant="ghost"
+                size="sm"
+                aria-label={`Actions for invoice ${row.id}`}
+              >
+                <MoreHorizontal size={14} aria-hidden="true" />
+              </Button>
+            }
+            items={[
+              {
+                key: "view",
+                label: "View invoice",
+                onClick: () => setSelectedAction(`Viewing invoice ${row.id}`),
+              },
+              {
+                key: "activity",
+                label: "View activity",
+                onClick: () => setSelectedAction(`Showing activity for ${row.id}`),
+              },
+            ]}
+          />
+        ),
+      },
+    ];
     const filtered = data.filter((row) =>
       (!status || row.status === status) && `${row.id} ${row.name} ${row.status}`.toLowerCase().includes(query.toLowerCase()),
     );
+    const pageInvoices = filtered.slice((page - 1) * 8, page * 8);
 
     return (
-      <DataTable
+      <>
+        <DataTable
         aria-label="Accounts receivable invoices"
-        columns={columns}
-        data={filtered.slice((page - 1) * 8, page * 8)}
+        columns={workbenchColumns}
+        data={pageInvoices}
         rowKey={(row) => row.id}
         rowLabel={(row) => `invoice ${row.id}`}
         selectedKeys={selected}
         onSelectionChange={setSelected}
+        mobileAlternative={
+          pageInvoices.length === 0 ? (
+            <p role="status">No invoices match these filters.</p>
+          ) : (
+            <ul className={styles.mobileCardList} aria-label="Accounts receivable invoices, mobile view">
+              {pageInvoices.map((row) => (
+                <li key={`mobile-${row.id}`}>
+                  <article className={styles.mobileCard} aria-labelledby={`mobile-invoice-${row.id}`}>
+                    <header className={styles.mobileCardHeader}>
+                      <h3 className={styles.mobileCardTitle} id={`mobile-invoice-${row.id}`}>{row.id}</h3>
+                      <label className={styles.mobileCardSelect}>
+                        <input
+                          type="checkbox"
+                          aria-label={`Select invoice ${row.id}`}
+                          checked={selected.includes(row.id)}
+                          onChange={(event) => {
+                            const checked = event.currentTarget.checked;
+                            setSelected((current) => checked
+                              ? [...current, row.id]
+                              : current.filter((selectedId) => selectedId !== row.id),
+                            );
+                          }}
+                        />
+                        Select
+                      </label>
+                    </header>
+                    <dl className={styles.mobileCardFields}>
+                      <div className={styles.mobileCardField}>
+                        <dt className={styles.mobileCardLabel}>Customer</dt>
+                        <dd className={styles.mobileCardValue}>{row.name}</dd>
+                      </div>
+                      <div className={styles.mobileCardField}>
+                        <dt className={styles.mobileCardLabel}>Status</dt>
+                        <dd className={styles.mobileCardValue}>{row.status}</dd>
+                      </div>
+                      <div className={styles.mobileCardField}>
+                        <dt className={styles.mobileCardLabel}>Amount</dt>
+                        <dd className={styles.mobileCardValue}>${row.amount.toLocaleString()}</dd>
+                      </div>
+                    </dl>
+                    <DropdownMenu
+                      density="standard"
+                      trigger={
+                        <Button
+                          className={styles.mobileCardActionButton}
+                          variant="secondary"
+                          size="sm"
+                          aria-label={`Actions for invoice ${row.id}`}
+                        >
+                          Actions
+                        </Button>
+                      }
+                      items={[
+                        { key: "view", label: "View invoice", onClick: () => setSelectedAction(`Viewing invoice ${row.id}`) },
+                        { key: "activity", label: "View activity", onClick: () => setSelectedAction(`Showing activity for ${row.id}`) },
+                      ]}
+                    />
+                  </article>
+                </li>
+              ))}
+            </ul>
+          )
+        }
         toolbar={
           <>
             <Input
@@ -130,7 +237,7 @@ export const EnterpriseWorkbench: StoryObj = {
             <Button variant="ghost" size="sm" onClick={() => setSelected([])}>Clear</Button>
           </>
         )}
-        footer={
+          footer={
           <>
             <span>{filtered.length} invoices</span>
             <Pagination
@@ -139,8 +246,10 @@ export const EnterpriseWorkbench: StoryObj = {
               onChange={setPage}
             />
           </>
-        }
-      />
+          }
+        />
+        {selectedAction && <p role="status">{selectedAction}</p>}
+      </>
     );
   },
 };

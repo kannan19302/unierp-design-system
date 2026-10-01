@@ -1,0 +1,511 @@
+{
+  "count": 24,
+  "failureCount": 0,
+  "results": [
+    {
+      "width": 320,
+      "theme": "strata",
+      "density": "ultra-compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata",
+        "density": "ultra-compact",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area",
+        "keyboardSelectionAndAction": true
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata",
+      "density": "compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata",
+        "density": "compact",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata",
+      "density": "standard",
+      "valid": true,
+      "metrics": {
+        "theme": "strata",
+        "density": "standard",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata",
+      "density": "comfortable",
+      "valid": true,
+      "metrics": {
+        "theme": "strata",
+        "density": "comfortable",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata-dark",
+      "density": "ultra-compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-dark",
+        "density": "ultra-compact",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata-dark",
+      "density": "compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-dark",
+        "density": "compact",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata-dark",
+      "density": "standard",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-dark",
+        "density": "standard",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata-dark",
+      "density": "comfortable",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-dark",
+        "density": "comfortable",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata-high-contrast",
+      "density": "ultra-compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-high-contrast",
+        "density": "ultra-compact",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata-high-contrast",
+      "density": "compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-high-contrast",
+        "density": "compact",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata-high-contrast",
+      "density": "standard",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-high-contrast",
+        "density": "standard",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 320,
+      "theme": "strata-high-contrast",
+      "density": "comfortable",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-high-contrast",
+        "density": "comfortable",
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "tableVisible": false,
+        "alternativeVisible": true,
+        "rowCount": 8,
+        "tableScrollWidth": 0,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": {
+        "violations": []
+      },
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata",
+      "density": "ultra-compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata",
+        "density": "ultra-compact",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1240,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata",
+      "density": "compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata",
+        "density": "compact",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1240,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata",
+      "density": "standard",
+      "valid": true,
+      "metrics": {
+        "theme": "strata",
+        "density": "standard",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1240,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata",
+      "density": "comfortable",
+      "valid": true,
+      "metrics": {
+        "theme": "strata",
+        "density": "comfortable",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1240,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata-dark",
+      "density": "ultra-compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-dark",
+        "density": "ultra-compact",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1240,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata-dark",
+      "density": "compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-dark",
+        "density": "compact",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1240,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata-dark",
+      "density": "standard",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-dark",
+        "density": "standard",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1240,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata-dark",
+      "density": "comfortable",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-dark",
+        "density": "comfortable",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1240,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata-high-contrast",
+      "density": "ultra-compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-high-contrast",
+        "density": "ultra-compact",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1238,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata-high-contrast",
+      "density": "compact",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-high-contrast",
+        "density": "compact",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1238,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata-high-contrast",
+      "density": "standard",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-high-contrast",
+        "density": "standard",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1238,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "theme": "strata-high-contrast",
+      "density": "comfortable",
+      "valid": true,
+      "metrics": {
+        "theme": "strata-high-contrast",
+        "density": "comfortable",
+        "documentWidth": 1280,
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "tableVisible": true,
+        "alternativeVisible": false,
+        "rowCount": 8,
+        "tableScrollWidth": 1238,
+        "tableRegionLabel": "Accounts receivable invoices scroll area"
+      },
+      "axe": null,
+      "pageErrors": []
+    }
+  ]
+}

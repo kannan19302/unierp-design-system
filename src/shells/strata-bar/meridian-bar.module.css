@@ -52,6 +52,12 @@
   text-overflow: ellipsis;
 }
 
+.segments > * {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .sep {
   color: var(--color-text-tertiary);
   user-select: none;
@@ -79,12 +85,14 @@
   align-items: center;
   gap: var(--space-1);
   flex-shrink: 0;
+  min-inline-size: 24px;
+  min-block-size: 24px;
+  box-sizing: border-box;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   background: transparent;
   color: var(--color-text-tertiary);
-  padding-block: var(--space-half);
-  padding-inline: var(--space-1);
+  padding: 0;
   font: inherit;
   font-size: var(--text-xs);
   cursor: pointer;
@@ -217,9 +225,8 @@
 }
 
 .density_comfortable {
-  min-height: 40px;
-  min-block-size: 40px;
+  min-height: var(--density-row-height, 40px);
+  min-block-size: var(--density-row-height, 40px);
   padding-inline: var(--space-5);
   gap: var(--space-5);
 }
-

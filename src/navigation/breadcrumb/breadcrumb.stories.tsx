@@ -39,6 +39,19 @@ export const Default: Story = {
   },
 };
 
+export const CollapsedLongPath: Story = {
+  args: {
+    maxVisibleItems: 3,
+    items: [
+      { label: "Home", href: "/" },
+      { label: "Finance", href: "/finance" },
+      { label: "General Ledger", href: "/finance/ledger" },
+      { label: "Journal Entries", href: "/finance/ledger/journals" },
+      { label: "JV-2026-0048" },
+    ],
+  },
+};
+
 export const Densities: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>

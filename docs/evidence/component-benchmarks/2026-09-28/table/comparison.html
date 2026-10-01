@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Strata Table and shadcn Data Table — side-by-side</title>
+    <style>
+      :root { color-scheme: light; font: 14px/1.5 Inter, system-ui, sans-serif; color: #172033; background: #f4f6fa; }
+      body { margin: 0; padding: 24px; }
+      h1 { margin: 0 0 8px; font-size: 22px; }
+      p { max-width: 900px; margin: 0 0 20px; }
+      main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      figure { margin: 0; padding: 16px; border: 1px solid #d7dce5; border-radius: 8px; background: white; }
+      figcaption { margin-bottom: 12px; font-weight: 650; }
+      img { display: block; width: 100%; height: auto; border: 1px solid #e4e7ed; }
+      section { margin-top: 20px; padding: 16px; border-radius: 8px; background: white; }
+      @media (max-width: 700px) { body { padding: 12px; } main { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <h1>Table comparison · 2026-09-28</h1>
+    <p>Matched viewport: 1046×714 CSS pixels. Reference: shadcn Data Table. Local: Strata's Accounts Receivable invoice workbench Storybook example.</p>
+    <main>
+      <figure>
+        <figcaption><a href="https://ui.shadcn.com/docs/components/base/data-table">shadcn Data Table</a> — email filter, columns, selection, row menu and pagination</figcaption>
+        <img src="reference-shadcn-data-table-desktop.png" alt="Live shadcn Data Table with filter, column menu, five rows and row action menus" />
+      </figure>
+      <figure>
+        <figcaption><a href="http://127.0.0.1:6006/iframe.html?id=compositions-table--enterprise-workbench&amp;viewMode=story">Strata Table · Enterprise Workbench</a> — status filter, export, selection, row menu and pagination</figcaption>
+        <img src="strata-table-workbench-desktop.png" alt="Strata invoice table with search, status filter, export, eight rows and action menus" />
+      </figure>
+    </main>
+    <section aria-labelledby="observations">
+      <h2 id="observations">Observed match and difference</h2>
+      <ul>
+        <li>Both render a dense financial dataset with selection, compact separators, right-aligned amounts, filtering and pagination.</li>
+        <li>Reference row actions are now represented by labeled Strata menus. Entering the menu and choosing “View activity” with ArrowDown/Enter displays “Showing activity for INV-001” without changing invoice data.</li>
+        <li>The Strata ID column is 96px and keeps “INV-001” on one line. Its standard row is 45px with actions, compared to the prior 58.8px row that wrapped the identifier. The example uses Strata tokens and state semantics.</li>
+        <li>Differences retained for ERP context: invoice ID/customer/status/amount plus status filtering/export replace email/status/amount and column visibility; the local sample shows eight rows due to its simplified page frame.</li>
+      </ul>
+    </section>
+    <section aria-labelledby="density-matrix">
+      <h2 id="density-matrix">Density matrix follow-up · 2026-09-28</h2>
+      <p>The local Storybook workbench was rechecked at 1280×720 CSS pixels after density inheritance was corrected. The selected root density now reaches DataTable when its density prop is omitted.</p>
+      <table>
+        <thead><tr><th>Theme</th><th>Ultra-compact</th><th>Compact</th><th>Standard</th><th>Comfortable</th></tr></thead>
+        <tbody>
+          <tr><th>Strata</th><td>26.3px</td><td>33.0px</td><td>44.8px</td><td>52.8px</td></tr>
+          <tr><th>Strata dark</th><td>26.3px</td><td>33.0px</td><td>44.8px</td><td>52.8px</td></tr>
+          <tr><th>Strata high contrast</th><td>27.1px</td><td>33.8px</td><td>45.6px</td><td>53.6px</td></tr>
+        </tbody>
+      </table>
+      <p>These row heights are from the earlier scroll-only 1280px matrix and remain historical evidence. Fresh 1280px and 320px captures after the optional mobile alternative are recorded in <a href="matrix-captures.md">the current matrix packet</a>. RTL, actual browser zoom, and OS-mode coverage remain open. See <a href="iteration-report.md">the iteration evidence report</a> for exact gates and remaining work.</p>
+    </section>
+    <section aria-labelledby="small-screen-comparison">
+      <h2 id="small-screen-comparison">Small-screen comparison · 320×740 CSS pixels</h2>
+      <p>The live <a href="https://ui.shadcn.com/docs/components/base/table">shadcn Base Table</a> keeps a 327px table in a 190px horizontal scroll viewport. Strata's optional <a href="http://127.0.0.1:6006/iframe.html?id=compositions-table--enterprise-workbench&amp;viewMode=story">Enterprise Workbench</a> alternative presents the same synthetic invoice records as labeled cards with selection and row actions. SAP Fiori responsive-table guidance informed the label/value presentation. These patterns serve a similar line-item review task; they do not imply that every complex grid should use cards.</p>
+      <main>
+        <figure>
+          <figcaption><a href="https://ui.shadcn.com/docs/components/base/table">shadcn Base Table</a> — live 320px scroll region capture</figcaption>
+          <img src="reference-shadcn-table-region-320.png" alt="The official shadcn table is wider than its 190-pixel visible horizontal-scroll region; the invoice ID and status are visible while later columns are clipped." />
+        </figure>
+        <figure>
+          <figcaption>Strata DataTable mobile alternative — 320px Storybook capture</figcaption>
+          <img src="mobile-alt-strata-standard.png" alt="Eight Strata invoice cards show ID, customer, status, amount, selection, and per-invoice actions in a vertical list." />
+        </figure>
+      </main>
+      <p>All 12 narrow theme/density samples show the local alternative with 320px document/body width and zero axe violations. All 12 desktop samples preserve the existing table. The full 24-case measurements, keyboard path and remaining limits are in <a href="matrix-captures.md">the matrix evidence</a>.</p>
+    </section>
+  </body>
+</html>

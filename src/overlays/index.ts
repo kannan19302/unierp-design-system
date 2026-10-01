@@ -8,4 +8,6 @@ export * from "./alert-banner";
 export * from "./loading-overlay";
 export * from "./notification-center";
 export * from "./focus-trap";
+export * from "./keyboard-shortcuts-help";
+export * from "./tab-context-menu";
 export * from "./command-palette";

@@ -1,4 +1,5 @@
 export * from "./app-shell";
+export * from "./dashboard-shell";
 export * from "./record-shell";
 export * from "./data-shell";
 export * from "./settings-shell";

@@ -1,4 +1,14 @@
-import { useState, useId, forwardRef, type ReactNode, type ChangeEvent } from "react";
+import {
+  useState,
+  useId,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+  forwardRef,
+  type ReactNode,
+  type ChangeEvent,
+  type RefCallback,
+} from "react";
 import { Check, Minus } from "lucide-react";
 import { cva, type VariantProps } from "../../foundation/utils/cva";
 import styles from "./checkbox.module.css";
@@ -77,6 +87,26 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const [internal, setInternal] = useState(defaultChecked);
     const isControlled = controlledChecked !== undefined;
     const checked = isControlled ? controlledChecked : internal;
+    const inputRef = useRef<HTMLInputElement>(null);
+    const setInputRef = useCallback((node: HTMLInputElement | null) => {
+      inputRef.current = node;
+      if (typeof ref === "function") {
+        const cleanup = (ref as RefCallback<HTMLInputElement>)(node);
+        if (typeof cleanup === "function") {
+          return () => {
+            cleanup();
+            if (inputRef.current === node) inputRef.current = null;
+          };
+        }
+      } else if (ref) {
+        ref.current = node;
+      }
+      return undefined;
+    }, [ref]);
+
+    useLayoutEffect(() => {
+      if (inputRef.current) inputRef.current.indeterminate = indeterminate;
+    });
 
     const generatedId = useId();
     const id = customId ?? generatedId;
@@ -85,6 +115,9 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       if (disabled) return;
+      // Native activation clears indeterminate. Restore the prop-driven state
+      // before React or the consumer processes the resulting checked value.
+      e.currentTarget.indeterminate = indeterminate;
       const next = e.target.checked;
       if (!isControlled) setInternal(next);
       onChange?.(next);
@@ -114,7 +147,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         className={containerClass}
       >
         <input
-          ref={ref}
+          ref={setInputRef}
           type="checkbox"
           id={id}
           name={name}

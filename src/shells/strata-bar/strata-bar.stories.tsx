@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { StrataBar } from "./strata-bar";
+import { MeridianBar } from "./meridian-bar";
 import { Button } from "../../primitives/button";
 
 const meta: Meta<typeof StrataBar> = {
@@ -39,6 +40,24 @@ export const Default: Story = {
     state: { kind: "warning", label: "Awaiting approval" },
     action: <Button variant="primary" size="sm">Approve</Button>,
   },
+};
+
+/** Keeps the older public MeridianBar export covered while consumers migrate to StrataBar. */
+export const MeridianCompatibility: Story = {
+  name: "Meridian compatibility",
+  render: () => (
+    <MeridianBar
+      density="comfortable"
+      segments={[
+        { label: "Acme Corp", href: "#" },
+        { label: "Finance", href: "#" },
+        { label: "Invoices", href: "#" },
+        { label: "INV-2043" },
+      ]}
+      state={{ label: "Awaiting approval", tone: "warning" }}
+      action={{ label: "Review invoice", href: "#" }}
+    />
+  ),
 };
 
 export const WithLifecycle: Story = {
@@ -200,4 +219,3 @@ export const RtlPreview: Story = {
     </div>
   ),
 };
-

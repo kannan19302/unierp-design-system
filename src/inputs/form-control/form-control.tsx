@@ -37,6 +37,7 @@ export interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
   required?: boolean;
   error?: string | null;
   hint?: ReactNode;
+  messageId?: string;
   className?: string;
   children: ReactNode;
 }
@@ -47,6 +48,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(({
   required,
   error,
   hint,
+  messageId,
   className = "",
   children,
   ...props
@@ -66,12 +68,12 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(({
     )}
     {children}
     {error ? (
-      <span data-slot="form-message" className={styles.errorMsg} role="alert">
+      <span id={messageId} data-slot="form-message" className={styles.errorMsg} role="alert">
         <AlertCircle size={12} aria-hidden="true" />
         <span>{error}</span>
       </span>
     ) : hint ? (
-      <span data-slot="form-hint" className={styles.hintMsg}>{hint}</span>
+      <span id={messageId} data-slot="form-hint" className={styles.hintMsg}>{hint}</span>
     ) : null}
   </div>
 ));
@@ -197,6 +199,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   ({ label, error, hint, required, id: customId, ...inputProps }, ref) => {
     const generatedId = useId();
     const id = customId ?? generatedId;
+    const messageId = error || hint ? `${id}-message` : undefined;
+    const describedBy = [inputProps["aria-describedby"], messageId].filter(Boolean).join(" ") || undefined;
 
     return (
       <FormField
@@ -205,8 +209,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         required={required}
         error={error}
         hint={hint}
+        messageId={messageId}
       >
-        <Input ref={ref} id={id} invalid={!!error} {...inputProps} />
+        <Input ref={ref} id={id} invalid={!!error} {...inputProps} aria-describedby={describedBy} />
       </FormField>
     );
   }

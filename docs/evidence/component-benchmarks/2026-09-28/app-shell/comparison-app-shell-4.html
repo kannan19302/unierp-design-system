@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AppShell-4 top-navigation side-by-side</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #f3f4f6; color: #111827; font: 14px system-ui, sans-serif; }
+      header { padding: 12px 18px; font-weight: 650; }
+      main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 12px 14px; }
+      section { min-width: 0; overflow: hidden; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; }
+      h2 { margin: 0; padding: 8px 12px; border-block-end: 1px solid #e5e7eb; font-size: 14px; }
+      .frame { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #fafafa; }
+      .frame img { width: 100%; height: 100%; object-fit: contain; background: #111; }
+      .frame iframe { position: absolute; inset: 0 auto auto 0; width: 1440px; height: 1080px; border: 0; transform-origin: top left; }
+      p { margin: 0; padding: 8px 12px; color: #475569; font-size: 12px; }
+      @media (max-width: 760px) { main { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header>AppShell-4 · two-row horizontal navigation · visual comparison</header>
+    <main>
+      <section>
+        <h2>Online reference · Shadcnblocks Application Shell 4</h2>
+        <div class="frame"><img src="https://cdn.shadcnblocks.com/shadcnblocks/screenshots/block/application-shell4-4x3.webp" alt="Published Application Shell 4 preview with two horizontal navigation rows"></div>
+        <p>Published 668 × 501 preview. The live example endpoint returned 403; interaction and responsive states are not verified.</p>
+      </section>
+      <section>
+        <h2>Strata · Storybook shells-appshell--app-shell-4</h2>
+        <div class="frame"><iframe title="Live Strata AppShell-4 Storybook story" src="http://localhost:6006/iframe.html?id=shells-appshell--app-shell-4&viewMode=story"></iframe></div>
+        <p>Live 1440 × 1080 Storybook viewport scaled into an equal 4:3 panel for composition review.</p>
+      </section>
+    </main>
+    <script>
+      const wrap = document.querySelector(".frame:has(iframe)");
+      const frame = wrap.querySelector("iframe");
+      const resize = new ResizeObserver(([entry]) => {
+        frame.style.transform = `scale(${entry.contentRect.width / 1440})`;
+      });
+      resize.observe(wrap);
+    </script>
+  </body>
+</html>

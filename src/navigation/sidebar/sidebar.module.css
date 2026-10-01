@@ -698,13 +698,34 @@
 }
 
 .storyNav {
-  --sidebar-width: calc(var(--space-12) * 6 + var(--space-3));
+  --sidebar-width: 16rem;
   flex-shrink: 0;
   min-block-size: 0;
   block-size: 100%;
   padding: var(--space-2);
   border-start-start-radius: var(--radius-lg);
   border-end-start-radius: var(--radius-lg);
+}
+
+.storyNavigationOnly {
+  inline-size: 16rem;
+  max-inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 0;
+  background: var(--color-bg-elevated);
+}
+
+.storyNavigationOnly[data-variant="icon"] {
+  inline-size: var(--sidebar-collapsed-width, var(--space-14));
+}
+
+.storyNavigationOnly .storyNav {
+  inline-size: 100%;
+  border-radius: 0;
+}
+
+.storyNavigationOnly[data-variant="icon"] .collapseToggleBtn {
+  display: inline-flex;
 }
 
 .storyNav .headerRow {
@@ -1123,13 +1144,19 @@
   color: var(--color-text-secondary);
 }
 
+.storyMenuAnchor {
+  position: relative;
+  inline-size: 100%;
+}
+
 .storyPopup,
 .storyVariantMenu {
   position: absolute;
   z-index: var(--z-popover, 400);
-  inset-block-start: 0;
-  inset-inline-start: calc(100% + var(--space-2));
-  inline-size: var(--sidebar-width);
+  inset-block-start: calc(100% + var(--space-1));
+  inset-inline-start: 0;
+  inline-size: 100%;
+  min-inline-size: 14rem;
   padding: var(--space-1);
   border: var(--border-width-default, 1px) solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -1138,6 +1165,24 @@
 }
 
 .storyAccountPopup {
+  inset-block-start: auto;
+  inset-block-end: calc(100% + var(--space-1));
+}
+
+.collapsed .storyIdentityButton {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.collapsed .storyPopup,
+.collapsed .storyVariantMenu {
+  inset-block-start: 0;
+  inset-inline-start: calc(100% + var(--space-2));
+  inline-size: 15rem;
+  z-index: 1000;
+}
+
+.collapsed .storyAccountPopup {
   inset-block-start: auto;
   inset-block-end: 0;
 }

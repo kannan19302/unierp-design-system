@@ -1,58 +1,23 @@
 "use client";
 
 import {
+  cloneElement,
   forwardRef,
+  isValidElement,
   type CSSProperties,
+  type ReactElement,
   type ReactNode,
-  type FC,
   useEffect,
   useId,
   useRef,
   useState,
 } from "react";
-import {
-  ChevronDown,
-  LayoutGrid,
-  LogOut,
-  Menu,
-  Search,
-  Settings,
-  User as UserIcon,
-} from "lucide-react";
-import { Breadcrumb, type BreadcrumbItem } from "../../navigation/breadcrumb";
-import { BrandMark } from "../../primitives/brand-mark";
-import { ThemeQuickToggle } from "../../foundation/theme/theme-quick-toggle";
+import { Search } from "lucide-react";
+import type { BreadcrumbItem } from "../../navigation/breadcrumb";
 import { cva } from "../../foundation/utils/cva";
+import { TopNav, type TopNavProps, type TopNavItem } from "../../navigation/top-nav";
 
 import styles from "./app-shell.module.css";
-
-/**
- * Closes a dropdown on an outside click (or Escape), rather than on
- * `onMouseLeave`. Click-outside is the pattern every production dropdown
- * uses for robust keyboard and pointer behavior.
- */
-function useCloseOnOutsideInteraction(onClose: () => void) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handlePointerDown(event: PointerEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClose();
-      }
-    }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
-    }
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [onClose]);
-
-  return ref;
-}
 
 export interface ShellUser {
   name: string;
@@ -81,6 +46,8 @@ export interface PlatformShellProps {
    * - "dual": sidebar, workspace, and a secondary details panel
    */
   variant?: "standard" | "inset" | "floating" | "topbar" | "dual";
+  /** Place the sidebar beside the full-height workspace, with the header above main content. Falls back to global when a banner or context bar occupies the frame. */
+  headerPlacement?: "global" | "workspace";
 
   /** This platform's identity — drives the accent and the header label. */
   platformName: string;
@@ -106,8 +73,20 @@ export interface PlatformShellProps {
   showThemeToggle?: boolean;
 
   breadcrumbs?: BreadcrumbItem[];
+  /** Page or workspace title displayed in the top bar */
+  title?: ReactNode;
+  /** Controlled sidebar collapse state for desktop icon rail */
+  sidebarCollapsed?: boolean;
+  defaultSidebarCollapsed?: boolean;
+  onToggleSidebarCollapse?: (collapsed: boolean) => void;
   /** The platform's own nav tree — rendered in the sidebar slot. */
   sidebar?: ReactNode;
+  /** Canonical TopNav slot overriding default top bar rendering. */
+  topNav?: ReactNode;
+  /** Direct TopNavItem list rendered inside the top bar. */
+  topNavItems?: TopNavItem[];
+  /** Callback when a top navigation item is selected. */
+  onTopNavItemSelect?: (item: TopNavItem) => void;
   /** Horizontal application navigation, usually paired with the topbar variant. */
   topNavigation?: ReactNode;
   /** Secondary context/details panel, usually paired with the dual variant. */
@@ -167,6 +146,7 @@ export const appShellVariants = cva(styles.shellRoot, {
  */
 export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
   variant = "standard",
+  headerPlacement = "global",
   density = "standard",
   platformName,
   platformIcon,
@@ -180,8 +160,15 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
   environmentLabel,
   realmLabel,
   showThemeToggle = true,
+  title,
+  sidebarCollapsed,
+  defaultSidebarCollapsed,
+  onToggleSidebarCollapse,
   breadcrumbs,
   sidebar,
+  topNav,
+  topNavItems,
+  onTopNavItemSelect,
   topNavigation,
   inspector,
   inspectorLabel = "Details panel",
@@ -196,13 +183,39 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
   onSignOut,
   children,
 }, ref) => {
-  const [tenantMenuOpen, setTenantMenuOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [internalSidebarCollapsed, setInternalSidebarCollapsed] = useState(defaultSidebarCollapsed ?? false);
+  const isSidebarCollapsed = sidebarCollapsed ?? internalSidebarCollapsed;
   const sidebarToggleRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const mainId = useId();
   const sidebarId = useId();
+  const effectiveHeaderPlacement = headerPlacement === "workspace" && sidebar && !bannerSlot && !contextBarSlot
+    ? "workspace"
+    : "global";
+
+  const handleToggleSidebar = () => {
+    setSidebarOpen((v) => !v);
+    const next = !isSidebarCollapsed;
+    if (sidebarCollapsed === undefined) {
+      setInternalSidebarCollapsed(next);
+    }
+    onToggleSidebarCollapse?.(next);
+  };
+
+  const effectiveSidebar = isValidElement(sidebar) && typeof sidebar.type !== "string"
+    ? cloneElement(sidebar as ReactElement<Record<string, unknown>>, {
+        collapsed: (sidebar.props as Record<string, unknown>).collapsed ?? isSidebarCollapsed,
+        onToggleCollapse: (next?: boolean) => {
+          const nextVal = next ?? !isSidebarCollapsed;
+          if (sidebarCollapsed === undefined) {
+            setInternalSidebarCollapsed(nextVal);
+          }
+          onToggleSidebarCollapse?.(nextVal);
+          ((sidebar.props as Record<string, unknown>).onToggleCollapse as ((v: boolean) => void) | undefined)?.(nextVal);
+        },
+      })
+    : sidebar;
 
   useEffect(() => {
     if (!sidebarOpen) return;
@@ -240,6 +253,9 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
       data-density={density}
       className={appShellVariants({ variant, density })}
       data-variant={variant}
+      data-header-placement={effectiveHeaderPlacement}
+      data-sidebar-collapsed={isSidebarCollapsed ? "true" : "false"}
+      data-has-inspector={inspector ? "true" : "false"}
       style={
         {
           "--shell-accent": accentColor,
@@ -252,186 +268,59 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
 
       {bannerSlot}
 
-      <header
-        data-slot="app-shell-header"
-        className={styles.header}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "var(--space-4)",
-          paddingInline: "var(--space-4)",
-          borderBlockEnd: "1px solid var(--color-border)",
-          background: "var(--color-bg-elevated)",
-          flexShrink: 0,
-        }}
-      >
-        {sidebar && (
-          <button
-            ref={sidebarToggleRef}
-            type="button"
-            aria-label="Toggle navigation"
-            aria-controls={sidebarId}
-            aria-expanded={sidebarOpen}
-            onClick={() => setSidebarOpen((v) => !v)}
-            style={iconButtonStyle}
-            className={`unierp-shell-sidebar-toggle ${styles.sidebarToggle}`}
-            title="Toggle navigation"
-          >
-            <Menu size={18} />
-          </button>
-        )}
-
-        <BrandMark size="sm" />
-        {appSwitcherSlot}
-        <div
-          style={{ inlineSize: 1, blockSize: 22, background: "var(--color-border)" }}
+      {topNav !== undefined ? (
+        isValidElement(topNav) ? (
+          cloneElement(topNav as ReactElement<Record<string, unknown>>, {
+            sidebarOpen: (topNav.props as Record<string, unknown>).sidebarOpen ?? sidebarOpen,
+            onToggleSidebar: (topNav.props as Record<string, unknown>).onToggleSidebar ?? (sidebar ? handleToggleSidebar : undefined),
+            sidebarControlsId: (topNav.props as Record<string, unknown>).sidebarControlsId ?? sidebarId,
+            showSidebarToggle: (topNav.props as Record<string, unknown>).showSidebarToggle ?? Boolean(sidebar),
+            sidebarToggleRef: (topNav.props as Record<string, unknown>).sidebarToggleRef ?? sidebarToggleRef,
+            title: (topNav.props as Record<string, unknown>).title ?? title,
+            breadcrumbs: (topNav.props as Record<string, unknown>).breadcrumbs ?? breadcrumbs,
+            density: (topNav.props as Record<string, unknown>).density ?? density,
+            className: (topNav.props as Record<string, unknown>).className
+              ? `${styles.header} ${(topNav.props as Record<string, unknown>).className}`
+              : styles.header,
+          })
+        ) : (
+          topNav
+        )
+      ) : (
+        <TopNav
+          data-slot="app-shell-header"
+          className={styles.header}
+          density={density}
+          sidebarOpen={sidebarOpen}
+          onToggleSidebar={sidebar ? handleToggleSidebar : undefined}
+          sidebarControlsId={sidebarId}
+          showSidebarToggle={Boolean(sidebar)}
+          sidebarToggleRef={sidebarToggleRef}
+          title={title}
+          platformName={platformName}
+          platformIcon={platformIcon}
+          platformWizardUrl={platformWizardUrl}
+          appSwitcherSlot={appSwitcherSlot}
+          breadcrumbs={breadcrumbs}
+          searchSlot={searchSlot}
+          actions={headerActions}
+          tenant={tenant}
+          availableTenants={availableTenants}
+          onTenantChange={onTenantChange}
+          environmentLabel={environmentLabel}
+          realmLabel={realmLabel}
+          showThemeToggle={showThemeToggle}
+          user={user}
+          accountCenterUrl={accountCenterUrl}
+          userMenuSlot={userMenuSlot}
+          userMenuActions={userMenuActions}
+          presenceColor={presenceColor}
+          onSignOut={onSignOut}
+          items={topNavItems}
+          onItemSelect={onTopNavItemSelect}
         />
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2)",
-          }}
-        >
-          {platformIcon}
-          <span
-            style={{
-              fontWeight: 600,
-              fontSize: "var(--text-sm)",
-              color: "var(--shell-accent)",
-            }}
-          >
-            {platformName}
-          </span>
-        </div>
+      )}
 
-        {breadcrumbs && breadcrumbs.length > 0 && (
-          <>
-            <div
-              style={{
-                inlineSize: 1,
-                blockSize: 20,
-                background: "var(--color-border)",
-              }}
-            />
-            <Breadcrumb items={breadcrumbs} />
-          </>
-        )}
-
-        {searchSlot}
-
-        <div className={styles.headerSpacer} style={{ flex: 1 }} />
-
-        {headerActions}
-
-        {(tenant || environmentLabel || realmLabel) && (
-          <div style={{ position: "relative" }}>
-            <button
-              onClick={() => setTenantMenuOpen((v) => !v)}
-              style={pillButtonStyle}
-              aria-haspopup="menu"
-              aria-expanded={tenantMenuOpen}
-              aria-label="Current operating scope"
-            >
-              {tenant && <span>{tenant.name}</span>}
-              {environmentLabel && (
-                <>
-                  <span aria-hidden="true">/</span>
-                  <span>{environmentLabel}</span>
-                </>
-              )}
-              {realmLabel && (
-                <>
-                  <span aria-hidden="true">/</span>
-                  <span>{realmLabel}</span>
-                </>
-              )}
-              {availableTenants && availableTenants.length > 1 && (
-                <ChevronDown size={14} />
-              )}
-            </button>
-            {tenant &&
-              tenantMenuOpen &&
-              availableTenants &&
-              availableTenants.length > 1 && (
-                <TenantMenu
-                  tenants={availableTenants}
-                  current={tenant.id}
-                  onSelect={(id: string) => {
-                    setTenantMenuOpen(false);
-                    onTenantChange?.(id);
-                  }}
-                  onClose={() => setTenantMenuOpen(false)}
-                />
-              )}
-          </div>
-        )}
-
-        {platformWizardUrl && (
-          <a
-            href={platformWizardUrl}
-            style={{ ...iconButtonStyle, textDecoration: "none" }}
-            aria-label="Switch platform"
-            title="Switch platform"
-          >
-            <LayoutGrid size={18} />
-          </a>
-        )}
-
-        {showThemeToggle && <ThemeQuickToggle />}
-
-        {userMenuSlot ? (
-          userMenuSlot
-        ) : user ? (
-          <div style={{ position: "relative" }}>
-            <button
-              onClick={() => setUserMenuOpen((v) => !v)}
-              style={{
-                ...iconButtonStyle,
-                borderRadius: "50%",
-                position: "relative",
-              }}
-              aria-haspopup="menu"
-              aria-expanded={userMenuOpen}
-              aria-label="Account menu"
-            >
-              {user.avatarUrl ? (
-                <img
-                  src={user.avatarUrl}
-                  alt=""
-                  style={{ inlineSize: 28, blockSize: 28, borderRadius: "50%" }}
-                />
-              ) : (
-                <UserIcon size={18} />
-              )}
-              {presenceColor && (
-                <span
-                  style={{
-                    position: "absolute",
-                    insetBlockEnd: 0,
-                    insetInlineEnd: 0,
-                    inlineSize: 8,
-                    blockSize: 8,
-                    borderRadius: "50%",
-                    backgroundColor: presenceColor,
-                    border: "1.5px solid var(--color-bg-elevated)",
-                  }}
-                  aria-hidden="true"
-                />
-              )}
-            </button>
-            {userMenuOpen && (
-              <UserMenu
-                user={user}
-                accountCenterUrl={accountCenterUrl}
-                userMenuActions={userMenuActions}
-                onSignOut={onSignOut}
-                onClose={() => setUserMenuOpen(false)}
-              />
-            )}
-          </div>
-        ) : null}
-      </header>
 
       {topNavigation && (
         <div data-slot="app-shell-top-navigation" className={styles.topNavigation}>
@@ -449,8 +338,9 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
             data-slot="app-shell-sidebar"
             className={`unierp-shell-sidebar ${styles.sidebarContainer}`}
             data-open={sidebarOpen}
+            data-collapsed={isSidebarCollapsed ? "true" : "false"}
           >
-            {sidebar}
+            {effectiveSidebar}
           </div>
         )}
         {sidebar && sidebarOpen && (
@@ -459,7 +349,7 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
         <main
           id={mainId}
           data-slot="app-shell-main"
-          tabIndex={-1}
+          tabIndex={0}
           className={styles.mainArea}
         >
           {children}
@@ -476,168 +366,10 @@ export const PlatformShell = forwardRef<HTMLDivElement, PlatformShellProps>(({
 
 PlatformShell.displayName = "PlatformShell";
 
-const iconButtonStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  inlineSize: 32,
-  blockSize: 32,
-  border: "none",
-  background: "transparent",
-  borderRadius: "var(--radius-md)",
-  cursor: "pointer",
-  color: "var(--color-text-secondary)",
-} as const;
-
-const pillButtonStyle = {
-  display: "flex",
-  alignItems: "center",
-  gap: "var(--space-1)",
-  paddingBlock: "var(--space-1)",
-  paddingInline: "var(--space-3)",
-  border: "1px solid var(--color-border)",
-  borderRadius: "var(--radius-full, 999px)",
-  background: "var(--color-bg-sunken)",
-  fontSize: "var(--text-sm)",
-  cursor: "pointer",
-  color: "var(--color-text)",
-} as const;
-
-const menuPanelStyle = {
-  position: "absolute",
-  insetBlockStart: "calc(100% + var(--space-1, 4px))",
-  insetInlineEnd: 0,
-  minInlineSize: 200,
-  background: "var(--color-bg-elevated)",
-  border: "1px solid var(--color-border)",
-  borderRadius: "var(--radius-md)",
-  boxShadow: "var(--shadow-lg)",
-  paddingBlock: "var(--space-2)",
-  paddingInline: "var(--space-2)",
-  zIndex: 50,
-} as const;
-
-const TenantMenu: FC<{
-  tenants: ShellTenant[];
-  current: string;
-  onSelect: (id: string) => void;
-  onClose: () => void;
-}> = ({ tenants, current, onSelect, onClose }) => {
-  const ref = useCloseOnOutsideInteraction(onClose);
-  return (
-    <div ref={ref} role="menu" data-slot="app-shell-tenant-menu" style={menuPanelStyle}>
-      {tenants.map((t: ShellTenant) => (
-        <button
-          key={t.id}
-          role="menuitem"
-          onClick={() => onSelect(t.id)}
-          style={{
-            display: "block",
-            inlineSize: "100%",
-            textAlign: "start",
-            paddingBlock: "var(--space-2)",
-            paddingInline: "var(--space-3)",
-            border: "none",
-            background:
-              t.id === current ? "var(--color-bg-sunken)" : "transparent",
-            borderRadius: "var(--radius-sm)",
-            fontSize: "var(--text-sm)",
-            cursor: "pointer",
-            fontWeight: t.id === current ? 600 : 400,
-          }}
-        >
-          {t.name}
-        </button>
-      ))}
-    </div>
-  );
-};
-
-const UserMenu: FC<{
-  user: ShellUser;
-  accountCenterUrl?: string;
-  userMenuActions?: ReactNode;
-  onSignOut?: () => void;
-  onClose: () => void;
-}> = ({ user, accountCenterUrl, userMenuActions, onSignOut, onClose }) => {
-  const ref = useCloseOnOutsideInteraction(onClose);
-  return (
-    <div ref={ref} role="menu" data-slot="app-shell-user-menu" style={menuPanelStyle}>
-      <div
-        style={{
-          paddingBlock: "var(--space-2)",
-          paddingInline: "var(--space-3)",
-          marginBlockEnd: "var(--space-1)",
-        }}
-      >
-        <div style={{ fontSize: "var(--text-sm)", fontWeight: 600 }}>
-          {user.name}
-        </div>
-        <div
-          style={{
-            fontSize: "var(--text-xs)",
-            color: "var(--color-text-muted)",
-          }}
-        >
-          {user.email}
-        </div>
-      </div>
-      <div
-        style={{
-          blockSize: 1,
-          background: "var(--color-border)",
-          marginBlock: "var(--space-1)",
-          marginInline: 0,
-        }}
-      />
-      {accountCenterUrl && (
-        <a
-          role="menuitem"
-          href={accountCenterUrl}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2)",
-            paddingBlock: "var(--space-2)",
-            paddingInline: "var(--space-3)",
-            borderRadius: "var(--radius-sm)",
-            fontSize: "var(--text-sm)",
-            color: "var(--color-text)",
-            textDecoration: "none",
-          }}
-        >
-          <Settings size={14} /> Account Center
-        </a>
-      )}
-      {userMenuActions}
-      {onSignOut && (
-        <button
-          role="menuitem"
-          onClick={onSignOut}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2)",
-            inlineSize: "100%",
-            textAlign: "start",
-            paddingBlock: "var(--space-2)",
-            paddingInline: "var(--space-3)",
-            border: "none",
-            background: "transparent",
-            borderRadius: "var(--radius-sm)",
-            fontSize: "var(--text-sm)",
-            cursor: "pointer",
-            color: "var(--color-status-danger, var(--color-danger))",
-          }}
-        >
-          <LogOut size={14} /> Sign out
-        </button>
-      )}
-    </div>
-  );
-};
-
 export { Search };
+
+// Re-export TopNav primitives for shell consumers
+export { TopNav, type TopNavProps, type TopNavItem };
 
 // Directory-level alias
 export const AppShell = PlatformShell;

@@ -89,5 +89,5 @@ export const THEMES = ['strata', 'strata-dark', 'strata-high-contrast'];
 export const DENSITIES = ['ultra-compact', 'compact', 'standard', 'comfortable'];
 
 export function generateStoryUrl(storyId: string, theme: string, density: string): string {
-  return `/iframe.html?id=${encodeURIComponent(storyId)}&viewMode=story&globals=${encodeURIComponent(`theme:${theme},density:${density}`)}`;
+  return `/iframe.html?id=${encodeURIComponent(storyId)}&viewMode=story&globals=${encodeURIComponent(`theme:${theme};density:${density}`)}`;
 }

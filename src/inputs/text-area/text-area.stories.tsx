@@ -16,7 +16,19 @@ const meta: Meta<typeof Textarea> = {
 export default meta;
 type Story = StoryObj<typeof Textarea>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => (
+    <div style={{ width: "min(320px, calc(100vw - 32px))" }}>
+      <Textarea
+        {...args}
+        aria-label="Message"
+        fullWidth
+        placeholder="Type your message here."
+        rows={2}
+      />
+    </div>
+  ),
+};
 
 export const Sizes: Story = {
   render: () => (

@@ -20,6 +20,8 @@ import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, ChevronRight } from "luci
 import { Skeleton } from "../../primitives/skeleton";
 import { EmptyState } from "../../compositions/empty-state";
 import { cva } from "../../foundation/utils/cva";
+import { useOptionalTheme } from "../../foundation/theme/theme-provider";
+import { DENSITIES, type DensityName } from "../../foundation/tokens";
 import styles from "./table.module.css";
 
 export type TableDensity = "ultra-compact" | "compact" | "standard" | "comfortable";
@@ -136,6 +138,8 @@ export interface DataTableProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, 
   toolbar?: ReactNode;
   /** Composable pagination or result metadata rendered below the table. */
   footer?: ReactNode;
+  /** Caller-owned presentation shown instead of the scrollable table in narrow containers. */
+  mobileAlternative?: ReactNode;
   /** Accessible label for each selectable row. */
   rowLabel?: (row: T, index: number) => string;
   /** Strata DL density scaling: ultra-compact (24px), compact (28px), standard (32px), comfortable (40px) */
@@ -202,20 +206,53 @@ function DataTableInner<T>(
     caption,
     toolbar,
     footer,
+    mobileAlternative,
     rowLabel,
-    density = "standard",
+    density,
     className = "",
     style,
     ...props
   }: DataTableProps<T>,
   ref: ForwardedRef<HTMLDivElement>
 ) {
+  const themeContext = useOptionalTheme();
+  const [inheritedDensity, setInheritedDensity] = useState<DensityName>(
+    themeContext?.density ?? "standard",
+  );
+  const rootRef = useRef<HTMLDivElement>(null);
+  const resolvedRootRef = useCallback((node: HTMLDivElement | null) => {
+    rootRef.current = node;
+    if (typeof ref === "function") ref(node);
+    else if (ref) ref.current = node;
+  }, [ref]);
+
+  useLayoutEffect(() => {
+    if (density) return;
+    let candidate: string | undefined;
+    let ancestor = rootRef.current?.parentElement;
+    while (!candidate && ancestor) {
+      candidate = ancestor.dataset.density;
+      ancestor = ancestor.parentElement;
+    }
+    candidate ??= themeContext?.density;
+    if (!candidate && typeof document !== "undefined") {
+      candidate = document.documentElement.dataset.density;
+    }
+    setInheritedDensity(
+      DENSITIES.includes(candidate as DensityName)
+        ? (candidate as DensityName)
+        : "standard",
+    );
+  }, [density, themeContext?.density]);
+
+  const effectiveDensity = density ?? inheritedDensity;
+  const hasMobileAlternative = Boolean(mobileAlternative);
   const defaultRowHeight =
-    density === "ultra-compact"
+    effectiveDensity === "ultra-compact"
       ? 24
-      : density === "compact"
+      : effectiveDensity === "compact"
       ? 28
-      : density === "comfortable"
+      : effectiveDensity === "comfortable"
       ? 40
       : 32;
   const effectiveRowHeight = rowHeight ?? defaultRowHeight;
@@ -812,13 +849,14 @@ function DataTableInner<T>(
 
   return (
     <div
-      ref={ref}
-      className={`${dataTableVariants({ density })} ${className}`.trim()}
+      ref={resolvedRootRef}
+      className={`${density ? dataTableVariants({ density }) : styles.root} ${className}`.trim()}
       data-slot="data-table"
       data-density={density}
+      data-has-mobile-alternative={hasMobileAlternative ? "true" : undefined}
       aria-busy={loading ? true : undefined}
       style={{
-        "--data-table-row-height": `${effectiveRowHeight}px`,
+        ...(windowing ? { "--data-table-row-height": `${effectiveRowHeight}px` } : {}),
         ...style,
       } as CSSProperties}
       {...props}
@@ -872,6 +910,11 @@ function DataTableInner<T>(
       ) : (
         <div className={styles.tableContainer} role="region" aria-label={`${ariaLabel ?? "Data table"} scroll area`} tabIndex={0} data-slot="data-table-container">
           {table}
+        </div>
+      )}
+      {hasMobileAlternative && (
+        <div className={styles.mobileAlternative} data-slot="data-table-mobile-alternative">
+          {mobileAlternative}
         </div>
       )}
       {footer && <div className={styles.footer} data-slot="data-table-footer-controls">{footer}</div>}
@@ -979,4 +1022,3 @@ export const TableCaption = forwardRef<HTMLTableCaptionElement, TableCaptionProp
   )
 );
 TableCaption.displayName = "TableCaption";
-

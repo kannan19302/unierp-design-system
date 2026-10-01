@@ -100,6 +100,27 @@ test("Strata density matrix: 4 tiers with explicit row heights and controls", ()
   assert.match(density, /--density-row-height:\s*24px;/);
 });
 
+test("explicit density tokens override the unscoped root fallback at every input size", () => {
+  const density = read(`${tokens}/density.css`);
+  assert.match(density, /:where\(:root\),\s*\[data-density="standard"\]/);
+
+  const expected = {
+    "ultra-compact": { sm: 20, base: 24, lg: 28 },
+    compact: { sm: 24, base: 28, lg: 32 },
+    standard: { sm: 28, base: 32, lg: 40 },
+    comfortable: { sm: 32, base: 40, lg: 48 },
+  };
+  for (const [mode, heights] of Object.entries(expected)) {
+    const selector = new RegExp(`\\[data-density="${mode}"\\]\\s*\\{([^}]+)\\}`);
+    const block = selector.exec(density)?.[1];
+    assert.ok(block, `missing ${mode} token block`);
+    for (const [size, height] of Object.entries(heights)) {
+      const token = size === "base" ? "--density-control-height" : `--density-control-height-${size}`;
+      assert.match(block, new RegExp(`${token}:\\s*${height}px;`));
+    }
+  }
+});
+
 test("Strata platform accents: platform scopes with light, dark, and border variants", () => {
   const accents = read(`${tokens}/platform-accents.css`);
   for (const scope of ["platform-admin", "apps", "tenant-admin", "developer", "marketplace", "ops", "marketing"]) {

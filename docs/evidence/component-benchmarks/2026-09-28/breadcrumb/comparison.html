@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strata Breadcrumb reference comparison — 2026-09-28</title>
+<style>
+  :root { color-scheme: light; font: 14px/1.5 system-ui, sans-serif; color: #172033; background: #f4f6f9; }
+  body { margin: 0; padding: 24px; }
+  h1 { font-size: 22px; margin: 0 0 8px; }
+  p { max-width: 80ch; margin: 0 0 20px; }
+  section { margin: 24px 0 36px; }
+  h2 { font-size: 17px; }
+  .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  figure { margin: 0; padding: 12px; border: 1px solid #d7dce4; border-radius: 10px; background: white; }
+  figcaption { margin: 0 0 8px; font-weight: 600; }
+  img { display: block; width: 100%; height: auto; border: 1px solid #e7eaf0; }
+  @media (max-width: 700px) { body { padding: 12px; } .pair { grid-template-columns: 1fr; } }
+</style>
+<body>
+  <h1>Strata Breadcrumb: live reference comparison</h1>
+  <p>Captured 2026-09-28. Reference: <a href="https://ui.shadcn.com/docs/components/base/breadcrumb">official shadcn Breadcrumb</a>. Local: <a href="http://127.0.0.1:6006/iframe.html?id=navigation-breadcrumb--collapsed-long-path&amp;viewMode=story">Storybook Collapsed Long Path</a>. Desktop captures use a 1046×714 CSS-pixel viewport; narrow captures use 320×714. The reference and local compositions show a root, collapsed ancestors, and recent/current destination. Strata retains its Inter/font tokens, chevron, 32px touch geometry, and native details disclosure.</p>
+  <section>
+    <h2>Desktop — 1046×714</h2>
+    <div class="pair">
+      <figure><figcaption>Official shadcn reference</figcaption><img src="reference-shadcn-breadcrumb-desktop.png" alt="Official shadcn Breadcrumb example with root, ellipsis, Components, and current Breadcrumb segments"></figure>
+      <figure><figcaption>Strata collapsed long path</figcaption><img src="strata-breadcrumb-collapsed-desktop.png" alt="Strata breadcrumb with Home, an ellipsis disclosure, Journal Entries, and current invoice JV-2026-0048"></figure>
+    </div>
+  </section>
+  <section>
+    <h2>Narrow — 320×714</h2>
+    <div class="pair">
+      <figure><figcaption>Official shadcn reference</figcaption><img src="reference-shadcn-breadcrumb-320px.png" alt="Official shadcn breadcrumb page at a 320 pixel viewport"></figure>
+      <figure><figcaption>Strata LTR</figcaption><img src="strata-breadcrumb-collapsed-320px.png" alt="Strata collapsed breadcrumb at a 320 pixel viewport, wrapping within page width"></figure>
+      <figure><figcaption>Strata RTL</figcaption><img src="strata-breadcrumb-collapsed-320px-rtl.png" alt="Strata collapsed breadcrumb at a 320 pixel viewport with RTL direction and mirrored chevrons"></figure>
+      <figure><figcaption>Strata disclosure open</figcaption><img src="strata-breadcrumb-collapsed-open.png" alt="Strata breadcrumb disclosure showing the Finance and General Ledger ancestor links"></figure>
+    </div>
+  </section>
+</body>
+</html>

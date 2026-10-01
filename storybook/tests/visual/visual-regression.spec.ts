@@ -32,6 +32,11 @@ test.describe('Visual Regression', () => {
           // Wait for the story to render
           await page.waitForSelector('#storybook-root > *', { state: 'attached', timeout: 10000 });
 
+          // A rejected globals query can silently render the default theme and density.
+          // Fail this sample rather than recording a false matrix pass.
+          await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+          await expect(page.locator('html')).toHaveAttribute('data-density', density);
+
           // Take screenshot
           const screenshot = await page.screenshot({
             fullPage: true,

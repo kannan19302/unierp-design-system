@@ -73,4 +73,45 @@ describe("Breadcrumb Primitive", () => {
     render(<Breadcrumb aria-label="Shipment breadcrumb" items={[{ label: "Shipments" }]} />);
     expect(screen.getByRole("navigation", { name: "Shipment breadcrumb" })).toBeInTheDocument();
   });
+
+  it("keeps the root and recent items visible and exposes omitted ancestors in a disclosure", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <Breadcrumb
+        maxVisibleItems={3}
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Finance", href: "/finance" },
+          { label: "Ledger", href: "/ledger" },
+          { label: "Journal Entries", href: "/journals" },
+          { label: "JV-2026-0048" },
+        ]}
+      />
+    );
+
+    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Journal Entries" })).toBeInTheDocument();
+    expect(screen.getByText("JV-2026-0048")).toHaveAttribute("aria-current", "page");
+    const disclosure = document.querySelector("summary");
+    expect(disclosure).toHaveAttribute("aria-label", "Show 2 hidden breadcrumb levels");
+    expect(disclosure).toHaveTextContent("…");
+    expect(disclosure).not.toBeNull();
+    expect(await axe(container)).toHaveNoViolations();
+    await user.click(disclosure!);
+    expect(document.querySelector("details")).toHaveAttribute("open");
+    expect(screen.getByRole("link", { name: "Finance" })).toHaveAttribute("href", "/finance");
+    expect(screen.getByRole("link", { name: "Ledger" })).toHaveAttribute("href", "/ledger");
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("does not collapse paths at or below the configured visible-item count", () => {
+    render(
+      <Breadcrumb
+        maxVisibleItems={3}
+        items={[{ label: "Home", href: "/" }, { label: "Finance", href: "/finance" }, { label: "Ledger" }]}
+      />
+    );
+    expect(screen.getByRole("link", { name: "Finance" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /hidden breadcrumb/ })).not.toBeInTheDocument();
+  });
 });

@@ -8,6 +8,26 @@ const baseUser = { name: "Ada Lovelace", email: "ada@acme.test" };
 const baseTenant = { id: "t1", name: "Acme Corp" };
 
 describe("PlatformShell / AppShell", () => {
+  it("supports a full-height sidebar beside the workspace header", () => {
+    const { container } = render(
+      <PlatformShell platformName="Business Suite" user={baseUser} headerPlacement="workspace" sidebar={<aside aria-label="Example navigation">Navigation</aside>}>
+        <h1>Workspace</h1>
+      </PlatformShell>,
+    );
+    expect(container.querySelector('[data-slot="app-shell"]')).toHaveAttribute("data-header-placement", "workspace");
+    expect(screen.getByLabelText("Example navigation")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Workspace" })).toBeInTheDocument();
+  });
+
+  it("keeps banner content in the global frame when workspace placement cannot contain it", () => {
+    const { container } = render(
+      <PlatformShell platformName="Business Suite" user={baseUser} headerPlacement="workspace" sidebar={<aside>Navigation</aside>} bannerSlot={<div>Scope warning</div>}>
+        <div>Workspace</div>
+      </PlatformShell>,
+    );
+    expect(container.querySelector('[data-slot="app-shell"]')).toHaveAttribute("data-header-placement", "global");
+    expect(screen.getByText("Scope warning")).toBeInTheDocument();
+  });
   it("renders the platform name and children", () => {
     render(
       <PlatformShell platformName="Tenant Applications" user={baseUser}>
@@ -161,6 +181,17 @@ describe("PlatformShell / AppShell", () => {
   });
 
   it("moves focus into opened navigation and closes it with Escape", async () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+      matches: query.includes("47.9375rem"),
+      media: query,
+      onchange: null,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
     render(
       <PlatformShell platformName="X" user={baseUser} sidebar={<nav><button type="button">First destination</button><button type="button">Last destination</button></nav>}>
         <div>workspace</div>
@@ -175,6 +206,7 @@ describe("PlatformShell / AppShell", () => {
     await userEvent.keyboard("{Escape}");
     expect(toggle).toHaveAttribute("aria-expanded", "false");
     expect(toggle).toHaveFocus();
+    window.matchMedia = originalMatchMedia;
   });
 
   it("applies the requested variant attribute (standard, inset, floating)", () => {
@@ -216,7 +248,16 @@ describe("PlatformShell / AppShell", () => {
       </PlatformShell>,
     );
     expect(container.firstChild).toHaveAttribute("data-variant", "dual");
+    expect(container.firstChild).toHaveAttribute("data-has-inspector", "true");
     expect(screen.getByRole("complementary", { name: "Selected record details" })).toHaveTextContent("Record details");
+
+    rerender(
+      <PlatformShell platformName="X" user={baseUser} variant="dual" sidebar={<nav>Primary</nav>}>
+        <div>workspace</div>
+      </PlatformShell>,
+    );
+    expect(container.firstChild).toHaveAttribute("data-has-inspector", "false");
+    expect(screen.queryByRole("complementary", { name: "Selected record details" })).not.toBeInTheDocument();
   });
 
   it("has no axe violations in inset variant", async () => {

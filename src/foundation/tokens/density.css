@@ -85,7 +85,7 @@
 }
 
 /* ── Standard (Default) ───────────────────────────────────── */
-:root,
+:where(:root),
 [data-density="standard"] {
   --density-row-height: 32px;
   --density-row-height-sm: 28px;

@@ -14,9 +14,23 @@ const allStories = Object.values(index.entries)
   .sort((a, b) => a.importPath.localeCompare(b.importPath) || a.id.localeCompare(b.id));
 const shellName = (story) => story.importPath.split("/shells/")[1].split("/")[0];
 const requestedShell = process.argv.find((arg) => arg.startsWith("--shell="))?.slice("--shell=".length);
+const themes = ["strata", "strata-dark", "strata-high-contrast"];
+const requiredShells = [
+  "app-shell",
+  "catalog-shell",
+  "dashboard-shell",
+  "data-shell",
+  "editor-shell",
+  "manifest",
+  "record-shell",
+  "settings-shell",
+  "strata-bar",
+];
+if (requestedShell && !requiredShells.includes(requestedShell)) {
+  throw new Error(`Shell validator received unknown shell "${requestedShell}"`);
+}
 const stories = requestedShell ? allStories.filter((story) => shellName(story) === requestedShell) : allStories;
 if (stories.length === 0) throw new Error(`Shell validator discovered zero Storybook stories${requestedShell ? ` for ${requestedShell}` : ""}`);
-const themes = ["strata", "strata-dark", "strata-high-contrast"];
 const densities = ["ultra-compact", "compact", "standard", "comfortable"];
 const viewports = [
   { name: "mobile", width: 390, height: 844 },
@@ -32,12 +46,18 @@ const axePath = axePackage
   ? path.join(storybookRoot, "node_modules/.pnpm", axePackage, "node_modules/axe-core/axe.min.js")
   : undefined;
 if (!axePath || !existsSync(axePath)) throw new Error("Shell validator cannot run axe: axe-core is unavailable");
-const primary = [...new Set(stories.map(shellName))].map((shell) =>
+const discoveredShells = [...new Set(stories.map(shellName))].sort();
+const expectedShells = requestedShell ? [requestedShell] : requiredShells;
+const primary = expectedShells.map((shell) =>
   stories.find((story) => shellName(story) === shell && story.id.endsWith("--default")),
 );
-const expectedShellCount = requestedShell ? 1 : 8;
-if (primary.length !== expectedShellCount || primary.some((story) => !story)) {
-  throw new Error(`Shell validator expected ${expectedShellCount} shell(s) with default stories; found ${primary.filter(Boolean).length}`);
+const missingShells = expectedShells.filter((shell, index) => !primary[index] || !discoveredShells.includes(shell));
+const unexpectedShells = discoveredShells.filter((shell) => !requiredShells.includes(shell));
+if (missingShells.length || unexpectedShells.length || primary.some((story) => !story)) {
+  throw new Error(
+    `Shell validator expected required groups [${expectedShells.join(", ")}] with default stories; ` +
+    `missing [${missingShells.join(", ")}], unexpected [${unexpectedShells.join(", ")}]`,
+  );
 }
 
 function scenario(story, theme, density, viewport, accessibility, screenshot) {
@@ -141,7 +161,11 @@ async function worker() {
   await page.close();
 }
 
-await Promise.all(Array.from({ length: isSmoke ? 1 : 4 }, worker));
+// axe-core installs one runtime per page, but its asynchronous scans can still
+// overlap with the next navigation while Playwright is reusing that page.
+// Keep accessibility scenarios serial so a scan completes before the page is
+// navigated or reused for another sample.
+await Promise.all(Array.from({ length: isSmoke || scenarios.some((item) => item.accessibility) ? 1 : 4 }, worker));
 await browser.close();
 results.sort((a, b) =>
   a.shell.localeCompare(b.shell) || a.id.localeCompare(b.id) || a.theme.localeCompare(b.theme) ||

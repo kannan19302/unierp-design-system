@@ -123,33 +123,33 @@ const STATUS_CONFIG: Record<
   { bg: string; color: string; border: string; icon: React.ReactNode }
 > = {
   Paid: {
-    bg: "rgba(16, 185, 129, 0.1)",
-    color: "#059669",
-    border: "rgba(16, 185, 129, 0.25)",
+    bg: "var(--color-success-subtle)",
+    color: "var(--color-success-text)",
+    border: "var(--color-success-border)",
     icon: <CheckCircle2 size={12} />,
   },
   Pending: {
-    bg: "rgba(245, 158, 11, 0.1)",
-    color: "#d97706",
-    border: "rgba(245, 158, 11, 0.25)",
+    bg: "var(--color-warning-subtle)",
+    color: "var(--color-warning-text)",
+    border: "var(--color-warning-border)",
     icon: <Clock size={12} />,
   },
   "Awaiting approval": {
-    bg: "rgba(139, 92, 246, 0.1)",
-    color: "#7c3aed",
-    border: "rgba(139, 92, 246, 0.25)",
+    bg: "var(--color-primary-subtle)",
+    color: "var(--color-text)",
+    border: "var(--color-primary-border)",
     icon: <Sparkles size={12} />,
   },
   Draft: {
-    bg: "rgba(148, 163, 184, 0.12)",
-    color: "#64748b",
-    border: "rgba(148, 163, 184, 0.3)",
+    bg: "var(--color-bg-sunken)",
+    color: "var(--color-text-secondary)",
+    border: "var(--color-border)",
     icon: <FileText size={12} />,
   },
   Overdue: {
-    bg: "rgba(239, 68, 68, 0.1)",
-    color: "#dc2626",
-    border: "rgba(239, 68, 68, 0.25)",
+    bg: "var(--color-danger-light)",
+    color: "var(--color-danger-text)",
+    border: "var(--color-danger)",
     icon: <AlertTriangle size={12} />,
   },
 };
@@ -207,7 +207,7 @@ const SAMPLE_COLUMNS: DataWorkspaceColumn<TransactionRow>[] = [
           style={{
             fontWeight: 600,
             fontVariantNumeric: "tabular-nums",
-            color: isNegative ? "#dc2626" : "var(--color-text)",
+            color: isNegative ? "var(--color-danger-text)" : "var(--color-text)",
           }}
         >
           {row.currency} {Math.abs(num).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -341,7 +341,7 @@ function InteractiveLedgerWorkbench() {
         searchable
         searchPlaceholder="Filter by invoice #, counterparty, status... (Press / to search)"
         toolbarActions={
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", flexWrap: "wrap", minInlineSize: 0, maxInlineSize: "100%" }}>
             {/* Density Selector */}
             <div
               style={{
@@ -363,7 +363,7 @@ function InteractiveLedgerWorkbench() {
                     border: "none",
                     borderRadius: "var(--radius-sm)",
                     background: density === d ? "var(--color-primary)" : "transparent",
-                    color: density === d ? "white" : "var(--color-text-secondary)",
+                    color: density === d ? "var(--color-primary-text)" : "var(--color-text-secondary)",
                     fontSize: "var(--text-2xs, 10px)",
                     fontWeight: 600,
                     textTransform: "capitalize",

@@ -40,7 +40,7 @@ const ManifestView = ({ heldPermissions }: { heldPermissions: string[] }) => {
   const resolved = resolveManifestNav(MOCK_MANIFEST, heldPermissions);
 
   return (
-    <div className={styles.container} style={{ width: 480 }}>
+    <div className={styles.container}>
       <h4 style={{ margin: "0 0 var(--space-1) 0" }}>Platform Manifest Nav Resolver</h4>
       <p style={{ margin: "0 0 var(--space-3) 0", fontSize: "var(--text-xs)", color: "var(--color-fg-muted)" }}>
         Active User Permissions: <code>{heldPermissions.length ? heldPermissions.join(", ") : "(None)"}</code>
@@ -131,4 +131,3 @@ export const RtlPreview: Story = {
     </div>
   ),
 };
-

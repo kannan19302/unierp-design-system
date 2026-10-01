@@ -1,0 +1,75 @@
+/* Strata DL TopNavReference Fixture Styles */
+
+.searchTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-inline-size: var(--search-min-inline, 160px);
+  block-size: var(--control-height, 32px);
+  padding-inline: var(--space-2);
+  padding-block: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-sunken);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: border-color var(--duration-fast, 150ms) var(--ease-out, ease-out);
+}
+
+.searchTrigger:hover {
+  border-color: var(--color-border-strong, var(--color-border));
+  color: var(--color-text-secondary);
+}
+
+.searchTrigger:focus-visible {
+  outline: 2px solid var(--color-focus-ring, var(--color-primary));
+  outline-offset: 2px;
+}
+
+.searchKbd {
+  margin-inline-start: auto;
+  padding-inline: var(--space-1);
+  padding-block: var(--space-0, 0px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-elevated);
+  font-size: var(--text-2xs, 10px);
+  font-family: inherit;
+  color: var(--color-text-muted);
+}
+
+.actionButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--control-height, 32px);
+  block-size: var(--control-height, 32px);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: background var(--duration-fast, 150ms) var(--ease-out, ease-out), color var(--duration-fast, 150ms) var(--ease-out, ease-out);
+}
+
+.actionButton:hover {
+  background: var(--color-bg-hover, var(--color-bg-sunken));
+  color: var(--color-text);
+}
+
+.actionButton:focus-visible {
+  outline: 2px solid var(--color-focus-ring, var(--color-primary));
+  outline-offset: 2px;
+}
+
+.actionBadge {
+  position: absolute;
+  inset-block-start: var(--space-1);
+  inset-inline-end: var(--space-1);
+  inline-size: var(--space-2);
+  block-size: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+}

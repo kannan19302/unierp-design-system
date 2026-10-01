@@ -10,7 +10,7 @@ const meta: Meta<typeof Input> = {
     layout: "centered",
   },
   args: {
-    placeholder: "Enter value...",
+    placeholder: "Enter text",
     "aria-label": "Example input",
   },
 };
@@ -18,7 +18,13 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof Input>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => (
+    <div style={{ width: "min(320px, calc(100vw - 32px))" }}>
+      <Input {...args} fullWidth />
+    </div>
+  ),
+};
 
 export const WithLeftIcon: Story = {
   args: {
@@ -90,7 +96,7 @@ export const AllStatesGallery: Story = {
         <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text)" }}>
           2. With Left Search Icon
         </h4>
-        <Input leftIcon={<Search size={14} />} placeholder="Search ledger accounts..." aria-label="Search ledger accounts" />
+        <Input leftIcon={<Search size={14} />} placeholder="Search ledger accounts..." aria-label="Search ledger accounts" fullWidth />
       </div>
       <div>
         <h4 style={{ margin: "0 0 var(--space-2) 0", fontSize: "var(--text-xs)", color: "var(--color-text)" }}>

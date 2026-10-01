@@ -17,7 +17,7 @@
 
 /* ─── 4-Tier Density ─── */
 .densityUltraCompact {
-  font-size: var(--text-2xs, 10px);
+  font-size: var(--type-micro, 11px);
 }
 .densityUltraCompact .cardHeader {
   padding-block: var(--space-1-5, 6px);
@@ -28,7 +28,7 @@
   font-size: var(--text-xs, 12px);
 }
 .densityUltraCompact .cardDescription {
-  font-size: var(--text-2xs, 10px);
+  font-size: var(--type-micro, 11px);
 }
 .densityUltraCompact .cardContent {
   padding-block: var(--space-1-5, 6px);

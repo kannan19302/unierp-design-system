@@ -90,6 +90,12 @@
       "require": "./dist/navigation/index.js",
       "default": "./dist/navigation/index.js"
     },
+    "./platforms/business-suite": {
+      "types": "./dist/platforms/business-suite/index.d.ts",
+      "import": "./dist/platforms/business-suite/index.js",
+      "require": "./dist/platforms/business-suite/index.js",
+      "default": "./dist/platforms/business-suite/index.js"
+    },
     "./templates": {
       "types": "./dist/templates/index.d.ts",
       "import": "./dist/templates/index.js",

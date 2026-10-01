@@ -3,6 +3,7 @@ import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
+import { ThemeScope } from "../../foundation/theme/theme-scope";
 import {
   DataTable,
   Table,
@@ -179,6 +180,23 @@ describe("DataTable", () => {
     expect(screen.getByText("2 results")).toBeInTheDocument();
   });
 
+  it("renders an optional caller-owned mobile alternative beside the default table", () => {
+    const { container } = render(
+      <DataTable
+        columns={columns}
+        data={data}
+        aria-label="Inventory"
+        mobileAlternative={<ul aria-label="Inventory mobile list"><li>Widget mobile row</li></ul>}
+      />,
+    );
+
+    expect(container.querySelector('[data-has-mobile-alternative="true"]')).toBeInTheDocument();
+    const alternative = container.querySelector('[data-slot="data-table-mobile-alternative"]');
+    expect(alternative).toHaveTextContent("Widget mobile row");
+    expect(screen.getByRole("table", { name: "Inventory" })).toBeInTheDocument();
+    expect(alternative?.querySelector("ul")?.getAttribute("aria-label")).toBe("Inventory mobile list");
+  });
+
   it("announces selection and gives row checkboxes contextual labels", async () => {
     function SelectionHarness() {
       const [selected, setSelected] = React.useState<string[]>([]);
@@ -252,6 +270,30 @@ describe("DataTable", () => {
 
     rerender(<DataTable columns={columns} data={data} density="standard" />);
     expect(root).toHaveAttribute("data-density", "standard");
+  });
+
+  it("inherits density from its nearest scope when no density override is provided", () => {
+    const { container } = render(
+      <ThemeScope density="compact">
+        <DataTable columns={columns} data={data} virtualized maxHeight={20} />
+      </ThemeScope>,
+    );
+    const root = container.querySelector('[data-slot="data-table"]');
+    const row = container.querySelector('[data-slot="data-table-row"]');
+    expect(root).not.toHaveAttribute("data-density");
+    expect(row).toHaveStyle({ "--data-row-height": "28px" });
+  });
+
+  it("keeps an explicit density override authoritative inside a different scope", () => {
+    const { container } = render(
+      <ThemeScope density="comfortable">
+        <DataTable columns={columns} data={data} density="ultra-compact" virtualized maxHeight={20} />
+      </ThemeScope>,
+    );
+    const root = container.querySelector('[data-slot="data-table"]');
+    const row = container.querySelector('[data-slot="data-table-row"]');
+    expect(root).toHaveAttribute("data-density", "ultra-compact");
+    expect(row).toHaveStyle({ "--data-row-height": "24px" });
   });
 
   it("renders data-slot annotations on DataTable sub-elements", () => {

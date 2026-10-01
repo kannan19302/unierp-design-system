@@ -1,0 +1,88 @@
+.dashboard {
+  --dashboard-gap: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--dashboard-gap);
+  min-inline-size: 0;
+  min-block-size: 100%;
+  padding: var(--space-5);
+  background: var(--color-bg-sunken);
+  color: var(--color-text);
+}
+
+.intro, .metrics, .panels, .primary, .secondary, .records, .footer {
+  min-inline-size: 0;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--dashboard-gap);
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.52fr);
+  align-items: start;
+  gap: var(--dashboard-gap);
+}
+
+.primary, .secondary {
+  display: grid;
+  gap: var(--dashboard-gap);
+}
+
+.footer { margin-block-start: auto; }
+
+.dashboard[data-variant="inset"] {
+  background: var(--color-bg-elevated);
+  padding: var(--space-6);
+}
+
+.dashboard[data-variant="floating"] {
+  background: transparent;
+  padding: var(--space-5);
+}
+
+.dashboard[data-variant="analytics"] {
+  --dashboard-gap: var(--space-5);
+  padding: var(--space-6);
+}
+.dashboard[data-variant="analytics"] .panels {
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+}
+.dashboard[data-variant="analytics"] .metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.dashboard[data-variant="operations"] {
+  --dashboard-gap: var(--space-3);
+  padding: var(--space-4);
+}
+.dashboard[data-variant="operations"] .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.dashboard[data-variant="operations"] .records { order: 2; }
+.dashboard[data-variant="operations"] .panels { order: 3; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.dashboard[data-variant="operations"] .footer { order: 4; }
+
+@media (max-width: 70rem) {
+  .dashboard[data-variant="analytics"] .metrics,
+  .dashboard[data-variant="operations"] .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 64rem) {
+  .panels,
+  .dashboard[data-variant="analytics"] .panels,
+  .dashboard[data-variant="operations"] .panels { grid-template-columns: minmax(0, 1fr); }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 47.9375rem) {
+  .dashboard,
+  .dashboard[data-variant="inset"],
+  .dashboard[data-variant="floating"],
+  .dashboard[data-variant="analytics"],
+  .dashboard[data-variant="operations"] { padding: var(--space-3); }
+  .metrics,
+  .dashboard[data-variant="analytics"] .metrics,
+  .dashboard[data-variant="operations"] .metrics { grid-template-columns: minmax(0, 1fr); }
+}

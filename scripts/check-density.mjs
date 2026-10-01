@@ -50,8 +50,15 @@ for (const rel of REQUIRED_DENSITY_FILES) {
 // ── Verify minimum text size constraint (>= 11px / 0.6875rem) ──
 console.log("\nChecking minimum text size across density modes (>= 11px / 0.6875rem)...");
 
-const densityCssPath = join(ROOT, "src/core/foundation/tokens/density.css");
-const typographyCssPath = join(ROOT, "src/core/foundation/tokens/typography.css");
+const densityCssPath = join(ROOT, "src/foundation/tokens/density.css");
+const typographyCssPath = join(ROOT, "src/foundation/tokens/typography.css");
+
+for (const path of [densityCssPath, typographyCssPath]) {
+  if (!existsSync(path)) {
+    console.error(`  FAIL  Required canonical token source is missing: ${path}`);
+    failed = true;
+  }
+}
 
 if (existsSync(densityCssPath)) {
   const content = readFileSync(densityCssPath, "utf-8");
@@ -79,6 +86,27 @@ if (existsSync(typographyCssPath)) {
   }
 }
 
+// ── Verify Card ultra-compact text fallbacks (DS-NFR-006) ──
+const cardCssPath = join(ROOT, "src/compositions/card/card.module.css");
+if (!existsSync(cardCssPath)) {
+  console.error(`  FAIL  Required Card density source is missing: ${cardCssPath}`);
+  failed = true;
+} else {
+  const cardCss = readFileSync(cardCssPath, "utf-8");
+  for (const selector of [".densityUltraCompact", ".densityUltraCompact .cardDescription"]) {
+    const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const block = cardCss.match(new RegExp(`${escapedSelector}\\s*\\{([^}]+)\\}`, "s"))?.[1];
+    const fontSize = block?.match(/font-size:\s*var\([^,]+,\s*([0-9.]+)(px|rem)\s*\)/)?.slice(1);
+    const fallback = fontSize ? Number(fontSize[0]) * (fontSize[1] === "rem" ? 16 : 1) : NaN;
+    if (!Number.isFinite(fallback) || fallback < 11) {
+      console.error(`  FAIL  ${selector} must have a font-size token fallback of at least 11px`);
+      failed = true;
+    } else {
+      console.log(`  ok    ${selector} font-size fallback is ${fallback}px`);
+    }
+  }
+}
+
 // ── Verify comfortable touch target (>= 44px) ──
 if (existsSync(densityCssPath)) {
   const content = readFileSync(densityCssPath, "utf-8");
@@ -93,33 +121,47 @@ if (existsSync(densityCssPath)) {
 
 // ── Verify canonical primary row heights (ADR-0009 4-tier scale) ──
 console.log("\nChecking canonical row heights across 4-tier density scale (ADR-0009)...");
-const CANONICAL_ROW_HEIGHTS = {
-  "ultra-compact": 24,
-  "compact": 28,
-  "standard": 32,
-  "comfortable": 40,
+const CANONICAL_DENSITY_HEIGHTS = {
+  "ultra-compact": { sm: 20, base: 24, lg: 28, row: 24 },
+  "compact": { sm: 24, base: 28, lg: 32, row: 28 },
+  "standard": { sm: 28, base: 32, lg: 40, row: 32 },
+  "comfortable": { sm: 32, base: 40, lg: 48, row: 40 },
 };
 
-function extractRowHeight(css, density) {
+function extractDensityBlock(css, density) {
   const regex = new RegExp(`\\[data-density="${density}"\\][^{]*\\{([^}]+)\\}`, "s");
-  const block = css.match(regex);
-  if (!block) return null;
-  const match = block[1].match(/--density-row-height:\s*(\d+)px/);
-  return match ? parseInt(match[1], 10) : null;
+  return css.match(regex)?.[1] ?? null;
 }
 
 if (existsSync(densityCssPath)) {
   const content = readFileSync(densityCssPath, "utf-8");
-  for (const [density, expectedHeight] of Object.entries(CANONICAL_ROW_HEIGHTS)) {
-    const actualHeight = extractRowHeight(content, density);
-    if (actualHeight !== expectedHeight) {
-      console.error(
-        `  FAIL  [data-density="${density}"] row height mismatch: expected ${expectedHeight}px, got ${actualHeight ?? "undefined"}px`
-      );
-      failed = true;
-    } else {
-      console.log(`  ok    [data-density="${density}"] row height is exactly ${expectedHeight}px`);
+  for (const [density, expected] of Object.entries(CANONICAL_DENSITY_HEIGHTS)) {
+    const block = extractDensityBlock(content, density);
+    const expectedTokens = {
+      "--density-row-height": expected.row,
+      "--density-control-height-sm": expected.sm,
+      "--density-control-height": expected.base,
+      "--density-control-height-lg": expected.lg,
+    };
+    for (const [token, expectedHeight] of Object.entries(expectedTokens)) {
+      const actual = block?.match(new RegExp(`${token}:\\s*(\\d+)px`))?.[1];
+      if (Number(actual) !== expectedHeight) {
+        console.error(
+          `  FAIL  [data-density="${density}"] ${token} mismatch: expected ${expectedHeight}px, got ${actual ?? "undefined"}px`
+        );
+        failed = true;
+      } else {
+        console.log(`  ok    [data-density="${density}"] ${token} is exactly ${expectedHeight}px`);
+      }
     }
+  }
+
+  const standardSelector = /:where\(:root\)\s*,\s*\[data-density="standard"\]/;
+  if (!standardSelector.test(content)) {
+    console.error("  FAIL  Root fallback must use zero-specificity :where(:root) so explicit density selectors win");
+    failed = true;
+  } else {
+    console.log("  ok    root fallback has zero specificity; explicit density selectors can override it");
   }
 }
 
@@ -127,8 +169,8 @@ if (existsSync(densityCssPath)) {
 if (process.argv.includes("--test-negative")) {
   console.log("\nRunning negative verification test...");
   const fakeCssWrongHeight = `[data-density="standard"] { --density-row-height: 36px; }`;
-  const parsed = extractRowHeight(fakeCssWrongHeight, "standard");
-  if (parsed !== CANONICAL_ROW_HEIGHTS["standard"]) {
+  const parsed = Number(extractDensityBlock(fakeCssWrongHeight, "standard")?.match(/--density-row-height:\s*(\d+)px/)?.[1]);
+  if (parsed !== CANONICAL_DENSITY_HEIGHTS["standard"].row) {
     console.log(`  ok    Negative proof passed: 36px standard row height correctly identified as deviation`);
     process.exit(0);
   } else {

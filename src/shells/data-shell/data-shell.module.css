@@ -217,6 +217,7 @@
 }
 
 .tableCard {
+  min-inline-size: 0;
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -226,6 +227,7 @@
 
 .tableOverflow {
   inline-size: 100%;
+  min-inline-size: 0;
   overflow-x: auto;
 }
 

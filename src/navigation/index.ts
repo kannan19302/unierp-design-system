@@ -4,6 +4,8 @@ export * from "./sidebar";
 export * from "./pagination";
 export * from "./view-switcher";
 export * from "./app-launcher";
+export * from "./strata-app-grid";
 export * from "./bookmarks-bar";
 export * from "./minimap";
 export * from "./status-bar";
+export * from "./top-nav";

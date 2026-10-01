@@ -56,7 +56,7 @@ export const Default: Story = {
   render: () => (
     <EditorialShell
       brand={
-        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-8, 32px)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-8, 32px)", flexWrap: "wrap", minInlineSize: 0, maxInlineSize: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
             <div
               style={{
@@ -81,6 +81,7 @@ export const Default: Story = {
               display: "flex",
               alignItems: "center",
               gap: "var(--space-6, 24px)",
+              flexWrap: "wrap",
               fontSize: "var(--text-xs)",
               fontWeight: 500,
               color: "var(--color-text-secondary)",
@@ -105,7 +106,7 @@ export const Default: Story = {
         </div>
       }
       actions={
-        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", flexWrap: "wrap", minInlineSize: 0 }}>
           <button
             type="button"
             style={{
@@ -125,7 +126,7 @@ export const Default: Story = {
             style={{
               padding: "var(--space-2) var(--space-4)",
               background: "var(--color-primary)",
-              color: "white",
+              color: "var(--color-primary-text)",
               border: "none",
               borderRadius: "var(--radius-md)",
               fontSize: "var(--text-xs)",
@@ -168,7 +169,7 @@ export const Default: Story = {
                     blockSize: "24px",
                     borderRadius: "var(--radius-sm)",
                     background: "var(--color-primary)",
-                    color: "white",
+                    color: "var(--color-primary-text)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -204,7 +205,7 @@ export const Default: Story = {
             </div>
             <div>
               <h5 style={{ fontWeight: 700, marginBottom: "var(--space-3)" }}>STATUS & LEGAL</h5>
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#059669", fontWeight: 600, marginBottom: "var(--space-2)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-success-text)", fontWeight: 600, marginBottom: "var(--space-2)" }}>
                 <span style={{ inlineSize: "8px", blockSize: "8px", borderRadius: "50%", background: "#10b981" }} />
                 <span>Example status indicator</span>
               </div>
@@ -244,7 +245,7 @@ export const Default: Story = {
             style={{
               padding: "var(--space-3) var(--space-6)",
               background: "var(--color-primary)",
-              color: "white",
+              color: "var(--color-primary-text)",
               border: "none",
               borderRadius: "var(--radius-lg)",
               fontSize: "var(--text-sm)",
@@ -304,7 +305,7 @@ export const Default: Story = {
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-            <span style={{ fontSize: "var(--text-xs)", fontWeight: 700, color: "#059669", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "var(--text-xs)", fontWeight: 700, color: "var(--color-success-text)", textTransform: "uppercase" }}>
               High-Throughput Runtime
             </span>
             <h3 style={{ margin: 0, fontSize: "var(--text-base)", fontWeight: 700 }}>Focused transaction workspaces</h3>
@@ -325,7 +326,7 @@ export const Default: Story = {
           </Lede>
           <div style={{ marginBlockStart: "var(--space-6)", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", fontSize: "var(--text-sm)" }}>
-              <ShieldCheck size={18} style={{ color: "#059669" }} />
+              <ShieldCheck size={18} style={{ color: "var(--color-success-text)" }} />
               <span>Migration review guidance</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", fontSize: "var(--text-sm)" }}>
@@ -333,7 +334,7 @@ export const Default: Story = {
               <span>Key-management documentation</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", fontSize: "var(--text-sm)" }}>
-              <Server size={18} style={{ color: "#7c3aed" }} />
+              <Server size={18} style={{ color: "var(--color-primary)" }} />
               <span>Region and residency information</span>
             </div>
           </div>
@@ -354,11 +355,11 @@ export const Default: Story = {
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", fontSize: "var(--text-xs)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
               <span>Tenant policy:</span>
-              <strong style={{ color: "#059669" }}>Review required</strong>
+              <strong style={{ color: "var(--color-success-text)" }}>Review required</strong>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
               <span>Service role:</span>
-              <strong style={{ color: "#059669" }}>Evidence required</strong>
+              <strong style={{ color: "var(--color-success-text)" }}>Evidence required</strong>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
               <span>Published contract:</span>
@@ -366,7 +367,7 @@ export const Default: Story = {
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", padding: "var(--space-2)", background: "var(--color-bg-sunken)", borderRadius: "var(--radius-md)" }}>
               <span>Accessibility:</span>
-              <strong style={{ color: "#059669" }}>Verify separately</strong>
+              <strong style={{ color: "var(--color-success-text)" }}>Verify separately</strong>
             </div>
           </div>
         </div>
@@ -392,17 +393,17 @@ export const Default: Story = {
             lineHeight: 1.6,
           }}
         >
-          <span style={{ color: "#a5b4fc" }}>// Define tenant-scoped extension capabilities</span>
+          <span>// Define tenant-scoped extension capabilities</span>
           <br />
-          <span style={{ color: "#f472b6" }}>export const</span> manifest = defineExtension({"{"}
+          <span>export const</span> manifest = defineExtension({"{"}
           <br />
-          &nbsp;&nbsp;id: <span style={{ color: "#34d399" }}>"payments.stripe.global"</span>,
+          &nbsp;&nbsp;id: <span>"payments.stripe.global"</span>,
           <br />
-          &nbsp;&nbsp;capabilities: [<span style={{ color: "#34d399" }}>"ledger:read"</span>, <span style={{ color: "#34d399" }}>"payments:disburse"</span>],
+          &nbsp;&nbsp;capabilities: [<span>"ledger:read"</span>, <span>"payments:disburse"</span>],
           <br />
-          &nbsp;&nbsp;isolation: <span style={{ color: "#34d399" }}>"wasm-sandbox-v1"</span>,
+          &nbsp;&nbsp;isolation: <span>"wasm-sandbox-v1"</span>,
           <br />
-          &nbsp;&nbsp;auditMode: <span style={{ color: "#34d399" }}>"atomic-outbox"</span>
+          &nbsp;&nbsp;auditMode: <span>"atomic-outbox"</span>
           <br />
           {"}"});
         </div>
@@ -422,7 +423,7 @@ export const Default: Story = {
               marginTop: "var(--space-4)",
               padding: "var(--space-3) var(--space-8)",
               background: "var(--color-primary)",
-              color: "white",
+              color: "var(--color-primary-text)",
               border: "none",
               borderRadius: "var(--radius-lg)",
               fontSize: "var(--text-sm)",
@@ -503,7 +504,7 @@ export const RtlPreview: Story = {
     <div dir="rtl">
       <EditorialShell
         brand={<strong>يوني إي آر بي للمؤسسات السيادية</strong>}
-        actions={<button type="button" style={{ padding: "6px 14px", background: "var(--color-primary)", color: "white", border: "none", borderRadius: "var(--radius-md)" }}>تسجيل الدخول</button>}
+        actions={<button type="button" style={{ padding: "6px 14px", background: "var(--color-primary)", color: "var(--color-primary-text)", border: "none", borderRadius: "var(--radius-md)" }}>تسجيل الدخول</button>}
       >
         <EditorialBand tone="base">
           <Eyebrow>المنصة السحابية الموحدة</Eyebrow>

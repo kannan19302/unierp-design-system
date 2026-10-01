@@ -147,7 +147,7 @@
   font-size: var(--label-size, var(--text-xs));
   letter-spacing: var(--label-tracking, 0.08em);
   text-transform: uppercase;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   margin: 0;
   margin-block-end: var(--space-3);
 }
@@ -240,4 +240,3 @@
 .density_comfortable .band {
   padding-block: var(--space-24);
 }
-

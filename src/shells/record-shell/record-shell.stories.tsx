@@ -125,7 +125,7 @@ function InteractiveRecordExperience({ initialCollapsed = false }: { initialColl
       label: "3-Way Match Verification",
       children: (
         <div style={{ background: "var(--color-bg-elevated)", padding: "var(--space-4)", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", color: "var(--color-status-success, #16a34a)", fontWeight: 600, fontSize: "var(--text-xs)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", color: "var(--color-success-text)", fontWeight: 600, fontSize: "var(--text-xs)" }}>
             <CheckCircle2 size={16} />
             <span>Automated 3-Way Match Verified: Purchase Order, Receiving Receipt, and Invoice Totals Reconciled.</span>
           </div>
@@ -195,7 +195,7 @@ function InteractiveRecordExperience({ initialCollapsed = false }: { initialColl
                   paddingInline: "var(--space-2)",
                   borderRadius: "var(--radius-sm)",
                   background: mod.active ? "var(--color-primary)" : "transparent",
-                  color: mod.active ? "#ffffff" : "var(--color-text)",
+                  color: mod.active ? "var(--color-primary-text)" : "var(--color-text)",
                   fontSize: "var(--text-xs)",
                   fontWeight: mod.active ? 600 : 400,
                   cursor: "pointer",
@@ -262,7 +262,7 @@ function InteractiveRecordExperience({ initialCollapsed = false }: { initialColl
                   <div style={{ fontSize: "11px", color: "var(--color-text-secondary)" }}>{inv.vendor}</div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2px" }}>
                     <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--color-text)", fontVariantNumeric: "tabular-nums" }}>{inv.amount}</span>
-                    <span style={{ fontSize: "10px", color: "var(--color-text-tertiary)" }}>{inv.date}</span>
+                    <span style={{ fontSize: "10px", color: "var(--color-text-secondary)" }}>{inv.date}</span>
                   </div>
                 </div>
               );
@@ -282,8 +282,8 @@ function InteractiveRecordExperience({ initialCollapsed = false }: { initialColl
 
           <div style={{ padding: "var(--space-3)", background: "var(--color-bg-elevated)", borderRadius: "var(--radius-sm)", border: "1px solid var(--color-border)", display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
             <div style={{ fontSize: "11px", fontWeight: 600, color: "var(--color-text-secondary)" }}>AI Validation Score</div>
-            <div style={{ fontSize: "var(--text-lg)", fontWeight: 700, color: "var(--color-status-success, #16a34a)" }}>99.8% Match</div>
-            <div style={{ fontSize: "10px", color: "var(--color-text-tertiary)" }}>Zero OCR discrepancies detected across optical scan and EDI payload.</div>
+            <div style={{ fontSize: "var(--text-lg)", fontWeight: 700, color: "var(--color-success-text)" }}>99.8% Match</div>
+            <div style={{ fontSize: "10px", color: "var(--color-text-secondary)" }}>Zero OCR discrepancies detected across optical scan and EDI payload.</div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)", fontSize: "var(--text-xs)" }}>
@@ -394,4 +394,3 @@ export const RtlPreview: Story = {
     </div>
   ),
 };
-

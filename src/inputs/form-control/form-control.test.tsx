@@ -10,6 +10,7 @@ import {
   FormSection,
   AutosaveIndicator,
 } from "./form-control";
+import { LabeledTextField } from "../../forms";
 
 describe("Strata V1 FormControl Primitive", () => {
   it("renders label and input with linked id", () => {
@@ -30,6 +31,26 @@ describe("Strata V1 FormControl Primitive", () => {
     expect(container.querySelector('[data-slot="form-label"]')).toBeInTheDocument();
     expect(container.querySelector('[data-slot="form-message"]')).toBeInTheDocument();
     expect(container.querySelector('[data-slot="form-control"]')).toBeInTheDocument();
+  });
+
+  it("exports a labeled text field from the forms entry point and associates its hint", () => {
+    render(<LabeledTextField label="Invoice reference" hint="Use the supplier's reference." />);
+    const input = screen.getByRole("textbox", { name: "Invoice reference" });
+    const hint = screen.getByText("Use the supplier's reference.");
+
+    expect(input.getAttribute("aria-describedby")).toBe(hint.id);
+    expect(hint.id).not.toBe("");
+  });
+
+  it("associates validation errors with the labeled text field", () => {
+    render(<LabeledTextField label="Invoice reference" error="Reference is required." />);
+    const input = screen.getByRole("textbox", { name: "Invoice reference" });
+    const message = screen.getByText("Reference is required.");
+    const errorMessage = message.closest('[data-slot="form-message"]');
+
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input.getAttribute("aria-describedby")).toBe(errorMessage?.id);
+    expect(errorMessage).toHaveAttribute("role", "alert");
   });
 
   it("renders input slots correctly", () => {

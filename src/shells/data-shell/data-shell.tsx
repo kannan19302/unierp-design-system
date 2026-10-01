@@ -477,7 +477,7 @@ function DataWorkspaceInner<T = Record<string, unknown>>(
                 </select>
               ))}
               {toolbarActions && (
-                <div style={{ marginInlineStart: "auto", display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+                <div style={{ marginInlineStart: "auto", display: "flex", alignItems: "center", gap: "var(--space-2)", flexWrap: "wrap", minInlineSize: 0, maxInlineSize: "100%" }}>
                   {toolbarActions}
                 </div>
               )}
@@ -692,4 +692,3 @@ export const DataWorkspace = forwardRef(DataWorkspaceInner) as <T = Record<strin
 // Directory-level alias
 export const DataShell = DataWorkspace;
 export type DataShellProps<T = Record<string, unknown>> = DataWorkspaceProps<T>;
-
